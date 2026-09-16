@@ -264,7 +264,12 @@
             <a href="shop.html">← Back to Shop</a>
         </div>
 
-    </main>
+       </main>
+
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img id="lightbox-image" src="" alt="Enlarged product image">
+    </div>
 
     <footer>
         &copy; 2026 Alex Reynoso Art
@@ -272,6 +277,37 @@
 
     <script async src="https://www.instagram.com/embed.js"></script>
 
+    <script>
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImage = document.getElementById("lightbox-image");
+    const galleryImages = document.querySelectorAll(".gallery img");
+    const closeButton = document.querySelector(".lightbox-close");
+
+    galleryImages.forEach(function(image) {
+        image.addEventListener("click", function() {
+            lightboxImage.src = image.src;
+            lightboxImage.alt = image.alt;
+            lightbox.classList.add("active");
+        });
+    });
+
+    closeButton.addEventListener("click", function() {
+        lightbox.classList.remove("active");
+    });
+
+    lightbox.addEventListener("click", function(event) {
+        if (event.target === lightbox) {
+            lightbox.classList.remove("active");
+        }
+    });
+
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") {
+            lightbox.classList.remove("active");
+        }
+    });
+</script>
+    
 </body>
 
 </html>
