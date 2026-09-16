@@ -186,6 +186,42 @@ nav a:hover {
 }
 
 
+/* ---------- VIDEOS PAGE ---------- */
+
+.videos-page {
+    min-height: 65vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 25px;
+    text-align: center;
+}
+
+.videos-page h1 {
+    margin: 0 0 15px;
+    font-size: clamp(48px, 8vw, 80px);
+}
+
+.videos-page p {
+    max-width: 600px;
+    margin: 0;
+    color: #bbb;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.coming-soon {
+    margin-top: 35px;
+    padding: 12px 22px;
+    border: 1px solid #444;
+    color: #aaa;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+
 /* ---------- SHOP ---------- */
 
 .shop {
@@ -617,6 +653,11 @@ footer {
 
     .art-gallery {
         grid-template-columns: 1fr;
+    }
+
+    .videos-page {
+        min-height: 60vh;
+        padding: 50px 22px;
     }
 
     .shop {
