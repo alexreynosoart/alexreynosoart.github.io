@@ -107,6 +107,42 @@ nav a:hover {
 }
 
 
+/* ---------- ABOUT PAGE ---------- */
+
+.about {
+    max-width: 900px;
+    margin: 50px auto 80px;
+    padding: 0 25px;
+}
+
+.profile {
+    display: block;
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0 auto 35px;
+}
+
+.about h1 {
+    margin: 0 0 30px;
+    text-align: center;
+    font-size: clamp(40px, 7vw, 70px);
+}
+
+.about-text {
+    max-width: 700px;
+    margin: auto;
+    color: #ddd;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.about-text p {
+    margin-bottom: 22px;
+}
+
+
 /* ---------- SHOP ---------- */
 
 .shop {
@@ -519,6 +555,17 @@ footer {
 
     .hero-tagline {
         font-size: 18px;
+    }
+
+    .about {
+        margin-top: 40px;
+        padding: 0 22px;
+    }
+
+    .profile {
+        width: 190px;
+        height: 190px;
+        margin-bottom: 30px;
     }
 
     .shop {
