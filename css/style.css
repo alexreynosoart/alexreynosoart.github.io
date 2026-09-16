@@ -1,0 +1,282 @@
+/* ========================================
+   ALEX REYNOSO ART
+   Main Website Stylesheet
+   ======================================== */
+
+
+/* ---------- GLOBAL ---------- */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #111;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* ---------- HEADER ---------- */
+
+header {
+    padding: 30px 20px;
+    text-align: center;
+}
+
+.logo {
+    margin: 0 0 20px;
+    font-size: 32px;
+    letter-spacing: 1px;
+}
+
+
+/* ---------- NAVIGATION ---------- */
+
+nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 22px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+
+/* ---------- PRODUCT PAGE ---------- */
+
+.product {
+    max-width: 1100px;
+    margin: 40px auto 80px;
+    padding: 0 20px;
+}
+
+.product-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.product-header h1 {
+    margin: 0 0 12px;
+    font-size: clamp(32px, 5vw, 54px);
+}
+
+.product-header p {
+    margin: 8px 0;
+}
+
+.price {
+    color: #ccc;
+    font-size: 22px;
+}
+
+
+/* ---------- PRODUCT GALLERY ---------- */
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 50px;
+}
+
+.gallery img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    border-radius: 8px;
+    cursor: zoom-in;
+    transition: transform 0.2s ease;
+}
+
+.gallery img:hover {
+    transform: scale(1.02);
+}
+
+
+/* ---------- PRODUCT INFORMATION ---------- */
+
+.product-info {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.product-info p {
+    color: #ccc;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+
+/* ---------- BUTTONS ---------- */
+
+.buy-button {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 15px 30px;
+    background: #fff;
+    color: #111;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+.buy-button:hover {
+    opacity: 0.85;
+}
+
+
+/* ---------- PRODUCT VIDEO ---------- */
+
+.video-section {
+    margin-top: 60px;
+    text-align: center;
+}
+
+.video-section h2 {
+    font-size: 28px;
+    margin-bottom: 25px;
+}
+
+.product-video {
+    display: block;
+    width: 100%;
+    max-width: 420px;
+    aspect-ratio: 9 / 16;
+    margin: 0 auto;
+    border-radius: 8px;
+    background: #000;
+    object-fit: cover;
+}
+
+
+/* ---------- SOCIAL VIDEO LINKS ---------- */
+
+.social-links {
+    margin-top: 20px;
+}
+
+.social-links a {
+    color: #ccc;
+    text-decoration: none;
+    margin: 0 12px;
+}
+
+.social-links a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+
+/* ---------- BACK TO SHOP ---------- */
+
+.back-shop {
+    margin-top: 60px;
+    text-align: center;
+}
+
+.back-shop a {
+    color: #aaa;
+    text-decoration: none;
+}
+
+.back-shop a:hover {
+    color: #fff;
+}
+
+
+/* ---------- IMAGE LIGHTBOX ---------- */
+
+.lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.92);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+.lightbox.active {
+    display: flex;
+}
+
+.lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #fff;
+    font-size: 42px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+
+/* ---------- FOOTER ---------- */
+
+footer {
+    text-align: center;
+    padding: 30px 20px;
+    color: #888;
+    font-size: 14px;
+}
+
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 750px) {
+
+    header {
+        padding: 25px 16px;
+    }
+
+    nav {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px 8px;
+        width: 100%;
+        max-width: 360px;
+        margin: 0 auto;
+    }
+
+    nav a {
+        text-align: center;
+    }
+
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .product {
+        margin-top: 20px;
+    }
+
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+
+    .social-links a {
+        margin: 0;
+    }
+}
