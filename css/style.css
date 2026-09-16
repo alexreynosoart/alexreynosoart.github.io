@@ -17,6 +17,10 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+img {
+    max-width: 100%;
+}
+
 
 /* ---------- HEADER ---------- */
 
@@ -49,6 +53,185 @@ nav a {
 
 nav a:hover {
     text-decoration: underline;
+}
+
+
+/* ---------- SHOP ---------- */
+
+.shop {
+    max-width: 1100px;
+    margin: 40px auto 90px;
+    padding: 0 20px;
+}
+
+.shop-header {
+    max-width: 700px;
+    margin: 0 auto 55px;
+    text-align: center;
+}
+
+.shop-header h1 {
+    margin: 0 0 15px;
+    font-size: clamp(48px, 8vw, 80px);
+}
+
+.shop-header p {
+    margin: 0;
+    color: #bbb;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+
+/* ---------- FEATURED COLLECTION ---------- */
+
+.collection-heading {
+    margin-bottom: 25px;
+}
+
+.collection-heading h2 {
+    margin: 0 0 8px;
+    font-size: 30px;
+}
+
+.collection-heading p {
+    margin: 0;
+    color: #999;
+    line-height: 1.5;
+}
+
+.featured-product {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+    gap: 40px;
+    align-items: center;
+    margin-bottom: 75px;
+}
+
+.featured-product-image {
+    display: block;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.featured-product-image img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    transition: transform 0.25s ease;
+}
+
+.featured-product-image:hover img {
+    transform: scale(1.02);
+}
+
+.featured-product-info h3 {
+    margin: 0 0 8px;
+    font-size: 38px;
+}
+
+.featured-product-info .product-type {
+    margin: 0 0 10px;
+    color: #bbb;
+    font-size: 17px;
+}
+
+.featured-product-info .price {
+    margin: 0 0 24px;
+}
+
+.product-link {
+    display: inline-block;
+    padding: 14px 25px;
+    background: #fff;
+    color: #111;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+.product-link:hover {
+    opacity: 0.85;
+}
+
+
+/* ---------- COUNTRY COLLECTION ---------- */
+
+.country-section {
+    padding-top: 10px;
+    margin-bottom: 75px;
+}
+
+.country-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.country-card {
+    min-height: 88px;
+    padding: 16px 12px;
+    border: 1px solid #333;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    background: #161616;
+    color: #777;
+}
+
+.country-name {
+    color: #aaa;
+    font-size: 16px;
+}
+
+.country-status {
+    margin-top: 7px;
+    color: #666;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+
+/* ---------- FUTURE SHOP CATEGORIES ---------- */
+
+.shop-categories {
+    margin-top: 20px;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 25px;
+}
+
+.category-card {
+    min-height: 150px;
+    padding: 25px 20px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    background: #151515;
+}
+
+.category-card h3 {
+    margin: 0 0 8px;
+    font-size: 21px;
+}
+
+.category-card p {
+    margin: 0;
+    color: #777;
+    font-size: 14px;
+    line-height: 1.5;
 }
 
 
@@ -259,6 +442,32 @@ footer {
 
     nav a {
         text-align: center;
+    }
+
+    .shop {
+        margin-top: 20px;
+    }
+
+    .shop-header {
+        margin-bottom: 45px;
+    }
+
+    .featured-product {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        margin-bottom: 65px;
+    }
+
+    .featured-product-info {
+        text-align: center;
+    }
+
+    .country-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .category-grid {
+        grid-template-columns: 1fr;
     }
 
     .gallery {
