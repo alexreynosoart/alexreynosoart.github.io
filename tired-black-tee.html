@@ -66,8 +66,11 @@
             font-size: clamp(32px, 5vw, 54px);
         }
 
+        .product-header p {
+            margin: 8px 0;
+        }
+
         .price {
-            margin: 0;
             color: #ccc;
             font-size: 22px;
         }
@@ -80,49 +83,18 @@
         }
 
         .gallery img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    display: block;
-    border-radius: 8px;
-    cursor: zoom-in;
-    transition: transform 0.2s ease;
-}
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            display: block;
+            border-radius: 8px;
+            cursor: zoom-in;
+            transition: transform 0.2s ease;
+        }
 
-.gallery img:hover {
-    transform: scale(1.02);
-}
-
-.lightbox {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.92);
-    z-index: 9999;
-    align-items: center;
-    justify-content: center;
-    padding: 30px;
-}
-
-.lightbox.active {
-    display: flex;
-}
-
-.lightbox img {
-    max-width: 90vw;
-    max-height: 90vh;
-    object-fit: contain;
-}
-
-.lightbox-close {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    color: #fff;
-    font-size: 42px;
-    cursor: pointer;
-    line-height: 1;
-}
+        .gallery img:hover {
+            transform: scale(1.02);
+        }
 
         .product-info {
             max-width: 700px;
@@ -158,12 +130,31 @@
 
         .video-section h2 {
             font-size: 28px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
-        .instagram-media {
-            margin-left: auto !important;
-            margin-right: auto !important;
+        .product-video {
+            display: block;
+            width: 100%;
+            max-width: 420px;
+            margin: 0 auto;
+            border-radius: 8px;
+            background: #000;
+        }
+
+        .social-links {
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: #ccc;
+            text-decoration: none;
+            margin: 0 12px;
+        }
+
+        .social-links a:hover {
+            color: #fff;
+            text-decoration: underline;
         }
 
         .back-shop {
@@ -180,6 +171,37 @@
             color: #fff;
         }
 
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 42px;
+            cursor: pointer;
+            line-height: 1;
+        }
+
         footer {
             text-align: center;
             padding: 30px 20px;
@@ -190,6 +212,21 @@
         @media (max-width: 750px) {
             .gallery {
                 grid-template-columns: 1fr;
+            }
+
+            .product {
+                margin-top: 20px;
+            }
+
+            .social-links {
+                display: flex;
+                justify-content: center;
+                gap: 24px;
+                flex-wrap: wrap;
+            }
+
+            .social-links a {
+                margin: 0;
             }
         }
     </style>
@@ -235,9 +272,7 @@
 
         <div class="product-info">
 
-            <p>
-                Tired. Enough said.
-            </p>
+            <p>Tired. Enough said.</p>
 
             <a class="buy-button"
                href="https://alexreynosoart.printful.me/product/tired-black-type-unisex-classic-tee-6aa306754fdc4"
@@ -248,46 +283,47 @@
 
         </div>
 
-    <section class="video-section">
+        <section class="video-section">
 
-    <h2>Watch Tired. in action</h2>
+            <h2>Watch Tired. in action</h2>
 
-    <video
-        controls
-        playsinline
-        preload="metadata"
-        style="width: 100%; max-width: 420px; border-radius: 8px;">
-        
-        <source
-            src="images/tired-black-type-unisex-classic-tee-white.mp4"
-            type="video/mp4">
+            <video
+                class="product-video"
+                controls
+                playsinline
+                preload="metadata"
+                poster="images/unisex-classic-tee-white-front-6aaa23d525564.jpg">
 
-        Your browser does not support video playback.
-    </video>
+                <source
+                    src="images/tired-black-type-unisex-classic-tee-white.mp4"
+                    type="video/mp4">
 
-    <div style="margin-top: 20px;">
-        <a href="https://www.instagram.com/p/DdSpbELxJVm/"
-           target="_blank"
-           rel="noopener"
-           style="color: #ccc; text-decoration: none; margin: 0 12px;">
-            Watch on Instagram
-        </a>
+                Your browser does not support video playback.
+            </video>
 
-        <a href="https://www.tiktok.com/@alexreynosoart/video/7685580681946156319?lang=en"
-           target="_blank"
-           rel="noopener"
-           style="color: #ccc; text-decoration: none; margin: 0 12px;">
-            Watch on TikTok
-        </a>
-    </div>
+            <div class="social-links">
 
-</section>
+                <a href="https://www.instagram.com/p/DdSpbELxJVm/"
+                   target="_blank"
+                   rel="noopener">
+                    Watch on Instagram
+                </a>
+
+                <a href="https://www.tiktok.com/@alexreynosoart/video/7685580681946156319?lang=en"
+                   target="_blank"
+                   rel="noopener">
+                    Watch on TikTok
+                </a>
+
+            </div>
+
+        </section>
 
         <div class="back-shop">
             <a href="shop.html">← Back to Shop</a>
         </div>
 
-       </main>
+    </main>
 
     <div class="lightbox" id="lightbox">
         <span class="lightbox-close">&times;</span>
@@ -299,36 +335,36 @@
     </footer>
 
     <script>
-    const lightbox = document.getElementById("lightbox");
-    const lightboxImage = document.getElementById("lightbox-image");
-    const galleryImages = document.querySelectorAll(".gallery img");
-    const closeButton = document.querySelector(".lightbox-close");
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImage = document.getElementById("lightbox-image");
+        const galleryImages = document.querySelectorAll(".gallery img");
+        const closeButton = document.querySelector(".lightbox-close");
 
-    galleryImages.forEach(function(image) {
-        image.addEventListener("click", function() {
-            lightboxImage.src = image.src;
-            lightboxImage.alt = image.alt;
-            lightbox.classList.add("active");
+        galleryImages.forEach(function(image) {
+            image.addEventListener("click", function() {
+                lightboxImage.src = image.src;
+                lightboxImage.alt = image.alt;
+                lightbox.classList.add("active");
+            });
         });
-    });
 
-    closeButton.addEventListener("click", function() {
-        lightbox.classList.remove("active");
-    });
-
-    lightbox.addEventListener("click", function(event) {
-        if (event.target === lightbox) {
+        closeButton.addEventListener("click", function() {
             lightbox.classList.remove("active");
-        }
-    });
+        });
 
-    document.addEventListener("keydown", function(event) {
-        if (event.key === "Escape") {
-            lightbox.classList.remove("active");
-        }
-    });
-</script>
-    
+        lightbox.addEventListener("click", function(event) {
+            if (event.target === lightbox) {
+                lightbox.classList.remove("active");
+            }
+        });
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
+                lightbox.classList.remove("active");
+            }
+        });
+    </script>
+
 </body>
 
 </html>
