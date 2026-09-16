@@ -186,9 +186,9 @@ nav a:hover {
 }
 
 
-/* ---------- VIDEOS PAGE ---------- */
+/* ---------- SHARED INFO PAGES ---------- */
 
-.videos-page {
+.info-page {
     min-height: 65vh;
     display: flex;
     flex-direction: column;
@@ -198,12 +198,12 @@ nav a:hover {
     text-align: center;
 }
 
-.videos-page h1 {
+.info-page h1 {
     margin: 0 0 15px;
     font-size: clamp(48px, 8vw, 80px);
 }
 
-.videos-page p {
+.info-page p {
     max-width: 600px;
     margin: 0;
     color: #bbb;
@@ -655,7 +655,7 @@ footer {
         grid-template-columns: 1fr;
     }
 
-    .videos-page {
+    .info-page {
         min-height: 60vh;
         padding: 50px 22px;
     }
