@@ -143,6 +143,49 @@ nav a:hover {
 }
 
 
+/* ---------- ART PAGE ---------- */
+
+.art-intro {
+    max-width: 800px;
+    margin: 60px auto 50px;
+    padding: 0 25px;
+    text-align: center;
+}
+
+.art-intro h1 {
+    margin: 0 0 15px;
+    font-size: clamp(48px, 8vw, 80px);
+}
+
+.art-intro p {
+    max-width: 600px;
+    margin: 0 auto;
+    color: #bbb;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.art-gallery {
+    width: min(1200px, 92%);
+    margin: 0 auto 80px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.artwork {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border: 1px solid #292929;
+    background: #1b1b1b;
+    color: #777;
+    text-align: center;
+}
+
+
 /* ---------- SHOP ---------- */
 
 .shop {
@@ -566,6 +609,14 @@ footer {
         width: 190px;
         height: 190px;
         margin-bottom: 30px;
+    }
+
+    .art-intro {
+        margin-top: 45px;
+    }
+
+    .art-gallery {
+        grid-template-columns: 1fr;
     }
 
     .shop {
