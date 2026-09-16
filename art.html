@@ -8,114 +8,19 @@
     <title>Art | Alex Reynoso Art</title>
 
     <meta name="description"
-          content="Original artwork by Alex Reynoso — painting, illustration, mixed media and creative projects.">
+          content="Original artwork by Alex Reynoso, painting, illustration, mixed media and creative projects.">
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            background: #111;
-            color: #fff;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        header {
-            padding: 30px 20px;
-            text-align: center;
-        }
-
-        .logo {
-            margin: 0 0 20px;
-            font-size: 32px;
-            letter-spacing: 1px;
-        }
-
-        nav {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 22px;
-        }
-
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 16px;
-        }
-
-        nav a:hover {
-            text-decoration: underline;
-        }
-
-        .intro {
-            max-width: 800px;
-            margin: 60px auto 50px;
-            padding: 0 25px;
-            text-align: center;
-        }
-
-        .intro h1 {
-            font-size: clamp(48px, 8vw, 80px);
-            margin: 0 0 15px;
-        }
-
-        .intro p {
-            color: #bbb;
-            font-size: 18px;
-            line-height: 1.6;
-            margin: 0 auto;
-            max-width: 600px;
-        }
-
-        .gallery {
-            width: min(1200px, 92%);
-            margin: 0 auto 80px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .artwork {
-            background: #1b1b1b;
-            aspect-ratio: 1 / 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 20px;
-            color: #777;
-            border: 1px solid #292929;
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px 20px;
-            color: #888;
-            font-size: 14px;
-        }
-
-        @media (max-width: 800px) {
-            .gallery {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 500px) {
-            .gallery {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
     <header>
 
-        <div class="logo">Alex Reynoso Art</div>
+        <a class="site-logo" href="index.html">
+            <img src="images/AlexReynosoArt-Logo_transparent.png"
+                 alt="Alex Reynoso Art">
+        </a>
 
         <nav>
             <a href="index.html">Home</a>
@@ -130,7 +35,7 @@
 
     <main>
 
-        <section class="intro">
+        <section class="art-intro">
 
             <h1>Art</h1>
 
@@ -141,7 +46,7 @@
 
         </section>
 
-        <section class="gallery">
+        <section class="art-gallery">
 
             <div class="artwork">Artwork coming soon</div>
             <div class="artwork">Artwork coming soon</div>
