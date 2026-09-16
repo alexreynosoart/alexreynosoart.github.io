@@ -80,12 +80,49 @@
         }
 
         .gallery img {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            object-fit: cover;
-            display: block;
-            border-radius: 8px;
-        }
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    border-radius: 8px;
+    cursor: zoom-in;
+    transition: transform 0.2s ease;
+}
+
+.gallery img:hover {
+    transform: scale(1.02);
+}
+
+.lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.92);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+.lightbox.active {
+    display: flex;
+}
+
+.lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #fff;
+    font-size: 42px;
+    cursor: pointer;
+    line-height: 1;
+}
 
         .product-info {
             max-width: 700px;
