@@ -29,10 +29,16 @@ header {
     text-align: center;
 }
 
-.logo {
-    margin: 0 0 20px;
-    font-size: 32px;
-    letter-spacing: 1px;
+.site-logo {
+    display: block;
+    width: min(360px, 90%);
+    margin: 0 auto 22px;
+}
+
+.site-logo img {
+    display: block;
+    width: 100%;
+    height: auto;
 }
 
 
@@ -53,6 +59,51 @@ nav a {
 
 nav a:hover {
     text-decoration: underline;
+}
+
+
+/* ---------- HOME PAGE ---------- */
+
+.hero {
+    min-height: 65vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px 70px;
+}
+
+.hello {
+    margin-bottom: 45px;
+}
+
+.hello-main {
+    margin: 0;
+    font-size: clamp(72px, 15vw, 170px);
+    font-weight: 700;
+    line-height: 0.85;
+    letter-spacing: -4px;
+}
+
+.hello-translation {
+    min-height: 30px;
+    margin-top: 20px;
+    color: #888;
+    font-size: 18px;
+    letter-spacing: 2px;
+    transition: opacity 0.5s ease;
+}
+
+.hero-title {
+    margin: 0;
+    font-size: clamp(36px, 7vw, 70px);
+}
+
+.hero-tagline {
+    margin-top: 18px;
+    color: #ccc;
+    font-size: 20px;
 }
 
 
@@ -431,6 +482,11 @@ footer {
         padding: 25px 16px;
     }
 
+    .site-logo {
+        width: min(280px, 90%);
+        margin-bottom: 20px;
+    }
+
     nav {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -442,6 +498,27 @@ footer {
 
     nav a {
         text-align: center;
+    }
+
+    .hero {
+        min-height: 60vh;
+        padding-top: 35px;
+    }
+
+    .hello {
+        margin-bottom: 40px;
+    }
+
+    .hello-main {
+        letter-spacing: -2px;
+    }
+
+    .hello-translation {
+        font-size: 16px;
+    }
+
+    .hero-tagline {
+        font-size: 18px;
     }
 
     .shop {
