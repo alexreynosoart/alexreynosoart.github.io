@@ -8,83 +8,19 @@
     <title>Alex Reynoso Art</title>
 
     <meta name="description"
-          content="Alex Reynoso Art — original art, animation, videos, characters and creative projects.">
+          content="Alex Reynoso Art, original art, animation, videos, characters and creative projects.">
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            background: #111;
-            color: #fff;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        header {
-            padding: 30px 20px;
-            text-align: center;
-        }
-
-        .logo {
-            margin: 0 0 20px;
-            font-size: 32px;
-            letter-spacing: 1px;
-        }
-
-        nav {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 22px;
-        }
-
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 16px;
-        }
-
-        nav a:hover {
-            text-decoration: underline;
-        }
-
-        .hero {
-            min-height: 65vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 40px 20px;
-        }
-
-        .hero h1 {
-            font-size: clamp(42px, 8vw, 90px);
-            margin: 0;
-        }
-
-        .hero p {
-            margin-top: 18px;
-            font-size: 20px;
-            color: #ccc;
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px 20px;
-            color: #888;
-            font-size: 14px;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
     <header>
 
-        <div class="logo">Alex Reynoso Art</div>
+        <a class="site-logo" href="index.html">
+            <img src="images/AlexReynosoArt-Logo_transparent.png"
+                 alt="Alex Reynoso Art">
+        </a>
 
         <nav>
             <a href="index.html">Home</a>
@@ -101,9 +37,22 @@
 
         <section class="hero">
 
-            <h1>Alex Reynoso Art</h1>
+            <div class="hello">
 
-            <p>Art. Animation. Characters. Controlled chaos.</p>
+                <div class="hello-main">HELLO</div>
+
+                <div class="hello-translation"
+                     id="helloTranslation">
+                    Hola
+                </div>
+
+            </div>
+
+            <h1 class="hero-title">Alex Reynoso Art</h1>
+
+            <p class="hero-tagline">
+                Art. Animation. Characters. Controlled chaos.
+            </p>
 
         </section>
 
@@ -112,6 +61,60 @@
     <footer>
         &copy; 2026 Alex Reynoso Art
     </footer>
+
+
+    <script>
+
+        const greetings = [
+            "Hola",
+            "Bonjour",
+            "Ciao",
+            "Hallo",
+            "Olá",
+            "Hej",
+            "Hei",
+            "Halló",
+            "こんにちは",
+            "안녕하세요",
+            "你好",
+            "مرحبا",
+            "नमस्ते"
+        ];
+
+        const helloTranslation =
+            document.getElementById("helloTranslation");
+
+        let lastGreeting = -1;
+
+        function changeGreeting() {
+
+            let newGreeting;
+
+            do {
+                newGreeting =
+                    Math.floor(Math.random() * greetings.length);
+            }
+            while (newGreeting === lastGreeting);
+
+            helloTranslation.style.opacity = 0;
+
+            setTimeout(function() {
+
+                helloTranslation.textContent =
+                    greetings[newGreeting];
+
+                helloTranslation.style.opacity = 1;
+
+                lastGreeting = newGreeting;
+
+            }, 500);
+        }
+
+        changeGreeting();
+
+        setInterval(changeGreeting, 3500);
+
+    </script>
 
 </body>
 
