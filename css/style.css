@@ -201,6 +201,22 @@ nav a:hover {
     height: auto;
 }
 
+.artwork-portrait {
+    display: flex;
+    flex-direction: column;
+}
+
+.artwork-portrait > img {
+    width: 100%;
+    height: 420px;
+    object-fit: contain;
+    background: #111;
+}
+
+.artwork-portrait .artwork-info {
+    width: 100%;
+}
+
 .artwork-info {
     padding: 18px 20px 20px;
 }
@@ -792,6 +808,10 @@ footer {
 
     .art-gallery {
         grid-template-columns: 1fr;
+    }
+
+    .artwork-portrait > img {
+        height: auto;
     }
 
     .art-detail {
