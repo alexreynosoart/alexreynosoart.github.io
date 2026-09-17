@@ -274,6 +274,25 @@ nav a:hover {
     pointer-events: none;
 }
 
+.prince-page {
+    position: relative;
+    isolation: isolate;
+    min-height: 100vh;
+}
+
+.prince-page::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: url("../images/prince-background-alex-reynoso-art.jpg");
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+    opacity: 0.05;
+    pointer-events: none;
+}
+
 .art-detail {
     width: min(1100px, 92%);
     margin: 40px auto 90px;
