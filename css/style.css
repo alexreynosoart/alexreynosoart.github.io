@@ -185,6 +185,37 @@ nav a:hover {
     text-align: center;
 }
 
+.artwork-featured {
+    aspect-ratio: auto;
+    display: block;
+    padding: 0;
+    overflow: hidden;
+    background: #161616;
+    color: #fff;
+    text-align: left;
+}
+
+.artwork-featured img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.artwork-info {
+    padding: 18px 20px 20px;
+}
+
+.artwork-info h2 {
+    margin: 0 0 8px;
+    font-size: 20px;
+}
+
+.artwork-info p {
+    margin: 4px 0;
+    color: #999;
+    font-size: 14px;
+    line-height: 1.4;
+}
 
 /* ---------- SHARED INFO PAGES ---------- */
 
