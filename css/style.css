@@ -518,6 +518,39 @@ nav a:hover {
     object-fit: cover;
 }
 
+.art-archive-video-wrap {
+    width: min(100%, 390px);
+    text-align: center;
+}
+
+.art-archive-video-wrap video {
+    width: 100%;
+}
+
+.art-archive-sound {
+    margin: 14px 0 0;
+    color: #aaa;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.art-archive-sound a {
+    color: #8f7cff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.art-archive-sound a:hover,
+.art-archive-sound a:focus {
+    color: #f4c430;
+}
+
+.art-archive-sound span {
+    margin: 0 5px;
+    color: #666;
+}
+
 .art-archive-copy {
     min-width: 0;
 }
