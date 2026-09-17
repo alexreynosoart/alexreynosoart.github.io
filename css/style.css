@@ -255,6 +255,25 @@ nav a:hover {
     pointer-events: none;
 }
 
+.buddha-page {
+    position: relative;
+    isolation: isolate;
+    min-height: 100vh;
+}
+
+.buddha-page::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: url("../images/gratitude-and-joy-buddha-background-alex-reynoso-art.jpg");
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+    opacity: 0.05;
+    pointer-events: none;
+}
+
 .art-detail {
     width: min(1100px, 92%);
     margin: 40px auto 90px;
@@ -304,6 +323,10 @@ nav a:hover {
     user-select: none;
     -webkit-user-select: none;
     -webkit-user-drag: none;
+}
+
+.art-detail-hero-portrait {
+    max-width: 650px;
 }
 
 .art-detail-info {
