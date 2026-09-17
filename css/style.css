@@ -220,14 +220,13 @@ nav a:hover {
 
 /* ---------- ART DETAIL PAGE ---------- */
 
-.art-detail {
-    width: min(1100px, 92%);
-    margin: 40px auto 90px;
+.frida-page {
     position: relative;
     isolation: isolate;
+    min-height: 100vh;
 }
 
-.art-detail::before {
+.frida-page::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -238,6 +237,11 @@ nav a:hover {
     background-size: cover;
     opacity: 0.05;
     pointer-events: none;
+}
+
+.art-detail {
+    width: min(1100px, 92%);
+    margin: 40px auto 90px;
 }
 
 .art-detail-header {
