@@ -217,6 +217,95 @@ nav a:hover {
     line-height: 1.4;
 }
 
+
+/* ---------- ART DETAIL PAGE ---------- */
+
+.art-detail {
+    width: min(1100px, 92%);
+    margin: 40px auto 90px;
+}
+
+.art-detail-header {
+    max-width: 900px;
+    margin: 0 auto 35px;
+    text-align: center;
+}
+
+.art-detail-back {
+    margin: 0 0 35px;
+    text-align: left;
+}
+
+.art-detail-back a {
+    color: #999;
+    text-decoration: none;
+}
+
+.art-detail-back a:hover {
+    color: #fff;
+}
+
+.art-detail-header h1 {
+    margin: 0 0 10px;
+    font-size: clamp(42px, 7vw, 72px);
+    line-height: 1;
+}
+
+.art-detail-year {
+    margin: 0;
+    color: #999;
+    font-size: 18px;
+}
+
+.art-detail-hero {
+    max-width: 1000px;
+    margin: 0 auto 50px;
+}
+
+.art-detail-hero img {
+    display: block;
+    width: 100%;
+    height: auto;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+}
+
+.art-detail-info {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(220px, 0.7fr) minmax(0, 1.3fr);
+    gap: 60px;
+}
+
+.art-detail-meta {
+    color: #bbb;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.art-detail-meta p {
+    margin: 0 0 24px;
+}
+
+.art-detail-meta strong {
+    color: #fff;
+}
+
+.art-detail-story h2 {
+    margin: 0 0 18px;
+    font-size: 30px;
+}
+
+.art-detail-story p {
+    margin: 0 0 20px;
+    color: #ccc;
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+
 /* ---------- SHARED INFO PAGES ---------- */
 
 .info-page {
@@ -684,6 +773,40 @@ footer {
 
     .art-gallery {
         grid-template-columns: 1fr;
+    }
+
+    .art-detail {
+        margin-top: 25px;
+    }
+
+    .art-detail-header {
+        margin-bottom: 30px;
+    }
+
+    .art-detail-back {
+        margin-bottom: 30px;
+    }
+
+    .art-detail-hero {
+        margin-bottom: 40px;
+    }
+
+    .art-detail-info {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .art-detail-meta {
+        padding-bottom: 10px;
+        border-bottom: 1px solid #292929;
+    }
+
+    .art-detail-story h2 {
+        font-size: 27px;
+    }
+
+    .art-detail-story p {
+        font-size: 17px;
     }
 
     .info-page {
