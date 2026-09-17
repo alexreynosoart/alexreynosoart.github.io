@@ -437,6 +437,113 @@ nav a:hover {
 }
 
 
+
+/* ---------- BEHIND THE ARTWORK ---------- */
+
+.art-archive {
+    max-width: 1000px;
+    margin: 100px auto 0;
+    padding-top: 70px;
+    border-top: 1px solid #292929;
+}
+
+.art-archive-heading {
+    max-width: 720px;
+    margin: 0 auto 65px;
+    text-align: center;
+}
+
+.art-archive-label,
+.art-archive-date {
+    color: #f4c430;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.art-archive-heading h2 {
+    margin: 10px 0 18px;
+    font-size: clamp(36px, 6vw, 58px);
+    line-height: 1;
+}
+
+.art-archive-heading > p:last-child {
+    margin: 0;
+    color: #aaa;
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+.art-archive-entry {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+    gap: 55px;
+    align-items: center;
+    margin-bottom: 90px;
+}
+
+.art-archive-entry-reverse .art-archive-media { order: 2; }
+.art-archive-entry-reverse .art-archive-copy { order: 1; }
+
+.art-archive-media {
+    min-width: 0;
+}
+
+.art-archive-media img,
+.art-archive-media video {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid #292929;
+    background: #0b0b0b;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+}
+
+.art-archive-media img {
+    max-height: 650px;
+    object-fit: contain;
+}
+
+.art-archive-video {
+    display: flex;
+    justify-content: center;
+}
+
+.art-archive-video video {
+    width: min(100%, 390px);
+    aspect-ratio: 9 / 16;
+    object-fit: cover;
+}
+
+.art-archive-copy {
+    min-width: 0;
+}
+
+.art-archive-date {
+    margin: 0 0 12px;
+}
+
+.art-archive-copy h3 {
+    margin: 0 0 18px;
+    font-size: clamp(28px, 4vw, 38px);
+    line-height: 1.1;
+}
+
+.art-archive-copy p:not(.art-archive-date) {
+    margin: 0 0 18px;
+    color: #ccc;
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+.art-archive-entry:last-child {
+    margin-bottom: 0;
+}
+
+
 /* ---------- SHARED INFO PAGES ---------- */
 
 .info-page {
@@ -1009,4 +1116,48 @@ footer {
     .social-links a {
         margin: 0;
     }
+
+    /* Behind the Artwork */
+
+    .art-archive {
+        margin-top: 75px;
+        padding-top: 55px;
+    }
+
+    .art-archive-heading {
+        margin-bottom: 50px;
+    }
+
+    .art-archive-heading > p:last-child {
+        font-size: 16px;
+    }
+
+    .art-archive-entry,
+    .art-archive-entry-reverse {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        margin-bottom: 70px;
+    }
+
+    .art-archive-entry-reverse .art-archive-media,
+    .art-archive-entry-reverse .art-archive-copy {
+        order: initial;
+    }
+
+    .art-archive-media img {
+        max-height: none;
+    }
+
+    .art-archive-video video {
+        width: min(100%, 360px);
+    }
+
+    .art-archive-copy h3 {
+        font-size: 30px;
+    }
+
+    .art-archive-copy p:not(.art-archive-date) {
+        font-size: 16px;
+    }
+
 }
