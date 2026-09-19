@@ -53,10 +53,145 @@
             z-index: 1;
         }
 
+
+        /* Commission introduction */
+
+        .commission-intro {
+            max-width: 760px;
+            margin: 90px auto 85px;
+            padding: 0 24px;
+            text-align: center;
+        }
+
+        .commission-intro h1 {
+            margin: 0 0 22px;
+            font-size: clamp(3rem, 7vw, 5rem);
+            line-height: 1;
+        }
+
+        .commission-intro p {
+            max-width: 650px;
+            margin: 0 auto;
+            color: #ccc;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+
+        /* Commission board */
+
+        .commission-board {
+            width: min(1100px, calc(100% - 48px));
+            margin: 0 auto 110px;
+        }
+
+        .commission-board-heading {
+            margin-bottom: 28px;
+        }
+
+        .commission-board-heading h2 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+        }
+
+        .commission-board-heading p {
+            margin: 0;
+            color: #999;
+            line-height: 1.6;
+        }
+
+        .commission-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .commission-card {
+            min-height: 190px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: rgba(17, 17, 17, 0.92);
+            border: 1px solid #333;
+        }
+
+        .commission-number {
+            display: block;
+            margin-bottom: 38px;
+            color: #777;
+            font-size: 0.72rem;
+            letter-spacing: 0.16em;
+        }
+
+        .commission-card h3 {
+            margin: 0 0 9px;
+            font-size: 1.25rem;
+        }
+
+        .commission-card p {
+            margin: 0;
+            color: #999;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        .commission-status {
+            display: inline-block;
+            margin-top: 18px;
+            color: #f4c430;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .commission-status.completed {
+            color: #aaa;
+        }
+
+
+        /* Final card */
+
+        .commission-card-next {
+            border-style: dashed;
+            background: rgba(17, 17, 17, 0.72);
+        }
+
+        .commission-card-next h3 {
+            color: #f4c430;
+        }
+
+
+        @media (max-width: 850px) {
+
+            .commission-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
         @media (max-width: 600px) {
 
             body::before {
                 background-position: center center;
+            }
+
+            .commission-intro {
+                margin: 65px auto 65px;
+            }
+
+            .commission-board {
+                width: min(100% - 32px, 1100px);
+                margin-bottom: 80px;
+            }
+
+            .commission-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .commission-card {
+                min-height: 160px;
             }
 
         }
@@ -87,17 +222,147 @@
 
     <main>
 
-        <section class="info-page">
+        <section class="commission-intro">
 
             <h1>Commissions</h1>
 
             <p>
-                Interested in an original piece or a custom creative project?
-                Commission information will be available here soon.
+                Original artwork, illustration, video and custom creative projects.
+                Every project starts with an idea.
             </p>
 
-            <div class="coming-soon">
-                Coming Soon
+        </section>
+
+
+        <section class="commission-board">
+
+            <div class="commission-board-heading">
+
+                <h2>Selected Commissions</h2>
+
+                <p>
+                    A look at completed work and projects currently taking shape.
+                </p>
+
+            </div>
+
+
+            <div class="commission-grid">
+
+                <article class="commission-card">
+
+                    <div>
+                        <span class="commission-number">01</span>
+
+                        <h3>Music Video Commission</h3>
+
+                        <p>
+                            Custom visual project created for an independent artist.
+                        </p>
+                    </div>
+
+                    <span class="commission-status completed">
+                        Completed
+                    </span>
+
+                </article>
+
+
+                <article class="commission-card">
+
+                    <div>
+                        <span class="commission-number">02</span>
+
+                        <h3>Original Painting</h3>
+
+                        <p>
+                            An original commissioned painting currently in development.
+                        </p>
+                    </div>
+
+                    <span class="commission-status">
+                        In Progress
+                    </span>
+
+                </article>
+
+
+                <article class="commission-card">
+
+                    <div>
+                        <span class="commission-number">03</span>
+
+                        <h3>Book Illustration</h3>
+
+                        <p>
+                            Illustration work being developed for an author.
+                        </p>
+                    </div>
+
+                    <span class="commission-status">
+                        In Progress
+                    </span>
+
+                </article>
+
+
+                <article class="commission-card">
+
+                    <div>
+                        <span class="commission-number">04</span>
+
+                        <h3>Custom Creative Project</h3>
+
+                        <p>
+                            A private creative project currently taking shape.
+                        </p>
+                    </div>
+
+                    <span class="commission-status">
+                        In Progress
+                    </span>
+
+                </article>
+
+
+                <article class="commission-card">
+
+                    <div>
+                        <span class="commission-number">05</span>
+
+                        <h3>Private Commission</h3>
+
+                        <p>
+                            Project details remain private while the work develops.
+                        </p>
+                    </div>
+
+                    <span class="commission-status">
+                        In Progress
+                    </span>
+
+                </article>
+
+
+                <article class="commission-card commission-card-next">
+
+                    <div>
+                        <span class="commission-number">06</span>
+
+                        <h3>Your Idea Could Be Next</h3>
+
+                        <p>
+                            Painting, illustration, video or something we haven't
+                            thought of yet.
+                        </p>
+                    </div>
+
+                    <span class="commission-status">
+                        Let's Make Something
+                    </span>
+
+                </article>
+
             </div>
 
         </section>
