@@ -18,11 +18,45 @@
   <link rel="stylesheet" href="css/style.css">
 
   <style>
+
+    /* =========================================================
+       MISSION CONTROL BACKGROUND
+       Full-strength image stays in /images.
+       The website displays it at 5% opacity.
+       ========================================================= */
+
+    body {
+      position: relative;
+      min-height: 100vh;
+      background: #0f0f0f;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        url("images/mission-control-background-alex-reynoso-art.jpg");
+      background-position: center center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      opacity: 0.05;
+      pointer-events: none;
+      z-index: 0;
+    }
+
     .mission-control {
+      position: relative;
+      z-index: 1;
       width: min(1200px, 92%);
       margin: 0 auto;
       padding: 70px 0 100px;
     }
+
+
+    /* =========================================================
+       HEADER
+       ========================================================= */
 
     .mc-header {
       text-align: center;
@@ -61,6 +95,7 @@
       font-size: 0.75rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
+      background: rgba(15, 15, 15, 0.78);
     }
 
     .mc-status-dot {
@@ -70,6 +105,11 @@
       background: #f4c430;
       box-shadow: 0 0 12px rgba(244, 196, 48, 0.8);
     }
+
+
+    /* =========================================================
+       SECTIONS
+       ========================================================= */
 
     .mc-section {
       margin-top: 55px;
@@ -95,6 +135,11 @@
       font-size: 0.75rem;
     }
 
+
+    /* =========================================================
+       DATA CARDS
+       ========================================================= */
+
     .mc-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -102,11 +147,13 @@
     }
 
     .mc-card {
-      background: #111;
+      background: rgba(17, 17, 17, 0.92);
       border: 1px solid #242424;
       border-radius: 12px;
       padding: 22px;
       min-height: 125px;
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
     }
 
     .mc-card:hover {
@@ -145,11 +192,18 @@
       grid-column: span 2;
     }
 
+
+    /* =========================================================
+       INTELLIGENCE CARDS
+       ========================================================= */
+
     .mc-insight {
-      background: #111;
+      background: rgba(17, 17, 17, 0.92);
       border: 1px solid #242424;
       border-radius: 12px;
       padding: 26px;
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
     }
 
     .mc-insight strong {
@@ -162,6 +216,11 @@
       margin: 0;
     }
 
+
+    /* =========================================================
+       PRINCE
+       ========================================================= */
+
     .mc-prince {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -169,16 +228,23 @@
     }
 
     .mc-prince-card {
-      background: #111;
+      background: rgba(17, 17, 17, 0.92);
       border: 1px solid #242424;
       border-radius: 12px;
       padding: 22px;
       text-align: center;
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
     }
 
     .mc-prince-card .mc-number {
       color: #8f7cff;
     }
+
+
+    /* =========================================================
+       FOOTER
+       ========================================================= */
 
     .mc-footer-note {
       margin-top: 60px;
@@ -190,7 +256,13 @@
       line-height: 1.6;
     }
 
+
+    /* =========================================================
+       MOBILE
+       ========================================================= */
+
     @media (max-width: 850px) {
+
       .mc-grid {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -198,9 +270,14 @@
       .mc-prince {
         grid-template-columns: 1fr;
       }
+
+      body::before {
+        background-position: center top;
+      }
     }
 
     @media (max-width: 520px) {
+
       .mission-control {
         width: min(92%, 600px);
         padding-top: 45px;
@@ -220,6 +297,7 @@
         gap: 5px;
       }
     }
+
   </style>
 </head>
 
@@ -228,9 +306,14 @@
   <main class="mission-control">
 
     <header class="mc-header">
-      <div class="mc-eyebrow">AlexReynosoArt Intelligence Center</div>
 
-      <h1>MISSION<br>CONTROL</h1>
+      <div class="mc-eyebrow">
+        AlexReynosoArt Intelligence Center
+      </div>
+
+      <h1>
+        MISSION<br>CONTROL
+      </h1>
 
       <p class="mc-subtitle">
         Instagram + Website + Content + Shop
@@ -240,6 +323,7 @@
         <span class="mc-status-dot"></span>
         Systems Online
       </div>
+
     </header>
 
 
@@ -373,7 +457,9 @@
         <div class="mc-prince-card">
           <div class="mc-label">2022 / 2024</div>
           <div class="mc-number">5 / 3</div>
-          <div class="mc-change">2022 appears first on page</div>
+          <div class="mc-change">
+            2022 appears first on page
+          </div>
         </div>
 
       </div>
@@ -393,21 +479,34 @@
       <div class="mc-grid">
 
         <div class="mc-insight mc-wide">
-          <div class="mc-label">Instagram Signal</div>
+
+          <div class="mc-label">
+            Instagram Signal
+          </div>
+
           <p>
-            Follows increased <strong>143.1%</strong> while profile visits
-            decreased 6.5%. More people are converting into followers even
-            though fewer profile visits were recorded.
+            Follows increased
+            <strong>143.1%</strong>
+            while profile visits decreased 6.5%.
+            More people are converting into followers
+            even though fewer profile visits were recorded.
           </p>
+
         </div>
 
         <div class="mc-insight mc-wide">
-          <div class="mc-label">Website Signal</div>
+
+          <div class="mc-label">
+            Website Signal
+          </div>
+
           <p>
-            Early visitors are not only viewing artwork. The Prince archive
-            produced <strong>8 outbound social clicks from 2 users</strong>,
+            Early visitors are not only viewing artwork.
+            The Prince archive produced
+            <strong>8 outbound social clicks from 2 users</strong>,
             showing that visitors are using the deeper story links.
           </p>
+
         </div>
 
       </div>
