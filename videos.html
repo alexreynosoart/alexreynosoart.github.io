@@ -21,6 +21,48 @@
           content="Video, animation and character projects by Alex Reynoso Art.">
 
     <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        /* Videos background */
+
+        body {
+            position: relative;
+            min-height: 100vh;
+            background: #111;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image:
+                url("images/videos-background-alex-reynoso-art.jpg");
+            background-position: center center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        header,
+        main,
+        footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 600px) {
+
+            body::before {
+                background-position: center center;
+            }
+
+        }
+
+    </style>
+
 </head>
 
 <body>
