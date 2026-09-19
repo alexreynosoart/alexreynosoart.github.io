@@ -16,41 +16,449 @@
   </script>
 
   <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    .mission-control {
+      width: min(1200px, 92%);
+      margin: 0 auto;
+      padding: 70px 0 100px;
+    }
+
+    .mc-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .mc-eyebrow {
+      color: #f4c430;
+      font-size: 0.8rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .mc-header h1 {
+      font-size: clamp(2.8rem, 8vw, 6rem);
+      line-height: 0.95;
+      margin: 0;
+    }
+
+    .mc-subtitle {
+      color: #aaa;
+      margin-top: 18px;
+      font-size: 1rem;
+    }
+
+    .mc-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 18px;
+      padding: 7px 13px;
+      border: 1px solid #333;
+      border-radius: 999px;
+      color: #bbb;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .mc-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #f4c430;
+      box-shadow: 0 0 12px rgba(244, 196, 48, 0.8);
+    }
+
+    .mc-section {
+      margin-top: 55px;
+    }
+
+    .mc-section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 20px;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #252525;
+    }
+
+    .mc-section-heading h2 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+
+    .mc-section-heading span {
+      color: #777;
+      font-size: 0.75rem;
+    }
+
+    .mc-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .mc-card {
+      background: #111;
+      border: 1px solid #242424;
+      border-radius: 12px;
+      padding: 22px;
+      min-height: 125px;
+    }
+
+    .mc-card:hover {
+      border-color: #8f7cff;
+    }
+
+    .mc-label {
+      color: #888;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 13px;
+    }
+
+    .mc-number {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .mc-change {
+      font-size: 0.78rem;
+      color: #aaa;
+    }
+
+    .mc-up {
+      color: #f4c430;
+    }
+
+    .mc-down {
+      color: #8f7cff;
+    }
+
+    .mc-wide {
+      grid-column: span 2;
+    }
+
+    .mc-insight {
+      background: #111;
+      border: 1px solid #242424;
+      border-radius: 12px;
+      padding: 26px;
+    }
+
+    .mc-insight strong {
+      color: #f4c430;
+    }
+
+    .mc-insight p {
+      color: #bbb;
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    .mc-prince {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+    }
+
+    .mc-prince-card {
+      background: #111;
+      border: 1px solid #242424;
+      border-radius: 12px;
+      padding: 22px;
+      text-align: center;
+    }
+
+    .mc-prince-card .mc-number {
+      color: #8f7cff;
+    }
+
+    .mc-footer-note {
+      margin-top: 60px;
+      padding-top: 20px;
+      border-top: 1px solid #222;
+      color: #666;
+      text-align: center;
+      font-size: 0.75rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 850px) {
+      .mc-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .mc-prince {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .mission-control {
+        width: min(92%, 600px);
+        padding-top: 45px;
+      }
+
+      .mc-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .mc-wide {
+        grid-column: span 1;
+      }
+
+      .mc-section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 5px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-  <main>
+  <main class="mission-control">
 
-    <section>
-      <h1>MISSION CONTROL</h1>
+    <header class="mc-header">
+      <div class="mc-eyebrow">AlexReynosoArt Intelligence Center</div>
 
-      <p>AlexReynosoArt Intelligence Center</p>
+      <h1>MISSION<br>CONTROL</h1>
 
-      <p>
+      <p class="mc-subtitle">
         Instagram + Website + Content + Shop
       </p>
 
-      <hr>
+      <div class="mc-status">
+        <span class="mc-status-dot"></span>
+        Systems Online
+      </div>
+    </header>
 
-      <h2>Instagram</h2>
 
-      <p>Views: Waiting for data...</p>
-      <p>Reach: Waiting for data...</p>
-      <p>Profile visits: Waiting for data...</p>
-      <p>Follows: Waiting for data...</p>
+    <!-- INSTAGRAM -->
 
-      <h2>Website</h2>
+    <section class="mc-section">
 
-      <p>Visitors: Waiting for data...</p>
-      <p>Artwork views: Waiting for data...</p>
-      <p>Outbound clicks: Waiting for data...</p>
+      <div class="mc-section-heading">
+        <h2>Instagram</h2>
+        <span>Last 28 days · Aug 21 to Sep 17, 2026</span>
+      </div>
 
-      <h2>What's Moving?</h2>
+      <div class="mc-grid">
 
-      <p>Our supercomputer is still warming up.</p>
+        <div class="mc-card">
+          <div class="mc-label">Views</div>
+          <div class="mc-number">3.9M</div>
+          <div class="mc-change mc-up">↑ 6.1%</div>
+        </div>
+
+        <div class="mc-card">
+          <div class="mc-label">Reach</div>
+          <div class="mc-number">1.6M</div>
+          <div class="mc-change mc-up">↑ 7.9%</div>
+        </div>
+
+        <div class="mc-card">
+          <div class="mc-label">Interactions</div>
+          <div class="mc-number">587.4K</div>
+          <div class="mc-change mc-up">↑ 2%</div>
+        </div>
+
+        <div class="mc-card">
+          <div class="mc-label">Follows</div>
+          <div class="mc-number">30.5K</div>
+          <div class="mc-change mc-up">↑ 143.1%</div>
+        </div>
+
+        <div class="mc-card">
+          <div class="mc-label">Profile Visits</div>
+          <div class="mc-number">53.7K</div>
+          <div class="mc-change mc-down">↓ 6.5%</div>
+        </div>
+
+        <div class="mc-card">
+          <div class="mc-label">Link Clicks</div>
+          <div class="mc-number">55</div>
+          <div class="mc-change mc-up">↑ 100%</div>
+        </div>
+
+      </div>
 
     </section>
+
+
+    <!-- WEBSITE -->
+
+    <section class="mc-section">
+
+      <div class="mc-section-heading">
+        <h2>Website</h2>
+        <span>Google Analytics · Early data</span>
+      </div>
+
+      <div class="mc-grid">
+
+        <div class="mc-card">
+          <div class="mc-label">Users</div>
+          <div class="mc-number">12</div>
+          <div class="mc-change">12 new users</div>
+        </div>
+
+        <div class="mc-card">
+          <div class="mc-label">Sessions</div>
+          <div class="mc-number">20</div>
+          <div class="mc-change">10 engaged</div>
+        </div>
+
+        <div class="mc-card">
+          <div class="mc-label">Page Views</div>
+          <div class="mc-number">139</div>
+          <div class="mc-change">Across the site</div>
+        </div>
+
+        <div class="mc-card">
+          <div class="mc-label">Engagement Rate</div>
+          <div class="mc-number">50%</div>
+          <div class="mc-change">Average 2m 27s / session</div>
+        </div>
+
+        <div class="mc-card">
+          <div class="mc-label">Scroll Events</div>
+          <div class="mc-number">99</div>
+          <div class="mc-change">7 users</div>
+        </div>
+
+        <div class="mc-card">
+          <div class="mc-label">Outbound Clicks</div>
+          <div class="mc-number">8</div>
+          <div class="mc-change">2 users</div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- PRINCE -->
+
+    <section class="mc-section">
+
+      <div class="mc-section-heading">
+        <h2>Prince · Through the Years</h2>
+        <span>First tracked artwork story</span>
+      </div>
+
+      <div class="mc-prince">
+
+        <div class="mc-prince-card">
+          <div class="mc-label">Social Clicks</div>
+          <div class="mc-number">8</div>
+          <div class="mc-change">From the Prince page</div>
+        </div>
+
+        <div class="mc-prince-card">
+          <div class="mc-label">Visitors Clicking</div>
+          <div class="mc-number">2</div>
+          <div class="mc-change">Both explored multiple links</div>
+        </div>
+
+        <div class="mc-prince-card">
+          <div class="mc-label">2022 / 2024</div>
+          <div class="mc-number">5 / 3</div>
+          <div class="mc-change">2022 appears first on page</div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- INTELLIGENCE -->
+
+    <section class="mc-section">
+
+      <div class="mc-section-heading">
+        <h2>What's Moving?</h2>
+        <span>Signals worth watching</span>
+      </div>
+
+      <div class="mc-grid">
+
+        <div class="mc-insight mc-wide">
+          <div class="mc-label">Instagram Signal</div>
+          <p>
+            Follows increased <strong>143.1%</strong> while profile visits
+            decreased 6.5%. More people are converting into followers even
+            though fewer profile visits were recorded.
+          </p>
+        </div>
+
+        <div class="mc-insight mc-wide">
+          <div class="mc-label">Website Signal</div>
+          <p>
+            Early visitors are not only viewing artwork. The Prince archive
+            produced <strong>8 outbound social clicks from 2 users</strong>,
+            showing that visitors are using the deeper story links.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- GEOGRAPHY -->
+
+    <section class="mc-section">
+
+      <div class="mc-section-heading">
+        <h2>Signals From the World</h2>
+        <span>Early website audience</span>
+      </div>
+
+      <div class="mc-grid">
+
+        <div class="mc-card">
+          <div class="mc-label">United States</div>
+          <div class="mc-number">6</div>
+          <div class="mc-change">Active users</div>
+        </div>
+
+        <div class="mc-card">
+          <div class="mc-label">Germany</div>
+          <div class="mc-number">2</div>
+          <div class="mc-change">Active users</div>
+        </div>
+
+        <div class="mc-card">
+          <div class="mc-label">Canada</div>
+          <div class="mc-number">1</div>
+          <div class="mc-change">Active user</div>
+        </div>
+
+        <div class="mc-card">
+          <div class="mc-label">St. Lucia</div>
+          <div class="mc-number">1</div>
+          <div class="mc-change">Engaged user</div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <div class="mc-footer-note">
+      Mission Control V1 · AlexReynosoArt<br>
+      Manual data now. Automatic intelligence later.
+    </div>
 
   </main>
 
