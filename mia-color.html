@@ -1,0 +1,1720 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ"></script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+        gtag('config', 'G-MK5FXXVXNJ');
+    </script>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Color Mia Online | Alex Reynoso Art</title>
+
+    <meta name="description"
+          content="Color Mia the Panda online with brushes, colors and creative tools.">
+
+    <link rel="stylesheet"
+          href="css/style.css">
+
+
+    <style>
+
+        /* =========================
+           MIA COLORING STUDIO
+           ========================= */
+
+        body {
+            background: #f8f5f7;
+            color: #222;
+        }
+
+
+        .studio-page {
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 35px 22px 80px;
+        }
+
+
+        .studio-back {
+            display: inline-block;
+            margin-bottom: 25px;
+            color: #555;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+
+        .studio-back:hover {
+            color: #e07f9f;
+        }
+
+
+        /* HEADER */
+
+        .studio-intro {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+
+        .studio-kicker {
+            font-size: 0.78rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+
+        .studio-title {
+            margin: 0;
+            color: #111;
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            line-height: 1;
+            letter-spacing: -0.04em;
+        }
+
+
+        .studio-heart {
+            color: #e88eaa;
+        }
+
+
+        .studio-subtitle {
+            margin: 15px auto 0;
+            color: #666;
+            line-height: 1.6;
+        }
+
+
+        /* APP */
+
+        .studio-app {
+            display: grid;
+            grid-template-columns: 240px minmax(0, 1fr);
+            gap: 22px;
+            align-items: start;
+        }
+
+
+        /* TOOL PANEL */
+
+        .tool-panel {
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 22px;
+            padding: 18px;
+            position: sticky;
+            top: 20px;
+        }
+
+
+        .tool-panel h2 {
+            margin: 0 0 14px;
+            font-size: 1rem;
+        }
+
+
+        .tool-group {
+            padding-bottom: 18px;
+            margin-bottom: 18px;
+            border-bottom: 1px solid #eee;
+        }
+
+
+        .tool-group:last-child {
+            border-bottom: 0;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+
+
+        .tool-label {
+            display: block;
+            margin-bottom: 9px;
+            color: #666;
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+
+        .tool-buttons {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 7px;
+        }
+
+
+        .tool-button {
+            width: 100%;
+            min-height: 42px;
+
+            padding: 9px 12px;
+
+            border: 1px solid #ddd;
+            border-radius: 10px;
+
+            background: #fff;
+            color: #222;
+
+            font: inherit;
+            font-size: 0.84rem;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition:
+                background 0.15s ease,
+                color 0.15s ease,
+                border-color 0.15s ease;
+        }
+
+
+        .tool-button:hover {
+            border-color: #aaa;
+        }
+
+
+        .tool-button.active {
+            background: #111;
+            border-color: #111;
+            color: #fff;
+        }
+
+
+        .tool-button.pink {
+            background: #e88eaa;
+            border-color: #e88eaa;
+            color: #fff;
+        }
+
+
+        .tool-button.dark {
+            background: #111;
+            border-color: #111;
+            color: #fff;
+        }
+
+
+        /* PALETTE */
+
+        .palette {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 7px;
+        }
+
+
+        .swatch {
+            aspect-ratio: 1;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            outline: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+
+        .swatch.selected {
+            outline: 3px solid #222;
+        }
+
+
+        .custom-color-wrap {
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+
+        .custom-color-wrap input {
+            width: 46px;
+            height: 38px;
+            border: 0;
+            padding: 0;
+            background: transparent;
+            cursor: pointer;
+        }
+
+
+        .custom-color-wrap span {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+
+        /* BRUSH SIZE */
+
+        .brush-size {
+            width: 100%;
+        }
+
+
+        .brush-size-value {
+            margin-top: 5px;
+            color: #777;
+            font-size: 0.78rem;
+            text-align: center;
+        }
+
+
+        /* ART AREA */
+
+        .art-area {
+            min-width: 0;
+        }
+
+
+        .canvas-card {
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 24px;
+            padding: 20px;
+        }
+
+
+        .canvas-container {
+            position: relative;
+
+            width: 100%;
+            max-width: 760px;
+            margin: 0 auto;
+
+            background: #fff;
+
+            overflow: hidden;
+
+            touch-action: none;
+            user-select: none;
+        }
+
+
+        #colorCanvas {
+            display: block;
+            width: 100%;
+            height: auto;
+
+            background: #fff;
+
+            cursor: crosshair;
+            touch-action: none;
+        }
+
+
+        .canvas-status {
+            margin-top: 14px;
+            text-align: center;
+            color: #777;
+            font-size: 0.8rem;
+        }
+
+
+        /* BOTTOM ACTIONS */
+
+        .bottom-actions {
+            max-width: 760px;
+            margin: 15px auto 0;
+
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 9px;
+        }
+
+
+        .bottom-button {
+            min-height: 46px;
+            padding: 10px;
+
+            border: 1px solid #222;
+            border-radius: 11px;
+
+            background: #fff;
+            color: #222;
+
+            font: inherit;
+            font-size: 0.82rem;
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+
+        .bottom-button:hover {
+            background: #111;
+            color: #fff;
+        }
+
+
+        .bottom-button.save {
+            background: #e88eaa;
+            border-color: #e88eaa;
+            color: #fff;
+        }
+
+
+        /* CREDIT */
+
+        .studio-credit {
+            margin-top: 50px;
+            text-align: center;
+            color: #777;
+            font-size: 0.88rem;
+            line-height: 1.7;
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 850px) {
+
+            .studio-app {
+                grid-template-columns: 1fr;
+            }
+
+
+            .tool-panel {
+                position: static;
+            }
+
+
+            .tool-buttons {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+
+            .palette {
+                grid-template-columns: repeat(10, 1fr);
+            }
+
+
+            .bottom-actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 550px) {
+
+            .studio-page {
+                padding: 28px 12px 60px;
+            }
+
+
+            .canvas-card {
+                padding: 8px;
+                border-radius: 15px;
+            }
+
+
+            .palette {
+                grid-template-columns: repeat(5, 1fr);
+            }
+
+
+            .tool-panel {
+                border-radius: 15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body class="mia-page-body">
+
+
+<header>
+
+    <a class="site-logo" href="index.html">
+
+        <img src="images/AlexReynosoArt-Logo_transparent.png"
+             alt="Alex Reynoso Art">
+
+    </a>
+
+
+    <nav>
+
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="art.html">Art</a>
+        <a href="videos.html">Videos</a>
+        <a href="shop.html">Shop</a>
+        <a href="commissions.html">Commissions</a>
+
+    </nav>
+
+</header>
+
+
+
+<main class="studio-page">
+
+
+    <a class="studio-back"
+       href="mia-coloring.html">
+        ← Back to Coloring Pages
+    </a>
+
+
+    <section class="studio-intro">
+
+        <div class="studio-kicker">
+            Mia the Panda · Kids Corner
+        </div>
+
+
+        <h1 class="studio-title">
+            Color Mia<span class="studio-heart">♥</span>
+        </h1>
+
+
+        <p class="studio-subtitle">
+            Pick a tool, choose a color and make Mia your own.
+        </p>
+
+    </section>
+
+
+
+    <section class="studio-app">
+
+
+        <!-- TOOLS -->
+
+        <aside class="tool-panel">
+
+
+            <div class="tool-group">
+
+                <span class="tool-label">
+                    Tools
+                </span>
+
+
+                <div class="tool-buttons">
+
+                    <button class="tool-button active"
+                            id="fillTool"
+                            type="button">
+                        FILL
+                    </button>
+
+
+                    <button class="tool-button"
+                            id="brushTool"
+                            type="button">
+                        BRUSH
+                    </button>
+
+
+                    <button class="tool-button"
+                            id="eraserTool"
+                            type="button">
+                        ERASER
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="tool-group">
+
+                <span class="tool-label">
+                    Colors
+                </span>
+
+
+                <div class="palette" id="palette">
+
+                    <button class="swatch selected"
+                            type="button"
+                            data-color="#e88eaa"
+                            style="background:#e88eaa"
+                            aria-label="Pink">
+                    </button>
+
+                    <button class="swatch"
+                            type="button"
+                            data-color="#f6b3c8"
+                            style="background:#f6b3c8"
+                            aria-label="Light pink">
+                    </button>
+
+                    <button class="swatch"
+                            type="button"
+                            data-color="#ef5350"
+                            style="background:#ef5350"
+                            aria-label="Red">
+                    </button>
+
+                    <button class="swatch"
+                            type="button"
+                            data-color="#ff9800"
+                            style="background:#ff9800"
+                            aria-label="Orange">
+                    </button>
+
+                    <button class="swatch"
+                            type="button"
+                            data-color="#ffd54f"
+                            style="background:#ffd54f"
+                            aria-label="Yellow">
+                    </button>
+
+                    <button class="swatch"
+                            type="button"
+                            data-color="#81c784"
+                            style="background:#81c784"
+                            aria-label="Green">
+                    </button>
+
+                    <button class="swatch"
+                            type="button"
+                            data-color="#4dd0e1"
+                            style="background:#4dd0e1"
+                            aria-label="Aqua">
+                    </button>
+
+                    <button class="swatch"
+                            type="button"
+                            data-color="#64b5f6"
+                            style="background:#64b5f6"
+                            aria-label="Blue">
+                    </button>
+
+                    <button class="swatch"
+                            type="button"
+                            data-color="#9575cd"
+                            style="background:#9575cd"
+                            aria-label="Purple">
+                    </button>
+
+                    <button class="swatch"
+                            type="button"
+                            data-color="#795548"
+                            style="background:#795548"
+                            aria-label="Brown">
+                    </button>
+
+                    <button class="swatch"
+                            type="button"
+                            data-color="#222222"
+                            style="background:#222222"
+                            aria-label="Black">
+                    </button>
+
+                    <button class="swatch"
+                            type="button"
+                            data-color="#ffffff"
+                            style="background:#ffffff"
+                            aria-label="White">
+                    </button>
+
+                </div>
+
+
+                <label class="custom-color-wrap">
+
+                    <input type="color"
+                           id="customColor"
+                           value="#e88eaa">
+
+                    <span>
+                        Pick your own color
+                    </span>
+
+                </label>
+
+            </div>
+
+
+
+            <div class="tool-group">
+
+                <label class="tool-label"
+                       for="brushSize">
+                    Brush Size
+                </label>
+
+
+                <input class="brush-size"
+                       id="brushSize"
+                       type="range"
+                       min="3"
+                       max="60"
+                       value="18">
+
+
+                <div class="brush-size-value">
+
+                    <span id="brushSizeNumber">18</span> px
+
+                </div>
+
+            </div>
+
+
+        </aside>
+
+
+
+        <!-- ART -->
+
+        <div class="art-area">
+
+
+            <div class="canvas-card">
+
+
+                <div class="canvas-container">
+
+                    <canvas id="colorCanvas">
+                        Your browser does not support the coloring canvas.
+                    </canvas>
+
+                </div>
+
+
+                <div class="canvas-status"
+                     id="canvasStatus">
+                    Fill tool selected. Tap an area to color it.
+                </div>
+
+
+            </div>
+
+
+
+            <div class="bottom-actions">
+
+
+                <button class="bottom-button"
+                        id="undoButton"
+                        type="button">
+                    UNDO
+                </button>
+
+
+                <button class="bottom-button"
+                        id="redoButton"
+                        type="button">
+                    REDO
+                </button>
+
+
+                <button class="bottom-button"
+                        id="resetButton"
+                        type="button">
+                    START OVER
+                </button>
+
+
+                <button class="bottom-button save"
+                        id="saveButton"
+                        type="button">
+                    SAVE MY ART
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <div class="studio-credit">
+
+        Mia the Panda · Character created by Mia
+
+        <br>
+
+        Developed with Alex Reynoso Art
+
+    </div>
+
+
+</main>
+
+
+
+<footer>
+    &copy; 2026 Alex Reynoso Art
+</footer>
+
+
+
+<script>
+
+    /* =========================
+       MIA COLORING ENGINE
+       ========================= */
+
+
+    const canvas =
+        document.getElementById('colorCanvas');
+
+    const ctx =
+        canvas.getContext('2d', {
+            willReadFrequently: true
+        });
+
+
+    const sourceImage =
+        new Image();
+
+
+    sourceImage.src =
+        'images/mia-the-panda-coloring-page.png';
+
+
+    let currentTool = 'fill';
+
+    let currentColor = '#e88eaa';
+
+    let brushSize = 18;
+
+    let drawing = false;
+
+    let lastX = 0;
+
+    let lastY = 0;
+
+
+    let history = [];
+
+    let historyIndex = -1;
+
+    const maxHistory = 25;
+
+
+
+    /* =========================
+       LOAD IMAGE
+       ========================= */
+
+
+    sourceImage.onload = function() {
+
+        canvas.width =
+            sourceImage.naturalWidth;
+
+        canvas.height =
+            sourceImage.naturalHeight;
+
+
+        resetCanvas(false);
+
+        saveHistory();
+
+    };
+
+
+
+    /* =========================
+       ORIGINAL ART
+       ========================= */
+
+
+    function resetCanvas(saveState = true) {
+
+        ctx.save();
+
+        ctx.globalCompositeOperation =
+            'source-over';
+
+        ctx.fillStyle = '#ffffff';
+
+        ctx.fillRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+
+        ctx.drawImage(
+            sourceImage,
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+        ctx.restore();
+
+
+        if (saveState) {
+
+            history = [];
+            historyIndex = -1;
+
+            saveHistory();
+
+        }
+
+    }
+
+
+
+    /* =========================
+       HISTORY
+       ========================= */
+
+
+    function saveHistory() {
+
+        if (!canvas.width ||
+            !canvas.height) {
+            return;
+        }
+
+
+        history =
+            history.slice(
+                0,
+                historyIndex + 1
+            );
+
+
+        history.push(
+            ctx.getImageData(
+                0,
+                0,
+                canvas.width,
+                canvas.height
+            )
+        );
+
+
+        if (history.length > maxHistory) {
+
+            history.shift();
+
+        }
+
+
+        historyIndex =
+            history.length - 1;
+
+    }
+
+
+
+    function undo() {
+
+        if (historyIndex <= 0) {
+            return;
+        }
+
+
+        historyIndex--;
+
+
+        ctx.putImageData(
+            history[historyIndex],
+            0,
+            0
+        );
+
+    }
+
+
+
+    function redo() {
+
+        if (
+            historyIndex >=
+            history.length - 1
+        ) {
+            return;
+        }
+
+
+        historyIndex++;
+
+
+        ctx.putImageData(
+            history[historyIndex],
+            0,
+            0
+        );
+
+    }
+
+
+
+    /* =========================
+       TOOL SELECTION
+       ========================= */
+
+
+    const toolButtons = {
+        fill:
+            document.getElementById(
+                'fillTool'
+            ),
+
+        brush:
+            document.getElementById(
+                'brushTool'
+            ),
+
+        eraser:
+            document.getElementById(
+                'eraserTool'
+            )
+    };
+
+
+    function selectTool(tool) {
+
+        currentTool = tool;
+
+
+        Object.values(toolButtons)
+            .forEach(button => {
+
+                button.classList.remove(
+                    'active'
+                );
+
+            });
+
+
+        toolButtons[tool]
+            .classList.add('active');
+
+
+        const status =
+            document.getElementById(
+                'canvasStatus'
+            );
+
+
+        if (tool === 'fill') {
+
+            status.textContent =
+                'Fill tool selected. Tap an area to color it.';
+
+        }
+
+
+        if (tool === 'brush') {
+
+            status.textContent =
+                'Brush selected. Draw anywhere on Mia.';
+
+        }
+
+
+        if (tool === 'eraser') {
+
+            status.textContent =
+                'Eraser selected. Rub out your drawing.';
+
+        }
+
+    }
+
+
+
+    toolButtons.fill.onclick =
+        () => selectTool('fill');
+
+    toolButtons.brush.onclick =
+        () => selectTool('brush');
+
+    toolButtons.eraser.onclick =
+        () => selectTool('eraser');
+
+
+
+    /* =========================
+       COLORS
+       ========================= */
+
+
+    const swatches =
+        document.querySelectorAll(
+            '.swatch'
+        );
+
+
+    swatches.forEach(swatch => {
+
+        swatch.addEventListener(
+            'click',
+            function() {
+
+                currentColor =
+                    this.dataset.color;
+
+
+                swatches.forEach(item => {
+
+                    item.classList.remove(
+                        'selected'
+                    );
+
+                });
+
+
+                this.classList.add(
+                    'selected'
+                );
+
+            }
+        );
+
+    });
+
+
+
+    document.getElementById(
+        'customColor'
+    ).addEventListener(
+        'input',
+        function() {
+
+            currentColor = this.value;
+
+
+            swatches.forEach(item => {
+
+                item.classList.remove(
+                    'selected'
+                );
+
+            });
+
+        }
+    );
+
+
+
+    /* =========================
+       BRUSH SIZE
+       ========================= */
+
+
+    const brushSlider =
+        document.getElementById(
+            'brushSize'
+        );
+
+
+    brushSlider.addEventListener(
+        'input',
+        function() {
+
+            brushSize =
+                Number(this.value);
+
+
+            document.getElementById(
+                'brushSizeNumber'
+            ).textContent =
+                brushSize;
+
+        }
+    );
+
+
+
+    /* =========================
+       POINTER POSITION
+       ========================= */
+
+
+    function getCanvasPoint(event) {
+
+        const rect =
+            canvas.getBoundingClientRect();
+
+
+        const scaleX =
+            canvas.width /
+            rect.width;
+
+
+        const scaleY =
+            canvas.height /
+            rect.height;
+
+
+        return {
+
+            x:
+                Math.floor(
+                    (event.clientX -
+                     rect.left) *
+                    scaleX
+                ),
+
+            y:
+                Math.floor(
+                    (event.clientY -
+                     rect.top) *
+                    scaleY
+                )
+
+        };
+
+    }
+
+
+
+    /* =========================
+       BRUSH
+       ========================= */
+
+
+    function startDrawing(event) {
+
+        event.preventDefault();
+
+
+        const point =
+            getCanvasPoint(event);
+
+
+        if (currentTool === 'fill') {
+
+            floodFill(
+                point.x,
+                point.y,
+                currentColor
+            );
+
+            saveHistory();
+
+            return;
+
+        }
+
+
+        drawing = true;
+
+        lastX = point.x;
+
+        lastY = point.y;
+
+
+        drawLine(
+            lastX,
+            lastY,
+            lastX,
+            lastY
+        );
+
+    }
+
+
+
+    function continueDrawing(event) {
+
+        if (!drawing) {
+            return;
+        }
+
+
+        event.preventDefault();
+
+
+        const point =
+            getCanvasPoint(event);
+
+
+        drawLine(
+            lastX,
+            lastY,
+            point.x,
+            point.y
+        );
+
+
+        lastX = point.x;
+
+        lastY = point.y;
+
+    }
+
+
+
+    function stopDrawing() {
+
+        if (!drawing) {
+            return;
+        }
+
+
+        drawing = false;
+
+        saveHistory();
+
+    }
+
+
+
+    function drawLine(
+        x1,
+        y1,
+        x2,
+        y2
+    ) {
+
+        ctx.save();
+
+
+        ctx.globalCompositeOperation =
+            'source-over';
+
+
+        ctx.lineCap = 'round';
+
+        ctx.lineJoin = 'round';
+
+
+        ctx.lineWidth =
+            brushSize;
+
+
+        if (currentTool === 'eraser') {
+
+            ctx.strokeStyle =
+                '#ffffff';
+
+        } else {
+
+            ctx.strokeStyle =
+                currentColor;
+
+        }
+
+
+        ctx.beginPath();
+
+        ctx.moveTo(x1, y1);
+
+        ctx.lineTo(x2, y2);
+
+        ctx.stroke();
+
+
+        /*
+        Put original line art back
+        over brush strokes.
+        */
+
+        ctx.drawImage(
+            sourceImage,
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+
+        ctx.restore();
+
+    }
+
+
+
+    canvas.addEventListener(
+        'pointerdown',
+        startDrawing
+    );
+
+
+    canvas.addEventListener(
+        'pointermove',
+        continueDrawing
+    );
+
+
+    window.addEventListener(
+        'pointerup',
+        stopDrawing
+    );
+
+
+    canvas.addEventListener(
+        'pointercancel',
+        stopDrawing
+    );
+
+
+
+    /* =========================
+       FLOOD FILL
+       ========================= */
+
+
+    function hexToRGBA(hex) {
+
+        hex =
+            hex.replace('#', '');
+
+
+        return {
+            r:
+                parseInt(
+                    hex.substring(0, 2),
+                    16
+                ),
+
+            g:
+                parseInt(
+                    hex.substring(2, 4),
+                    16
+                ),
+
+            b:
+                parseInt(
+                    hex.substring(4, 6),
+                    16
+                ),
+
+            a: 255
+        };
+
+    }
+
+
+
+    function colorsClose(
+        r1,
+        g1,
+        b1,
+        a1,
+        r2,
+        g2,
+        b2,
+        a2,
+        tolerance = 18
+    ) {
+
+        return (
+            Math.abs(r1 - r2) <= tolerance &&
+            Math.abs(g1 - g2) <= tolerance &&
+            Math.abs(b1 - b2) <= tolerance &&
+            Math.abs(a1 - a2) <= tolerance
+        );
+
+    }
+
+
+
+    function floodFill(
+        startX,
+        startY,
+        fillHex
+    ) {
+
+        const width =
+            canvas.width;
+
+        const height =
+            canvas.height;
+
+
+        const imageData =
+            ctx.getImageData(
+                0,
+                0,
+                width,
+                height
+            );
+
+
+        const data =
+            imageData.data;
+
+
+        const startIndex =
+            (
+                startY *
+                width +
+                startX
+            ) * 4;
+
+
+        const target = {
+
+            r: data[startIndex],
+
+            g: data[startIndex + 1],
+
+            b: data[startIndex + 2],
+
+            a: data[startIndex + 3]
+
+        };
+
+
+        const fill =
+            hexToRGBA(fillHex);
+
+
+        if (
+            colorsClose(
+                target.r,
+                target.g,
+                target.b,
+                target.a,
+                fill.r,
+                fill.g,
+                fill.b,
+                fill.a,
+                5
+            )
+        ) {
+            return;
+        }
+
+
+        /*
+        Do not fill dark linework.
+        */
+
+        if (
+            target.r < 70 &&
+            target.g < 70 &&
+            target.b < 70
+        ) {
+            return;
+        }
+
+
+        const stack = [
+            [startX, startY]
+        ];
+
+
+        const visited =
+            new Uint8Array(
+                width * height
+            );
+
+
+        while (stack.length) {
+
+            const point =
+                stack.pop();
+
+
+            const x = point[0];
+
+            const y = point[1];
+
+
+            if (
+                x < 0 ||
+                y < 0 ||
+                x >= width ||
+                y >= height
+            ) {
+                continue;
+            }
+
+
+            const pixelPosition =
+                y * width + x;
+
+
+            if (
+                visited[pixelPosition]
+            ) {
+                continue;
+            }
+
+
+            visited[pixelPosition] = 1;
+
+
+            const index =
+                pixelPosition * 4;
+
+
+            if (
+                !colorsClose(
+                    data[index],
+                    data[index + 1],
+                    data[index + 2],
+                    data[index + 3],
+                    target.r,
+                    target.g,
+                    target.b,
+                    target.a
+                )
+            ) {
+                continue;
+            }
+
+
+            /*
+            Protect black linework.
+            */
+
+            if (
+                data[index] < 70 &&
+                data[index + 1] < 70 &&
+                data[index + 2] < 70
+            ) {
+                continue;
+            }
+
+
+            data[index] =
+                fill.r;
+
+            data[index + 1] =
+                fill.g;
+
+            data[index + 2] =
+                fill.b;
+
+            data[index + 3] =
+                255;
+
+
+            stack.push(
+                [x + 1, y]
+            );
+
+            stack.push(
+                [x - 1, y]
+            );
+
+            stack.push(
+                [x, y + 1]
+            );
+
+            stack.push(
+                [x, y - 1]
+            );
+
+        }
+
+
+        ctx.putImageData(
+            imageData,
+            0,
+            0
+        );
+
+
+        /*
+        Restore crisp original
+        line art over the color.
+        */
+
+        ctx.drawImage(
+            sourceImage,
+            0,
+            0,
+            width,
+            height
+        );
+
+    }
+
+
+
+    /* =========================
+       ACTION BUTTONS
+       ========================= */
+
+
+    document.getElementById(
+        'undoButton'
+    ).onclick = undo;
+
+
+    document.getElementById(
+        'redoButton'
+    ).onclick = redo;
+
+
+    document.getElementById(
+        'resetButton'
+    ).onclick = function() {
+
+        const okay =
+            confirm(
+                'Start over with a clean Mia?'
+            );
+
+
+        if (okay) {
+
+            resetCanvas(true);
+
+        }
+
+    };
+
+
+
+    /* =========================
+       SAVE ART
+       ========================= */
+
+
+    document.getElementById(
+        'saveButton'
+    ).onclick = function() {
+
+        const link =
+            document.createElement('a');
+
+
+        link.download =
+            'my-mia-the-panda-art.png';
+
+
+        link.href =
+            canvas.toDataURL(
+                'image/png'
+            );
+
+
+        link.click();
+
+    };
+
+
+</script>
+
+
+</body>
+
+</html>
