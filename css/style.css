@@ -1194,3 +1194,20 @@ footer {
     }
 
 }
+
+/* =========================
+   MIA THE PANDA
+   ========================= */
+
+body.mia-page-body header {
+    background: #111;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+body.mia-page-body header nav a {
+    color: #fff;
+}
+
+body.mia-page-body header nav a:hover {
+    color: #e88eaa;
+}
