@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-MK5FXXVXNJ');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mia the Panda | Alex Reynoso Art</title>
+
+    <meta name="description"
+          content="Meet Mia the Panda, a character created by Mia and developed through drawing, coloring pages, music, animation and imagination at Alex Reynoso Art.">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        /* =========================
+           MIA THE PANDA
+           Temporary Kids Corner
+           ========================= */
+
+        body {
+            background: #f8f5f7;
+            color: #222;
+        }
+
+        .mia-page {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 50px 24px 90px;
+        }
+
+
+        /* INTRO */
+
+        .mia-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 65px;
+        }
+
+        .mia-kicker {
+            font-size: 0.8rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #777;
+            margin-bottom: 12px;
+        }
+
+        .mia-title {
+            font-size: clamp(3.5rem, 10vw, 7.5rem);
+            line-height: 0.9;
+            margin: 0;
+            letter-spacing: -0.05em;
+            color: #111;
+        }
+
+        .mia-heart {
+            color: #e88eaa;
+        }
+
+        .mia-tagline {
+            margin: 20px 0 0;
+            font-size: clamp(1.15rem, 3vw, 1.7rem);
+            font-weight: 600;
+        }
+
+        .mia-created {
+            margin-top: 12px;
+            font-size: 0.95rem;
+            color: #777;
+        }
+
+
+        /* HERO CHARACTER */
+
+        .mia-hero {
+            max-width: 700px;
+            margin: 0 auto 70px;
+            text-align: center;
+        }
+
+        .mia-hero img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 28px;
+        }
+
+
+        /* STORY */
+
+        .mia-story {
+            max-width: 720px;
+            margin: 0 auto 80px;
+            text-align: center;
+        }
+
+        .mia-story h2 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            margin-bottom: 20px;
+        }
+
+        .mia-story p {
+            font-size: 1.08rem;
+            line-height: 1.8;
+            color: #444;
+        }
+
+
+        /* PROJECT CARDS */
+
+        .mia-projects {
+            margin-top: 60px;
+        }
+
+        .mia-section-title {
+            text-align: center;
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 40px;
+        }
+
+        .mia-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .mia-card {
+            background: #fff;
+            border-radius: 22px;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.08);
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        .mia-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 14px 30px rgba(0,0,0,0.10);
+        }
+
+        .mia-card-image {
+            aspect-ratio: 1 / 1;
+            background: #eee9ec;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .mia-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .mia-placeholder {
+            font-size: 3rem;
+            opacity: 0.35;
+        }
+
+        .mia-card-content {
+            padding: 22px;
+        }
+
+        .mia-card-content h3 {
+            margin: 0 0 9px;
+            font-size: 1.25rem;
+        }
+
+        .mia-card-content p {
+            margin: 0;
+            line-height: 1.6;
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+
+        /* KIDS CORNER */
+
+        .kids-corner {
+            max-width: 850px;
+            margin: 90px auto 0;
+            padding: 50px 35px;
+            text-align: center;
+            background: #fff;
+            border-radius: 28px;
+            border: 1px solid rgba(0,0,0,0.08);
+        }
+
+        .kids-corner h2 {
+            margin: 0 0 16px;
+            font-size: clamp(2rem, 5vw, 3rem);
+        }
+
+        .kids-corner p {
+            max-width: 620px;
+            margin: 0 auto;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .coming-soon {
+            margin-top: 24px;
+            font-weight: 700;
+            color: #e07f9f;
+        }
+
+
+        /* FOOT NOTE */
+
+        .mia-credit {
+            text-align: center;
+            margin-top: 65px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            .mia-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mia-page {
+                padding-top: 35px;
+            }
+
+            .mia-intro {
+                margin-bottom: 45px;
+            }
+
+            .mia-hero {
+                margin-bottom: 55px;
+            }
+
+            .kids-corner {
+                padding: 38px 22px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <header>
+
+        <a class="site-logo" href="index.html">
+            <img src="images/AlexReynosoArt-Logo_transparent.png"
+                 alt="Alex Reynoso Art">
+        </a>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="art.html">Art</a>
+            <a href="videos.html">Videos</a>
+            <a href="shop.html">Shop</a>
+            <a href="commissions.html">Commissions</a>
+        </nav>
+
+    </header>
+
+
+    <main class="mia-page">
+
+        <section class="mia-intro">
+
+            <div class="mia-kicker">
+                Alex Reynoso Art · Kids Corner
+            </div>
+
+            <h1 class="mia-title">
+                MIA<span class="mia-heart">♥</span>
+            </h1>
+
+            <p class="mia-tagline">
+                Same Panda. Different Vibes.
+            </p>
+
+            <p class="mia-created">
+                Character created by Mia ♥
+            </p>
+
+        </section>
+
+
+        <!--
+        Add the main Mia image later.
+
+        Suggested filename:
+        images/mia-the-panda.png
+
+        Then remove the comments around this block:
+
+        <section class="mia-hero">
+            <img src="images/mia-the-panda.png"
+                 alt="Mia the Panda">
+        </section>
+        -->
+
+
+        <section class="mia-story">
+
+            <h2>Meet Mia the Panda</h2>
+
+            <p>
+                Mia the Panda started with a drawing and a little
+                imagination. From there, her world began to grow —
+                into coloring pages, music, adventures, characters,
+                animation experiments and a whole lot of different vibes.
+            </p>
+
+            <p>
+                This is a growing creative project inspired by Mia's
+                original character and her ideas.
+            </p>
+
+        </section>
+
+
+        <section class="mia-projects">
+
+            <h2 class="mia-section-title">
+                Mia's World
+            </h2>
+
+            <div class="mia-grid">
+
+
+                <article class="mia-card">
+
+                    <div class="mia-card-image">
+                        <span class="mia-placeholder">♥</span>
+                    </div>
+
+                    <div class="mia-card-content">
+
+                        <h3>The Original</h3>
+
+                        <p>
+                            Where Mia the Panda began —
+                            one drawing and one very important
+                            pair of heart-shaped paws.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <article class="mia-card">
+
+                    <div class="mia-card-image">
+                        <span class="mia-placeholder">✎</span>
+                    </div>
+
+                    <div class="mia-card-content">
+
+                        <h3>Color Mia's World</h3>
+
+                        <p>
+                            Coloring pages filled with music,
+                            adventures, good vibes and places
+                            for imagination to take over.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+                <article class="mia-card">
+
+                    <div class="mia-card-image">
+                        <span class="mia-placeholder">♫</span>
+                    </div>
+
+                    <div class="mia-card-content">
+
+                        <h3>Music & Animation</h3>
+
+                        <p>
+                            Saxophones, character poses,
+                            expressions and experiments
+                            bringing Mia to life.
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+            </div>
+
+        </section>
+
+
+        <section class="kids-corner">
+
+            <h2>
+                Mia's Kids Corner ♥
+            </h2>
+
+            <p>
+                A growing collection of drawings, coloring pages,
+                music, stories and creative experiments inspired
+                by imagination, kindness and big dreams.
+            </p>
+
+            <div class="coming-soon">
+                More coming soon.
+            </div>
+
+        </section>
+
+
+        <div class="mia-credit">
+            Mia the Panda · Character created by Mia
+            <br>
+            Developed with Alex Reynoso Art
+        </div>
+
+    </main>
+
+
+    <footer>
+        &copy; 2026 Alex Reynoso Art
+    </footer>
+
+</body>
+
+</html>
