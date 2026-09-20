@@ -5,7 +5,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Shelita — Hola Music Visual | Alex Reynoso Art</title>
+  <title>Shelita , Hola Music Visual | Alex Reynoso Art</title>
 
   <meta
     name="description"
@@ -26,7 +26,7 @@
   <style>
 
     /* =========================================================
-       SHELITA — HOLA PROJECT PAGE
+       SHELITA , HOLA PROJECT PAGE
        ========================================================= */
 
     :root {
@@ -796,7 +796,7 @@
         <p>
           A visual world developed around
           singer-songwriter Shelita's song
-          <em>Hola</em> — combining atmospheric environments,
+          <em>Hola</em> , combining atmospheric environments,
           compositing, motion and surreal imagery.
         </p>
 
@@ -857,7 +857,7 @@
             <p>
               From there, the project became an exploration
               of color, atmosphere, movement and romantic,
-              dreamlike imagery — building a world that could
+              dreamlike imagery , building a world that could
               live alongside the song rather than simply
               illustrating it.
             </p>
@@ -1037,7 +1037,7 @@
       </h2>
 
       <p class="lead">
-        A still environment becomes a moving backdrop —
+        A still environment becomes a moving backdrop ,
         one of the layers used to construct the final visual.
       </p>
 
@@ -1051,13 +1051,16 @@
           shelita-hola-animated-background.mp4
         -->
 
-        <video controlsList="nodownload noremoteplayback" disablePictureInPicture(
-          )controls
+        <video
+          controls
+          autoplay
           muted
           loop
           playsinline
-          preload="metadata"
+          preload="auto"
           poster="images/shelita-hola-background.png"
+          controlsList="nodownload noremoteplayback"
+          disablePictureInPicture
         >
 
           <source
@@ -1116,11 +1119,13 @@
 
         <div class="process-video">
 
-          <video controlsList="nodownload noremoteplayback" disablePictureInPicture(
-            )controls
+          <video
+            controls
             muted
             playsinline
-            preload="metadata"
+            preload="auto"
+            controlsList="nodownload noremoteplayback"
+            disablePictureInPicture
           >
 
             <source
@@ -1142,11 +1147,13 @@
 
         <div class="process-video">
 
-          <video controlsList="nodownload noremoteplayback" disablePictureInPicture(
-            )controls
+          <video
+            controls
             muted
             playsinline
-            preload="metadata"
+            preload="auto"
+            controlsList="nodownload noremoteplayback"
+            disablePictureInPicture
           >
 
             <source
@@ -1364,6 +1371,15 @@
       if (event.target.matches(".hero-art img, .world-stage img")) {
         event.preventDefault();
       }
+    });
+
+    // Show a real video frame for the click-to-play process clips.
+    document.querySelectorAll(".process-video video").forEach(function (video) {
+      video.addEventListener("loadedmetadata", function () {
+        if (video.duration > 0 && video.currentTime === 0) {
+          video.currentTime = Math.min(0.1, video.duration / 2);
+        }
+      }, { once: true });
     });
   </script>
 
