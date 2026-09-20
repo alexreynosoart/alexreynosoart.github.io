@@ -86,58 +86,9 @@
       pointer-events: none;
     }
 
+    /* Header uses the shared css/style.css site header styles. */
 
-    /* =========================================================
-       HEADER
-       ========================================================= */
 
-    .site-header {
-      width: 100%;
-      border-bottom: 1px solid #262626;
-      background: rgba(10,10,10,.94);
-      position: relative;
-      z-index: 20;
-    }
-
-    .header-inner {
-      width: min(1100px, calc(100% - 40px));
-      margin: 0 auto;
-
-      min-height: 88px;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 30px;
-    }
-
-    .site-logo img {
-      width: 185px;
-      height: auto;
-    }
-
-    .main-nav {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .main-nav a {
-      text-decoration: none;
-      color: #ddd;
-      font-size: .82rem;
-      font-weight: 700;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      transition: color .2s ease;
-    }
-
-    .main-nav a:hover,
-    .main-nav a.active {
-      color: var(--yellow);
-    }
 
 
     /* =========================================================
@@ -295,29 +246,35 @@
       position: relative;
     }
 
-    .hero-art::before {
-      content: "";
-      position: absolute;
-
-      width: 75%;
-      height: 75%;
-
-      left: -30px;
-      bottom: -30px;
-
-      border: 1px solid rgba(244,196,48,.45);
-
-      z-index: -1;
-    }
-
     .hero-art img {
       width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-
+      height: auto;
+      object-fit: contain;
       box-shadow: 0 30px 80px rgba(0,0,0,.55);
     }
 
+
+
+    /* =========================================================
+       MEDIA DETERRENTS
+       Makes casual saving/dragging/right-clicking harder.
+       Browser-delivered media can never be made impossible to extract.
+       ========================================================= */
+
+    .protected-media,
+    .hero-art img,
+    .world-stage img,
+    .video-shell video,
+    .process-video video {
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .hero-art img,
+    .world-stage img {
+      pointer-events: none;
+    }
 
     /* =========================================================
        THE BRIEF
@@ -663,17 +620,6 @@
 
     @media (max-width: 820px) {
 
-      .header-inner {
-        padding: 20px 0;
-        flex-direction: column;
-        justify-content: center;
-      }
-
-      .main-nav {
-        justify-content: center;
-        gap: 14px 18px;
-      }
-
       .hero {
         grid-template-columns: 1fr;
         gap: 45px;
@@ -686,6 +632,8 @@
 
       .hero-art {
         order: 2;
+        width: min(88%, 560px);
+        margin: 0 auto;
       }
 
       .brief-grid {
@@ -740,14 +688,6 @@
         padding-bottom: 65px;
       }
 
-      .site-logo img {
-        width: 160px;
-      }
-
-      .main-nav {
-        font-size: .7rem;
-      }
-
       h1 {
         font-size: clamp(3rem, 17vw, 5rem);
       }
@@ -796,27 +736,23 @@
        HEADER
        ======================================================= -->
 
-  <header class="site-header">
+  <header>
 
-    <div class="header-inner">
+    <a class="site-logo" href="index.html">
+      <img draggable="false"
+        src="images/AlexReynosoArt-Logo_transparent.png"
+        alt="Alex Reynoso Art"
+      >
+    </a>
 
-      <a class="site-logo" href="index.html">
-        <img
-          src="images/AlexReynosoArt-Logo_transparent.png"
-          alt="Alex Reynoso Art"
-        >
-      </a>
-
-      <nav class="main-nav" aria-label="Main navigation">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="art.html">Art</a>
-        <a href="videos.html">Videos</a>
-        <a href="shop.html">Shop</a>
-        <a href="commissions.html" class="active">Commissions</a>
-      </nav>
-
-    </div>
+    <nav aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="art.html">Art</a>
+      <a href="videos.html">Videos</a>
+      <a href="shop.html">Shop</a>
+      <a href="commissions.html">Commissions</a>
+    </nav>
 
   </header>
 
@@ -876,7 +812,7 @@
 
       <div class="hero-art">
 
-        <img
+        <img draggable="false"
           src="images/shelita-hola-music-video-commission.jpg"
           alt="Hola by Shelita cover artwork"
         >
@@ -972,7 +908,7 @@
           and put it inside /images/
         -->
 
-        <img
+        <img draggable="false"
           class="world-background"
           src="images/shelita-hola-background.png"
           alt="Dreamlike blue and pink landscape created for the Hola visual project"
@@ -985,7 +921,7 @@
           shelita-hola-heart.png
         -->
 
-        <img
+        <img draggable="false"
           class="floating-heart"
           src="images/shelita-hola-heart.png"
           alt=""
@@ -999,7 +935,7 @@
           shelita-hola-lantern.png
         -->
 
-        <img
+        <img draggable="false"
           class="floating-lantern"
           src="images/shelita-hola-lantern.png"
           alt=""
@@ -1115,8 +1051,8 @@
           shelita-hola-animated-background.mp4
         -->
 
-        <video
-          controls
+        <video controlsList="nodownload noremoteplayback" disablePictureInPicture(
+          )controls
           muted
           loop
           playsinline
@@ -1180,8 +1116,8 @@
 
         <div class="process-video">
 
-          <video
-            controls
+          <video controlsList="nodownload noremoteplayback" disablePictureInPicture(
+            )controls
             muted
             playsinline
             preload="metadata"
@@ -1206,8 +1142,8 @@
 
         <div class="process-video">
 
-          <video
-            controls
+          <video controlsList="nodownload noremoteplayback" disablePictureInPicture(
+            )controls
             muted
             playsinline
             preload="metadata"
@@ -1413,6 +1349,23 @@
     © 2026 Alex Reynoso Art
   </footer>
 
+
+
+  <script>
+    // Discourage casual saving of project media.
+    // This does not make browser-delivered media impossible to extract.
+    document.addEventListener("contextmenu", function (event) {
+      if (event.target.closest(".hero-art, .world-stage, .video-shell, .process-video")) {
+        event.preventDefault();
+      }
+    });
+
+    document.addEventListener("dragstart", function (event) {
+      if (event.target.matches(".hero-art img, .world-stage img")) {
+        event.preventDefault();
+      }
+    });
+  </script>
 
 </body>
 </html>
