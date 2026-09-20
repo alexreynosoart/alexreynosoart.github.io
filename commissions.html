@@ -119,6 +119,21 @@
         border: 1px solid #333;
     }
 
+    .commission-card-link {
+        color: inherit;
+        text-decoration: none;
+        cursor: pointer;
+        transition: border-color 180ms ease, transform 180ms ease, background 180ms ease;
+    }
+
+    .commission-card-link:hover,
+    .commission-card-link:focus-visible {
+        border-color: #f4c430;
+        background: rgba(24, 24, 24, 0.96);
+        transform: translateY(-2px);
+        outline: none;
+    }
+
     .commission-thumbnail {
         width: 110px;
         aspect-ratio: 1 / 1;
@@ -651,7 +666,9 @@
 
                 <!-- 01 -->
 
-                <article class="commission-card">
+                <a class="commission-card commission-card-link"
+                   href="commission-shelita-hola.html"
+                   aria-label="View Shelita Hola music visual commission">
 
                     <div class="commission-thumbnail">
                         <img src="images/shelita-hola-music-video-commission.jpg"
@@ -674,7 +691,7 @@
 
                     </div>
 
-                </article>
+                </a>
 
 
                 <!-- 02 -->
