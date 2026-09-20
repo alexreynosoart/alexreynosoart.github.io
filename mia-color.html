@@ -17,15 +17,12 @@
         gtag('config', 'G-MK5FXXVXNJ');
     </script>
 
-
     <meta charset="UTF-8">
 
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
 
-
     <title>Color Studio | Mia the Panda</title>
-
 
     <meta name="description"
           content="A creative online coloring studio from Mia the Panda and Alex Reynoso Art.">
@@ -37,13 +34,11 @@
             box-sizing: border-box;
         }
 
-
         html,
         body {
             margin: 0;
             min-height: 100%;
         }
-
 
         body {
             background: #f8f5f7;
@@ -57,7 +52,6 @@
             overscroll-behavior: none;
         }
 
-
         button,
         input {
             font: inherit;
@@ -65,13 +59,13 @@
 
 
         /* =========================
-           STUDIO SHELL
+           STUDIO
            ========================= */
 
         .studio {
             max-width: 1450px;
             margin: 0 auto;
-            padding: 14px 18px 40px;
+            padding: 14px 18px 35px;
         }
 
 
@@ -81,59 +75,58 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+
             gap: 15px;
 
             min-height: 58px;
             margin-bottom: 12px;
         }
 
-
         .exit-studio {
             color: #333;
             text-decoration: none;
+
             font-size: 0.9rem;
             font-weight: 700;
         }
-
 
         .exit-studio:hover {
             color: #e07f9f;
         }
 
-
         .studio-name {
             text-align: center;
         }
-
 
         .studio-name strong {
             display: block;
             font-size: 1rem;
         }
 
-
         .studio-name span {
             display: block;
+
             margin-top: 2px;
 
             color: #888;
+
             font-size: 0.68rem;
             letter-spacing: 0.13em;
             text-transform: uppercase;
         }
-
 
         .studio-heart {
             color: #e88eaa;
         }
 
 
+        /* ZOOM */
+
         .zoom-controls {
             display: flex;
             align-items: center;
             gap: 5px;
         }
-
 
         .zoom-button {
             min-width: 42px;
@@ -146,9 +139,9 @@
             color: #222;
 
             font-weight: 700;
+
             cursor: pointer;
         }
-
 
         .zoom-button:hover {
             background: #111;
@@ -156,11 +149,13 @@
             color: #fff;
         }
 
-
         .zoom-readout {
             min-width: 56px;
+
             text-align: center;
+
             color: #666;
+
             font-size: 0.78rem;
             font-weight: 700;
         }
@@ -172,8 +167,13 @@
 
         .workspace {
             display: grid;
-            grid-template-columns: 220px minmax(0, 1fr);
+
+            grid-template-columns:
+                220px
+                minmax(0, 1fr);
+
             gap: 16px;
+
             align-items: start;
         }
 
@@ -197,20 +197,18 @@
             top: 12px;
         }
 
-
         .tool-section {
             padding-bottom: 16px;
             margin-bottom: 16px;
+
             border-bottom: 1px solid #eee;
         }
-
 
         .tool-section:last-child {
             margin: 0;
             padding: 0;
             border-bottom: 0;
         }
-
 
         .tool-label {
             display: block;
@@ -226,12 +224,10 @@
             text-transform: uppercase;
         }
 
-
         .tool-buttons {
             display: grid;
             gap: 7px;
         }
-
 
         .tool-button {
             min-height: 42px;
@@ -248,7 +244,6 @@
             cursor: pointer;
         }
 
-
         .tool-button.active {
             background: #111;
             border-color: #111;
@@ -262,12 +257,12 @@
 
         .palette {
             display: grid;
+
             grid-template-columns:
                 repeat(5, 1fr);
 
             gap: 7px;
         }
-
 
         .swatch {
             aspect-ratio: 1;
@@ -284,24 +279,23 @@
             cursor: pointer;
         }
 
-
         .swatch.selected {
             outline:
                 3px solid #222;
         }
 
-
         .custom-color {
             display: flex;
             align-items: center;
+
             gap: 9px;
 
             margin-top: 12px;
 
             color: #666;
+
             font-size: 0.75rem;
         }
-
 
         .custom-color input {
             width: 42px;
@@ -311,13 +305,16 @@
             padding: 0;
 
             background: transparent;
+
+            cursor: pointer;
         }
 
+
+        /* BRUSH SIZE */
 
         .brush-slider {
             width: 100%;
         }
-
 
         .brush-readout {
             margin-top: 5px;
@@ -331,13 +328,12 @@
 
 
         /* =========================
-           ART SIDE
+           ART
            ========================= */
 
         .art-side {
             min-width: 0;
         }
-
 
         .canvas-frame {
             position: relative;
@@ -363,7 +359,6 @@
             touch-action: none;
         }
 
-
         .canvas-stage {
             position: absolute;
 
@@ -382,6 +377,17 @@
             touch-action: none;
         }
 
+        .paper-background {
+            position: absolute;
+
+            inset: 0;
+
+            z-index: 1;
+
+            background: #fff;
+
+            pointer-events: none;
+        }
 
         #paintCanvas,
         #lineCanvas {
@@ -397,11 +403,9 @@
             touch-action: none;
         }
 
-
         #paintCanvas {
             z-index: 2;
         }
-
 
         #lineCanvas {
             z-index: 3;
@@ -409,25 +413,12 @@
         }
 
 
-        .paper-background {
-            position: absolute;
-
-            inset: 0;
-
-            z-index: 1;
-
-            background: #fff;
-
-            pointer-events: none;
-        }
-
-
-        /* =========================
-           STATUS
-           ========================= */
+        /* STATUS */
 
         .studio-status {
-            margin: 9px 0 0;
+            margin: 7px 0 0;
+
+            min-height: 18px;
 
             text-align: center;
 
@@ -438,7 +429,7 @@
 
 
         /* =========================
-           ACTION BAR
+           DESKTOP ACTIONS
            ========================= */
 
         .action-bar {
@@ -449,9 +440,8 @@
 
             gap: 8px;
 
-            margin-top: 10px;
+            margin-top: 8px;
         }
-
 
         .action-button {
             min-height: 44px;
@@ -470,7 +460,6 @@
             cursor: pointer;
         }
 
-
         .save-button {
             background: #e88eaa;
             border-color: #e88eaa;
@@ -479,7 +468,7 @@
 
 
         /* =========================
-           MOBILE TOOL DOCK
+           MOBILE DOCK
            ========================= */
 
         .mobile-dock {
@@ -487,9 +476,7 @@
         }
 
 
-        /* =========================
-           CREDIT
-           ========================= */
+        /* CREDIT */
 
         .studio-credit {
             margin-top: 24px;
@@ -505,61 +492,65 @@
 
 
         /* =========================
-           TABLET + MOBILE
+           TABLET + PHONE
            ========================= */
 
         @media (max-width: 850px) {
 
             body {
-                padding-bottom: 175px;
+                padding-bottom: 154px;
             }
-
 
             .studio {
                 padding:
-                    8px 8px 25px;
+                    7px 7px 0;
             }
-
 
             .studio-topbar {
-                min-height: 50px;
-                margin-bottom: 7px;
-            }
+                min-height: 46px;
 
+                margin-bottom: 5px;
+            }
 
             .studio-name span {
                 display: none;
             }
 
-
             .workspace {
                 display: block;
             }
-
 
             .toolbox {
                 display: none;
             }
 
-
             .canvas-frame {
                 height:
-                    calc(100vh - 145px);
+                    calc(
+                        100dvh -
+                        225px
+                    );
 
-                min-height: 390px;
+                min-height: 340px;
 
                 border-radius: 13px;
             }
 
+            .studio-status {
+                margin:
+                    5px 0 2px;
+
+                min-height: 16px;
+
+                font-size: 0.68rem;
+            }
 
             .action-bar {
                 display: none;
             }
 
-
-            .studio-status {
-                margin-top: 6px;
-                font-size: 0.68rem;
+            .studio-credit {
+                display: none;
             }
 
 
@@ -577,9 +568,9 @@
                 display: block;
 
                 padding:
-                    8px 10px
+                    7px 10px
                     calc(
-                        8px +
+                        7px +
                         env(
                             safe-area-inset-bottom
                         )
@@ -601,7 +592,20 @@
             }
 
 
+            /* MOBILE COLOR ROW */
+
+            .mobile-color-row {
+                display: flex;
+                align-items: center;
+
+                gap: 8px;
+
+                margin-bottom: 7px;
+            }
+
             .mobile-palette {
+                flex: 1;
+
                 display: flex;
 
                 gap: 9px;
@@ -609,16 +613,14 @@
                 overflow-x: auto;
 
                 padding:
-                    4px 3px 9px;
+                    4px 3px;
 
                 scrollbar-width: none;
             }
 
-
             .mobile-palette::-webkit-scrollbar {
                 display: none;
             }
-
 
             .mobile-palette .swatch {
                 flex:
@@ -629,17 +631,96 @@
             }
 
 
+            /* CUSTOM COLOR */
+
+            .mobile-custom-color {
+                flex:
+                    0 0 42px;
+
+                width: 42px;
+                height: 38px;
+
+                border:
+                    1px solid #ccc;
+
+                border-radius: 9px;
+
+                overflow: hidden;
+
+                background: #fff;
+            }
+
+            .mobile-custom-color input {
+                width: 100%;
+                height: 100%;
+
+                border: 0;
+                padding: 2px;
+
+                background: transparent;
+
+                cursor: pointer;
+            }
+
+
+            /* MOBILE TOOL ROW */
+
             .mobile-tools {
                 display: grid;
 
                 grid-template-columns:
-                    repeat(3, 1fr);
+                    repeat(4, 1fr);
 
                 gap: 6px;
 
                 margin-bottom: 7px;
             }
 
+
+            /* MOBILE BRUSH SIZE */
+
+            .mobile-brush-row {
+                display: flex;
+                align-items: center;
+
+                gap: 9px;
+
+                margin-bottom: 7px;
+
+                padding:
+                    0 3px;
+            }
+
+            .mobile-brush-label {
+                flex:
+                    0 0 auto;
+
+                color: #666;
+
+                font-size: 0.67rem;
+                font-weight: 700;
+
+                white-space: nowrap;
+            }
+
+            .mobile-brush-slider {
+                flex: 1;
+                min-width: 0;
+            }
+
+            .mobile-brush-value {
+                flex:
+                    0 0 38px;
+
+                text-align: right;
+
+                color: #777;
+
+                font-size: 0.67rem;
+            }
+
+
+            /* MOBILE ACTIONS */
 
             .mobile-actions {
                 display: grid;
@@ -650,9 +731,8 @@
                 gap: 6px;
             }
 
-
             .mobile-button {
-                min-height: 42px;
+                min-height: 40px;
 
                 border:
                     1px solid #ccc;
@@ -662,10 +742,9 @@
                 background: #fff;
                 color: #222;
 
-                font-size: 0.7rem;
+                font-size: 0.68rem;
                 font-weight: 700;
             }
-
 
             .mobile-button.active {
                 background: #111;
@@ -673,16 +752,10 @@
                 color: #fff;
             }
 
-
             .mobile-button.save {
                 background: #e88eaa;
                 border-color: #e88eaa;
                 color: #fff;
-            }
-
-
-            .studio-credit {
-                display: none;
             }
 
         }
@@ -691,23 +764,31 @@
         @media (max-width: 480px) {
 
             .studio-name strong {
-                font-size: 0.82rem;
+                font-size: 0.8rem;
             }
-
 
             .exit-studio {
-                font-size: 0.76rem;
+                font-size: 0.72rem;
             }
-
 
             .zoom-button {
-                min-width: 36px;
-                min-height: 36px;
-            }
+                min-width: 34px;
+                min-height: 34px;
 
+                padding:
+                    0 7px;
+            }
 
             .zoom-readout {
                 display: none;
+            }
+
+            .canvas-frame {
+                height:
+                    calc(
+                        100dvh -
+                        238px
+                    );
             }
 
         }
@@ -723,9 +804,7 @@
 <div class="studio">
 
 
-    <!-- =====================
-         TOP BAR
-         ===================== -->
+    <!-- TOP BAR -->
 
     <header class="studio-topbar">
 
@@ -786,14 +865,10 @@
 
 
 
-    <!-- =====================
-         WORKSPACE
-         ===================== -->
-
     <main class="workspace">
 
 
-        <!-- DESKTOP TOOLS -->
+        <!-- DESKTOP TOOLBOX -->
 
         <aside class="toolbox">
 
@@ -825,6 +900,13 @@
                             data-tool="eraser"
                             type="button">
                         ERASER
+                    </button>
+
+
+                    <button class="tool-button"
+                            data-tool="move"
+                            type="button">
+                        MOVE
                     </button>
 
                 </div>
@@ -933,13 +1015,11 @@
 
             <div class="action-bar">
 
-
                 <button class="action-button"
                         id="undoDesktop"
                         type="button">
                     UNDO
                 </button>
-
 
                 <button class="action-button"
                         id="redoDesktop"
@@ -947,20 +1027,17 @@
                     REDO
                 </button>
 
-
                 <button class="action-button"
                         id="resetDesktop"
                         type="button">
                     START OVER
                 </button>
 
-
                 <button class="action-button save-button"
                         id="saveDesktop"
                         type="button">
                     SAVE MY ART
                 </button>
-
 
             </div>
 
@@ -988,15 +1065,36 @@
 
 
 <!-- =========================
-     MOBILE DOCK
+     MOBILE TOOL DOCK
      ========================= -->
 
 <div class="mobile-dock">
 
 
-    <div class="mobile-palette">
+    <!-- COLORS + CUSTOM COLOR -->
+
+    <div class="mobile-color-row">
+
+
+        <div class="mobile-palette">
+        </div>
+
+
+        <label class="mobile-custom-color"
+               aria-label="Pick your own color">
+
+            <input id="mobileCustomColor"
+                   type="color"
+                   value="#e88eaa">
+
+        </label>
+
+
     </div>
 
+
+
+    <!-- TOOLS -->
 
     <div class="mobile-tools">
 
@@ -1006,13 +1104,11 @@
             FILL
         </button>
 
-
         <button class="mobile-button"
                 data-tool="brush"
                 type="button">
             BRUSH
         </button>
-
 
         <button class="mobile-button"
                 data-tool="eraser"
@@ -1020,8 +1116,48 @@
             ERASE
         </button>
 
+        <button class="mobile-button"
+                data-tool="move"
+                type="button">
+            MOVE
+        </button>
+
     </div>
 
+
+
+    <!-- BRUSH SIZE -->
+
+    <div class="mobile-brush-row">
+
+        <span class="mobile-brush-label">
+            BRUSH SIZE
+        </span>
+
+
+        <input class="mobile-brush-slider"
+               id="mobileBrushSize"
+               type="range"
+               min="3"
+               max="100"
+               value="18">
+
+
+        <span class="mobile-brush-value">
+
+            <span id="mobileBrushReadout">
+                18
+            </span>
+
+            px
+
+        </span>
+
+    </div>
+
+
+
+    <!-- ACTIONS -->
 
     <div class="mobile-actions">
 
@@ -1031,20 +1167,17 @@
             ↶ UNDO
         </button>
 
-
         <button class="mobile-button"
                 id="redoMobile"
                 type="button">
             ↷ REDO
         </button>
 
-
         <button class="mobile-button"
                 id="resetMobile"
                 type="button">
             RESET
         </button>
-
 
         <button class="mobile-button save"
                 id="saveMobile"
@@ -1063,18 +1196,14 @@
 
     /* =====================================================
        MIA CREATIVE STUDIO
-       =====================================================
 
-       ARTWORK SOURCE
-       Change this value later when multiple pages exist.
+       The coloring engine is separate from any
+       future product or commerce system.
 
-       A future gallery can call:
-       mia-color.html?art=some-id
+       Finished artwork can later be handed to
+       a secure backend through getArtworkBlob().
 
-       The product/API layer should NOT live here.
-       Finished artwork is exported through
-       createFinishedArtwork().
-
+       Never place third-party API keys here.
        ===================================================== */
 
 
@@ -1099,18 +1228,15 @@
        CANVAS
        ========================= */
 
-
     const paintCanvas =
         document.getElementById(
             'paintCanvas'
         );
 
-
     const lineCanvas =
         document.getElementById(
             'lineCanvas'
         );
-
 
     const paintCtx =
         paintCanvas.getContext(
@@ -1120,7 +1246,6 @@
             }
         );
 
-
     const lineCtx =
         lineCanvas.getContext(
             '2d',
@@ -1129,136 +1254,120 @@
             }
         );
 
-
     const canvasFrame =
         document.getElementById(
             'canvasFrame'
         );
-
 
     const canvasStage =
         document.getElementById(
             'canvasStage'
         );
 
-
     const sourceImage =
         new Image();
 
-
     sourceImage.src =
         ARTWORK.source;
-
 
 
     /* =========================
        STATE
        ========================= */
 
-
     let currentTool =
         'fill';
-
 
     let currentColor =
         '#e88eaa';
 
-
     let brushSize =
         18;
-
 
     let drawing =
         false;
 
+    let moving =
+        false;
 
     let lastX =
         0;
 
-
     let lastY =
         0;
 
+    let moveStartX =
+        0;
+
+    let moveStartY =
+        0;
+
+    let moveStartPanX =
+        0;
+
+    let moveStartPanY =
+        0;
 
     let boundaryData =
         null;
 
-
     let history =
         [];
-
 
     let historyIndex =
         -1;
 
-
     const maxHistory =
         30;
-
 
 
     /* =========================
        VIEW STATE
        ========================= */
 
-
     let fitScale =
         1;
-
 
     let zoomMultiplier =
         1;
 
-
     let panX =
         0;
-
 
     let panY =
         0;
 
-
     const minZoom =
         1;
-
 
     const maxZoom =
         5;
 
-
     const activePointers =
         new Map();
-
 
     let pinchStartDistance =
         0;
 
-
     let pinchStartZoom =
         1;
-
 
     let panStartCenter =
         null;
 
-
     let panStartX =
         0;
 
-
     let panStartY =
         0;
-
 
     let navigationGesture =
         false;
 
 
-
     /* =========================
        COLORS
        ========================= */
-
 
     const COLORS = [
 
@@ -1278,29 +1387,23 @@
     ];
 
 
-
     function buildPalette(
         container
     ) {
 
-
         COLORS.forEach(
             function(color) {
-
 
                 const button =
                     document.createElement(
                         'button'
                     );
 
-
                 button.type =
                     'button';
 
-
                 button.className =
                     'swatch';
-
 
                 if (
                     color ===
@@ -1313,14 +1416,11 @@
 
                 }
 
-
                 button.dataset.color =
                     color;
 
-
                 button.style.background =
                     color;
-
 
                 button.setAttribute(
                     'aria-label',
@@ -1328,14 +1428,11 @@
                     color
                 );
 
-
                 button.addEventListener(
                     'click',
                     function(event) {
 
-
                         event.stopPropagation();
-
 
                         selectColor(
                             color
@@ -1343,7 +1440,6 @@
 
                     }
                 );
-
 
                 container.appendChild(
                     button
@@ -1355,7 +1451,6 @@
     }
 
 
-
     document
         .querySelectorAll(
             '.desktop-palette, .mobile-palette'
@@ -1365,15 +1460,12 @@
         );
 
 
-
     function selectColor(
         color
     ) {
 
-
         currentColor =
             color;
-
 
         document
             .querySelectorAll(
@@ -1381,7 +1473,6 @@
             )
             .forEach(
                 function(swatch) {
-
 
                     swatch.classList.toggle(
                         'selected',
@@ -1392,8 +1483,21 @@
                 }
             );
 
-    }
+        document
+            .getElementById(
+                'customColor'
+            )
+            .value =
+                color;
 
+        document
+            .getElementById(
+                'mobileCustomColor'
+            )
+            .value =
+                color;
+
+    }
 
 
     document
@@ -1404,6 +1508,21 @@
             'input',
             function() {
 
+                selectColor(
+                    this.value
+                );
+
+            }
+        );
+
+
+    document
+        .getElementById(
+            'mobileCustomColor'
+        )
+        .addEventListener(
+            'input',
+            function() {
 
                 selectColor(
                     this.value
@@ -1413,52 +1532,36 @@
         );
 
 
-
     /* =========================
        INITIALIZE ART
        ========================= */
 
-
     sourceImage.onload =
         function() {
-
 
             const width =
                 sourceImage.naturalWidth;
 
-
             const height =
                 sourceImage.naturalHeight;
-
 
             paintCanvas.width =
                 width;
 
-
             paintCanvas.height =
                 height;
-
 
             lineCanvas.width =
                 width;
 
-
             lineCanvas.height =
                 height;
-
 
             canvasStage.style.width =
                 width + 'px';
 
-
             canvasStage.style.height =
                 height + 'px';
-
-
-            /*
-            Draw original source
-            temporarily.
-            */
 
 
             lineCtx.drawImage(
@@ -1471,10 +1574,9 @@
 
 
             /*
-            Original pixels are kept
-            for fill boundaries.
+            Original source remains available
+            for fill-boundary detection.
             */
-
 
             boundaryData =
                 lineCtx.getImageData(
@@ -1486,13 +1588,10 @@
 
 
             /*
-            Convert white background
-            into transparency.
-
-            Dark line art remains
-            protected above paint.
+            Convert white/light source pixels
+            to transparency for the protected
+            line-art layer.
             */
-
 
             const lineImage =
                 lineCtx.getImageData(
@@ -1501,7 +1600,6 @@
                     width,
                     height
                 );
-
 
             const pixels =
                 lineImage.data;
@@ -1513,18 +1611,14 @@
                 i += 4
             ) {
 
-
                 const r =
                     pixels[i];
-
 
                 const g =
                     pixels[i + 1];
 
-
                 const b =
                     pixels[i + 2];
-
 
                 const darkness =
                     255 -
@@ -1539,14 +1633,11 @@
                     darkness < 15
                 ) {
 
-
                     pixels[
                         i + 3
                     ] = 0;
 
-
                 } else {
-
 
                     pixels[i] = 0;
 
@@ -1557,7 +1648,6 @@
                     pixels[
                         i + 2
                     ] = 0;
-
 
                     pixels[
                         i + 3
@@ -1579,13 +1669,11 @@
                 height
             );
 
-
             lineCtx.putImageData(
                 lineImage,
                 0,
                 0
             );
-
 
             paintCtx.clearRect(
                 0,
@@ -1594,25 +1682,20 @@
                 height
             );
 
-
             saveHistory();
-
 
             requestAnimationFrame(
                 fitArtwork
             );
 
-    };
-
+        };
 
 
     /* =========================
        FIT / ZOOM / PAN
        ========================= */
 
-
     function fitArtwork() {
-
 
         if (
             !paintCanvas.width ||
@@ -1621,18 +1704,14 @@
             return;
         }
 
-
         const frameWidth =
             canvasFrame.clientWidth;
-
 
         const frameHeight =
             canvasFrame.clientHeight;
 
-
         const padding =
-            28;
-
+            22;
 
         fitScale =
             Math.min(
@@ -1651,32 +1730,25 @@
 
             );
 
-
         zoomMultiplier =
             1;
-
 
         panX =
             0;
 
-
         panY =
             0;
-
 
         updateView();
 
     }
 
 
-
     function updateView() {
-
 
         const scale =
             fitScale *
             zoomMultiplier;
-
 
         canvasStage.style.transform =
             'translate(' +
@@ -1689,12 +1761,10 @@
             scale +
             ')';
 
-
         const readout =
             document.getElementById(
                 'zoomReadout'
             );
-
 
         if (
             Math.abs(
@@ -1719,11 +1789,9 @@
     }
 
 
-
     function setZoom(
         value
     ) {
-
 
         zoomMultiplier =
             Math.max(
@@ -1734,22 +1802,18 @@
                 )
             );
 
-
         if (
             zoomMultiplier === 1
         ) {
 
             panX = 0;
-
             panY = 0;
 
         }
 
-
         updateView();
 
     }
-
 
 
     document
@@ -1760,7 +1824,6 @@
             'click',
             function() {
 
-
                 setZoom(
                     zoomMultiplier *
                     1.25
@@ -1768,7 +1831,6 @@
 
             }
         );
-
 
 
     document
@@ -1779,7 +1841,6 @@
             'click',
             function() {
 
-
                 setZoom(
                     zoomMultiplier /
                     1.25
@@ -1787,7 +1848,6 @@
 
             }
         );
-
 
 
     document
@@ -1800,14 +1860,11 @@
         );
 
 
-
     canvasFrame.addEventListener(
         'wheel',
         function(event) {
 
-
             event.preventDefault();
-
 
             if (
                 event.deltaY < 0
@@ -1834,11 +1891,9 @@
     );
 
 
-
     window.addEventListener(
         'resize',
         function() {
-
 
             if (
                 zoomMultiplier === 1
@@ -1852,20 +1907,16 @@
     );
 
 
-
     /* =========================
-       TOOLS
+       TOOL SELECTION
        ========================= */
-
 
     function selectTool(
         tool
     ) {
 
-
         currentTool =
             tool;
-
 
         document
             .querySelectorAll(
@@ -1873,7 +1924,6 @@
             )
             .forEach(
                 function(button) {
-
 
                     button.classList.toggle(
                         'active',
@@ -1920,8 +1970,17 @@
 
         }
 
-    }
 
+        if (
+            tool === 'move'
+        ) {
+
+            status.textContent =
+                'Move selected. Drag to explore the page. Pinch to zoom.';
+
+        }
+
+    }
 
 
     document
@@ -1931,11 +1990,9 @@
         .forEach(
             function(button) {
 
-
                 button.addEventListener(
                     'click',
                     function() {
-
 
                         selectTool(
                             this.dataset.tool
@@ -1948,55 +2005,90 @@
         );
 
 
-
     /* =========================
        BRUSH SIZE
        ========================= */
 
-
-    const brushSlider =
+    const desktopBrushSlider =
         document.getElementById(
             'brushSize'
         );
 
+    const mobileBrushSlider =
+        document.getElementById(
+            'mobileBrushSize'
+        );
 
-    brushSlider.addEventListener(
-        'input',
-        function() {
+
+    function updateBrushSize(
+        value
+    ) {
+
+        brushSize =
+            Number(
+                value
+            );
+
+        desktopBrushSlider.value =
+            brushSize;
+
+        mobileBrushSlider.value =
+            brushSize;
+
+        document
+            .getElementById(
+                'brushReadout'
+            )
+            .textContent =
+                brushSize;
+
+        document
+            .getElementById(
+                'mobileBrushReadout'
+            )
+            .textContent =
+                brushSize;
+
+    }
 
 
-            brushSize =
-                Number(
+    desktopBrushSlider
+        .addEventListener(
+            'input',
+            function() {
+
+                updateBrushSize(
                     this.value
                 );
 
+            }
+        );
 
-            document
-                .getElementById(
-                    'brushReadout'
-                )
-                .textContent =
-                    brushSize;
 
-        }
-    );
+    mobileBrushSlider
+        .addEventListener(
+            'input',
+            function() {
 
+                updateBrushSize(
+                    this.value
+                );
+
+            }
+        );
 
 
     /* =========================
        CANVAS COORDINATES
        ========================= */
 
-
     function getCanvasPoint(
         event
     ) {
 
-
         const rect =
             paintCanvas
                 .getBoundingClientRect();
-
 
         return {
 
@@ -2039,27 +2131,22 @@
     }
 
 
-
     /* =========================
-       POINTER HELPERS
+       PINCH HELPERS
        ========================= */
 
-
     function pointerCenter() {
-
 
         const points =
             Array.from(
                 activePointers.values()
             );
 
-
         if (
             points.length < 2
         ) {
             return null;
         }
-
 
         return {
 
@@ -2080,22 +2167,18 @@
     }
 
 
-
     function pointerDistance() {
-
 
         const points =
             Array.from(
                 activePointers.values()
             );
 
-
         if (
             points.length < 2
         ) {
             return 0;
         }
-
 
         return Math.hypot(
 
@@ -2110,19 +2193,15 @@
     }
 
 
-
     /* =========================
        POINTER DOWN
        ========================= */
-
 
     paintCanvas.addEventListener(
         'pointerdown',
         function(event) {
 
-
             event.preventDefault();
-
 
             activePointers.set(
                 event.pointerId,
@@ -2145,44 +2224,47 @@
 
 
             /*
-            Two fingers switch
-            immediately into
-            navigation mode.
+            Two fingers always mean navigation.
+            No paint or fill is performed.
             */
-
 
             if (
                 activePointers.size >= 2
             ) {
 
-
                 drawing =
                     false;
 
+                moving =
+                    false;
 
                 navigationGesture =
                     true;
 
-
                 pinchStartDistance =
                     pointerDistance();
-
 
                 pinchStartZoom =
                     zoomMultiplier;
 
-
                 panStartCenter =
                     pointerCenter();
-
 
                 panStartX =
                     panX;
 
-
                 panStartY =
                     panY;
 
+                /*
+                After pinch begins, switch to
+                MOVE so one-finger navigation
+                is safe after fingers are lifted.
+                */
+
+                selectTool(
+                    'move'
+                );
 
                 return;
 
@@ -2193,23 +2275,53 @@
                 false;
 
 
+            /*
+            MOVE TOOL
+            */
+
+            if (
+                currentTool === 'move'
+            ) {
+
+                moving =
+                    true;
+
+                moveStartX =
+                    event.clientX;
+
+                moveStartY =
+                    event.clientY;
+
+                moveStartPanX =
+                    panX;
+
+                moveStartPanY =
+                    panY;
+
+                return;
+
+            }
+
+
             const point =
                 getCanvasPoint(
                     event
                 );
 
 
+            /*
+            FILL
+            */
+
             if (
                 currentTool === 'fill'
             ) {
-
 
                 floodFill(
                     point.x,
                     point.y,
                     currentColor
                 );
-
 
                 saveHistory();
 
@@ -2218,17 +2330,18 @@
             }
 
 
+            /*
+            BRUSH / ERASER
+            */
+
             drawing =
                 true;
-
 
             lastX =
                 point.x;
 
-
             lastY =
                 point.y;
-
 
             drawStroke(
                 lastX,
@@ -2241,23 +2354,19 @@
     );
 
 
-
     /* =========================
        POINTER MOVE
        ========================= */
 
-
     paintCanvas.addEventListener(
         'pointermove',
         function(event) {
-
 
             if (
                 activePointers.has(
                     event.pointerId
                 )
             ) {
-
 
                 activePointers.set(
                     event.pointerId,
@@ -2270,26 +2379,31 @@
             }
 
 
+            /*
+            TWO-FINGER NAVIGATION
+            */
+
             if (
                 activePointers.size >= 2
             ) {
 
-
                 event.preventDefault();
-
 
                 navigationGesture =
                     true;
 
+                drawing =
+                    false;
+
+                moving =
+                    false;
 
                 const distance =
                     pointerDistance();
 
-
                 if (
                     pinchStartDistance > 0
                 ) {
-
 
                     zoomMultiplier =
                         Math.max(
@@ -2307,16 +2421,13 @@
 
                 }
 
-
                 const center =
                     pointerCenter();
-
 
                 if (
                     center &&
                     panStartCenter
                 ) {
-
 
                     panX =
                         panStartX +
@@ -2324,7 +2435,6 @@
                             center.x -
                             panStartCenter.x
                         );
-
 
                     panY =
                         panStartY +
@@ -2335,6 +2445,37 @@
 
                 }
 
+                updateView();
+
+                return;
+
+            }
+
+
+            /*
+            ONE-FINGER MOVE
+            */
+
+            if (
+                currentTool === 'move' &&
+                moving
+            ) {
+
+                event.preventDefault();
+
+                panX =
+                    moveStartPanX +
+                    (
+                        event.clientX -
+                        moveStartX
+                    );
+
+                panY =
+                    moveStartPanY +
+                    (
+                        event.clientY -
+                        moveStartY
+                    );
 
                 updateView();
 
@@ -2343,6 +2484,10 @@
             }
 
 
+            /*
+            DRAWING
+            */
+
             if (
                 !drawing ||
                 navigationGesture
@@ -2350,15 +2495,12 @@
                 return;
             }
 
-
             event.preventDefault();
-
 
             const point =
                 getCanvasPoint(
                     event
                 );
-
 
             drawStroke(
                 lastX,
@@ -2367,10 +2509,8 @@
                 point.y
             );
 
-
             lastX =
                 point.x;
-
 
             lastY =
                 point.y;
@@ -2379,16 +2519,13 @@
     );
 
 
-
     /* =========================
        POINTER END
        ========================= */
 
-
     function endPointer(
         event
     ) {
-
 
         activePointers.delete(
             event.pointerId
@@ -2413,14 +2550,16 @@
             drawing
         ) {
 
-
             drawing =
                 false;
-
 
             saveHistory();
 
         }
+
+
+        moving =
+            false;
 
 
         if (
@@ -2435,12 +2574,10 @@
     }
 
 
-
     paintCanvas.addEventListener(
         'pointerup',
         endPointer
     );
-
 
     paintCanvas.addEventListener(
         'pointercancel',
@@ -2448,11 +2585,9 @@
     );
 
 
-
     /* =========================
        BRUSH + ERASER
        ========================= */
-
 
     function drawStroke(
         x1,
@@ -2461,17 +2596,13 @@
         y2
     ) {
 
-
         paintCtx.save();
-
 
         paintCtx.lineCap =
             'round';
 
-
         paintCtx.lineJoin =
             'round';
-
 
         paintCtx.lineWidth =
             brushSize;
@@ -2482,29 +2613,22 @@
             'eraser'
         ) {
 
-
             paintCtx.globalCompositeOperation =
                 'destination-out';
 
-
             paintCtx.strokeStyle =
                 '#000';
-
 
             paintCtx.fillStyle =
                 '#000';
 
-
         } else {
-
 
             paintCtx.globalCompositeOperation =
                 'source-over';
 
-
             paintCtx.strokeStyle =
                 currentColor;
-
 
             paintCtx.fillStyle =
                 currentColor;
@@ -2514,24 +2638,20 @@
 
         paintCtx.beginPath();
 
-
         paintCtx.moveTo(
             x1,
             y1
         );
-
 
         paintCtx.lineTo(
             x2,
             y2
         );
 
-
         paintCtx.stroke();
 
 
         paintCtx.beginPath();
-
 
         paintCtx.arc(
             x2,
@@ -2541,32 +2661,26 @@
             Math.PI * 2
         );
 
-
         paintCtx.fill();
-
 
         paintCtx.restore();
 
     }
 
 
-
     /* =========================
        FILL HELPERS
        ========================= */
 
-
     function hexToRGB(
         hex
     ) {
-
 
         hex =
             hex.replace(
                 '#',
                 ''
             );
-
 
         return {
 
@@ -2602,15 +2716,12 @@
     }
 
 
-
     function isBoundaryPixel(
         index
     ) {
 
-
         const data =
             boundaryData.data;
-
 
         return (
 
@@ -2629,11 +2740,9 @@
     }
 
 
-
     /* =========================
        FLOOD FILL
        ========================= */
-
 
     function floodFill(
         startX,
@@ -2641,27 +2750,22 @@
         fillHex
     ) {
 
-
         if (
             !boundaryData
         ) {
             return;
         }
 
-
         const width =
             paintCanvas.width;
 
-
         const height =
             paintCanvas.height;
-
 
         const startPosition =
             startY *
             width +
             startX;
-
 
         if (
             isBoundaryPixel(
@@ -2671,7 +2775,6 @@
             return;
         }
 
-
         const image =
             paintCtx.getImageData(
                 0,
@@ -2680,14 +2783,11 @@
                 height
             );
 
-
         const data =
             image.data;
 
-
         const startIndex =
             startPosition * 4;
-
 
         const target = {
 
@@ -2712,7 +2812,6 @@
                 ]
 
         };
-
 
         const fill =
             hexToRGB(
@@ -2750,7 +2849,6 @@
                 height
             );
 
-
         const stack =
             [
                 [
@@ -2764,7 +2862,6 @@
             position
         ) {
 
-
             if (
                 visited[
                     position
@@ -2773,7 +2870,6 @@
                 return false;
             }
 
-
             if (
                 isBoundaryPixel(
                     position * 4
@@ -2781,7 +2877,6 @@
             ) {
                 return false;
             }
-
 
             const index =
                 position * 4;
@@ -2835,32 +2930,26 @@
             position
         ) {
 
-
             const index =
                 position * 4;
 
-
             data[index] =
                 fill.r;
-
 
             data[
                 index + 1
             ] =
                 fill.g;
 
-
             data[
                 index + 2
             ] =
                 fill.b;
 
-
             data[
                 index + 3
             ] =
                 255;
-
 
             visited[
                 position
@@ -2874,14 +2963,11 @@
             stack.length
         ) {
 
-
             const point =
                 stack.pop();
 
-
             const x =
                 point[0];
-
 
             let y =
                 point[1];
@@ -2915,7 +3001,6 @@
 
             ) {
 
-
                 y--;
 
                 position -=
@@ -2933,7 +3018,6 @@
             let reachLeft =
                 false;
 
-
             let reachRight =
                 false;
 
@@ -2948,7 +3032,6 @@
 
             ) {
 
-
                 colorPixel(
                     position
                 );
@@ -2958,10 +3041,8 @@
                     x > 0
                 ) {
 
-
                     const left =
                         position - 1;
-
 
                     if (
                         matches(
@@ -2969,11 +3050,9 @@
                         )
                     ) {
 
-
                         if (
                             !reachLeft
                         ) {
-
 
                             stack.push(
                                 [
@@ -2982,15 +3061,12 @@
                                 ]
                             );
 
-
                             reachLeft =
                                 true;
 
                         }
 
-
                     } else {
-
 
                         reachLeft =
                             false;
@@ -3005,10 +3081,8 @@
                     width - 1
                 ) {
 
-
                     const right =
                         position + 1;
-
 
                     if (
                         matches(
@@ -3016,11 +3090,9 @@
                         )
                     ) {
 
-
                         if (
                             !reachRight
                         ) {
-
 
                             stack.push(
                                 [
@@ -3029,15 +3101,12 @@
                                 ]
                             );
 
-
                             reachRight =
                                 true;
 
                         }
 
-
                     } else {
-
 
                         reachRight =
                             false;
@@ -3066,21 +3135,17 @@
     }
 
 
-
     /* =========================
        HISTORY
        ========================= */
 
-
     function saveHistory() {
-
 
         history =
             history.slice(
                 0,
                 historyIndex + 1
             );
-
 
         history.push(
 
@@ -3093,7 +3158,6 @@
 
         );
 
-
         if (
             history.length >
             maxHistory
@@ -3103,16 +3167,13 @@
 
         }
 
-
         historyIndex =
             history.length - 1;
 
     }
 
 
-
     function restoreHistory() {
-
 
         paintCtx.clearRect(
             0,
@@ -3120,7 +3181,6 @@
             paintCanvas.width,
             paintCanvas.height
         );
-
 
         paintCtx.putImageData(
             history[
@@ -3133,16 +3193,13 @@
     }
 
 
-
     function undo() {
-
 
         if (
             historyIndex <= 0
         ) {
             return;
         }
-
 
         historyIndex--;
 
@@ -3151,9 +3208,7 @@
     }
 
 
-
     function redo() {
-
 
         if (
             historyIndex >=
@@ -3162,7 +3217,6 @@
             return;
         }
 
-
         historyIndex++;
 
         restoreHistory();
@@ -3170,27 +3224,22 @@
     }
 
 
-
     /* =========================
        RESET
        ========================= */
 
-
     function resetArtwork() {
-
 
         const okay =
             confirm(
                 'Start over with a clean page?'
             );
 
-
         if (
             !okay
         ) {
             return;
         }
-
 
         paintCtx.clearRect(
             0,
@@ -3199,41 +3248,37 @@
             paintCanvas.height
         );
 
-
         history = [];
 
         historyIndex = -1;
 
         saveHistory();
 
-
         fitArtwork();
+
+        selectTool(
+            'fill'
+        );
 
     }
 
 
-
     /* =========================
-       EXPORT
+       FINISHED ARTWORK
        ========================= */
 
-
     function createFinishedArtwork() {
-
 
         const output =
             document.createElement(
                 'canvas'
             );
 
-
         output.width =
             paintCanvas.width;
 
-
         output.height =
             paintCanvas.height;
-
 
         const outputCtx =
             output.getContext(
@@ -3241,14 +3286,8 @@
             );
 
 
-        /*
-        White paper.
-        */
-
-
         outputCtx.fillStyle =
             '#ffffff';
-
 
         outputCtx.fillRect(
             0,
@@ -3258,21 +3297,11 @@
         );
 
 
-        /*
-        User-created artwork.
-        */
-
-
         outputCtx.drawImage(
             paintCanvas,
             0,
             0
         );
-
-
-        /*
-        Protected line art.
-        */
 
 
         outputCtx.drawImage(
@@ -3287,80 +3316,51 @@
     }
 
 
-
     function saveArtwork() {
-
 
         const finished =
             createFinishedArtwork();
-
 
         const link =
             document.createElement(
                 'a'
             );
 
-
         link.download =
             'my-' +
             ARTWORK.id +
             '-art.png';
-
 
         link.href =
             finished.toDataURL(
                 'image/png'
             );
 
-
         document.body.appendChild(
             link
         );
 
-
         link.click();
-
 
         link.remove();
 
     }
 
 
-
-    /* =====================================================
-       FUTURE API HANDOFF
-       =====================================================
-
-       We intentionally keep external commerce
-       OUT of the kids' coloring experience.
-
-       Later, an adult-facing page can receive
-       the finished image from this studio.
-
-       This function already gives us a Blob,
-       which is what a secure backend/API
-       will eventually need.
-
-       No Printful or third-party API keys
-       should ever be placed in this file.
-
-       ===================================================== */
-
+    /* =========================
+       FUTURE API BRIDGE
+       ========================= */
 
     async function getArtworkBlob() {
-
 
         const finished =
             createFinishedArtwork();
 
-
         return new Promise(
             function(resolve) {
 
-
                 finished.toBlob(
                     function(blob) {
-
 
                         resolve(
                             blob
@@ -3376,36 +3376,30 @@
     }
 
 
-
     /*
-    FUTURE EXAMPLE:
+    Future adult-facing workflow:
 
     const artworkBlob =
         await getArtworkBlob();
 
-    Send artworkBlob to OUR secure
-    backend.
+    Send artworkBlob to our secure backend.
 
-    The backend can then communicate
-    with Printful or another provider.
+    The backend can later communicate with
+    Printful or another approved provider.
 
-    Nothing commerce-related is
-    activated here.
+    No commerce API keys belong in this page.
     */
 
 
-
     /* =========================
-       BUTTON CONNECTIONS
+       BUTTONS
        ========================= */
-
 
     [
         'undoDesktop',
         'undoMobile'
     ].forEach(
         function(id) {
-
 
             document
                 .getElementById(
@@ -3426,7 +3420,6 @@
     ].forEach(
         function(id) {
 
-
             document
                 .getElementById(
                     id
@@ -3446,7 +3439,6 @@
     ].forEach(
         function(id) {
 
-
             document
                 .getElementById(
                     id
@@ -3465,7 +3457,6 @@
         'saveMobile'
     ].forEach(
         function(id) {
-
 
             document
                 .getElementById(
