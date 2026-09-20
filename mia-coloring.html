@@ -184,32 +184,36 @@
         /* BUTTONS */
 
         .color-online-button {
-            width: 100%;
-            margin-top: 22px;
-            padding: 14px 18px;
+    display: block;
+    width: 100%;
+    margin-top: 22px;
+    padding: 14px 18px;
 
-            border: none;
-            border-radius: 12px;
+    border: none;
+    border-radius: 12px;
 
-            background: #e88eaa;
-            color: #fff;
+    background: #e88eaa;
+    color: #fff;
 
-            font: inherit;
-            font-weight: 700;
-            font-size: 0.95rem;
+    font: inherit;
+    font-weight: 700;
+    font-size: 0.95rem;
 
-            cursor: default;
-        }
+    text-align: center;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
 
 
-        .coming-label {
-            display: block;
-            margin-top: 5px;
-            font-size: 0.68rem;
-            letter-spacing: 0.1em;
-            opacity: 0.85;
-        }
-
+.color-online-button:hover {
+    background: #df7e9f;
+    transform: translateY(-1px);
+}
 
         .coloring-actions {
             display: grid;
@@ -498,49 +502,44 @@
                     </h2>
 
 
-                    <p>
-                        The original Mia the Panda character
-                        turned into a clean black and white
-                        coloring page.
-                    </p>
+                    <<p>
+    The original Mia the Panda character
+    turned into a clean black and white
+    coloring page.
+</p>
 
 
-                    <button class="color-online-button"
-                            type="button"
-                            aria-disabled="true">
+<a class="color-online-button"
+   href="mia-color.html">
 
-                        COLOR ONLINE
+    COLOR ONLINE
 
-                        <span class="coming-label">
-                            COMING NEXT
-                        </span>
-
-                    </button>
+</a>
 
 
-                    <div class="coloring-actions">
+<div class="coloring-actions">
 
-                        <button class="coloring-button"
-                                type="button"
-                                onclick="printMiaPage(
-                                    'images/mia-the-panda-coloring-page.png',
-                                    'Tired Panda'
-                                )">
+    <button class="coloring-button"
+            type="button"
+            onclick="printMiaPage(
+                'images/mia-the-panda-coloring-page.png',
+                'Tired Panda'
+            )">
 
-                            PRINT
+        PRINT
 
-                        </button>
+    </button>
 
 
-                        <a class="coloring-button"
-                           href="images/mia-the-panda-coloring-page.png"
-                           download="mia-the-panda-tired-coloring-page.png">
+    <a class="coloring-button"
+       href="images/mia-the-panda-coloring-page.png"
+       download="mia-the-panda-tired-coloring-page.png">
 
-                            DOWNLOAD
+        DOWNLOAD
 
-                        </a>
+    </a>
 
-                    </div>
+</div>
 
                 </div>
 
