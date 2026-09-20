@@ -25,7 +25,7 @@
     <title>Color Mia Online | Alex Reynoso Art</title>
 
     <meta name="description"
-          content="Color Mia the Panda online with brushes, colors and creative tools.">
+          content="A creative online coloring activity from Mia the Panda and Alex Reynoso Art.">
 
     <link rel="stylesheet"
           href="css/style.css">
@@ -124,12 +124,6 @@
         }
 
 
-        .tool-panel h2 {
-            margin: 0 0 14px;
-            font-size: 1rem;
-        }
-
-
         .tool-group {
             padding-bottom: 18px;
             margin-bottom: 18px;
@@ -165,7 +159,6 @@
         .tool-button {
             width: 100%;
             min-height: 42px;
-
             padding: 9px 12px;
 
             border: 1px solid #ddd;
@@ -179,11 +172,6 @@
             font-weight: 700;
 
             cursor: pointer;
-
-            transition:
-                background 0.15s ease,
-                color 0.15s ease,
-                border-color 0.15s ease;
         }
 
 
@@ -193,20 +181,6 @@
 
 
         .tool-button.active {
-            background: #111;
-            border-color: #111;
-            color: #fff;
-        }
-
-
-        .tool-button.pink {
-            background: #e88eaa;
-            border-color: #e88eaa;
-            color: #fff;
-        }
-
-
-        .tool-button.dark {
             background: #111;
             border-color: #111;
             color: #fff;
@@ -292,29 +266,68 @@
 
         .canvas-container {
             position: relative;
-
             width: 100%;
             max-width: 760px;
             margin: 0 auto;
-
             background: #fff;
-
             overflow: hidden;
-
             touch-action: none;
             user-select: none;
         }
 
 
-        #colorCanvas {
+        /*
+        Three layers:
+
+        1. White background
+        2. User color
+        3. Protected line art
+        */
+
+        .canvas-background {
+            position: absolute;
+            inset: 0;
+            background: #fff;
+            pointer-events: none;
+        }
+
+
+        #paintCanvas,
+        #lineCanvas {
+            position: absolute;
+            inset: 0;
+
+            display: block;
+            width: 100%;
+            height: 100%;
+
+            touch-action: none;
+        }
+
+
+        #paintCanvas {
+            z-index: 2;
+            cursor: crosshair;
+        }
+
+
+        #lineCanvas {
+            z-index: 3;
+            pointer-events: none;
+        }
+
+
+        /*
+        This invisible image establishes
+        the correct responsive aspect ratio.
+        */
+
+        .canvas-sizing-image {
             display: block;
             width: 100%;
             height: auto;
-
-            background: #fff;
-
-            cursor: crosshair;
-            touch-action: none;
+            visibility: hidden;
+            pointer-events: none;
         }
 
 
@@ -445,7 +458,8 @@
 
 <header>
 
-    <a class="site-logo" href="index.html">
+    <a class="site-logo"
+       href="index.html">
 
         <img src="images/AlexReynosoArt-Logo_transparent.png"
              alt="Alex Reynoso Art">
@@ -490,7 +504,7 @@
 
 
         <p class="studio-subtitle">
-            Pick a tool, choose a color and make Mia your own.
+            Pick a tool, choose a color and make it your own.
         </p>
 
     </section>
@@ -547,7 +561,9 @@
                 </span>
 
 
-                <div class="palette" id="palette">
+                <div class="palette"
+                     id="palette">
+
 
                     <button class="swatch selected"
                             type="button"
@@ -556,12 +572,14 @@
                             aria-label="Pink">
                     </button>
 
+
                     <button class="swatch"
                             type="button"
                             data-color="#f6b3c8"
                             style="background:#f6b3c8"
                             aria-label="Light pink">
                     </button>
+
 
                     <button class="swatch"
                             type="button"
@@ -570,12 +588,14 @@
                             aria-label="Red">
                     </button>
 
+
                     <button class="swatch"
                             type="button"
                             data-color="#ff9800"
                             style="background:#ff9800"
                             aria-label="Orange">
                     </button>
+
 
                     <button class="swatch"
                             type="button"
@@ -584,12 +604,14 @@
                             aria-label="Yellow">
                     </button>
 
+
                     <button class="swatch"
                             type="button"
                             data-color="#81c784"
                             style="background:#81c784"
                             aria-label="Green">
                     </button>
+
 
                     <button class="swatch"
                             type="button"
@@ -598,12 +620,14 @@
                             aria-label="Aqua">
                     </button>
 
+
                     <button class="swatch"
                             type="button"
                             data-color="#64b5f6"
                             style="background:#64b5f6"
                             aria-label="Blue">
                     </button>
+
 
                     <button class="swatch"
                             type="button"
@@ -612,12 +636,14 @@
                             aria-label="Purple">
                     </button>
 
+
                     <button class="swatch"
                             type="button"
                             data-color="#795548"
                             style="background:#795548"
                             aria-label="Brown">
                     </button>
+
 
                     <button class="swatch"
                             type="button"
@@ -626,12 +652,14 @@
                             aria-label="Black">
                     </button>
 
+
                     <button class="swatch"
                             type="button"
                             data-color="#ffffff"
                             style="background:#ffffff"
                             aria-label="White">
                     </button>
+
 
                 </div>
 
@@ -664,13 +692,17 @@
                        id="brushSize"
                        type="range"
                        min="3"
-                       max="60"
+                       max="80"
                        value="18">
 
 
                 <div class="brush-size-value">
 
-                    <span id="brushSizeNumber">18</span> px
+                    <span id="brushSizeNumber">
+                        18
+                    </span>
+
+                    px
 
                 </div>
 
@@ -689,18 +721,34 @@
             <div class="canvas-card">
 
 
-                <div class="canvas-container">
+                <div class="canvas-container"
+                     id="canvasContainer">
 
-                    <canvas id="colorCanvas">
-                        Your browser does not support the coloring canvas.
+
+                    <div class="canvas-background">
+                    </div>
+
+
+                    <img class="canvas-sizing-image"
+                         id="sizingImage"
+                         src="images/mia-the-panda-coloring-page.png"
+                         alt="">
+
+
+                    <canvas id="paintCanvas">
                     </canvas>
+
+
+                    <canvas id="lineCanvas">
+                    </canvas>
+
 
                 </div>
 
 
                 <div class="canvas-status"
                      id="canvasStatus">
-                    Fill tool selected. Tap an area to color it.
+                    Fill selected. Tap an area to fill it with color.
                 </div>
 
 
@@ -773,17 +821,39 @@
 <script>
 
     /* =========================
-       MIA COLORING ENGINE
+       MIA COLORING STUDIO
+       Separate paint and line layers
        ========================= */
 
 
-    const canvas =
-        document.getElementById('colorCanvas');
+    const paintCanvas =
+        document.getElementById(
+            'paintCanvas'
+        );
 
-    const ctx =
-        canvas.getContext('2d', {
-            willReadFrequently: true
-        });
+
+    const lineCanvas =
+        document.getElementById(
+            'lineCanvas'
+        );
+
+
+    const paintCtx =
+        paintCanvas.getContext(
+            '2d',
+            {
+                willReadFrequently: true
+            }
+        );
+
+
+    const lineCtx =
+        lineCanvas.getContext(
+            '2d',
+            {
+                willReadFrequently: true
+            }
+        );
 
 
     const sourceImage =
@@ -794,92 +864,140 @@
         'images/mia-the-panda-coloring-page.png';
 
 
-    let currentTool = 'fill';
 
-    let currentColor = '#e88eaa';
-
-    let brushSize = 18;
-
-    let drawing = false;
-
-    let lastX = 0;
-
-    let lastY = 0;
+    let currentTool =
+        'fill';
 
 
-    let history = [];
+    let currentColor =
+        '#e88eaa';
 
-    let historyIndex = -1;
 
-    const maxHistory = 25;
+    let brushSize =
+        18;
+
+
+    let drawing =
+        false;
+
+
+    let lastX =
+        0;
+
+
+    let lastY =
+        0;
+
+
+    let history =
+        [];
+
+
+    let historyIndex =
+        -1;
+
+
+    const maxHistory =
+        30;
+
+
+    let boundaryData =
+        null;
 
 
 
     /* =========================
-       LOAD IMAGE
+       INITIALIZE
        ========================= */
 
 
-    sourceImage.onload = function() {
-
-        canvas.width =
-            sourceImage.naturalWidth;
-
-        canvas.height =
-            sourceImage.naturalHeight;
+    sourceImage.onload =
+        function() {
 
 
-        resetCanvas(false);
-
-        saveHistory();
-
-    };
+            const width =
+                sourceImage.naturalWidth;
 
 
-
-    /* =========================
-       ORIGINAL ART
-       ========================= */
+            const height =
+                sourceImage.naturalHeight;
 
 
-    function resetCanvas(saveState = true) {
-
-        ctx.save();
-
-        ctx.globalCompositeOperation =
-            'source-over';
-
-        ctx.fillStyle = '#ffffff';
-
-        ctx.fillRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
+            paintCanvas.width =
+                width;
 
 
-        ctx.drawImage(
-            sourceImage,
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-
-        ctx.restore();
+            paintCanvas.height =
+                height;
 
 
-        if (saveState) {
+            lineCanvas.width =
+                width;
+
+
+            lineCanvas.height =
+                height;
+
+
+            /*
+            Paint canvas begins
+            completely transparent.
+            */
+
+
+            paintCtx.clearRect(
+                0,
+                0,
+                width,
+                height
+            );
+
+
+            /*
+            Draw original artwork
+            onto protected top layer.
+            */
+
+
+            lineCtx.clearRect(
+                0,
+                0,
+                width,
+                height
+            );
+
+
+            lineCtx.drawImage(
+                sourceImage,
+                0,
+                0,
+                width,
+                height
+            );
+
+
+            /*
+            Save original pixels
+            for fill boundary detection.
+            */
+
+
+            boundaryData =
+                lineCtx.getImageData(
+                    0,
+                    0,
+                    width,
+                    height
+                );
+
 
             history = [];
+
             historyIndex = -1;
 
             saveHistory();
 
-        }
-
-    }
+        };
 
 
 
@@ -890,8 +1008,11 @@
 
     function saveHistory() {
 
-        if (!canvas.width ||
-            !canvas.height) {
+
+        if (
+            !paintCanvas.width ||
+            !paintCanvas.height
+        ) {
             return;
         }
 
@@ -904,16 +1025,19 @@
 
 
         history.push(
-            ctx.getImageData(
+            paintCtx.getImageData(
                 0,
                 0,
-                canvas.width,
-                canvas.height
+                paintCanvas.width,
+                paintCanvas.height
             )
         );
 
 
-        if (history.length > maxHistory) {
+        if (
+            history.length >
+            maxHistory
+        ) {
 
             history.shift();
 
@@ -929,7 +1053,10 @@
 
     function undo() {
 
-        if (historyIndex <= 0) {
+
+        if (
+            historyIndex <= 0
+        ) {
             return;
         }
 
@@ -937,17 +1064,14 @@
         historyIndex--;
 
 
-        ctx.putImageData(
-            history[historyIndex],
-            0,
-            0
-        );
+        restoreHistory();
 
     }
 
 
 
     function redo() {
+
 
         if (
             historyIndex >=
@@ -960,7 +1084,24 @@
         historyIndex++;
 
 
-        ctx.putImageData(
+        restoreHistory();
+
+    }
+
+
+
+    function restoreHistory() {
+
+
+        paintCtx.clearRect(
+            0,
+            0,
+            paintCanvas.width,
+            paintCanvas.height
+        );
+
+
+        paintCtx.putImageData(
             history[historyIndex],
             0,
             0
@@ -976,6 +1117,7 @@
 
 
     const toolButtons = {
+
         fill:
             document.getElementById(
                 'fillTool'
@@ -990,26 +1132,34 @@
             document.getElementById(
                 'eraserTool'
             )
+
     };
 
 
     function selectTool(tool) {
 
-        currentTool = tool;
+
+        currentTool =
+            tool;
 
 
-        Object.values(toolButtons)
-            .forEach(button => {
+        Object.values(
+            toolButtons
+        ).forEach(
+            function(button) {
 
                 button.classList.remove(
                     'active'
                 );
 
-            });
+            }
+        );
 
 
         toolButtons[tool]
-            .classList.add('active');
+            .classList.add(
+                'active'
+            );
 
 
         const status =
@@ -1018,26 +1168,32 @@
             );
 
 
-        if (tool === 'fill') {
+        if (
+            tool === 'fill'
+        ) {
 
             status.textContent =
-                'Fill tool selected. Tap an area to color it.';
+                'Fill selected. Tap an area to fill it with color.';
 
         }
 
 
-        if (tool === 'brush') {
+        if (
+            tool === 'brush'
+        ) {
 
             status.textContent =
-                'Brush selected. Draw anywhere on Mia.';
+                'Brush selected. Draw, doodle and create.';
 
         }
 
 
-        if (tool === 'eraser') {
+        if (
+            tool === 'eraser'
+        ) {
 
             status.textContent =
-                'Eraser selected. Rub out your drawing.';
+                'Eraser selected. Remove anything you added.';
 
         }
 
@@ -1046,18 +1202,32 @@
 
 
     toolButtons.fill.onclick =
-        () => selectTool('fill');
+        function() {
+
+            selectTool('fill');
+
+        };
+
 
     toolButtons.brush.onclick =
-        () => selectTool('brush');
+        function() {
+
+            selectTool('brush');
+
+        };
+
 
     toolButtons.eraser.onclick =
-        () => selectTool('eraser');
+        function() {
+
+            selectTool('eraser');
+
+        };
 
 
 
     /* =========================
-       COLORS
+       COLOR PALETTE
        ========================= */
 
 
@@ -1067,33 +1237,39 @@
         );
 
 
-    swatches.forEach(swatch => {
-
-        swatch.addEventListener(
-            'click',
-            function() {
-
-                currentColor =
-                    this.dataset.color;
+    swatches.forEach(
+        function(swatch) {
 
 
-                swatches.forEach(item => {
+            swatch.addEventListener(
+                'click',
+                function() {
 
-                    item.classList.remove(
+
+                    currentColor =
+                        this.dataset.color;
+
+
+                    swatches.forEach(
+                        function(item) {
+
+                            item.classList.remove(
+                                'selected'
+                            );
+
+                        }
+                    );
+
+
+                    this.classList.add(
                         'selected'
                     );
 
-                });
+                }
+            );
 
-
-                this.classList.add(
-                    'selected'
-                );
-
-            }
-        );
-
-    });
+        }
+    );
 
 
 
@@ -1103,16 +1279,20 @@
         'input',
         function() {
 
-            currentColor = this.value;
+
+            currentColor =
+                this.value;
 
 
-            swatches.forEach(item => {
+            swatches.forEach(
+                function(item) {
 
-                item.classList.remove(
-                    'selected'
-                );
+                    item.classList.remove(
+                        'selected'
+                    );
 
-            });
+                }
+            );
 
         }
     );
@@ -1134,8 +1314,11 @@
         'input',
         function() {
 
+
             brushSize =
-                Number(this.value);
+                Number(
+                    this.value
+                );
 
 
             document.getElementById(
@@ -1155,34 +1338,52 @@
 
     function getCanvasPoint(event) {
 
+
         const rect =
-            canvas.getBoundingClientRect();
+            paintCanvas
+                .getBoundingClientRect();
 
 
         const scaleX =
-            canvas.width /
+            paintCanvas.width /
             rect.width;
 
 
         const scaleY =
-            canvas.height /
+            paintCanvas.height /
             rect.height;
 
 
         return {
 
             x:
-                Math.floor(
-                    (event.clientX -
-                     rect.left) *
-                    scaleX
+                Math.max(
+                    0,
+                    Math.min(
+                        paintCanvas.width - 1,
+                        Math.floor(
+                            (
+                                event.clientX -
+                                rect.left
+                            ) *
+                            scaleX
+                        )
+                    )
                 ),
 
             y:
-                Math.floor(
-                    (event.clientY -
-                     rect.top) *
-                    scaleY
+                Math.max(
+                    0,
+                    Math.min(
+                        paintCanvas.height - 1,
+                        Math.floor(
+                            (
+                                event.clientY -
+                                rect.top
+                            ) *
+                            scaleY
+                        )
+                    )
                 )
 
         };
@@ -1192,26 +1393,41 @@
 
 
     /* =========================
-       BRUSH
+       POINTER EVENTS
        ========================= */
 
 
-    function startDrawing(event) {
+    function pointerDown(event) {
+
 
         event.preventDefault();
 
 
+        if (
+            !boundaryData
+        ) {
+            return;
+        }
+
+
         const point =
-            getCanvasPoint(event);
+            getCanvasPoint(
+                event
+            );
 
 
-        if (currentTool === 'fill') {
+        if (
+            currentTool ===
+            'fill'
+        ) {
+
 
             floodFill(
                 point.x,
                 point.y,
                 currentColor
             );
+
 
             saveHistory();
 
@@ -1220,14 +1436,37 @@
         }
 
 
-        drawing = true;
-
-        lastX = point.x;
-
-        lastY = point.y;
+        drawing =
+            true;
 
 
-        drawLine(
+        lastX =
+            point.x;
+
+
+        lastY =
+            point.y;
+
+
+        if (
+            paintCanvas
+                .setPointerCapture
+        ) {
+
+            try {
+
+                paintCanvas
+                    .setPointerCapture(
+                        event.pointerId
+                    );
+
+            } catch (error) {
+            }
+
+        }
+
+
+        drawStroke(
             lastX,
             lastY,
             lastX,
@@ -1238,9 +1477,12 @@
 
 
 
-    function continueDrawing(event) {
+    function pointerMove(event) {
 
-        if (!drawing) {
+
+        if (
+            !drawing
+        ) {
             return;
         }
 
@@ -1249,10 +1491,12 @@
 
 
         const point =
-            getCanvasPoint(event);
+            getCanvasPoint(
+                event
+            );
 
 
-        drawLine(
+        drawStroke(
             lastX,
             lastY,
             point.x,
@@ -1260,116 +1504,280 @@
         );
 
 
-        lastX = point.x;
+        lastX =
+            point.x;
 
-        lastY = point.y;
+
+        lastY =
+            point.y;
 
     }
 
 
 
-    function stopDrawing() {
+    function pointerUp(event) {
 
-        if (!drawing) {
+
+        if (
+            !drawing
+        ) {
             return;
         }
 
 
-        drawing = false;
+        drawing =
+            false;
+
 
         saveHistory();
+
+
+        if (
+            paintCanvas
+                .releasePointerCapture
+        ) {
+
+            try {
+
+                paintCanvas
+                    .releasePointerCapture(
+                        event.pointerId
+                    );
+
+            } catch (error) {
+            }
+
+        }
 
     }
 
 
 
-    function drawLine(
+    paintCanvas.addEventListener(
+        'pointerdown',
+        pointerDown
+    );
+
+
+    paintCanvas.addEventListener(
+        'pointermove',
+        pointerMove
+    );
+
+
+    paintCanvas.addEventListener(
+        'pointerup',
+        pointerUp
+    );
+
+
+    paintCanvas.addEventListener(
+        'pointercancel',
+        pointerUp
+    );
+
+
+
+    /* =========================
+       BRUSH + ERASER
+       ========================= */
+
+
+    function drawStroke(
         x1,
         y1,
         x2,
         y2
     ) {
 
-        ctx.save();
+
+        paintCtx.save();
 
 
-        ctx.globalCompositeOperation =
-            'source-over';
+        paintCtx.lineCap =
+            'round';
 
 
-        ctx.lineCap = 'round';
+        paintCtx.lineJoin =
+            'round';
 
-        ctx.lineJoin = 'round';
 
-
-        ctx.lineWidth =
+        paintCtx.lineWidth =
             brushSize;
 
 
-        if (currentTool === 'eraser') {
+        if (
+            currentTool ===
+            'eraser'
+        ) {
 
-            ctx.strokeStyle =
-                '#ffffff';
+
+            paintCtx.globalCompositeOperation =
+                'destination-out';
+
+
+            paintCtx.strokeStyle =
+                'rgba(0,0,0,1)';
+
 
         } else {
 
-            ctx.strokeStyle =
+
+            paintCtx.globalCompositeOperation =
+                'source-over';
+
+
+            paintCtx.strokeStyle =
                 currentColor;
 
         }
 
 
-        ctx.beginPath();
-
-        ctx.moveTo(x1, y1);
-
-        ctx.lineTo(x2, y2);
-
-        ctx.stroke();
+        paintCtx.beginPath();
 
 
-        /*
-        Put original line art back
-        over brush strokes.
-        */
-
-        ctx.drawImage(
-            sourceImage,
-            0,
-            0,
-            canvas.width,
-            canvas.height
+        paintCtx.moveTo(
+            x1,
+            y1
         );
 
 
-        ctx.restore();
+        paintCtx.lineTo(
+            x2,
+            y2
+        );
+
+
+        paintCtx.stroke();
+
+
+        /*
+        A tiny circle makes taps
+        visible even without movement.
+        */
+
+
+        paintCtx.beginPath();
+
+
+        paintCtx.arc(
+            x2,
+            y2,
+            brushSize / 2,
+            0,
+            Math.PI * 2
+        );
+
+
+        if (
+            currentTool ===
+            'eraser'
+        ) {
+
+            paintCtx.fillStyle =
+                'rgba(0,0,0,1)';
+
+        } else {
+
+            paintCtx.fillStyle =
+                currentColor;
+
+        }
+
+
+        paintCtx.fill();
+
+
+        paintCtx.restore();
 
     }
 
 
 
-    canvas.addEventListener(
-        'pointerdown',
-        startDrawing
-    );
+    /* =========================
+       COLOR HELPERS
+       ========================= */
 
 
-    canvas.addEventListener(
-        'pointermove',
-        continueDrawing
-    );
+    function hexToRGB(hex) {
 
 
-    window.addEventListener(
-        'pointerup',
-        stopDrawing
-    );
+        hex =
+            hex.replace(
+                '#',
+                ''
+            );
 
 
-    canvas.addEventListener(
-        'pointercancel',
-        stopDrawing
-    );
+        return {
+
+            r:
+                parseInt(
+                    hex.substring(
+                        0,
+                        2
+                    ),
+                    16
+                ),
+
+            g:
+                parseInt(
+                    hex.substring(
+                        2,
+                        4
+                    ),
+                    16
+                ),
+
+            b:
+                parseInt(
+                    hex.substring(
+                        4,
+                        6
+                    ),
+                    16
+                )
+
+        };
+
+    }
+
+
+
+    function isBoundaryPixel(
+        index
+    ) {
+
+
+        const data =
+            boundaryData.data;
+
+
+        const r =
+            data[index];
+
+
+        const g =
+            data[index + 1];
+
+
+        const b =
+            data[index + 2];
+
+
+        /*
+        Anything sufficiently dark
+        acts as a wall for the fill.
+        */
+
+
+        return (
+            r < 150 &&
+            g < 150 &&
+            b < 150
+        );
+
+    }
 
 
 
@@ -1378,76 +1786,47 @@
        ========================= */
 
 
-    function hexToRGBA(hex) {
-
-        hex =
-            hex.replace('#', '');
-
-
-        return {
-            r:
-                parseInt(
-                    hex.substring(0, 2),
-                    16
-                ),
-
-            g:
-                parseInt(
-                    hex.substring(2, 4),
-                    16
-                ),
-
-            b:
-                parseInt(
-                    hex.substring(4, 6),
-                    16
-                ),
-
-            a: 255
-        };
-
-    }
-
-
-
-    function colorsClose(
-        r1,
-        g1,
-        b1,
-        a1,
-        r2,
-        g2,
-        b2,
-        a2,
-        tolerance = 18
-    ) {
-
-        return (
-            Math.abs(r1 - r2) <= tolerance &&
-            Math.abs(g1 - g2) <= tolerance &&
-            Math.abs(b1 - b2) <= tolerance &&
-            Math.abs(a1 - a2) <= tolerance
-        );
-
-    }
-
-
-
     function floodFill(
         startX,
         startY,
         fillHex
     ) {
 
+
         const width =
-            canvas.width;
+            paintCanvas.width;
+
 
         const height =
-            canvas.height;
+            paintCanvas.height;
 
 
-        const imageData =
-            ctx.getImageData(
+        const startPosition =
+            startY * width +
+            startX;
+
+
+        const startBoundaryIndex =
+            startPosition * 4;
+
+
+        /*
+        Don't fill directly on
+        black linework.
+        */
+
+
+        if (
+            isBoundaryPixel(
+                startBoundaryIndex
+            )
+        ) {
+            return;
+        }
+
+
+        const paintImage =
+            paintCtx.getImageData(
                 0,
                 0,
                 width,
@@ -1455,68 +1834,79 @@
             );
 
 
-        const data =
-            imageData.data;
+        const paintData =
+            paintImage.data;
 
 
-        const startIndex =
-            (
-                startY *
-                width +
-                startX
-            ) * 4;
+        const startPaintIndex =
+            startPosition * 4;
 
 
         const target = {
 
-            r: data[startIndex],
+            r:
+                paintData[
+                    startPaintIndex
+                ],
 
-            g: data[startIndex + 1],
+            g:
+                paintData[
+                    startPaintIndex + 1
+                ],
 
-            b: data[startIndex + 2],
+            b:
+                paintData[
+                    startPaintIndex + 2
+                ],
 
-            a: data[startIndex + 3]
+            a:
+                paintData[
+                    startPaintIndex + 3
+                ]
 
         };
 
 
         const fill =
-            hexToRGBA(fillHex);
+            hexToRGB(
+                fillHex
+            );
+
+
+        /*
+        If this region is already
+        essentially this color,
+        do nothing.
+        */
 
 
         if (
-            colorsClose(
-                target.r,
-                target.g,
-                target.b,
-                target.a,
-                fill.r,
-                fill.g,
-                fill.b,
-                fill.a,
-                5
-            )
+            target.a === 255 &&
+            Math.abs(
+                target.r -
+                fill.r
+            ) < 5 &&
+            Math.abs(
+                target.g -
+                fill.g
+            ) < 5 &&
+            Math.abs(
+                target.b -
+                fill.b
+            ) < 5
         ) {
             return;
         }
 
 
         /*
-        Do not fill dark linework.
+        We scan across horizontal
+        spans instead of pushing
+        every pixel onto the stack.
+
+        This is much faster on
+        large coloring pages.
         */
-
-        if (
-            target.r < 70 &&
-            target.g < 70 &&
-            target.b < 70
-        ) {
-            return;
-        }
-
-
-        const stack = [
-            [startX, startY]
-        ];
 
 
         const visited =
@@ -1525,124 +1915,315 @@
             );
 
 
-        while (stack.length) {
+        const stack = [
+            [startX, startY]
+        ];
+
+
+        function matchesTarget(
+            position
+        ) {
+
+
+            if (
+                visited[position]
+            ) {
+                return false;
+            }
+
+
+            const boundaryIndex =
+                position * 4;
+
+
+            if (
+                isBoundaryPixel(
+                    boundaryIndex
+                )
+            ) {
+                return false;
+            }
+
+
+            const index =
+                position * 4;
+
+
+            /*
+            Transparent paint layer
+            counts as the same empty
+            region.
+            */
+
+
+            if (
+                target.a === 0
+            ) {
+
+                return (
+                    paintData[
+                        index + 3
+                    ] === 0
+                );
+
+            }
+
+
+            return (
+
+                paintData[
+                    index + 3
+                ] ===
+                target.a &&
+
+                Math.abs(
+                    paintData[index] -
+                    target.r
+                ) < 10 &&
+
+                Math.abs(
+                    paintData[
+                        index + 1
+                    ] -
+                    target.g
+                ) < 10 &&
+
+                Math.abs(
+                    paintData[
+                        index + 2
+                    ] -
+                    target.b
+                ) < 10
+
+            );
+
+        }
+
+
+        function colorPixel(
+            position
+        ) {
+
+
+            const index =
+                position * 4;
+
+
+            paintData[index] =
+                fill.r;
+
+
+            paintData[
+                index + 1
+            ] =
+                fill.g;
+
+
+            paintData[
+                index + 2
+            ] =
+                fill.b;
+
+
+            paintData[
+                index + 3
+            ] =
+                255;
+
+
+            visited[position] =
+                1;
+
+        }
+
+
+        while (
+            stack.length
+        ) {
+
 
             const point =
                 stack.pop();
 
 
-            const x = point[0];
+            const x =
+                point[0];
 
-            const y = point[1];
+
+            let y =
+                point[1];
 
 
             if (
                 x < 0 ||
-                y < 0 ||
                 x >= width ||
+                y < 0 ||
                 y >= height
             ) {
                 continue;
             }
 
 
-            const pixelPosition =
+            let position =
                 y * width + x;
 
 
-            if (
-                visited[pixelPosition]
-            ) {
-                continue;
-            }
+            /*
+            Move upward until
+            boundary or different
+            paint is found.
+            */
 
 
-            visited[pixelPosition] = 1;
-
-
-            const index =
-                pixelPosition * 4;
-
-
-            if (
-                !colorsClose(
-                    data[index],
-                    data[index + 1],
-                    data[index + 2],
-                    data[index + 3],
-                    target.r,
-                    target.g,
-                    target.b,
-                    target.a
+            while (
+                y >= 0 &&
+                matchesTarget(
+                    position
                 )
             ) {
-                continue;
+
+                y--;
+
+                position -=
+                    width;
+
             }
+
+
+            y++;
+
+            position +=
+                width;
+
+
+            let reachLeft =
+                false;
+
+
+            let reachRight =
+                false;
 
 
             /*
-            Protect black linework.
+            Walk downward through
+            the vertical span.
             */
 
-            if (
-                data[index] < 70 &&
-                data[index + 1] < 70 &&
-                data[index + 2] < 70
+
+            while (
+                y < height &&
+                matchesTarget(
+                    position
+                )
             ) {
-                continue;
+
+
+                colorPixel(
+                    position
+                );
+
+
+                if (
+                    x > 0
+                ) {
+
+
+                    const left =
+                        position - 1;
+
+
+                    if (
+                        matchesTarget(
+                            left
+                        )
+                    ) {
+
+
+                        if (
+                            !reachLeft
+                        ) {
+
+                            stack.push(
+                                [
+                                    x - 1,
+                                    y
+                                ]
+                            );
+
+                            reachLeft =
+                                true;
+
+                        }
+
+
+                    } else {
+
+                        reachLeft =
+                            false;
+
+                    }
+
+                }
+
+
+                if (
+                    x <
+                    width - 1
+                ) {
+
+
+                    const right =
+                        position + 1;
+
+
+                    if (
+                        matchesTarget(
+                            right
+                        )
+                    ) {
+
+
+                        if (
+                            !reachRight
+                        ) {
+
+                            stack.push(
+                                [
+                                    x + 1,
+                                    y
+                                ]
+                            );
+
+                            reachRight =
+                                true;
+
+                        }
+
+
+                    } else {
+
+                        reachRight =
+                            false;
+
+                    }
+
+                }
+
+
+                y++;
+
+                position +=
+                    width;
+
             }
-
-
-            data[index] =
-                fill.r;
-
-            data[index + 1] =
-                fill.g;
-
-            data[index + 2] =
-                fill.b;
-
-            data[index + 3] =
-                255;
-
-
-            stack.push(
-                [x + 1, y]
-            );
-
-            stack.push(
-                [x - 1, y]
-            );
-
-            stack.push(
-                [x, y + 1]
-            );
-
-            stack.push(
-                [x, y - 1]
-            );
 
         }
 
 
-        ctx.putImageData(
-            imageData,
+        paintCtx.putImageData(
+            paintImage,
             0,
             0
-        );
-
-
-        /*
-        Restore crisp original
-        line art over the color.
-        */
-
-        ctx.drawImage(
-            sourceImage,
-            0,
-            0,
-            width,
-            height
         );
 
     }
@@ -1650,66 +2231,165 @@
 
 
     /* =========================
-       ACTION BUTTONS
+       UNDO / REDO
        ========================= */
 
 
     document.getElementById(
         'undoButton'
-    ).onclick = undo;
+    ).onclick =
+        undo;
 
 
     document.getElementById(
         'redoButton'
-    ).onclick = redo;
-
-
-    document.getElementById(
-        'resetButton'
-    ).onclick = function() {
-
-        const okay =
-            confirm(
-                'Start over with a clean Mia?'
-            );
-
-
-        if (okay) {
-
-            resetCanvas(true);
-
-        }
-
-    };
+    ).onclick =
+        redo;
 
 
 
     /* =========================
-       SAVE ART
+       START OVER
+       ========================= */
+
+
+    document.getElementById(
+        'resetButton'
+    ).onclick =
+        function() {
+
+
+            const okay =
+                confirm(
+                    'Start over with a clean page?'
+                );
+
+
+            if (
+                !okay
+            ) {
+                return;
+            }
+
+
+            paintCtx.clearRect(
+                0,
+                0,
+                paintCanvas.width,
+                paintCanvas.height
+            );
+
+
+            history = [];
+
+            historyIndex = -1;
+
+            saveHistory();
+
+        };
+
+
+
+    /* =========================
+       SAVE FINISHED ART
        ========================= */
 
 
     document.getElementById(
         'saveButton'
-    ).onclick = function() {
-
-        const link =
-            document.createElement('a');
+    ).onclick =
+        function() {
 
 
-        link.download =
-            'my-mia-the-panda-art.png';
+            const exportCanvas =
+                document.createElement(
+                    'canvas'
+                );
 
 
-        link.href =
-            canvas.toDataURL(
-                'image/png'
+            exportCanvas.width =
+                paintCanvas.width;
+
+
+            exportCanvas.height =
+                paintCanvas.height;
+
+
+            const exportCtx =
+                exportCanvas.getContext(
+                    '2d'
+                );
+
+
+            /*
+            White paper.
+            */
+
+
+            exportCtx.fillStyle =
+                '#ffffff';
+
+
+            exportCtx.fillRect(
+                0,
+                0,
+                exportCanvas.width,
+                exportCanvas.height
             );
 
 
-        link.click();
+            /*
+            User artwork.
+            */
 
-    };
+
+            exportCtx.drawImage(
+                paintCanvas,
+                0,
+                0
+            );
+
+
+            /*
+            Protected original
+            line art goes on top.
+            */
+
+
+            exportCtx.drawImage(
+                lineCanvas,
+                0,
+                0
+            );
+
+
+            const link =
+                document.createElement(
+                    'a'
+                );
+
+
+            link.download =
+                'my-mia-the-panda-art.png';
+
+
+            link.href =
+                exportCanvas.toDataURL(
+                    'image/png'
+                );
+
+
+            document.body.appendChild(
+                link
+            );
+
+
+            link.click();
+
+
+            link.remove();
+
+        };
 
 
 </script>
