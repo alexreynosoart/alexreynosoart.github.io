@@ -28,6 +28,10 @@
           content="A creative online coloring studio from Mia the Panda and Alex Reynoso Art.">
 
 
+    <link rel="stylesheet"
+          href="css/style.css">
+
+
     <style>
 
         * {
@@ -55,6 +59,15 @@
         button,
         input {
             font: inherit;
+        }
+
+
+        /* =========================
+           DESKTOP SITE HEADER
+           ========================= */
+
+        .studio-site-header {
+            display: flex;
         }
 
 
@@ -497,6 +510,10 @@
 
         @media (max-width: 850px) {
 
+            .studio-site-header {
+                display: none;
+            }
+
             body {
                 padding-bottom: 154px;
             }
@@ -799,6 +816,31 @@
 
 
 <body>
+
+
+<header class="studio-site-header">
+
+    <a class="site-logo"
+       href="index.html">
+
+        <img src="images/AlexReynosoArt-Logo_transparent.png"
+             alt="Alex Reynoso Art">
+
+    </a>
+
+
+    <nav>
+
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="art.html">Art</a>
+        <a href="videos.html">Videos</a>
+        <a href="shop.html">Shop</a>
+        <a href="commissions.html">Commissions</a>
+
+    </nav>
+
+</header>
 
 
 <div class="studio">
