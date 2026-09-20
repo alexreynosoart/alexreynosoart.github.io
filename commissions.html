@@ -106,19 +106,58 @@
             gap: 16px;
         }
 
+
+        /* Commission cards */
+
         .commission-card {
-            min-height: 190px;
-            padding: 24px;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            background: rgba(17, 17, 17, 0.92);
+            background: rgba(17, 17, 17, 0.94);
             border: 1px solid #333;
+        }
+
+        .commission-thumbnail {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255,255,255,0.025),
+                    rgba(255,255,255,0.005)
+                );
+            border-bottom: 1px solid #333;
+        }
+
+        .commission-thumbnail::before {
+            content: "IMAGE";
+            color: #555;
+            font-size: 0.68rem;
+            letter-spacing: 0.2em;
+        }
+
+        .commission-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .commission-card-content {
+            flex: 1;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
         }
 
         .commission-number {
             display: block;
-            margin-bottom: 38px;
+            margin-bottom: 26px;
             color: #777;
             font-size: 0.72rem;
             letter-spacing: 0.16em;
@@ -138,7 +177,8 @@
 
         .commission-status {
             display: inline-block;
-            margin-top: 18px;
+            margin-top: auto;
+            padding-top: 22px;
             color: #f4c430;
             font-size: 0.68rem;
             font-weight: 700;
@@ -151,15 +191,37 @@
         }
 
 
-        /* Final card */
+        /* Permanent next commission card */
 
         .commission-card-next {
-            border-style: dashed;
-            background: rgba(17, 17, 17, 0.72);
+            min-height: 100%;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px dashed #444;
+            background: rgba(17, 17, 17, 0.74);
+        }
+
+        .commission-card-next .commission-number {
+            margin-bottom: 38px;
         }
 
         .commission-card-next h3 {
+            margin: 0 0 9px;
             color: #f4c430;
+            font-size: 1.25rem;
+        }
+
+        .commission-card-next p {
+            margin: 0;
+            color: #999;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        .commission-card-next .commission-status {
+            margin-top: auto;
         }
 
 
@@ -188,10 +250,6 @@
 
             .commission-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .commission-card {
-                min-height: 160px;
             }
 
         }
@@ -249,9 +307,14 @@
 
             <div class="commission-grid">
 
+                <!-- 01 -->
+
                 <article class="commission-card">
 
-                    <div>
+                    <div class="commission-thumbnail"></div>
+
+                    <div class="commission-card-content">
+
                         <span class="commission-number">01</span>
 
                         <h3>Music Video Commission</h3>
@@ -259,18 +322,24 @@
                         <p>
                             Custom visual project created for an independent artist.
                         </p>
-                    </div>
 
-                    <span class="commission-status completed">
-                        Completed
-                    </span>
+                        <span class="commission-status completed">
+                            Completed
+                        </span>
+
+                    </div>
 
                 </article>
 
 
+                <!-- 02 -->
+
                 <article class="commission-card">
 
-                    <div>
+                    <div class="commission-thumbnail"></div>
+
+                    <div class="commission-card-content">
+
                         <span class="commission-number">02</span>
 
                         <h3>Original Painting</h3>
@@ -278,18 +347,24 @@
                         <p>
                             An original commissioned painting currently in development.
                         </p>
-                    </div>
 
-                    <span class="commission-status">
-                        In Progress
-                    </span>
+                        <span class="commission-status">
+                            In Progress
+                        </span>
+
+                    </div>
 
                 </article>
 
 
+                <!-- 03 -->
+
                 <article class="commission-card">
 
-                    <div>
+                    <div class="commission-thumbnail"></div>
+
+                    <div class="commission-card-content">
+
                         <span class="commission-number">03</span>
 
                         <h3>Book Illustration</h3>
@@ -297,18 +372,24 @@
                         <p>
                             Illustration work being developed for an author.
                         </p>
-                    </div>
 
-                    <span class="commission-status">
-                        In Progress
-                    </span>
+                        <span class="commission-status">
+                            In Progress
+                        </span>
+
+                    </div>
 
                 </article>
 
 
+                <!-- 04 -->
+
                 <article class="commission-card">
 
-                    <div>
+                    <div class="commission-thumbnail"></div>
+
+                    <div class="commission-card-content">
+
                         <span class="commission-number">04</span>
 
                         <h3>Custom Creative Project</h3>
@@ -316,18 +397,24 @@
                         <p>
                             A private creative project currently taking shape.
                         </p>
-                    </div>
 
-                    <span class="commission-status">
-                        In Progress
-                    </span>
+                        <span class="commission-status">
+                            In Progress
+                        </span>
+
+                    </div>
 
                 </article>
 
 
+                <!-- 05 -->
+
                 <article class="commission-card">
 
-                    <div>
+                    <div class="commission-thumbnail"></div>
+
+                    <div class="commission-card-content">
+
                         <span class="commission-number">05</span>
 
                         <h3>Private Commission</h3>
@@ -335,18 +422,22 @@
                         <p>
                             Project details remain private while the work develops.
                         </p>
-                    </div>
 
-                    <span class="commission-status">
-                        In Progress
-                    </span>
+                        <span class="commission-status">
+                            In Progress
+                        </span>
+
+                    </div>
 
                 </article>
 
 
-                <article class="commission-card commission-card-next">
+                <!-- Permanent open slot -->
+
+                <article class="commission-card-next">
 
                     <div>
+
                         <span class="commission-number">06</span>
 
                         <h3>Your Idea Could Be Next</h3>
@@ -355,6 +446,7 @@
                             Painting, illustration, video or something we haven't
                             thought of yet.
                         </p>
+
                     </div>
 
                     <span class="commission-status">
