@@ -507,6 +507,16 @@
     }
 
 
+    /* Sending state */
+
+    .send-project:disabled {
+        cursor: wait;
+        opacity: 0.72;
+        transform: none;
+        filter: none;
+    }
+
+
     /* Responsive */
 
     @media (max-width: 750px) {
@@ -911,7 +921,7 @@
 
                     <form class="commission-form"
                           id="commission-form"
-                          action="https://formsubmit.co/hello@alexreynosoart.com"
+                          action="https://formsubmit.co/d886af8f9e8d42bb89fa345caed00ba2"
                           method="POST">
 
                         <input type="hidden"
@@ -931,6 +941,10 @@
                         <input type="hidden"
                                name="_captcha"
                                value="false">
+
+                        <input type="hidden"
+                               name="_next"
+                               value="https://alexreynosoart.com/thanks.html">
 
 
                         <!-- Spam trap -->
@@ -1133,6 +1147,7 @@
                         <div class="form-submit-row">
 
                             <button class="send-project"
+                                    id="send-project"
                                     type="submit">
                                 Send It My Way →
                             </button>
@@ -1193,6 +1208,12 @@
 
         const changeProject =
             document.getElementById('change-project');
+
+        const commissionForm =
+            document.getElementById('commission-form');
+
+        const sendProject =
+            document.getElementById('send-project');
 
 
         /* Individual project forms */
@@ -1588,6 +1609,19 @@
                         behavior: 'smooth',
                         block: 'center'
                     });
+
+            }
+        );
+
+
+        /* Prevent accidental double submissions */
+
+        commissionForm.addEventListener(
+            'submit',
+            () => {
+
+                sendProject.disabled = true;
+                sendProject.textContent = 'SENDING...';
 
             }
         );
