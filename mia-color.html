@@ -967,29 +967,122 @@
             );
 
 
-            lineCtx.drawImage(
-                sourceImage,
-                0,
-                0,
-                width,
-                height
+            /*
+Draw the original image temporarily
+so we can read its pixels.
+*/
+
+lineCtx.drawImage(
+    sourceImage,
+    0,
+    0,
+    width,
+    height
+);
+
+
+/*
+Keep a copy of the ORIGINAL image
+for fill boundary detection.
+*/
+
+boundaryData =
+    lineCtx.getImageData(
+        0,
+        0,
+        width,
+        height
+    );
+
+
+/*
+Create the protected line-art layer.
+
+White and very light pixels become
+transparent so the color layer
+underneath can be seen.
+
+Dark pixels remain visible.
+*/
+
+const lineImage =
+    lineCtx.getImageData(
+        0,
+        0,
+        width,
+        height
+    );
+
+
+const pixels =
+    lineImage.data;
+
+
+for (
+    let i = 0;
+    i < pixels.length;
+    i += 4
+) {
+
+    const r = pixels[i];
+    const g = pixels[i + 1];
+    const b = pixels[i + 2];
+
+
+    /*
+    Calculate how dark the pixel is.
+    */
+
+    const darkness =
+        255 -
+        (
+            r +
+            g +
+            b
+        ) / 3;
+
+
+    /*
+    Very light pixels disappear.
+    Dark lines stay.
+    Gray antialiasing becomes
+    partially transparent.
+    */
+
+    if (darkness < 15) {
+
+        pixels[i + 3] = 0;
+
+    } else {
+
+        pixels[i] = 0;
+        pixels[i + 1] = 0;
+        pixels[i + 2] = 0;
+
+        pixels[i + 3] =
+            Math.min(
+                255,
+                darkness * 2.5
             );
 
+    }
 
-            /*
-            Save original pixels
-            for fill boundary detection.
-            */
+}
 
 
-            boundaryData =
-                lineCtx.getImageData(
-                    0,
-                    0,
-                    width,
-                    height
-                );
+lineCtx.clearRect(
+    0,
+    0,
+    width,
+    height
+);
 
+
+lineCtx.putImageData(
+    lineImage,
+    0,
+    0
+);
 
             history = [];
 
