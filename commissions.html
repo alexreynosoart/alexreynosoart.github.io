@@ -8,7 +8,6 @@
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-
         gtag('config', 'G-MK5FXXVXNJ');
     </script>
 
@@ -208,6 +207,19 @@
         justify-content: space-between;
         border: 1px dashed #444;
         background: rgba(17, 17, 17, 0.74);
+        cursor: pointer;
+        transition:
+            border-color 180ms ease,
+            transform 180ms ease,
+            background 180ms ease;
+    }
+
+    .commission-card-next:hover,
+    .commission-card-next:focus-visible {
+        border-color: #f4c430;
+        background: rgba(24, 24, 24, 0.92);
+        transform: translateY(-2px);
+        outline: none;
     }
 
     .commission-card-next .commission-number {
@@ -232,10 +244,284 @@
     }
 
 
+    /* Start a project */
+
+    .project-studio {
+        width: min(1100px, calc(100% - 48px));
+        margin: -30px auto 110px;
+        scroll-margin-top: 40px;
+    }
+
+    .project-studio-shell {
+        padding: clamp(24px, 5vw, 52px);
+        background: rgba(17, 17, 17, 0.96);
+        border: 1px solid #333;
+    }
+
+    .studio-kicker {
+        margin: 0 0 10px;
+        color: #f4c430;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+    }
+
+    .project-studio h2 {
+        margin: 0 0 10px;
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        line-height: 1.05;
+    }
+
+    .studio-lead {
+        max-width: 680px;
+        margin: 0 0 34px;
+        color: #aaa;
+        line-height: 1.7;
+    }
+
+    .project-choices {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    .project-choice {
+        min-height: 150px;
+        padding: 22px;
+        text-align: left;
+        color: #eee;
+        background: rgba(255,255,255,0.02);
+        border: 1px solid #333;
+        cursor: pointer;
+        font: inherit;
+        transition:
+            border-color 180ms ease,
+            transform 180ms ease,
+            background 180ms ease;
+    }
+
+    .project-choice:hover,
+    .project-choice:focus-visible,
+    .project-choice.is-selected {
+        border-color: #f4c430;
+        background: rgba(244,196,48,0.045);
+        transform: translateY(-2px);
+        outline: none;
+    }
+
+    .project-choice .choice-mark {
+        display: block;
+        margin-bottom: 22px;
+        color: #777;
+        font-size: 0.68rem;
+        letter-spacing: 0.16em;
+    }
+
+    .project-choice strong {
+        display: block;
+        margin-bottom: 7px;
+        color: #fff;
+        font-size: 1.05rem;
+    }
+
+    .project-choice span:last-child {
+        color: #8f8f8f;
+        font-size: 0.82rem;
+        line-height: 1.5;
+    }
+
+
+    /* Form */
+
+    .project-form-wrap {
+        display: none;
+        margin-top: 32px;
+        padding-top: 32px;
+        border-top: 1px solid #2d2d2d;
+    }
+
+    .project-form-wrap.is-open {
+        display: block;
+        animation: formIn 220ms ease-out;
+    }
+
+    @keyframes formIn {
+        from {
+            opacity: 0;
+            transform: translateY(8px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .form-heading-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        align-items: flex-start;
+        margin-bottom: 26px;
+    }
+
+    .form-heading-row h3 {
+        margin: 0 0 7px;
+        font-size: 1.45rem;
+    }
+
+    .form-heading-row p {
+        margin: 0;
+        color: #8f8f8f;
+        font-size: 0.86rem;
+        line-height: 1.55;
+    }
+
+    .change-project {
+        flex: 0 0 auto;
+        padding: 0;
+        color: #aaa;
+        background: none;
+        border: 0;
+        border-bottom: 1px solid #555;
+        cursor: pointer;
+        font: inherit;
+        font-size: 0.75rem;
+    }
+
+    .commission-form {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+    }
+
+    .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .form-field.full {
+        grid-column: 1 / -1;
+    }
+
+    .form-field label {
+        color: #ddd;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+    }
+
+    .field-note {
+        color: #777;
+        font-size: 0.72rem;
+        font-weight: 400;
+        letter-spacing: 0;
+    }
+
+    .commission-form input,
+    .commission-form select,
+    .commission-form textarea {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 13px 14px;
+        color: #eee;
+        background: #0d0d0d;
+        border: 1px solid #383838;
+        border-radius: 0;
+        font: inherit;
+        font-size: 0.88rem;
+    }
+
+    .commission-form textarea {
+        min-height: 145px;
+        resize: vertical;
+        line-height: 1.55;
+    }
+
+    .commission-form input:focus,
+    .commission-form select:focus,
+    .commission-form textarea:focus {
+        border-color: #f4c430;
+        outline: none;
+    }
+
+    .commission-form select {
+        appearance: auto;
+    }
+
+    .dynamic-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+    }
+
+    .dynamic-grid .full {
+        grid-column: 1 / -1;
+    }
+
+    .form-submit-row {
+        grid-column: 1 / -1;
+        margin-top: 6px;
+    }
+
+    .send-project {
+        width: 100%;
+        padding: 16px 20px;
+        color: #111;
+        background: #f4c430;
+        border: 1px solid #f4c430;
+        cursor: pointer;
+        font: inherit;
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        transition:
+            transform 180ms ease,
+            filter 180ms ease;
+    }
+
+    .send-project:hover,
+    .send-project:focus-visible {
+        transform: translateY(-2px);
+        filter: brightness(1.05);
+        outline: none;
+    }
+
+    .form-fine-print {
+        margin: 10px 0 0;
+        color: #666;
+        font-size: 0.7rem;
+        line-height: 1.5;
+        text-align: center;
+    }
+
+    .form-honeypot {
+        position: absolute !important;
+        left: -9999px !important;
+        width: 1px !important;
+        height: 1px !important;
+        overflow: hidden !important;
+    }
+
+
+    /* Responsive */
+
     @media (max-width: 750px) {
 
-        .commission-grid {
+        .commission-grid,
+        .project-choices,
+        .commission-form,
+        .dynamic-grid {
             grid-template-columns: 1fr;
+        }
+
+        .form-field.full,
+        .dynamic-grid .full,
+        .form-submit-row {
+            grid-column: 1;
         }
 
     }
@@ -275,9 +561,31 @@
             padding: 18px;
         }
 
+        .project-studio {
+            width: min(100% - 32px, 1100px);
+            margin-top: -20px;
+            margin-bottom: 80px;
+        }
+
+        .project-studio-shell {
+            padding: 24px 18px;
+        }
+
+        .project-choice {
+            min-height: 132px;
+        }
+
+        .form-heading-row {
+            display: block;
+        }
+
+        .change-project {
+            margin-top: 14px;
+        }
+
     }
 
-</style>
+    </style>
 
 </head>
 
@@ -300,6 +608,7 @@
         </nav>
 
     </header>
+
 
     <main>
 
@@ -457,7 +766,11 @@
 
                 <!-- Permanent open slot -->
 
-                <article class="commission-card-next">
+                <article class="commission-card-next"
+                         id="start-project"
+                         role="button"
+                         tabindex="0"
+                         aria-label="Start a commission inquiry">
 
                     <div>
 
@@ -482,11 +795,806 @@
 
         </section>
 
+
+        <!-- Start a project -->
+
+        <section class="project-studio"
+                 id="project-studio"
+                 aria-labelledby="studio-title">
+
+            <div class="project-studio-shell">
+
+                <p class="studio-kicker">Start a Project</p>
+
+                <h2 id="studio-title">What are we making?</h2>
+
+                <p class="studio-lead">
+                    Pick a direction. You don't need to have everything figured
+                    out yet — that's part of the fun.
+                </p>
+
+
+                <div class="project-choices" id="project-choices">
+
+                    <button class="project-choice"
+                            type="button"
+                            data-project="painting">
+
+                        <span class="choice-mark">01 / PAINT</span>
+
+                        <strong>An Original Painting</strong>
+
+                        <span>
+                            You bring the idea. I choose the medium and materials
+                            that fit the piece.
+                        </span>
+
+                    </button>
+
+
+                    <button class="project-choice"
+                            type="button"
+                            data-project="illustration">
+
+                        <span class="choice-mark">02 / DRAW + DESIGN</span>
+
+                        <strong>Illustration / Design</strong>
+
+                        <span>
+                            Characters, covers, posters, graphics and other visual work.
+                        </span>
+
+                    </button>
+
+
+                    <button class="project-choice"
+                            type="button"
+                            data-project="video">
+
+                        <span class="choice-mark">03 / MOVE</span>
+
+                        <strong>Video / Visual Project</strong>
+
+                        <span>
+                            Creative video, green-screen composites, music visuals
+                            and social content.
+                        </span>
+
+                    </button>
+
+
+                    <button class="project-choice"
+                            type="button"
+                            data-project="experimental">
+
+                        <span class="choice-mark">04 / ???</span>
+
+                        <strong>Something Experimental</strong>
+
+                        <span>
+                            An idea that doesn't fit neatly into a box?
+                            Good. Tell me about it.
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+                <!-- Form -->
+
+                <div class="project-form-wrap" id="project-form-wrap">
+
+                    <div class="form-heading-row">
+
+                        <div>
+
+                            <h3 id="form-title">
+                                Tell me about it.
+                            </h3>
+
+                            <p id="form-intro">
+                                The polished pitch or the completely unorganized
+                                version both work.
+                            </p>
+
+                        </div>
+
+                        <button class="change-project"
+                                type="button"
+                                id="change-project">
+                            Pick a different direction
+                        </button>
+
+                    </div>
+
+
+                    <form class="commission-form"
+                          id="commission-form"
+                          action="https://formsubmit.co/hello@alexreynosoart.com"
+                          method="POST">
+
+                        <input type="hidden"
+                               name="_subject"
+                               id="form-subject"
+                               value="NEW COMMISSION — ALEX REYNOSO ART">
+
+                        <input type="hidden"
+                               name="Project Type"
+                               id="project-type"
+                               value="">
+
+                        <input type="hidden"
+                               name="_template"
+                               value="table">
+
+                        <input type="hidden"
+                               name="_captcha"
+                               value="false">
+
+
+                        <!-- Spam trap -->
+
+                        <div class="form-honeypot" aria-hidden="true">
+
+                            <label>
+                                Leave this field empty
+
+                                <input type="text"
+                                       name="_honey"
+                                       tabindex="-1"
+                                       autocomplete="off">
+                            </label>
+
+                        </div>
+
+
+                        <!-- Contact -->
+
+                        <div class="form-field">
+
+                            <label for="client-name">
+                                Your name
+                            </label>
+
+                            <input id="client-name"
+                                   name="Name"
+                                   type="text"
+                                   autocomplete="name"
+                                   required
+                                   placeholder="What should I call you?">
+
+                        </div>
+
+
+                        <div class="form-field">
+
+                            <label for="client-email">
+                                Your email
+                            </label>
+
+                            <input id="client-email"
+                                   name="Email"
+                                   type="email"
+                                   autocomplete="email"
+                                   required
+                                   placeholder="you@example.com">
+
+                        </div>
+
+
+                        <!-- Idea -->
+
+                        <div class="form-field full">
+
+                            <label for="idea">
+
+                                What's the idea?
+
+                                <span class="field-note">
+                                    Give me the polished pitch or the messy version.
+                                </span>
+
+                            </label>
+
+                            <textarea id="idea"
+                                      name="The Idea"
+                                      required
+                                      placeholder="Tell me what you're imagining..."></textarea>
+
+                        </div>
+
+
+                        <!-- Changes depending on project -->
+
+                        <div id="dynamic-fields"
+                             class="form-field full">
+                        </div>
+
+
+                        <!-- Timeline -->
+
+                        <div class="form-field">
+
+                            <label for="timeline">
+                                When are you hoping to have it?
+                            </label>
+
+                            <select id="timeline"
+                                    name="Timeline">
+
+                                <option value="No rush">
+                                    No rush
+                                </option>
+
+                                <option value="I have a date in mind">
+                                    I have a date in mind
+                                </option>
+
+                                <option value="Soon, if possible">
+                                    Soon, if possible
+                                </option>
+
+                                <option value="Let's talk about it">
+                                    Let's talk about it
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- Budget -->
+
+                        <div class="form-field">
+
+                            <label for="budget">
+
+                                What kind of budget are we playing with?
+
+                                <span class="field-note">
+                                    A ballpark is fine.
+                                </span>
+
+                            </label>
+
+                            <select id="budget"
+                                    name="Budget">
+
+                                <option value="I'd rather talk about it">
+                                    I'd rather talk about it
+                                </option>
+
+                                <option value="Under $250">
+                                    Under $250
+                                </option>
+
+                                <option value="$250–$500">
+                                    $250–$500
+                                </option>
+
+                                <option value="$500–$1,000">
+                                    $500–$1,000
+                                </option>
+
+                                <option value="$1,000–$2,500">
+                                    $1,000–$2,500
+                                </option>
+
+                                <option value="$2,500+">
+                                    $2,500+
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- References -->
+
+                        <div class="form-field full">
+
+                            <label for="references">
+
+                                Anything I should see?
+
+                                <span class="field-note">
+                                    A website, Instagram post, reference image link,
+                                    song — whatever helps.
+                                </span>
+
+                            </label>
+
+                            <input id="references"
+                                   name="References / Links"
+                                   type="text"
+                                   placeholder="Paste a link or tell me what to look at">
+
+                        </div>
+
+
+                        <!-- Anything else -->
+
+                        <div class="form-field full">
+
+                            <label for="anything-else">
+                                Anything else I should know?
+                            </label>
+
+                            <textarea id="anything-else"
+                                      name="Anything Else"
+                                      placeholder="Optional — last chance to throw something interesting into the mix."></textarea>
+
+                        </div>
+
+
+                        <!-- Submit -->
+
+                        <div class="form-submit-row">
+
+                            <button class="send-project"
+                                    type="submit">
+                                Send It My Way →
+                            </button>
+
+                            <p class="form-fine-print">
+                                No phone number. No giant questionnaire.
+                                Just enough to start the conversation.
+                            </p>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+
     </main>
+
 
     <footer>
         &copy; 2026 Alex Reynoso Art
     </footer>
+
+
+    <script>
+
+    (() => {
+
+        const startCard =
+            document.getElementById('start-project');
+
+        const studio =
+            document.getElementById('project-studio');
+
+        const choices =
+            [...document.querySelectorAll('.project-choice')];
+
+        const formWrap =
+            document.getElementById('project-form-wrap');
+
+        const formTitle =
+            document.getElementById('form-title');
+
+        const formIntro =
+            document.getElementById('form-intro');
+
+        const projectType =
+            document.getElementById('project-type');
+
+        const formSubject =
+            document.getElementById('form-subject');
+
+        const dynamicFields =
+            document.getElementById('dynamic-fields');
+
+        const changeProject =
+            document.getElementById('change-project');
+
+
+        /* Individual project forms */
+
+        const projectCopy = {
+
+            painting: {
+
+                name: 'Original Painting',
+
+                title: 'Let’s make a painting.',
+
+                intro:
+                    'Tell me the subject, the feeling, and where you imagine it living. I’ll choose the medium and materials that best fit the piece.',
+
+                fields: `
+
+                    <div class="dynamic-grid">
+
+                        <div class="form-field">
+
+                            <label for="painting-size">
+                                About how big are you thinking?
+                            </label>
+
+                            <select id="painting-size"
+                                    name="Approximate Size">
+
+                                <option value="Not sure yet">
+                                    Not sure yet
+                                </option>
+
+                                <option value="Small">
+                                    Small
+                                </option>
+
+                                <option value="Medium">
+                                    Medium
+                                </option>
+
+                                <option value="Large">
+                                    Large
+                                </option>
+
+                                <option value="Very large / statement piece">
+                                    Very large / statement piece
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-field">
+
+                            <label for="painting-home">
+                                Where might it live?
+                            </label>
+
+                            <input id="painting-home"
+                                   name="Where It Will Live"
+                                   type="text"
+                                   placeholder="Home, office, gift, somewhere else...">
+
+                        </div>
+
+
+                        <div class="form-field full">
+
+                            <label for="painting-feel">
+                                Any colors, mood or feeling in your head?
+                            </label>
+
+                            <input id="painting-feel"
+                                   name="Color / Mood"
+                                   type="text"
+                                   placeholder="Dark, bright, strange, calm, surprise me...">
+
+                        </div>
+
+                    </div>
+                `
+            },
+
+
+            illustration: {
+
+                name: 'Illustration / Design',
+
+                title: 'Let’s draw it out.',
+
+                intro:
+                    'Tell me what you need and what it’s for. Characters, covers, posters, graphics — start wherever the idea starts.',
+
+                fields: `
+
+                    <div class="dynamic-grid">
+
+                        <div class="form-field">
+
+                            <label for="illustration-use">
+                                What is it for?
+                            </label>
+
+                            <input id="illustration-use"
+                                   name="Intended Use"
+                                   type="text"
+                                   placeholder="Book, poster, personal piece, brand...">
+
+                        </div>
+
+
+                        <div class="form-field">
+
+                            <label for="illustration-format">
+                                Do you know the size or format?
+                            </label>
+
+                            <input id="illustration-format"
+                                   name="Size / Format"
+                                   type="text"
+                                   placeholder="Print size, vertical, square, not sure...">
+
+                        </div>
+
+
+                        <div class="form-field full">
+
+                            <label for="illustration-rights">
+                                Personal or commercial use?
+                            </label>
+
+                            <select id="illustration-rights"
+                                    name="Personal / Commercial">
+
+                                <option value="Not sure yet">
+                                    Not sure yet
+                                </option>
+
+                                <option value="Personal">
+                                    Personal
+                                </option>
+
+                                <option value="Commercial">
+                                    Commercial
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+                `
+            },
+
+
+            video: {
+
+                name: 'Video / Visual Project',
+
+                title: 'Let’s make something move.',
+
+                intro:
+                    'Creative video, compositing, green-screen work, music visuals and social pieces — not traditional animation production.',
+
+                fields: `
+
+                    <div class="dynamic-grid">
+
+                        <div class="form-field">
+
+                            <label for="video-platform">
+                                Where is it going?
+                            </label>
+
+                            <input id="video-platform"
+                                   name="Platform / Destination"
+                                   type="text"
+                                   placeholder="Instagram, TikTok, music video, website...">
+
+                        </div>
+
+
+                        <div class="form-field">
+
+                            <label for="video-length">
+                                About how long?
+                            </label>
+
+                            <input id="video-length"
+                                   name="Approximate Length"
+                                   type="text"
+                                   placeholder="15 sec, 60 sec, full song, not sure...">
+
+                        </div>
+
+
+                        <div class="form-field full">
+
+                            <label for="video-assets">
+                                What do you already have?
+                            </label>
+
+                            <input id="video-assets"
+                                   name="Existing Assets"
+                                   type="text"
+                                   placeholder="Music, footage, photos, logo, nothing yet...">
+
+                        </div>
+
+                    </div>
+                `
+            },
+
+
+            experimental: {
+
+                name: 'Experimental Project',
+
+                title: 'Okay. Now I’m curious.',
+
+                intro:
+                    'Puppets, rigging, mixed media, unusual digital ideas or something neither of us has named yet. Some of this work is exploratory by design.',
+
+                fields: `
+
+                    <div class="dynamic-grid">
+
+                        <div class="form-field full">
+
+                            <label for="experiment">
+                                What makes this one different?
+                            </label>
+
+                            <input id="experiment"
+                                   name="Experimental Direction"
+                                   type="text"
+                                   placeholder="The stranger the explanation, the better.">
+
+                        </div>
+
+                    </div>
+                `
+            }
+
+        };
+
+
+        /* Scroll from commission card to project chooser */
+
+        function goToStudio() {
+
+            studio.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+
+        }
+
+
+        startCard.addEventListener(
+            'click',
+            goToStudio
+        );
+
+
+        startCard.addEventListener(
+            'keydown',
+            (event) => {
+
+                if (
+                    event.key === 'Enter' ||
+                    event.key === ' '
+                ) {
+
+                    event.preventDefault();
+                    goToStudio();
+
+                }
+
+            }
+        );
+
+
+        /* Open the appropriate form */
+
+        function chooseProject(key) {
+
+            const copy = projectCopy[key];
+
+            if (!copy) return;
+
+
+            choices.forEach(button => {
+
+                const selected =
+                    button.dataset.project === key;
+
+                button.classList.toggle(
+                    'is-selected',
+                    selected
+                );
+
+                button.setAttribute(
+                    'aria-pressed',
+                    selected ? 'true' : 'false'
+                );
+
+            });
+
+
+            projectType.value =
+                copy.name;
+
+
+            formSubject.value =
+                `NEW COMMISSION — ${copy.name.toUpperCase()} — ALEX REYNOSO ART`;
+
+
+            formTitle.textContent =
+                copy.title;
+
+
+            formIntro.textContent =
+                copy.intro;
+
+
+            dynamicFields.innerHTML =
+                copy.fields;
+
+
+            formWrap.classList.add(
+                'is-open'
+            );
+
+
+            window.setTimeout(() => {
+
+                formWrap.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+
+            }, 80);
+
+        }
+
+
+        choices.forEach(button => {
+
+            button.setAttribute(
+                'aria-pressed',
+                'false'
+            );
+
+            button.addEventListener(
+                'click',
+                () => chooseProject(
+                    button.dataset.project
+                )
+            );
+
+        });
+
+
+        /* Let visitor change project type */
+
+        changeProject.addEventListener(
+            'click',
+            () => {
+
+                formWrap.classList.remove(
+                    'is-open'
+                );
+
+                choices.forEach(button => {
+
+                    button.classList.remove(
+                        'is-selected'
+                    );
+
+                    button.setAttribute(
+                        'aria-pressed',
+                        'false'
+                    );
+
+                });
+
+
+                document
+                    .getElementById('project-choices')
+                    .scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+
+            }
+        );
+
+    })();
+
+    </script>
 
 </body>
 
