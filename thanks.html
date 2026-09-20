@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ"></script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+        gtag('config', 'G-MK5FXXVXNJ');
+    </script>
+
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+
+    <title>Message Sent | Alex Reynoso Art</title>
+
+    <meta name="description"
+          content="Your commission inquiry has been sent to Alex Reynoso Art.">
+
+
+    <link rel="stylesheet"
+          href="css/style.css">
+
+
+    <style>
+
+        body {
+            position: relative;
+            min-height: 100vh;
+            margin: 0;
+            background: #111;
+        }
+
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+
+            background-image:
+                url("images/commissions-background-alex-reynoso-art.jpg");
+
+            background-position: center center;
+            background-size: cover;
+            background-repeat: no-repeat;
+
+            opacity: 0.05;
+
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+
+        header,
+        main,
+        footer {
+            position: relative;
+            z-index: 1;
+        }
+
+
+        /* Thank-you area */
+
+        .thank-you-page {
+            width: min(900px, calc(100% - 48px));
+
+            min-height: calc(100vh - 240px);
+
+            margin: 0 auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 70px 0 100px;
+
+            box-sizing: border-box;
+        }
+
+
+        .thank-you-box {
+            width: 100%;
+
+            padding: clamp(35px, 7vw, 75px);
+
+            box-sizing: border-box;
+
+            text-align: center;
+
+            background: rgba(17, 17, 17, 0.96);
+
+            border: 1px solid #333;
+        }
+
+
+        .thank-you-kicker {
+            margin: 0 0 18px;
+
+            color: #f4c430;
+
+            font-size: 0.72rem;
+            font-weight: 700;
+
+            letter-spacing: 0.18em;
+
+            text-transform: uppercase;
+        }
+
+
+        .thank-you-box h1 {
+            max-width: 750px;
+
+            margin: 0 auto 24px;
+
+            color: #fff;
+
+            font-size: clamp(2.6rem, 7vw, 5.5rem);
+
+            line-height: 0.98;
+
+            letter-spacing: -0.03em;
+        }
+
+
+        .thank-you-lead {
+            max-width: 600px;
+
+            margin: 0 auto;
+
+            color: #aaa;
+
+            font-size: 1rem;
+
+            line-height: 1.75;
+        }
+
+
+        .thank-you-lead strong {
+            color: #ddd;
+        }
+
+
+        /* Divider */
+
+        .thank-you-divider {
+            width: 45px;
+            height: 1px;
+
+            margin: 35px auto;
+
+            background: #f4c430;
+        }
+
+
+        /* Continue exploring */
+
+        .keep-going {
+            margin: 0 0 18px;
+
+            color: #777;
+
+            font-size: 0.68rem;
+            font-weight: 700;
+
+            letter-spacing: 0.16em;
+
+            text-transform: uppercase;
+        }
+
+
+        .thank-you-links {
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+        }
+
+
+        .thank-you-links a {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            min-width: 110px;
+
+            padding: 13px 18px;
+
+            box-sizing: border-box;
+
+            color: #ddd;
+
+            background: rgba(255,255,255,0.02);
+
+            border: 1px solid #383838;
+
+            text-decoration: none;
+
+            font-size: 0.72rem;
+            font-weight: 700;
+
+            letter-spacing: 0.08em;
+
+            text-transform: uppercase;
+
+            transition:
+                border-color 180ms ease,
+                color 180ms ease,
+                transform 180ms ease,
+                background 180ms ease;
+        }
+
+
+        .thank-you-links a:hover,
+        .thank-you-links a:focus-visible {
+            color: #111;
+
+            background: #f4c430;
+
+            border-color: #f4c430;
+
+            transform: translateY(-2px);
+
+            outline: none;
+        }
+
+
+        /* Main return button */
+
+        .return-home {
+            display: inline-block;
+
+            margin-top: 34px;
+
+            color: #f4c430;
+
+            text-decoration: none;
+
+            font-size: 0.74rem;
+            font-weight: 800;
+
+            letter-spacing: 0.12em;
+
+            text-transform: uppercase;
+
+            border-bottom: 1px solid #f4c430;
+
+            padding-bottom: 4px;
+        }
+
+
+        .return-home:hover,
+        .return-home:focus-visible {
+            color: #fff;
+
+            border-color: #fff;
+
+            outline: none;
+        }
+
+
+        /* Mobile */
+
+        @media (max-width: 600px) {
+
+            .thank-you-page {
+                width: min(100% - 32px, 900px);
+
+                min-height: calc(100vh - 190px);
+
+                padding: 45px 0 70px;
+            }
+
+
+            .thank-you-box {
+                padding: 42px 20px;
+            }
+
+
+            .thank-you-box h1 {
+                font-size: clamp(2.5rem, 13vw, 4rem);
+            }
+
+
+            .thank-you-links {
+                display: grid;
+
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+
+            .thank-you-links a {
+                min-width: 0;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <header>
+
+        <a class="site-logo"
+           href="index.html">
+
+            <img src="images/AlexReynosoArt-Logo_transparent.png"
+                 alt="Alex Reynoso Art">
+
+        </a>
+
+
+        <nav>
+
+            <a href="index.html">Home</a>
+
+            <a href="about.html">About</a>
+
+            <a href="art.html">Art</a>
+
+            <a href="videos.html">Videos</a>
+
+            <a href="shop.html">Shop</a>
+
+            <a href="commissions.html">Commissions</a>
+
+        </nav>
+
+    </header>
+
+
+
+    <main>
+
+        <section class="thank-you-page">
+
+            <div class="thank-you-box">
+
+
+                <p class="thank-you-kicker">
+                    Message Sent
+                </p>
+
+
+                <h1>
+                    Your idea is on its way. ✨
+                </h1>
+
+
+                <p class="thank-you-lead">
+
+                    Thanks for reaching out.
+
+                    <strong>
+                        Your project just landed in my inbox.
+                    </strong>
+
+                    <br><br>
+
+                    I'll take a look and get back to you by email.
+
+                </p>
+
+
+                <div class="thank-you-divider"></div>
+
+
+                <p class="keep-going">
+                    In the meantime...
+                </p>
+
+
+                <div class="thank-you-links">
+
+                    <a href="art.html">
+                        See the Art
+                    </a>
+
+                    <a href="videos.html">
+                        Watch Videos
+                    </a>
+
+                    <a href="shop.html">
+                        Visit the Shop
+                    </a>
+
+                    <a href="about.html">
+                        About Alex
+                    </a>
+
+                </div>
+
+
+                <a class="return-home"
+                   href="index.html">
+
+                    Back to Alex Reynoso Art →
+
+                </a>
+
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <footer>
+
+        &copy; 2026 Alex Reynoso Art
+
+    </footer>
+
+
+</body>
+
+</html>
