@@ -1,256 +1,470 @@
-<style>
+<!DOCTYPE html>
+<html lang="en">
 
-    /* Commissions background */
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-    body {
-        position: relative;
-        min-height: 100vh;
-        background: #111;
-    }
+        gtag('config', 'G-MK5FXXVXNJ');
+    </script>
 
-    body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        background-image:
-            url("images/commissions-background-alex-reynoso-art.jpg");
-        background-position: center center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        opacity: 0.05;
-        pointer-events: none;
-        z-index: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    header,
-    main,
-    footer {
-        position: relative;
-        z-index: 1;
-    }
+    <title>Commissions | Alex Reynoso Art</title>
 
+    <meta name="description"
+          content="Commission original artwork and creative projects from Alex Reynoso Art.">
 
-    /* Commission introduction */
+    <link rel="stylesheet" href="css/style.css">
 
-    .commission-intro {
-        max-width: 760px;
-        margin: 90px auto 85px;
-        padding: 0 24px;
-        text-align: center;
-    }
+    <style>
 
-    .commission-intro h1 {
-        margin: 0 0 22px;
-        font-size: clamp(3rem, 7vw, 5rem);
-        line-height: 1;
-    }
+        /* Commissions background */
 
-    .commission-intro p {
-        max-width: 650px;
-        margin: 0 auto;
-        color: #ccc;
-        font-size: 1rem;
-        line-height: 1.7;
-    }
-
-
-    /* Commission board */
-
-    .commission-board {
-        width: min(1100px, calc(100% - 48px));
-        margin: 0 auto 110px;
-    }
-
-    .commission-board-heading {
-        margin-bottom: 28px;
-    }
-
-    .commission-board-heading h2 {
-        margin: 0 0 8px;
-        font-size: 2rem;
-    }
-
-    .commission-board-heading p {
-        margin: 0;
-        color: #999;
-        line-height: 1.6;
-    }
-
-    .commission-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-    }
-
-
-    /* Commission cards */
-
-    .commission-card {
-        min-height: 175px;
-        padding: 20px;
-        display: grid;
-        grid-template-columns: 110px 1fr;
-        gap: 20px;
-        align-items: start;
-        background: rgba(17, 17, 17, 0.94);
-        border: 1px solid #333;
-    }
-
-    .commission-thumbnail {
-        width: 110px;
-        aspect-ratio: 1 / 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        background:
-            linear-gradient(
-                135deg,
-                rgba(255,255,255,0.035),
-                rgba(255,255,255,0.008)
-            );
-        border: 1px solid #333;
-    }
-
-    .commission-thumbnail::before {
-        content: "IMAGE";
-        color: #555;
-        font-size: 0.58rem;
-        letter-spacing: 0.18em;
-    }
-
-    .commission-thumbnail:has(img)::before {
-        display: none;
-    }
-
-    .commission-thumbnail img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-    }
-
-    .commission-card-content {
-        min-width: 0;
-        min-height: 135px;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .commission-number {
-        display: block;
-        margin-bottom: 20px;
-        color: #777;
-        font-size: 0.72rem;
-        letter-spacing: 0.16em;
-    }
-
-    .commission-card h3 {
-        margin: 0 0 8px;
-        font-size: 1.15rem;
-    }
-
-    .commission-card p {
-        margin: 0;
-        color: #999;
-        font-size: 0.84rem;
-        line-height: 1.5;
-    }
-
-    .commission-status {
-        display: inline-block;
-        margin-top: auto;
-        padding-top: 16px;
-        color: #f4c430;
-        font-size: 0.66rem;
-        font-weight: 700;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-    }
-
-    .commission-status.completed {
-        color: #aaa;
-    }
-
-
-    /* Permanent open slot */
-
-    .commission-card-next {
-        min-height: 175px;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        border: 1px dashed #444;
-        background: rgba(17, 17, 17, 0.74);
-    }
-
-    .commission-card-next .commission-number {
-        margin-bottom: 20px;
-    }
-
-    .commission-card-next h3 {
-        margin: 0 0 8px;
-        color: #f4c430;
-        font-size: 1.15rem;
-    }
-
-    .commission-card-next p {
-        margin: 0;
-        color: #999;
-        font-size: 0.84rem;
-        line-height: 1.5;
-    }
-
-    .commission-card-next .commission-status {
-        margin-top: auto;
-    }
-
-
-    @media (max-width: 750px) {
-
-        .commission-grid {
-            grid-template-columns: 1fr;
+        body {
+            position: relative;
+            min-height: 100vh;
+            background: #111;
         }
-
-    }
-
-    @media (max-width: 600px) {
 
         body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image:
+                url("images/commissions-background-alex-reynoso-art.jpg");
             background-position: center center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 0;
         }
+
+        header,
+        main,
+        footer {
+            position: relative;
+            z-index: 1;
+        }
+
+
+        /* Commission introduction */
 
         .commission-intro {
-            margin: 65px auto 65px;
+            max-width: 760px;
+            margin: 90px auto 85px;
+            padding: 0 24px;
+            text-align: center;
         }
+
+        .commission-intro h1 {
+            margin: 0 0 22px;
+            font-size: clamp(3rem, 7vw, 5rem);
+            line-height: 1;
+        }
+
+        .commission-intro p {
+            max-width: 650px;
+            margin: 0 auto;
+            color: #ccc;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+
+        /* Commission board */
 
         .commission-board {
-            width: min(100% - 32px, 1100px);
-            margin-bottom: 80px;
+            width: min(1100px, calc(100% - 48px));
+            margin: 0 auto 110px;
         }
 
-        .commission-card {
-            grid-template-columns: 82px 1fr;
+        .commission-board-heading {
+            margin-bottom: 28px;
+        }
+
+        .commission-board-heading h2 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+        }
+
+        .commission-board-heading p {
+            margin: 0;
+            color: #999;
+            line-height: 1.6;
+        }
+
+        .commission-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 16px;
-            min-height: 150px;
-            padding: 16px;
+        }
+
+
+        /* Commission cards */
+
+        .commission-card {
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            background: rgba(17, 17, 17, 0.94);
+            border: 1px solid #333;
         }
 
         .commission-thumbnail {
-            width: 82px;
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255,255,255,0.025),
+                    rgba(255,255,255,0.005)
+                );
+            border-bottom: 1px solid #333;
+        }
+
+        .commission-thumbnail::before {
+            content: "IMAGE";
+            color: #555;
+            font-size: 0.68rem;
+            letter-spacing: 0.2em;
+        }
+
+        .commission-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         .commission-card-content {
-            min-height: 118px;
+            flex: 1;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
         }
+
+        .commission-number {
+            display: block;
+            margin-bottom: 26px;
+            color: #777;
+            font-size: 0.72rem;
+            letter-spacing: 0.16em;
+        }
+
+        .commission-card h3 {
+            margin: 0 0 9px;
+            font-size: 1.25rem;
+        }
+
+        .commission-card p {
+            margin: 0;
+            color: #999;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        .commission-status {
+            display: inline-block;
+            margin-top: auto;
+            padding-top: 22px;
+            color: #f4c430;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .commission-status.completed {
+            color: #aaa;
+        }
+
+
+        /* Permanent next commission card */
 
         .commission-card-next {
-            min-height: 150px;
-            padding: 18px;
+            min-height: 100%;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px dashed #444;
+            background: rgba(17, 17, 17, 0.74);
         }
 
-    }
+        .commission-card-next .commission-number {
+            margin-bottom: 38px;
+        }
 
-</style>
+        .commission-card-next h3 {
+            margin: 0 0 9px;
+            color: #f4c430;
+            font-size: 1.25rem;
+        }
+
+        .commission-card-next p {
+            margin: 0;
+            color: #999;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        .commission-card-next .commission-status {
+            margin-top: auto;
+        }
+
+
+        @media (max-width: 850px) {
+
+            .commission-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            body::before {
+                background-position: center center;
+            }
+
+            .commission-intro {
+                margin: 65px auto 65px;
+            }
+
+            .commission-board {
+                width: min(100% - 32px, 1100px);
+                margin-bottom: 80px;
+            }
+
+            .commission-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+
+        <a class="site-logo" href="index.html">
+            <img src="images/AlexReynosoArt-Logo_transparent.png"
+                 alt="Alex Reynoso Art">
+        </a>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="art.html">Art</a>
+            <a href="videos.html">Videos</a>
+            <a href="shop.html">Shop</a>
+            <a href="commissions.html">Commissions</a>
+        </nav>
+
+    </header>
+
+    <main>
+
+        <section class="commission-intro">
+
+            <h1>Commissions</h1>
+
+            <p>
+                Original artwork, illustration, video and custom creative projects.
+                Every project starts with an idea.
+            </p>
+
+        </section>
+
+
+        <section class="commission-board">
+
+            <div class="commission-board-heading">
+
+                <h2>Selected Commissions</h2>
+
+                <p>
+                    A look at completed work and projects currently taking shape.
+                </p>
+
+            </div>
+
+
+            <div class="commission-grid">
+
+                <!-- 01 -->
+
+                <article class="commission-card">
+
+                    <div class="commission-thumbnail"></div>
+
+                    <div class="commission-card-content">
+
+                        <span class="commission-number">01</span>
+
+                        <h3>Music Video Commission</h3>
+
+                        <p>
+                            Custom visual project created for an independent artist.
+                        </p>
+
+                        <span class="commission-status completed">
+                            Completed
+                        </span>
+
+                    </div>
+
+                </article>
+
+
+                <!-- 02 -->
+
+                <article class="commission-card">
+
+                    <div class="commission-thumbnail"></div>
+
+                    <div class="commission-card-content">
+
+                        <span class="commission-number">02</span>
+
+                        <h3>Original Painting</h3>
+
+                        <p>
+                            An original commissioned painting currently in development.
+                        </p>
+
+                        <span class="commission-status">
+                            In Progress
+                        </span>
+
+                    </div>
+
+                </article>
+
+
+                <!-- 03 -->
+
+                <article class="commission-card">
+
+                    <div class="commission-thumbnail"></div>
+
+                    <div class="commission-card-content">
+
+                        <span class="commission-number">03</span>
+
+                        <h3>Book Illustration</h3>
+
+                        <p>
+                            Illustration work being developed for an author.
+                        </p>
+
+                        <span class="commission-status">
+                            In Progress
+                        </span>
+
+                    </div>
+
+                </article>
+
+
+                <!-- 04 -->
+
+                <article class="commission-card">
+
+                    <div class="commission-thumbnail"></div>
+
+                    <div class="commission-card-content">
+
+                        <span class="commission-number">04</span>
+
+                        <h3>Custom Creative Project</h3>
+
+                        <p>
+                            A private creative project currently taking shape.
+                        </p>
+
+                        <span class="commission-status">
+                            In Progress
+                        </span>
+
+                    </div>
+
+                </article>
+
+
+                <!-- 05 -->
+
+                <article class="commission-card">
+
+                    <div class="commission-thumbnail"></div>
+
+                    <div class="commission-card-content">
+
+                        <span class="commission-number">05</span>
+
+                        <h3>Private Commission</h3>
+
+                        <p>
+                            Project details remain private while the work develops.
+                        </p>
+
+                        <span class="commission-status">
+                            In Progress
+                        </span>
+
+                    </div>
+
+                </article>
+
+
+                <!-- Permanent open slot -->
+
+                <article class="commission-card-next">
+
+                    <div>
+
+                        <span class="commission-number">06</span>
+
+                        <h3>Your Idea Could Be Next</h3>
+
+                        <p>
+                            Painting, illustration, video or something we haven't
+                            thought of yet.
+                        </p>
+
+                    </div>
+
+                    <span class="commission-status">
+                        Let's Make Something
+                    </span>
+
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        &copy; 2026 Alex Reynoso Art
+    </footer>
+
+</body>
+
+</html>
