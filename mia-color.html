@@ -3,7 +3,7 @@
 
 <head>
 
-    <!-- Google tag (gtag.js) -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ"></script>
 
     <script>
@@ -17,76 +17,109 @@
         gtag('config', 'G-MK5FXXVXNJ');
     </script>
 
+
     <meta charset="UTF-8">
 
     <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+          content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
 
-    <title>Color Mia Online | Alex Reynoso Art</title>
+
+    <title>Color Studio | Mia the Panda</title>
+
 
     <meta name="description"
-          content="A creative online coloring activity from Mia the Panda and Alex Reynoso Art.">
-
-    <link rel="stylesheet"
-          href="css/style.css">
+          content="A creative online coloring studio from Mia the Panda and Alex Reynoso Art.">
 
 
     <style>
 
-        /* =========================
-           MIA COLORING STUDIO
-           ========================= */
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html,
+        body {
+            margin: 0;
+            min-height: 100%;
+        }
+
 
         body {
             background: #f8f5f7;
             color: #222;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            overscroll-behavior: none;
         }
 
 
-        .studio-page {
-            max-width: 1250px;
+        button,
+        input {
+            font: inherit;
+        }
+
+
+        /* =========================
+           STUDIO SHELL
+           ========================= */
+
+        .studio {
+            max-width: 1450px;
             margin: 0 auto;
-            padding: 35px 22px 80px;
+            padding: 14px 18px 40px;
         }
 
 
-        .studio-back {
-            display: inline-block;
-            margin-bottom: 25px;
-            color: #555;
+        /* TOP BAR */
+
+        .studio-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+
+            min-height: 58px;
+            margin-bottom: 12px;
+        }
+
+
+        .exit-studio {
+            color: #333;
             text-decoration: none;
-            font-weight: 600;
+            font-size: 0.9rem;
+            font-weight: 700;
         }
 
 
-        .studio-back:hover {
+        .exit-studio:hover {
             color: #e07f9f;
         }
 
 
-        /* HEADER */
-
-        .studio-intro {
+        .studio-name {
             text-align: center;
-            margin-bottom: 30px;
         }
 
 
-        .studio-kicker {
-            font-size: 0.78rem;
-            letter-spacing: 0.18em;
+        .studio-name strong {
+            display: block;
+            font-size: 1rem;
+        }
+
+
+        .studio-name span {
+            display: block;
+            margin-top: 2px;
+
+            color: #888;
+            font-size: 0.68rem;
+            letter-spacing: 0.13em;
             text-transform: uppercase;
-            color: #777;
-            margin-bottom: 10px;
-        }
-
-
-        .studio-title {
-            margin: 0;
-            color: #111;
-            font-size: clamp(2.5rem, 7vw, 5rem);
-            line-height: 1;
-            letter-spacing: -0.04em;
         }
 
 
@@ -95,88 +128,124 @@
         }
 
 
-        .studio-subtitle {
-            margin: 15px auto 0;
-            color: #666;
-            line-height: 1.6;
+        .zoom-controls {
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
 
-        /* APP */
+        .zoom-button {
+            min-width: 42px;
+            min-height: 40px;
 
-        .studio-app {
+            border: 1px solid #ccc;
+            border-radius: 9px;
+
+            background: #fff;
+            color: #222;
+
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+
+        .zoom-button:hover {
+            background: #111;
+            border-color: #111;
+            color: #fff;
+        }
+
+
+        .zoom-readout {
+            min-width: 56px;
+            text-align: center;
+            color: #666;
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+
+        /* =========================
+           WORKSPACE
+           ========================= */
+
+        .workspace {
             display: grid;
-            grid-template-columns: 240px minmax(0, 1fr);
-            gap: 22px;
+            grid-template-columns: 220px minmax(0, 1fr);
+            gap: 16px;
             align-items: start;
         }
 
 
-        /* TOOL PANEL */
+        /* =========================
+           DESKTOP TOOLBOX
+           ========================= */
 
-        .tool-panel {
+        .toolbox {
             background: #fff;
-            border: 1px solid rgba(0,0,0,0.08);
-            border-radius: 22px;
-            padding: 18px;
+
+            border:
+                1px solid
+                rgba(0,0,0,0.08);
+
+            border-radius: 18px;
+
+            padding: 16px;
+
             position: sticky;
-            top: 20px;
+            top: 12px;
         }
 
 
-        .tool-group {
-            padding-bottom: 18px;
-            margin-bottom: 18px;
+        .tool-section {
+            padding-bottom: 16px;
+            margin-bottom: 16px;
             border-bottom: 1px solid #eee;
         }
 
 
-        .tool-group:last-child {
+        .tool-section:last-child {
+            margin: 0;
+            padding: 0;
             border-bottom: 0;
-            padding-bottom: 0;
-            margin-bottom: 0;
         }
 
 
         .tool-label {
             display: block;
+
             margin-bottom: 9px;
+
             color: #666;
-            font-size: 0.76rem;
+
+            font-size: 0.7rem;
             font-weight: 700;
-            letter-spacing: 0.08em;
+
+            letter-spacing: 0.1em;
             text-transform: uppercase;
         }
 
 
         .tool-buttons {
             display: grid;
-            grid-template-columns: 1fr;
             gap: 7px;
         }
 
 
         .tool-button {
-            width: 100%;
             min-height: 42px;
-            padding: 9px 12px;
 
             border: 1px solid #ddd;
-            border-radius: 10px;
+            border-radius: 9px;
 
             background: #fff;
             color: #222;
 
-            font: inherit;
-            font-size: 0.84rem;
+            font-size: 0.8rem;
             font-weight: 700;
 
             cursor: pointer;
-        }
-
-
-        .tool-button:hover {
-            border-color: #aaa;
         }
 
 
@@ -187,117 +256,141 @@
         }
 
 
-        /* PALETTE */
+        /* =========================
+           PALETTE
+           ========================= */
 
         .palette {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns:
+                repeat(5, 1fr);
+
             gap: 7px;
         }
 
 
         .swatch {
             aspect-ratio: 1;
+
+            min-width: 30px;
+
             border-radius: 50%;
+
             border: 2px solid #fff;
-            outline: 1px solid #ccc;
+
+            outline:
+                1px solid #ccc;
+
             cursor: pointer;
         }
 
 
         .swatch.selected {
-            outline: 3px solid #222;
+            outline:
+                3px solid #222;
         }
 
 
-        .custom-color-wrap {
-            margin-top: 12px;
+        .custom-color {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 9px;
+
+            margin-top: 12px;
+
+            color: #666;
+            font-size: 0.75rem;
         }
 
 
-        .custom-color-wrap input {
-            width: 46px;
-            height: 38px;
+        .custom-color input {
+            width: 42px;
+            height: 36px;
+
             border: 0;
             padding: 0;
+
             background: transparent;
-            cursor: pointer;
         }
 
 
-        .custom-color-wrap span {
-            font-size: 0.8rem;
-            color: #666;
-        }
-
-
-        /* BRUSH SIZE */
-
-        .brush-size {
+        .brush-slider {
             width: 100%;
         }
 
 
-        .brush-size-value {
+        .brush-readout {
             margin-top: 5px;
-            color: #777;
-            font-size: 0.78rem;
+
             text-align: center;
+
+            color: #777;
+
+            font-size: 0.72rem;
         }
 
 
-        /* ART AREA */
+        /* =========================
+           ART SIDE
+           ========================= */
 
-        .art-area {
+        .art-side {
             min-width: 0;
         }
 
 
-        .canvas-card {
-            background: #fff;
-            border: 1px solid rgba(0,0,0,0.08);
-            border-radius: 24px;
-            padding: 20px;
-        }
-
-
-        .canvas-container {
+        .canvas-frame {
             position: relative;
-            width: 100%;
-            max-width: 760px;
-            margin: 0 auto;
-            background: #fff;
+
+            height:
+                min(
+                    74vh,
+                    900px
+                );
+
+            min-height: 500px;
+
             overflow: hidden;
+
+            background: #ddd;
+
+            border:
+                1px solid
+                rgba(0,0,0,0.1);
+
+            border-radius: 20px;
+
             touch-action: none;
-            user-select: none;
         }
 
 
-        /*
-        Three layers:
-
-        1. White background
-        2. User color
-        3. Protected line art
-        */
-
-        .canvas-background {
+        .canvas-stage {
             position: absolute;
-            inset: 0;
+
+            left: 50%;
+            top: 50%;
+
+            transform-origin:
+                center center;
+
             background: #fff;
-            pointer-events: none;
+
+            box-shadow:
+                0 4px 20px
+                rgba(0,0,0,0.12);
+
+            touch-action: none;
         }
 
 
         #paintCanvas,
         #lineCanvas {
             position: absolute;
+
             inset: 0;
 
             display: block;
+
             width: 100%;
             height: 100%;
 
@@ -307,7 +400,6 @@
 
         #paintCanvas {
             z-index: 2;
-            cursor: crosshair;
         }
 
 
@@ -317,133 +409,305 @@
         }
 
 
-        /*
-        This invisible image establishes
-        the correct responsive aspect ratio.
-        */
+        .paper-background {
+            position: absolute;
 
-        .canvas-sizing-image {
-            display: block;
-            width: 100%;
-            height: auto;
-            visibility: hidden;
+            inset: 0;
+
+            z-index: 1;
+
+            background: #fff;
+
             pointer-events: none;
         }
 
 
-        .canvas-status {
-            margin-top: 14px;
+        /* =========================
+           STATUS
+           ========================= */
+
+        .studio-status {
+            margin: 9px 0 0;
+
             text-align: center;
+
             color: #777;
-            font-size: 0.8rem;
+
+            font-size: 0.75rem;
         }
 
 
-        /* BOTTOM ACTIONS */
+        /* =========================
+           ACTION BAR
+           ========================= */
 
-        .bottom-actions {
-            max-width: 760px;
-            margin: 15px auto 0;
-
+        .action-bar {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 9px;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 8px;
+
+            margin-top: 10px;
         }
 
 
-        .bottom-button {
-            min-height: 46px;
-            padding: 10px;
+        .action-button {
+            min-height: 44px;
 
-            border: 1px solid #222;
-            border-radius: 11px;
+            border:
+                1px solid #333;
+
+            border-radius: 10px;
 
             background: #fff;
             color: #222;
 
-            font: inherit;
-            font-size: 0.82rem;
+            font-size: 0.78rem;
             font-weight: 700;
 
             cursor: pointer;
         }
 
 
-        .bottom-button:hover {
-            background: #111;
-            color: #fff;
-        }
-
-
-        .bottom-button.save {
+        .save-button {
             background: #e88eaa;
             border-color: #e88eaa;
             color: #fff;
         }
 
 
-        /* CREDIT */
+        /* =========================
+           MOBILE TOOL DOCK
+           ========================= */
 
-        .studio-credit {
-            margin-top: 50px;
-            text-align: center;
-            color: #777;
-            font-size: 0.88rem;
-            line-height: 1.7;
+        .mobile-dock {
+            display: none;
         }
 
 
-        /* MOBILE */
+        /* =========================
+           CREDIT
+           ========================= */
+
+        .studio-credit {
+            margin-top: 24px;
+
+            text-align: center;
+
+            color: #888;
+
+            font-size: 0.72rem;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           TABLET + MOBILE
+           ========================= */
 
         @media (max-width: 850px) {
 
-            .studio-app {
-                grid-template-columns: 1fr;
+            body {
+                padding-bottom: 175px;
             }
 
 
-            .tool-panel {
-                position: static;
+            .studio {
+                padding:
+                    8px 8px 25px;
             }
 
 
-            .tool-buttons {
-                grid-template-columns: repeat(3, 1fr);
+            .studio-topbar {
+                min-height: 50px;
+                margin-bottom: 7px;
             }
 
 
-            .palette {
-                grid-template-columns: repeat(10, 1fr);
+            .studio-name span {
+                display: none;
             }
 
 
-            .bottom-actions {
-                grid-template-columns: repeat(2, 1fr);
+            .workspace {
+                display: block;
+            }
+
+
+            .toolbox {
+                display: none;
+            }
+
+
+            .canvas-frame {
+                height:
+                    calc(100vh - 145px);
+
+                min-height: 390px;
+
+                border-radius: 13px;
+            }
+
+
+            .action-bar {
+                display: none;
+            }
+
+
+            .studio-status {
+                margin-top: 6px;
+                font-size: 0.68rem;
+            }
+
+
+            /* MOBILE DOCK */
+
+            .mobile-dock {
+                position: fixed;
+
+                left: 0;
+                right: 0;
+                bottom: 0;
+
+                z-index: 100;
+
+                display: block;
+
+                padding:
+                    8px 10px
+                    calc(
+                        8px +
+                        env(
+                            safe-area-inset-bottom
+                        )
+                    );
+
+                background:
+                    rgba(
+                        255,
+                        255,
+                        255,
+                        0.97
+                    );
+
+                border-top:
+                    1px solid #ddd;
+
+                backdrop-filter:
+                    blur(12px);
+            }
+
+
+            .mobile-palette {
+                display: flex;
+
+                gap: 9px;
+
+                overflow-x: auto;
+
+                padding:
+                    4px 3px 9px;
+
+                scrollbar-width: none;
+            }
+
+
+            .mobile-palette::-webkit-scrollbar {
+                display: none;
+            }
+
+
+            .mobile-palette .swatch {
+                flex:
+                    0 0 34px;
+
+                width: 34px;
+                height: 34px;
+            }
+
+
+            .mobile-tools {
+                display: grid;
+
+                grid-template-columns:
+                    repeat(3, 1fr);
+
+                gap: 6px;
+
+                margin-bottom: 7px;
+            }
+
+
+            .mobile-actions {
+                display: grid;
+
+                grid-template-columns:
+                    repeat(4, 1fr);
+
+                gap: 6px;
+            }
+
+
+            .mobile-button {
+                min-height: 42px;
+
+                border:
+                    1px solid #ccc;
+
+                border-radius: 9px;
+
+                background: #fff;
+                color: #222;
+
+                font-size: 0.7rem;
+                font-weight: 700;
+            }
+
+
+            .mobile-button.active {
+                background: #111;
+                border-color: #111;
+                color: #fff;
+            }
+
+
+            .mobile-button.save {
+                background: #e88eaa;
+                border-color: #e88eaa;
+                color: #fff;
+            }
+
+
+            .studio-credit {
+                display: none;
             }
 
         }
 
 
-        @media (max-width: 550px) {
+        @media (max-width: 480px) {
 
-            .studio-page {
-                padding: 28px 12px 60px;
+            .studio-name strong {
+                font-size: 0.82rem;
             }
 
 
-            .canvas-card {
-                padding: 8px;
-                border-radius: 15px;
+            .exit-studio {
+                font-size: 0.76rem;
             }
 
 
-            .palette {
-                grid-template-columns: repeat(5, 1fr);
+            .zoom-button {
+                min-width: 36px;
+                min-height: 36px;
             }
 
 
-            .tool-panel {
-                border-radius: 15px;
+            .zoom-readout {
+                display: none;
             }
 
         }
@@ -453,73 +717,88 @@
 </head>
 
 
-<body class="mia-page-body">
+<body>
 
 
-<header>
-
-    <a class="site-logo"
-       href="index.html">
-
-        <img src="images/AlexReynosoArt-Logo_transparent.png"
-             alt="Alex Reynoso Art">
-
-    </a>
+<div class="studio">
 
 
-    <nav>
+    <!-- =====================
+         TOP BAR
+         ===================== -->
 
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="art.html">Art</a>
-        <a href="videos.html">Videos</a>
-        <a href="shop.html">Shop</a>
-        <a href="commissions.html">Commissions</a>
-
-    </nav>
-
-</header>
+    <header class="studio-topbar">
 
 
-
-<main class="studio-page">
-
-
-    <a class="studio-back"
-       href="mia-coloring.html">
-        ← Back to Coloring Pages
-    </a>
+        <a class="exit-studio"
+           href="mia-coloring.html">
+            ← EXIT STUDIO
+        </a>
 
 
-    <section class="studio-intro">
+        <div class="studio-name">
 
-        <div class="studio-kicker">
-            Mia the Panda · Kids Corner
+            <strong>
+                Color Mia<span class="studio-heart">♥</span>
+            </strong>
+
+            <span>
+                Creative Studio
+            </span>
+
         </div>
 
 
-        <h1 class="studio-title">
-            Color Mia<span class="studio-heart">♥</span>
-        </h1>
+        <div class="zoom-controls">
+
+            <button class="zoom-button"
+                    id="zoomOut"
+                    type="button"
+                    aria-label="Zoom out">
+                −
+            </button>
 
 
-        <p class="studio-subtitle">
-            Pick a tool, choose a color and make it your own.
-        </p>
-
-    </section>
-
+            <span class="zoom-readout"
+                  id="zoomReadout">
+                FIT
+            </span>
 
 
-    <section class="studio-app">
+            <button class="zoom-button"
+                    id="zoomIn"
+                    type="button"
+                    aria-label="Zoom in">
+                +
+            </button>
 
 
-        <!-- TOOLS -->
+            <button class="zoom-button"
+                    id="fitButton"
+                    type="button">
+                FIT
+            </button>
 
-        <aside class="tool-panel">
+        </div>
 
 
-            <div class="tool-group">
+    </header>
+
+
+
+    <!-- =====================
+         WORKSPACE
+         ===================== -->
+
+    <main class="workspace">
+
+
+        <!-- DESKTOP TOOLS -->
+
+        <aside class="toolbox">
+
+
+            <div class="tool-section">
 
                 <span class="tool-label">
                     Tools
@@ -529,21 +808,21 @@
                 <div class="tool-buttons">
 
                     <button class="tool-button active"
-                            id="fillTool"
+                            data-tool="fill"
                             type="button">
                         FILL
                     </button>
 
 
                     <button class="tool-button"
-                            id="brushTool"
+                            data-tool="brush"
                             type="button">
                         BRUSH
                     </button>
 
 
                     <button class="tool-button"
-                            id="eraserTool"
+                            data-tool="eraser"
                             type="button">
                         ERASER
                     </button>
@@ -554,124 +833,25 @@
 
 
 
-            <div class="tool-group">
+            <div class="tool-section">
 
                 <span class="tool-label">
                     Colors
                 </span>
 
 
-                <div class="palette"
-                     id="palette">
-
-
-                    <button class="swatch selected"
-                            type="button"
-                            data-color="#e88eaa"
-                            style="background:#e88eaa"
-                            aria-label="Pink">
-                    </button>
-
-
-                    <button class="swatch"
-                            type="button"
-                            data-color="#f6b3c8"
-                            style="background:#f6b3c8"
-                            aria-label="Light pink">
-                    </button>
-
-
-                    <button class="swatch"
-                            type="button"
-                            data-color="#ef5350"
-                            style="background:#ef5350"
-                            aria-label="Red">
-                    </button>
-
-
-                    <button class="swatch"
-                            type="button"
-                            data-color="#ff9800"
-                            style="background:#ff9800"
-                            aria-label="Orange">
-                    </button>
-
-
-                    <button class="swatch"
-                            type="button"
-                            data-color="#ffd54f"
-                            style="background:#ffd54f"
-                            aria-label="Yellow">
-                    </button>
-
-
-                    <button class="swatch"
-                            type="button"
-                            data-color="#81c784"
-                            style="background:#81c784"
-                            aria-label="Green">
-                    </button>
-
-
-                    <button class="swatch"
-                            type="button"
-                            data-color="#4dd0e1"
-                            style="background:#4dd0e1"
-                            aria-label="Aqua">
-                    </button>
-
-
-                    <button class="swatch"
-                            type="button"
-                            data-color="#64b5f6"
-                            style="background:#64b5f6"
-                            aria-label="Blue">
-                    </button>
-
-
-                    <button class="swatch"
-                            type="button"
-                            data-color="#9575cd"
-                            style="background:#9575cd"
-                            aria-label="Purple">
-                    </button>
-
-
-                    <button class="swatch"
-                            type="button"
-                            data-color="#795548"
-                            style="background:#795548"
-                            aria-label="Brown">
-                    </button>
-
-
-                    <button class="swatch"
-                            type="button"
-                            data-color="#222222"
-                            style="background:#222222"
-                            aria-label="Black">
-                    </button>
-
-
-                    <button class="swatch"
-                            type="button"
-                            data-color="#ffffff"
-                            style="background:#ffffff"
-                            aria-label="White">
-                    </button>
-
-
+                <div class="palette desktop-palette">
                 </div>
 
 
-                <label class="custom-color-wrap">
+                <label class="custom-color">
 
-                    <input type="color"
-                           id="customColor"
+                    <input id="customColor"
+                           type="color"
                            value="#e88eaa">
 
                     <span>
-                        Pick your own color
+                        Pick your own
                     </span>
 
                 </label>
@@ -680,7 +860,7 @@
 
 
 
-            <div class="tool-group">
+            <div class="tool-section">
 
                 <label class="tool-label"
                        for="brushSize">
@@ -688,17 +868,17 @@
                 </label>
 
 
-                <input class="brush-size"
+                <input class="brush-slider"
                        id="brushSize"
                        type="range"
                        min="3"
-                       max="80"
+                       max="100"
                        value="18">
 
 
-                <div class="brush-size-value">
+                <div class="brush-readout">
 
-                    <span id="brushSizeNumber">
+                    <span id="brushReadout">
                         18
                     </span>
 
@@ -715,24 +895,19 @@
 
         <!-- ART -->
 
-        <div class="art-area">
+        <section class="art-side">
 
 
-            <div class="canvas-card">
+            <div class="canvas-frame"
+                 id="canvasFrame">
 
 
-                <div class="canvas-container"
-                     id="canvasContainer">
+                <div class="canvas-stage"
+                     id="canvasStage">
 
 
-                    <div class="canvas-background">
+                    <div class="paper-background">
                     </div>
-
-
-                    <img class="canvas-sizing-image"
-                         id="sizingImage"
-                         src="images/mia-the-panda-coloring-page.png"
-                         alt="">
 
 
                     <canvas id="paintCanvas">
@@ -746,42 +921,42 @@
                 </div>
 
 
-                <div class="canvas-status"
-                     id="canvasStatus">
-                    Fill selected. Tap an area to fill it with color.
-                </div>
-
-
             </div>
 
 
+            <p class="studio-status"
+               id="studioStatus">
+                Fill selected. Tap an area to fill it with color.
+            </p>
 
-            <div class="bottom-actions">
 
 
-                <button class="bottom-button"
-                        id="undoButton"
+            <div class="action-bar">
+
+
+                <button class="action-button"
+                        id="undoDesktop"
                         type="button">
                     UNDO
                 </button>
 
 
-                <button class="bottom-button"
-                        id="redoButton"
+                <button class="action-button"
+                        id="redoDesktop"
                         type="button">
                     REDO
                 </button>
 
 
-                <button class="bottom-button"
-                        id="resetButton"
+                <button class="action-button"
+                        id="resetDesktop"
                         type="button">
                     START OVER
                 </button>
 
 
-                <button class="bottom-button save"
-                        id="saveButton"
+                <button class="action-button save-button"
+                        id="saveDesktop"
                         type="button">
                     SAVE MY ART
                 </button>
@@ -790,10 +965,10 @@
             </div>
 
 
-        </div>
+        </section>
 
 
-    </section>
+    </main>
 
 
 
@@ -808,21 +983,120 @@
     </div>
 
 
-</main>
+</div>
 
 
 
-<footer>
-    &copy; 2026 Alex Reynoso Art
-</footer>
+<!-- =========================
+     MOBILE DOCK
+     ========================= -->
+
+<div class="mobile-dock">
+
+
+    <div class="mobile-palette">
+    </div>
+
+
+    <div class="mobile-tools">
+
+        <button class="mobile-button active"
+                data-tool="fill"
+                type="button">
+            FILL
+        </button>
+
+
+        <button class="mobile-button"
+                data-tool="brush"
+                type="button">
+            BRUSH
+        </button>
+
+
+        <button class="mobile-button"
+                data-tool="eraser"
+                type="button">
+            ERASE
+        </button>
+
+    </div>
+
+
+    <div class="mobile-actions">
+
+        <button class="mobile-button"
+                id="undoMobile"
+                type="button">
+            ↶ UNDO
+        </button>
+
+
+        <button class="mobile-button"
+                id="redoMobile"
+                type="button">
+            ↷ REDO
+        </button>
+
+
+        <button class="mobile-button"
+                id="resetMobile"
+                type="button">
+            RESET
+        </button>
+
+
+        <button class="mobile-button save"
+                id="saveMobile"
+                type="button">
+            SAVE
+        </button>
+
+    </div>
+
+
+</div>
 
 
 
 <script>
 
+    /* =====================================================
+       MIA CREATIVE STUDIO
+       =====================================================
+
+       ARTWORK SOURCE
+       Change this value later when multiple pages exist.
+
+       A future gallery can call:
+       mia-color.html?art=some-id
+
+       The product/API layer should NOT live here.
+       Finished artwork is exported through
+       createFinishedArtwork().
+
+       ===================================================== */
+
+
+    const ARTWORK = {
+
+        id:
+            'tired-panda-001',
+
+        title:
+            'Tired Panda',
+
+        source:
+            'images/mia-the-panda-coloring-page.png',
+
+        creator:
+            'Mia'
+
+    };
+
+
     /* =========================
-       MIA COLORING STUDIO
-       Separate paint and line layers
+       CANVAS
        ========================= */
 
 
@@ -856,13 +1130,30 @@
         );
 
 
+    const canvasFrame =
+        document.getElementById(
+            'canvasFrame'
+        );
+
+
+    const canvasStage =
+        document.getElementById(
+            'canvasStage'
+        );
+
+
     const sourceImage =
         new Image();
 
 
     sourceImage.src =
-        'images/mia-the-panda-coloring-page.png';
+        ARTWORK.source;
 
+
+
+    /* =========================
+       STATE
+       ========================= */
 
 
     let currentTool =
@@ -889,6 +1180,10 @@
         0;
 
 
+    let boundaryData =
+        null;
+
+
     let history =
         [];
 
@@ -901,13 +1196,226 @@
         30;
 
 
-    let boundaryData =
+
+    /* =========================
+       VIEW STATE
+       ========================= */
+
+
+    let fitScale =
+        1;
+
+
+    let zoomMultiplier =
+        1;
+
+
+    let panX =
+        0;
+
+
+    let panY =
+        0;
+
+
+    const minZoom =
+        1;
+
+
+    const maxZoom =
+        5;
+
+
+    const activePointers =
+        new Map();
+
+
+    let pinchStartDistance =
+        0;
+
+
+    let pinchStartZoom =
+        1;
+
+
+    let panStartCenter =
         null;
+
+
+    let panStartX =
+        0;
+
+
+    let panStartY =
+        0;
+
+
+    let navigationGesture =
+        false;
 
 
 
     /* =========================
-       INITIALIZE
+       COLORS
+       ========================= */
+
+
+    const COLORS = [
+
+        '#e88eaa',
+        '#f6b3c8',
+        '#ef5350',
+        '#ff9800',
+        '#ffd54f',
+        '#81c784',
+        '#4dd0e1',
+        '#64b5f6',
+        '#9575cd',
+        '#795548',
+        '#222222',
+        '#ffffff'
+
+    ];
+
+
+
+    function buildPalette(
+        container
+    ) {
+
+
+        COLORS.forEach(
+            function(color) {
+
+
+                const button =
+                    document.createElement(
+                        'button'
+                    );
+
+
+                button.type =
+                    'button';
+
+
+                button.className =
+                    'swatch';
+
+
+                if (
+                    color ===
+                    currentColor
+                ) {
+
+                    button.classList.add(
+                        'selected'
+                    );
+
+                }
+
+
+                button.dataset.color =
+                    color;
+
+
+                button.style.background =
+                    color;
+
+
+                button.setAttribute(
+                    'aria-label',
+                    'Choose color ' +
+                    color
+                );
+
+
+                button.addEventListener(
+                    'click',
+                    function(event) {
+
+
+                        event.stopPropagation();
+
+
+                        selectColor(
+                            color
+                        );
+
+                    }
+                );
+
+
+                container.appendChild(
+                    button
+                );
+
+            }
+        );
+
+    }
+
+
+
+    document
+        .querySelectorAll(
+            '.desktop-palette, .mobile-palette'
+        )
+        .forEach(
+            buildPalette
+        );
+
+
+
+    function selectColor(
+        color
+    ) {
+
+
+        currentColor =
+            color;
+
+
+        document
+            .querySelectorAll(
+                '.swatch'
+            )
+            .forEach(
+                function(swatch) {
+
+
+                    swatch.classList.toggle(
+                        'selected',
+                        swatch.dataset.color ===
+                        color
+                    );
+
+                }
+            );
+
+    }
+
+
+
+    document
+        .getElementById(
+            'customColor'
+        )
+        .addEventListener(
+            'input',
+            function() {
+
+
+                selectColor(
+                    this.value
+                );
+
+            }
+        );
+
+
+
+    /* =========================
+       INITIALIZE ART
        ========================= */
 
 
@@ -939,13 +1447,22 @@
                 height;
 
 
+            canvasStage.style.width =
+                width + 'px';
+
+
+            canvasStage.style.height =
+                height + 'px';
+
+
             /*
-            Paint canvas begins
-            completely transparent.
+            Draw original source
+            temporarily.
             */
 
 
-            paintCtx.clearRect(
+            lineCtx.drawImage(
+                sourceImage,
                 0,
                 0,
                 width,
@@ -954,9 +1471,105 @@
 
 
             /*
-            Draw original artwork
-            onto protected top layer.
+            Original pixels are kept
+            for fill boundaries.
             */
+
+
+            boundaryData =
+                lineCtx.getImageData(
+                    0,
+                    0,
+                    width,
+                    height
+                );
+
+
+            /*
+            Convert white background
+            into transparency.
+
+            Dark line art remains
+            protected above paint.
+            */
+
+
+            const lineImage =
+                lineCtx.getImageData(
+                    0,
+                    0,
+                    width,
+                    height
+                );
+
+
+            const pixels =
+                lineImage.data;
+
+
+            for (
+                let i = 0;
+                i < pixels.length;
+                i += 4
+            ) {
+
+
+                const r =
+                    pixels[i];
+
+
+                const g =
+                    pixels[i + 1];
+
+
+                const b =
+                    pixels[i + 2];
+
+
+                const darkness =
+                    255 -
+                    (
+                        r +
+                        g +
+                        b
+                    ) / 3;
+
+
+                if (
+                    darkness < 15
+                ) {
+
+
+                    pixels[
+                        i + 3
+                    ] = 0;
+
+
+                } else {
+
+
+                    pixels[i] = 0;
+
+                    pixels[
+                        i + 1
+                    ] = 0;
+
+                    pixels[
+                        i + 2
+                    ] = 0;
+
+
+                    pixels[
+                        i + 3
+                    ] =
+                        Math.min(
+                            255,
+                            darkness * 2.5
+                        );
+
+                }
+
+            }
 
 
             lineCtx.clearRect(
@@ -967,139 +1580,38 @@
             );
 
 
-            /*
-Draw the original image temporarily
-so we can read its pixels.
-*/
-
-lineCtx.drawImage(
-    sourceImage,
-    0,
-    0,
-    width,
-    height
-);
-
-
-/*
-Keep a copy of the ORIGINAL image
-for fill boundary detection.
-*/
-
-boundaryData =
-    lineCtx.getImageData(
-        0,
-        0,
-        width,
-        height
-    );
-
-
-/*
-Create the protected line-art layer.
-
-White and very light pixels become
-transparent so the color layer
-underneath can be seen.
-
-Dark pixels remain visible.
-*/
-
-const lineImage =
-    lineCtx.getImageData(
-        0,
-        0,
-        width,
-        height
-    );
-
-
-const pixels =
-    lineImage.data;
-
-
-for (
-    let i = 0;
-    i < pixels.length;
-    i += 4
-) {
-
-    const r = pixels[i];
-    const g = pixels[i + 1];
-    const b = pixels[i + 2];
-
-
-    /*
-    Calculate how dark the pixel is.
-    */
-
-    const darkness =
-        255 -
-        (
-            r +
-            g +
-            b
-        ) / 3;
-
-
-    /*
-    Very light pixels disappear.
-    Dark lines stay.
-    Gray antialiasing becomes
-    partially transparent.
-    */
-
-    if (darkness < 15) {
-
-        pixels[i + 3] = 0;
-
-    } else {
-
-        pixels[i] = 0;
-        pixels[i + 1] = 0;
-        pixels[i + 2] = 0;
-
-        pixels[i + 3] =
-            Math.min(
-                255,
-                darkness * 2.5
+            lineCtx.putImageData(
+                lineImage,
+                0,
+                0
             );
 
-    }
 
-}
+            paintCtx.clearRect(
+                0,
+                0,
+                width,
+                height
+            );
 
-
-lineCtx.clearRect(
-    0,
-    0,
-    width,
-    height
-);
-
-
-lineCtx.putImageData(
-    lineImage,
-    0,
-    0
-);
-
-            history = [];
-
-            historyIndex = -1;
 
             saveHistory();
 
-        };
+
+            requestAnimationFrame(
+                fitArtwork
+            );
+
+    };
 
 
 
     /* =========================
-       HISTORY
+       FIT / ZOOM / PAN
        ========================= */
 
 
-    function saveHistory() {
+    function fitArtwork() {
 
 
         if (
@@ -1110,154 +1622,272 @@ lineCtx.putImageData(
         }
 
 
-        history =
-            history.slice(
-                0,
-                historyIndex + 1
+        const frameWidth =
+            canvasFrame.clientWidth;
+
+
+        const frameHeight =
+            canvasFrame.clientHeight;
+
+
+        const padding =
+            28;
+
+
+        fitScale =
+            Math.min(
+
+                (
+                    frameWidth -
+                    padding
+                ) /
+                paintCanvas.width,
+
+                (
+                    frameHeight -
+                    padding
+                ) /
+                paintCanvas.height
+
             );
 
 
-        history.push(
-            paintCtx.getImageData(
-                0,
-                0,
-                paintCanvas.width,
-                paintCanvas.height
-            )
-        );
+        zoomMultiplier =
+            1;
+
+
+        panX =
+            0;
+
+
+        panY =
+            0;
+
+
+        updateView();
+
+    }
+
+
+
+    function updateView() {
+
+
+        const scale =
+            fitScale *
+            zoomMultiplier;
+
+
+        canvasStage.style.transform =
+            'translate(' +
+            panX +
+            'px,' +
+            panY +
+            'px)' +
+            ' translate(-50%, -50%)' +
+            ' scale(' +
+            scale +
+            ')';
+
+
+        const readout =
+            document.getElementById(
+                'zoomReadout'
+            );
 
 
         if (
-            history.length >
-            maxHistory
+            Math.abs(
+                zoomMultiplier - 1
+            ) < 0.01
         ) {
 
-            history.shift();
+            readout.textContent =
+                'FIT';
+
+        } else {
+
+            readout.textContent =
+                Math.round(
+                    zoomMultiplier *
+                    100
+                ) +
+                '%';
+
+        }
+
+    }
+
+
+
+    function setZoom(
+        value
+    ) {
+
+
+        zoomMultiplier =
+            Math.max(
+                minZoom,
+                Math.min(
+                    maxZoom,
+                    value
+                )
+            );
+
+
+        if (
+            zoomMultiplier === 1
+        ) {
+
+            panX = 0;
+
+            panY = 0;
 
         }
 
 
-        historyIndex =
-            history.length - 1;
+        updateView();
 
     }
 
 
 
-    function undo() {
+    document
+        .getElementById(
+            'zoomIn'
+        )
+        .addEventListener(
+            'click',
+            function() {
 
 
-        if (
-            historyIndex <= 0
-        ) {
-            return;
-        }
-
-
-        historyIndex--;
-
-
-        restoreHistory();
-
-    }
-
-
-
-    function redo() {
-
-
-        if (
-            historyIndex >=
-            history.length - 1
-        ) {
-            return;
-        }
-
-
-        historyIndex++;
-
-
-        restoreHistory();
-
-    }
-
-
-
-    function restoreHistory() {
-
-
-        paintCtx.clearRect(
-            0,
-            0,
-            paintCanvas.width,
-            paintCanvas.height
-        );
-
-
-        paintCtx.putImageData(
-            history[historyIndex],
-            0,
-            0
-        );
-
-    }
-
-
-
-    /* =========================
-       TOOL SELECTION
-       ========================= */
-
-
-    const toolButtons = {
-
-        fill:
-            document.getElementById(
-                'fillTool'
-            ),
-
-        brush:
-            document.getElementById(
-                'brushTool'
-            ),
-
-        eraser:
-            document.getElementById(
-                'eraserTool'
-            )
-
-    };
-
-
-    function selectTool(tool) {
-
-
-        currentTool =
-            tool;
-
-
-        Object.values(
-            toolButtons
-        ).forEach(
-            function(button) {
-
-                button.classList.remove(
-                    'active'
+                setZoom(
+                    zoomMultiplier *
+                    1.25
                 );
 
             }
         );
 
 
-        toolButtons[tool]
-            .classList.add(
-                'active'
+
+    document
+        .getElementById(
+            'zoomOut'
+        )
+        .addEventListener(
+            'click',
+            function() {
+
+
+                setZoom(
+                    zoomMultiplier /
+                    1.25
+                );
+
+            }
+        );
+
+
+
+    document
+        .getElementById(
+            'fitButton'
+        )
+        .addEventListener(
+            'click',
+            fitArtwork
+        );
+
+
+
+    canvasFrame.addEventListener(
+        'wheel',
+        function(event) {
+
+
+            event.preventDefault();
+
+
+            if (
+                event.deltaY < 0
+            ) {
+
+                setZoom(
+                    zoomMultiplier *
+                    1.1
+                );
+
+            } else {
+
+                setZoom(
+                    zoomMultiplier /
+                    1.1
+                );
+
+            }
+
+        },
+        {
+            passive: false
+        }
+    );
+
+
+
+    window.addEventListener(
+        'resize',
+        function() {
+
+
+            if (
+                zoomMultiplier === 1
+            ) {
+
+                fitArtwork();
+
+            }
+
+        }
+    );
+
+
+
+    /* =========================
+       TOOLS
+       ========================= */
+
+
+    function selectTool(
+        tool
+    ) {
+
+
+        currentTool =
+            tool;
+
+
+        document
+            .querySelectorAll(
+                '[data-tool]'
+            )
+            .forEach(
+                function(button) {
+
+
+                    button.classList.toggle(
+                        'active',
+                        button.dataset.tool ===
+                        tool
+                    );
+
+                }
             );
 
 
         const status =
             document.getElementById(
-                'canvasStatus'
+                'studioStatus'
             );
 
 
@@ -1294,101 +1924,28 @@ lineCtx.putImageData(
 
 
 
-    toolButtons.fill.onclick =
-        function() {
-
-            selectTool('fill');
-
-        };
-
-
-    toolButtons.brush.onclick =
-        function() {
-
-            selectTool('brush');
-
-        };
+    document
+        .querySelectorAll(
+            '[data-tool]'
+        )
+        .forEach(
+            function(button) {
 
 
-    toolButtons.eraser.onclick =
-        function() {
-
-            selectTool('eraser');
-
-        };
+                button.addEventListener(
+                    'click',
+                    function() {
 
 
+                        selectTool(
+                            this.dataset.tool
+                        );
 
-    /* =========================
-       COLOR PALETTE
-       ========================= */
+                    }
+                );
 
-
-    const swatches =
-        document.querySelectorAll(
-            '.swatch'
+            }
         );
-
-
-    swatches.forEach(
-        function(swatch) {
-
-
-            swatch.addEventListener(
-                'click',
-                function() {
-
-
-                    currentColor =
-                        this.dataset.color;
-
-
-                    swatches.forEach(
-                        function(item) {
-
-                            item.classList.remove(
-                                'selected'
-                            );
-
-                        }
-                    );
-
-
-                    this.classList.add(
-                        'selected'
-                    );
-
-                }
-            );
-
-        }
-    );
-
-
-
-    document.getElementById(
-        'customColor'
-    ).addEventListener(
-        'input',
-        function() {
-
-
-            currentColor =
-                this.value;
-
-
-            swatches.forEach(
-                function(item) {
-
-                    item.classList.remove(
-                        'selected'
-                    );
-
-                }
-            );
-
-        }
-    );
 
 
 
@@ -1414,10 +1971,12 @@ lineCtx.putImageData(
                 );
 
 
-            document.getElementById(
-                'brushSizeNumber'
-            ).textContent =
-                brushSize;
+            document
+                .getElementById(
+                    'brushReadout'
+                )
+                .textContent =
+                    brushSize;
 
         }
     );
@@ -1425,26 +1984,18 @@ lineCtx.putImageData(
 
 
     /* =========================
-       POINTER POSITION
+       CANVAS COORDINATES
        ========================= */
 
 
-    function getCanvasPoint(event) {
+    function getCanvasPoint(
+        event
+    ) {
 
 
         const rect =
             paintCanvas
                 .getBoundingClientRect();
-
-
-        const scaleX =
-            paintCanvas.width /
-            rect.width;
-
-
-        const scaleY =
-            paintCanvas.height /
-            rect.height;
 
 
         return {
@@ -1454,12 +2005,14 @@ lineCtx.putImageData(
                     0,
                     Math.min(
                         paintCanvas.width - 1,
+
                         Math.floor(
                             (
                                 event.clientX -
                                 rect.left
                             ) *
-                            scaleX
+                            paintCanvas.width /
+                            rect.width
                         )
                     )
                 ),
@@ -1469,12 +2022,14 @@ lineCtx.putImageData(
                     0,
                     Math.min(
                         paintCanvas.height - 1,
+
                         Math.floor(
                             (
                                 event.clientY -
                                 rect.top
                             ) *
-                            scaleY
+                            paintCanvas.height /
+                            rect.height
                         )
                     )
                 )
@@ -1486,65 +2041,97 @@ lineCtx.putImageData(
 
 
     /* =========================
-       POINTER EVENTS
+       POINTER HELPERS
        ========================= */
 
 
-    function pointerDown(event) {
+    function pointerCenter() {
 
 
-        event.preventDefault();
-
-
-        if (
-            !boundaryData
-        ) {
-            return;
-        }
-
-
-        const point =
-            getCanvasPoint(
-                event
+        const points =
+            Array.from(
+                activePointers.values()
             );
 
 
         if (
-            currentTool ===
-            'fill'
+            points.length < 2
         ) {
-
-
-            floodFill(
-                point.x,
-                point.y,
-                currentColor
-            );
-
-
-            saveHistory();
-
-            return;
-
+            return null;
         }
 
 
-        drawing =
-            true;
+        return {
+
+            x:
+                (
+                    points[0].x +
+                    points[1].x
+                ) / 2,
+
+            y:
+                (
+                    points[0].y +
+                    points[1].y
+                ) / 2
+
+        };
+
+    }
 
 
-        lastX =
-            point.x;
+
+    function pointerDistance() {
 
 
-        lastY =
-            point.y;
+        const points =
+            Array.from(
+                activePointers.values()
+            );
 
 
         if (
-            paintCanvas
-                .setPointerCapture
+            points.length < 2
         ) {
+            return 0;
+        }
+
+
+        return Math.hypot(
+
+            points[1].x -
+            points[0].x,
+
+            points[1].y -
+            points[0].y
+
+        );
+
+    }
+
+
+
+    /* =========================
+       POINTER DOWN
+       ========================= */
+
+
+    paintCanvas.addEventListener(
+        'pointerdown',
+        function(event) {
+
+
+            event.preventDefault();
+
+
+            activePointers.set(
+                event.pointerId,
+                {
+                    x: event.clientX,
+                    y: event.clientY
+                }
+            );
+
 
             try {
 
@@ -1556,117 +2143,308 @@ lineCtx.putImageData(
             } catch (error) {
             }
 
-        }
+
+            /*
+            Two fingers switch
+            immediately into
+            navigation mode.
+            */
 
 
-        drawStroke(
-            lastX,
-            lastY,
-            lastX,
-            lastY
-        );
-
-    }
+            if (
+                activePointers.size >= 2
+            ) {
 
 
-
-    function pointerMove(event) {
-
-
-        if (
-            !drawing
-        ) {
-            return;
-        }
+                drawing =
+                    false;
 
 
-        event.preventDefault();
+                navigationGesture =
+                    true;
 
 
-        const point =
-            getCanvasPoint(
-                event
-            );
+                pinchStartDistance =
+                    pointerDistance();
 
 
-        drawStroke(
-            lastX,
-            lastY,
-            point.x,
-            point.y
-        );
+                pinchStartZoom =
+                    zoomMultiplier;
 
 
-        lastX =
-            point.x;
+                panStartCenter =
+                    pointerCenter();
 
 
-        lastY =
-            point.y;
-
-    }
+                panStartX =
+                    panX;
 
 
-
-    function pointerUp(event) {
-
-
-        if (
-            !drawing
-        ) {
-            return;
-        }
+                panStartY =
+                    panY;
 
 
-        drawing =
-            false;
+                return;
 
-
-        saveHistory();
-
-
-        if (
-            paintCanvas
-                .releasePointerCapture
-        ) {
-
-            try {
-
-                paintCanvas
-                    .releasePointerCapture(
-                        event.pointerId
-                    );
-
-            } catch (error) {
             }
 
+
+            navigationGesture =
+                false;
+
+
+            const point =
+                getCanvasPoint(
+                    event
+                );
+
+
+            if (
+                currentTool === 'fill'
+            ) {
+
+
+                floodFill(
+                    point.x,
+                    point.y,
+                    currentColor
+                );
+
+
+                saveHistory();
+
+                return;
+
+            }
+
+
+            drawing =
+                true;
+
+
+            lastX =
+                point.x;
+
+
+            lastY =
+                point.y;
+
+
+            drawStroke(
+                lastX,
+                lastY,
+                lastX,
+                lastY
+            );
+
         }
-
-    }
-
-
-
-    paintCanvas.addEventListener(
-        'pointerdown',
-        pointerDown
     );
+
+
+
+    /* =========================
+       POINTER MOVE
+       ========================= */
 
 
     paintCanvas.addEventListener(
         'pointermove',
-        pointerMove
+        function(event) {
+
+
+            if (
+                activePointers.has(
+                    event.pointerId
+                )
+            ) {
+
+
+                activePointers.set(
+                    event.pointerId,
+                    {
+                        x: event.clientX,
+                        y: event.clientY
+                    }
+                );
+
+            }
+
+
+            if (
+                activePointers.size >= 2
+            ) {
+
+
+                event.preventDefault();
+
+
+                navigationGesture =
+                    true;
+
+
+                const distance =
+                    pointerDistance();
+
+
+                if (
+                    pinchStartDistance > 0
+                ) {
+
+
+                    zoomMultiplier =
+                        Math.max(
+                            minZoom,
+                            Math.min(
+                                maxZoom,
+
+                                pinchStartZoom *
+                                (
+                                    distance /
+                                    pinchStartDistance
+                                )
+                            )
+                        );
+
+                }
+
+
+                const center =
+                    pointerCenter();
+
+
+                if (
+                    center &&
+                    panStartCenter
+                ) {
+
+
+                    panX =
+                        panStartX +
+                        (
+                            center.x -
+                            panStartCenter.x
+                        );
+
+
+                    panY =
+                        panStartY +
+                        (
+                            center.y -
+                            panStartCenter.y
+                        );
+
+                }
+
+
+                updateView();
+
+                return;
+
+            }
+
+
+            if (
+                !drawing ||
+                navigationGesture
+            ) {
+                return;
+            }
+
+
+            event.preventDefault();
+
+
+            const point =
+                getCanvasPoint(
+                    event
+                );
+
+
+            drawStroke(
+                lastX,
+                lastY,
+                point.x,
+                point.y
+            );
+
+
+            lastX =
+                point.x;
+
+
+            lastY =
+                point.y;
+
+        }
     );
+
+
+
+    /* =========================
+       POINTER END
+       ========================= */
+
+
+    function endPointer(
+        event
+    ) {
+
+
+        activePointers.delete(
+            event.pointerId
+        );
+
+
+        if (
+            activePointers.size <
+            2
+        ) {
+
+            pinchStartDistance =
+                0;
+
+            panStartCenter =
+                null;
+
+        }
+
+
+        if (
+            drawing
+        ) {
+
+
+            drawing =
+                false;
+
+
+            saveHistory();
+
+        }
+
+
+        if (
+            activePointers.size === 0
+        ) {
+
+            navigationGesture =
+                false;
+
+        }
+
+    }
+
 
 
     paintCanvas.addEventListener(
         'pointerup',
-        pointerUp
+        endPointer
     );
 
 
     paintCanvas.addEventListener(
         'pointercancel',
-        pointerUp
+        endPointer
     );
 
 
@@ -1710,7 +2488,11 @@ lineCtx.putImageData(
 
 
             paintCtx.strokeStyle =
-                'rgba(0,0,0,1)';
+                '#000';
+
+
+            paintCtx.fillStyle =
+                '#000';
 
 
         } else {
@@ -1721,6 +2503,10 @@ lineCtx.putImageData(
 
 
             paintCtx.strokeStyle =
+                currentColor;
+
+
+            paintCtx.fillStyle =
                 currentColor;
 
         }
@@ -1744,12 +2530,6 @@ lineCtx.putImageData(
         paintCtx.stroke();
 
 
-        /*
-        A tiny circle makes taps
-        visible even without movement.
-        */
-
-
         paintCtx.beginPath();
 
 
@@ -1762,22 +2542,6 @@ lineCtx.putImageData(
         );
 
 
-        if (
-            currentTool ===
-            'eraser'
-        ) {
-
-            paintCtx.fillStyle =
-                'rgba(0,0,0,1)';
-
-        } else {
-
-            paintCtx.fillStyle =
-                currentColor;
-
-        }
-
-
         paintCtx.fill();
 
 
@@ -1788,11 +2552,13 @@ lineCtx.putImageData(
 
 
     /* =========================
-       COLOR HELPERS
+       FILL HELPERS
        ========================= */
 
 
-    function hexToRGB(hex) {
+    function hexToRGB(
+        hex
+    ) {
 
 
         hex =
@@ -1846,28 +2612,18 @@ lineCtx.putImageData(
             boundaryData.data;
 
 
-        const r =
-            data[index];
-
-
-        const g =
-            data[index + 1];
-
-
-        const b =
-            data[index + 2];
-
-
-        /*
-        Anything sufficiently dark
-        acts as a wall for the fill.
-        */
-
-
         return (
-            r < 150 &&
-            g < 150 &&
-            b < 150
+
+            data[index] < 150 &&
+
+            data[
+                index + 1
+            ] < 150 &&
+
+            data[
+                index + 2
+            ] < 150
+
         );
 
     }
@@ -1886,6 +2642,13 @@ lineCtx.putImageData(
     ) {
 
 
+        if (
+            !boundaryData
+        ) {
+            return;
+        }
+
+
         const width =
             paintCanvas.width;
 
@@ -1895,30 +2658,21 @@ lineCtx.putImageData(
 
 
         const startPosition =
-            startY * width +
+            startY *
+            width +
             startX;
-
-
-        const startBoundaryIndex =
-            startPosition * 4;
-
-
-        /*
-        Don't fill directly on
-        black linework.
-        */
 
 
         if (
             isBoundaryPixel(
-                startBoundaryIndex
+                startPosition * 4
             )
         ) {
             return;
         }
 
 
-        const paintImage =
+        const image =
             paintCtx.getImageData(
                 0,
                 0,
@@ -1927,34 +2681,34 @@ lineCtx.putImageData(
             );
 
 
-        const paintData =
-            paintImage.data;
+        const data =
+            image.data;
 
 
-        const startPaintIndex =
+        const startIndex =
             startPosition * 4;
 
 
         const target = {
 
             r:
-                paintData[
-                    startPaintIndex
+                data[
+                    startIndex
                 ],
 
             g:
-                paintData[
-                    startPaintIndex + 1
+                data[
+                    startIndex + 1
                 ],
 
             b:
-                paintData[
-                    startPaintIndex + 2
+                data[
+                    startIndex + 2
                 ],
 
             a:
-                paintData[
-                    startPaintIndex + 3
+                data[
+                    startIndex + 3
                 ]
 
         };
@@ -1966,72 +2720,63 @@ lineCtx.putImageData(
             );
 
 
-        /*
-        If this region is already
-        essentially this color,
-        do nothing.
-        */
-
-
         if (
+
             target.a === 255 &&
+
             Math.abs(
                 target.r -
                 fill.r
             ) < 5 &&
+
             Math.abs(
                 target.g -
                 fill.g
             ) < 5 &&
+
             Math.abs(
                 target.b -
                 fill.b
             ) < 5
+
         ) {
             return;
         }
 
 
-        /*
-        We scan across horizontal
-        spans instead of pushing
-        every pixel onto the stack.
-
-        This is much faster on
-        large coloring pages.
-        */
-
-
         const visited =
             new Uint8Array(
-                width * height
+                width *
+                height
             );
 
 
-        const stack = [
-            [startX, startY]
-        ];
+        const stack =
+            [
+                [
+                    startX,
+                    startY
+                ]
+            ];
 
 
-        function matchesTarget(
+        function matches(
             position
         ) {
 
 
             if (
-                visited[position]
+                visited[
+                    position
+                ]
             ) {
                 return false;
             }
 
 
-            const boundaryIndex =
-                position * 4;
-
-
             if (
                 isBoundaryPixel(
-                    boundaryIndex
+                    position * 4
                 )
             ) {
                 return false;
@@ -2042,19 +2787,12 @@ lineCtx.putImageData(
                 position * 4;
 
 
-            /*
-            Transparent paint layer
-            counts as the same empty
-            region.
-            */
-
-
             if (
                 target.a === 0
             ) {
 
                 return (
-                    paintData[
+                    data[
                         index + 3
                     ] === 0
                 );
@@ -2064,25 +2802,25 @@ lineCtx.putImageData(
 
             return (
 
-                paintData[
+                data[
                     index + 3
                 ] ===
                 target.a &&
 
                 Math.abs(
-                    paintData[index] -
+                    data[index] -
                     target.r
                 ) < 10 &&
 
                 Math.abs(
-                    paintData[
+                    data[
                         index + 1
                     ] -
                     target.g
                 ) < 10 &&
 
                 Math.abs(
-                    paintData[
+                    data[
                         index + 2
                     ] -
                     target.b
@@ -2102,29 +2840,31 @@ lineCtx.putImageData(
                 position * 4;
 
 
-            paintData[index] =
+            data[index] =
                 fill.r;
 
 
-            paintData[
+            data[
                 index + 1
             ] =
                 fill.g;
 
 
-            paintData[
+            data[
                 index + 2
             ] =
                 fill.b;
 
 
-            paintData[
+            data[
                 index + 3
             ] =
                 255;
 
 
-            visited[position] =
+            visited[
+                position
+            ] =
                 1;
 
         }
@@ -2148,32 +2888,33 @@ lineCtx.putImageData(
 
 
             if (
+
                 x < 0 ||
                 x >= width ||
                 y < 0 ||
                 y >= height
+
             ) {
                 continue;
             }
 
 
             let position =
-                y * width + x;
-
-
-            /*
-            Move upward until
-            boundary or different
-            paint is found.
-            */
+                y *
+                width +
+                x;
 
 
             while (
+
                 y >= 0 &&
-                matchesTarget(
+
+                matches(
                     position
                 )
+
             ) {
+
 
                 y--;
 
@@ -2197,17 +2938,14 @@ lineCtx.putImageData(
                 false;
 
 
-            /*
-            Walk downward through
-            the vertical span.
-            */
-
-
             while (
+
                 y < height &&
-                matchesTarget(
+
+                matches(
                     position
                 )
+
             ) {
 
 
@@ -2226,7 +2964,7 @@ lineCtx.putImageData(
 
 
                     if (
-                        matchesTarget(
+                        matches(
                             left
                         )
                     ) {
@@ -2236,12 +2974,14 @@ lineCtx.putImageData(
                             !reachLeft
                         ) {
 
+
                             stack.push(
                                 [
                                     x - 1,
                                     y
                                 ]
                             );
+
 
                             reachLeft =
                                 true;
@@ -2250,6 +2990,7 @@ lineCtx.putImageData(
 
 
                     } else {
+
 
                         reachLeft =
                             false;
@@ -2270,7 +3011,7 @@ lineCtx.putImageData(
 
 
                     if (
-                        matchesTarget(
+                        matches(
                             right
                         )
                     ) {
@@ -2280,12 +3021,14 @@ lineCtx.putImageData(
                             !reachRight
                         ) {
 
+
                             stack.push(
                                 [
                                     x + 1,
                                     y
                                 ]
                             );
+
 
                             reachRight =
                                 true;
@@ -2294,6 +3037,7 @@ lineCtx.putImageData(
 
 
                     } else {
+
 
                         reachRight =
                             false;
@@ -2314,7 +3058,7 @@ lineCtx.putImageData(
 
 
         paintCtx.putImageData(
-            paintImage,
+            image,
             0,
             0
         );
@@ -2324,165 +3068,416 @@ lineCtx.putImageData(
 
 
     /* =========================
-       UNDO / REDO
+       HISTORY
        ========================= */
 
 
-    document.getElementById(
-        'undoButton'
-    ).onclick =
-        undo;
+    function saveHistory() {
 
 
-    document.getElementById(
-        'redoButton'
-    ).onclick =
-        redo;
+        history =
+            history.slice(
+                0,
+                historyIndex + 1
+            );
 
 
+        history.push(
 
-    /* =========================
-       START OVER
-       ========================= */
-
-
-    document.getElementById(
-        'resetButton'
-    ).onclick =
-        function() {
-
-
-            const okay =
-                confirm(
-                    'Start over with a clean page?'
-                );
-
-
-            if (
-                !okay
-            ) {
-                return;
-            }
-
-
-            paintCtx.clearRect(
+            paintCtx.getImageData(
                 0,
                 0,
                 paintCanvas.width,
                 paintCanvas.height
-            );
+            )
+
+        );
 
 
-            history = [];
+        if (
+            history.length >
+            maxHistory
+        ) {
 
-            historyIndex = -1;
+            history.shift();
 
-            saveHistory();
+        }
 
-        };
+
+        historyIndex =
+            history.length - 1;
+
+    }
+
+
+
+    function restoreHistory() {
+
+
+        paintCtx.clearRect(
+            0,
+            0,
+            paintCanvas.width,
+            paintCanvas.height
+        );
+
+
+        paintCtx.putImageData(
+            history[
+                historyIndex
+            ],
+            0,
+            0
+        );
+
+    }
+
+
+
+    function undo() {
+
+
+        if (
+            historyIndex <= 0
+        ) {
+            return;
+        }
+
+
+        historyIndex--;
+
+        restoreHistory();
+
+    }
+
+
+
+    function redo() {
+
+
+        if (
+            historyIndex >=
+            history.length - 1
+        ) {
+            return;
+        }
+
+
+        historyIndex++;
+
+        restoreHistory();
+
+    }
 
 
 
     /* =========================
-       SAVE FINISHED ART
+       RESET
        ========================= */
 
 
-    document.getElementById(
-        'saveButton'
-    ).onclick =
-        function() {
+    function resetArtwork() {
 
 
-            const exportCanvas =
-                document.createElement(
-                    'canvas'
-                );
-
-
-            exportCanvas.width =
-                paintCanvas.width;
-
-
-            exportCanvas.height =
-                paintCanvas.height;
-
-
-            const exportCtx =
-                exportCanvas.getContext(
-                    '2d'
-                );
-
-
-            /*
-            White paper.
-            */
-
-
-            exportCtx.fillStyle =
-                '#ffffff';
-
-
-            exportCtx.fillRect(
-                0,
-                0,
-                exportCanvas.width,
-                exportCanvas.height
+        const okay =
+            confirm(
+                'Start over with a clean page?'
             );
 
 
-            /*
-            User artwork.
-            */
+        if (
+            !okay
+        ) {
+            return;
+        }
 
 
-            exportCtx.drawImage(
-                paintCanvas,
-                0,
-                0
+        paintCtx.clearRect(
+            0,
+            0,
+            paintCanvas.width,
+            paintCanvas.height
+        );
+
+
+        history = [];
+
+        historyIndex = -1;
+
+        saveHistory();
+
+
+        fitArtwork();
+
+    }
+
+
+
+    /* =========================
+       EXPORT
+       ========================= */
+
+
+    function createFinishedArtwork() {
+
+
+        const output =
+            document.createElement(
+                'canvas'
             );
 
 
-            /*
-            Protected original
-            line art goes on top.
-            */
+        output.width =
+            paintCanvas.width;
 
 
-            exportCtx.drawImage(
-                lineCanvas,
-                0,
-                0
+        output.height =
+            paintCanvas.height;
+
+
+        const outputCtx =
+            output.getContext(
+                '2d'
             );
 
 
-            const link =
-                document.createElement(
-                    'a'
-                );
+        /*
+        White paper.
+        */
 
 
-            link.download =
-                'my-mia-the-panda-art.png';
+        outputCtx.fillStyle =
+            '#ffffff';
 
 
-            link.href =
-                exportCanvas.toDataURL(
+        outputCtx.fillRect(
+            0,
+            0,
+            output.width,
+            output.height
+        );
+
+
+        /*
+        User-created artwork.
+        */
+
+
+        outputCtx.drawImage(
+            paintCanvas,
+            0,
+            0
+        );
+
+
+        /*
+        Protected line art.
+        */
+
+
+        outputCtx.drawImage(
+            lineCanvas,
+            0,
+            0
+        );
+
+
+        return output;
+
+    }
+
+
+
+    function saveArtwork() {
+
+
+        const finished =
+            createFinishedArtwork();
+
+
+        const link =
+            document.createElement(
+                'a'
+            );
+
+
+        link.download =
+            'my-' +
+            ARTWORK.id +
+            '-art.png';
+
+
+        link.href =
+            finished.toDataURL(
+                'image/png'
+            );
+
+
+        document.body.appendChild(
+            link
+        );
+
+
+        link.click();
+
+
+        link.remove();
+
+    }
+
+
+
+    /* =====================================================
+       FUTURE API HANDOFF
+       =====================================================
+
+       We intentionally keep external commerce
+       OUT of the kids' coloring experience.
+
+       Later, an adult-facing page can receive
+       the finished image from this studio.
+
+       This function already gives us a Blob,
+       which is what a secure backend/API
+       will eventually need.
+
+       No Printful or third-party API keys
+       should ever be placed in this file.
+
+       ===================================================== */
+
+
+    async function getArtworkBlob() {
+
+
+        const finished =
+            createFinishedArtwork();
+
+
+        return new Promise(
+            function(resolve) {
+
+
+                finished.toBlob(
+                    function(blob) {
+
+
+                        resolve(
+                            blob
+                        );
+
+                    },
                     'image/png'
                 );
 
+            }
+        );
 
-            document.body.appendChild(
-                link
-            );
-
-
-            link.click();
+    }
 
 
-            link.remove();
 
-        };
+    /*
+    FUTURE EXAMPLE:
+
+    const artworkBlob =
+        await getArtworkBlob();
+
+    Send artworkBlob to OUR secure
+    backend.
+
+    The backend can then communicate
+    with Printful or another provider.
+
+    Nothing commerce-related is
+    activated here.
+    */
+
+
+
+    /* =========================
+       BUTTON CONNECTIONS
+       ========================= */
+
+
+    [
+        'undoDesktop',
+        'undoMobile'
+    ].forEach(
+        function(id) {
+
+
+            document
+                .getElementById(
+                    id
+                )
+                .addEventListener(
+                    'click',
+                    undo
+                );
+
+        }
+    );
+
+
+    [
+        'redoDesktop',
+        'redoMobile'
+    ].forEach(
+        function(id) {
+
+
+            document
+                .getElementById(
+                    id
+                )
+                .addEventListener(
+                    'click',
+                    redo
+                );
+
+        }
+    );
+
+
+    [
+        'resetDesktop',
+        'resetMobile'
+    ].forEach(
+        function(id) {
+
+
+            document
+                .getElementById(
+                    id
+                )
+                .addEventListener(
+                    'click',
+                    resetArtwork
+                );
+
+        }
+    );
+
+
+    [
+        'saveDesktop',
+        'saveMobile'
+    ].forEach(
+        function(id) {
+
+
+            document
+                .getElementById(
+                    id
+                )
+                .addEventListener(
+                    'click',
+                    saveArtwork
+                );
+
+        }
+    );
 
 
 </script>
