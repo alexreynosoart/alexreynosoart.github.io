@@ -102,7 +102,6 @@
         }
 
 
-
         /* STORY */
 
         .mia-story {
@@ -123,7 +122,6 @@
             line-height: 1.8;
             color: #444;
         }
-
 
 
         /* PROJECT CARDS */
@@ -168,20 +166,22 @@
         .mia-card-image {
             aspect-ratio: 1 / 1;
             background: #fff;
+
             display: flex;
             align-items: center;
             justify-content: center;
+
             overflow: hidden;
+            padding: 20px;
         }
 
 
         .mia-card-image img {
-    width: calc(100% - 40px);
-    height: calc(100% - 40px);
-    object-fit: contain;
-    display: block;
-    margin: 20px;
-}
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
 
 
         .mia-card-content {
@@ -204,6 +204,37 @@
         }
 
 
+        /* CARD BUTTON */
+
+        .mia-card-button {
+            display: block;
+            width: 100%;
+
+            margin-top: 18px;
+            padding: 13px 16px;
+
+            border-radius: 12px;
+
+            background: #e88eaa;
+            color: #fff;
+
+            text-align: center;
+            text-decoration: none;
+
+            font-size: 0.9rem;
+            font-weight: 700;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+
+        .mia-card-button:hover {
+            background: #df7e9f;
+            transform: translateY(-1px);
+        }
+
 
         /* KIDS CORNER */
 
@@ -211,7 +242,9 @@
             max-width: 850px;
             margin: 90px auto 0;
             padding: 50px 35px;
+
             text-align: center;
+
             background: #fff;
             border-radius: 28px;
             border: 1px solid rgba(0,0,0,0.08);
@@ -227,6 +260,7 @@
         .kids-corner p {
             max-width: 620px;
             margin: 0 auto;
+
             line-height: 1.8;
             color: #555;
         }
@@ -239,7 +273,6 @@
         }
 
 
-
         /* CREDIT */
 
         .mia-credit {
@@ -248,7 +281,6 @@
             font-size: 0.9rem;
             color: #777;
         }
-
 
 
         /* MOBILE */
@@ -318,6 +350,8 @@
     <main class="mia-page">
 
 
+        <!-- INTRO -->
+
         <section class="mia-intro">
 
             <div class="mia-kicker">
@@ -343,6 +377,8 @@
 
 
 
+        <!-- STORY -->
+
         <section class="mia-story">
 
             <h2>
@@ -367,6 +403,8 @@
 
 
 
+        <!-- MIA'S WORLD -->
+
         <section class="mia-projects">
 
 
@@ -380,7 +418,6 @@
 
 
                 <!-- ORIGINAL -->
-
 
                 <article class="mia-card">
 
@@ -408,12 +445,12 @@
 
                     </div>
 
+
                 </article>
 
 
 
                 <!-- COLORING PAGE -->
-
 
                 <article class="mia-card">
 
@@ -439,14 +476,22 @@
                             coloring, creativity and imagination.
                         </p>
 
+
+                        <a class="mia-card-button"
+                           href="mia-coloring.html">
+
+                            EXPLORE &amp; COLOR
+
+                        </a>
+
                     </div>
+
 
                 </article>
 
 
 
                 <!-- MUSIC AND ANIMATION -->
-
 
                 <article class="mia-card">
 
@@ -474,6 +519,7 @@
 
                     </div>
 
+
                 </article>
 
 
@@ -482,6 +528,8 @@
         </section>
 
 
+
+        <!-- KIDS CORNER -->
 
         <section class="kids-corner">
 
@@ -506,6 +554,8 @@
         </section>
 
 
+
+        <!-- CREDIT -->
 
         <div class="mia-credit">
 
