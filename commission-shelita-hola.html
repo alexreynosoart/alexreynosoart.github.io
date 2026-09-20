@@ -384,6 +384,119 @@
     }
 
 
+
+    /* =========================================================
+       VISUAL PIECES
+       Project-specific collage built from elements used in Hola.
+       ========================================================= */
+
+    .visual-pieces {
+      position: relative;
+      min-height: 620px;
+      margin-top: 50px;
+      border: 1px solid #303030;
+      background:
+        radial-gradient(circle at 70% 25%, rgba(84,33,120,.22), transparent 38%),
+        radial-gradient(circle at 20% 75%, rgba(0,161,210,.14), transparent 38%),
+        rgba(4,7,13,.88);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .visual-pieces::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      pointer-events: none;
+      background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,.42));
+    }
+
+    .piece {
+      position: absolute;
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      filter: drop-shadow(0 18px 28px rgba(0,0,0,.42));
+    }
+
+    .piece-tunnel {
+      z-index: 1;
+      width: 74%;
+      left: 13%;
+      top: 4%;
+      opacity: .78;
+    }
+
+    .piece-bridge {
+      z-index: 5;
+      width: 72%;
+      right: -7%;
+      bottom: 7%;
+      transform: rotate(-2deg);
+    }
+
+    .piece-cloud-a {
+      z-index: 6;
+      width: 38%;
+      left: -4%;
+      bottom: 0;
+    }
+
+    .piece-cloud-b {
+      z-index: 4;
+      width: 31%;
+      right: 2%;
+      top: 9%;
+    }
+
+    .piece-landscape {
+      z-index: 3;
+      width: 53%;
+      left: 2%;
+      top: 24%;
+      opacity: .86;
+    }
+
+    .piece-pillar {
+      z-index: 7;
+      height: 58%;
+      width: auto;
+      right: 9%;
+      bottom: -4%;
+      opacity: .88;
+    }
+
+    .visual-pieces-label {
+      position: absolute;
+      z-index: 12;
+      left: 26px;
+      top: 24px;
+      padding: 9px 12px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.72);
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 820px) {
+      .visual-pieces { min-height: 470px; }
+      .piece-tunnel { width: 100%; left: 0; top: 7%; }
+      .piece-bridge { width: 92%; right: -19%; bottom: 11%; }
+      .piece-cloud-a { width: 56%; left: -12%; }
+      .piece-cloud-b { width: 46%; right: -8%; top: 18%; }
+      .piece-landscape { width: 70%; left: -5%; top: 34%; }
+      .piece-pillar { height: 48%; right: 4%; }
+    }
+
+    @media (max-width: 520px) {
+      .visual-pieces { min-height: 390px; }
+      .visual-pieces-label { left: 15px; top: 15px; }
+    }
+
+
     /* =========================================================
        PROCESS TEXT
        ========================================================= */
@@ -1123,7 +1236,7 @@
             controls
             muted
             playsinline
-            preload="auto"
+            preload="metadata"
             poster="images/shelita-hola-process-01-poster.jpg"
             controlsList="nodownload noremoteplayback"
             disablePictureInPicture
@@ -1152,7 +1265,7 @@
             controls
             muted
             playsinline
-            preload="auto"
+            preload="metadata"
             poster="images/shelita-hola-process-02-poster.jpg"
             controlsList="nodownload noremoteplayback"
             disablePictureInPicture
@@ -1373,15 +1486,6 @@
       if (event.target.matches(".hero-art img, .world-stage img")) {
         event.preventDefault();
       }
-    });
-
-    // Show a real video frame for the click-to-play process clips.
-    document.querySelectorAll(".process-video video").forEach(function (video) {
-      video.addEventListener("loadedmetadata", function () {
-        if (video.duration > 0 && video.currentTime === 0) {
-          video.currentTime = Math.min(0.1, video.duration / 2);
-        }
-      }, { once: true });
     });
   </script>
 
