@@ -173,7 +173,6 @@
 
             grid-template-columns:
                 220px
-                88px
                 minmax(0, 1fr);
 
             gap: 16px;
@@ -798,41 +797,133 @@ body {
 
     
         /* =========================
-           ARTWORK TRAY
+           PAGES DRAWER
            ========================= */
 
-        .artwork-tray {
-            position: sticky;
-            top: 8px;
-            max-height: 74vh;
-            overflow-y: auto;
-            overflow-x: hidden;
-            padding: 6px;
-            border: 1px solid #ddd;
+        .pages-launcher {
+            position: fixed;
+            right: 14px;
+            top: 50%;
+            z-index: 720;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            align-items: center;
+            justify-content: center;
+            width: 58px;
+            min-height: 58px;
+            padding: 7px 5px;
+            border: 1px solid #d7d7d7;
             border-radius: 16px;
-            background: #f7f7f7;
+            background: rgba(255,255,255,0.94);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+            color: #222;
+            cursor: pointer;
+            transform: translateY(-50%);
+            backdrop-filter: blur(10px);
+        }
+
+        .pages-launcher:hover {
+            transform: translateY(-50%) scale(1.06);
+        }
+
+        .pages-launcher-icon {
+            font-size: 1.35rem;
+            line-height: 1;
+        }
+
+        .pages-launcher-label {
+            font-size: 0.56rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+        }
+
+        .pages-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 730;
+            display: none;
+            background: rgba(0,0,0,0.18);
+            backdrop-filter: blur(2px);
+        }
+
+        .pages-backdrop.open {
+            display: block;
+        }
+
+        .artwork-tray {
+            position: fixed;
+            top: 50%;
+            right: 18px;
+            z-index: 740;
+            display: flex;
+            flex-direction: column;
+            width: 116px;
+            max-height: 78vh;
+            padding: 9px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 22px;
+            background: rgba(250,250,250,0.97);
+            box-shadow: 0 18px 48px rgba(0,0,0,0.2);
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(135%, -50%) scale(0.94);
+            transition: transform 180ms ease, opacity 180ms ease;
             scrollbar-width: thin;
+            backdrop-filter: blur(14px);
+        }
+
+        .artwork-tray.open {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translate(0, -50%) scale(1);
+        }
+
+        .artwork-tray-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            margin: 0 1px 8px;
         }
 
         .artwork-tray-label {
-            display: block;
-            margin: 2px 0 7px;
-            text-align: center;
-            color: #777;
-            font-size: 0.62rem;
-            font-weight: 800;
-            letter-spacing: 0.04em;
+            color: #666;
+            font-size: 0.64rem;
+            font-weight: 900;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
+        }
+
+        .pages-close {
+            width: 27px;
+            height: 27px;
+            padding: 0;
+            border: 0;
+            border-radius: 50%;
+            background: #e9e9e9;
+            color: #333;
+            font-size: 1rem;
+            cursor: pointer;
         }
 
         .artwork-thumb {
             width: 100%;
-            margin: 0 0 7px;
+            margin: 0 0 8px;
             padding: 5px;
             border: 2px solid transparent;
-            border-radius: 11px;
+            border-radius: 13px;
             background: #fff;
+            color: #333;
             cursor: pointer;
+            transition: transform 120ms ease, box-shadow 120ms ease;
+        }
+
+        .artwork-thumb:hover {
+            transform: scale(1.055);
+            box-shadow: 0 5px 14px rgba(0,0,0,0.1);
         }
 
         .artwork-thumb.active {
@@ -848,20 +939,11 @@ body {
             object-fit: contain;
             align-items: center;
             justify-content: center;
-            border: 1px solid #e7e7e7;
-            border-radius: 7px;
+            border: 1px solid #ddd;
+            border-radius: 9px;
             background: #fff;
-        }
-
-        .artwork-thumb-preview.blank {
             font-size: 1.45rem;
-            font-weight: 300;
-        }
-
-        .artwork-thumb-preview.soon {
-            background: repeating-linear-gradient(135deg,#fafafa,#fafafa 7px,#f1f1f1 7px,#f1f1f1 14px);
-            color: #aaa;
-            font-size: 1rem;
+            font-weight: 800;
         }
 
         .artwork-thumb span:last-child {
@@ -869,19 +951,38 @@ body {
             margin-top: 4px;
             overflow: hidden;
             text-align: center;
+            font-size: 0.58rem;
+            font-weight: 800;
             text-overflow: ellipsis;
             white-space: nowrap;
+        }
+
+        .artwork-thumb-preview.blank {
+            color: #aaa;
+        }
+
+        .artwork-thumb-preview.upload {
+            background: linear-gradient(145deg, #fff, #f2f2f2);
             color: #555;
-            font-size: 0.58rem;
-            font-weight: 700;
         }
 
         .artwork-thumb.future {
             cursor: default;
-            opacity: 0.58;
+            opacity: 0.55;
         }
 
-        /* UNSAVED ART MODAL */
+        .artwork-thumb.future:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .upload-note {
+            margin: 1px 2px 4px;
+            color: #888;
+            font-size: 0.5rem;
+            line-height: 1.25;
+            text-align: center;
+        }
 
         .leave-modal {
             position: fixed;
@@ -949,43 +1050,71 @@ body {
             color: #777;
             font-size: 0.75rem;
         }
-
         @media (max-width: 850px) {
+            .pages-launcher {
+                top: auto;
+                right: 10px;
+                bottom: 162px;
+                width: 52px;
+                min-height: 50px;
+                border-radius: 14px;
+                transform: none;
+            }
+
+            .pages-launcher:hover {
+                transform: scale(1.04);
+            }
+
             .artwork-tray {
-                position: static;
-                display: flex;
-                gap: 7px;
+                top: auto;
+                right: 8px;
+                bottom: 158px;
+                left: 8px;
+                width: auto;
                 max-height: none;
-                margin-bottom: 6px;
-                padding: 5px;
+                flex-direction: row;
+                gap: 7px;
+                align-items: flex-start;
+                padding: 9px;
                 overflow-x: auto;
                 overflow-y: hidden;
-                border-radius: 12px;
+                border-radius: 18px;
+                opacity: 0;
+                transform: translateY(135%) scale(0.96);
                 scroll-snap-type: x proximity;
             }
 
-            .artwork-tray-label {
-                display: none;
+            .artwork-tray.open {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            .artwork-tray-head {
+                flex: 0 0 54px;
+                min-height: 76px;
+                flex-direction: column;
+                justify-content: center;
+                margin: 0;
             }
 
             .artwork-thumb {
-                flex: 0 0 64px;
+                flex: 0 0 72px;
                 margin: 0;
                 scroll-snap-align: start;
             }
 
-            .artwork-thumb span:last-child {
-                font-size: 0.52rem;
+            .upload-note {
+                display: none;
             }
 
             .canvas-frame {
-                height: calc(100dvh - 305px);
+                height: calc(100dvh - 238px);
             }
         }
 
         @media (max-width: 480px) {
             .canvas-frame {
-                height: calc(100dvh - 318px);
+                height: calc(100dvh - 248px);
             }
         }
 
@@ -1130,6 +1259,18 @@ body {
             body.studio-fullscreen .fullscreen-exit {
                 top: 6px;
                 right: 6px;
+            }
+        }
+
+    
+        body.studio-fullscreen .pages-launcher {
+            top: 50%;
+        }
+
+        @media (max-width: 850px) {
+            body.studio-fullscreen .pages-launcher {
+                top: auto;
+                bottom: 162px;
             }
         }
 
@@ -1321,48 +1462,6 @@ body {
 
         </aside>
 
-
-
-        <!-- ARTWORK TRAY -->
-
-        <aside class="artwork-tray"
-               id="artworkTray"
-               aria-label="Choose a page">
-
-            <span class="artwork-tray-label">Pages</span>
-
-            <button class="artwork-thumb"
-                    type="button"
-                    data-art="blank"
-                    title="Start from scratch">
-                <span class="artwork-thumb-preview blank">＋</span>
-                <span>Blank</span>
-            </button>
-
-            <button class="artwork-thumb active"
-                    type="button"
-                    data-art="tired"
-                    title="Tired Panda">
-                <img src="images/mia-the-panda-coloring-page.png"
-                     alt="Tired Panda coloring page">
-                <span>Tired Panda</span>
-            </button>
-
-            <div class="artwork-thumb future"
-                 aria-label="Future drawing coming soon">
-                <span class="artwork-thumb-preview soon">♡</span>
-                <span>Coming Soon</span>
-            </div>
-
-            <div class="artwork-thumb future"
-                 aria-label="Future drawing coming soon">
-                <span class="artwork-thumb-preview soon">♪</span>
-                <span>Coming Soon</span>
-            </div>
-
-        </aside>
-
-
         <!-- ART -->
 
         <section class="art-side">
@@ -1435,6 +1534,80 @@ body {
 
     </main>
 
+
+
+    <button class="pages-launcher"
+            id="pagesLauncher"
+            type="button"
+            aria-label="Open pages"
+            aria-expanded="false">
+        <span class="pages-launcher-icon">▤</span>
+        <span class="pages-launcher-label">PAGES</span>
+    </button>
+
+    <div class="pages-backdrop"
+         id="pagesBackdrop"></div>
+
+    <aside class="artwork-tray"
+           id="artworkTray"
+           aria-label="Choose a page"
+           aria-hidden="true">
+
+        <div class="artwork-tray-head">
+            <span class="artwork-tray-label">Pages</span>
+            <button class="pages-close"
+                    id="pagesClose"
+                    type="button"
+                    aria-label="Close pages">×</button>
+        </div>
+
+        <button class="artwork-thumb"
+                type="button"
+                data-art="blank"
+                title="Start from scratch">
+            <span class="artwork-thumb-preview blank">＋</span>
+            <span>Blank</span>
+        </button>
+
+        <button class="artwork-thumb active"
+                type="button"
+                data-art="tired"
+                title="Tired Panda">
+            <img src="images/mia-the-panda-coloring-page.png"
+                 alt="Tired Panda coloring page">
+            <span>Tired Panda</span>
+        </button>
+
+        <button class="artwork-thumb"
+                id="uploadArtworkButton"
+                type="button"
+                title="Upload an image from this device">
+            <span class="artwork-thumb-preview upload">↑</span>
+            <span>Upload Image</span>
+        </button>
+
+        <input id="artworkUpload"
+               type="file"
+               accept="image/png,image/jpeg,image/webp,image/gif"
+               hidden>
+
+        <div class="artwork-thumb future"
+             aria-label="Future drawing coming soon">
+            <span class="artwork-thumb-preview soon">♡</span>
+            <span>Coming Soon</span>
+        </div>
+
+        <div class="artwork-thumb future"
+             aria-label="Future drawing coming soon">
+            <span class="artwork-thumb-preview soon">♪</span>
+            <span>Coming Soon</span>
+        </div>
+
+        <p class="upload-note">
+            Uploads stay on this device while you create.
+        </p>
+
+    </aside>
 
 
     <div class="studio-credit">
@@ -2319,6 +2492,16 @@ body {
                     button.dataset.art === currentArtworkKey
                 );
             });
+
+        const uploadButton =
+            document.getElementById('uploadArtworkButton');
+
+        if (uploadButton) {
+            uploadButton.classList.toggle(
+                'active',
+                currentArtworkKey === 'upload'
+            );
+        }
     }
 
     function setupBlankPage() {
@@ -2363,6 +2546,7 @@ body {
         currentArtworkKey = key;
         ARTWORK = ARTWORKS[key];
         updateArtworkTray();
+        closePagesDrawer();
 
         if (ARTWORK.blank) {
             setupBlankPage();
@@ -2389,13 +2573,7 @@ body {
         loadArtwork(key);
     }
 
-    document
-        .querySelectorAll('[data-art]')
-        .forEach(function(button) {
-            button.addEventListener('click', function() {
-                requestArtworkChange(this.dataset.art);
-            });
-        });
+    const pagesLauncher =\n        document.getElementById('pagesLauncher');\n\n    const pagesClose =\n        document.getElementById('pagesClose');\n\n    const pagesBackdrop =\n        document.getElementById('pagesBackdrop');\n\n    const artworkTray =\n        document.getElementById('artworkTray');\n\n    const artworkUpload =\n        document.getElementById('artworkUpload');\n\n    const uploadArtworkButton =\n        document.getElementById('uploadArtworkButton');\n\n    function openPagesDrawer() {\n        artworkTray.classList.add('open');\n        pagesBackdrop.classList.add('open');\n        artworkTray.setAttribute('aria-hidden', 'false');\n        pagesLauncher.setAttribute('aria-expanded', 'true');\n    }\n\n    function closePagesDrawer() {\n        artworkTray.classList.remove('open');\n        pagesBackdrop.classList.remove('open');\n        artworkTray.setAttribute('aria-hidden', 'true');\n        pagesLauncher.setAttribute('aria-expanded', 'false');\n    }\n\n    pagesLauncher.addEventListener('click', function() {\n        if (artworkTray.classList.contains('open')) {\n            closePagesDrawer();\n        } else {\n            openPagesDrawer();\n        }\n    });\n\n    pagesClose.addEventListener('click', closePagesDrawer);\n    pagesBackdrop.addEventListener('click', closePagesDrawer);\n\n    document.addEventListener('keydown', function(event) {\n        if (event.key === 'Escape' && artworkTray.classList.contains('open')) {\n            closePagesDrawer();\n        }\n    });\n\n    document\n        .querySelectorAll('[data-art]')\n        .forEach(function(button) {\n            button.addEventListener('click', function() {\n                requestArtworkChange(this.dataset.art);\n            });\n        });\n\n    /*\n       Local image upload. The selected file never needs\n       to leave the browser. We turn it into a simplified\n       black-and-white coloring page before loading it into\n       the same protected-line coloring engine.\n    */\n\n    function imageToColoringPage(image) {\n        const maxDimension = 1400;\n        const ratio = Math.min(\n            1,\n            maxDimension / Math.max(image.naturalWidth, image.naturalHeight)\n        );\n\n        const width = Math.max(1, Math.round(image.naturalWidth * ratio));\n        const height = Math.max(1, Math.round(image.naturalHeight * ratio));\n\n        const work = document.createElement('canvas');\n        work.width = width;\n        work.height = height;\n        const ctx = work.getContext('2d', { willReadFrequently: true });\n        ctx.fillStyle = '#ffffff';\n        ctx.fillRect(0, 0, width, height);\n        ctx.drawImage(image, 0, 0, width, height);\n\n        const source = ctx.getImageData(0, 0, width, height);\n        const data = source.data;\n        const gray = new Uint8ClampedArray(width * height);\n\n        for (let i = 0, p = 0; i < data.length; i += 4, p++) {\n            gray[p] = Math.round(\n                data[i] * 0.299 +\n                data[i + 1] * 0.587 +\n                data[i + 2] * 0.114\n            );\n        }\n\n        /* Small blur calms photo noise before edge detection. */\n        const blurred = new Uint8ClampedArray(gray.length);\n        for (let y = 1; y < height - 1; y++) {\n            for (let x = 1; x < width - 1; x++) {\n                let sum = 0;\n                for (let yy = -1; yy <= 1; yy++) {\n                    for (let xx = -1; xx <= 1; xx++) {\n                        sum += gray[(y + yy) * width + (x + xx)];\n                    }\n                }\n                blurred[y * width + x] = Math.round(sum / 9);\n            }\n        }\n\n        const output = ctx.createImageData(width, height);\n        const out = output.data;\n\n        for (let p = 0; p < width * height; p++) {\n            out[p * 4] = 255;\n            out[p * 4 + 1] = 255;\n            out[p * 4 + 2] = 255;\n            out[p * 4 + 3] = 255;\n        }\n\n        const threshold = 42;\n\n        for (let y = 1; y < height - 1; y++) {\n            for (let x = 1; x < width - 1; x++) {\n                const a = blurred[(y - 1) * width + (x - 1)];\n                const b = blurred[(y - 1) * width + x];\n                const c = blurred[(y - 1) * width + (x + 1)];\n                const d = blurred[y * width + (x - 1)];\n                const f = blurred[y * width + (x + 1)];\n                const g = blurred[(y + 1) * width + (x - 1)];\n                const h = blurred[(y + 1) * width + x];\n                const i = blurred[(y + 1) * width + (x + 1)];\n\n                const gx = -a + c - (2 * d) + (2 * f) - g + i;\n                const gy = -a - (2 * b) - c + g + (2 * h) + i;\n                const magnitude = Math.sqrt(gx * gx + gy * gy);\n                const value = magnitude > threshold ? 0 : 255;\n                const index = (y * width + x) * 4;\n\n                out[index] = value;\n                out[index + 1] = value;\n                out[index + 2] = value;\n                out[index + 3] = 255;\n            }\n        }\n\n        ctx.putImageData(output, 0, 0);\n        return work.toDataURL('image/png');\n    }\n\n    function loadUploadedFile(file) {\n        if (!file || !file.type.startsWith('image/')) return;\n\n        const reader = new FileReader();\n\n        reader.onload = function() {\n            const image = new Image();\n\n            image.onload = function() {\n                try {\n                    const coloringSource = imageToColoringPage(image);\n\n                    ARTWORKS.upload = {\n                        id: 'uploaded-image',\n                        title: file.name || 'Uploaded Image',\n                        source: coloringSource,\n                        creator: 'Local upload',\n                        blank: false,\n                        uploaded: true\n                    };\n\n                    currentArtworkKey = 'upload';\n                    ARTWORK = ARTWORKS.upload;\n                    updateArtworkTray();\n                    closePagesDrawer();\n                    sourceImage.src = coloringSource;\n\n                    studioStatus.textContent =\n                        'Image ready. Pick a tool and create.';\n                } catch (error) {\n                    studioStatus.textContent =\n                        'That image could not be prepared. Try another PNG, JPG or WebP.';\n                }\n            };\n\n            image.onerror = function() {\n                studioStatus.textContent =\n                    'That image could not be opened. Try another image file.';\n            };\n\n            image.src = reader.result;\n        };\n\n        reader.readAsDataURL(file);\n    }\n\n    function chooseUpload() {\n        artworkUpload.value = '';\n        artworkUpload.click();\n    }\n\n    uploadArtworkButton.addEventListener('click', function() {\n        if (hasUnsavedChanges && !skipLeaveWarning) {\n            pendingNavigation = chooseUpload;\n            openLeaveModal();\n            return;\n        }\n\n        chooseUpload();\n    });\n\n    artworkUpload.addEventListener('change', function() {\n        const file = this.files && this.files[0];\n        if (file) loadUploadedFile(file);\n    });
 
     /* =========================
        INITIALIZE ART
