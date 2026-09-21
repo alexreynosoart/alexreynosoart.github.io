@@ -2410,171 +2410,96 @@ body:not(.has-selection) #clearSelectionTouch { display:none; }
 }
 
 
-/* =========================
-   V2.4.6 SELECTION WORKFLOW
-   ========================= */
-.selection-done-v246 {
-    background:#111 !important;
-    color:#fff !important;
-    border-color:#111 !important;
-}
-.v246-selection-ops { margin-top:8px; }
-.v246-selection-actions {
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:7px;
-    margin-top:8px;
-}
-.v246-selection-actions .v245-clear-selection {
-    display:block !important;
-    margin-top:0 !important;
-}
-[data-selection-op].active {
-    background:#111 !important;
-    color:#fff !important;
-    border-color:#111 !important;
-}
 
-/* FIT PAGE: true vertical centering. */
-#fitPageButton {
-    display:inline-flex !important;
-    align-items:center !important;
-    justify-content:center !important;
-    line-height:1.05 !important;
-    padding-top:0 !important;
-    padding-bottom:0 !important;
-}
+/* =====================================================
+   V2.5.4 CLEAN CONSOLIDATION
+   One selection UI, one eraser opacity system.
+   ===================================================== */
 
-/* Eraser opacity uses one intuitive 5-100% scale, defaulting to full erase. */
-#eraserOpacity { direction:ltr; }
-
-
-/* =========================
-   V2.4.7 QA FIXES
-   ========================= */
-
-/* DONE is an action, not a selected state. */
-.selection-done-v246,
-.selection-done-v246:focus {
-    background:#fff !important;
-    color:#111 !important;
-    border-color:#d8d8d8 !important;
-}
-.selection-done-v246:active {
-    background:#111 !important;
-    color:#fff !important;
-}
-
-/* Touch selection and shape sub-controls stay visible inside Tools. */
-body.v247-selecting #touchSelectModes { display:block !important; }
-body.v247-shaping #touchShapeModes { display:block !important; }
-
-/* Mobile/tablet eraser opacity is contextual and compact. */
-.v247-touch-eraser-opacity {
-    display:none;
-    margin-top:8px;
-}
-body.v247-eraser .v247-touch-eraser-opacity { display:block; }
-
-/* Hide the duplicate FIT PAGE button on phone/tablet. Keep original FIT. */
-@media (max-width:1000px) {
-    #fitPageButton { display:none !important; }
-}
-
-/* Momentary topbar controls must not look latched on touch. */
-@media (pointer:coarse) {
-    #fitButton.active,
-    #fullscreenButton.active,
-    #fitButton:focus,
-    #fullscreenButton:focus {
-        background:#fff !important;
-        color:#111 !important;
-        border-color:#d8d8d8 !important;
-        box-shadow:none !important;
+/* Desktop-only build marker. Does not exist in mobile layout. */
+@media (min-width:1001px) {
+    .desktop-studio-sidebar::after {
+        content:"v2.5.4";
+        display:block;
+        margin-top:8px;
+        text-align:center;
+        font-size:9px;
+        line-height:1;
+        letter-spacing:.04em;
+        color:rgba(0,0,0,.28);
+        pointer-events:none;
     }
 }
 
+/* Selection sub-controls */
+#desktopSelectModes,
+#touchSelectModes { display:none; }
 
-/* =========================
-   V2.4.9 SELECT CORE FIX
-   ========================= */
-[data-selection-op] {
-    cursor:pointer;
-}
-[data-selection-op].active {
-    background:#111 !important;
-    color:#fff !important;
-    border-color:#111 !important;
-}
-.selection-done-v246 {
-    background:#fff !important;
-    color:#111 !important;
-    border-color:#d8d8d8 !important;
-}
+body.v254-select-active #desktopSelectModes { display:flex; }
+body.v254-select-active #touchSelectModes { display:block; }
 
-/* One eraser opacity UI per layout. */
-@media (max-width:1000px) {
-    #eraserOpacitySection { display:none !important; }
-}
-@media (min-width:1001px) {
-    #touchEraserOpacityWrap { display:none !important; }
-}
-
-
-/* =========================
-   V2.5.0 SELECTION ENGINE
-   ========================= */
-#selectionPreviewV250 {
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    pointer-events:none;
-    z-index:61;
-}
-
-.v250-mobile-eraser-opacity { display:none; }
-body.v247-eraser .v250-mobile-eraser-opacity { display:flex; }
-
-/* There is one eraser-opacity control per layout. */
-@media (max-width:1000px) {
-    #eraserOpacitySection { display:none !important; }
-}
-@media (min-width:1001px) {
-    #touchEraserOpacityWrap { display:none !important; }
-}
-
-/* DONE is never a selected state. */
-.selection-done-v246,
-.selection-done-v246:focus {
-    background:#fff !important;
-    color:#111 !important;
-    border-color:#d8d8d8 !important;
-}
-
-
-/* =========================
-   V2.5.1 MARCHING ANTS
-   ========================= */
-#selectionAntsV251 {
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    pointer-events:none;
-    z-index:62;
-}
-
-
-/* V2.5.3 clean selection controls */
 [data-v253-select-mode].active,
 [data-v253-selection-op].active {
     background:#111 !important;
     color:#fff !important;
     border-color:#111 !important;
 }
+
 [data-v253-selection-done] {
     cursor:pointer;
+    background:#fff !important;
+    color:#111 !important;
+}
+
+#clearSelectionV24,
+#clearSelectionTouch { display:none; }
+body.has-selection #clearSelectionV24,
+body.has-selection #clearSelectionTouch { display:inline-flex; }
+
+/* Dedicated selection overlay */
+#selectionCanvas {
+    z-index:6 !important;
+    pointer-events:none !important;
+}
+
+/* Eraser opacity */
+#touchEraserOpacityWrap { display:none; }
+body.v254-eraser-active #touchEraserOpacityWrap { display:flex; }
+
+@media (max-width:1000px) {
+    #eraserOpacitySection { display:none !important; }
+
+    /* Mobile header: reclaim the title space. */
+    .studio-name { display:none !important; }
+
+    /* Put Undo / Redo / Reset / Save at the top without adding new controls. */
+    .mobile-actions {
+        position:fixed;
+        top:8px;
+        left:50%;
+        transform:translateX(-50%);
+        z-index:1200;
+        width:min(58vw, 330px);
+        margin:0;
+        padding:0;
+        gap:4px;
+        background:transparent;
+    }
+
+    .mobile-actions .mobile-button {
+        min-width:0;
+        padding:7px 6px;
+        font-size:.64rem;
+    }
+
+    /* Bottom dock now spends its room on art tools. */
+    .mobile-dock {
+        padding-bottom:max(8px, env(safe-area-inset-bottom));
+    }
+}
+
+@media (min-width:1001px) {
+    #touchEraserOpacityWrap { display:none !important; }
 }
 
 </style>
@@ -7870,1318 +7795,440 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
 
 
 
-/* =========================
-   V2.4.6 PERSISTENT SELECTION
-   ========================= */
-
-let v246SelectionOp = 'add';
-let v246SelectionMask = null;
-let v246SelectionMaskCtx = null;
-let v246PendingPath = [];
-
-/* A real mask lets several Free/Square/Circle selections be added/subtracted. */
-function v246EnsureMask() {
-    if (!v246SelectionMask) {
-        v246SelectionMask = document.createElement('canvas');
-        v246SelectionMaskCtx = v246SelectionMask.getContext('2d');
-    }
-    if (v246SelectionMask.width !== paintCanvas.width ||
-        v246SelectionMask.height !== paintCanvas.height) {
-        const old = document.createElement('canvas');
-        old.width = v246SelectionMask.width || paintCanvas.width;
-        old.height = v246SelectionMask.height || paintCanvas.height;
-        if (v246SelectionMask.width && v246SelectionMask.height) {
-            old.getContext('2d').drawImage(v246SelectionMask,0,0);
-        }
-        v246SelectionMask.width = paintCanvas.width;
-        v246SelectionMask.height = paintCanvas.height;
-        if (old.width && old.height) v246SelectionMaskCtx.drawImage(old,0,0);
-    }
-}
-function v246MaskHasPixels() {
-    v246EnsureMask();
-    const d=v246SelectionMaskCtx.getImageData(0,0,v246SelectionMask.width,v246SelectionMask.height).data;
-    for(let i=3;i<d.length;i+=4) if(d[i]) return true;
-    return false;
-}
-function v246PathToMask(path,op) {
-    if(!path || path.length<3) return;
-    v246EnsureMask();
-    const c=v246SelectionMaskCtx;
-    c.save();
-    c.globalCompositeOperation = op==='subtract' ? 'destination-out' : 'source-over';
-    c.fillStyle='#000';
-    c.beginPath();
-    c.moveTo(path[0].x,path[0].y);
-    for(let i=1;i<path.length;i++) c.lineTo(path[i].x,path[i].y);
-    c.closePath();
-    c.fill();
-    c.restore();
-}
-function v246RenderMaskOutline() {
-    v246EnsureMask();
-    selectionCtx.clearRect(0,0,selectionCanvas.width,selectionCanvas.height);
-
-    /* Keep a visible marching-style edge around selected mask regions. */
-    const src=v246SelectionMaskCtx.getImageData(0,0,v246SelectionMask.width,v246SelectionMask.height);
-    const w=src.width,h=src.height,d=src.data;
-    const img=selectionCtx.createImageData(w,h);
-    const o=img.data;
-    for(let y=1;y<h-1;y++){
-        for(let x=1;x<w-1;x++){
-            const i=(y*w+x)*4;
-            if(!d[i+3]) continue;
-            const edge =
-                !d[i-4+3] || !d[i+4+3] ||
-                !d[i-w*4+3] || !d[i+w*4+3];
-            if(edge){
-                o[i]=17;o[i+1]=17;o[i+2]=17;o[i+3]=220;
-            }
-        }
-    }
-    selectionCtx.putImageData(img,0,0);
-    document.body.classList.toggle('has-selection',v246MaskHasPixels());
-}
-function v246ClearSelection() {
-    v246EnsureMask();
-    v246SelectionMaskCtx.clearRect(0,0,v246SelectionMask.width,v246SelectionMask.height);
-    selectionPath=[];
-    v246PendingPath=[];
-    selectionCtx.clearRect(0,0,selectionCanvas.width,selectionCanvas.height);
-    document.body.classList.remove('has-selection');
-}
-function v246SetOp(op) {
-    v246SelectionOp=op;
-    document.querySelectorAll('[data-selection-op]').forEach(b=>{
-        b.classList.toggle('active',b.dataset.selectionOp===op);
-    });
-}
-document.querySelectorAll('[data-selection-op]').forEach(b=>{
-    b.addEventListener('click',function(e){
-        e.preventDefault();e.stopPropagation();
-        v246SetOp(this.dataset.selectionOp);
-        if(currentTool!=='select'){
-            v241ToolBeforeSelect=currentTool;
-            selectTool('select');
-        }
-        v241RefreshToolUI();
-    });
-});
-
-/* Select is now intentionally persistent. DONE is the only automatic exit. */
-function v246DoneSelecting() {
-    if(currentTool!=='select') return;
-    const back=(v241ToolBeforeSelect && v241ToolBeforeSelect!=='select')
-        ? v241ToolBeforeSelect : 'fill';
-    selectTool(back);
-    v241RefreshToolUI();
-}
-document.querySelectorAll('[data-v253-selection-done]').forEach(b=>{
-    b.addEventListener('click',function(e){
-        e.preventDefault();e.stopPropagation();
-        v246DoneSelecting();
-    });
-});
-
-/* Override the old auto-return helper. */
-v241FinishSelection = function() {
-    if(selectionPath && selectionPath.length>2){
-        v246PathToMask(selectionPath,v246SelectionOp);
-        v246RenderMaskOutline();
-    }
-    selecting=false;
-    v241SpecialActive=false;
-    v241SpecialStart=null;
-    /* Stay in Select until DONE. */
-    selectTool('select');
-    v241RefreshToolUI();
-};
-
-/* V2.4.9: freehand selection commit handled by one authoritative listener below. */
-
-/* Both clear buttons clear the accumulated mask. */
-document.getElementById('clearSelectionV24')?.addEventListener('click',function(e){
-    e.preventDefault();e.stopImmediatePropagation();v246ClearSelection();
-},true);
-document.getElementById('clearSelectionTouch')?.addEventListener('click',function(e){
-    e.preventDefault();e.stopImmediatePropagation();v246ClearSelection();
-},true);
-
-/* Selection-aware hit test now reads the accumulated mask. */
-const v246OldPointInSelection = pointInSelection;
-pointInSelection = function(x,y){
-    if(v246SelectionMask && v246MaskHasPixels()){
-        const px=Math.max(0,Math.min(v246SelectionMask.width-1,Math.round(x)));
-        const py=Math.max(0,Math.min(v246SelectionMask.height-1,Math.round(y)));
-        return v246SelectionMaskCtx.getImageData(px,py,1,1).data[3]>0;
-    }
-    return v246OldPointInSelection(x,y);
-};
-
-/* Clip brush / eraser / shapes to the accumulated mask where possible. */
-function v246ApplyMaskClip(ctx){
-    if(!v246SelectionMask || !v246MaskHasPixels()) return false;
-    ctx.save();
-    ctx.globalCompositeOperation='destination-in';
-    ctx.drawImage(v246SelectionMask,0,0);
-    ctx.restore();
-    return true;
-}
-
-/* After a stroke, trim paint to mask. */
-const v246Stroke = drawStrokeSegment;
-drawStrokeSegment = function(x1,y1,x2,y2){
-    const result=v246Stroke(x1,y1,x2,y2);
-    if(currentTool==='brush' && v246SelectionMask && v246MaskHasPixels()){
-        v246ApplyMaskClip(paintCtx);
-    }
-    return result;
-};
-
-/* Shape commits also respect the mask. */
-const v246CommitShapeOld = v241CommitShape;
-v241CommitShape = function(a,b){
-    v246CommitShapeOld(a,b);
-    if(v246SelectionMask && v246MaskHasPixels()){
-        v246ApplyMaskClip(paintCtx);
-        snapshotActiveLayer();
-        renderLayerDisplay();
-    }
-};
-
-/* Clear accumulated selection when changing artwork/page. */
-document.querySelectorAll('.artwork-thumb').forEach(b=>{
-    b.addEventListener('click',function(){ setTimeout(v246ClearSelection,0); });
-});
-
-/* Eraser opacity: one source of truth, default 100% erase. */
-eraserOpacityV244=1;
-const v246Eraser=document.getElementById('eraserOpacity');
-if(v246Eraser){
-    v246Eraser.min='5';
-    v246Eraser.max='100';
-    v246Eraser.value='100';
-    document.getElementById('eraserOpacityReadout').textContent='100';
-}
-
-/* Reset keeps the current tool and also clears selection cleanly. */
-const v246ResetArtwork=resetArtwork;
-resetArtwork=function(){
-    const tool=currentTool, brush=brushType;
-    v246ResetArtwork();
-    v246ClearSelection();
-    brushType=brush;
-    selectTool(tool);
-    if(typeof v241RefreshToolUI==='function') v241RefreshToolUI();
-};
-
-v246SetOp('add');
-
-
-
-/* =========================
-   V2.4.7 INTERACTION REPAIR
-   ========================= */
-
-/* Selection is persistent. Nothing except DONE or another explicit tool leaves it. */
-let v247SelectionSession = false;
-
-function v247EnterSelect() {
-    if (currentTool !== 'select') {
-        v241ToolBeforeSelect = currentTool;
-    }
-    v247SelectionSession = true;
-    selectTool('select');
-    document.body.classList.add('v247-selecting');
-    document.body.classList.remove('v247-shaping');
-    if (typeof v241RefreshToolUI === 'function') v241RefreshToolUI();
-}
-function v247EnterShape() {
-    v247SelectionSession = false;
-    selectTool('shape');
-    document.body.classList.add('v247-shaping');
-    document.body.classList.remove('v247-selecting');
-    if (typeof v241RefreshToolUI === 'function') v241RefreshToolUI();
-}
-function v247LeaveSpecialModes() {
-    v247SelectionSession = false;
-    document.body.classList.remove('v247-selecting','v247-shaping');
-}
-
-/* Override old selection finisher so it NEVER returns to previous tool. */
-v241FinishSelection = function() {
-    if (selectionPath && selectionPath.length > 2) {
-        v246PathToMask(selectionPath, v246SelectionOp);
-        v246RenderMaskOutline();
-    }
-    selecting = false;
-    v241SpecialActive = false;
-    v241SpecialStart = null;
-    v247EnterSelect();
-};
-
-/* Capture all Select / Shape entry controls before older handlers can auto-close/switch. */
-document.addEventListener('click', function(e) {
-    const desktopTool = e.target.closest('[data-desktop-tool]');
-    const touchTool = e.target.closest('[data-v2-tool]');
-
-    const requested = desktopTool?.dataset.desktopTool || touchTool?.dataset.v2Tool;
-    if (requested === 'select') {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        v247EnterSelect();
-        return;
-    }
-    if (requested === 'shape') {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        v247EnterShape();
-        return;
-    }
-
-    const selMode = e.target.closest('[data-select-mode],[data-touch-select-mode]');
-    if (selMode) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        v241SelectMode = selMode.dataset.selectMode || selMode.dataset.touchSelectMode;
-        document.querySelectorAll('[data-select-mode]').forEach(b =>
-            b.classList.toggle('active', b.dataset.selectMode === v241SelectMode));
-        document.querySelectorAll('[data-touch-select-mode]').forEach(b =>
-            b.classList.toggle('active', b.dataset.touchSelectMode === v241SelectMode));
-        v247EnterSelect();
-        return;
-    }
-
-    const shapeMode = e.target.closest('[data-shape-mode],[data-touch-shape-mode]');
-    if (shapeMode) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        v241ShapeMode = shapeMode.dataset.shapeMode || shapeMode.dataset.touchShapeMode;
-        document.querySelectorAll('[data-shape-mode]').forEach(b =>
-            b.classList.toggle('active', b.dataset.shapeMode === v241ShapeMode));
-        document.querySelectorAll('[data-touch-shape-mode]').forEach(b =>
-            b.classList.toggle('active', b.dataset.touchShapeMode === v241ShapeMode));
-        v247EnterShape();
-        return;
-    }
-
-    /* Any actual different art tool intentionally ends Select. */
-    if (requested && requested !== 'select' && requested !== 'shape') {
-        v247LeaveSpecialModes();
-    }
-}, true);
-
-/* DONE is the intentional return to the tool used before Select. */
-document.querySelectorAll('[data-v253-selection-done]').forEach(function(button) {
-    button.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        const back = (v241ToolBeforeSelect && v241ToolBeforeSelect !== 'select')
-            ? v241ToolBeforeSelect : 'fill';
-        v247LeaveSpecialModes();
-        selectTool(back);
-        if (typeof v241RefreshToolUI === 'function') v241RefreshToolUI();
-        button.blur();
-    }, true);
-});
-
-/* Do not auto-close Tools after Fill / Select / Shape on touch.
-   X and the existing outside backdrop remain the close controls. */
-document.querySelectorAll('[data-v2-tool]').forEach(function(button) {
-    button.addEventListener('click', function(e) {
-        const tool = this.dataset.v2Tool;
-        if (tool === 'fill' || tool === 'select' || tool === 'shape') {
-            e.stopImmediatePropagation();
-            if (tool === 'fill') {
-                v247LeaveSpecialModes();
-                selectTool('fill');
-            } else if (tool === 'select') {
-                v247EnterSelect();
-            } else {
-                v247EnterShape();
-            }
-            this.blur();
-        }
-    }, true);
-});
-
-/* One eraser-opacity value, linear 0-100%. Remove the old 5% floor. */
-eraserOpacityV244 = 1;
-const desktopEraseOpacity = document.getElementById('eraserOpacity');
-const touchEraseOpacity = document.getElementById('touchEraserOpacity');
-const desktopEraseReadout = document.getElementById('eraserOpacityReadout');
-const touchEraseReadout = document.getElementById('touchEraserOpacityReadout');
-
-function v247SetEraserOpacity(value) {
-    const n = Math.max(0, Math.min(100, Number(value)));
-    eraserOpacityV244 = n / 100;
-    if (desktopEraseOpacity) desktopEraseOpacity.value = n;
-    if (touchEraseOpacity) touchEraseOpacity.value = n;
-    if (desktopEraseReadout) desktopEraseReadout.textContent = Math.round(n);
-    if (touchEraseReadout) touchEraseReadout.textContent = Math.round(n) + '%';
-}
-if (desktopEraseOpacity) {
-    desktopEraseOpacity.min = '0';
-    desktopEraseOpacity.max = '100';
-    desktopEraseOpacity.value = '100';
-    desktopEraseOpacity.oninput = function(){ v247SetEraserOpacity(this.value); };
-}
-if (touchEraseOpacity) {
-    touchEraseOpacity.oninput = function(){ v247SetEraserOpacity(this.value); };
-}
-v247SetEraserOpacity(100);
-
-/* Partial eraser must use destination-out alpha linearly.
-   This replaces the previous opacity substitution behavior. */
-const v247BaseStroke = v244DrawStrokeSegment;
-drawStrokeSegment = function(x1,y1,x2,y2) {
-    if (currentTool !== 'eraser') {
-        return v247BaseStroke(x1,y1,x2,y2);
-    }
-
-    paintCtx.save();
-    paintCtx.globalCompositeOperation = 'destination-out';
-    paintCtx.globalAlpha = eraserOpacityV244;
-    paintCtx.lineWidth = brushSize;
-    paintCtx.lineCap = 'round';
-    paintCtx.lineJoin = 'round';
-    paintCtx.beginPath();
-    paintCtx.moveTo(x1,y1);
-    paintCtx.lineTo(x2,y2);
-    paintCtx.stroke();
-    paintCtx.restore();
-
-    hasUnsavedChanges = true;
-};
-
-/* Show the one eraser control whenever Erase is active. */
-const v247SelectToolBase = selectTool;
-selectTool = function(tool) {
-    const result = v247SelectToolBase(tool);
-    document.body.classList.toggle('v247-eraser', tool === 'eraser');
-    if (tool !== 'select' && tool !== 'shape' && tool !== 'eraser') {
-        document.body.classList.remove('v247-selecting','v247-shaping');
-    }
-    return result;
-};
-
-/* FIT and fullscreen are actions, not modes. Remove visual latch after activation. */
-['fitButton','fitPageButton','fullscreenButton'].forEach(function(id){
-    const b=document.getElementById(id);
-    if(!b) return;
-    b.addEventListener('click',function(){
-        requestAnimationFrame(()=>{
-            b.classList.remove('active');
-            b.blur();
-        });
-    },true);
-});
-
-
-
-/* =========================
-   V2.4.8 SELECT SESSION LOCK
-   =========================
-   Older pointer-up logic can still restore the previous tool after a
-   selection is completed. The Select session now has final authority:
-   until DONE or another explicit tool is chosen, pointer release returns
-   the engine/UI to Select on every device.
-*/
-
-function v248RestoreSelectSession() {
-    if (!v247SelectionSession) return;
-
-    currentTool = 'select';
-    selecting = false;
-    v241SpecialActive = false;
-    v241SpecialStart = null;
-
-    document.body.classList.add('v247-selecting');
-    document.body.classList.remove('v247-shaping');
-
-    if (typeof v241RefreshToolUI === 'function') {
-        v241RefreshToolUI();
-    }
-
-    document.querySelectorAll('[data-desktop-tool],[data-v2-tool]').forEach(function(button) {
-        const tool = button.dataset.desktopTool || button.dataset.v2Tool;
-        button.classList.toggle('active', tool === 'select');
-    });
-}
-
-/* Run after all older pointer-up handlers have finished. */
-paintCanvas.addEventListener('pointerup', function() {
-    if (!v247SelectionSession) return;
-    setTimeout(v248RestoreSelectSession, 0);
-}, false);
-
-paintCanvas.addEventListener('pointercancel', function() {
-    if (!v247SelectionSession) return;
-    setTimeout(v248RestoreSelectSession, 0);
-}, false);
-
-/* Touch can finish outside the canvas after dragging. */
-document.addEventListener('pointerup', function() {
-    if (!v247SelectionSession) return;
-    setTimeout(v248RestoreSelectSession, 0);
-}, false);
-
-/* DONE explicitly unlocks Select before returning to the previous tool. */
-document.querySelectorAll('[data-v253-selection-done]').forEach(function(button) {
-    button.addEventListener('click', function() {
-        v247SelectionSession = false;
-    }, true);
-});
-
-/* Choosing any different explicit art tool also unlocks Select. */
-document.addEventListener('click', function(e) {
-    const button = e.target.closest('[data-desktop-tool],[data-v2-tool]');
-    if (!button) return;
-    const tool = button.dataset.desktopTool || button.dataset.v2Tool;
-    if (tool && tool !== 'select') {
-        v247SelectionSession = false;
-    }
-}, true);
-
-
-
-/* =========================
-   V2.4.9 AUTHORITATIVE SELECT + ERASER
-   ========================= */
-
-/* Selection session is explicit. Drawing a selection never exits it. */
-let v249Selecting = false;
-
-function v249EnterSelect() {
-    if (currentTool !== 'select') {
-        v241ToolBeforeSelect = currentTool;
-    }
-    v249Selecting = true;
-    v247SelectionSession = true;
-    currentTool = 'select';
-    document.body.classList.add('v247-selecting');
-    document.body.classList.remove('v247-shaping');
-
-    document.querySelectorAll('[data-tool],[data-v2-tool],[data-desktop-tool]').forEach(function(b) {
-        const t = b.dataset.tool || b.dataset.v2Tool || b.dataset.desktopTool;
-        b.classList.toggle('active', t === 'select');
-    });
-
-    if (typeof v241RefreshToolUI === 'function') v241RefreshToolUI();
-}
-
-function v249ExitSelectTo(tool) {
-    v249Selecting = false;
-    v247SelectionSession = false;
-    document.body.classList.remove('v247-selecting');
-    selectTool(tool);
-    if (typeof v241RefreshToolUI === 'function') v241RefreshToolUI();
-}
-
-/* Make +ADD / -SUBTRACT reliable on desktop, phone and tablet. */
-document.addEventListener('click', function(e) {
-    const op = e.target.closest('[data-selection-op]');
-    if (!op) return;
-
-    e.preventDefault();
-    e.stopImmediatePropagation();
-
-    v246SelectionOp = op.dataset.selectionOp;
-    document.querySelectorAll('[data-selection-op]').forEach(function(b) {
-        b.classList.toggle('active', b.dataset.selectionOp === v246SelectionOp);
-    });
-
-    v249EnterSelect();
-}, true);
-
-/* Select shape buttons also remain inside the same selection session. */
-document.addEventListener('click', function(e) {
-    const mode = e.target.closest('[data-select-mode],[data-touch-select-mode]');
-    if (!mode) return;
-
-    e.preventDefault();
-    e.stopImmediatePropagation();
-
-    v241SelectMode = mode.dataset.selectMode || mode.dataset.touchSelectMode;
-
-    document.querySelectorAll('[data-select-mode]').forEach(function(b) {
-        b.classList.toggle('active', b.dataset.selectMode === v241SelectMode);
-    });
-    document.querySelectorAll('[data-touch-select-mode]').forEach(function(b) {
-        b.classList.toggle('active', b.dataset.touchSelectMode === v241SelectMode);
-    });
-
-    v249EnterSelect();
-}, true);
-
-/* Free Select commit. Capture current path before any later handler can alter it. */
-paintCanvas.addEventListener('pointerup', function() {
-    if (!v249Selecting || currentTool !== 'select' || v241SelectMode !== 'free') return;
-    if (!selectionPath || selectionPath.length < 3) return;
-
-    const completed = selectionPath.map(p => ({x:p.x, y:p.y}));
-
-    setTimeout(function() {
-        v246PathToMask(completed, v246SelectionOp);
-        v246RenderMaskOutline();
-        selecting = false;
-        currentTool = 'select';
-        v249EnterSelect();
-    }, 0);
-}, true);
-
-/* Final guard after every pointer release. Selection cannot auto-return. */
-document.addEventListener('pointerup', function() {
-    if (!v249Selecting) return;
-    setTimeout(function() {
-        currentTool = 'select';
-        v249EnterSelect();
-    }, 0);
-}, false);
-
-/* DONE is the only selection-specific exit. */
-document.querySelectorAll('[data-v253-selection-done]').forEach(function(button) {
-    button.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-
-        const back = (v241ToolBeforeSelect && v241ToolBeforeSelect !== 'select')
-            ? v241ToolBeforeSelect
-            : 'fill';
-
-        v249ExitSelectTo(back);
-        button.blur();
-    }, true);
-});
-
-/* Clicking another real art tool intentionally leaves Select. */
-document.addEventListener('click', function(e) {
-    const b = e.target.closest('[data-tool],[data-v2-tool],[data-desktop-tool]');
-    if (!b) return;
-    const tool = b.dataset.tool || b.dataset.v2Tool || b.dataset.desktopTool;
-
-    if (tool === 'select') {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        v249EnterSelect();
-        return;
-    }
-
-    if (v249Selecting && tool && tool !== 'select') {
-        v249Selecting = false;
-        v247SelectionSession = false;
-    }
-}, true);
-
-/* One eraser opacity value only.
-   100 = full erase, 50 = visibly half-strength, 0 = no erase. */
-function v249SetEraserOpacity(value) {
-    const n = Math.max(0, Math.min(100, parseFloat(value) || 0));
-    eraserOpacityV244 = n / 100;
-
-    const desktop = document.getElementById('eraserOpacity');
-    const touch = document.getElementById('touchEraserOpacity');
-    const desktopText = document.getElementById('eraserOpacityReadout');
-    const touchText = document.getElementById('touchEraserOpacityReadout');
-
-    if (desktop) desktop.value = n;
-    if (touch) touch.value = n;
-    if (desktopText) desktopText.textContent = Math.round(n);
-    if (touchText) touchText.textContent = Math.round(n) + '%';
-}
-
-const v249DesktopEraser = document.getElementById('eraserOpacity');
-const v249TouchEraser = document.getElementById('touchEraserOpacity');
-
-[v249DesktopEraser, v249TouchEraser].forEach(function(slider) {
-    if (!slider) return;
-    slider.min = '0';
-    slider.max = '100';
-    slider.step = '1';
-    slider.value = '100';
-
-    slider.addEventListener('input', function(e) {
-        e.stopImmediatePropagation();
-        v249SetEraserOpacity(this.value);
-    }, true);
-});
-
-v249SetEraserOpacity(100);
-
-/* Keep the eraser control at 100% on initial load only.
-   Selecting Erase later does not alter the user's chosen value. */
-window.addEventListener('pageshow', function() {
-    if (!window.__miaEraserInitializedV249) {
-        window.__miaEraserInitializedV249 = true;
-        v249SetEraserOpacity(100);
-    }
-});
-
-
-
-/* =========================
-   V2.5.0 ONE SELECTION ENGINE
-   ========================= */
-
-/* Separate preview canvas means committed selections never disappear
-   while the next Free/Square/Circle is being drawn. */
-const v250PreviewCanvas = document.createElement('canvas');
-v250PreviewCanvas.id = 'selectionPreviewV250';
-v250PreviewCanvas.width = paintCanvas.width;
-v250PreviewCanvas.height = paintCanvas.height;
-const v250PreviewCtx = v250PreviewCanvas.getContext('2d');
-paintCanvas.parentElement.appendChild(v250PreviewCanvas);
-
-let v250Selecting = false;
-let v250Start = null;
-let v250Path = [];
-
-function v250ResizePreview() {
-    if (v250PreviewCanvas.width !== paintCanvas.width)
-        v250PreviewCanvas.width = paintCanvas.width;
-    if (v250PreviewCanvas.height !== paintCanvas.height)
-        v250PreviewCanvas.height = paintCanvas.height;
-}
-function v250ClearPreview() {
-    v250PreviewCtx.clearRect(0,0,v250PreviewCanvas.width,v250PreviewCanvas.height);
-}
-function v250DrawPreview(path) {
-    v250ResizePreview();
-    v250ClearPreview();
-    if (!path || path.length < 2) return;
-
-    const c=v250PreviewCtx;
-    c.save();
-    c.strokeStyle = v246SelectionOp === 'subtract' ? '#d43b3b' : '#111';
-    c.lineWidth=Math.max(2,2/Math.max(fitScale*zoomMultiplier,.25));
-    c.setLineDash([8,6]);
-    c.beginPath();
-    c.moveTo(path[0].x,path[0].y);
-    path.slice(1).forEach(p=>c.lineTo(p.x,p.y));
-    if(v241SelectMode!=='free') c.closePath();
-    c.stroke();
-    c.restore();
-}
-function v250PathForPoint(p) {
-    if (v241SelectMode === 'rect') return v241RectPath(v250Start,p);
-    if (v241SelectMode === 'ellipse') return v241EllipsePath(v250Start,p);
-    return v250Path;
-}
-function v250ForceSelectUI() {
-    currentTool='select';
-    v249Selecting=true;
-    v247SelectionSession=true;
-    document.body.classList.add('v247-selecting');
-    document.body.classList.remove('v247-shaping');
-
-    document.querySelectorAll('[data-tool],[data-v2-tool],[data-desktop-tool]').forEach(b=>{
-        const t=b.dataset.tool||b.dataset.v2Tool||b.dataset.desktopTool;
-        b.classList.toggle('active',t==='select');
-    });
-    if(typeof v241RefreshToolUI==='function') v241RefreshToolUI();
-}
-
-/* Own all Select pointer interaction before the normal art engine. */
-paintCanvas.addEventListener('pointerdown',function(e){
-    if(currentTool!=='select') return;
-    if(activePointers && activePointers.size>=2) return;
-
-    e.preventDefault();
-    e.stopImmediatePropagation();
-
-    v250Selecting=true;
-    selecting=false;
-    v241SpecialActive=false;
-    v250Start=getCanvasPoint(e);
-    v250Path=[{x:v250Start.x,y:v250Start.y}];
-    v250DrawPreview(v250Path);
-
-    try { paintCanvas.setPointerCapture(e.pointerId); } catch(_) {}
-},true);
-
-paintCanvas.addEventListener('pointermove',function(e){
-    if(!v250Selecting || currentTool!=='select') return;
-
-    e.preventDefault();
-    e.stopImmediatePropagation();
-
-    const p=getCanvasPoint(e);
-    if(v241SelectMode==='free'){
-        v250Path.push({x:p.x,y:p.y});
-    } else {
-        v250Path=v250PathForPoint(p);
-    }
-    v250DrawPreview(v250Path);
-},true);
-
-paintCanvas.addEventListener('pointerup',function(e){
-    if(!v250Selecting || currentTool!=='select') return;
-
-    e.preventDefault();
-    e.stopImmediatePropagation();
-
-    const p=getCanvasPoint(e);
-    if(v241SelectMode!=='free') v250Path=v250PathForPoint(p);
-
-    const real =
-        v250Path.length>2 &&
-        (!v250Start || Math.hypot(p.x-v250Start.x,p.y-v250Start.y)>=5);
-
-    if(real){
-        v246PathToMask(v250Path,v246SelectionOp);
-        v246RenderMaskOutline();
-    }
-
-    v250Selecting=false;
-    v250Start=null;
-    v250Path=[];
-    v250ClearPreview();
-
-    try { paintCanvas.releasePointerCapture(e.pointerId); } catch(_) {}
-
-    /* Critical: remain in Select, with accumulated mask still visible. */
-    v250ForceSelectUI();
-},true);
-
-paintCanvas.addEventListener('pointercancel',function(e){
-    if(!v250Selecting) return;
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    v250Selecting=false;
-    v250Start=null;
-    v250Path=[];
-    v250ClearPreview();
-    v250ForceSelectUI();
-},true);
-
-/* +ADD and -SUBTRACT are true modes, not action buttons that exit Select. */
-document.addEventListener('click',function(e){
-    const op=e.target.closest('[data-selection-op]');
-    if(!op) return;
-
-    e.preventDefault();
-    e.stopImmediatePropagation();
-
-    v246SelectionOp=op.dataset.selectionOp;
-    document.querySelectorAll('[data-selection-op]').forEach(b=>{
-        b.classList.toggle('active',b.dataset.selectionOp===v246SelectionOp);
-    });
-    v250ForceSelectUI();
-},true);
-
-/* Free/Square/Circle also remain in the selection session. */
-document.addEventListener('click',function(e){
-    const mode=e.target.closest('[data-select-mode],[data-touch-select-mode]');
-    if(!mode) return;
-
-    e.preventDefault();
-    e.stopImmediatePropagation();
-
-    v241SelectMode=mode.dataset.selectMode||mode.dataset.touchSelectMode;
-    document.querySelectorAll('[data-select-mode]').forEach(b=>{
-        b.classList.toggle('active',b.dataset.selectMode===v241SelectMode);
-    });
-    document.querySelectorAll('[data-touch-select-mode]').forEach(b=>{
-        b.classList.toggle('active',b.dataset.touchSelectMode===v241SelectMode);
-    });
-    v250ForceSelectUI();
-},true);
-
-/* DONE deliberately exits Select. */
-document.querySelectorAll('[data-v253-selection-done]').forEach(button=>{
-    button.addEventListener('click',function(e){
-        e.preventDefault();
-        e.stopImmediatePropagation();
-
-        v250Selecting=false;
-        v250ClearPreview();
-        v249Selecting=false;
-        v247SelectionSession=false;
-        document.body.classList.remove('v247-selecting');
-
-        const back=(v241ToolBeforeSelect && v241ToolBeforeSelect!=='select')
-            ? v241ToolBeforeSelect : 'fill';
-        selectTool(back);
-        if(typeof v241RefreshToolUI==='function') v241RefreshToolUI();
-        button.blur();
-    },true);
-});
-
-/* Clear only clears the accumulated selection, not the selected tool. */
-['clearSelectionV24','clearSelectionTouch'].forEach(id=>{
-    document.getElementById(id)?.addEventListener('click',function(e){
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        v246ClearSelection();
-        v250ClearPreview();
-        v250ForceSelectUI();
-    },true);
-});
-
-/* =========================
-   ONE ERASER OPACITY SYSTEM
-   ========================= */
-function v250SetEraserOpacity(value){
-    const n=Math.max(0,Math.min(100,Number(value)));
-    eraserOpacityV244=n/100;
-
-    const desktop=document.getElementById('eraserOpacity');
-    const mobile=document.getElementById('touchEraserOpacity');
-    const desktopText=document.getElementById('eraserOpacityReadout');
-    const mobileText=document.getElementById('touchEraserOpacityReadout');
-
-    if(desktop) desktop.value=String(n);
-    if(mobile) mobile.value=String(n);
-    if(desktopText) desktopText.textContent=String(Math.round(n));
-    if(mobileText) mobileText.textContent=Math.round(n)+'%';
-}
-const v250DesktopErase=document.getElementById('eraserOpacity');
-const v250MobileErase=document.getElementById('touchEraserOpacity');
-
-[v250DesktopErase,v250MobileErase].forEach(slider=>{
-    if(!slider) return;
-    slider.min='0';
-    slider.max='100';
-    slider.step='1';
-    slider.value='100';
-    slider.addEventListener('input',function(e){
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        v250SetEraserOpacity(this.value);
-    },true);
-});
-
-/* Initialize after all older scripts have finished touching the controls. */
-setTimeout(()=>v250SetEraserOpacity(100),0);
-window.addEventListener('pageshow',()=>setTimeout(()=>v250SetEraserOpacity(100),0));
-
-window.addEventListener('resize',()=>{
-    v250ResizePreview();
-    v250ClearPreview();
-});
-
-
-
-/* =========================
-   V2.5.1 VISIBLE SELECTION OUTLINE
-   ========================= */
-
-/* The mask was being committed, but the previous edge renderer was too fragile.
-   Draw the selection boundary from the mask onto its own visible overlay. */
-const v251AntsCanvas = document.createElement('canvas');
-v251AntsCanvas.id = 'selectionAntsV251';
-v251AntsCanvas.width = paintCanvas.width;
-v251AntsCanvas.height = paintCanvas.height;
-const v251AntsCtx = v251AntsCanvas.getContext('2d');
-paintCanvas.parentElement.appendChild(v251AntsCanvas);
-
-let v251DashOffset = 0;
-let v251AntsTimer = null;
-
-function v251ResizeAnts(){
-    if(v251AntsCanvas.width !== paintCanvas.width)
-        v251AntsCanvas.width = paintCanvas.width;
-    if(v251AntsCanvas.height !== paintCanvas.height)
-        v251AntsCanvas.height = paintCanvas.height;
-}
-
-function v251MaskEdges(){
-    v246EnsureMask();
-    const w=v246SelectionMask.width;
-    const h=v246SelectionMask.height;
-    const src=v246SelectionMaskCtx.getImageData(0,0,w,h).data;
-    const edge=new Uint8Array(w*h);
-
-    for(let y=1;y<h-1;y++){
-        for(let x=1;x<w-1;x++){
-            const p=y*w+x;
-            const a=src[p*4+3];
-            if(!a) continue;
-
-            if(
-                !src[(p-1)*4+3] ||
-                !src[(p+1)*4+3] ||
-                !src[(p-w)*4+3] ||
-                !src[(p+w)*4+3]
-            ){
-                edge[p]=1;
-            }
-        }
-    }
-    return {edge,w,h};
-}
-
-function v251DrawAnts(){
-    v251ResizeAnts();
-    const c=v251AntsCtx;
-    c.clearRect(0,0,v251AntsCanvas.width,v251AntsCanvas.height);
-
-    if(!v246SelectionMask || !v246MaskHasPixels()) return;
-
-    const {edge,w,h}=v251MaskEdges();
-
-    /* Alternating black/white edge pixels create real marching ants
-       without depending on a polygon path after Add/Subtract operations. */
-    const img=c.createImageData(w,h);
-    const d=img.data;
-
-    for(let y=0;y<h;y++){
-        for(let x=0;x<w;x++){
-            const p=y*w+x;
-            if(!edge[p]) continue;
-
-            const phase=(x+y+v251DashOffset)%12;
-            const black=phase<6;
-            const i=p*4;
-
-            d[i]=black?17:255;
-            d[i+1]=black?17:255;
-            d[i+2]=black?17:255;
-            d[i+3]=255;
-        }
-    }
-    c.putImageData(img,0,0);
-}
-
-function v251StartAnts(){
-    if(v251AntsTimer) return;
-    v251AntsTimer=setInterval(function(){
-        if(!v246SelectionMask || !v246MaskHasPixels()){
-            v251AntsCtx.clearRect(0,0,v251AntsCanvas.width,v251AntsCanvas.height);
-            return;
-        }
-        v251DashOffset=(v251DashOffset+1)%12;
-        v251DrawAnts();
-    },110);
-}
-
-function v251StopAnts(){
-    if(v251AntsTimer){
-        clearInterval(v251AntsTimer);
-        v251AntsTimer=null;
-    }
-    v251AntsCtx.clearRect(0,0,v251AntsCanvas.width,v251AntsCanvas.height);
-}
-
-/* Replace the old selection-outline renderer with the dedicated ants layer. */
-v246RenderMaskOutline = function(){
-    v246EnsureMask();
-    const has=v246MaskHasPixels();
-    document.body.classList.toggle('has-selection',has);
-
-    /* Old selection canvas is only for temporary legacy previews now. */
-    selectionCtx.clearRect(0,0,selectionCanvas.width,selectionCanvas.height);
-
-    if(has){
-        v251DrawAnts();
-        v251StartAnts();
-    } else {
-        v251StopAnts();
-    }
-};
-
-/* Clearing a selection clears the ants too. */
-const v251OldClearSelection=v246ClearSelection;
-v246ClearSelection=function(){
-    v251OldClearSelection();
-    v251StopAnts();
-};
-
-/* Redraw immediately after every committed selection. */
-const v251OldPathToMask=v246PathToMask;
-v246PathToMask=function(path,op){
-    v251OldPathToMask(path,op);
-    v251RenderAfterCommit();
-};
-function v251RenderAfterCommit(){
-    requestAnimationFrame(function(){
-        v246RenderMaskOutline();
-    });
-}
-
-/* Keep overlay dimensions aligned with page changes / resize. */
-window.addEventListener('resize',function(){
-    v251ResizeAnts();
-    v251DrawAnts();
-});
-
-v251ResizeAnts();
-
-
-
-/* =========================
-   V2.5.2 SELECT INPUT FIX
-   =========================
-   Selection now intercepts pointer input at the canvas-frame level,
-   BEFORE any older paintCanvas handlers can consume the event.
-*/
-
-let v252Selecting = false;
-let v252PointerId = null;
-let v252Start = null;
-let v252Path = [];
-
-function v252SelectionActive() {
-    return currentTool === 'select' || v249Selecting || v247SelectionSession;
-}
-
-function v252Point(e) {
-    return getCanvasPoint(e);
-}
-
-function v252BuildPath(p) {
-    if (v241SelectMode === 'rect') {
-        return v241RectPath(v252Start, p);
-    }
-    if (v241SelectMode === 'ellipse') {
-        return v241EllipsePath(v252Start, p);
-    }
-    return v252Path;
-}
-
-function v252Preview(path) {
-    v250ResizePreview();
-    v250ClearPreview();
-    if (!path || path.length < 2) return;
-
-    const c = v250PreviewCtx;
-    c.save();
-    c.strokeStyle = v246SelectionOp === 'subtract' ? '#d43b3b' : '#111';
-    c.lineWidth = Math.max(2, 2 / Math.max(fitScale * zoomMultiplier, .25));
-    c.setLineDash([8,6]);
-    c.beginPath();
-    c.moveTo(path[0].x, path[0].y);
-    for (let i=1; i<path.length; i++) c.lineTo(path[i].x, path[i].y);
-    if (v241SelectMode !== 'free') c.closePath();
-    c.stroke();
-    c.restore();
-}
-
-function v252Down(e) {
-    if (!v252SelectionActive()) return;
-    if (e.target !== paintCanvas && !paintCanvas.contains(e.target)) return;
-    if (e.pointerType === 'touch' && activePointers && activePointers.size >= 2) return;
-
-    e.preventDefault();
-    e.stopPropagation();
-
-    currentTool = 'select';
-    v249Selecting = true;
-    v247SelectionSession = true;
-
-    v252Selecting = true;
-    v252PointerId = e.pointerId;
-    v252Start = v252Point(e);
-    v252Path = [{x:v252Start.x, y:v252Start.y}];
-
-    v252Preview(v252Path);
-
-    try { paintCanvas.setPointerCapture(e.pointerId); } catch(_) {}
-}
-
-function v252Move(e) {
-    if (!v252Selecting || e.pointerId !== v252PointerId) return;
-
-    e.preventDefault();
-    e.stopPropagation();
-
-    const p = v252Point(e);
-
-    if (v241SelectMode === 'free') {
-        v252Path.push({x:p.x, y:p.y});
-    } else {
-        v252Path = v252BuildPath(p);
-    }
-
-    v252Preview(v252Path);
-}
-
-function v252Up(e) {
-    if (!v252Selecting || e.pointerId !== v252PointerId) return;
-
-    e.preventDefault();
-    e.stopPropagation();
-
-    const p = v252Point(e);
-
-    if (v241SelectMode !== 'free') {
-        v252Path = v252BuildPath(p);
-    }
-
-    const distance = v252Start
-        ? Math.hypot(p.x-v252Start.x, p.y-v252Start.y)
-        : 0;
-
-    const valid = v252Path.length > 2 &&
-        (v241SelectMode === 'free' ? v252Path.length > 4 : distance >= 5);
-
-    if (valid) {
-        v246PathToMask(v252Path, v246SelectionOp);
-        v246RenderMaskOutline();
-        v251DrawAnts();
-        v251StartAnts();
-    }
-
-    v252Selecting = false;
-    v252PointerId = null;
-    v252Start = null;
-    v252Path = [];
-    v250ClearPreview();
-
-    try { paintCanvas.releasePointerCapture(e.pointerId); } catch(_) {}
-
-    /* Stay in Select. */
-    currentTool = 'select';
-    v249Selecting = true;
-    v247SelectionSession = true;
-    document.body.classList.add('v247-selecting');
-    if (typeof v241RefreshToolUI === 'function') v241RefreshToolUI();
-}
-
-function v252Cancel(e) {
-    if (!v252Selecting) return;
-    e.preventDefault();
-    e.stopPropagation();
-    v252Selecting = false;
-    v252PointerId = null;
-    v252Start = null;
-    v252Path = [];
-    v250ClearPreview();
-}
-
-/* Ancestor capture runs before every paintCanvas listener from older builds. */
-canvasFrame.addEventListener('pointerdown', v252Down, true);
-canvasFrame.addEventListener('pointermove', v252Move, true);
-canvasFrame.addEventListener('pointerup', v252Up, true);
-canvasFrame.addEventListener('pointercancel', v252Cancel, true);
-
-/* Make sure choosing Select starts the authoritative session. */
-document.addEventListener('click', function(e) {
-    const b = e.target.closest(
-        '[data-desktop-tool="select"],[data-v2-tool="select"]'
-    );
-    if (!b) return;
-
-    currentTool = 'select';
-    v249Selecting = true;
-    v247SelectionSession = true;
-    document.body.classList.add('v247-selecting');
-
-    if (typeof v241RefreshToolUI === 'function') v241RefreshToolUI();
-}, true);
-
-
-
-/* =========================
-   V2.5.3 CLEAN SELECT CONTROLS
-   =========================
-   Visible Select controls no longer share attributes with the older
-   experimental handlers. One small controller owns them.
-*/
-
-function v253KeepSelect() {
-    currentTool = 'select';
-    v249Selecting = true;
-    v247SelectionSession = true;
-    document.body.classList.add('v247-selecting');
-    document.body.classList.add('v241-select-active');
-    if (typeof v241RefreshToolUI === 'function') v241RefreshToolUI();
-}
-
-document.querySelectorAll('[data-v253-select-mode]').forEach(function(button) {
-    button.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        v241SelectMode = this.dataset.v253SelectMode;
-
-        document.querySelectorAll('[data-v253-select-mode]').forEach(function(b) {
-            b.classList.toggle('active', b.dataset.v253SelectMode === v241SelectMode);
-        });
-
-        v253KeepSelect();
-    });
-});
-
-document.querySelectorAll('[data-v253-selection-op]').forEach(function(button) {
-    button.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        v246SelectionOp = this.dataset.v253SelectionOp;
-
-        document.querySelectorAll('[data-v253-selection-op]').forEach(function(b) {
-            b.classList.toggle('active', b.dataset.v253SelectionOp === v246SelectionOp);
-        });
-
-        v253KeepSelect();
-    });
-});
-
-document.querySelectorAll('[data-v253-selection-done]').forEach(function(button) {
-    button.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        v252Selecting = false;
-        v249Selecting = false;
-        v247SelectionSession = false;
-        v250ClearPreview();
-        document.body.classList.remove('v247-selecting');
-        document.body.classList.remove('v241-select-active');
-
-        const back = (v241ToolBeforeSelect && v241ToolBeforeSelect !== 'select')
-            ? v241ToolBeforeSelect
-            : 'fill';
-
-        selectTool(back);
-        if (typeof v241RefreshToolUI === 'function') v241RefreshToolUI();
-        this.blur();
-    });
-});
-
-/* Critical correction:
-   canvasFrame receives the pointer before paintCanvas. The prior V2.5.2
-   check incorrectly rejected events whenever an overlay canvas was the
-   event target. Selection should accept ANY pointer beginning in canvasFrame.
-*/
-canvasFrame.removeEventListener('pointerdown', v252Down, true);
-
-function v253SelectionDown(e) {
-    if (!v252SelectionActive()) return;
-    if (e.pointerType === 'touch' && activePointers && activePointers.size >= 2) return;
-
-    e.preventDefault();
-    e.stopPropagation();
-
-    currentTool = 'select';
-    v249Selecting = true;
-    v247SelectionSession = true;
-
-    v252Selecting = true;
-    v252PointerId = e.pointerId;
-    v252Start = v252Point(e);
-    v252Path = [{x:v252Start.x, y:v252Start.y}];
-
-    v252Preview(v252Path);
-
-    try { paintCanvas.setPointerCapture(e.pointerId); } catch(_) {}
-}
-
-canvasFrame.addEventListener('pointerdown', v253SelectionDown, true);
-
-/* Initial clean states */
-v241SelectMode = 'free';
-v246SelectionOp = 'add';
-document.querySelectorAll('[data-v253-select-mode]').forEach(function(b) {
-    b.classList.toggle('active', b.dataset.v253SelectMode === 'free');
-});
-document.querySelectorAll('[data-v253-selection-op]').forEach(function(b) {
-    b.classList.toggle('active', b.dataset.v253SelectionOp === 'add');
-});
 
 </script>
 
+
+
+<script>
+/* =====================================================
+   MIA CREATIVE STUDIO V2.5.4
+   CLEAN SELECTION + ERASER CONTROLLER
+   ===================================================== */
+
+(() => {
+    "use strict";
+
+    const SELECT = {
+        active: false,
+        drawing: false,
+        pointerId: null,
+        mode: "free",
+        op: "add",
+        previousTool: "fill",
+        start: null,
+        path: [],
+        mask: null,
+        maskCtx: null,
+        dashOffset: 0,
+        antsTimer: null
+    };
+
+    function ensureMask() {
+        if (!SELECT.mask ||
+            SELECT.mask.width !== paintCanvas.width ||
+            SELECT.mask.height !== paintCanvas.height) {
+
+            SELECT.mask = document.createElement("canvas");
+            SELECT.mask.width = paintCanvas.width;
+            SELECT.mask.height = paintCanvas.height;
+            SELECT.maskCtx = SELECT.mask.getContext("2d", {willReadFrequently:true});
+        }
+    }
+
+    function clearOverlay() {
+        selectionCtx.clearRect(0, 0, selectionCanvas.width, selectionCanvas.height);
+    }
+
+    function hasSelection() {
+        ensureMask();
+        const d = SELECT.maskCtx.getImageData(
+            0, 0, SELECT.mask.width, SELECT.mask.height
+        ).data;
+        for (let i = 3; i < d.length; i += 4) {
+            if (d[i]) return true;
+        }
+        return false;
+    }
+
+    function drawAnts() {
+        clearOverlay();
+        if (!hasSelection()) {
+            document.body.classList.remove("has-selection");
+            return;
+        }
+
+        document.body.classList.add("has-selection");
+
+        const w = SELECT.mask.width;
+        const h = SELECT.mask.height;
+        const src = SELECT.maskCtx.getImageData(0,0,w,h).data;
+        const out = selectionCtx.createImageData(w,h);
+        const dst = out.data;
+
+        for (let y=1; y<h-1; y++) {
+            for (let x=1; x<w-1; x++) {
+                const p = y*w+x;
+                if (!src[p*4+3]) continue;
+
+                const edge =
+                    !src[(p-1)*4+3] ||
+                    !src[(p+1)*4+3] ||
+                    !src[(p-w)*4+3] ||
+                    !src[(p+w)*4+3];
+
+                if (!edge) continue;
+
+                const black = ((x+y+SELECT.dashOffset) % 12) < 6;
+                const i = p*4;
+                dst[i]   = black ? 15 : 255;
+                dst[i+1] = black ? 15 : 255;
+                dst[i+2] = black ? 15 : 255;
+                dst[i+3] = 255;
+            }
+        }
+        selectionCtx.putImageData(out,0,0);
+    }
+
+    function startAnts() {
+        if (SELECT.antsTimer) return;
+        SELECT.antsTimer = setInterval(() => {
+            if (!SELECT.active && !hasSelection()) return;
+            SELECT.dashOffset = (SELECT.dashOffset + 1) % 12;
+            drawAnts();
+        }, 120);
+    }
+
+    function preview(path) {
+        clearOverlay();
+        if (!path || path.length < 2) return;
+
+        selectionCtx.save();
+        selectionCtx.strokeStyle = SELECT.op === "subtract" ? "#d43b3b" : "#111";
+        selectionCtx.lineWidth = Math.max(
+            2, 2 / Math.max(fitScale * zoomMultiplier, .25)
+        );
+        selectionCtx.setLineDash([8,6]);
+        selectionCtx.beginPath();
+        selectionCtx.moveTo(path[0].x, path[0].y);
+        for (let i=1; i<path.length; i++) {
+            selectionCtx.lineTo(path[i].x, path[i].y);
+        }
+        if (SELECT.mode !== "free") selectionCtx.closePath();
+        selectionCtx.stroke();
+        selectionCtx.restore();
+    }
+
+    function rectPath(a,b) {
+        return [
+            {x:a.x,y:a.y},
+            {x:b.x,y:a.y},
+            {x:b.x,y:b.y},
+            {x:a.x,y:b.y}
+        ];
+    }
+
+    function ellipsePath(a,b) {
+        const pts = [];
+        const cx=(a.x+b.x)/2, cy=(a.y+b.y)/2;
+        const rx=Math.abs(b.x-a.x)/2, ry=Math.abs(b.y-a.y)/2;
+        for (let i=0;i<64;i++) {
+            const t=(i/64)*Math.PI*2;
+            pts.push({x:cx+Math.cos(t)*rx, y:cy+Math.sin(t)*ry});
+        }
+        return pts;
+    }
+
+    function shapePath(point) {
+        if (SELECT.mode === "rect") return rectPath(SELECT.start, point);
+        if (SELECT.mode === "ellipse") return ellipsePath(SELECT.start, point);
+        return SELECT.path;
+    }
+
+    function commitPath(path) {
+        if (!path || path.length < 3) return;
+
+        ensureMask();
+
+        const temp = document.createElement("canvas");
+        temp.width = paintCanvas.width;
+        temp.height = paintCanvas.height;
+        const ctx = temp.getContext("2d");
+
+        ctx.fillStyle = "#fff";
+        ctx.beginPath();
+        ctx.moveTo(path[0].x,path[0].y);
+        for (let i=1;i<path.length;i++) ctx.lineTo(path[i].x,path[i].y);
+        ctx.closePath();
+        ctx.fill();
+
+        SELECT.maskCtx.save();
+        SELECT.maskCtx.globalCompositeOperation =
+            SELECT.op === "subtract" ? "destination-out" : "source-over";
+        SELECT.maskCtx.drawImage(temp,0,0);
+        SELECT.maskCtx.restore();
+
+        drawAnts();
+        startAnts();
+    }
+
+    function refreshSelectionButtons() {
+        document.querySelectorAll("[data-v253-select-mode]").forEach(b => {
+            b.classList.toggle("active", b.dataset.v253SelectMode === SELECT.mode);
+        });
+        document.querySelectorAll("[data-v253-selection-op]").forEach(b => {
+            b.classList.toggle("active", b.dataset.v253SelectionOp === SELECT.op);
+        });
+    }
+
+    function enterSelect() {
+        if (!SELECT.active && currentTool !== "select") {
+            SELECT.previousTool = currentTool;
+        }
+
+        SELECT.active = true;
+        currentTool = "select";
+        selecting = false;
+        drawing = false;
+
+        document.body.classList.add("v254-select-active");
+        document.body.classList.remove("v241-shape-active");
+
+        document.querySelectorAll("[data-tool]").forEach(b => {
+            b.classList.toggle("active", b.dataset.tool === "select");
+        });
+        document.querySelectorAll("[data-v2-tool]").forEach(b => {
+            b.classList.toggle("active", b.dataset.v2Tool === "select");
+        });
+        document.querySelectorAll("[data-desktop-tool]").forEach(b => {
+            b.classList.toggle("active", b.dataset.desktopTool === "select");
+        });
+
+        const status=document.getElementById("studioStatus");
+        if (status) status.textContent =
+            "Select selected. Choose Free, Square, or Circle. Add or subtract until you press Done.";
+
+        refreshSelectionButtons();
+    }
+
+    function leaveSelect() {
+        SELECT.active = false;
+        SELECT.drawing = false;
+        SELECT.pointerId = null;
+        document.body.classList.remove("v254-select-active");
+
+        const back =
+            SELECT.previousTool && SELECT.previousTool !== "select"
+                ? SELECT.previousTool
+                : "fill";
+
+        selectTool(back);
+        if (typeof v241RefreshToolUI === "function") v241RefreshToolUI();
+        drawAnts();
+    }
+
+    function clearSelection() {
+        ensureMask();
+        SELECT.maskCtx.clearRect(0,0,SELECT.mask.width,SELECT.mask.height);
+        selectionPath = [];
+        clearOverlay();
+        document.body.classList.remove("has-selection");
+    }
+
+    /* Main Select buttons */
+    document.addEventListener("click", e => {
+        const selectButton = e.target.closest(
+            '[data-tool="select"],[data-v2-tool="select"],[data-desktop-tool="select"]'
+        );
+        if (selectButton) {
+            enterSelect();
+            return;
+        }
+
+        const other = e.target.closest(
+            "[data-tool],[data-v2-tool],[data-desktop-tool]"
+        );
+        if (other && SELECT.active) {
+            const tool =
+                other.dataset.tool ||
+                other.dataset.v2Tool ||
+                other.dataset.desktopTool;
+            if (tool && tool !== "select") {
+                SELECT.active = false;
+                SELECT.drawing = false;
+                document.body.classList.remove("v254-select-active");
+            }
+        }
+    });
+
+    document.querySelectorAll("[data-v253-select-mode]").forEach(button => {
+        button.addEventListener("click", e => {
+            e.preventDefault();
+            e.stopPropagation();
+            SELECT.mode = button.dataset.v253SelectMode;
+            enterSelect();
+        });
+    });
+
+    document.querySelectorAll("[data-v253-selection-op]").forEach(button => {
+        button.addEventListener("click", e => {
+            e.preventDefault();
+            e.stopPropagation();
+            SELECT.op = button.dataset.v253SelectionOp;
+            enterSelect();
+        });
+    });
+
+    document.querySelectorAll("[data-v253-selection-done]").forEach(button => {
+        button.addEventListener("click", e => {
+            e.preventDefault();
+            e.stopPropagation();
+            leaveSelect();
+            button.blur();
+        });
+    });
+
+    ["clearSelectionV24","clearSelectionTouch"].forEach(id => {
+        const b=document.getElementById(id);
+        if (!b) return;
+        b.addEventListener("click", e => {
+            e.preventDefault();
+            e.stopPropagation();
+            clearSelection();
+            enterSelect();
+        });
+    });
+
+    /* Selection owns pointer input only while Select is active.
+       These listeners are AFTER the base paint listeners.
+       The base Select branch returns without drawing, so there is no conflict. */
+    paintCanvas.addEventListener("pointerdown", e => {
+        if (!SELECT.active || currentTool !== "select") return;
+        if (activePointers.size >= 2) return;
+
+        e.preventDefault();
+
+        SELECT.drawing = true;
+        SELECT.pointerId = e.pointerId;
+        SELECT.start = getCanvasPoint(e);
+        SELECT.path = [{x:SELECT.start.x,y:SELECT.start.y}];
+
+        try { paintCanvas.setPointerCapture(e.pointerId); } catch(_) {}
+        preview(SELECT.path);
+    });
+
+    paintCanvas.addEventListener("pointermove", e => {
+        if (!SELECT.drawing || e.pointerId !== SELECT.pointerId) return;
+        e.preventDefault();
+
+        const p=getCanvasPoint(e);
+        if (SELECT.mode === "free") {
+            SELECT.path.push({x:p.x,y:p.y});
+        } else {
+            SELECT.path=shapePath(p);
+        }
+        preview(SELECT.path);
+    });
+
+    paintCanvas.addEventListener("pointerup", e => {
+        if (!SELECT.drawing || e.pointerId !== SELECT.pointerId) return;
+        e.preventDefault();
+
+        const p=getCanvasPoint(e);
+        if (SELECT.mode !== "free") SELECT.path=shapePath(p);
+
+        const dist=SELECT.start
+            ? Math.hypot(p.x-SELECT.start.x,p.y-SELECT.start.y)
+            : 0;
+
+        const valid =
+            SELECT.mode === "free"
+                ? SELECT.path.length > 4
+                : dist >= 5;
+
+        if (valid) commitPath(SELECT.path);
+
+        SELECT.drawing=false;
+        SELECT.pointerId=null;
+        SELECT.start=null;
+        SELECT.path=[];
+
+        try { paintCanvas.releasePointerCapture(e.pointerId); } catch(_) {}
+
+        enterSelect();
+        drawAnts();
+    });
+
+    paintCanvas.addEventListener("pointercancel", e => {
+        if (!SELECT.drawing) return;
+        SELECT.drawing=false;
+        SELECT.pointerId=null;
+        SELECT.start=null;
+        SELECT.path=[];
+        drawAnts();
+    });
+
+    /* Make Fill and Brush obey the accumulated selection.
+       Keep the base engine's selectionPath empty and use this mask directly. */
+    const originalPointInSelection = pointInSelection;
+    pointInSelection = function(x,y) {
+        if (!hasSelection()) return true;
+        ensureMask();
+        if (x<0 || y<0 || x>=SELECT.mask.width || y>=SELECT.mask.height) return false;
+        return SELECT.maskCtx.getImageData(x,y,1,1).data[3] > 0;
+    };
+
+    /* One eraser opacity value. */
+    function setEraserOpacity(value) {
+        const n=Math.max(0,Math.min(100,Number(value)));
+        eraserOpacityV244=n/100;
+
+        const desktop=document.getElementById("eraserOpacity");
+        const mobile=document.getElementById("touchEraserOpacity");
+        const desktopReadout=document.getElementById("eraserOpacityReadout");
+        const mobileReadout=document.getElementById("touchEraserOpacityReadout");
+
+        if (desktop) desktop.value=String(n);
+        if (mobile) mobile.value=String(n);
+        if (desktopReadout) desktopReadout.textContent=String(Math.round(n));
+        if (mobileReadout) mobileReadout.textContent=Math.round(n)+"%";
+    }
+
+    const desktopEraser=document.getElementById("eraserOpacity");
+    const mobileEraser=document.getElementById("touchEraserOpacity");
+
+    [desktopEraser,mobileEraser].forEach(slider => {
+        if (!slider) return;
+        slider.min="0";
+        slider.max="100";
+        slider.step="1";
+        slider.value="100";
+        slider.addEventListener("input", () => setEraserOpacity(slider.value));
+    });
+
+    document.addEventListener("click", e => {
+        const tool=e.target.closest("[data-tool],[data-v2-tool],[data-desktop-tool]");
+        if (!tool) return;
+        const name=tool.dataset.tool || tool.dataset.v2Tool || tool.dataset.desktopTool;
+        document.body.classList.toggle("v254-eraser-active", name === "eraser");
+    });
+
+    setEraserOpacity(100);
+    refreshSelectionButtons();
+
+    /* Keep overlay and mask aligned when artwork dimensions change. */
+    const originalResizeCanvases = typeof resizeCanvases === "function" ? resizeCanvases : null;
+    if (originalResizeCanvases) {
+        resizeCanvases = function(...args) {
+            const result=originalResizeCanvases.apply(this,args);
+            SELECT.mask=null;
+            SELECT.maskCtx=null;
+            clearSelection();
+            return result;
+        };
+    }
+})();
+</script>
 
 </body>
 
