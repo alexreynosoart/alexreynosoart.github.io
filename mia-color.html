@@ -2589,30 +2589,8 @@ body.v254-eraser-active #touchEraserOpacityWrap { display:flex; }
 .zoom-readout,
 #fitPageButton { display:none !important; }
 
-@media (min-width:1001px) {
-    /* Fullscreen should center the artwork instead of pinning it to the top
-       while leaving status/footer space underneath. */
-    body.studio-fullscreen .studio {
-        padding:12px 14px !important;
-        min-height:100dvh;
-        display:flex;
-        align-items:center;
-    }
-
-    body.studio-fullscreen .studio-main {
-        width:100%;
-    }
-
-    body.studio-fullscreen .canvas-frame {
-        height:calc(100dvh - 24px) !important;
-        min-height:0 !important;
-    }
-
-    body.studio-fullscreen .studio-status,
-    body.studio-fullscreen .action-bar {
-        display:none !important;
-    }
-}
+/* V2.5.8: fullscreen uses the original proven studio fullscreen layout.
+   The V2.5.6 fullscreen geometry override was removed. */
 
 
 /* =====================================================
@@ -2653,6 +2631,13 @@ body.v254-eraser-active #touchEraserOpacityWrap { display:flex; }
     #touchEraserOpacity {
         min-width:80px;
     }
+}
+
+
+/* V2.5.8 */
+#selectionCanvas { image-rendering:auto; }
+@media (min-width:1001px) {
+    body.studio-fullscreen .desktop-build-version { display:none !important; }
 }
 
 </style>
@@ -2760,7 +2745,7 @@ body.v254-eraser-active #touchEraserOpacityWrap { display:flex; }
         </div>
     </section>
 
-    <div class="desktop-build-version" aria-hidden="true">v2.5.7</div>
+    <div class="desktop-build-version" aria-hidden="true">v2.5.8</div>
 </aside>
 
 <div class="studio">
@@ -8409,6 +8394,8 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
 
     let mask = document.createElement("canvas");
     let maskCtx = mask.getContext("2d", {willReadFrequently:true});
+    let maskPixels = null;
+    let maskHasPixels = false;
     let antsOffset = 0;
     let antsTimer = null;
 
@@ -8417,6 +8404,22 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
         mask.width = paint.width;
         mask.height = paint.height;
         maskCtx = mask.getContext("2d", {willReadFrequently:true});
+        maskPixels = null;
+        maskHasPixels = false;
+    }
+
+    function refreshMaskCache() {
+        sizeMask();
+        const rgba = maskCtx.getImageData(0,0,mask.width,mask.height).data;
+        const alpha = new Uint8Array(mask.width*mask.height);
+        let any = false;
+        for(let p=0, i=3; p<alpha.length; p++, i+=4) {
+            const a = rgba[i];
+            alpha[p] = a;
+            if(a) any = true;
+        }
+        maskPixels = alpha;
+        maskHasPixels = any;
     }
 
     function point(e) {
@@ -8464,10 +8467,7 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
     }
 
     function hasMask() {
-        sizeMask();
-        const d=maskCtx.getImageData(0,0,mask.width,mask.height).data;
-        for(let i=3;i<d.length;i+=4) if(d[i]) return true;
-        return false;
+        return maskHasPixels;
     }
 
     function drawAnts() {
@@ -8479,34 +8479,42 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
 
         document.body.classList.add("has-selection");
         const w=mask.width,h=mask.height;
-        const src=maskCtx.getImageData(0,0,w,h).data;
+        const src=maskPixels;
+        if(!src) return;
         const out=selectionCtx.createImageData(w,h);
         const dst=out.data;
 
         for(let y=1;y<h-1;y++){
             for(let x=1;x<w-1;x++){
                 const p=y*w+x;
-                if(!src[p*4+3]) continue;
-                if(src[(p-1)*4+3] && src[(p+1)*4+3] &&
-                   src[(p-w)*4+3] && src[(p+w)*4+3]) continue;
+                if(!src[p]) continue;
+                if(src[p-1] && src[p+1] && src[p-w] && src[p+w]) continue;
 
-                const black=((x+y+antsOffset)%12)<6;
-                const i=p*4;
-                dst[i]=black?10:255;
-                dst[i+1]=black?10:255;
-                dst[i+2]=black?10:255;
-                dst[i+3]=255;
+                const black=((x+y+antsOffset)%14)<7;
+                /* 3x3 ants remain readable after the canvas is scaled to fit. */
+                for(let oy=-1;oy<=1;oy++){
+                    for(let ox=-1;ox<=1;ox++){
+                        const xx=x+ox, yy=y+oy;
+                        if(xx<0||yy<0||xx>=w||yy>=h) continue;
+                        const i=(yy*w+xx)*4;
+                        dst[i]=black?5:255;
+                        dst[i+1]=black?5:255;
+                        dst[i+2]=black?5:255;
+                        dst[i+3]=255;
+                    }
+                }
             }
         }
         selectionCtx.putImageData(out,0,0);
     }
 
     function startAnts() {
-        if(antsTimer) return;
-        antsTimer=setInterval(()=>{
-            antsOffset=(antsOffset+1)%12;
-            drawAnts();
-        },120);
+        /* V2.5.8: static high-contrast ants.
+           Avoid repainting a full-resolution mask 8x/second. */
+        if(antsTimer) {
+            clearInterval(antsTimer);
+            antsTimer=null;
+        }
     }
 
     function commit(points) {
@@ -8642,6 +8650,8 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
         document.getElementById(id)?.addEventListener("click",()=>{
             sizeMask();
             maskCtx.clearRect(0,0,mask.width,mask.height);
+            maskPixels = null;
+            maskHasPixels = false;
             window.__miaSelectionClipV256 = null;
             window.__miaSelectionHasClipV256 = false;
             drawAnts();
@@ -8664,9 +8674,10 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
     /* Make the new mask available to the art restriction check. */
     const previousPointInSelection = pointInSelection;
     pointInSelection = function(x,y){
-        if(!hasMask()) return previousPointInSelection(x,y);
+        if(!maskHasPixels || !maskPixels) return previousPointInSelection(x,y);
+        x=Math.floor(x); y=Math.floor(y);
         if(x<0 || y<0 || x>=mask.width || y>=mask.height) return false;
-        return maskCtx.getImageData(x,y,1,1).data[3]>0;
+        return maskPixels[y*mask.width+x] > 0;
     };
 })();
 </script>
@@ -8797,6 +8808,53 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
 
     /* Initial DOM/readout state only. No canvas/pointer handlers added here. */
     setMobileEraser(100);
+})();
+</script>
+
+
+<script>
+/* =====================================================
+   V2.5.8 OPACITY + PERFORMANCE
+   ===================================================== */
+(() => {
+    "use strict";
+
+    function compensatedStrokeAlpha(v) {
+        v=Math.max(0,Math.min(1,v));
+        if(v<=0) return 0;
+        if(v>=.999) return 1;
+        /* Compensates for repeated overlapping segments in the current
+           stroke engine. 50% no longer behaves like almost 100%. */
+        return 1 - Math.pow(1-v, 0.10);
+    }
+
+    const baseDrawV258 = drawStrokeSegment;
+    drawStrokeSegment = function(x1,y1,x2,y2) {
+        const savedBrush = brushOpacity;
+        const savedErase = eraserOpacityV244;
+
+        if(currentTool === "eraser") {
+            eraserOpacityV244 = compensatedStrokeAlpha(savedErase);
+        } else if(currentTool === "brush") {
+            brushOpacity = compensatedStrokeAlpha(savedBrush);
+        }
+
+        try {
+            return baseDrawV258(x1,y1,x2,y2);
+        } finally {
+            brushOpacity = savedBrush;
+            eraserOpacityV244 = savedErase;
+        }
+    };
+
+    /* Keep mobile opacity values visible anywhere a mobile opacity readout exists. */
+    document.querySelectorAll(
+        '#touchEraserOpacityReadout, #brushOpacityReadout, .mobile-opacity-value'
+    ).forEach(el => {
+        el.style.display="inline-block";
+        el.style.minWidth="44px";
+        el.style.opacity="1";
+    });
 })();
 </script>
 
