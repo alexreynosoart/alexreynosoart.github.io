@@ -2747,6 +2747,119 @@ body.v254-select-active #clearSelectionTouch {
     }
 }
 
+
+/* =====================================================
+   V2.6.7 ORIGINAL ART + MOBILE DIRECT TOOLS
+   ===================================================== */
+
+.original-art-name {
+    display:flex;
+    align-items:center;
+    padding:0 4px;
+}
+.original-art-lock {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:.72rem;
+}
+
+/* Desktop: a live selection remains visible and its controls remain available
+   while Fill, Move, Brush, or Erase is being used inside that selection. */
+@media (min-width:1001px) {
+    body.has-selection #desktopSelectModes {
+        display:flex !important;
+    }
+    body.has-selection #selectionDisplayV263 {
+        display:block !important;
+        visibility:visible !important;
+        opacity:1 !important;
+    }
+}
+
+.mobile-creative-tools { display:none; }
+
+@media (max-width:1000px) {
+    .mobile-creative-tools {
+        display:flex;
+        width:100%;
+        order:4;
+        justify-content:flex-end;
+        align-items:center;
+        gap:5px;
+    }
+
+    .mobile-icon-tool,
+    .mobile-select-icons button {
+        width:34px;
+        min-width:34px;
+        height:34px;
+        padding:0;
+        border:1px solid #ccc;
+        border-radius:9px;
+        background:#fff;
+        color:#222;
+        font-size:1.05rem;
+        font-weight:900;
+        line-height:1;
+    }
+
+    .mobile-icon-tool.active,
+    body.v254-select-active .select-icon-tool,
+    .mobile-select-icons button.active {
+        background:#111;
+        border-color:#111;
+        color:#fff;
+    }
+
+    .bucket-icon {
+        display:inline-block;
+        width:14px;
+        height:12px;
+        border:2px solid currentColor;
+        border-top-width:3px;
+        border-radius:2px 2px 5px 5px;
+        transform:rotate(-14deg);
+        position:relative;
+    }
+    .bucket-icon::before {
+        content:"";
+        position:absolute;
+        width:9px;
+        height:7px;
+        border:2px solid currentColor;
+        border-bottom:0;
+        border-radius:8px 8px 0 0;
+        left:0;
+        top:-8px;
+    }
+
+    .mobile-select-icons {
+        display:none;
+        gap:5px;
+    }
+    body.v254-select-active .mobile-select-icons {
+        display:flex;
+    }
+
+    .mobile-direct-tools {
+        grid-template-columns:repeat(6, minmax(0,1fr)) !important;
+        gap:5px !important;
+    }
+    .mobile-direct-tools .mobile-button {
+        min-width:0 !important;
+        padding:0 2px !important;
+        font-size:.58rem !important;
+        letter-spacing:-.01em;
+    }
+
+    /* Old launcher panels are no longer part of the normal phone workflow. */
+    #mobileToolsLauncher,
+    #mobileBrushesLauncher {
+        display:none !important;
+    }
+}
+
 </style>
 
 </head>
@@ -2852,7 +2965,7 @@ body.v254-select-active #clearSelectionTouch {
         </div>
     </section>
 
-    <div class="desktop-build-version" aria-hidden="true">v2.6.6</div>
+    <div class="desktop-build-version" aria-hidden="true">v2.6.7</div>
 </aside>
 
 <div class="studio">
@@ -2934,6 +3047,26 @@ body.v254-select-active #clearSelectionTouch {
             <button type="button" id="redoMobileTop" aria-label="Redo" title="Redo">→</button>
             <button type="button" id="resetMobileTop">RESET</button>
             <button type="button" id="saveMobileTop">SAVE</button>
+        </div>
+
+        <div class="mobile-creative-tools" aria-label="Creative tools">
+            <button class="mobile-icon-tool fill-icon-tool"
+                    data-v2-tool="fill"
+                    type="button"
+                    aria-label="Fill"
+                    title="Fill"><span class="bucket-icon" aria-hidden="true"></span></button>
+
+            <button class="mobile-icon-tool select-icon-tool"
+                    data-v2-tool="select"
+                    type="button"
+                    aria-label="Select"
+                    title="Select">⌁</button>
+
+            <div class="mobile-select-icons" aria-label="Selection shape">
+                <button type="button" data-v253-select-mode="free" aria-label="Free selection" title="Free">〰</button>
+                <button type="button" data-v253-select-mode="rect" aria-label="Square selection" title="Square">□</button>
+                <button type="button" data-v253-select-mode="ellipse" aria-label="Circle selection" title="Circle">○</button>
+            </div>
         </div>
 
     </header>
@@ -3414,31 +3547,31 @@ body.v254-select-active #clearSelectionTouch {
 
     <!-- TOOLS -->
 
-    <div class="mobile-tools">
+    <div class="mobile-tools mobile-direct-tools">
+
+        <button class="mobile-button active"
+                data-brush-type="pen"
+                type="button">PEN</button>
 
         <button class="mobile-button"
-                id="mobileToolsLauncher"
-                type="button">
-            TOOLS
-        </button>
+                data-brush-type="marker"
+                type="button">MARKER</button>
 
         <button class="mobile-button"
-                id="mobileBrushesLauncher"
-                type="button">
-            BRUSHES
-        </button>
+                data-brush-type="soft"
+                type="button">SOFT</button>
+
+        <button class="mobile-button"
+                data-brush-type="texture"
+                type="button">TEXTURE</button>
 
         <button class="mobile-button"
                 data-tool="eraser"
-                type="button">
-            ERASE
-        </button>
+                type="button">ERASE</button>
 
         <button class="mobile-button"
                 data-tool="move"
-                type="button">
-            MOVE
-        </button>
+                type="button">MOVE</button>
 
     </div>
 
@@ -5221,10 +5354,42 @@ body.v254-select-active #clearSelectionTouch {
         renderLayersUI();
     }
 
+    let originalArtVisible = true;
+
     function renderLayersUI() {
         const list = document.getElementById('layersList');
         if (!list) return;
         list.innerHTML = '';
+
+        /* Protected source art gets its own visibility row.
+           It is not editable or deletable, only hide/show. */
+        const originalRow = document.createElement('div');
+        originalRow.className = 'layer-row original-art-row';
+
+        const originalEye = document.createElement('button');
+        originalEye.type = 'button';
+        originalEye.className = 'original-art-eye';
+        originalEye.textContent = originalArtVisible ? '◉' : '○';
+        originalEye.title = originalArtVisible ? 'Hide original art' : 'Show original art';
+        originalEye.addEventListener('click', function(event) {
+            event.stopPropagation();
+            originalArtVisible = !originalArtVisible;
+            lineCanvas.style.visibility = originalArtVisible ? 'visible' : 'hidden';
+            renderLayersUI();
+        });
+
+        const originalName = document.createElement('div');
+        originalName.className = 'layer-name original-art-name';
+        originalName.textContent = 'Original Art';
+
+        const lock = document.createElement('span');
+        lock.className = 'original-art-lock';
+        lock.textContent = '🔒';
+        lock.title = 'Protected line art';
+
+        originalRow.append(originalEye, originalName, lock);
+        list.appendChild(originalRow);
+
         [...studioLayers].reverse().forEach(function(layer) {
             const row = document.createElement('div');
             row.className = 'layer-row' + (layer.id === activeLayerId ? ' active' : '');
@@ -6706,11 +6871,13 @@ body.v254-select-active #clearSelectionTouch {
         );
 
 
-        outputCtx.drawImage(
-            lineCanvas,
-            0,
-            0
-        );
+        if (originalArtVisible) {
+            outputCtx.drawImage(
+                lineCanvas,
+                0,
+                0
+            );
+        }
 
 
         return output;
@@ -9519,6 +9686,53 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
     }
 
     cleanMobileBrushPanel();
+})();
+</script>
+
+
+<script>
+/* =====================================================
+   V2.6.7 MOBILE DIRECT CONTROL BRIDGE
+   ===================================================== */
+(() => {
+    "use strict";
+
+    document.querySelectorAll(".mobile-direct-tools [data-brush-type]").forEach(button => {
+        button.addEventListener("click", () => {
+            if (currentTool !== "brush") selectTool("brush");
+            document.querySelectorAll(".mobile-direct-tools [data-brush-type]")
+                .forEach(b => b.classList.toggle("active", b === button));
+        });
+    });
+
+    document.querySelectorAll(".mobile-select-icons [data-v253-select-mode]").forEach(button => {
+        button.addEventListener("click", () => {
+            document.querySelectorAll(".mobile-select-icons [data-v253-select-mode]")
+                .forEach(b => b.classList.toggle("active", b === button));
+        });
+    });
+
+    /* Free is the default visual mode when Select is first opened. */
+    const mobileFree = document.querySelector(
+        '.mobile-select-icons [data-v253-select-mode="free"]'
+    );
+    if (mobileFree) mobileFree.classList.add("active");
+
+    /* A committed selection remains visible while another tool uses it.
+       DONE/CLEAR still remove it through the existing selection lifecycle. */
+    document.addEventListener("click", e => {
+        const tool = e.target.closest(
+            "[data-tool],[data-v2-tool],[data-desktop-tool],[data-brush-type]"
+        );
+        if (!tool || !document.body.classList.contains("has-selection")) return;
+
+        const display = document.getElementById("selectionDisplayV263");
+        if (display) {
+            display.style.display = "block";
+            display.style.visibility = "visible";
+            display.style.opacity = "1";
+        }
+    }, true);
 })();
 </script>
 
