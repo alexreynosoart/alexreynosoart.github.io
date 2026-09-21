@@ -2573,7 +2573,219 @@ body {
         loadArtwork(key);
     }
 
-    const pagesLauncher =\n        document.getElementById('pagesLauncher');\n\n    const pagesClose =\n        document.getElementById('pagesClose');\n\n    const pagesBackdrop =\n        document.getElementById('pagesBackdrop');\n\n    const artworkTray =\n        document.getElementById('artworkTray');\n\n    const artworkUpload =\n        document.getElementById('artworkUpload');\n\n    const uploadArtworkButton =\n        document.getElementById('uploadArtworkButton');\n\n    function openPagesDrawer() {\n        artworkTray.classList.add('open');\n        pagesBackdrop.classList.add('open');\n        artworkTray.setAttribute('aria-hidden', 'false');\n        pagesLauncher.setAttribute('aria-expanded', 'true');\n    }\n\n    function closePagesDrawer() {\n        artworkTray.classList.remove('open');\n        pagesBackdrop.classList.remove('open');\n        artworkTray.setAttribute('aria-hidden', 'true');\n        pagesLauncher.setAttribute('aria-expanded', 'false');\n    }\n\n    pagesLauncher.addEventListener('click', function() {\n        if (artworkTray.classList.contains('open')) {\n            closePagesDrawer();\n        } else {\n            openPagesDrawer();\n        }\n    });\n\n    pagesClose.addEventListener('click', closePagesDrawer);\n    pagesBackdrop.addEventListener('click', closePagesDrawer);\n\n    document.addEventListener('keydown', function(event) {\n        if (event.key === 'Escape' && artworkTray.classList.contains('open')) {\n            closePagesDrawer();\n        }\n    });\n\n    document\n        .querySelectorAll('[data-art]')\n        .forEach(function(button) {\n            button.addEventListener('click', function() {\n                requestArtworkChange(this.dataset.art);\n            });\n        });\n\n    /*\n       Local image upload. The selected file never needs\n       to leave the browser. We turn it into a simplified\n       black-and-white coloring page before loading it into\n       the same protected-line coloring engine.\n    */\n\n    function imageToColoringPage(image) {\n        const maxDimension = 1400;\n        const ratio = Math.min(\n            1,\n            maxDimension / Math.max(image.naturalWidth, image.naturalHeight)\n        );\n\n        const width = Math.max(1, Math.round(image.naturalWidth * ratio));\n        const height = Math.max(1, Math.round(image.naturalHeight * ratio));\n\n        const work = document.createElement('canvas');\n        work.width = width;\n        work.height = height;\n        const ctx = work.getContext('2d', { willReadFrequently: true });\n        ctx.fillStyle = '#ffffff';\n        ctx.fillRect(0, 0, width, height);\n        ctx.drawImage(image, 0, 0, width, height);\n\n        const source = ctx.getImageData(0, 0, width, height);\n        const data = source.data;\n        const gray = new Uint8ClampedArray(width * height);\n\n        for (let i = 0, p = 0; i < data.length; i += 4, p++) {\n            gray[p] = Math.round(\n                data[i] * 0.299 +\n                data[i + 1] * 0.587 +\n                data[i + 2] * 0.114\n            );\n        }\n\n        /* Small blur calms photo noise before edge detection. */\n        const blurred = new Uint8ClampedArray(gray.length);\n        for (let y = 1; y < height - 1; y++) {\n            for (let x = 1; x < width - 1; x++) {\n                let sum = 0;\n                for (let yy = -1; yy <= 1; yy++) {\n                    for (let xx = -1; xx <= 1; xx++) {\n                        sum += gray[(y + yy) * width + (x + xx)];\n                    }\n                }\n                blurred[y * width + x] = Math.round(sum / 9);\n            }\n        }\n\n        const output = ctx.createImageData(width, height);\n        const out = output.data;\n\n        for (let p = 0; p < width * height; p++) {\n            out[p * 4] = 255;\n            out[p * 4 + 1] = 255;\n            out[p * 4 + 2] = 255;\n            out[p * 4 + 3] = 255;\n        }\n\n        const threshold = 42;\n\n        for (let y = 1; y < height - 1; y++) {\n            for (let x = 1; x < width - 1; x++) {\n                const a = blurred[(y - 1) * width + (x - 1)];\n                const b = blurred[(y - 1) * width + x];\n                const c = blurred[(y - 1) * width + (x + 1)];\n                const d = blurred[y * width + (x - 1)];\n                const f = blurred[y * width + (x + 1)];\n                const g = blurred[(y + 1) * width + (x - 1)];\n                const h = blurred[(y + 1) * width + x];\n                const i = blurred[(y + 1) * width + (x + 1)];\n\n                const gx = -a + c - (2 * d) + (2 * f) - g + i;\n                const gy = -a - (2 * b) - c + g + (2 * h) + i;\n                const magnitude = Math.sqrt(gx * gx + gy * gy);\n                const value = magnitude > threshold ? 0 : 255;\n                const index = (y * width + x) * 4;\n\n                out[index] = value;\n                out[index + 1] = value;\n                out[index + 2] = value;\n                out[index + 3] = 255;\n            }\n        }\n\n        ctx.putImageData(output, 0, 0);\n        return work.toDataURL('image/png');\n    }\n\n    function loadUploadedFile(file) {\n        if (!file || !file.type.startsWith('image/')) return;\n\n        const reader = new FileReader();\n\n        reader.onload = function() {\n            const image = new Image();\n\n            image.onload = function() {\n                try {\n                    const coloringSource = imageToColoringPage(image);\n\n                    ARTWORKS.upload = {\n                        id: 'uploaded-image',\n                        title: file.name || 'Uploaded Image',\n                        source: coloringSource,\n                        creator: 'Local upload',\n                        blank: false,\n                        uploaded: true\n                    };\n\n                    currentArtworkKey = 'upload';\n                    ARTWORK = ARTWORKS.upload;\n                    updateArtworkTray();\n                    closePagesDrawer();\n                    sourceImage.src = coloringSource;\n\n                    studioStatus.textContent =\n                        'Image ready. Pick a tool and create.';\n                } catch (error) {\n                    studioStatus.textContent =\n                        'That image could not be prepared. Try another PNG, JPG or WebP.';\n                }\n            };\n\n            image.onerror = function() {\n                studioStatus.textContent =\n                    'That image could not be opened. Try another image file.';\n            };\n\n            image.src = reader.result;\n        };\n\n        reader.readAsDataURL(file);\n    }\n\n    function chooseUpload() {\n        artworkUpload.value = '';\n        artworkUpload.click();\n    }\n\n    uploadArtworkButton.addEventListener('click', function() {\n        if (hasUnsavedChanges && !skipLeaveWarning) {\n            pendingNavigation = chooseUpload;\n            openLeaveModal();\n            return;\n        }\n\n        chooseUpload();\n    });\n\n    artworkUpload.addEventListener('change', function() {\n        const file = this.files && this.files[0];\n        if (file) loadUploadedFile(file);\n    });
+    const pagesLauncher =
+        document.getElementById('pagesLauncher');
+
+    const pagesClose =
+        document.getElementById('pagesClose');
+
+    const pagesBackdrop =
+        document.getElementById('pagesBackdrop');
+
+    const artworkTray =
+        document.getElementById('artworkTray');
+
+    const artworkUpload =
+        document.getElementById('artworkUpload');
+
+    const uploadArtworkButton =
+        document.getElementById('uploadArtworkButton');
+
+    function openPagesDrawer() {
+        artworkTray.classList.add('open');
+        pagesBackdrop.classList.add('open');
+        artworkTray.setAttribute('aria-hidden', 'false');
+        pagesLauncher.setAttribute('aria-expanded', 'true');
+    }
+
+    function closePagesDrawer() {
+        artworkTray.classList.remove('open');
+        pagesBackdrop.classList.remove('open');
+        artworkTray.setAttribute('aria-hidden', 'true');
+        pagesLauncher.setAttribute('aria-expanded', 'false');
+    }
+
+    pagesLauncher.addEventListener('click', function() {
+        if (artworkTray.classList.contains('open')) {
+            closePagesDrawer();
+        } else {
+            openPagesDrawer();
+        }
+    });
+
+    pagesClose.addEventListener('click', closePagesDrawer);
+    pagesBackdrop.addEventListener('click', closePagesDrawer);
+
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && artworkTray.classList.contains('open')) {
+            closePagesDrawer();
+        }
+    });
+
+    document
+        .querySelectorAll('[data-art]')
+        .forEach(function(button) {
+            button.addEventListener('click', function() {
+                requestArtworkChange(this.dataset.art);
+            });
+        });
+
+    /*
+       Local image upload. The selected file never needs
+       to leave the browser. We turn it into a simplified
+       black-and-white coloring page before loading it into
+       the same protected-line coloring engine.
+    */
+
+    function imageToColoringPage(image) {
+        const maxDimension = 1400;
+        const ratio = Math.min(
+            1,
+            maxDimension / Math.max(image.naturalWidth, image.naturalHeight)
+        );
+
+        const width = Math.max(1, Math.round(image.naturalWidth * ratio));
+        const height = Math.max(1, Math.round(image.naturalHeight * ratio));
+
+        const work = document.createElement('canvas');
+        work.width = width;
+        work.height = height;
+        const ctx = work.getContext('2d', { willReadFrequently: true });
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, width, height);
+        ctx.drawImage(image, 0, 0, width, height);
+
+        const source = ctx.getImageData(0, 0, width, height);
+        const data = source.data;
+        const gray = new Uint8ClampedArray(width * height);
+
+        for (let i = 0, p = 0; i < data.length; i += 4, p++) {
+            gray[p] = Math.round(
+                data[i] * 0.299 +
+                data[i + 1] * 0.587 +
+                data[i + 2] * 0.114
+            );
+        }
+
+        /* Small blur calms photo noise before edge detection. */
+        const blurred = new Uint8ClampedArray(gray.length);
+        for (let y = 1; y < height - 1; y++) {
+            for (let x = 1; x < width - 1; x++) {
+                let sum = 0;
+                for (let yy = -1; yy <= 1; yy++) {
+                    for (let xx = -1; xx <= 1; xx++) {
+                        sum += gray[(y + yy) * width + (x + xx)];
+                    }
+                }
+                blurred[y * width + x] = Math.round(sum / 9);
+            }
+        }
+
+        const output = ctx.createImageData(width, height);
+        const out = output.data;
+
+        for (let p = 0; p < width * height; p++) {
+            out[p * 4] = 255;
+            out[p * 4 + 1] = 255;
+            out[p * 4 + 2] = 255;
+            out[p * 4 + 3] = 255;
+        }
+
+        const threshold = 42;
+
+        for (let y = 1; y < height - 1; y++) {
+            for (let x = 1; x < width - 1; x++) {
+                const a = blurred[(y - 1) * width + (x - 1)];
+                const b = blurred[(y - 1) * width + x];
+                const c = blurred[(y - 1) * width + (x + 1)];
+                const d = blurred[y * width + (x - 1)];
+                const f = blurred[y * width + (x + 1)];
+                const g = blurred[(y + 1) * width + (x - 1)];
+                const h = blurred[(y + 1) * width + x];
+                const i = blurred[(y + 1) * width + (x + 1)];
+
+                const gx = -a + c - (2 * d) + (2 * f) - g + i;
+                const gy = -a - (2 * b) - c + g + (2 * h) + i;
+                const magnitude = Math.sqrt(gx * gx + gy * gy);
+                const value = magnitude > threshold ? 0 : 255;
+                const index = (y * width + x) * 4;
+
+                out[index] = value;
+                out[index + 1] = value;
+                out[index + 2] = value;
+                out[index + 3] = 255;
+            }
+        }
+
+        ctx.putImageData(output, 0, 0);
+        return work.toDataURL('image/png');
+    }
+
+    function loadUploadedFile(file) {
+        if (!file || !file.type.startsWith('image/')) return;
+
+        const reader = new FileReader();
+
+        reader.onload = function() {
+            const image = new Image();
+
+            image.onload = function() {
+                try {
+                    const coloringSource = imageToColoringPage(image);
+
+                    ARTWORKS.upload = {
+                        id: 'uploaded-image',
+                        title: file.name || 'Uploaded Image',
+                        source: coloringSource,
+                        creator: 'Local upload',
+                        blank: false,
+                        uploaded: true
+                    };
+
+                    currentArtworkKey = 'upload';
+                    ARTWORK = ARTWORKS.upload;
+                    updateArtworkTray();
+                    closePagesDrawer();
+                    sourceImage.src = coloringSource;
+
+                    studioStatus.textContent =
+                        'Image ready. Pick a tool and create.';
+                } catch (error) {
+                    studioStatus.textContent =
+                        'That image could not be prepared. Try another PNG, JPG or WebP.';
+                }
+            };
+
+            image.onerror = function() {
+                studioStatus.textContent =
+                    'That image could not be opened. Try another image file.';
+            };
+
+            image.src = reader.result;
+        };
+
+        reader.readAsDataURL(file);
+    }
+
+    function chooseUpload() {
+        artworkUpload.value = '';
+        artworkUpload.click();
+    }
+
+    uploadArtworkButton.addEventListener('click', function() {
+        if (hasUnsavedChanges && !skipLeaveWarning) {
+            pendingNavigation = chooseUpload;
+            openLeaveModal();
+            return;
+        }
+
+        chooseUpload();
+    });
+
+    artworkUpload.addEventListener('change', function() {
+        const file = this.files && this.files[0];
+        if (file) loadUploadedFile(file);
+    });
 
     /* =========================
        INITIALIZE ART
