@@ -2419,14 +2419,14 @@ body:not(.has-selection) #clearSelectionTouch { display:none; }
 /* Desktop-only build marker. Does not exist in mobile layout. */
 @media (min-width:1001px) {
     .desktop-studio-sidebar::after {
-        content:"v2.5.5";
+        content:"v2.5.6";
         display:block;
         margin-top:8px;
         text-align:center;
         font-size:9px;
         line-height:1;
         letter-spacing:.04em;
-        color:rgba(0,0,0,.28);
+        color:rgba(0,0,0,.48);
         pointer-events:none;
     }
 }
@@ -2580,6 +2580,40 @@ body.v254-eraser-active #touchEraserOpacityWrap { display:flex; }
     #fitPageButton { display:none !important; }
 }
 
+
+/* =====================================================
+   V2.5.6 LAYOUT POLISH
+   ===================================================== */
+
+/* One fit command only. */
+.zoom-readout,
+#fitPageButton { display:none !important; }
+
+@media (min-width:1001px) {
+    /* Fullscreen should center the artwork instead of pinning it to the top
+       while leaving status/footer space underneath. */
+    body.studio-fullscreen .studio {
+        padding:12px 14px !important;
+        min-height:100dvh;
+        display:flex;
+        align-items:center;
+    }
+
+    body.studio-fullscreen .studio-main {
+        width:100%;
+    }
+
+    body.studio-fullscreen .canvas-frame {
+        height:calc(100dvh - 24px) !important;
+        min-height:0 !important;
+    }
+
+    body.studio-fullscreen .studio-status,
+    body.studio-fullscreen .action-bar {
+        display:none !important;
+    }
+}
+
 </style>
 
 </head>
@@ -2721,15 +2755,7 @@ body.v254-eraser-active #touchEraserOpacityWrap { display:flex; }
                     aria-label="Zoom out">
                 −
             </button>
-
-
-            <span class="zoom-readout"
-                  id="zoomReadout">
-                FIT
-            </span>
-
-
-            <button class="zoom-button"
+<button class="zoom-button"
                     id="zoomIn"
                     type="button"
                     aria-label="Zoom in">
@@ -2742,15 +2768,7 @@ body.v254-eraser-active #touchEraserOpacityWrap { display:flex; }
                     type="button">
                 FIT
             </button>
-
-            <button class="zoom-button desktop-fit-page"
-                    id="fitPageButton"
-                    type="button"
-                    title="Fit full page">
-                FIT PAGE
-            </button>
-
-            <button class="zoom-button top-utility-button"
+<button class="zoom-button top-utility-button"
                     id="layersTop"
                     type="button"
                     aria-label="Open layers"
@@ -5996,6 +6014,11 @@ body.v254-eraser-active #touchEraserOpacityWrap { display:flex; }
 
         paintCtx.save();
 
+        /* V2.5.6 authoritative accumulated selection clip */
+        if (window.__miaSelectionHasClipV256 && window.__miaSelectionClipV256) {
+            paintCtx.clip(window.__miaSelectionClipV256);
+        }
+
         if (selectionPath.length > 2) {
             paintCtx.beginPath();
             paintCtx.moveTo(selectionPath[0].x, selectionPath[0].y);
@@ -8379,7 +8402,8 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
     }
 
     function drawPreview(points) {
-        selectionCtx.clearRect(0,0,selectionCanvas.width,selectionCanvas.height);
+        /* Keep all committed selections visible while previewing the next one. */
+        drawAnts();
         if(!points || points.length<2) return;
         selectionCtx.save();
         selectionCtx.strokeStyle=op==="subtract" ? "#c33" : "#111";
@@ -8459,6 +8483,24 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
             op==="subtract" ? "destination-out" : "source-over";
         maskCtx.drawImage(temp,0,0);
         maskCtx.restore();
+
+        /* Build a cached clip path from the actual accumulated mask.
+           Brush and eraser use this, so strokes cannot cross selection edges. */
+        const clip = new Path2D();
+        const img = maskCtx.getImageData(0,0,mask.width,mask.height).data;
+        for(let y=0;y<mask.height;y++){
+            let run=-1;
+            for(let x=0;x<=mask.width;x++){
+                const on = x<mask.width && img[(y*mask.width+x)*4+3] > 0;
+                if(on && run<0) run=x;
+                if((!on || x===mask.width) && run>=0){
+                    clip.rect(run,y,x-run,1);
+                    run=-1;
+                }
+            }
+        }
+        window.__miaSelectionClipV256 = clip;
+        window.__miaSelectionHasClipV256 = true;
 
         drawAnts();
         startAnts();
@@ -8554,6 +8596,8 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
         document.getElementById(id)?.addEventListener("click",()=>{
             sizeMask();
             maskCtx.clearRect(0,0,mask.width,mask.height);
+            window.__miaSelectionClipV256 = null;
+            window.__miaSelectionHasClipV256 = false;
             drawAnts();
         },true);
     });
@@ -8578,6 +8622,78 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
         if(x<0 || y<0 || x>=mask.width || y>=mask.height) return false;
         return maskCtx.getImageData(x,y,1,1).data[3]>0;
     };
+})();
+</script>
+
+
+<script>
+/* =====================================================
+   V2.5.6 SELECT ENTRY + CONTEXT CLEANUP
+   ===================================================== */
+(() => {
+    "use strict";
+
+    function setV256SelectMode(mode) {
+        document.querySelectorAll("[data-v253-select-mode]").forEach(b => {
+            b.classList.toggle("active", b.dataset.v253SelectMode === mode);
+        });
+        const target = document.querySelector('[data-v253-select-mode="'+mode+'"]');
+        if (target) target.click();
+    }
+
+    /* SELECT itself must immediately mean Free Select.
+       Capture phase is intentional because the older desktop controller
+       consumes the click before later bubble listeners can see it. */
+    document.addEventListener("click", e => {
+        const select = e.target.closest(
+            '[data-desktop-tool="select"],[data-v2-tool="select"],[data-tool="select"]'
+        );
+        if (!select) return;
+
+        currentTool = "select";
+        selecting = false;
+        drawing = false;
+        document.body.classList.add("v254-select-active");
+        document.body.classList.remove("v241-shape-active");
+
+        /* Default to Free every time Select is newly entered. */
+        requestAnimationFrame(() => setV256SelectMode("free"));
+    }, true);
+
+    /* Any real non-Select tool closes the Select-only controls. */
+    document.addEventListener("click", e => {
+        const tool = e.target.closest(
+            '[data-desktop-tool],[data-v2-tool],[data-tool]'
+        );
+        if (!tool) return;
+
+        const name =
+            tool.dataset.desktopTool ||
+            tool.dataset.v2Tool ||
+            tool.dataset.tool;
+
+        if (name && name !== "select") {
+            document.body.classList.remove("v254-select-active");
+        }
+    }, true);
+
+    /* Line / Shape has its own modes only. Never show Add/Subtract/Done there. */
+    document.addEventListener("click", e => {
+        if (!e.target.closest('[data-desktop-tool="shape"],[data-v2-tool="shape"],[data-shape-mode]')) return;
+        document.body.classList.remove("v254-select-active");
+        document.body.classList.add("v241-shape-active");
+    }, true);
+
+    /* DONE always hides Select controls, even if an older handler also runs. */
+    document.querySelectorAll("[data-v253-selection-done]").forEach(b => {
+        b.addEventListener("click", () => {
+            document.body.classList.remove("v254-select-active");
+        }, true);
+    });
+
+    /* Start with no stale clip from a prior page/session. */
+    window.__miaSelectionClipV256 = null;
+    window.__miaSelectionHasClipV256 = false;
 })();
 </script>
 
