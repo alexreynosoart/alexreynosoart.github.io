@@ -2294,6 +2294,20 @@ body.v241-shape-active #desktopShapeModes { display:flex; }
     }
 }
 
+
+/* V2.4.2 live preview + touch indicator */
+#shapePreviewCanvasV242 {
+    position:absolute; inset:0; width:100%; height:100%;
+    pointer-events:none; z-index:48;
+}
+@media (pointer:coarse) {
+    .tool-indicator { display:none !important; }
+    body.v242-touch-active .tool-indicator {
+        display:block !important;
+        transform:translate(-50%,-50%) !important;
+        opacity:.82;
+    }
+}
 </style>
 
 </head>
@@ -7194,6 +7208,102 @@ canvasFrame.addEventListener('pointermove',function(e){
 
 v241RenderLayers();
 v241RefreshToolUI();
+
+
+
+/* V2.4.2: live shape preview, smarter shape-select taps, touch cursor */
+const v242Preview = document.createElement('canvas');
+v242Preview.id = 'shapePreviewCanvasV242';
+v242Preview.width = paintCanvas.width;
+v242Preview.height = paintCanvas.height;
+const v242PreviewCtx = v242Preview.getContext('2d');
+paintCanvas.parentElement.appendChild(v242Preview);
+
+function v242ResizePreview(){
+    if(v242Preview.width!==paintCanvas.width) v242Preview.width=paintCanvas.width;
+    if(v242Preview.height!==paintCanvas.height) v242Preview.height=paintCanvas.height;
+}
+function v242ClearPreview(){
+    v242PreviewCtx.clearRect(0,0,v242Preview.width,v242Preview.height);
+}
+function v242PreviewShape(a,b){
+    if(!a||!b) return;
+    v242ResizePreview(); v242ClearPreview();
+    const c=v242PreviewCtx;
+    c.save();
+    c.globalAlpha=Math.max(.4,brushOpacity);
+    c.strokeStyle=currentColor;
+    c.lineWidth=brushSize;
+    c.lineCap='round'; c.lineJoin='round';
+    c.setLineDash([Math.max(5,brushSize*.55),Math.max(4,brushSize*.35)]);
+    if(v241ShapeMode==='line'){
+        c.beginPath(); c.moveTo(a.x,a.y); c.lineTo(b.x,b.y); c.stroke();
+    } else if(v241ShapeMode==='rect'){
+        c.strokeRect(a.x,a.y,b.x-a.x,b.y-a.y);
+    } else {
+        const cx=(a.x+b.x)/2,cy=(a.y+b.y)/2;
+        const rx=Math.max(1,Math.abs(b.x-a.x)/2),ry=Math.max(1,Math.abs(b.y-a.y)/2);
+        c.beginPath(); c.ellipse(cx,cy,rx,ry,0,0,Math.PI*2); c.stroke();
+    }
+    c.restore();
+}
+
+/* Preview the shape continuously while dragging. */
+paintCanvas.addEventListener('pointermove',function(e){
+    if(currentTool!=='shape'||!v241SpecialActive||!v241SpecialStart) return;
+    v242PreviewShape(v241SpecialStart,getCanvasPoint(e));
+},true);
+paintCanvas.addEventListener('pointerup',function(){
+    if(currentTool==='shape') setTimeout(v242ClearPreview,0);
+},true);
+paintCanvas.addEventListener('pointercancel',v242ClearPreview,true);
+
+/* A tap/tiny drag in Square or Circle Select is not a selection.
+   Stay in the same Select mode instead of returning to the previous tool. */
+paintCanvas.addEventListener('pointerup',function(e){
+    if(currentTool!=='select'||v241SelectMode==='free'||!v241SpecialActive||!v241SpecialStart) return;
+    const end=getCanvasPoint(e);
+    const dist=Math.hypot(end.x-v241SpecialStart.x,end.y-v241SpecialStart.y);
+    if(dist<8){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        selectionPath=[];
+        selectionCtx.clearRect(0,0,selectionCanvas.width,selectionCanvas.height);
+        selecting=false;
+        v241SpecialActive=false;
+        v241SpecialStart=null;
+        document.body.classList.remove('has-selection');
+        selectTool('select');
+        v241RefreshToolUI();
+    }
+},true);
+
+/* On touch devices the indicator only exists while the finger is actually down. */
+function v242PlaceTouchIndicator(e){
+    if(!v241Indicator) return;
+    const r=canvasFrame.getBoundingClientRect();
+    v241Indicator.style.left=(e.clientX-r.left)+'px';
+    v241Indicator.style.top=(e.clientY-r.top)+'px';
+    v241SyncIndicator();
+}
+canvasFrame.addEventListener('pointerdown',function(e){
+    if(e.pointerType==='touch'){
+        document.body.classList.add('v242-touch-active');
+        v242PlaceTouchIndicator(e);
+    }
+},true);
+canvasFrame.addEventListener('pointermove',function(e){
+    if(e.pointerType==='touch'&&document.body.classList.contains('v242-touch-active')){
+        v242PlaceTouchIndicator(e);
+    }
+},true);
+function v242TouchEnd(e){
+    if(e.pointerType==='touch') document.body.classList.remove('v242-touch-active');
+}
+canvasFrame.addEventListener('pointerup',v242TouchEnd,true);
+canvasFrame.addEventListener('pointercancel',v242TouchEnd,true);
+
+window.addEventListener('resize',function(){v242ResizePreview();v242ClearPreview();});
 
 </script>
 
