@@ -2678,6 +2678,15 @@ body.v254-eraser-active #touchEraserOpacityWrap { display:flex; }
     direction:ltr !important;
 }
 
+
+/* =====================================================
+   V2.6.2 SELECT VISIBILITY
+   ===================================================== */
+body.v254-select-active #clearSelectionV24,
+body.v254-select-active #clearSelectionTouch {
+    display:inline-flex !important;
+}
+
 </style>
 
 </head>
@@ -2783,7 +2792,7 @@ body.v254-eraser-active #touchEraserOpacityWrap { display:flex; }
         </div>
     </section>
 
-    <div class="desktop-build-version" aria-hidden="true">v2.6.1</div>
+    <div class="desktop-build-version" aria-hidden="true">v2.6.2</div>
 </aside>
 
 <div class="studio">
@@ -8978,6 +8987,132 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
     /* If a new page/reset destroys the selection, don't leave stale ants. */
     ["resetButton","resetMobile","resetMobileTop"].forEach(id=>{
         document.getElementById(id)?.addEventListener("click",clearVisible,true);
+    });
+})();
+</script>
+
+
+<script>
+/* =====================================================
+   V2.6.2 KEEP COMMITTED SELECTION VISIBLE
+   ===================================================== */
+(() => {
+    "use strict";
+
+    /*
+      V2.6.1 correctly mirrored the selection, but an older authoritative
+      pointer-up handler redraws/clears selectionCanvas AFTER that mirror.
+      Result: the selection still exists and Fill obeys it, but the ants vanish.
+
+      This repair does not create another selection engine. It only redraws the
+      V2.6.1 display one frame after the existing release handlers finish.
+    */
+
+    const overlay = document.getElementById("selectionCanvas");
+    if (!overlay) return;
+
+    /* The V2.6.1 display functions are closure-local, so preserve the final
+       rendered ants as a lightweight snapshot after a valid selection gesture. */
+    const snapshot = document.createElement("canvas");
+    let snapshotCtx = snapshot.getContext("2d");
+    let hasSnapshot = false;
+    let selectingGesture = false;
+
+    function sizeSnapshot() {
+        if (snapshot.width === overlay.width && snapshot.height === overlay.height) return;
+        snapshot.width = overlay.width;
+        snapshot.height = overlay.height;
+        snapshotCtx = snapshot.getContext("2d");
+        hasSnapshot = false;
+    }
+
+    function captureVisibleAnts() {
+        sizeSnapshot();
+        snapshotCtx.clearRect(0,0,snapshot.width,snapshot.height);
+        snapshotCtx.drawImage(overlay,0,0);
+        hasSnapshot = true;
+        document.body.classList.add("has-selection");
+    }
+
+    function restoreVisibleAnts() {
+        if (!hasSnapshot) return;
+        const ctx = overlay.getContext("2d");
+        ctx.clearRect(0,0,overlay.width,overlay.height);
+        ctx.drawImage(snapshot,0,0);
+        document.body.classList.add("has-selection");
+    }
+
+    function clearSnapshot() {
+        sizeSnapshot();
+        snapshotCtx.clearRect(0,0,snapshot.width,snapshot.height);
+        hasSnapshot = false;
+        document.body.classList.remove("has-selection");
+    }
+
+    canvasFrame.addEventListener("pointerdown", e => {
+        if (currentTool !== "select" || !canvasStage.contains(e.target)) return;
+        selectingGesture = true;
+    }, true);
+
+    /*
+      Run after V2.6.1 and all older pointer-up handlers.
+      Two animation frames avoids the older requestAnimationFrame Select refresh
+      erasing the committed outline.
+    */
+    canvasFrame.addEventListener("pointerup", e => {
+        if (!selectingGesture) return;
+        selectingGesture = false;
+
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                /* V2.6.1 has now drawn the accumulated selection. */
+                captureVisibleAnts();
+
+                /* Re-apply once more after capture in case a late legacy UI
+                   refresh touched the overlay in the same frame. */
+                requestAnimationFrame(restoreVisibleAnts);
+            });
+        });
+    }, false);
+
+    canvasFrame.addEventListener("pointercancel", () => {
+        selectingGesture = false;
+        if (hasSnapshot) requestAnimationFrame(restoreVisibleAnts);
+    }, false);
+
+    /*
+      Tool changes may redraw hover/preview canvases. If a committed selection
+      still exists, keep its outline visible. Fill remains governed by the
+      authoritative mask from V2.6.0, not this snapshot.
+    */
+    document.addEventListener("click", e => {
+        const tool = e.target.closest("[data-tool],[data-v2-tool],[data-desktop-tool]");
+        if (!tool || !hasSnapshot) return;
+
+        const name =
+            tool.dataset.tool ||
+            tool.dataset.v2Tool ||
+            tool.dataset.desktopTool;
+
+        if (name && name !== "select") {
+            requestAnimationFrame(restoreVisibleAnts);
+        }
+    });
+
+    ["clearSelectionV24","clearSelectionTouch"].forEach(id => {
+        document.getElementById(id)?.addEventListener("click", () => {
+            clearSnapshot();
+        }, true);
+    });
+
+    document.querySelectorAll("[data-v253-selection-done]").forEach(button => {
+        button.addEventListener("click", () => {
+            clearSnapshot();
+        }, true);
+    });
+
+    ["resetButton","resetMobile","resetMobileTop"].forEach(id => {
+        document.getElementById(id)?.addEventListener("click", clearSnapshot, true);
     });
 })();
 </script>
