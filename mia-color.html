@@ -2330,6 +2330,146 @@ body {
 
         .desktop-fit-page { display:none; }
         @media (min-width:1001px) { .desktop-fit-page { display:inline-flex; } }
+
+/* =========================
+   V2.4 BETA-READY PASS
+   ========================= */
+
+/* Sidebar watermark */
+.desktop-studio-sidebar::after {
+    content: "";
+    position: fixed;
+    left: 18px;
+    bottom: 72px;
+    width: 275px;
+    height: 390px;
+    background: url("images/mia-dad-panda-creative-studio.png") center bottom / contain no-repeat;
+    opacity: .085;
+    pointer-events: none;
+    z-index: 0;
+}
+.desktop-studio-sidebar > * {
+    position: relative;
+    z-index: 1;
+}
+@media (max-width: 1000px) {
+    .desktop-studio-sidebar::after { display:none; }
+}
+@media (min-width: 700px) and (max-width: 1000px) and (min-height: 800px) {
+    body::after {
+        content:"";
+        position:fixed;
+        left:10px;
+        bottom:12px;
+        width:170px;
+        height:235px;
+        background:url("images/mia-dad-panda-creative-studio.png") center bottom / contain no-repeat;
+        opacity:.045;
+        pointer-events:none;
+        z-index:0;
+    }
+}
+
+/* Remove stale COLOR labels inside floating tool/brush panels */
+.floating-panel .panel-color-label,
+.floating-panel .tool-color-label,
+.floating-panel [data-panel-color-label] {
+    display:none !important;
+}
+
+/* Always-visible tool indicator */
+.tool-indicator {
+    position:absolute;
+    width:22px;
+    height:22px;
+    border:2px solid rgba(17,17,17,.85);
+    border-radius:50%;
+    pointer-events:none;
+    z-index:70;
+    transform:translate(-50%,-50%);
+    box-sizing:border-box;
+    background:rgba(255,255,255,.12);
+    box-shadow:0 0 0 1px rgba(255,255,255,.65);
+}
+.tool-indicator.fill::after {
+    content:"";
+    position:absolute;
+    width:4px;height:4px;
+    border-radius:50%;
+    background:#111;
+    left:50%;top:50%;
+    transform:translate(-50%,-50%);
+}
+.tool-indicator.eraser { border-style:dashed; }
+.tool-indicator.select { border-radius:3px; border-style:dashed; }
+.tool-indicator.move::before {
+    content:"✋";
+    position:absolute;
+    font-size:17px;
+    left:50%;top:50%;
+    transform:translate(-50%,-55%);
+}
+.tool-indicator.move { border:0; box-shadow:none; background:transparent; }
+.tool-indicator.shape { border-radius:3px; }
+@media (pointer:coarse) {
+    .tool-indicator {
+        left:26px !important;
+        top:26px !important;
+        transform:none;
+        opacity:.75;
+    }
+}
+
+/* Shape/selection mini controls */
+.v24-mini-options {
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-top:8px;
+}
+.v24-mini-options button {
+    min-height:34px;
+    padding:7px 10px;
+    border:1px solid #d8d8d8;
+    border-radius:9px;
+    background:#fff;
+    font:inherit;
+    font-size:.65rem;
+    font-weight:850;
+    cursor:pointer;
+}
+.v24-mini-options button.active {
+    background:#111;
+    color:#fff;
+    border-color:#111;
+}
+#clearSelectionV24 {
+    display:none;
+    width:100%;
+    margin-top:6px;
+}
+body.has-selection #clearSelectionV24 { display:block; }
+
+/* Desktop cursor must never disappear */
+@media (min-width:1001px) and (pointer:fine) {
+    .canvas-frame, .canvas-stack, #paintCanvas {
+        cursor:crosshair !important;
+    }
+}
+
+/* Desktop sidebar remains fully interactive above the workspace */
+@media (min-width:1001px) {
+    .desktop-studio-sidebar {
+        pointer-events:auto !important;
+        z-index:500 !important;
+    }
+    .desktop-studio-sidebar button,
+    .desktop-studio-sidebar input,
+    .desktop-studio-sidebar label {
+        pointer-events:auto !important;
+    }
+}
+
 </style>
 
 </head>
@@ -2354,14 +2494,25 @@ body {
         </div>
         <div class="desktop-side-grid" style="margin-top:6px">
             <button data-desktop-tool="select" type="button">SELECT</button>
+            <button data-desktop-tool="shape" type="button">LINE/SHAPE</button>
             <button id="desktopPen" type="button">PEN</button>
             <button id="desktopMarker" type="button">MARKER</button>
-            <button id="desktopTexture" type="button">TEXTURE</button>
+        </div>
+        <div class="v24-mini-options" id="desktopSelectModes">
+            <button type="button" data-select-mode="free" class="active">FREE</button>
+            <button type="button" data-select-mode="rect">SQUARE</button>
+            <button type="button" data-select-mode="ellipse">CIRCLE</button>
+            <button type="button" id="clearSelectionV24">CLEAR SELECTION</button>
+        </div>
+        <div class="v24-mini-options" id="desktopShapeModes">
+            <button type="button" data-shape-mode="line" class="active">LINE</button>
+            <button type="button" data-shape-mode="rect">SQUARE</button>
+            <button type="button" data-shape-mode="ellipse">CIRCLE</button>
+            <button id="desktopTexture" type="button">TEXTURE BRUSH</button>
         </div>
     </section>
 
     <section class="desktop-side-section">
-        <div class="desktop-side-label"><span>Color</span><span></span></div>
         <div class="desktop-side-colors" id="desktopSideColors"></div>
         <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
             <label class="desktop-side-custom" title="Custom color">
@@ -2905,7 +3056,7 @@ body {
 
             <button id="leaveAnyway"
                     type="button">
-                LEAVE STUDIO
+                START NEW PAGE
             </button>
         </div>
 
@@ -6776,6 +6927,297 @@ body {
         }
     );
 
+
+
+
+/* =========================
+   V2.4 INTERACTION PATCH
+   ========================= */
+
+let v24SelectMode = 'free';
+let v24ShapeMode = 'line';
+let v24ToolBeforeSelect = 'fill';
+let v24ShapeStart = null;
+let v24ShapePreview = null;
+
+/* Visible tool indicator that works as a cursor on desktop and a status marker on touch. */
+const v24Indicator = document.createElement('div');
+v24Indicator.className = 'tool-indicator fill';
+canvasFrame.appendChild(v24Indicator);
+
+function v24CurrentToolName() {
+    return (typeof currentTool !== 'undefined' && currentTool) ? currentTool : 'fill';
+}
+function v24SyncIndicator() {
+    const t = v24CurrentToolName();
+    v24Indicator.className = 'tool-indicator ' + (t === 'brush' ? 'brush' : t);
+    let size = 22;
+    if (t === 'brush' || t === 'eraser') {
+        const raw = (typeof brushSize !== 'undefined' ? Number(brushSize) : 18);
+        size = Math.max(10, Math.min(90, raw));
+    }
+    v24Indicator.style.width = size + 'px';
+    v24Indicator.style.height = size + 'px';
+}
+canvasFrame.addEventListener('pointermove', function(e) {
+    if (e.pointerType === 'touch') return;
+    const r = canvasFrame.getBoundingClientRect();
+    v24Indicator.style.left = (e.clientX - r.left) + 'px';
+    v24Indicator.style.top = (e.clientY - r.top) + 'px';
+});
+canvasFrame.addEventListener('pointerenter', v24SyncIndicator);
+
+/* Desktop sidebar controls: delegate directly to the existing engine. */
+document.getElementById('desktopStudioSidebar')?.addEventListener('click', function(e) {
+    const toolButton = e.target.closest('[data-desktop-tool]');
+    if (toolButton) {
+        e.preventDefault();
+        e.stopPropagation();
+        const tool = toolButton.dataset.desktopTool;
+        if (tool === 'select') {
+            v24ToolBeforeSelect = v24CurrentToolName() === 'select' ? v24ToolBeforeSelect : v24CurrentToolName();
+        }
+        selectTool(tool);
+        v24SyncIndicator();
+        return;
+    }
+
+    const selectMode = e.target.closest('[data-select-mode]');
+    if (selectMode) {
+        v24SelectMode = selectMode.dataset.selectMode;
+        document.querySelectorAll('[data-select-mode]').forEach(b => b.classList.toggle('active', b === selectMode));
+        return;
+    }
+
+    const shapeMode = e.target.closest('[data-shape-mode]');
+    if (shapeMode) {
+        v24ShapeMode = shapeMode.dataset.shapeMode;
+        document.querySelectorAll('[data-shape-mode]').forEach(b => b.classList.toggle('active', b === shapeMode));
+        return;
+    }
+}, true);
+
+/* Remove accidental stale COLOR text in Tools/Brushes at runtime too. */
+document.querySelectorAll('.floating-panel').forEach(function(panel) {
+    [...panel.querySelectorAll('*')].forEach(function(el) {
+        if (el.children.length === 0 && el.textContent.trim().toUpperCase() === 'COLOR') {
+            el.style.display = 'none';
+        }
+    });
+});
+
+/* Clear selection. */
+document.getElementById('clearSelectionV24')?.addEventListener('click', function() {
+    selectionPath = [];
+    if (typeof selectionCtx !== 'undefined') selectionCtx.clearRect(0,0,selectionCanvas.width,selectionCanvas.height);
+    document.body.classList.remove('has-selection');
+});
+
+/* Make SELECT temporary: after a completed selection, return to previous tool. */
+function v24FinishSelectionAndReturn() {
+    if (selectionPath && selectionPath.length > 2) {
+        document.body.classList.add('has-selection');
+        const backTo = (v24ToolBeforeSelect && v24ToolBeforeSelect !== 'select') ? v24ToolBeforeSelect : 'fill';
+        selectTool(backTo);
+        v24SyncIndicator();
+    }
+}
+
+/* Selection geometry helpers. */
+function v24RectPath(a,b) {
+    return [
+        {x:a.x,y:a.y},{x:b.x,y:a.y},{x:b.x,y:b.y},{x:a.x,y:b.y}
+    ];
+}
+function v24EllipsePath(a,b,steps=48) {
+    const cx=(a.x+b.x)/2, cy=(a.y+b.y)/2;
+    const rx=Math.abs(b.x-a.x)/2, ry=Math.abs(b.y-a.y)/2;
+    const pts=[];
+    for(let i=0;i<steps;i++){
+        const q=Math.PI*2*i/steps;
+        pts.push({x:cx+Math.cos(q)*rx,y:cy+Math.sin(q)*ry});
+    }
+    return pts;
+}
+function v24DrawSelectionPreview(path) {
+    if (!selectionCtx || !selectionCanvas) return;
+    selectionCtx.clearRect(0,0,selectionCanvas.width,selectionCanvas.height);
+    if (!path || path.length < 2) return;
+    selectionCtx.save();
+    selectionCtx.setLineDash([10,7]);
+    selectionCtx.lineWidth = 3;
+    selectionCtx.strokeStyle = '#111';
+    selectionCtx.beginPath();
+    selectionCtx.moveTo(path[0].x,path[0].y);
+    for(let i=1;i<path.length;i++) selectionCtx.lineTo(path[i].x,path[i].y);
+    selectionCtx.closePath();
+    selectionCtx.stroke();
+    selectionCtx.restore();
+}
+
+/* Patch pointer handlers for rectangle/circle selection and line/shape drawing.
+   Existing freehand selection and normal drawing stay untouched. */
+const v24OriginalStartPointer = startPointer;
+const v24OriginalMovePointer = movePointer;
+const v24OriginalEndPointer = endPointer;
+
+startPointer = function(event) {
+    const t = v24CurrentToolName();
+    if (t === 'select' && v24SelectMode !== 'free') {
+        event.preventDefault();
+        const p = getCanvasPoint(event);
+        selectionPath = [p];
+        v24ShapeStart = p;
+        selecting = true;
+        drawing = false;
+        v24DrawSelectionPreview(selectionPath);
+        return;
+    }
+    if (t === 'shape') {
+        event.preventDefault();
+        v24ShapeStart = getCanvasPoint(event);
+        v24ShapePreview = v24ShapeStart;
+        drawing = false;
+        return;
+    }
+    return v24OriginalStartPointer(event);
+};
+
+movePointer = function(event) {
+    const t = v24CurrentToolName();
+    if (t === 'select' && v24SelectMode !== 'free' && selecting && v24ShapeStart) {
+        event.preventDefault();
+        const p = getCanvasPoint(event);
+        selectionPath = v24SelectMode === 'rect'
+            ? v24RectPath(v24ShapeStart,p)
+            : v24EllipsePath(v24ShapeStart,p);
+        v24DrawSelectionPreview(selectionPath);
+        return;
+    }
+    if (t === 'shape' && v24ShapeStart) {
+        event.preventDefault();
+        v24ShapePreview = getCanvasPoint(event);
+        return;
+    }
+    return v24OriginalMovePointer(event);
+};
+
+function v24CommitShape(a,b) {
+    if (!a || !b) return;
+    saveState();
+    const ctx = paintCtx;
+    ctx.save();
+    ctx.globalAlpha = (typeof brushOpacity !== 'undefined' ? brushOpacity : 1);
+    ctx.strokeStyle = (typeof currentColor !== 'undefined' ? currentColor : '#e88eaa');
+    ctx.lineWidth = (typeof brushSize !== 'undefined' ? brushSize : 18);
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    if (selectionPath && selectionPath.length > 2) {
+        ctx.beginPath();
+        ctx.moveTo(selectionPath[0].x,selectionPath[0].y);
+        for(let i=1;i<selectionPath.length;i++) ctx.lineTo(selectionPath[i].x,selectionPath[i].y);
+        ctx.closePath();
+        ctx.clip();
+    }
+
+    if (v24ShapeMode === 'line') {
+        ctx.beginPath();
+        ctx.moveTo(a.x,a.y);
+        ctx.lineTo(b.x,b.y);
+        ctx.stroke();
+    } else if (v24ShapeMode === 'rect') {
+        ctx.strokeRect(a.x,a.y,b.x-a.x,b.y-a.y);
+    } else {
+        const cx=(a.x+b.x)/2, cy=(a.y+b.y)/2;
+        const rx=Math.max(1,Math.abs(b.x-a.x)/2), ry=Math.max(1,Math.abs(b.y-a.y)/2);
+        ctx.beginPath();
+        ctx.ellipse(cx,cy,rx,ry,0,0,Math.PI*2);
+        ctx.stroke();
+    }
+    ctx.restore();
+    markChanged();
+    renderLayerDisplay();
+}
+
+endPointer = function(event) {
+    const t = v24CurrentToolName();
+
+    if (t === 'select' && v24SelectMode !== 'free' && selecting) {
+        event.preventDefault();
+        selecting = false;
+        v24ShapeStart = null;
+        v24FinishSelectionAndReturn();
+        return;
+    }
+
+    if (t === 'shape' && v24ShapeStart) {
+        event.preventDefault();
+        const end = getCanvasPoint(event);
+        v24CommitShape(v24ShapeStart,end);
+        v24ShapeStart = null;
+        v24ShapePreview = null;
+        return;
+    }
+
+    const wasSelecting = t === 'select';
+    const result = v24OriginalEndPointer(event);
+    if (wasSelecting) v24FinishSelectionAndReturn();
+    return result;
+};
+
+/* Re-bind canvas pointer listeners so the patched handlers are the live handlers. */
+paintCanvas.removeEventListener('pointerdown', v24OriginalStartPointer);
+paintCanvas.removeEventListener('pointermove', v24OriginalMovePointer);
+paintCanvas.removeEventListener('pointerup', v24OriginalEndPointer);
+paintCanvas.removeEventListener('pointercancel', v24OriginalEndPointer);
+paintCanvas.addEventListener('pointerdown', startPointer);
+paintCanvas.addEventListener('pointermove', movePointer);
+paintCanvas.addEventListener('pointerup', endPointer);
+paintCanvas.addEventListener('pointercancel', endPointer);
+
+/* Sidebar Pages use proven engine actions. */
+document.getElementById('desktopBlankPage')?.addEventListener('click', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    const target = [...document.querySelectorAll('button,.artwork-thumb')].find(el =>
+        /blank/i.test((el.textContent || '') + ' ' + (el.dataset?.art || ''))
+    );
+    if (target && target !== this) target.click();
+}, true);
+
+document.getElementById('desktopTiredPage')?.addEventListener('click', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    const target = [...document.querySelectorAll('button,.artwork-thumb')].find(el =>
+        /tired/i.test((el.textContent || '') + ' ' + (el.dataset?.art || '')) && el !== this
+    );
+    if (target) target.click();
+}, true);
+
+document.getElementById('desktopUploadPage')?.addEventListener('click', function(e) {
+    e.preventDefault(); e.stopPropagation();
+    document.getElementById('artworkUpload')?.click();
+}, true);
+
+/* Sidebar action controls call the already-tested controls/functions. */
+const v24ClickMap = {
+    desktopAddLayer:'addLayer',
+    desktopDeleteLayer:'deleteLayer',
+    desktopLayerUp:'layerUp',
+    desktopLayerDown:'layerDown'
+};
+Object.entries(v24ClickMap).forEach(([from,to]) => {
+    document.getElementById(from)?.addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        document.getElementById(to)?.click();
+    }, true);
+});
+
+document.getElementById('desktopUndoSide')?.addEventListener('click', function(e){e.stopPropagation(); undo();}, true);
+document.getElementById('desktopRedoSide')?.addEventListener('click', function(e){e.stopPropagation(); redo();}, true);
+document.getElementById('desktopResetSide')?.addEventListener('click', function(e){e.stopPropagation(); resetArtwork();}, true);
+document.getElementById('desktopSaveSide')?.addEventListener('click', function(e){e.stopPropagation(); saveArtwork();}, true);
+
+v24SyncIndicator();
 
 </script>
 
