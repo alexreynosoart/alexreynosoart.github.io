@@ -2805,7 +2805,7 @@ body.v254-select-active #clearSelectionTouch {
         </div>
     </section>
 
-    <div class="desktop-build-version" aria-hidden="true">v2.6.3</div>
+    <div class="desktop-build-version" aria-hidden="true">v2.6.4</div>
 </aside>
 
 <div class="studio">
@@ -8385,8 +8385,14 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
         const dist=start ? Math.hypot(p.x-start.x,p.y-start.y) : 0;
         const valid=mode==="free" ? path.length>4 : dist>=5;
 
-        if(valid) commit(path);
-        else drawAnts();
+        if(valid) {
+            commit(path);
+            if (typeof window.__miaSelectionDisplayCommitV264 === "function") {
+                window.__miaSelectionDisplayCommitV264(path, mode, op);
+            }
+        } else {
+            drawAnts();
+        }
 
         active=false;
         pointerId=null;
@@ -9318,46 +9324,14 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
         },true);
     });
 
-    canvasFrame.addEventListener("pointerdown",e=>{
-        if(currentTool!=="select" || !canvasStage.contains(e.target)) return;
-        drawing=true;
-        pointerId=e.pointerId;
-        start=point(e);
-        points=[{x:start.x,y:start.y}];
-        renderPreview(points);
-    },true);
-
-    canvasFrame.addEventListener("pointermove",e=>{
-        if(!drawing || e.pointerId!==pointerId) return;
-        const end=point(e);
-        if(mode==="free") points.push({x:end.x,y:end.y});
-        else points=currentPath(end);
-        renderPreview(points);
-    },true);
-
-    canvasFrame.addEventListener("pointerup",e=>{
-        if(!drawing || e.pointerId!==pointerId) return;
-        const end=point(e);
-        if(mode!=="free") points=currentPath(end);
-
-        const dist=start?Math.hypot(end.x-start.x,end.y-start.y):0;
-        const valid=mode==="free" ? points.length>4 : dist>=5;
-        if(valid) commit(points);
-        else render();
-
-        drawing=false;
-        pointerId=null;
-        start=null;
-        points=[];
-    },true);
-
-    canvasFrame.addEventListener("pointercancel",()=>{
-        drawing=false;
-        pointerId=null;
-        start=null;
-        points=[];
-        render();
-    },true);
+    /* V2.6.4: the authoritative Select handler calls this directly.
+       This bypasses its stopImmediatePropagation, which was the reason
+       V2.6.3 could show a drag preview but never keep ants after release. */
+    window.__miaSelectionDisplayCommitV264 = function(authoritativePath, authoritativeMode, authoritativeOp) {
+        mode = authoritativeMode || mode;
+        op = authoritativeOp || op;
+        commit(authoritativePath);
+    };
 
     ["clearSelectionV24","clearSelectionTouch"].forEach(id=>{
         document.getElementById(id)?.addEventListener("click",clearDisplay,true);
@@ -9372,6 +9346,65 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
     });
 
     syncSize();
+})();
+</script>
+
+
+<script>
+/* =====================================================
+   V2.6.4 TOOL PANEL LIFECYCLE
+   ===================================================== */
+(() => {
+    "use strict";
+
+    function selectedToolName(el) {
+        return el?.dataset?.desktopTool ||
+               el?.dataset?.v2Tool ||
+               el?.dataset?.tool ||
+               "";
+    }
+
+    document.addEventListener("click", e => {
+        const button = e.target.closest(
+            '[data-desktop-tool],[data-v2-tool],[data-tool]'
+        );
+        if (!button) return;
+
+        const name = selectedToolName(button);
+
+        if (name === "select") {
+            /* Select owns the contextual row until Done or another tool. */
+            requestAnimationFrame(() => {
+                document.body.classList.add("v254-select-active");
+                document.body.classList.remove("v241-shape-active");
+            });
+            return;
+        }
+
+        if (name) {
+            /* Choosing Fill, Erase, Move, Pen, Marker, Soft, Texture,
+               or Line/Shape closes Select's contextual controls. */
+            requestAnimationFrame(() => {
+                document.body.classList.remove(
+                    "v254-select-active",
+                    "v247-selecting",
+                    "v241-select-active"
+                );
+            });
+        }
+    }, true);
+
+    document.querySelectorAll("[data-v253-selection-done]").forEach(button => {
+        button.addEventListener("click", () => {
+            requestAnimationFrame(() => {
+                document.body.classList.remove(
+                    "v254-select-active",
+                    "v247-selecting",
+                    "v241-select-active"
+                );
+            });
+        }, true);
+    });
 })();
 </script>
 
