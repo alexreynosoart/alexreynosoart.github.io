@@ -4,7 +4,9 @@
 <head>
 
     <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ">    updateToolCursorMode();
+
+</script>
 
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -793,6 +795,151 @@ body {
 
         }
 
+    
+        /* =========================
+           STUDIO UX UPGRADE
+           Fullscreen + tool cursors
+           ========================= */
+
+        .fullscreen-button {
+            min-width: 42px;
+            min-height: 40px;
+            border: 1px solid #ccc;
+            border-radius: 9px;
+            background: #fff;
+            color: #222;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 0 10px;
+        }
+
+        .fullscreen-button:hover {
+            background: #111;
+            border-color: #111;
+            color: #fff;
+        }
+
+        .fullscreen-exit {
+            display: none;
+            position: fixed;
+            top: 12px;
+            right: 12px;
+            z-index: 1000;
+            min-height: 38px;
+            padding: 0 12px;
+            border: 1px solid rgba(0,0,0,0.15);
+            border-radius: 9px;
+            background: rgba(255,255,255,0.92);
+            color: #222;
+            font-weight: 700;
+            font-size: 0.72rem;
+            cursor: pointer;
+        }
+
+        body.studio-fullscreen .studio-topbar {
+            display: none;
+        }
+
+        body.studio-fullscreen .studio {
+            max-width: none;
+            padding-top: 8px;
+        }
+
+        body.studio-fullscreen .canvas-frame {
+            height: calc(100dvh - 86px);
+        }
+
+        body.studio-fullscreen .fullscreen-exit {
+            display: block;
+        }
+
+        .tool-cursor {
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 999;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+
+        .tool-cursor.circle {
+            border: 2px solid rgba(0,0,0,0.8);
+            border-radius: 50%;
+            background: rgba(255,255,255,0.12);
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.85);
+        }
+
+        .tool-cursor.eraser-circle {
+            border: 2px dashed rgba(0,0,0,0.8);
+            border-radius: 50%;
+            background: rgba(255,255,255,0.28);
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.85);
+        }
+
+        .tool-cursor.icon {
+            width: 34px;
+            height: 34px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.9);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+            font-size: 20px;
+        }
+
+        .canvas-frame.tool-fill,
+        .canvas-frame.tool-brush,
+        .canvas-frame.tool-eraser,
+        .canvas-frame.tool-move {
+            cursor: none;
+        }
+
+        .brush-size-preview {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            z-index: 1100;
+            display: none;
+            pointer-events: none;
+            border: 2px solid #222;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.22);
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.9);
+            transform: translate(-50%, -50%);
+        }
+
+        .brush-size-preview.show {
+            display: block;
+        }
+
+        @media (hover: none), (pointer: coarse) {
+            .tool-cursor {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 850px) {
+            body.studio-fullscreen {
+                padding-bottom: 154px;
+            }
+
+            body.studio-fullscreen .studio {
+                padding: 7px 7px 0;
+            }
+
+            body.studio-fullscreen .canvas-frame {
+                height: calc(100dvh - 168px);
+                min-height: 340px;
+            }
+
+            body.studio-fullscreen .fullscreen-exit {
+                top: 6px;
+                right: 6px;
+            }
+        }
+
     </style>
 
 </head>
@@ -856,6 +1003,14 @@ body {
                     id="fitButton"
                     type="button">
                 FIT
+            </button>
+
+            <button class="fullscreen-button"
+                    id="fullscreenButton"
+                    type="button"
+                    aria-label="Enter full screen"
+                    title="Full Screen">
+                ⛶
             </button>
 
         </div>
@@ -1064,6 +1219,21 @@ body {
 
 
 
+<button class="fullscreen-exit"
+        id="fullscreenExit"
+        type="button">
+    ⛶ EXIT FULL SCREEN
+</button>
+
+<div class="tool-cursor"
+     id="toolCursor"
+     aria-hidden="true"></div>
+
+<div class="brush-size-preview"
+     id="brushSizePreview"
+     aria-hidden="true"></div>
+
+
 <!-- =========================
      MOBILE TOOL DOCK
      ========================= -->
@@ -1263,6 +1433,315 @@ body {
         document.getElementById(
             'canvasStage'
         );
+
+
+    /* =========================
+       STUDIO UX
+       ========================= */
+
+    const fullscreenButton =
+        document.getElementById(
+            'fullscreenButton'
+        );
+
+    const fullscreenExit =
+        document.getElementById(
+            'fullscreenExit'
+        );
+
+    const toolCursor =
+        document.getElementById(
+            'toolCursor'
+        );
+
+    const brushSizePreview =
+        document.getElementById(
+            'brushSizePreview'
+        );
+
+    let brushPreviewTimer =
+        null;
+
+    function fullscreenElement() {
+        return (
+            document.fullscreenElement ||
+            document.webkitFullscreenElement ||
+            null
+        );
+    }
+
+    function requestStudioFullscreen() {
+        const target =
+            document.documentElement;
+
+        const request =
+            target.requestFullscreen ||
+            target.webkitRequestFullscreen;
+
+        if (request) {
+            request.call(target);
+        }
+    }
+
+    function exitStudioFullscreen() {
+        const exit =
+            document.exitFullscreen ||
+            document.webkitExitFullscreen;
+
+        if (exit && fullscreenElement()) {
+            exit.call(document);
+        }
+    }
+
+    function syncFullscreenUI() {
+        const active =
+            Boolean(
+                fullscreenElement()
+            );
+
+        document.body.classList.toggle(
+            'studio-fullscreen',
+            active
+        );
+
+        fullscreenButton.setAttribute(
+            'aria-label',
+            active ?
+                'Exit full screen' :
+                'Enter full screen'
+        );
+
+        fullscreenButton.title =
+            active ?
+                'Exit Full Screen' :
+                'Full Screen';
+
+        requestAnimationFrame(
+            function() {
+                if (
+                    typeof fitArtwork ===
+                    'function'
+                ) {
+                    fitArtwork();
+                }
+            }
+        );
+    }
+
+    fullscreenButton.addEventListener(
+        'click',
+        function() {
+            if (fullscreenElement()) {
+                exitStudioFullscreen();
+            } else {
+                requestStudioFullscreen();
+            }
+        }
+    );
+
+    fullscreenExit.addEventListener(
+        'click',
+        exitStudioFullscreen
+    );
+
+    document.addEventListener(
+        'fullscreenchange',
+        syncFullscreenUI
+    );
+
+    document.addEventListener(
+        'webkitfullscreenchange',
+        syncFullscreenUI
+    );
+
+    function updateToolCursorMode() {
+        canvasFrame.classList.remove(
+            'tool-fill',
+            'tool-brush',
+            'tool-eraser',
+            'tool-move'
+        );
+
+        canvasFrame.classList.add(
+            'tool-' + currentTool
+        );
+
+        toolCursor.className =
+            'tool-cursor';
+
+        if (currentTool === 'brush') {
+            toolCursor.classList.add(
+                'circle'
+            );
+        }
+
+        if (currentTool === 'eraser') {
+            toolCursor.classList.add(
+                'eraser-circle'
+            );
+        }
+
+        if (
+            currentTool === 'fill' ||
+            currentTool === 'move'
+        ) {
+            toolCursor.classList.add(
+                'icon'
+            );
+
+            toolCursor.textContent =
+                currentTool === 'fill' ?
+                    '🪣' :
+                    '✋';
+        } else {
+            toolCursor.textContent =
+                '';
+        }
+    }
+
+    function setToolCursorSize() {
+        if (
+            currentTool !== 'brush' &&
+            currentTool !== 'eraser'
+        ) {
+            return;
+        }
+
+        const rect =
+            paintCanvas
+                .getBoundingClientRect();
+
+        if (
+            !paintCanvas.width ||
+            !rect.width
+        ) {
+            return;
+        }
+
+        const scale =
+            rect.width /
+            paintCanvas.width;
+
+        const size =
+            Math.max(
+                6,
+                brushSize * scale
+            );
+
+        toolCursor.style.width =
+            size + 'px';
+
+        toolCursor.style.height =
+            size + 'px';
+    }
+
+    canvasFrame.addEventListener(
+        'pointermove',
+        function(event) {
+            if (
+                event.pointerType ===
+                'touch'
+            ) {
+                return;
+            }
+
+            toolCursor.style.left =
+                event.clientX + 'px';
+
+            toolCursor.style.top =
+                event.clientY + 'px';
+
+            setToolCursorSize();
+
+            toolCursor.style.display =
+                currentTool === 'fill' ||
+                currentTool === 'move' ?
+                    'flex' :
+                    'block';
+
+            if (
+                currentTool === 'move' &&
+                moving
+            ) {
+                toolCursor.textContent =
+                    '✊';
+            } else if (
+                currentTool === 'move'
+            ) {
+                toolCursor.textContent =
+                    '✋';
+            }
+        }
+    );
+
+    canvasFrame.addEventListener(
+        'pointerleave',
+        function(event) {
+            if (
+                event.pointerType !==
+                'touch'
+            ) {
+                toolCursor.style.display =
+                    'none';
+            }
+        }
+    );
+
+    function showBrushSizePreview() {
+        if (
+            currentTool !== 'brush' &&
+            currentTool !== 'eraser'
+        ) {
+            return;
+        }
+
+        const rect =
+            paintCanvas
+                .getBoundingClientRect();
+
+        if (
+            !paintCanvas.width ||
+            !rect.width
+        ) {
+            return;
+        }
+
+        const scale =
+            rect.width /
+            paintCanvas.width;
+
+        const size =
+            Math.max(
+                8,
+                brushSize * scale
+            );
+
+        brushSizePreview.style.width =
+            size + 'px';
+
+        brushSizePreview.style.height =
+            size + 'px';
+
+        brushSizePreview.classList.add(
+            'show'
+        );
+
+        clearTimeout(
+            brushPreviewTimer
+        );
+
+        brushPreviewTimer =
+            setTimeout(
+                function() {
+                    brushSizePreview
+                        .classList.remove(
+                            'show'
+                        );
+                },
+                650
+            );
+    }
+
 
     const sourceImage =
         new Image();
@@ -1918,6 +2397,9 @@ body {
         currentTool =
             tool;
 
+        updateToolCursorMode();
+        setToolCursorSize();
+
         document
             .querySelectorAll(
                 '[data-tool]'
@@ -2028,6 +2510,9 @@ body {
             Number(
                 value
             );
+
+        setToolCursorSize();
+        showBrushSizePreview();
 
         desktopBrushSlider.value =
             brushSize;
@@ -2543,6 +3028,52 @@ body {
             panStartCenter =
                 null;
 
+        }
+
+
+        /*
+        If a pinch ends with one finger still
+        touching the artwork, continue directly
+        into one-finger MOVE from that finger's
+        current position.
+        */
+
+        if (
+            navigationGesture &&
+            activePointers.size === 1
+        ) {
+
+            const remaining =
+                Array.from(
+                    activePointers.values()
+                )[0];
+
+            selectTool(
+                'move'
+            );
+
+            drawing =
+                false;
+
+            moving =
+                true;
+
+            navigationGesture =
+                false;
+
+            moveStartX =
+                remaining.x;
+
+            moveStartY =
+                remaining.y;
+
+            moveStartPanX =
+                panX;
+
+            moveStartPanY =
+                panY;
+
+            return;
         }
 
 
