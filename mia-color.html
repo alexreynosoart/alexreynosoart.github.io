@@ -2419,7 +2419,7 @@ body:not(.has-selection) #clearSelectionTouch { display:none; }
 /* Desktop-only build marker. Does not exist in mobile layout. */
 @media (min-width:1001px) {
     .desktop-studio-sidebar::after {
-        content:"v2.5.4";
+        content:"v2.5.5";
         display:block;
         margin-top:8px;
         text-align:center;
@@ -2500,6 +2500,84 @@ body.v254-eraser-active #touchEraserOpacityWrap { display:flex; }
 
 @media (min-width:1001px) {
     #touchEraserOpacityWrap { display:none !important; }
+}
+
+
+/* =====================================================
+   V2.5.5 INPUT + MOBILE TOP ACTIONS
+   ===================================================== */
+
+.mobile-top-actions { display:none; }
+
+@media (min-width:1001px) {
+    /* .studio already reserves the sidebar width. Do not offset the header twice. */
+    .studio-topbar {
+        padding-left:0 !important;
+    }
+
+    #fitPageButton {
+        position:static !important;
+        inset:auto !important;
+        transform:none !important;
+        margin:0 !important;
+        display:inline-flex !important;
+        align-items:center;
+        justify-content:center;
+    }
+}
+
+@media (max-width:1000px) {
+    /* Old bottom action row is removed from the mobile layout entirely. */
+    .mobile-actions {
+        display:none !important;
+    }
+
+    .studio-topbar {
+        position:relative;
+        flex-wrap:wrap;
+        row-gap:7px;
+        padding-bottom:5px;
+    }
+
+    .mobile-top-actions {
+        display:flex;
+        width:100%;
+        justify-content:flex-end;
+        align-items:center;
+        gap:5px;
+        order:3;
+    }
+
+    .mobile-top-actions button {
+        min-width:34px;
+        height:34px;
+        padding:0 9px;
+        border:1px solid #ccc;
+        border-radius:9px;
+        background:#fff;
+        color:#222;
+        font-size:.68rem;
+        font-weight:800;
+        line-height:1;
+    }
+
+    #undoMobileTop,
+    #redoMobileTop {
+        font-size:1.05rem;
+        padding:0;
+    }
+
+    #saveMobileTop {
+        background:#e88eaa;
+        border-color:#e88eaa;
+        color:#fff;
+    }
+
+    /* The title stays gone on mobile. */
+    .studio-name { display:none !important; }
+
+    /* FIT PAGE remains desktop only. */
+    #fitPageButton { display:none !important; }
 }
 
 </style>
@@ -2698,6 +2776,12 @@ body.v254-eraser-active #touchEraserOpacityWrap { display:flex; }
 
         </div>
 
+        <div class="mobile-top-actions" aria-label="Artwork actions">
+            <button type="button" id="undoMobileTop" aria-label="Undo" title="Undo">←</button>
+            <button type="button" id="redoMobileTop" aria-label="Redo" title="Redo">→</button>
+            <button type="button" id="resetMobileTop">RESET</button>
+            <button type="button" id="saveMobileTop">SAVE</button>
+        </div>
 
     </header>
 
@@ -8227,6 +8311,273 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
             return result;
         };
     }
+})();
+</script>
+
+
+<script>
+/* =====================================================
+   V2.5.5 AUTHORITATIVE SELECT INPUT
+   ===================================================== */
+(() => {
+    "use strict";
+
+    /* The V2.5.4 SELECT object lives inside its controller closure, so this
+       input bridge uses the public UI/state that controller already owns.
+       It intercepts at canvasFrame CAPTURE phase, before every legacy
+       paintCanvas listener. */
+
+    const frame = document.getElementById("canvasFrame");
+    const stage = document.getElementById("canvasStage");
+    const paint = document.getElementById("paintCanvas");
+
+    let active = false;
+    let pointerId = null;
+    let start = null;
+    let path = [];
+    let mode = "free";
+    let op = "add";
+
+    let mask = document.createElement("canvas");
+    let maskCtx = mask.getContext("2d", {willReadFrequently:true});
+    let antsOffset = 0;
+    let antsTimer = null;
+
+    function sizeMask() {
+        if (mask.width === paint.width && mask.height === paint.height) return;
+        mask.width = paint.width;
+        mask.height = paint.height;
+        maskCtx = mask.getContext("2d", {willReadFrequently:true});
+    }
+
+    function point(e) {
+        return getCanvasPoint(e);
+    }
+
+    function rectPath(a,b) {
+        return [
+            {x:a.x,y:a.y},{x:b.x,y:a.y},
+            {x:b.x,y:b.y},{x:a.x,y:b.y}
+        ];
+    }
+
+    function ellipsePath(a,b) {
+        const pts=[];
+        const cx=(a.x+b.x)/2, cy=(a.y+b.y)/2;
+        const rx=Math.abs(b.x-a.x)/2, ry=Math.abs(b.y-a.y)/2;
+        for(let i=0;i<72;i++){
+            const t=i/72*Math.PI*2;
+            pts.push({x:cx+Math.cos(t)*rx,y:cy+Math.sin(t)*ry});
+        }
+        return pts;
+    }
+
+    function currentShape(p) {
+        if(mode==="rect") return rectPath(start,p);
+        if(mode==="ellipse") return ellipsePath(start,p);
+        return path;
+    }
+
+    function drawPreview(points) {
+        selectionCtx.clearRect(0,0,selectionCanvas.width,selectionCanvas.height);
+        if(!points || points.length<2) return;
+        selectionCtx.save();
+        selectionCtx.strokeStyle=op==="subtract" ? "#c33" : "#111";
+        selectionCtx.lineWidth=Math.max(2,2/Math.max(fitScale*zoomMultiplier,.25));
+        selectionCtx.setLineDash([8,6]);
+        selectionCtx.beginPath();
+        selectionCtx.moveTo(points[0].x,points[0].y);
+        for(let i=1;i<points.length;i++) selectionCtx.lineTo(points[i].x,points[i].y);
+        if(mode!=="free") selectionCtx.closePath();
+        selectionCtx.stroke();
+        selectionCtx.restore();
+    }
+
+    function hasMask() {
+        sizeMask();
+        const d=maskCtx.getImageData(0,0,mask.width,mask.height).data;
+        for(let i=3;i<d.length;i+=4) if(d[i]) return true;
+        return false;
+    }
+
+    function drawAnts() {
+        selectionCtx.clearRect(0,0,selectionCanvas.width,selectionCanvas.height);
+        if(!hasMask()){
+            document.body.classList.remove("has-selection");
+            return;
+        }
+
+        document.body.classList.add("has-selection");
+        const w=mask.width,h=mask.height;
+        const src=maskCtx.getImageData(0,0,w,h).data;
+        const out=selectionCtx.createImageData(w,h);
+        const dst=out.data;
+
+        for(let y=1;y<h-1;y++){
+            for(let x=1;x<w-1;x++){
+                const p=y*w+x;
+                if(!src[p*4+3]) continue;
+                if(src[(p-1)*4+3] && src[(p+1)*4+3] &&
+                   src[(p-w)*4+3] && src[(p+w)*4+3]) continue;
+
+                const black=((x+y+antsOffset)%12)<6;
+                const i=p*4;
+                dst[i]=black?10:255;
+                dst[i+1]=black?10:255;
+                dst[i+2]=black?10:255;
+                dst[i+3]=255;
+            }
+        }
+        selectionCtx.putImageData(out,0,0);
+    }
+
+    function startAnts() {
+        if(antsTimer) return;
+        antsTimer=setInterval(()=>{
+            antsOffset=(antsOffset+1)%12;
+            drawAnts();
+        },120);
+    }
+
+    function commit(points) {
+        if(!points || points.length<3) return;
+        sizeMask();
+
+        const temp=document.createElement("canvas");
+        temp.width=paint.width;
+        temp.height=paint.height;
+        const c=temp.getContext("2d");
+        c.fillStyle="#fff";
+        c.beginPath();
+        c.moveTo(points[0].x,points[0].y);
+        for(let i=1;i<points.length;i++) c.lineTo(points[i].x,points[i].y);
+        c.closePath();
+        c.fill();
+
+        maskCtx.save();
+        maskCtx.globalCompositeOperation =
+            op==="subtract" ? "destination-out" : "source-over";
+        maskCtx.drawImage(temp,0,0);
+        maskCtx.restore();
+
+        drawAnts();
+        startAnts();
+    }
+
+    function isSelectOn() {
+        return currentTool==="select" &&
+               document.body.classList.contains("v254-select-active");
+    }
+
+    /* Keep our local mode/op synced with the visible buttons. */
+    document.querySelectorAll("[data-v253-select-mode]").forEach(b=>{
+        b.addEventListener("click",()=>{
+            mode=b.dataset.v253SelectMode;
+        },true);
+    });
+    document.querySelectorAll("[data-v253-selection-op]").forEach(b=>{
+        b.addEventListener("click",()=>{
+            op=b.dataset.v253SelectionOp;
+        },true);
+    });
+
+    /* Capture on the parent means these run before ALL paintCanvas handlers. */
+    frame.addEventListener("pointerdown", e=>{
+        if(!isSelectOn()) return;
+        if(!stage.contains(e.target)) return;
+
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        active=true;
+        pointerId=e.pointerId;
+        start=point(e);
+        path=[{x:start.x,y:start.y}];
+        drawPreview(path);
+
+        try { frame.setPointerCapture(e.pointerId); } catch(_) {}
+    },true);
+
+    frame.addEventListener("pointermove", e=>{
+        if(!active || e.pointerId!==pointerId) return;
+
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        const p=point(e);
+        if(mode==="free") path.push({x:p.x,y:p.y});
+        else path=currentShape(p);
+
+        drawPreview(path);
+    },true);
+
+    frame.addEventListener("pointerup", e=>{
+        if(!active || e.pointerId!==pointerId) return;
+
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        const p=point(e);
+        if(mode!=="free") path=currentShape(p);
+
+        const dist=start ? Math.hypot(p.x-start.x,p.y-start.y) : 0;
+        const valid=mode==="free" ? path.length>4 : dist>=5;
+
+        if(valid) commit(path);
+        else drawAnts();
+
+        active=false;
+        pointerId=null;
+        start=null;
+        path=[];
+
+        try { frame.releasePointerCapture(e.pointerId); } catch(_) {}
+
+        /* Explicitly stay in Select. */
+        currentTool="select";
+        document.body.classList.add("v254-select-active");
+    },true);
+
+    frame.addEventListener("pointercancel", e=>{
+        if(!active) return;
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        active=false;
+        pointerId=null;
+        start=null;
+        path=[];
+        drawAnts();
+    },true);
+
+    /* Clear the authoritative mask too. */
+    ["clearSelectionV24","clearSelectionTouch"].forEach(id=>{
+        document.getElementById(id)?.addEventListener("click",()=>{
+            sizeMask();
+            maskCtx.clearRect(0,0,mask.width,mask.height);
+            drawAnts();
+        },true);
+    });
+
+    /* Mobile top action buttons call the existing, proven actions. */
+    const actionMap = {
+        undoMobileTop: "undoMobile",
+        redoMobileTop: "redoMobile",
+        resetMobileTop: "resetMobile",
+        saveMobileTop: "saveMobile"
+    };
+    Object.entries(actionMap).forEach(([topId,oldId])=>{
+        document.getElementById(topId)?.addEventListener("click",()=>{
+            document.getElementById(oldId)?.click();
+        });
+    });
+
+    /* Make the new mask available to the art restriction check. */
+    const previousPointInSelection = pointInSelection;
+    pointInSelection = function(x,y){
+        if(!hasMask()) return previousPointInSelection(x,y);
+        if(x<0 || y<0 || x>=mask.width || y>=mask.height) return false;
+        return maskCtx.getImageData(x,y,1,1).data[3]>0;
+    };
 })();
 </script>
 
