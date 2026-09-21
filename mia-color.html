@@ -4,7 +4,195 @@
 <head>
 
     <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ">    updateToolCursorMode();
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ">
+    /* =========================
+       V2.3 DESKTOP WORKSPACE JS
+       ========================= */
+
+    const desktopSideColors = document.getElementById('desktopSideColors');
+    const desktopSideCustomColor = document.getElementById('desktopSideCustomColor');
+    const desktopSizeSlider = document.getElementById('desktopSizeSlider');
+    const desktopOpacitySlider = document.getElementById('desktopOpacitySlider');
+    const desktopToolReadout = document.getElementById('desktopToolReadout');
+
+    const desktopSidePalette = [
+        '#e88eaa','#f6b3c8','#ef5350','#ff9800','#ffd54f','#81c784',
+        '#4dd0e1','#64b5f6','#9575cd','#795548',
+        '#ffffff','#eeeeee','#dddddd','#bbbbbb','#999999','#777777',
+        '#555555','#333333','#111111'
+    ];
+
+    desktopSidePalette.forEach(function(color) {
+        const swatch = document.createElement('button');
+        swatch.type = 'button';
+        swatch.className = 'color-swatch';
+        swatch.style.background = color;
+        swatch.dataset.color = color;
+        swatch.title = color;
+        swatch.addEventListener('click', function() {
+            selectColor(color);
+            document.querySelectorAll('#desktopSideColors .color-swatch').forEach(function(item) {
+                item.classList.toggle('active', item === swatch);
+            });
+        });
+        desktopSideColors.appendChild(swatch);
+    });
+
+    desktopSideCustomColor.addEventListener('input', function() {
+        selectColor(this.value);
+        document.querySelectorAll('#desktopSideColors .color-swatch').forEach(function(item) {
+            item.classList.remove('active');
+        });
+    });
+
+    document.querySelectorAll('[data-desktop-tool]').forEach(function(button) {
+        button.addEventListener('click', function() {
+            selectTool(this.dataset.desktopTool);
+        });
+    });
+
+    function chooseDesktopBrush(type) {
+        brushType = type;
+        selectTool('brush');
+        document.querySelectorAll('[data-brush-type]').forEach(function(button) {
+            button.classList.toggle('active', button.dataset.brushType === type);
+        });
+    }
+
+    document.getElementById('desktopPen').addEventListener('click', function(){ chooseDesktopBrush('pen'); });
+    document.getElementById('desktopMarker').addEventListener('click', function(){ chooseDesktopBrush('marker'); });
+    document.getElementById('desktopTexture').addEventListener('click', function(){ chooseDesktopBrush('texture'); });
+
+    desktopSizeSlider.addEventListener('input', function() {
+        updateBrushSize(this.value);
+        document.getElementById('desktopSizeReadout').textContent = this.value + ' px';
+    });
+
+    desktopOpacitySlider.addEventListener('input', function() {
+        brushOpacity = Number(this.value) / 100;
+        document.getElementById('desktopOpacityReadout').textContent = this.value + '%';
+        const other = document.getElementById('opacitySlider');
+        if (other) other.value = this.value;
+    });
+
+    document.getElementById('desktopBlankPage').addEventListener('click', function() {
+        const button = document.querySelector('.artwork-thumb[data-art="blank"]');
+        if (button) button.click();
+    });
+
+    document.getElementById('desktopTiredPage').addEventListener('click', function() {
+        const button = document.querySelector('.artwork-thumb[data-art="tired"]');
+        if (button) button.click();
+    });
+
+    document.getElementById('desktopUploadPage').addEventListener('click', function() {
+        const button = document.getElementById('uploadArtworkButton');
+        if (button) button.click();
+    });
+
+    document.getElementById('desktopAddLayer').addEventListener('click', function() {
+        document.getElementById('addLayer').click();
+    });
+    document.getElementById('desktopDeleteLayer').addEventListener('click', function() {
+        document.getElementById('deleteLayer').click();
+    });
+    document.getElementById('desktopLayerUp').addEventListener('click', function() {
+        document.getElementById('layerUp').click();
+    });
+    document.getElementById('desktopLayerDown').addEventListener('click', function() {
+        document.getElementById('layerDown').click();
+    });
+
+    document.getElementById('desktopUndoSide').addEventListener('click', undo);
+    document.getElementById('desktopRedoSide').addEventListener('click', redo);
+    document.getElementById('desktopResetSide').addEventListener('click', resetArtwork);
+    document.getElementById('desktopSaveSide').addEventListener('click', saveArtwork);
+
+    document.getElementById('fitPageButton').addEventListener('click', function() {
+        zoomMultiplier = 1;
+        panX = 0;
+        panY = 0;
+        fitArtwork();
+    });
+
+    function renderDesktopLayers() {
+        const list = document.getElementById('desktopSideLayers');
+        if (!list) return;
+        list.innerHTML = '';
+
+        [...studioLayers].reverse().forEach(function(layer) {
+            const row = document.createElement('div');
+            row.className = 'desktop-side-layer' + (layer.id === activeLayerId ? ' active' : '');
+
+            const eye = document.createElement('button');
+            eye.type = 'button';
+            eye.textContent = layer.visible ? '◉' : '○';
+            eye.addEventListener('click', function(event) {
+                event.stopPropagation();
+                snapshotActiveLayer();
+                layer.visible = !layer.visible;
+                if (layer.id === activeLayerId) {
+                    paintCanvas.style.visibility = layer.visible ? 'visible' : 'hidden';
+                }
+                renderLayerDisplay();
+                renderLayersUI();
+                renderDesktopLayers();
+                markChanged();
+            });
+
+            const name = document.createElement('span');
+            name.textContent = layer.name;
+
+            const pick = document.createElement('button');
+            pick.type = 'button';
+            pick.textContent = layer.id === activeLayerId ? '✓' : '›';
+
+            function activate() {
+                paintCanvas.style.visibility = 'visible';
+                loadActiveLayer(layer.id);
+                renderDesktopLayers();
+            }
+
+            pick.addEventListener('click', function(event) {
+                event.stopPropagation();
+                activate();
+            });
+            row.addEventListener('click', activate);
+
+            row.append(eye, name, pick);
+            list.appendChild(row);
+        });
+    }
+
+    const originalRenderLayersUI = renderLayersUI;
+    renderLayersUI = function() {
+        originalRenderLayersUI();
+        renderDesktopLayers();
+    };
+
+    const originalSelectToolV23 = selectTool;
+    selectTool = function(tool) {
+        originalSelectToolV23(tool);
+
+        desktopToolReadout.textContent =
+            tool.charAt(0).toUpperCase() + tool.slice(1);
+
+        document.querySelectorAll('[data-desktop-tool]').forEach(function(button) {
+            button.classList.toggle('active', button.dataset.desktopTool === tool);
+        });
+    };
+
+    /* Desktop cursor is always visible when a mouse/trackpad is present. */
+    canvasFrame.addEventListener('mouseenter', function(event) {
+        if (event.pointerType === 'touch') return;
+        updateToolCursorMode();
+        setToolCursorSize();
+    });
+
+    renderDesktopLayers();
+
+    updateToolCursorMode();
+
 
 </script>
 
@@ -1867,6 +2055,281 @@ body {
             }
         }
 
+
+        /* =========================
+           V2.3 DESKTOP WORKSPACE
+           ========================= */
+
+        .desktop-studio-sidebar {
+            display: none;
+        }
+
+        @media (min-width: 1001px) {
+            body {
+                overflow: hidden;
+            }
+
+            .studio {
+                max-width: none !important;
+                padding: 8px 12px 10px 330px !important;
+            }
+
+            .studio-topbar {
+                padding-left: 326px !important;
+            }
+
+            .desktop-studio-sidebar {
+                display: flex;
+                position: fixed;
+                left: 12px;
+                top: 12px;
+                bottom: 12px;
+                width: 300px;
+                z-index: 80;
+                flex-direction: column;
+                gap: 10px;
+                padding: 12px;
+                overflow-y: auto;
+                border: 1px solid #ddd;
+                border-radius: 20px;
+                background: rgba(255,255,255,.97);
+                box-shadow: 0 12px 38px rgba(0,0,0,.12);
+                backdrop-filter: blur(16px);
+            }
+
+            .desktop-side-title {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 8px;
+            }
+
+            .desktop-side-title strong {
+                font-size: .78rem;
+                letter-spacing: .08em;
+                text-transform: uppercase;
+            }
+
+            .desktop-side-section {
+                padding-top: 10px;
+                border-top: 1px solid #eee;
+            }
+
+            .desktop-side-label {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 7px;
+                color: #666;
+                font-size: .66rem;
+                font-weight: 900;
+                letter-spacing: .07em;
+                text-transform: uppercase;
+            }
+
+            .desktop-side-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 6px;
+            }
+
+            .desktop-side-grid button,
+            .desktop-side-action {
+                min-height: 40px;
+                border: 1px solid #d7d7d7;
+                border-radius: 11px;
+                background: #fff;
+                color: #222;
+                font: inherit;
+                font-size: .67rem;
+                font-weight: 850;
+                cursor: pointer;
+            }
+
+            .desktop-side-grid button.active,
+            .desktop-side-action.active {
+                background: #111;
+                color: #fff;
+                border-color: #111;
+            }
+
+            .desktop-side-actions {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 6px;
+            }
+
+            .desktop-side-action.save {
+                background: #e88eaa;
+                border-color: #e88eaa;
+                color: #fff;
+            }
+
+            .desktop-side-colors {
+                display: grid;
+                grid-template-columns: repeat(8, 1fr);
+                gap: 7px;
+            }
+
+            .desktop-side-colors .color-swatch {
+                width: 27px;
+                height: 27px;
+                min-width: 27px;
+                border-radius: 50%;
+                border: 2px solid #fff;
+                outline: 1px solid #ccc;
+                cursor: pointer;
+            }
+
+            .desktop-side-colors .color-swatch.active {
+                outline: 3px solid #222;
+                outline-offset: 1px;
+            }
+
+            .desktop-side-custom {
+                width: 29px;
+                height: 29px;
+                border-radius: 50%;
+                overflow: hidden;
+                border: 1px solid #bbb;
+            }
+
+            .desktop-side-custom input {
+                width: 44px;
+                height: 44px;
+                margin: -8px;
+                border: 0;
+                padding: 0;
+                cursor: pointer;
+            }
+
+            .desktop-side-range {
+                width: 100%;
+                accent-color: #111;
+            }
+
+            .desktop-side-pages {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 7px;
+            }
+
+            .desktop-side-page {
+                min-height: 78px;
+                border: 1px solid #ddd;
+                border-radius: 12px;
+                background: #fafafa;
+                overflow: hidden;
+                padding: 5px;
+                cursor: pointer;
+                font: inherit;
+                font-size: .58rem;
+                font-weight: 800;
+            }
+
+            .desktop-side-page img {
+                width: 100%;
+                height: 54px;
+                object-fit: contain;
+                display: block;
+                margin-bottom: 3px;
+                background: #fff;
+                border-radius: 7px;
+            }
+
+            .desktop-side-page.placeholder {
+                display: grid;
+                place-items: center;
+                color: #999;
+            }
+
+            .desktop-side-layers {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                max-height: 155px;
+                overflow-y: auto;
+            }
+
+            .desktop-side-layer {
+                display: grid;
+                grid-template-columns: 28px 1fr 28px;
+                align-items: center;
+                gap: 5px;
+                min-height: 35px;
+                padding: 4px 6px;
+                border: 1px solid #ddd;
+                border-radius: 9px;
+                background: #fff;
+                cursor: pointer;
+            }
+
+            .desktop-side-layer.active {
+                border-color: #111;
+                box-shadow: inset 0 0 0 1px #111;
+            }
+
+            .desktop-side-layer button {
+                border: 0;
+                background: transparent;
+                cursor: pointer;
+            }
+
+            .desktop-side-layer span {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                font-size: .68rem;
+                font-weight: 750;
+            }
+
+            .desktop-side-layer-actions {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 5px;
+                margin-top: 6px;
+            }
+
+            .desktop-side-layer-actions button {
+                min-height: 31px;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                background: #fff;
+                font-size: .58rem;
+                font-weight: 800;
+                cursor: pointer;
+            }
+
+            .workspace {
+                max-width: none !important;
+            }
+
+            .canvas-frame {
+                height: calc(100dvh - 126px) !important;
+                min-height: 500px;
+            }
+
+            .desktop-color-frontline,
+            .desktop-quick-tools,
+            .bottom-actions-v2 {
+                display: none !important;
+            }
+
+            /* Desktop uses the full sidebar versions instead. */
+            #layersTop,
+            #pagesTop {
+                display: none !important;
+            }
+
+            .floating-panel {
+                left: 326px !important;
+                top: 82px !important;
+                max-height: calc(100dvh - 105px) !important;
+            }
+        }
+
+
+        .desktop-fit-page { display:none; }
+        @media (min-width:1001px) { .desktop-fit-page { display:inline-flex; } }
 </style>
 
 </head>
@@ -1874,6 +2337,88 @@ body {
 
 <body>
 
+
+
+<aside class="desktop-studio-sidebar" id="desktopStudioSidebar" aria-label="Desktop Studio tools">
+    <div class="desktop-side-title">
+        <strong>Creative Studio</strong><span>🐼</span>
+    </div>
+
+    <section class="desktop-side-section">
+        <div class="desktop-side-label"><span>Tools</span><span id="desktopToolReadout">Fill</span></div>
+        <div class="desktop-side-grid">
+            <button data-desktop-tool="fill" type="button">FILL</button>
+            <button data-desktop-tool="brush" type="button">BRUSH</button>
+            <button data-desktop-tool="eraser" type="button">ERASE</button>
+            <button data-desktop-tool="move" type="button">MOVE</button>
+        </div>
+        <div class="desktop-side-grid" style="margin-top:6px">
+            <button data-desktop-tool="select" type="button">SELECT</button>
+            <button id="desktopPen" type="button">PEN</button>
+            <button id="desktopMarker" type="button">MARKER</button>
+            <button id="desktopTexture" type="button">TEXTURE</button>
+        </div>
+    </section>
+
+    <section class="desktop-side-section">
+        <div class="desktop-side-label"><span>Color</span><span></span></div>
+        <div class="desktop-side-colors" id="desktopSideColors"></div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+            <label class="desktop-side-custom" title="Custom color">
+                <input id="desktopSideCustomColor" type="color" value="#e88eaa">
+            </label>
+            <span style="font-size:.65rem;font-weight:800;color:#777">CUSTOM COLOR</span>
+        </div>
+    </section>
+
+    <section class="desktop-side-section">
+        <div class="desktop-side-label"><span>Size</span><span id="desktopSizeReadout">18 px</span></div>
+        <input class="desktop-side-range" id="desktopSizeSlider" type="range" min="3" max="120" value="18">
+        <div class="desktop-side-label" style="margin-top:8px"><span>Opacity</span><span id="desktopOpacityReadout">100%</span></div>
+        <input class="desktop-side-range" id="desktopOpacitySlider" type="range" min="5" max="100" value="100">
+    </section>
+
+    <section class="desktop-side-section">
+        <div class="desktop-side-label"><span>Pages</span><span></span></div>
+        <div class="desktop-side-pages">
+            <button class="desktop-side-page" id="desktopBlankPage" type="button">
+                <div style="height:54px;background:#fff;border:1px solid #ddd;border-radius:7px;display:grid;place-items:center;font-size:1.3rem">＋</div>
+                BLANK
+            </button>
+            <button class="desktop-side-page" id="desktopTiredPage" type="button">
+                <img src="images/mia-the-panda-coloring-page.png" alt="">
+                TIRED
+            </button>
+            <button class="desktop-side-page" id="desktopUploadPage" type="button">
+                <div style="height:54px;background:#fff;border:1px solid #ddd;border-radius:7px;display:grid;place-items:center;font-size:1.2rem">↑</div>
+                UPLOAD
+            </button>
+            <button class="desktop-side-page placeholder" type="button" disabled>COMING<br>SOON</button>
+            <button class="desktop-side-page placeholder" type="button" disabled>COMING<br>SOON</button>
+            <button class="desktop-side-page placeholder" type="button" disabled>COMING<br>SOON</button>
+        </div>
+    </section>
+
+    <section class="desktop-side-section">
+        <div class="desktop-side-label"><span>Layers</span><span></span></div>
+        <div class="desktop-side-layers" id="desktopSideLayers"></div>
+        <div class="desktop-side-layer-actions">
+            <button id="desktopAddLayer" type="button">＋</button>
+            <button id="desktopDeleteLayer" type="button">DEL</button>
+            <button id="desktopLayerUp" type="button">↑</button>
+            <button id="desktopLayerDown" type="button">↓</button>
+        </div>
+    </section>
+
+    <section class="desktop-side-section" style="margin-top:auto">
+        <div class="desktop-side-actions">
+            <button class="desktop-side-action" id="desktopUndoSide" type="button">UNDO</button>
+            <button class="desktop-side-action" id="desktopRedoSide" type="button">REDO</button>
+            <button class="desktop-side-action" id="desktopResetSide" type="button">RESET</button>
+            <button class="desktop-side-action save" id="desktopSaveSide" type="button">SAVE</button>
+        </div>
+    </section>
+</aside>
 
 <div class="studio">
 
@@ -1930,6 +2475,13 @@ body {
                     id="fitButton"
                     type="button">
                 FIT
+            </button>
+
+            <button class="zoom-button desktop-fit-page"
+                    id="fitPageButton"
+                    type="button"
+                    title="Fit full page">
+                FIT PAGE
             </button>
 
             <button class="zoom-button top-utility-button"
@@ -2738,6 +3290,11 @@ body {
             toolCursor.classList.add(
                 'eraser-circle'
             );
+        }
+
+        if (currentTool === 'select') {
+            toolCursor.style.display = 'none';
+            return;
         }
 
         if (
