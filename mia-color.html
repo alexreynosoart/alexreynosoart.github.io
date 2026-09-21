@@ -2520,6 +2520,38 @@ body.v247-eraser .v247-touch-eraser-opacity { display:block; }
     #touchEraserOpacityWrap { display:none !important; }
 }
 
+
+/* =========================
+   V2.5.0 SELECTION ENGINE
+   ========================= */
+#selectionPreviewV250 {
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:61;
+}
+
+.v250-mobile-eraser-opacity { display:none; }
+body.v247-eraser .v250-mobile-eraser-opacity { display:flex; }
+
+/* There is one eraser-opacity control per layout. */
+@media (max-width:1000px) {
+    #eraserOpacitySection { display:none !important; }
+}
+@media (min-width:1001px) {
+    #touchEraserOpacityWrap { display:none !important; }
+}
+
+/* DONE is never a selected state. */
+.selection-done-v246,
+.selection-done-v246:focus {
+    background:#fff !important;
+    color:#111 !important;
+    border-color:#d8d8d8 !important;
+}
+
 </style>
 
 </head>
@@ -3255,6 +3287,19 @@ body.v247-eraser .v247-touch-eraser-opacity { display:block; }
     </div>
 
 
+
+    <!-- ERASER OPACITY: visible only while Erase is active -->
+    <div class="mobile-brush-row v250-mobile-eraser-opacity" id="touchEraserOpacityWrap">
+        <span class="mobile-brush-label">ERASER OPACITY</span>
+        <input class="mobile-brush-slider"
+               id="touchEraserOpacity"
+               type="range"
+               min="0"
+               max="100"
+               step="1"
+               value="100">
+        <span class="mobile-brush-value" id="touchEraserOpacityReadout">100%</span>
+    </div>
 
     <!-- ACTIONS -->
 
@@ -5528,10 +5573,8 @@ body.v247-eraser .v247-touch-eraser-opacity { display:block; }
             */
 
             if (currentTool === 'select') {
-                selecting = true;
+                /* V2.5.0 unified selection engine owns Select. */
                 drawing = false;
-                selectionPath = [{ x: point.x, y: point.y }];
-                selectionCtx.clearRect(0, 0, selectionCanvas.width, selectionCanvas.height);
                 return;
             }
 
@@ -5850,26 +5893,6 @@ body.v247-eraser .v247-touch-eraser-opacity { display:block; }
 
         if (selecting && currentTool === 'select') {
             selecting = false;
-
-            if (selectionPath.length > 2) {
-                selectionCtx.clearRect(0, 0, selectionCanvas.width, selectionCanvas.height);
-                selectionCtx.save();
-                selectionCtx.strokeStyle = '#111';
-                selectionCtx.lineWidth = Math.max(
-                    2,
-                    2 / Math.max(fitScale * zoomMultiplier, .25)
-                );
-                selectionCtx.setLineDash([8, 6]);
-                selectionCtx.beginPath();
-                selectionCtx.moveTo(selectionPath[0].x, selectionPath[0].y);
-                selectionPath.slice(1).forEach(function(p) {
-                    selectionCtx.lineTo(p.x, p.y);
-                });
-                selectionCtx.closePath();
-                selectionCtx.stroke();
-                selectionCtx.restore();
-            }
-
             return;
         }
 
@@ -7221,14 +7244,7 @@ paintCanvas.addEventListener('pointerdown', function(e) {
     if (activePointers && activePointers.size >= 1) return;
 
     if (currentTool === 'select' && v241SelectMode !== 'free') {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        const p=getCanvasPoint(e);
-        v241SpecialStart=p;
-        v241SpecialActive=true;
-        selecting=true;
-        selectionPath=[p];
-        v241DrawSelection(selectionPath);
+        /* V2.5.0 unified selection engine owns Select. */
         return;
     }
 
@@ -7245,13 +7261,7 @@ paintCanvas.addEventListener('pointermove', function(e) {
     if (!v241SpecialActive || !v241SpecialStart) return;
 
     if (currentTool === 'select' && v241SelectMode !== 'free') {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        const p=getCanvasPoint(e);
-        selectionPath = v241SelectMode === 'rect'
-            ? v241RectPath(v241SpecialStart,p)
-            : v241EllipsePath(v241SpecialStart,p);
-        v241DrawSelection(selectionPath);
+        /* V2.5.0 unified selection engine owns Select. */
         return;
     }
 
@@ -7305,26 +7315,7 @@ paintCanvas.addEventListener('pointerup', function(e) {
     if (!v241SpecialActive || !v241SpecialStart) return;
 
     if (currentTool === 'select' && v241SelectMode !== 'free') {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-
-        if (selectionPath && selectionPath.length > 2) {
-            if (typeof v246PathToMask === 'function') {
-                v246PathToMask(selectionPath, v246SelectionOp);
-                v246RenderMaskOutline();
-            } else {
-                document.body.classList.add('has-selection');
-                v241DrawSelection(selectionPath);
-            }
-        }
-
-        selecting = false;
-        v241SpecialActive = false;
-        v241SpecialStart = null;
-
-        /* Deliberately remain in Select. */
-        currentTool = 'select';
-        if (typeof v241RefreshToolUI === 'function') v241RefreshToolUI();
+        /* V2.5.0 unified selection engine owns Select. */
         return;
     }
 
@@ -8499,6 +8490,249 @@ window.addEventListener('pageshow', function() {
         window.__miaEraserInitializedV249 = true;
         v249SetEraserOpacity(100);
     }
+});
+
+
+
+/* =========================
+   V2.5.0 ONE SELECTION ENGINE
+   ========================= */
+
+/* Separate preview canvas means committed selections never disappear
+   while the next Free/Square/Circle is being drawn. */
+const v250PreviewCanvas = document.createElement('canvas');
+v250PreviewCanvas.id = 'selectionPreviewV250';
+v250PreviewCanvas.width = paintCanvas.width;
+v250PreviewCanvas.height = paintCanvas.height;
+const v250PreviewCtx = v250PreviewCanvas.getContext('2d');
+paintCanvas.parentElement.appendChild(v250PreviewCanvas);
+
+let v250Selecting = false;
+let v250Start = null;
+let v250Path = [];
+
+function v250ResizePreview() {
+    if (v250PreviewCanvas.width !== paintCanvas.width)
+        v250PreviewCanvas.width = paintCanvas.width;
+    if (v250PreviewCanvas.height !== paintCanvas.height)
+        v250PreviewCanvas.height = paintCanvas.height;
+}
+function v250ClearPreview() {
+    v250PreviewCtx.clearRect(0,0,v250PreviewCanvas.width,v250PreviewCanvas.height);
+}
+function v250DrawPreview(path) {
+    v250ResizePreview();
+    v250ClearPreview();
+    if (!path || path.length < 2) return;
+
+    const c=v250PreviewCtx;
+    c.save();
+    c.strokeStyle = v246SelectionOp === 'subtract' ? '#d43b3b' : '#111';
+    c.lineWidth=Math.max(2,2/Math.max(fitScale*zoomMultiplier,.25));
+    c.setLineDash([8,6]);
+    c.beginPath();
+    c.moveTo(path[0].x,path[0].y);
+    path.slice(1).forEach(p=>c.lineTo(p.x,p.y));
+    if(v241SelectMode!=='free') c.closePath();
+    c.stroke();
+    c.restore();
+}
+function v250PathForPoint(p) {
+    if (v241SelectMode === 'rect') return v241RectPath(v250Start,p);
+    if (v241SelectMode === 'ellipse') return v241EllipsePath(v250Start,p);
+    return v250Path;
+}
+function v250ForceSelectUI() {
+    currentTool='select';
+    v249Selecting=true;
+    v247SelectionSession=true;
+    document.body.classList.add('v247-selecting');
+    document.body.classList.remove('v247-shaping');
+
+    document.querySelectorAll('[data-tool],[data-v2-tool],[data-desktop-tool]').forEach(b=>{
+        const t=b.dataset.tool||b.dataset.v2Tool||b.dataset.desktopTool;
+        b.classList.toggle('active',t==='select');
+    });
+    if(typeof v241RefreshToolUI==='function') v241RefreshToolUI();
+}
+
+/* Own all Select pointer interaction before the normal art engine. */
+paintCanvas.addEventListener('pointerdown',function(e){
+    if(currentTool!=='select') return;
+    if(activePointers && activePointers.size>=2) return;
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    v250Selecting=true;
+    selecting=false;
+    v241SpecialActive=false;
+    v250Start=getCanvasPoint(e);
+    v250Path=[{x:v250Start.x,y:v250Start.y}];
+    v250DrawPreview(v250Path);
+
+    try { paintCanvas.setPointerCapture(e.pointerId); } catch(_) {}
+},true);
+
+paintCanvas.addEventListener('pointermove',function(e){
+    if(!v250Selecting || currentTool!=='select') return;
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    const p=getCanvasPoint(e);
+    if(v241SelectMode==='free'){
+        v250Path.push({x:p.x,y:p.y});
+    } else {
+        v250Path=v250PathForPoint(p);
+    }
+    v250DrawPreview(v250Path);
+},true);
+
+paintCanvas.addEventListener('pointerup',function(e){
+    if(!v250Selecting || currentTool!=='select') return;
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    const p=getCanvasPoint(e);
+    if(v241SelectMode!=='free') v250Path=v250PathForPoint(p);
+
+    const real =
+        v250Path.length>2 &&
+        (!v250Start || Math.hypot(p.x-v250Start.x,p.y-v250Start.y)>=5);
+
+    if(real){
+        v246PathToMask(v250Path,v246SelectionOp);
+        v246RenderMaskOutline();
+    }
+
+    v250Selecting=false;
+    v250Start=null;
+    v250Path=[];
+    v250ClearPreview();
+
+    try { paintCanvas.releasePointerCapture(e.pointerId); } catch(_) {}
+
+    /* Critical: remain in Select, with accumulated mask still visible. */
+    v250ForceSelectUI();
+},true);
+
+paintCanvas.addEventListener('pointercancel',function(e){
+    if(!v250Selecting) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    v250Selecting=false;
+    v250Start=null;
+    v250Path=[];
+    v250ClearPreview();
+    v250ForceSelectUI();
+},true);
+
+/* +ADD and -SUBTRACT are true modes, not action buttons that exit Select. */
+document.addEventListener('click',function(e){
+    const op=e.target.closest('[data-selection-op]');
+    if(!op) return;
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    v246SelectionOp=op.dataset.selectionOp;
+    document.querySelectorAll('[data-selection-op]').forEach(b=>{
+        b.classList.toggle('active',b.dataset.selectionOp===v246SelectionOp);
+    });
+    v250ForceSelectUI();
+},true);
+
+/* Free/Square/Circle also remain in the selection session. */
+document.addEventListener('click',function(e){
+    const mode=e.target.closest('[data-select-mode],[data-touch-select-mode]');
+    if(!mode) return;
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    v241SelectMode=mode.dataset.selectMode||mode.dataset.touchSelectMode;
+    document.querySelectorAll('[data-select-mode]').forEach(b=>{
+        b.classList.toggle('active',b.dataset.selectMode===v241SelectMode);
+    });
+    document.querySelectorAll('[data-touch-select-mode]').forEach(b=>{
+        b.classList.toggle('active',b.dataset.touchSelectMode===v241SelectMode);
+    });
+    v250ForceSelectUI();
+},true);
+
+/* DONE deliberately exits Select. */
+document.querySelectorAll('[data-selection-done]').forEach(button=>{
+    button.addEventListener('click',function(e){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        v250Selecting=false;
+        v250ClearPreview();
+        v249Selecting=false;
+        v247SelectionSession=false;
+        document.body.classList.remove('v247-selecting');
+
+        const back=(v241ToolBeforeSelect && v241ToolBeforeSelect!=='select')
+            ? v241ToolBeforeSelect : 'fill';
+        selectTool(back);
+        if(typeof v241RefreshToolUI==='function') v241RefreshToolUI();
+        button.blur();
+    },true);
+});
+
+/* Clear only clears the accumulated selection, not the selected tool. */
+['clearSelectionV24','clearSelectionTouch'].forEach(id=>{
+    document.getElementById(id)?.addEventListener('click',function(e){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        v246ClearSelection();
+        v250ClearPreview();
+        v250ForceSelectUI();
+    },true);
+});
+
+/* =========================
+   ONE ERASER OPACITY SYSTEM
+   ========================= */
+function v250SetEraserOpacity(value){
+    const n=Math.max(0,Math.min(100,Number(value)));
+    eraserOpacityV244=n/100;
+
+    const desktop=document.getElementById('eraserOpacity');
+    const mobile=document.getElementById('touchEraserOpacity');
+    const desktopText=document.getElementById('eraserOpacityReadout');
+    const mobileText=document.getElementById('touchEraserOpacityReadout');
+
+    if(desktop) desktop.value=String(n);
+    if(mobile) mobile.value=String(n);
+    if(desktopText) desktopText.textContent=String(Math.round(n));
+    if(mobileText) mobileText.textContent=Math.round(n)+'%';
+}
+const v250DesktopErase=document.getElementById('eraserOpacity');
+const v250MobileErase=document.getElementById('touchEraserOpacity');
+
+[v250DesktopErase,v250MobileErase].forEach(slider=>{
+    if(!slider) return;
+    slider.min='0';
+    slider.max='100';
+    slider.step='1';
+    slider.value='100';
+    slider.addEventListener('input',function(e){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        v250SetEraserOpacity(this.value);
+    },true);
+});
+
+/* Initialize after all older scripts have finished touching the controls. */
+setTimeout(()=>v250SetEraserOpacity(100),0);
+window.addEventListener('pageshow',()=>setTimeout(()=>v250SetEraserOpacity(100),0));
+
+window.addEventListener('resize',()=>{
+    v250ResizePreview();
+    v250ClearPreview();
 });
 
 </script>
