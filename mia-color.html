@@ -2640,6 +2640,36 @@ body.v254-eraser-active #touchEraserOpacityWrap { display:flex; }
     body.studio-fullscreen .desktop-build-version { display:none !important; }
 }
 
+
+/* =====================================================
+   V2.5.9 FULLSCREEN + OPACITY
+   ===================================================== */
+@media (min-width:1001px) {
+    body.studio-fullscreen .studio-status,
+    body.studio-fullscreen .studio-credit {
+        display:none !important;
+    }
+
+    body.studio-fullscreen .studio {
+        padding-top:8px !important;
+        padding-bottom:8px !important;
+    }
+
+    body.studio-fullscreen .canvas-frame {
+        height:calc(100dvh - 16px) !important;
+        display:flex !important;
+        align-items:center !important;
+        justify-content:center !important;
+    }
+}
+
+/* Opacity labels always display the real slider value. */
+#eraserOpacityReadout,
+#touchEraserOpacityReadout,
+#brushOpacityReadout {
+    opacity:1 !important;
+}
+
 </style>
 
 </head>
@@ -2745,7 +2775,7 @@ body.v254-eraser-active #touchEraserOpacityWrap { display:flex; }
         </div>
     </section>
 
-    <div class="desktop-build-version" aria-hidden="true">v2.5.8</div>
+    <div class="desktop-build-version" aria-hidden="true">v2.5.9</div>
 </aside>
 
 <div class="studio">
@@ -6281,405 +6311,111 @@ body.v254-eraser-active #touchEraserOpacityWrap { display:flex; }
     }
 
 
-    function floodFill(
-        startX,
-        startY,
-        fillHex
-    ) {
+    function floodFill(startX, startY, fillHex) {
+        if (!boundaryData) return;
+
+        const width = paintCanvas.width;
+        const height = paintCanvas.height;
+
+        startX = Math.floor(startX);
+        startY = Math.floor(startY);
 
         if (
-            !boundaryData
-        ) {
-            return;
-        }
+            startX < 0 || startY < 0 ||
+            startX >= width || startY >= height ||
+            !pointInSelection(startX, startY)
+        ) return;
 
-        const width =
-            paintCanvas.width;
+        const startPos = startY * width + startX;
+        if (isBoundaryPixel(startPos * 4)) return;
 
-        const height =
-            paintCanvas.height;
+        const image = paintCtx.getImageData(0, 0, width, height);
+        const data = image.data;
+        const si = startPos * 4;
 
-        const startPosition =
-            startY *
-            width +
-            startX;
+        const tr = data[si];
+        const tg = data[si + 1];
+        const tb = data[si + 2];
+        const ta = data[si + 3];
 
-        if (!pointInSelection(startX, startY)) {
-            return;
-        }
-
-        if (
-            isBoundaryPixel(
-                startPosition * 4
-            )
-        ) {
-            return;
-        }
-
-        const image =
-            paintCtx.getImageData(
-                0,
-                0,
-                width,
-                height
-            );
-
-        const data =
-            image.data;
-
-        const startIndex =
-            startPosition * 4;
-
-        const target = {
-
-            r:
-                data[
-                    startIndex
-                ],
-
-            g:
-                data[
-                    startIndex + 1
-                ],
-
-            b:
-                data[
-                    startIndex + 2
-                ],
-
-            a:
-                data[
-                    startIndex + 3
-                ]
-
-        };
-
-        const fill =
-            hexToRGB(
-                fillHex
-            );
-
+        const fill = hexToRGB(fillHex);
 
         if (
+            ta === 255 &&
+            Math.abs(tr - fill.r) < 5 &&
+            Math.abs(tg - fill.g) < 5 &&
+            Math.abs(tb - fill.b) < 5
+        ) return;
 
-            target.a === 255 &&
+        const total = width * height;
+        const visited = new Uint8Array(total);
 
-            Math.abs(
-                target.r -
-                fill.r
-            ) < 5 &&
+        /* One Int32Array instead of millions of tiny [x,y] arrays.
+           This prevents large fills from exhausting Firefox's tab memory. */
+        const queue = new Int32Array(total);
+        let head = 0;
+        let tail = 0;
 
-            Math.abs(
-                target.g -
-                fill.g
-            ) < 5 &&
+        queue[tail++] = startPos;
+        visited[startPos] = 1;
 
-            Math.abs(
-                target.b -
-                fill.b
-            ) < 5
+        function matches(pos) {
+            if (pos < 0 || pos >= total) return false;
+            if (visited[pos]) return false;
 
-        ) {
-            return;
-        }
+            const x = pos % width;
+            const y = (pos / width) | 0;
 
+            if (!pointInSelection(x, y)) return false;
+            if (isBoundaryPixel(pos * 4)) return false;
 
-        const visited =
-            new Uint8Array(
-                width *
-                height
-            );
+            const i = pos * 4;
 
-        const stack =
-            [
-                [
-                    startX,
-                    startY
-                ]
-            ];
-
-
-        function matches(
-            position
-        ) {
-
-            const px = position % width;
-            const py = Math.floor(position / width);
-
-            if (!pointInSelection(px, py)) {
-                return false;
-            }
-
-            if (
-                visited[
-                    position
-                ]
-            ) {
-                return false;
-            }
-
-            if (
-                isBoundaryPixel(
-                    position * 4
-                )
-            ) {
-                return false;
-            }
-
-            const index =
-                position * 4;
-
-
-            if (
-                target.a === 0
-            ) {
-
-                return (
-                    data[
-                        index + 3
-                    ] === 0
-                );
-
-            }
-
+            if (ta === 0) return data[i + 3] === 0;
 
             return (
-
-                data[
-                    index + 3
-                ] ===
-                target.a &&
-
-                Math.abs(
-                    data[index] -
-                    target.r
-                ) < 10 &&
-
-                Math.abs(
-                    data[
-                        index + 1
-                    ] -
-                    target.g
-                ) < 10 &&
-
-                Math.abs(
-                    data[
-                        index + 2
-                    ] -
-                    target.b
-                ) < 10
-
+                data[i + 3] === ta &&
+                Math.abs(data[i] - tr) < 10 &&
+                Math.abs(data[i + 1] - tg) < 10 &&
+                Math.abs(data[i + 2] - tb) < 10
             );
-
         }
 
+        while (head < tail) {
+            const pos = queue[head++];
+            const i = pos * 4;
 
-        function colorPixel(
-            position
-        ) {
+            data[i] = fill.r;
+            data[i + 1] = fill.g;
+            data[i + 2] = fill.b;
+            data[i + 3] = 255;
 
-            const index =
-                position * 4;
+            const x = pos % width;
 
-            data[index] =
-                fill.r;
+            const left = pos - 1;
+            const right = pos + 1;
+            const up = pos - width;
+            const down = pos + width;
 
-            data[
-                index + 1
-            ] =
-                fill.g;
-
-            data[
-                index + 2
-            ] =
-                fill.b;
-
-            data[
-                index + 3
-            ] =
-                255;
-
-            visited[
-                position
-            ] =
-                1;
-
+            if (x > 0 && matches(left)) {
+                visited[left] = 1;
+                queue[tail++] = left;
+            }
+            if (x < width - 1 && matches(right)) {
+                visited[right] = 1;
+                queue[tail++] = right;
+            }
+            if (pos >= width && matches(up)) {
+                visited[up] = 1;
+                queue[tail++] = up;
+            }
+            if (pos < total - width && matches(down)) {
+                visited[down] = 1;
+                queue[tail++] = down;
+            }
         }
 
-
-        while (
-            stack.length
-        ) {
-
-            const point =
-                stack.pop();
-
-            const x =
-                point[0];
-
-            let y =
-                point[1];
-
-
-            if (
-
-                x < 0 ||
-                x >= width ||
-                y < 0 ||
-                y >= height
-
-            ) {
-                continue;
-            }
-
-
-            let position =
-                y *
-                width +
-                x;
-
-
-            while (
-
-                y >= 0 &&
-
-                matches(
-                    position
-                )
-
-            ) {
-
-                y--;
-
-                position -=
-                    width;
-
-            }
-
-
-            y++;
-
-            position +=
-                width;
-
-
-            let reachLeft =
-                false;
-
-            let reachRight =
-                false;
-
-
-            while (
-
-                y < height &&
-
-                matches(
-                    position
-                )
-
-            ) {
-
-                colorPixel(
-                    position
-                );
-
-
-                if (
-                    x > 0
-                ) {
-
-                    const left =
-                        position - 1;
-
-                    if (
-                        matches(
-                            left
-                        )
-                    ) {
-
-                        if (
-                            !reachLeft
-                        ) {
-
-                            stack.push(
-                                [
-                                    x - 1,
-                                    y
-                                ]
-                            );
-
-                            reachLeft =
-                                true;
-
-                        }
-
-                    } else {
-
-                        reachLeft =
-                            false;
-
-                    }
-
-                }
-
-
-                if (
-                    x <
-                    width - 1
-                ) {
-
-                    const right =
-                        position + 1;
-
-                    if (
-                        matches(
-                            right
-                        )
-                    ) {
-
-                        if (
-                            !reachRight
-                        ) {
-
-                            stack.push(
-                                [
-                                    x + 1,
-                                    y
-                                ]
-                            );
-
-                            reachRight =
-                                true;
-
-                        }
-
-                    } else {
-
-                        reachRight =
-                            false;
-
-                    }
-
-                }
-
-
-                y++;
-
-                position +=
-                    width;
-
-            }
-
-        }
-
-
-        paintCtx.putImageData(
-            image,
-            0,
-            0
-        );
-
+        paintCtx.putImageData(image, 0, 0);
     }
 
 
@@ -8812,49 +8548,52 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
 </script>
 
 
+
+
+
 <script>
 /* =====================================================
-   V2.5.8 OPACITY + PERFORMANCE
+   V2.5.9 TRUE 1:1 OPACITY
    ===================================================== */
 (() => {
     "use strict";
 
-    function compensatedStrokeAlpha(v) {
-        v=Math.max(0,Math.min(1,v));
-        if(v<=0) return 0;
-        if(v>=.999) return 1;
-        /* Compensates for repeated overlapping segments in the current
-           stroke engine. 50% no longer behaves like almost 100%. */
-        return 1 - Math.pow(1-v, 0.10);
+    function pct(v) {
+        return Math.max(0, Math.min(100, Number(v)));
     }
 
-    const baseDrawV258 = drawStrokeSegment;
-    drawStrokeSegment = function(x1,y1,x2,y2) {
-        const savedBrush = brushOpacity;
-        const savedErase = eraserOpacityV244;
+    function syncEraserFrom(slider) {
+        if (!slider) return;
+        const n = pct(slider.value);
+        eraserOpacityV244 = n / 100;
 
-        if(currentTool === "eraser") {
-            eraserOpacityV244 = compensatedStrokeAlpha(savedErase);
-        } else if(currentTool === "brush") {
-            brushOpacity = compensatedStrokeAlpha(savedBrush);
-        }
+        const desktop = document.getElementById("eraserOpacity");
+        const mobile = document.getElementById("touchEraserOpacity");
+        const desktopText = document.getElementById("eraserOpacityReadout");
+        const mobileText = document.getElementById("touchEraserOpacityReadout");
 
-        try {
-            return baseDrawV258(x1,y1,x2,y2);
-        } finally {
-            brushOpacity = savedBrush;
-            eraserOpacityV244 = savedErase;
-        }
-    };
+        if (desktop && desktop !== slider) desktop.value = String(n);
+        if (mobile && mobile !== slider) mobile.value = String(n);
+        if (desktopText) desktopText.textContent = Math.round(n) + "%";
+        if (mobileText) mobileText.textContent = Math.round(n) + "%";
+    }
 
-    /* Keep mobile opacity values visible anywhere a mobile opacity readout exists. */
-    document.querySelectorAll(
-        '#touchEraserOpacityReadout, #brushOpacityReadout, .mobile-opacity-value'
-    ).forEach(el => {
-        el.style.display="inline-block";
-        el.style.minWidth="44px";
-        el.style.opacity="1";
+    ["eraserOpacity","touchEraserOpacity"].forEach(id => {
+        const slider = document.getElementById(id);
+        if (!slider) return;
+        slider.addEventListener("input", () => syncEraserFrom(slider), true);
     });
+
+    /* Initialize at true 100%. */
+    const mobile = document.getElementById("touchEraserOpacity");
+    const desktop = document.getElementById("eraserOpacity");
+    if (mobile) mobile.value = "100";
+    if (desktop) desktop.value = "100";
+    eraserOpacityV244 = 1;
+    if (document.getElementById("touchEraserOpacityReadout"))
+        document.getElementById("touchEraserOpacityReadout").textContent = "100%";
+    if (document.getElementById("eraserOpacityReadout"))
+        document.getElementById("eraserOpacityReadout").textContent = "100%";
 })();
 </script>
 
