@@ -1,3 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ"></script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+        gtag('config', 'G-MK5FXXVXNJ');
+    </script>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Art | Alex Reynoso Art</title>
+
+    <meta name="description"
+          content="Original artwork by Alex Reynoso, painting, illustration, mixed media and creative projects.">
+
+    <link rel="stylesheet"
+          href="css/style.css">
+
+
+    <style>
+
+        /* =========================
+           ART BACKGROUND
+           ========================= */
+
+        body {
+            position: relative;
+            min-height: 100vh;
+            background: #111;
+        }
+
+
+        body::before {
+            content: "";
+
+            position: fixed;
+            inset: 0;
+
+            background-image:
+                url("images/art-background-alex-reynoso-art.jpg");
+
+            background-position: center center;
+            background-size: cover;
+            background-repeat: no-repeat;
+
+            opacity: 0.05;
+
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+
+        header,
+        main,
+        footer {
+            position: relative;
+            z-index: 1;
+        }
+
+
+        /* =========================
+           MIA'S KIDS CORNER
+           ========================= */
+
+        .mia-corner {
+            grid-column: 1 / -1;
+
+            margin: 18px 0;
+
+            background: #f8f5f7;
+            color: #222;
+
+            border-radius: 22px;
+            overflow: hidden;
+
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+
+
+        .mia-corner-link {
+            display: grid;
+
+            grid-template-columns:
+                minmax(220px, 0.8fr)
+                minmax(300px, 1.2fr);
+
+            align-items: center;
+
+            color: inherit;
+            text-decoration: none;
+        }
+
+
+        .mia-corner-image {
+            background: #fff;
+
+            padding: 24px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        .mia-corner-image img {
+            display: block;
+
+            width: 100%;
+            height: 300px;
+
+            object-fit: contain;
+        }
+
+
+        .mia-corner-content {
+            padding: 40px;
+        }
+
+
+        .mia-corner-kicker {
+            margin-bottom: 8px;
+
+            color: #888;
+
+            font-size: 0.75rem;
+            font-weight: 700;
+
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+
+        .mia-corner-content h2 {
+            margin: 0 0 10px;
+
+            color: #111;
+
+            font-size: clamp(
+                2rem,
+                4vw,
+                3.2rem
+            );
+        }
+
+
+        .mia-corner-heart {
+            color: #e88eaa;
+        }
+
+
+        .mia-corner-tagline {
+            margin: 0 0 14px;
+
+            color: #333;
+
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+
+        .mia-corner-description {
+            max-width: 520px;
+
+            margin: 0;
+
+            color: #666;
+
+            font-size: 0.98rem;
+            line-height: 1.7;
+        }
+
+
+        .mia-corner-button {
+            display: inline-block;
+
+            margin-top: 22px;
+            padding: 13px 20px;
+
+            background: #e88eaa;
+            color: #fff;
+
+            border-radius: 11px;
+
+            font-size: 0.85rem;
+            font-weight: 700;
+
+            letter-spacing: 0.03em;
+        }
+
+
+        .mia-corner-link:hover
+        .mia-corner-button {
+            background: #df7e9f;
+        }
+
+
+        /* =========================
+           MOBILE
+           ========================= */
+
+        @media (max-width: 700px) {
+
+            body::before {
+                background-position: center center;
+            }
+
+
+            .mia-corner-link {
+                grid-template-columns: 1fr;
+            }
+
+
+            .mia-corner-image {
+                padding: 20px;
+            }
+
+
+            .mia-corner-image img {
+                height: 260px;
+            }
+
+
+            .mia-corner-content {
+                padding: 28px 24px 32px;
+                text-align: center;
+            }
+
+
+            .mia-corner-description {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <header>
+
+        <a class="site-logo"
+           href="index.html">
+
+            <img src="images/AlexReynosoArt-Logo_transparent.png"
+                 alt="Alex Reynoso Art">
+
+        </a>
+
+
+        <nav>
+
+            <a href="index.html">Home</a>
+
+            <a href="about.html">About</a>
+
+            <a href="art.html">Art</a>
+
+            <a href="videos.html">Videos</a>
+
+            <a href="shop.html">Shop</a>
+
+            <a href="commissions.html">Commissions</a>
+
+        </nav>
+
+    </header>
+
+
+
+    <main>
+
+
+        <!-- ART INTRO -->
+
+        <section class="art-intro">
+
+            <h1>
+                Art
+            </h1>
+
+            <p>
+                A selection of paintings, illustrations, mixed media
+                and other creative work by Alex Reynoso.
+            </p>
+
+        </section>
+
+
+
+        <!-- ART GALLERY -->
+
+        <section class="art-gallery">
+
+
+            <!-- FRIDA -->
+
+            <div class="artwork artwork-featured">
+
+                <a href="frida-frida-y-frida.html"
+                   style="display: block; color: inherit; text-decoration: none;">
+
+                    <img src="images/frida-alex-reynoso-art.jpg"
+                         alt="Frida Frida y Frida by Alex Reynoso"
+                         draggable="false"
+                         oncontextmenu="return false;">
+
+
+                    <div class="artwork-info">
+
+                        <h2>
+                            Frida Frida y Frida
+                        </h2>
+
+                        <p>
+                            2022 · Acrylic on heavy illustration board
+                        </p>
+
+                        <p>
+                            22 × 28 in.
+                        </p>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- BUDDHA -->
+
+            <div class="artwork artwork-featured artwork-portrait">
+
+                <a href="gratitude-and-joy-buddha.html"
+                   style="display: block; color: inherit; text-decoration: none;">
+
+                    <img src="images/gratitude-and-joy-buddha-alex-reynoso-art.jpg"
+                         alt="Gratitude and Joy, Buddha by Alex Reynoso"
+                         draggable="false"
+                         oncontextmenu="return false;">
+
+
+                    <div class="artwork-info">
+
+                        <h2>
+                            Gratitude and Joy, Buddha
+                        </h2>
+
+                        <p>
+                            2022 · Acrylic on illustration board
+                        </p>
+
+                        <p>
+                            22 × 28 in.
+                        </p>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- PRINCE -->
+
+            <div class="artwork artwork-featured artwork-portrait">
+
+                <a href="prince.html"
+                   style="display: block; color: inherit; text-decoration: none;">
+
+                    <img src="images/prince-alex-reynoso-art.jpg"
+                         alt="Prince by Alex Reynoso"
+                         draggable="false"
+                         oncontextmenu="return false;">
+
+
+                    <div class="artwork-info">
+
+                        <h2>
+                            Prince
+                        </h2>
+
+                        <p>
+                            2014 · Acrylic on navy illustration board
+                        </p>
+
+                        <p>
+                            22 × 28 in.
+                        </p>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- MIA'S KIDS CORNER -->
+
+            <section class="mia-corner">
+
+                <a class="mia-corner-link"
+                   href="mia.html">
+
+
+                    <div class="mia-corner-image">
+
+                        <img src="images/mia-the-panda-original.jpg"
+                             alt="Mia's original drawing of Mia the Panda">
+
+                    </div>
+
+
+                    <div class="mia-corner-content">
+
+                        <div class="mia-corner-kicker">
+                            Alex Reynoso Art · Kids Corner
+                        </div>
+
+
+                        <h2>
+                            Mia's Kids Corner
+                            <span class="mia-corner-heart">♥</span>
+                        </h2>
+
+
+                        <p class="mia-corner-tagline">
+                            Same Panda. Different Vibes.
+                        </p>
+
+
+                        <p class="mia-corner-description">
+                            Drawing, coloring, music, animation
+                            and creative adventures inspired by
+                            imagination, kindness and big dreams.
+                        </p>
+
+
+                        <span class="mia-corner-button">
+                            VISIT MIA'S WORLD →
+                        </span>
+
+                    </div>
+
+
+                </a>
+
+            </section>
+
+
+
+            <!-- MORE ART -->
+
+            <div class="artwork">
+                Artwork coming soon
+            </div>
+
+            <div class="artwork">
+                Artwork coming soon
+            </div>
+
+            <div class="artwork">
+                Artwork coming soon
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
     <footer>
 
         <div class="footer-social"
@@ -40,3 +534,8 @@
         </div>
 
     </footer>
+
+
+</body>
+
+</html>
