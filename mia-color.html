@@ -8234,6 +8234,72 @@ selectTool = function(tool) {
     },true);
 });
 
+
+
+/* =========================
+   V2.4.8 SELECT SESSION LOCK
+   =========================
+   Older pointer-up logic can still restore the previous tool after a
+   selection is completed. The Select session now has final authority:
+   until DONE or another explicit tool is chosen, pointer release returns
+   the engine/UI to Select on every device.
+*/
+
+function v248RestoreSelectSession() {
+    if (!v247SelectionSession) return;
+
+    currentTool = 'select';
+    selecting = false;
+    v241SpecialActive = false;
+    v241SpecialStart = null;
+
+    document.body.classList.add('v247-selecting');
+    document.body.classList.remove('v247-shaping');
+
+    if (typeof v241RefreshToolUI === 'function') {
+        v241RefreshToolUI();
+    }
+
+    document.querySelectorAll('[data-desktop-tool],[data-v2-tool]').forEach(function(button) {
+        const tool = button.dataset.desktopTool || button.dataset.v2Tool;
+        button.classList.toggle('active', tool === 'select');
+    });
+}
+
+/* Run after all older pointer-up handlers have finished. */
+paintCanvas.addEventListener('pointerup', function() {
+    if (!v247SelectionSession) return;
+    setTimeout(v248RestoreSelectSession, 0);
+}, false);
+
+paintCanvas.addEventListener('pointercancel', function() {
+    if (!v247SelectionSession) return;
+    setTimeout(v248RestoreSelectSession, 0);
+}, false);
+
+/* Touch can finish outside the canvas after dragging. */
+document.addEventListener('pointerup', function() {
+    if (!v247SelectionSession) return;
+    setTimeout(v248RestoreSelectSession, 0);
+}, false);
+
+/* DONE explicitly unlocks Select before returning to the previous tool. */
+document.querySelectorAll('[data-selection-done]').forEach(function(button) {
+    button.addEventListener('click', function() {
+        v247SelectionSession = false;
+    }, true);
+});
+
+/* Choosing any different explicit art tool also unlocks Select. */
+document.addEventListener('click', function(e) {
+    const button = e.target.closest('[data-desktop-tool],[data-v2-tool]');
+    if (!button) return;
+    const tool = button.dataset.desktopTool || button.dataset.v2Tool;
+    if (tool && tool !== 'select') {
+        v247SelectionSession = false;
+    }
+}, true);
+
 </script>
 
 
