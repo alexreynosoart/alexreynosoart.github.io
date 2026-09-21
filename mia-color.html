@@ -2409,6 +2409,45 @@ body:not(.has-selection) #clearSelectionTouch { display:none; }
     }
 }
 
+
+/* =========================
+   V2.4.6 SELECTION WORKFLOW
+   ========================= */
+.selection-done-v246 {
+    background:#111 !important;
+    color:#fff !important;
+    border-color:#111 !important;
+}
+.v246-selection-ops { margin-top:8px; }
+.v246-selection-actions {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:7px;
+    margin-top:8px;
+}
+.v246-selection-actions .v245-clear-selection {
+    display:block !important;
+    margin-top:0 !important;
+}
+[data-selection-op].active {
+    background:#111 !important;
+    color:#fff !important;
+    border-color:#111 !important;
+}
+
+/* FIT PAGE: true vertical centering. */
+#fitPageButton {
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    line-height:1.05 !important;
+    padding-top:0 !important;
+    padding-bottom:0 !important;
+}
+
+/* Eraser opacity uses one intuitive 5-100% scale, defaulting to full erase. */
+#eraserOpacity { direction:ltr; }
+
 </style>
 
 </head>
@@ -2444,7 +2483,10 @@ body:not(.has-selection) #clearSelectionTouch { display:none; }
             <button type="button" data-select-mode="free" class="active">FREE</button>
             <button type="button" data-select-mode="rect">SQUARE</button>
             <button type="button" data-select-mode="ellipse">CIRCLE</button>
-            <button type="button" id="clearSelectionV24">CLEAR SELECTION</button>
+            <button type="button" data-selection-op="add" class="active">+ ADD</button>
+            <button type="button" data-selection-op="subtract">− SUBTRACT</button>
+            <button type="button" data-selection-done class="selection-done-v246">DONE</button>
+            <button type="button" id="clearSelectionV24">CLEAR</button>
         </div>
         <div class="v24-mini-options" id="desktopShapeModes">
             <button type="button" data-shape-mode="line" class="active">LINE</button>
@@ -2843,7 +2885,14 @@ body:not(.has-selection) #clearSelectionTouch { display:none; }
                 <button class="brush-type" data-touch-select-mode="rect" type="button">SQUARE</button>
                 <button class="brush-type" data-touch-select-mode="ellipse" type="button">CIRCLE</button>
             </div>
-            <button class="v245-clear-selection" id="clearSelectionTouch" type="button">CLEAR SELECTION</button>
+            <div class="brush-type-grid v246-selection-ops">
+                <button class="brush-type active" data-selection-op="add" type="button">+ ADD</button>
+                <button class="brush-type" data-selection-op="subtract" type="button">− SUBTRACT</button>
+            </div>
+            <div class="v246-selection-actions">
+                <button class="v245-clear-selection" id="clearSelectionTouch" type="button">CLEAR</button>
+                <button class="v245-clear-selection selection-done-v246" data-selection-done type="button">DONE</button>
+            </div>
         </div>
 
         <div class="option-group v245-context-options" id="touchShapeModes">
@@ -7718,6 +7767,226 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
         });
     });
 });
+
+
+
+/* =========================
+   V2.4.6 PERSISTENT SELECTION
+   ========================= */
+
+let v246SelectionOp = 'add';
+let v246SelectionMask = null;
+let v246SelectionMaskCtx = null;
+let v246PendingPath = [];
+
+/* A real mask lets several Free/Square/Circle selections be added/subtracted. */
+function v246EnsureMask() {
+    if (!v246SelectionMask) {
+        v246SelectionMask = document.createElement('canvas');
+        v246SelectionMaskCtx = v246SelectionMask.getContext('2d');
+    }
+    if (v246SelectionMask.width !== paintCanvas.width ||
+        v246SelectionMask.height !== paintCanvas.height) {
+        const old = document.createElement('canvas');
+        old.width = v246SelectionMask.width || paintCanvas.width;
+        old.height = v246SelectionMask.height || paintCanvas.height;
+        if (v246SelectionMask.width && v246SelectionMask.height) {
+            old.getContext('2d').drawImage(v246SelectionMask,0,0);
+        }
+        v246SelectionMask.width = paintCanvas.width;
+        v246SelectionMask.height = paintCanvas.height;
+        if (old.width && old.height) v246SelectionMaskCtx.drawImage(old,0,0);
+    }
+}
+function v246MaskHasPixels() {
+    v246EnsureMask();
+    const d=v246SelectionMaskCtx.getImageData(0,0,v246SelectionMask.width,v246SelectionMask.height).data;
+    for(let i=3;i<d.length;i+=4) if(d[i]) return true;
+    return false;
+}
+function v246PathToMask(path,op) {
+    if(!path || path.length<3) return;
+    v246EnsureMask();
+    const c=v246SelectionMaskCtx;
+    c.save();
+    c.globalCompositeOperation = op==='subtract' ? 'destination-out' : 'source-over';
+    c.fillStyle='#000';
+    c.beginPath();
+    c.moveTo(path[0].x,path[0].y);
+    for(let i=1;i<path.length;i++) c.lineTo(path[i].x,path[i].y);
+    c.closePath();
+    c.fill();
+    c.restore();
+}
+function v246RenderMaskOutline() {
+    v246EnsureMask();
+    selectionCtx.clearRect(0,0,selectionCanvas.width,selectionCanvas.height);
+
+    /* Keep a visible marching-style edge around selected mask regions. */
+    const src=v246SelectionMaskCtx.getImageData(0,0,v246SelectionMask.width,v246SelectionMask.height);
+    const w=src.width,h=src.height,d=src.data;
+    const img=selectionCtx.createImageData(w,h);
+    const o=img.data;
+    for(let y=1;y<h-1;y++){
+        for(let x=1;x<w-1;x++){
+            const i=(y*w+x)*4;
+            if(!d[i+3]) continue;
+            const edge =
+                !d[i-4+3] || !d[i+4+3] ||
+                !d[i-w*4+3] || !d[i+w*4+3];
+            if(edge){
+                o[i]=17;o[i+1]=17;o[i+2]=17;o[i+3]=220;
+            }
+        }
+    }
+    selectionCtx.putImageData(img,0,0);
+    document.body.classList.toggle('has-selection',v246MaskHasPixels());
+}
+function v246ClearSelection() {
+    v246EnsureMask();
+    v246SelectionMaskCtx.clearRect(0,0,v246SelectionMask.width,v246SelectionMask.height);
+    selectionPath=[];
+    v246PendingPath=[];
+    selectionCtx.clearRect(0,0,selectionCanvas.width,selectionCanvas.height);
+    document.body.classList.remove('has-selection');
+}
+function v246SetOp(op) {
+    v246SelectionOp=op;
+    document.querySelectorAll('[data-selection-op]').forEach(b=>{
+        b.classList.toggle('active',b.dataset.selectionOp===op);
+    });
+}
+document.querySelectorAll('[data-selection-op]').forEach(b=>{
+    b.addEventListener('click',function(e){
+        e.preventDefault();e.stopPropagation();
+        v246SetOp(this.dataset.selectionOp);
+        if(currentTool!=='select'){
+            v241ToolBeforeSelect=currentTool;
+            selectTool('select');
+        }
+        v241RefreshToolUI();
+    });
+});
+
+/* Select is now intentionally persistent. DONE is the only automatic exit. */
+function v246DoneSelecting() {
+    if(currentTool!=='select') return;
+    const back=(v241ToolBeforeSelect && v241ToolBeforeSelect!=='select')
+        ? v241ToolBeforeSelect : 'fill';
+    selectTool(back);
+    v241RefreshToolUI();
+}
+document.querySelectorAll('[data-selection-done]').forEach(b=>{
+    b.addEventListener('click',function(e){
+        e.preventDefault();e.stopPropagation();
+        v246DoneSelecting();
+    });
+});
+
+/* Override the old auto-return helper. */
+v241FinishSelection = function() {
+    if(selectionPath && selectionPath.length>2){
+        v246PathToMask(selectionPath,v246SelectionOp);
+        v246RenderMaskOutline();
+    }
+    selecting=false;
+    v241SpecialActive=false;
+    v241SpecialStart=null;
+    /* Stay in Select until DONE. */
+    selectTool('select');
+    v241RefreshToolUI();
+};
+
+/* Freehand selection from the original engine also accumulates into the mask. */
+paintCanvas.addEventListener('pointerup',function(){
+    if(currentTool==='select' && v241SelectMode==='free' && selectionPath.length>2){
+        setTimeout(function(){
+            v246PathToMask(selectionPath,v246SelectionOp);
+            v246RenderMaskOutline();
+            selecting=false;
+            selectTool('select');
+            v241RefreshToolUI();
+        },1);
+    }
+},true);
+
+/* Both clear buttons clear the accumulated mask. */
+document.getElementById('clearSelectionV24')?.addEventListener('click',function(e){
+    e.preventDefault();e.stopImmediatePropagation();v246ClearSelection();
+},true);
+document.getElementById('clearSelectionTouch')?.addEventListener('click',function(e){
+    e.preventDefault();e.stopImmediatePropagation();v246ClearSelection();
+},true);
+
+/* Selection-aware hit test now reads the accumulated mask. */
+const v246OldPointInSelection = pointInSelection;
+pointInSelection = function(x,y){
+    if(v246SelectionMask && v246MaskHasPixels()){
+        const px=Math.max(0,Math.min(v246SelectionMask.width-1,Math.round(x)));
+        const py=Math.max(0,Math.min(v246SelectionMask.height-1,Math.round(y)));
+        return v246SelectionMaskCtx.getImageData(px,py,1,1).data[3]>0;
+    }
+    return v246OldPointInSelection(x,y);
+};
+
+/* Clip brush / eraser / shapes to the accumulated mask where possible. */
+function v246ApplyMaskClip(ctx){
+    if(!v246SelectionMask || !v246MaskHasPixels()) return false;
+    ctx.save();
+    ctx.globalCompositeOperation='destination-in';
+    ctx.drawImage(v246SelectionMask,0,0);
+    ctx.restore();
+    return true;
+}
+
+/* After a stroke, trim paint to mask. */
+const v246Stroke = drawStrokeSegment;
+drawStrokeSegment = function(x1,y1,x2,y2){
+    const result=v246Stroke(x1,y1,x2,y2);
+    if(currentTool==='brush' && v246SelectionMask && v246MaskHasPixels()){
+        v246ApplyMaskClip(paintCtx);
+    }
+    return result;
+};
+
+/* Shape commits also respect the mask. */
+const v246CommitShapeOld = v241CommitShape;
+v241CommitShape = function(a,b){
+    v246CommitShapeOld(a,b);
+    if(v246SelectionMask && v246MaskHasPixels()){
+        v246ApplyMaskClip(paintCtx);
+        snapshotActiveLayer();
+        renderLayerDisplay();
+    }
+};
+
+/* Clear accumulated selection when changing artwork/page. */
+document.querySelectorAll('.artwork-thumb').forEach(b=>{
+    b.addEventListener('click',function(){ setTimeout(v246ClearSelection,0); });
+});
+
+/* Eraser opacity: one source of truth, default 100% erase. */
+eraserOpacityV244=1;
+const v246Eraser=document.getElementById('eraserOpacity');
+if(v246Eraser){
+    v246Eraser.min='5';
+    v246Eraser.max='100';
+    v246Eraser.value='100';
+    document.getElementById('eraserOpacityReadout').textContent='100';
+}
+
+/* Reset keeps the current tool and also clears selection cleanly. */
+const v246ResetArtwork=resetArtwork;
+resetArtwork=function(){
+    const tool=currentTool, brush=brushType;
+    v246ResetArtwork();
+    v246ClearSelection();
+    brushType=brush;
+    selectTool(tool);
+    if(typeof v241RefreshToolUI==='function') v241RefreshToolUI();
+};
+
+v246SetOp('add');
 
 </script>
 
