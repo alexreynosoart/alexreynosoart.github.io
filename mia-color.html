@@ -2983,8 +2983,18 @@ body.v254-select-active #clearSelectionTouch {
                 <img src="images/mia-ocean-adventure-coloring-page.png" alt="">
                 OCEAN
             </button>
-            <button class="desktop-side-page placeholder" type="button" disabled>COMING<br>SOON</button>
-            <button class="desktop-side-page placeholder" type="button" disabled>COMING<br>SOON</button>
+            <button class="desktop-side-page" id="desktopSantaPage" type="button">
+                <img src="images/mia-santa-panda-coloring-page.png" alt="">
+                SANTA
+            </button>
+            <button class="desktop-side-page" id="desktopWitchPage" type="button">
+                <img src="images/mia-witch-panda-coloring-page.png" alt="">
+                WITCH
+            </button>
+            <button class="desktop-side-page" id="desktopGhostPage" type="button">
+                <img src="images/mia-bow-ghost-coloring-page.png" alt="">
+                GHOST
+            </button>
         </div>
     </section>
 
@@ -3008,7 +3018,7 @@ body.v254-select-active #clearSelectionTouch {
         </div>
     </section>
 
-    <div class="desktop-build-version" aria-hidden="true">v2.6.8</div>
+    <div class="desktop-build-version" aria-hidden="true">v2.6.9</div>
 </aside>
 
 <div class="studio">
@@ -3486,11 +3496,20 @@ body.v254-select-active #clearSelectionTouch {
             <span>Ocean Adventure</span>
         </button>
 
-        <div class="artwork-thumb future"
-             aria-label="Future drawing coming soon">
-            <span class="artwork-thumb-preview soon">♪</span>
-            <span>Coming Soon</span>
-        </div>
+        <button class="artwork-thumb" type="button" data-art="santa" title="Santa Panda">
+            <img src="images/mia-santa-panda-coloring-page.png" alt="Santa Panda coloring page">
+            <span>Santa Panda</span>
+        </button>
+
+        <button class="artwork-thumb" type="button" data-art="witch" title="Witch Panda">
+            <img src="images/mia-witch-panda-coloring-page.png" alt="Witch Panda coloring page">
+            <span>Witch Panda</span>
+        </button>
+
+        <button class="artwork-thumb" type="button" data-art="ghost" title="Bow Ghost">
+            <img src="images/mia-bow-ghost-coloring-page.png" alt="Bow Ghost coloring page">
+            <span>Bow Ghost</span>
+        </button>
 
         <p class="upload-note">
             Uploads stay on this device while you create.
@@ -3731,6 +3750,30 @@ body.v254-select-active #clearSelectionTouch {
             id: 'mia-ocean-adventure-001',
             title: 'Ocean Adventure',
             source: 'images/mia-ocean-adventure-coloring-page.png',
+            creator: 'Mia',
+            blank: false
+        },
+
+        santa: {
+            id: 'mia-santa-panda-001',
+            title: 'Santa Panda',
+            source: 'images/mia-santa-panda-coloring-page.png',
+            creator: 'Mia',
+            blank: false
+        },
+
+        witch: {
+            id: 'mia-witch-panda-001',
+            title: 'Witch Panda',
+            source: 'images/mia-witch-panda-coloring-page.png',
+            creator: 'Mia',
+            blank: false
+        },
+
+        ghost: {
+            id: 'mia-bow-ghost-001',
+            title: 'Bow Ghost',
+            source: 'images/mia-bow-ghost-coloring-page.png',
             creator: 'Mia',
             blank: false
         },
@@ -7495,6 +7538,18 @@ document.getElementById('desktopTiredPage')?.addEventListener('click', function(
 document.getElementById('desktopOceanPage')?.addEventListener('click', function(e) {
     e.preventDefault(); e.stopImmediatePropagation();
     document.querySelector('.artwork-thumb[data-art="ocean"]')?.click();
+}, true);
+document.getElementById('desktopSantaPage')?.addEventListener('click', function(e) {
+    e.preventDefault(); e.stopImmediatePropagation();
+    document.querySelector('.artwork-thumb[data-art="santa"]')?.click();
+}, true);
+document.getElementById('desktopWitchPage')?.addEventListener('click', function(e) {
+    e.preventDefault(); e.stopImmediatePropagation();
+    document.querySelector('.artwork-thumb[data-art="witch"]')?.click();
+}, true);
+document.getElementById('desktopGhostPage')?.addEventListener('click', function(e) {
+    e.preventDefault(); e.stopImmediatePropagation();
+    document.querySelector('.artwork-thumb[data-art="ghost"]')?.click();
 }, true);
 document.getElementById('desktopUploadPage')?.addEventListener('click', function(e) {
     e.preventDefault(); e.stopImmediatePropagation();
