@@ -2565,6 +2565,18 @@ body.v247-eraser .v250-mobile-eraser-opacity { display:flex; }
     z-index:62;
 }
 
+
+/* V2.5.3 clean selection controls */
+[data-v253-select-mode].active,
+[data-v253-selection-op].active {
+    background:#111 !important;
+    color:#fff !important;
+    border-color:#111 !important;
+}
+[data-v253-selection-done] {
+    cursor:pointer;
+}
+
 </style>
 
 </head>
@@ -2597,12 +2609,12 @@ body.v247-eraser .v250-mobile-eraser-opacity { display:flex; }
             <button data-desktop-tool="shape" type="button">LINE / SHAPE</button>
         </div>
         <div class="v24-mini-options" id="desktopSelectModes">
-            <button type="button" data-select-mode="free" class="active">FREE</button>
-            <button type="button" data-select-mode="rect">SQUARE</button>
-            <button type="button" data-select-mode="ellipse">CIRCLE</button>
-            <button type="button" data-selection-op="add" class="active">+ ADD</button>
-            <button type="button" data-selection-op="subtract">− SUBTRACT</button>
-            <button type="button" data-selection-done class="selection-done-v246">DONE</button>
+            <button type="button" data-v253-select-mode="free" class="active">FREE</button>
+            <button type="button" data-v253-select-mode="rect">SQUARE</button>
+            <button type="button" data-v253-select-mode="ellipse">CIRCLE</button>
+            <button type="button" data-v253-selection-op="add" class="active">+ ADD</button>
+            <button type="button" data-v253-selection-op="subtract">− SUBTRACT</button>
+            <button type="button" data-v253-selection-done class="selection-done-v246">DONE</button>
             <button type="button" id="clearSelectionV24">CLEAR</button>
         </div>
         <div class="v24-mini-options" id="desktopShapeModes">
@@ -2998,17 +3010,17 @@ body.v247-eraser .v250-mobile-eraser-opacity { display:flex; }
         <div class="option-group v245-context-options" id="touchSelectModes">
             <div class="option-label"><span>Select Shape</span><span></span></div>
             <div class="brush-type-grid">
-                <button class="brush-type active" data-touch-select-mode="free" type="button">FREE</button>
-                <button class="brush-type" data-touch-select-mode="rect" type="button">SQUARE</button>
-                <button class="brush-type" data-touch-select-mode="ellipse" type="button">CIRCLE</button>
+                <button class="brush-type active" data-v253-select-mode="free" type="button">FREE</button>
+                <button class="brush-type" data-v253-select-mode="rect" type="button">SQUARE</button>
+                <button class="brush-type" data-v253-select-mode="ellipse" type="button">CIRCLE</button>
             </div>
             <div class="brush-type-grid v246-selection-ops">
-                <button class="brush-type active" data-selection-op="add" type="button">+ ADD</button>
-                <button class="brush-type" data-selection-op="subtract" type="button">− SUBTRACT</button>
+                <button class="brush-type active" data-v253-selection-op="add" type="button">+ ADD</button>
+                <button class="brush-type" data-v253-selection-op="subtract" type="button">− SUBTRACT</button>
             </div>
             <div class="v246-selection-actions">
                 <button class="v245-clear-selection" id="clearSelectionTouch" type="button">CLEAR</button>
-                <button class="v245-clear-selection selection-done-v246" data-selection-done type="button">DONE</button>
+                <button class="v245-clear-selection selection-done-v246" data-v253-selection-done type="button">DONE</button>
             </div>
         </div>
 
@@ -7964,7 +7976,7 @@ function v246DoneSelecting() {
     selectTool(back);
     v241RefreshToolUI();
 }
-document.querySelectorAll('[data-selection-done]').forEach(b=>{
+document.querySelectorAll('[data-v253-selection-done]').forEach(b=>{
     b.addEventListener('click',function(e){
         e.preventDefault();e.stopPropagation();
         v246DoneSelecting();
@@ -8160,7 +8172,7 @@ document.addEventListener('click', function(e) {
 }, true);
 
 /* DONE is the intentional return to the tool used before Select. */
-document.querySelectorAll('[data-selection-done]').forEach(function(button) {
+document.querySelectorAll('[data-v253-selection-done]').forEach(function(button) {
     button.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopImmediatePropagation();
@@ -8315,7 +8327,7 @@ document.addEventListener('pointerup', function() {
 }, false);
 
 /* DONE explicitly unlocks Select before returning to the previous tool. */
-document.querySelectorAll('[data-selection-done]').forEach(function(button) {
+document.querySelectorAll('[data-v253-selection-done]').forEach(function(button) {
     button.addEventListener('click', function() {
         v247SelectionSession = false;
     }, true);
@@ -8428,7 +8440,7 @@ document.addEventListener('pointerup', function() {
 }, false);
 
 /* DONE is the only selection-specific exit. */
-document.querySelectorAll('[data-selection-done]').forEach(function(button) {
+document.querySelectorAll('[data-v253-selection-done]').forEach(function(button) {
     button.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopImmediatePropagation();
@@ -8676,7 +8688,7 @@ document.addEventListener('click',function(e){
 },true);
 
 /* DONE deliberately exits Select. */
-document.querySelectorAll('[data-selection-done]').forEach(button=>{
+document.querySelectorAll('[data-v253-selection-done]').forEach(button=>{
     button.addEventListener('click',function(e){
         e.preventDefault();
         e.stopImmediatePropagation();
@@ -9057,6 +9069,116 @@ document.addEventListener('click', function(e) {
 
     if (typeof v241RefreshToolUI === 'function') v241RefreshToolUI();
 }, true);
+
+
+
+/* =========================
+   V2.5.3 CLEAN SELECT CONTROLS
+   =========================
+   Visible Select controls no longer share attributes with the older
+   experimental handlers. One small controller owns them.
+*/
+
+function v253KeepSelect() {
+    currentTool = 'select';
+    v249Selecting = true;
+    v247SelectionSession = true;
+    document.body.classList.add('v247-selecting');
+    document.body.classList.add('v241-select-active');
+    if (typeof v241RefreshToolUI === 'function') v241RefreshToolUI();
+}
+
+document.querySelectorAll('[data-v253-select-mode]').forEach(function(button) {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        v241SelectMode = this.dataset.v253SelectMode;
+
+        document.querySelectorAll('[data-v253-select-mode]').forEach(function(b) {
+            b.classList.toggle('active', b.dataset.v253SelectMode === v241SelectMode);
+        });
+
+        v253KeepSelect();
+    });
+});
+
+document.querySelectorAll('[data-v253-selection-op]').forEach(function(button) {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        v246SelectionOp = this.dataset.v253SelectionOp;
+
+        document.querySelectorAll('[data-v253-selection-op]').forEach(function(b) {
+            b.classList.toggle('active', b.dataset.v253SelectionOp === v246SelectionOp);
+        });
+
+        v253KeepSelect();
+    });
+});
+
+document.querySelectorAll('[data-v253-selection-done]').forEach(function(button) {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        v252Selecting = false;
+        v249Selecting = false;
+        v247SelectionSession = false;
+        v250ClearPreview();
+        document.body.classList.remove('v247-selecting');
+        document.body.classList.remove('v241-select-active');
+
+        const back = (v241ToolBeforeSelect && v241ToolBeforeSelect !== 'select')
+            ? v241ToolBeforeSelect
+            : 'fill';
+
+        selectTool(back);
+        if (typeof v241RefreshToolUI === 'function') v241RefreshToolUI();
+        this.blur();
+    });
+});
+
+/* Critical correction:
+   canvasFrame receives the pointer before paintCanvas. The prior V2.5.2
+   check incorrectly rejected events whenever an overlay canvas was the
+   event target. Selection should accept ANY pointer beginning in canvasFrame.
+*/
+canvasFrame.removeEventListener('pointerdown', v252Down, true);
+
+function v253SelectionDown(e) {
+    if (!v252SelectionActive()) return;
+    if (e.pointerType === 'touch' && activePointers && activePointers.size >= 2) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    currentTool = 'select';
+    v249Selecting = true;
+    v247SelectionSession = true;
+
+    v252Selecting = true;
+    v252PointerId = e.pointerId;
+    v252Start = v252Point(e);
+    v252Path = [{x:v252Start.x, y:v252Start.y}];
+
+    v252Preview(v252Path);
+
+    try { paintCanvas.setPointerCapture(e.pointerId); } catch(_) {}
+}
+
+canvasFrame.addEventListener('pointerdown', v253SelectionDown, true);
+
+/* Initial clean states */
+v241SelectMode = 'free';
+v246SelectionOp = 'add';
+document.querySelectorAll('[data-v253-select-mode]').forEach(function(b) {
+    b.classList.toggle('active', b.dataset.v253SelectMode === 'free');
+});
+document.querySelectorAll('[data-v253-selection-op]').forEach(function(b) {
+    b.classList.toggle('active', b.dataset.v253SelectionOp === 'add');
+});
 
 </script>
 
