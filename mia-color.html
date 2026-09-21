@@ -2419,7 +2419,7 @@ body:not(.has-selection) #clearSelectionTouch { display:none; }
 /* Desktop-only build marker. Does not exist in mobile layout. */
 @media (min-width:1001px) {
     .desktop-studio-sidebar::after {
-        content:"v2.5.6";
+        content:"";
         display:block;
         margin-top:8px;
         text-align:center;
@@ -2614,6 +2614,47 @@ body.v254-eraser-active #touchEraserOpacityWrap { display:flex; }
     }
 }
 
+
+/* =====================================================
+   V2.5.7 MOBILE PANEL + BUILD LABEL
+   ===================================================== */
+
+.desktop-build-version {
+    display:none;
+}
+
+@media (min-width:1001px) {
+    .desktop-build-version {
+        display:block;
+        flex:0 0 auto;
+        margin:7px 0 1px;
+        text-align:center;
+        font-size:10px;
+        line-height:1;
+        font-weight:700;
+        letter-spacing:.04em;
+        color:#777;
+        pointer-events:none;
+        user-select:none;
+    }
+}
+
+@media (max-width:1000px) {
+    /* Keep the mobile eraser value plainly visible. */
+    #touchEraserOpacityWrap .mobile-brush-value {
+        display:block !important;
+        flex:0 0 48px !important;
+        min-width:48px;
+        color:#444 !important;
+        font-weight:800;
+        opacity:1 !important;
+    }
+
+    #touchEraserOpacity {
+        min-width:80px;
+    }
+}
+
 </style>
 
 </head>
@@ -2718,6 +2759,8 @@ body.v254-eraser-active #touchEraserOpacityWrap { display:flex; }
             <button class="desktop-side-action save" id="desktopSaveSide" type="button">SAVE</button>
         </div>
     </section>
+
+    <div class="desktop-build-version" aria-hidden="true">v2.5.7</div>
 </aside>
 
 <div class="studio">
@@ -4933,7 +4976,9 @@ body.v254-eraser-active #touchEraserOpacityWrap { display:flex; }
     document.querySelectorAll('[data-v2-tool]').forEach(function(button) {
         button.addEventListener('click', function() {
             selectTool(this.dataset.v2Tool);
-            closeFloatingPanels();
+            /* Mobile/tablet stays open so sub-options can be adjusted.
+               Close only with X or by tapping the backdrop. */
+            if (window.innerWidth > 1000) closeFloatingPanels();
         });
     });
 
@@ -4980,7 +5025,8 @@ body.v254-eraser-active #touchEraserOpacityWrap { display:flex; }
             document.getElementById('brushTypeReadout').textContent =
                 brushType.charAt(0).toUpperCase() + brushType.slice(1);
             if (currentTool !== 'brush') selectTool('brush');
-            closeFloatingPanels();
+            /* Mobile/tablet stays open until X or backdrop tap. */
+            if (window.innerWidth > 1000) closeFloatingPanels();
         });
     });
 
@@ -8694,6 +8740,63 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
     /* Start with no stale clip from a prior page/session. */
     window.__miaSelectionClipV256 = null;
     window.__miaSelectionHasClipV256 = false;
+})();
+</script>
+
+
+<script>
+/* =====================================================
+   V2.5.7 MOBILE ERASER INITIALIZATION
+   ===================================================== */
+(() => {
+    "use strict";
+
+    let mobileEraserStarted = false;
+
+    function setMobileEraser(value) {
+        const n = Math.max(0, Math.min(100, Number(value)));
+        eraserOpacityV244 = n / 100;
+
+        const slider = document.getElementById("touchEraserOpacity");
+        const readout = document.getElementById("touchEraserOpacityReadout");
+        const desktop = document.getElementById("eraserOpacity");
+        const desktopReadout = document.getElementById("eraserOpacityReadout");
+
+        if (slider) slider.value = String(n);
+        if (readout) readout.textContent = Math.round(n) + "%";
+        if (desktop) desktop.value = String(n);
+        if (desktopReadout) desktopReadout.textContent = String(Math.round(n));
+    }
+
+    /* Guarantee the first mobile eraser session begins at 100%.
+       After the user changes it, their chosen value is preserved. */
+    document.querySelectorAll('.mobile-tools [data-tool="eraser"]').forEach(button => {
+        button.addEventListener("click", () => {
+            if (!mobileEraserStarted) {
+                mobileEraserStarted = true;
+                setMobileEraser(100);
+            } else {
+                const slider = document.getElementById("touchEraserOpacity");
+                if (slider) setMobileEraser(slider.value);
+            }
+        }, true);
+    });
+
+    const slider = document.getElementById("touchEraserOpacity");
+    if (slider) {
+        slider.min = "0";
+        slider.max = "100";
+        slider.step = "1";
+        slider.value = "100";
+
+        slider.addEventListener("input", function() {
+            mobileEraserStarted = true;
+            setMobileEraser(this.value);
+        }, true);
+    }
+
+    /* Initial DOM/readout state only. No canvas/pointer handlers added here. */
+    setMobileEraser(100);
 })();
 </script>
 
