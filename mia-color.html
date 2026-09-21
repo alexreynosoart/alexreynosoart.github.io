@@ -2448,6 +2448,52 @@ body:not(.has-selection) #clearSelectionTouch { display:none; }
 /* Eraser opacity uses one intuitive 5-100% scale, defaulting to full erase. */
 #eraserOpacity { direction:ltr; }
 
+
+/* =========================
+   V2.4.7 QA FIXES
+   ========================= */
+
+/* DONE is an action, not a selected state. */
+.selection-done-v246,
+.selection-done-v246:focus {
+    background:#fff !important;
+    color:#111 !important;
+    border-color:#d8d8d8 !important;
+}
+.selection-done-v246:active {
+    background:#111 !important;
+    color:#fff !important;
+}
+
+/* Touch selection and shape sub-controls stay visible inside Tools. */
+body.v247-selecting #touchSelectModes { display:block !important; }
+body.v247-shaping #touchShapeModes { display:block !important; }
+
+/* Mobile/tablet eraser opacity is contextual and compact. */
+.v247-touch-eraser-opacity {
+    display:none;
+    margin-top:8px;
+}
+body.v247-eraser .v247-touch-eraser-opacity { display:block; }
+
+/* Hide the duplicate FIT PAGE button on phone/tablet. Keep original FIT. */
+@media (max-width:1000px) {
+    #fitPageButton { display:none !important; }
+}
+
+/* Momentary topbar controls must not look latched on touch. */
+@media (pointer:coarse) {
+    #fitButton.active,
+    #fullscreenButton.active,
+    #fitButton:focus,
+    #fullscreenButton:focus {
+        background:#fff !important;
+        color:#111 !important;
+        border-color:#d8d8d8 !important;
+        box-shadow:none !important;
+    }
+}
+
 </style>
 
 </head>
@@ -7987,6 +8033,206 @@ resetArtwork=function(){
 };
 
 v246SetOp('add');
+
+
+
+/* =========================
+   V2.4.7 INTERACTION REPAIR
+   ========================= */
+
+/* Selection is persistent. Nothing except DONE or another explicit tool leaves it. */
+let v247SelectionSession = false;
+
+function v247EnterSelect() {
+    if (currentTool !== 'select') {
+        v241ToolBeforeSelect = currentTool;
+    }
+    v247SelectionSession = true;
+    selectTool('select');
+    document.body.classList.add('v247-selecting');
+    document.body.classList.remove('v247-shaping');
+    if (typeof v241RefreshToolUI === 'function') v241RefreshToolUI();
+}
+function v247EnterShape() {
+    v247SelectionSession = false;
+    selectTool('shape');
+    document.body.classList.add('v247-shaping');
+    document.body.classList.remove('v247-selecting');
+    if (typeof v241RefreshToolUI === 'function') v241RefreshToolUI();
+}
+function v247LeaveSpecialModes() {
+    v247SelectionSession = false;
+    document.body.classList.remove('v247-selecting','v247-shaping');
+}
+
+/* Override old selection finisher so it NEVER returns to previous tool. */
+v241FinishSelection = function() {
+    if (selectionPath && selectionPath.length > 2) {
+        v246PathToMask(selectionPath, v246SelectionOp);
+        v246RenderMaskOutline();
+    }
+    selecting = false;
+    v241SpecialActive = false;
+    v241SpecialStart = null;
+    v247EnterSelect();
+};
+
+/* Capture all Select / Shape entry controls before older handlers can auto-close/switch. */
+document.addEventListener('click', function(e) {
+    const desktopTool = e.target.closest('[data-desktop-tool]');
+    const touchTool = e.target.closest('[data-v2-tool]');
+
+    const requested = desktopTool?.dataset.desktopTool || touchTool?.dataset.v2Tool;
+    if (requested === 'select') {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        v247EnterSelect();
+        return;
+    }
+    if (requested === 'shape') {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        v247EnterShape();
+        return;
+    }
+
+    const selMode = e.target.closest('[data-select-mode],[data-touch-select-mode]');
+    if (selMode) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        v241SelectMode = selMode.dataset.selectMode || selMode.dataset.touchSelectMode;
+        document.querySelectorAll('[data-select-mode]').forEach(b =>
+            b.classList.toggle('active', b.dataset.selectMode === v241SelectMode));
+        document.querySelectorAll('[data-touch-select-mode]').forEach(b =>
+            b.classList.toggle('active', b.dataset.touchSelectMode === v241SelectMode));
+        v247EnterSelect();
+        return;
+    }
+
+    const shapeMode = e.target.closest('[data-shape-mode],[data-touch-shape-mode]');
+    if (shapeMode) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        v241ShapeMode = shapeMode.dataset.shapeMode || shapeMode.dataset.touchShapeMode;
+        document.querySelectorAll('[data-shape-mode]').forEach(b =>
+            b.classList.toggle('active', b.dataset.shapeMode === v241ShapeMode));
+        document.querySelectorAll('[data-touch-shape-mode]').forEach(b =>
+            b.classList.toggle('active', b.dataset.touchShapeMode === v241ShapeMode));
+        v247EnterShape();
+        return;
+    }
+
+    /* Any actual different art tool intentionally ends Select. */
+    if (requested && requested !== 'select' && requested !== 'shape') {
+        v247LeaveSpecialModes();
+    }
+}, true);
+
+/* DONE is the intentional return to the tool used before Select. */
+document.querySelectorAll('[data-selection-done]').forEach(function(button) {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        const back = (v241ToolBeforeSelect && v241ToolBeforeSelect !== 'select')
+            ? v241ToolBeforeSelect : 'fill';
+        v247LeaveSpecialModes();
+        selectTool(back);
+        if (typeof v241RefreshToolUI === 'function') v241RefreshToolUI();
+        button.blur();
+    }, true);
+});
+
+/* Do not auto-close Tools after Fill / Select / Shape on touch.
+   X and the existing outside backdrop remain the close controls. */
+document.querySelectorAll('[data-v2-tool]').forEach(function(button) {
+    button.addEventListener('click', function(e) {
+        const tool = this.dataset.v2Tool;
+        if (tool === 'fill' || tool === 'select' || tool === 'shape') {
+            e.stopImmediatePropagation();
+            if (tool === 'fill') {
+                v247LeaveSpecialModes();
+                selectTool('fill');
+            } else if (tool === 'select') {
+                v247EnterSelect();
+            } else {
+                v247EnterShape();
+            }
+            this.blur();
+        }
+    }, true);
+});
+
+/* One eraser-opacity value, linear 0-100%. Remove the old 5% floor. */
+eraserOpacityV244 = 1;
+const desktopEraseOpacity = document.getElementById('eraserOpacity');
+const touchEraseOpacity = document.getElementById('touchEraserOpacity');
+const desktopEraseReadout = document.getElementById('eraserOpacityReadout');
+const touchEraseReadout = document.getElementById('touchEraserOpacityReadout');
+
+function v247SetEraserOpacity(value) {
+    const n = Math.max(0, Math.min(100, Number(value)));
+    eraserOpacityV244 = n / 100;
+    if (desktopEraseOpacity) desktopEraseOpacity.value = n;
+    if (touchEraseOpacity) touchEraseOpacity.value = n;
+    if (desktopEraseReadout) desktopEraseReadout.textContent = Math.round(n);
+    if (touchEraseReadout) touchEraseReadout.textContent = Math.round(n) + '%';
+}
+if (desktopEraseOpacity) {
+    desktopEraseOpacity.min = '0';
+    desktopEraseOpacity.max = '100';
+    desktopEraseOpacity.value = '100';
+    desktopEraseOpacity.oninput = function(){ v247SetEraserOpacity(this.value); };
+}
+if (touchEraseOpacity) {
+    touchEraseOpacity.oninput = function(){ v247SetEraserOpacity(this.value); };
+}
+v247SetEraserOpacity(100);
+
+/* Partial eraser must use destination-out alpha linearly.
+   This replaces the previous opacity substitution behavior. */
+const v247BaseStroke = v244DrawStrokeSegment;
+drawStrokeSegment = function(x1,y1,x2,y2) {
+    if (currentTool !== 'eraser') {
+        return v247BaseStroke(x1,y1,x2,y2);
+    }
+
+    paintCtx.save();
+    paintCtx.globalCompositeOperation = 'destination-out';
+    paintCtx.globalAlpha = eraserOpacityV244;
+    paintCtx.lineWidth = brushSize;
+    paintCtx.lineCap = 'round';
+    paintCtx.lineJoin = 'round';
+    paintCtx.beginPath();
+    paintCtx.moveTo(x1,y1);
+    paintCtx.lineTo(x2,y2);
+    paintCtx.stroke();
+    paintCtx.restore();
+
+    hasUnsavedChanges = true;
+};
+
+/* Show the one eraser control whenever Erase is active. */
+const v247SelectToolBase = selectTool;
+selectTool = function(tool) {
+    const result = v247SelectToolBase(tool);
+    document.body.classList.toggle('v247-eraser', tool === 'eraser');
+    if (tool !== 'select' && tool !== 'shape' && tool !== 'eraser') {
+        document.body.classList.remove('v247-selecting','v247-shaping');
+    }
+    return result;
+};
+
+/* FIT and fullscreen are actions, not modes. Remove visual latch after activation. */
+['fitButton','fitPageButton','fullscreenButton'].forEach(function(id){
+    const b=document.getElementById(id);
+    if(!b) return;
+    b.addEventListener('click',function(){
+        requestAnimationFrame(()=>{
+            b.classList.remove('active');
+            b.blur();
+        });
+    },true);
+});
 
 </script>
 
