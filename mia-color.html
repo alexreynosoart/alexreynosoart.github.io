@@ -2783,7 +2783,7 @@ body.v254-eraser-active #touchEraserOpacityWrap { display:flex; }
         </div>
     </section>
 
-    <div class="desktop-build-version" aria-hidden="true">v2.6.0</div>
+    <div class="desktop-build-version" aria-hidden="true">v2.6.1</div>
 </aside>
 
 <div class="studio">
@@ -8758,6 +8758,227 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
        from the user's previous test screenshot. */
     setEraserPct(100);
     setBrushPct(100);
+})();
+</script>
+
+
+<script>
+/* =====================================================
+   V2.6.1 SELECT DISPLAY + DONE
+   Display/state only. Fill and selection mask engines
+   are intentionally left unchanged.
+   ===================================================== */
+(() => {
+    "use strict";
+
+    const overlay = document.getElementById("selectionCanvas");
+    if (!overlay) return;
+    const ctx = overlay.getContext("2d");
+
+    let visibleMask = document.createElement("canvas");
+    let visibleCtx = visibleMask.getContext("2d", {willReadFrequently:true});
+    let drawing = false;
+    let pointerId = null;
+    let start = null;
+    let points = [];
+    let mode = "free";
+    let op = "add";
+    let dashOffset = 0;
+    let timer = null;
+
+    function sizeMask() {
+        if (visibleMask.width === paintCanvas.width &&
+            visibleMask.height === paintCanvas.height) return;
+        visibleMask.width = paintCanvas.width;
+        visibleMask.height = paintCanvas.height;
+        visibleCtx = visibleMask.getContext("2d", {willReadFrequently:true});
+    }
+
+    function p(e) { return getCanvasPoint(e); }
+
+    function rect(a,b) {
+        return [{x:a.x,y:a.y},{x:b.x,y:a.y},{x:b.x,y:b.y},{x:a.x,y:b.y}];
+    }
+
+    function ellipse(a,b) {
+        const arr=[];
+        const cx=(a.x+b.x)/2, cy=(a.y+b.y)/2;
+        const rx=Math.abs(b.x-a.x)/2, ry=Math.abs(b.y-a.y)/2;
+        for(let i=0;i<72;i++){
+            const t=i/72*Math.PI*2;
+            arr.push({x:cx+Math.cos(t)*rx,y:cy+Math.sin(t)*ry});
+        }
+        return arr;
+    }
+
+    function shape(end) {
+        if(mode==="rect") return rect(start,end);
+        if(mode==="ellipse") return ellipse(start,end);
+        return points;
+    }
+
+    function hasVisibleSelection() {
+        sizeMask();
+        const d=visibleCtx.getImageData(0,0,visibleMask.width,visibleMask.height).data;
+        for(let i=3;i<d.length;i+=4) if(d[i]) return true;
+        return false;
+    }
+
+    function drawAnts() {
+        ctx.clearRect(0,0,overlay.width,overlay.height);
+        sizeMask();
+
+        const w=visibleMask.width, h=visibleMask.height;
+        const src=visibleCtx.getImageData(0,0,w,h).data;
+        const out=ctx.createImageData(w,h);
+        const dst=out.data;
+
+        for(let y=1;y<h-1;y++){
+            for(let x=1;x<w-1;x++){
+                const n=y*w+x;
+                if(!src[n*4+3]) continue;
+                if(src[(n-1)*4+3] && src[(n+1)*4+3] &&
+                   src[(n-w)*4+3] && src[(n+w)*4+3]) continue;
+
+                const dark=((x+y+dashOffset)%16)<8;
+                for(let oy=-1;oy<=1;oy++){
+                    for(let ox=-1;ox<=1;ox++){
+                        const xx=x+ox, yy=y+oy;
+                        if(xx<0||yy<0||xx>=w||yy>=h) continue;
+                        const i=(yy*w+xx)*4;
+                        const c=dark?0:255;
+                        dst[i]=c; dst[i+1]=c; dst[i+2]=c; dst[i+3]=255;
+                    }
+                }
+            }
+        }
+        ctx.putImageData(out,0,0);
+    }
+
+    function startAnts() {
+        if(timer) return;
+        timer=setInterval(()=>{
+            if(!hasVisibleSelection()) return;
+            dashOffset=(dashOffset+1)%16;
+            drawAnts();
+        },180);
+    }
+
+    function commit(path) {
+        if(!path || path.length<3) return;
+        sizeMask();
+
+        const temp=document.createElement("canvas");
+        temp.width=visibleMask.width;
+        temp.height=visibleMask.height;
+        const t=temp.getContext("2d");
+        t.fillStyle="#fff";
+        t.beginPath();
+        t.moveTo(path[0].x,path[0].y);
+        for(let i=1;i<path.length;i++) t.lineTo(path[i].x,path[i].y);
+        t.closePath();
+        t.fill();
+
+        visibleCtx.save();
+        visibleCtx.globalCompositeOperation =
+            op==="subtract" ? "destination-out" : "source-over";
+        visibleCtx.drawImage(temp,0,0);
+        visibleCtx.restore();
+
+        drawAnts();
+        startAnts();
+    }
+
+    function clearVisible() {
+        sizeMask();
+        visibleCtx.clearRect(0,0,visibleMask.width,visibleMask.height);
+        ctx.clearRect(0,0,overlay.width,overlay.height);
+        if(timer){ clearInterval(timer); timer=null; }
+    }
+
+    /* Track the exact visible Select controls. */
+    document.querySelectorAll("[data-v253-select-mode]").forEach(b=>{
+        b.addEventListener("click",()=>{
+            mode=b.dataset.v253SelectMode;
+        },true);
+    });
+    document.querySelectorAll("[data-v253-selection-op]").forEach(b=>{
+        b.addEventListener("click",()=>{
+            op=b.dataset.v253SelectionOp;
+        },true);
+    });
+
+    /* Mirror the already-working selection gesture only for display.
+       Capture on canvasFrame means the preview is not lost to older handlers. */
+    canvasFrame.addEventListener("pointerdown",e=>{
+        if(currentTool!=="select") return;
+        if(!canvasStage.contains(e.target)) return;
+        drawing=true;
+        pointerId=e.pointerId;
+        start=p(e);
+        points=[{x:start.x,y:start.y}];
+    },true);
+
+    canvasFrame.addEventListener("pointermove",e=>{
+        if(!drawing || e.pointerId!==pointerId) return;
+        const end=p(e);
+        if(mode==="free") points.push({x:end.x,y:end.y});
+        else points=shape(end);
+    },true);
+
+    canvasFrame.addEventListener("pointerup",e=>{
+        if(!drawing || e.pointerId!==pointerId) return;
+        const end=p(e);
+        if(mode!=="free") points=shape(end);
+
+        const dist=start?Math.hypot(end.x-start.x,end.y-start.y):0;
+        const valid=mode==="free" ? points.length>4 : dist>=5;
+        if(valid) commit(points);
+
+        drawing=false;
+        pointerId=null;
+        start=null;
+        points=[];
+    },true);
+
+    canvasFrame.addEventListener("pointercancel",()=>{
+        drawing=false; pointerId=null; start=null; points=[];
+    },true);
+
+    /* CLEAR stays in Select but clears both visible and authoritative masks. */
+    ["clearSelectionV24","clearSelectionTouch"].forEach(id=>{
+        document.getElementById(id)?.addEventListener("click",()=>{
+            clearVisible();
+        },true);
+    });
+
+    /* DONE means DONE:
+       clear/deselect, remove ants, exit Select, and let the existing
+       Done handler return to the previous tool. */
+    document.querySelectorAll("[data-v253-selection-done]").forEach(b=>{
+        b.addEventListener("click",()=>{
+            clearVisible();
+
+            /* Clear the authoritative selection through the existing Clear
+               control, then allow the existing Done lifecycle to run. */
+            const clear =
+                document.getElementById("clearSelectionV24") ||
+                document.getElementById("clearSelectionTouch");
+            if(clear) clear.click();
+
+            window.__miaSelectionClipV256=null;
+            window.__miaSelectionHasClipV256=false;
+
+            document.body.classList.remove(
+                "v254-select-active","has-selection","v247-selecting","v241-select-active"
+            );
+        },true);
+    });
+
+    /* If a new page/reset destroys the selection, don't leave stale ants. */
+    ["resetButton","resetMobile","resetMobileTop"].forEach(id=>{
+        document.getElementById(id)?.addEventListener("click",clearVisible,true);
+    });
 })();
 </script>
 
