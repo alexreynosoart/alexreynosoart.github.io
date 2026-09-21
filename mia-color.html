@@ -2308,6 +2308,32 @@ body.v241-shape-active #desktopShapeModes { display:flex; }
         opacity:.82;
     }
 }
+
+/* =========================
+   V2.4.3 POLISH FIX
+   ========================= */
+
+/* Touch position is driven by CSS variables so old !important coordinates cannot pin it. */
+body.v242-touch-active .tool-indicator {
+    left: var(--v243-touch-x, 50%) !important;
+    top: var(--v243-touch-y, 50%) !important;
+}
+
+/* Make the live shape preview unmistakable. */
+#shapePreviewCanvasV242 {
+    z-index: 60 !important;
+    opacity: .9;
+}
+
+/* Desktop brush buttons visibly show which brush is selected. */
+#desktopPen.active,
+#desktopMarker.active,
+#desktopTexture.active {
+    background:#111 !important;
+    color:#fff !important;
+    border-color:#111 !important;
+}
+
 </style>
 
 </head>
@@ -2736,11 +2762,7 @@ body.v241-shape-active #desktopShapeModes { display:flex; }
             <input class="v2-range" id="opacitySlider" type="range" min="5" max="100" value="100">
         </div>
 
-        <div class="option-group">
-            <div class="option-label"><span>Color</span><span></span></div>
-            <div class="palette v2-palette" id="v2Palette"></div>
-            <div class="gray-strip" id="grayStrip"></div>
-        </div>
+        
 
         <p class="selection-note" id="selectionHelp" hidden>
             Select uses a freehand lasso. Draw around an area, then use Fill or Eraser to work inside it.
@@ -5710,10 +5732,11 @@ body.v241-shape-active #desktopShapeModes { display:flex; }
                 paintCtx.globalAlpha = Math.min(brushOpacity, 0.42);
                 paintCtx.lineWidth = brushSize * 1.35;
             } else if (brushType === 'soft') {
-                paintCtx.globalAlpha = Math.min(brushOpacity, 0.18);
+                /* V2.4.3: noticeably softer watercolor / airbrush feel */
+                paintCtx.globalAlpha = Math.min(brushOpacity, 0.09);
                 paintCtx.shadowColor = currentColor;
-                paintCtx.shadowBlur = brushSize * 0.65;
-                paintCtx.lineWidth = brushSize * 1.2;
+                paintCtx.shadowBlur = brushSize * 1.45;
+                paintCtx.lineWidth = brushSize * 1.55;
             } else if (brushType === 'texture') {
                 paintCtx.globalAlpha = Math.min(brushOpacity, 0.62);
                 paintCtx.lineWidth = brushSize * 0.55;
@@ -6424,47 +6447,46 @@ body.v241-shape-active #desktopShapeModes { display:flex; }
 
     function resetArtwork() {
 
-        const okay =
-            confirm(
-                'Start over with a clean page?'
-            );
+        const okay = confirm('Start over with a clean page?');
+        if (!okay) return;
 
-        if (
-            !okay
-        ) {
-            return;
-        }
+        /* Preserve the artist's current working choices. */
+        const toolBeforeReset = currentTool;
+        const brushBeforeReset = brushType;
+        const layerBeforeReset = activeLayerId;
 
-        paintCtx.clearRect(
-            0,
-            0,
-            paintCanvas.width,
-            paintCanvas.height
-        );
+        paintCtx.clearRect(0,0,paintCanvas.width,paintCanvas.height);
 
         studioLayers.forEach(function(layer) {
-            layer.canvas.getContext('2d').clearRect(0,0,layer.canvas.width,layer.canvas.height);
+            layer.canvas.getContext('2d').clearRect(
+                0,0,layer.canvas.width,layer.canvas.height
+            );
         });
-        if (studioLayers.length) {
+
+        /* Keep the same active layer when it still exists. */
+        if (studioLayers.some(layer => layer.id === layerBeforeReset)) {
+            activeLayerId = layerBeforeReset;
+        } else if (studioLayers.length) {
             activeLayerId = studioLayers[0].id;
         }
-        renderLayerDisplay();
-        renderLayersUI();
+
         selectionCtx.clearRect(0,0,selectionCanvas.width,selectionCanvas.height);
         selectionPath = [];
+        document.body.classList.remove('has-selection');
 
         history = [];
-
         historyIndex = -1;
 
+        brushType = brushBeforeReset;
+        selectTool(toolBeforeReset);
+        renderLayerDisplay();
+        renderLayersUI();
         saveHistory();
 
+        /* Reset the view, not the selected art tool. */
         fitArtwork();
 
-        selectTool(
-            'fill'
-        );
-
+        if (typeof v241RefreshToolUI === 'function') v241RefreshToolUI();
     }
 
 
@@ -7304,6 +7326,90 @@ canvasFrame.addEventListener('pointerup',v242TouchEnd,true);
 canvasFrame.addEventListener('pointercancel',v242TouchEnd,true);
 
 window.addEventListener('resize',function(){v242ResizePreview();v242ClearPreview();});
+
+
+
+/* =========================
+   V2.4.3 POLISH JS
+   ========================= */
+
+/* Live shape preview from the canvas frame capture phase.
+   This runs before the shape engine's target-level stopImmediatePropagation. */
+canvasFrame.addEventListener('pointermove', function(e) {
+    if (
+        currentTool === 'shape' &&
+        v241SpecialActive &&
+        v241SpecialStart
+    ) {
+        v242PreviewShape(v241SpecialStart, getCanvasPoint(e));
+    }
+}, true);
+
+canvasFrame.addEventListener('pointerup', function() {
+    if (currentTool === 'shape') {
+        setTimeout(v242ClearPreview, 0);
+    }
+}, true);
+
+/* Touch marker follows the actual contact point instead of the old pinned corner. */
+function v243SetTouchPosition(e) {
+    const r = canvasFrame.getBoundingClientRect();
+    document.body.style.setProperty('--v243-touch-x', (e.clientX - r.left) + 'px');
+    document.body.style.setProperty('--v243-touch-y', (e.clientY - r.top) + 'px');
+}
+canvasFrame.addEventListener('pointerdown', function(e) {
+    if (e.pointerType === 'touch') v243SetTouchPosition(e);
+}, true);
+canvasFrame.addEventListener('pointermove', function(e) {
+    if (e.pointerType === 'touch') v243SetTouchPosition(e);
+}, true);
+
+/* Desktop brush buttons are real brush choices and show their active state. */
+function v243DesktopBrushState(type) {
+    const map = {
+        pen: document.getElementById('desktopPen'),
+        marker: document.getElementById('desktopMarker'),
+        texture: document.getElementById('desktopTexture')
+    };
+    Object.entries(map).forEach(([name, button]) => {
+        if (button) button.classList.toggle('active', name === type && currentTool === 'brush');
+    });
+}
+
+document.getElementById('desktopPen')?.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    brushType = 'pen';
+    selectTool('brush');
+    v243DesktopBrushState('pen');
+    v241RefreshToolUI();
+}, true);
+
+document.getElementById('desktopMarker')?.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    brushType = 'marker';
+    selectTool('brush');
+    v243DesktopBrushState('marker');
+    v241RefreshToolUI();
+}, true);
+
+document.getElementById('desktopTexture')?.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    brushType = 'texture';
+    selectTool('brush');
+    v243DesktopBrushState('texture');
+    v241RefreshToolUI();
+}, true);
+
+/* Keep desktop brush highlight synchronized after any tool change. */
+const v243OldRefreshToolUI = v241RefreshToolUI;
+v241RefreshToolUI = function() {
+    v243OldRefreshToolUI();
+    v243DesktopBrushState(brushType);
+};
+v241RefreshToolUI();
 
 </script>
 
