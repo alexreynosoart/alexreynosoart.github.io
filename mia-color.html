@@ -1734,6 +1734,139 @@ body {
             }
         }
 
+
+        /* =========================
+           V2.2 POLISH
+           ========================= */
+
+        /* Prevent iPhone Safari from zooming the page when renaming a layer. */
+        .layer-name {
+            font-size: 16px !important;
+        }
+
+        .panel-head {
+            position: sticky;
+            top: -14px;
+            z-index: 8;
+            margin: -14px -14px 12px;
+            padding: 14px;
+            background: rgba(255,255,255,.98);
+            border-bottom: 1px solid #eee;
+            backdrop-filter: blur(14px);
+        }
+
+        .panel-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 72;
+            display: none;
+            background: transparent;
+            touch-action: none;
+        }
+
+        .panel-backdrop.open {
+            display: block;
+        }
+
+        .floating-panel {
+            z-index: 73;
+        }
+
+        .desktop-color-frontline {
+            width: min(760px, 96%);
+            margin: 7px auto 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 3px 1px;
+            scrollbar-width: none;
+        }
+
+        .desktop-color-frontline::-webkit-scrollbar {
+            display: none;
+        }
+
+        .desktop-color-swatches {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .desktop-color-frontline .color-swatch {
+            width: 31px;
+            height: 31px;
+            min-width: 31px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            outline: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        .desktop-color-frontline .color-swatch.active {
+            outline: 3px solid #222;
+            outline-offset: 2px;
+        }
+
+        .desktop-custom-color {
+            position: relative;
+            width: 34px;
+            height: 34px;
+            min-width: 34px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 1px solid #bbb;
+            cursor: pointer;
+        }
+
+        .desktop-custom-color input {
+            position: absolute;
+            inset: -8px;
+            width: 52px;
+            height: 52px;
+            border: 0;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .desktop-custom-color span {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            pointer-events: none;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 1px 2px #000;
+        }
+
+        .layer-actions-four {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .selection-canvas {
+            z-index: 7 !important;
+        }
+
+        .canvas-frame.tool-select {
+            cursor: crosshair;
+        }
+
+        @media (max-width: 850px) {
+            .desktop-color-frontline {
+                display: none !important;
+            }
+
+            .floating-panel {
+                max-height: 52vh;
+            }
+
+            .panel-head {
+                top: -14px;
+            }
+        }
+
 </style>
 
 </head>
@@ -2014,12 +2147,22 @@ body {
 
     </main>
 
+    <div class="desktop-color-frontline" id="desktopColorFrontline" aria-label="Colors">
+        <div class="desktop-color-swatches" id="desktopColorSwatches"></div>
+        <label class="desktop-custom-color" title="Pick your own color">
+            <input id="desktopCustomColor" type="color" value="#e88eaa">
+            <span>+</span>
+        </label>
+    </div>
+
     <div class="desktop-quick-tools" aria-label="Drawing tools">
         <button id="desktopToolsLauncher" type="button">TOOLS</button>
         <button id="desktopBrushesLauncher" type="button">BRUSHES</button>
         <button data-tool="eraser" type="button">ERASE</button>
         <button data-tool="move" type="button">MOVE</button>
     </div>
+
+    <div class="panel-backdrop" id="panelBackdrop" aria-hidden="true"></div>
 
     <aside class="floating-panel" id="toolsPanel" aria-hidden="true">
         <div class="panel-head">
@@ -2069,9 +2212,11 @@ body {
             <button class="panel-close" data-close-panel type="button">×</button>
         </div>
         <div class="layers-list" id="layersList"></div>
-        <div class="layer-actions">
+        <div class="layer-actions layer-actions-four">
             <button class="layer-action" id="addLayer" type="button">+ LAYER</button>
             <button class="layer-action" id="deleteLayer" type="button">DELETE</button>
+            <button class="layer-action" id="layerUp" type="button">MOVE UP</button>
+            <button class="layer-action" id="layerDown" type="button">MOVE DOWN</button>
         </div>
         <p class="selection-note">
             Use separate layers for sky, foreground, shading and details. The original line art stays protected.
@@ -3785,6 +3930,7 @@ body {
 
     const toolsPanel = document.getElementById('toolsPanel');
     const layersPanel = document.getElementById('layersPanel');
+    const panelBackdrop = document.getElementById('panelBackdrop');
 
     const layersTop = document.getElementById('layersTop');
     const pagesTop = document.getElementById('pagesTop');
@@ -3811,6 +3957,9 @@ body {
         ].forEach(function(button) {
             if (button) button.classList.remove('active');
         });
+
+        panelBackdrop.classList.remove('open');
+        panelBackdrop.setAttribute('aria-hidden', 'true');
     }
 
     function togglePanel(panel, launcher) {
@@ -3820,6 +3969,8 @@ body {
             panel.classList.add('open');
             panel.setAttribute('aria-hidden', 'false');
             launcher.classList.add('active');
+            panelBackdrop.classList.add('open');
+            panelBackdrop.setAttribute('aria-hidden', 'false');
         }
     }
 
@@ -3845,6 +3996,8 @@ body {
 
         toolsPanel.classList.add('open');
         toolsPanel.setAttribute('aria-hidden', 'false');
+        panelBackdrop.classList.add('open');
+        panelBackdrop.setAttribute('aria-hidden', 'false');
         if (launcher) launcher.classList.add('active');
     }
 
@@ -3872,6 +4025,12 @@ body {
         button.addEventListener('click', closeFloatingPanels);
     });
 
+    panelBackdrop.addEventListener('pointerdown', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        closeFloatingPanels();
+    });
+
     document.querySelectorAll('[data-v2-tool]').forEach(function(button) {
         button.addEventListener('click', function() {
             selectTool(this.dataset.v2Tool);
@@ -3879,32 +4038,38 @@ body {
         });
     });
 
-    const grayValues = ['#ffffff','#dddddd','#bbbbbb','#888888','#666666','#333333','#000000'];
-    const grayStrip = document.getElementById('grayStrip');
-    grayValues.forEach(function(color) {
-        const chip = document.createElement('button');
-        chip.type = 'button';
-        chip.className = 'gray-chip';
-        chip.style.background = color;
-        chip.title = color;
-        chip.addEventListener('click', function() { selectColor(color); });
-        grayStrip.appendChild(chip);
-    });
 
-    const v2Palette = document.getElementById('v2Palette');
-    const paletteColorsV2 = [
+
+    const desktopColorSwatches = document.getElementById('desktopColorSwatches');
+    const desktopCustomColor = document.getElementById('desktopCustomColor');
+
+    const desktopPaletteColors = [
         '#e88eaa','#f6b3c8','#ef5350','#ff9800','#ffd54f','#81c784',
-        '#4dd0e1','#64b5f6','#9575cd','#795548','#222222','#ffffff'
+        '#4dd0e1','#64b5f6','#9575cd','#795548',
+        '#ffffff','#dddddd','#bbbbbb','#888888','#666666','#333333','#111111'
     ];
-    paletteColorsV2.forEach(function(color) {
+
+    desktopPaletteColors.forEach(function(color) {
         const swatch = document.createElement('button');
         swatch.type = 'button';
         swatch.className = 'color-swatch';
         swatch.style.background = color;
         swatch.dataset.color = color;
         swatch.title = color;
-        swatch.addEventListener('click', function() { selectColor(color); });
-        v2Palette.appendChild(swatch);
+        swatch.addEventListener('click', function() {
+            selectColor(color);
+            document.querySelectorAll('#desktopColorSwatches .color-swatch').forEach(function(item) {
+                item.classList.toggle('active', item === swatch);
+            });
+        });
+        desktopColorSwatches.appendChild(swatch);
+    });
+
+    desktopCustomColor.addEventListener('input', function() {
+        selectColor(this.value);
+        document.querySelectorAll('#desktopColorSwatches .color-swatch').forEach(function(item) {
+            item.classList.remove('active');
+        });
     });
 
     document.querySelectorAll('[data-brush-type]').forEach(function(button) {
@@ -4038,6 +4203,12 @@ body {
                 loadActiveLayer(layer.id);
             });
 
+            row.addEventListener('click', function(event) {
+                if (event.target === name || event.target === eye || event.target === pick) return;
+                paintCanvas.style.visibility = 'visible';
+                loadActiveLayer(layer.id);
+            });
+
             row.append(eye,name,pick);
             list.appendChild(row);
         });
@@ -4074,6 +4245,34 @@ body {
         renderLayersUI();
         markChanged();
     });
+
+    function moveActiveLayer(direction) {
+        snapshotActiveLayer();
+        const index = studioLayers.findIndex(function(item) {
+            return item.id === activeLayerId;
+        });
+        if (index < 0) return;
+
+        const target = index + direction;
+        if (target < 0 || target >= studioLayers.length) return;
+
+        const temp = studioLayers[index];
+        studioLayers[index] = studioLayers[target];
+        studioLayers[target] = temp;
+
+        renderLayerDisplay();
+        renderLayersUI();
+        markChanged();
+    }
+
+    document.getElementById('layerUp').addEventListener('click', function() {
+        moveActiveLayer(1);
+    });
+
+    document.getElementById('layerDown').addEventListener('click', function() {
+        moveActiveLayer(-1);
+    });
+
 
     /* V2 bottom desktop actions */
     document.getElementById('undoV2').addEventListener('click', undo);
@@ -4523,6 +4722,19 @@ body {
 
 
             /*
+            SELECT / LASSO
+            */
+
+            if (currentTool === 'select') {
+                selecting = true;
+                drawing = false;
+                selectionPath = [{ x: point.x, y: point.y }];
+                selectionCtx.clearRect(0, 0, selectionCanvas.width, selectionCanvas.height);
+                return;
+            }
+
+
+            /*
             FILL
             */
 
@@ -4698,6 +4910,35 @@ body {
 
 
             /*
+            SELECT / LASSO
+            */
+
+            if (selecting && currentTool === 'select') {
+                event.preventDefault();
+
+                const point = getCanvasPoint(event);
+                selectionPath.push({ x: point.x, y: point.y });
+
+                selectionCtx.clearRect(0, 0, selectionCanvas.width, selectionCanvas.height);
+                selectionCtx.save();
+                selectionCtx.strokeStyle = '#111';
+                selectionCtx.lineWidth = Math.max(
+                    2,
+                    2 / Math.max(fitScale * zoomMultiplier, .25)
+                );
+                selectionCtx.setLineDash([8, 6]);
+                selectionCtx.beginPath();
+                selectionCtx.moveTo(selectionPath[0].x, selectionPath[0].y);
+                selectionPath.slice(1).forEach(function(p) {
+                    selectionCtx.lineTo(p.x, p.y);
+                });
+                selectionCtx.stroke();
+                selectionCtx.restore();
+                return;
+            }
+
+
+            /*
             DRAWING
             */
 
@@ -4806,37 +5047,27 @@ body {
 
 
         if (selecting && currentTool === 'select') {
-            selectionPath.push({x: point.x, y: point.y});
-            selectionCtx.clearRect(0,0,selectionCanvas.width,selectionCanvas.height);
-            if (selectionPath.length > 1) {
-                selectionCtx.save();
-                selectionCtx.strokeStyle = '#111';
-                selectionCtx.lineWidth = Math.max(2, 2 / Math.max(fitScale * zoomMultiplier, .25));
-                selectionCtx.setLineDash([8,6]);
-                selectionCtx.beginPath();
-                selectionCtx.moveTo(selectionPath[0].x, selectionPath[0].y);
-                selectionPath.slice(1).forEach(function(p){ selectionCtx.lineTo(p.x,p.y); });
-                selectionCtx.stroke();
-                selectionCtx.restore();
-            }
-            return;
-        }
-
-
-        if (selecting && currentTool === 'select') {
             selecting = false;
+
             if (selectionPath.length > 2) {
+                selectionCtx.clearRect(0, 0, selectionCanvas.width, selectionCanvas.height);
                 selectionCtx.save();
                 selectionCtx.strokeStyle = '#111';
-                selectionCtx.lineWidth = 2;
-                selectionCtx.setLineDash([8,6]);
+                selectionCtx.lineWidth = Math.max(
+                    2,
+                    2 / Math.max(fitScale * zoomMultiplier, .25)
+                );
+                selectionCtx.setLineDash([8, 6]);
                 selectionCtx.beginPath();
                 selectionCtx.moveTo(selectionPath[0].x, selectionPath[0].y);
-                selectionPath.slice(1).forEach(function(p){ selectionCtx.lineTo(p.x,p.y); });
+                selectionPath.slice(1).forEach(function(p) {
+                    selectionCtx.lineTo(p.x, p.y);
+                });
                 selectionCtx.closePath();
                 selectionCtx.stroke();
                 selectionCtx.restore();
             }
+
             return;
         }
 
@@ -4906,6 +5137,16 @@ body {
 
         paintCtx.save();
 
+        if (selectionPath.length > 2) {
+            paintCtx.beginPath();
+            paintCtx.moveTo(selectionPath[0].x, selectionPath[0].y);
+            selectionPath.slice(1).forEach(function(p) {
+                paintCtx.lineTo(p.x, p.y);
+            });
+            paintCtx.closePath();
+            paintCtx.clip();
+        }
+
         paintCtx.lineCap =
             'round';
 
@@ -4928,9 +5169,8 @@ body {
                 paintCtx.shadowBlur = brushSize * 0.65;
                 paintCtx.lineWidth = brushSize * 1.2;
             } else if (brushType === 'texture') {
-                paintCtx.globalAlpha = Math.min(brushOpacity, 0.72);
-                paintCtx.lineWidth = brushSize * 0.8;
-                paintCtx.setLineDash([Math.max(2,brushSize*.18), Math.max(2,brushSize*.12)]);
+                paintCtx.globalAlpha = Math.min(brushOpacity, 0.62);
+                paintCtx.lineWidth = brushSize * 0.55;
             }
         }
 
@@ -4960,6 +5200,40 @@ body {
             paintCtx.fillStyle =
                 currentColor;
 
+        }
+
+
+        if (currentTool === 'brush' && brushType === 'texture') {
+            const dx = x2 - x1;
+            const dy = y2 - y1;
+            const distance = Math.max(1, Math.hypot(dx, dy));
+            const steps = Math.max(2, Math.ceil(distance / Math.max(2, brushSize * 0.10)));
+
+            for (let i = 0; i <= steps; i++) {
+                const t = i / steps;
+                const cx = x1 + dx * t;
+                const cy = y1 + dy * t;
+                const grains = Math.max(4, Math.round(brushSize * 0.28));
+
+                for (let g = 0; g < grains; g++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const radius = Math.sqrt(Math.random()) * brushSize * 0.48;
+                    const dot = Math.max(0.7, brushSize * (0.025 + Math.random() * 0.055));
+
+                    paintCtx.beginPath();
+                    paintCtx.arc(
+                        cx + Math.cos(angle) * radius,
+                        cy + Math.sin(angle) * radius,
+                        dot,
+                        0,
+                        Math.PI * 2
+                    );
+                    paintCtx.fill();
+                }
+            }
+
+            paintCtx.restore();
+            return;
         }
 
 
@@ -5071,6 +5345,28 @@ body {
        FLOOD FILL
        ========================= */
 
+
+    function pointInSelection(x, y) {
+        if (selectionPath.length < 3) return true;
+
+        let inside = false;
+        for (let i = 0, j = selectionPath.length - 1; i < selectionPath.length; j = i++) {
+            const xi = selectionPath[i].x;
+            const yi = selectionPath[i].y;
+            const xj = selectionPath[j].x;
+            const yj = selectionPath[j].y;
+
+            const intersects =
+                ((yi > y) !== (yj > y)) &&
+                (x < (xj - xi) * (y - yi) / ((yj - yi) || 0.00001) + xi);
+
+            if (intersects) inside = !inside;
+        }
+
+        return inside;
+    }
+
+
     function floodFill(
         startX,
         startY,
@@ -5093,6 +5389,10 @@ body {
             startY *
             width +
             startX;
+
+        if (!pointInSelection(startX, startY)) {
+            return;
+        }
 
         if (
             isBoundaryPixel(
@@ -5188,6 +5488,13 @@ body {
         function matches(
             position
         ) {
+
+            const px = position % width;
+            const py = Math.floor(position / width);
+
+            if (!pointInSelection(px, py)) {
+                return false;
+            }
 
             if (
                 visited[
