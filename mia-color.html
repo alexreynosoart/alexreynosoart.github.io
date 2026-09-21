@@ -2552,6 +2552,19 @@ body.v247-eraser .v250-mobile-eraser-opacity { display:flex; }
     border-color:#d8d8d8 !important;
 }
 
+
+/* =========================
+   V2.5.1 MARCHING ANTS
+   ========================= */
+#selectionAntsV251 {
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:62;
+}
+
 </style>
 
 </head>
@@ -8734,6 +8747,153 @@ window.addEventListener('resize',()=>{
     v250ResizePreview();
     v250ClearPreview();
 });
+
+
+
+/* =========================
+   V2.5.1 VISIBLE SELECTION OUTLINE
+   ========================= */
+
+/* The mask was being committed, but the previous edge renderer was too fragile.
+   Draw the selection boundary from the mask onto its own visible overlay. */
+const v251AntsCanvas = document.createElement('canvas');
+v251AntsCanvas.id = 'selectionAntsV251';
+v251AntsCanvas.width = paintCanvas.width;
+v251AntsCanvas.height = paintCanvas.height;
+const v251AntsCtx = v251AntsCanvas.getContext('2d');
+paintCanvas.parentElement.appendChild(v251AntsCanvas);
+
+let v251DashOffset = 0;
+let v251AntsTimer = null;
+
+function v251ResizeAnts(){
+    if(v251AntsCanvas.width !== paintCanvas.width)
+        v251AntsCanvas.width = paintCanvas.width;
+    if(v251AntsCanvas.height !== paintCanvas.height)
+        v251AntsCanvas.height = paintCanvas.height;
+}
+
+function v251MaskEdges(){
+    v246EnsureMask();
+    const w=v246SelectionMask.width;
+    const h=v246SelectionMask.height;
+    const src=v246SelectionMaskCtx.getImageData(0,0,w,h).data;
+    const edge=new Uint8Array(w*h);
+
+    for(let y=1;y<h-1;y++){
+        for(let x=1;x<w-1;x++){
+            const p=y*w+x;
+            const a=src[p*4+3];
+            if(!a) continue;
+
+            if(
+                !src[(p-1)*4+3] ||
+                !src[(p+1)*4+3] ||
+                !src[(p-w)*4+3] ||
+                !src[(p+w)*4+3]
+            ){
+                edge[p]=1;
+            }
+        }
+    }
+    return {edge,w,h};
+}
+
+function v251DrawAnts(){
+    v251ResizeAnts();
+    const c=v251AntsCtx;
+    c.clearRect(0,0,v251AntsCanvas.width,v251AntsCanvas.height);
+
+    if(!v246SelectionMask || !v246MaskHasPixels()) return;
+
+    const {edge,w,h}=v251MaskEdges();
+
+    /* Alternating black/white edge pixels create real marching ants
+       without depending on a polygon path after Add/Subtract operations. */
+    const img=c.createImageData(w,h);
+    const d=img.data;
+
+    for(let y=0;y<h;y++){
+        for(let x=0;x<w;x++){
+            const p=y*w+x;
+            if(!edge[p]) continue;
+
+            const phase=(x+y+v251DashOffset)%12;
+            const black=phase<6;
+            const i=p*4;
+
+            d[i]=black?17:255;
+            d[i+1]=black?17:255;
+            d[i+2]=black?17:255;
+            d[i+3]=255;
+        }
+    }
+    c.putImageData(img,0,0);
+}
+
+function v251StartAnts(){
+    if(v251AntsTimer) return;
+    v251AntsTimer=setInterval(function(){
+        if(!v246SelectionMask || !v246MaskHasPixels()){
+            v251AntsCtx.clearRect(0,0,v251AntsCanvas.width,v251AntsCanvas.height);
+            return;
+        }
+        v251DashOffset=(v251DashOffset+1)%12;
+        v251DrawAnts();
+    },110);
+}
+
+function v251StopAnts(){
+    if(v251AntsTimer){
+        clearInterval(v251AntsTimer);
+        v251AntsTimer=null;
+    }
+    v251AntsCtx.clearRect(0,0,v251AntsCanvas.width,v251AntsCanvas.height);
+}
+
+/* Replace the old selection-outline renderer with the dedicated ants layer. */
+v246RenderMaskOutline = function(){
+    v246EnsureMask();
+    const has=v246MaskHasPixels();
+    document.body.classList.toggle('has-selection',has);
+
+    /* Old selection canvas is only for temporary legacy previews now. */
+    selectionCtx.clearRect(0,0,selectionCanvas.width,selectionCanvas.height);
+
+    if(has){
+        v251DrawAnts();
+        v251StartAnts();
+    } else {
+        v251StopAnts();
+    }
+};
+
+/* Clearing a selection clears the ants too. */
+const v251OldClearSelection=v246ClearSelection;
+v246ClearSelection=function(){
+    v251OldClearSelection();
+    v251StopAnts();
+};
+
+/* Redraw immediately after every committed selection. */
+const v251OldPathToMask=v246PathToMask;
+v246PathToMask=function(path,op){
+    v251OldPathToMask(path,op);
+    v251RenderAfterCommit();
+};
+function v251RenderAfterCommit(){
+    requestAnimationFrame(function(){
+        v246RenderMaskOutline();
+    });
+}
+
+/* Keep overlay dimensions aligned with page changes / resize. */
+window.addEventListener('resize',function(){
+    v251ResizeAnts();
+    v251DrawAnts();
+});
+
+v251ResizeAnts();
 
 </script>
 
