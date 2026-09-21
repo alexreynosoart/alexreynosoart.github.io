@@ -2687,6 +2687,19 @@ body.v254-select-active #clearSelectionTouch {
     display:inline-flex !important;
 }
 
+
+/* =====================================================
+   V2.6.3 DEDICATED SELECTION DISPLAY
+   ===================================================== */
+#selectionDisplayV263 {
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none !important;
+    z-index:20 !important;
+}
+
 </style>
 
 </head>
@@ -2792,7 +2805,7 @@ body.v254-select-active #clearSelectionTouch {
         </div>
     </section>
 
-    <div class="desktop-build-version" aria-hidden="true">v2.6.2</div>
+    <div class="desktop-build-version" aria-hidden="true">v2.6.3</div>
 </aside>
 
 <div class="studio">
@@ -9114,6 +9127,251 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
     ["resetButton","resetMobile","resetMobileTop"].forEach(id => {
         document.getElementById(id)?.addEventListener("click", clearSnapshot, true);
     });
+})();
+</script>
+
+
+<script>
+/* =====================================================
+   V2.6.3 DEDICATED SELECTION OVERLAY
+   Visual display only. The working selection/fill mask
+   is not changed.
+   ===================================================== */
+(() => {
+    "use strict";
+
+    const stage = document.getElementById("canvasStage");
+    if (!stage) return;
+
+    /* Separate canvas so legacy selectionCanvas handlers cannot erase it. */
+    const display = document.createElement("canvas");
+    display.id = "selectionDisplayV263";
+    stage.appendChild(display);
+    let dctx = display.getContext("2d");
+
+    const mask = document.createElement("canvas");
+    let mctx = mask.getContext("2d", {willReadFrequently:true});
+
+    let drawing = false;
+    let pointerId = null;
+    let start = null;
+    let points = [];
+    let mode = "free";
+    let op = "add";
+    let dashOffset = 0;
+    let timer = null;
+
+    function syncSize() {
+        const w = paintCanvas.width;
+        const h = paintCanvas.height;
+        if (display.width === w && display.height === h &&
+            mask.width === w && mask.height === h) return;
+
+        /* Preserve selection mask across a resize when possible. */
+        const old = document.createElement("canvas");
+        old.width = mask.width || w;
+        old.height = mask.height || h;
+        if (mask.width && mask.height) old.getContext("2d").drawImage(mask,0,0);
+
+        display.width = w;
+        display.height = h;
+        mask.width = w;
+        mask.height = h;
+        dctx = display.getContext("2d");
+        mctx = mask.getContext("2d", {willReadFrequently:true});
+
+        if (old.width && old.height) mctx.drawImage(old,0,0,w,h);
+    }
+
+    function point(e) { return getCanvasPoint(e); }
+
+    function rectangle(a,b) {
+        return [
+            {x:a.x,y:a.y},{x:b.x,y:a.y},
+            {x:b.x,y:b.y},{x:a.x,y:b.y}
+        ];
+    }
+
+    function ellipse(a,b) {
+        const out=[];
+        const cx=(a.x+b.x)/2, cy=(a.y+b.y)/2;
+        const rx=Math.abs(b.x-a.x)/2, ry=Math.abs(b.y-a.y)/2;
+        for(let i=0;i<96;i++){
+            const t=i/96*Math.PI*2;
+            out.push({x:cx+Math.cos(t)*rx,y:cy+Math.sin(t)*ry});
+        }
+        return out;
+    }
+
+    function currentPath(end) {
+        if(mode==="rect") return rectangle(start,end);
+        if(mode==="ellipse") return ellipse(start,end);
+        return points;
+    }
+
+    function render() {
+        syncSize();
+        dctx.clearRect(0,0,display.width,display.height);
+
+        const w=mask.width, h=mask.height;
+        const src=mctx.getImageData(0,0,w,h).data;
+        const out=dctx.createImageData(w,h);
+        const dst=out.data;
+        let any=false;
+
+        for(let y=1;y<h-1;y++){
+            for(let x=1;x<w-1;x++){
+                const p=y*w+x;
+                if(!src[p*4+3]) continue;
+                any=true;
+
+                if(src[(p-1)*4+3] && src[(p+1)*4+3] &&
+                   src[(p-w)*4+3] && src[(p+w)*4+3]) continue;
+
+                const dark=((x+y+dashOffset)%18)<9;
+
+                /* Thick enough to remain visible when artwork is fitted down. */
+                for(let oy=-2;oy<=2;oy++){
+                    for(let ox=-2;ox<=2;ox++){
+                        const xx=x+ox, yy=y+oy;
+                        if(xx<0||yy<0||xx>=w||yy>=h) continue;
+                        const i=(yy*w+xx)*4;
+                        const c=dark?0:255;
+                        dst[i]=c;
+                        dst[i+1]=c;
+                        dst[i+2]=c;
+                        dst[i+3]=255;
+                    }
+                }
+            }
+        }
+
+        dctx.putImageData(out,0,0);
+        document.body.classList.toggle("has-selection", any);
+    }
+
+    function renderPreview(path) {
+        render();
+        if(!path || path.length<2) return;
+
+        dctx.save();
+        dctx.strokeStyle = op==="subtract" ? "#c83232" : "#111";
+        dctx.lineWidth = 4;
+        dctx.setLineDash([12,8]);
+        dctx.beginPath();
+        dctx.moveTo(path[0].x,path[0].y);
+        for(let i=1;i<path.length;i++) dctx.lineTo(path[i].x,path[i].y);
+        if(mode!=="free") dctx.closePath();
+        dctx.stroke();
+        dctx.restore();
+    }
+
+    function commit(path) {
+        if(!path || path.length<3) return;
+        syncSize();
+
+        const temp=document.createElement("canvas");
+        temp.width=mask.width;
+        temp.height=mask.height;
+        const t=temp.getContext("2d");
+
+        t.fillStyle="#fff";
+        t.beginPath();
+        t.moveTo(path[0].x,path[0].y);
+        for(let i=1;i<path.length;i++) t.lineTo(path[i].x,path[i].y);
+        t.closePath();
+        t.fill();
+
+        mctx.save();
+        mctx.globalCompositeOperation =
+            op==="subtract" ? "destination-out" : "source-over";
+        mctx.drawImage(temp,0,0);
+        mctx.restore();
+
+        render();
+
+        if(!timer){
+            timer=setInterval(()=>{
+                dashOffset=(dashOffset+1)%18;
+                render();
+            },220);
+        }
+    }
+
+    function clearDisplay() {
+        syncSize();
+        mctx.clearRect(0,0,mask.width,mask.height);
+        dctx.clearRect(0,0,display.width,display.height);
+        if(timer){ clearInterval(timer); timer=null; }
+        document.body.classList.remove("has-selection");
+    }
+
+    document.querySelectorAll("[data-v253-select-mode]").forEach(b=>{
+        b.addEventListener("click",()=>{
+            mode=b.dataset.v253SelectMode;
+        },true);
+    });
+
+    document.querySelectorAll("[data-v253-selection-op]").forEach(b=>{
+        b.addEventListener("click",()=>{
+            op=b.dataset.v253SelectionOp;
+        },true);
+    });
+
+    canvasFrame.addEventListener("pointerdown",e=>{
+        if(currentTool!=="select" || !canvasStage.contains(e.target)) return;
+        drawing=true;
+        pointerId=e.pointerId;
+        start=point(e);
+        points=[{x:start.x,y:start.y}];
+        renderPreview(points);
+    },true);
+
+    canvasFrame.addEventListener("pointermove",e=>{
+        if(!drawing || e.pointerId!==pointerId) return;
+        const end=point(e);
+        if(mode==="free") points.push({x:end.x,y:end.y});
+        else points=currentPath(end);
+        renderPreview(points);
+    },true);
+
+    canvasFrame.addEventListener("pointerup",e=>{
+        if(!drawing || e.pointerId!==pointerId) return;
+        const end=point(e);
+        if(mode!=="free") points=currentPath(end);
+
+        const dist=start?Math.hypot(end.x-start.x,end.y-start.y):0;
+        const valid=mode==="free" ? points.length>4 : dist>=5;
+        if(valid) commit(points);
+        else render();
+
+        drawing=false;
+        pointerId=null;
+        start=null;
+        points=[];
+    },true);
+
+    canvasFrame.addEventListener("pointercancel",()=>{
+        drawing=false;
+        pointerId=null;
+        start=null;
+        points=[];
+        render();
+    },true);
+
+    ["clearSelectionV24","clearSelectionTouch"].forEach(id=>{
+        document.getElementById(id)?.addEventListener("click",clearDisplay,true);
+    });
+
+    document.querySelectorAll("[data-v253-selection-done]").forEach(b=>{
+        b.addEventListener("click",clearDisplay,true);
+    });
+
+    ["resetButton","resetMobile","resetMobileTop"].forEach(id=>{
+        document.getElementById(id)?.addEventListener("click",clearDisplay,true);
+    });
+
+    syncSize();
 })();
 </script>
 
