@@ -1643,6 +1643,97 @@ body {
             }
         }
 
+
+        /* =========================
+           V2.1 CLEAN UI
+           ========================= */
+
+        .floating-rail {
+            display: none !important;
+        }
+
+        .pages-launcher {
+            display: none !important;
+        }
+
+        .top-utility-button {
+            font-size: 1rem;
+        }
+
+        .desktop-quick-tools {
+            width: min(760px, 96%);
+            margin: 7px auto 0;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 7px;
+        }
+
+        .desktop-quick-tools button {
+            min-height: 42px;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            background: rgba(255,255,255,.96);
+            color: #222;
+            font: inherit;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .desktop-quick-tools button.active {
+            background: #111;
+            color: #fff;
+            border-color: #111;
+        }
+
+        /* Panels float over the neutral edge, not over the middle of the art. */
+        .floating-panel {
+            left: 18px;
+            top: 116px;
+            transform: translateY(0) translateX(-8px);
+            max-height: calc(100dvh - 150px);
+        }
+
+        .floating-panel.open {
+            transform: translateY(0) translateX(0);
+        }
+
+        #brushTypesGroup[hidden],
+        #generalToolsGroup[hidden] {
+            display: none !important;
+        }
+
+        @media (max-width: 850px) {
+            .desktop-quick-tools,
+            .bottom-actions-v2 {
+                display: none !important;
+            }
+
+            .floating-panel {
+                left: 10px;
+                right: 10px;
+                top: auto;
+                bottom: calc(152px + env(safe-area-inset-bottom));
+                width: auto;
+                max-height: 48vh;
+                transform: translateY(8px);
+            }
+
+            .floating-panel.open {
+                transform: translateY(0);
+            }
+
+            .top-utility-button {
+                min-width: 42px;
+                padding-left: 8px;
+                padding-right: 8px;
+            }
+
+            /* The canvas owns the center. Nothing floats on its right edge now. */
+            .pages-launcher {
+                display: none !important;
+            }
+        }
+
 </style>
 
 </head>
@@ -1706,6 +1797,22 @@ body {
                     id="fitButton"
                     type="button">
                 FIT
+            </button>
+
+            <button class="zoom-button top-utility-button"
+                    id="layersTop"
+                    type="button"
+                    aria-label="Open layers"
+                    title="Layers">
+                ▱
+            </button>
+
+            <button class="zoom-button top-utility-button"
+                    id="pagesTop"
+                    type="button"
+                    aria-label="Open pages"
+                    title="Pages">
+                ▤
             </button>
 
             <button class="fullscreen-button"
@@ -1907,19 +2014,11 @@ body {
 
     </main>
 
-
-
-
-    <div class="floating-rail" aria-label="Studio controls">
-        <button class="float-button" id="toolsLauncher" type="button">
-            <span class="big-icon">✎</span><span>TOOLS</span>
-        </button>
-        <button class="float-button" id="moveQuick" type="button">
-            <span class="big-icon">✋</span><span>MOVE</span>
-        </button>
-        <button class="float-button" id="layersLauncher" type="button">
-            <span class="big-icon">▱</span><span>LAYERS</span>
-        </button>
+    <div class="desktop-quick-tools" aria-label="Drawing tools">
+        <button id="desktopToolsLauncher" type="button">TOOLS</button>
+        <button id="desktopBrushesLauncher" type="button">BRUSHES</button>
+        <button data-tool="eraser" type="button">ERASE</button>
+        <button data-tool="move" type="button">MOVE</button>
     </div>
 
     <aside class="floating-panel" id="toolsPanel" aria-hidden="true">
@@ -1928,10 +2027,8 @@ body {
             <button class="panel-close" data-close-panel type="button">×</button>
         </div>
 
-        <div class="v2-tool-grid">
+        <div class="v2-tool-grid" id="generalToolsGroup">
             <button class="v2-tool active" data-v2-tool="fill" type="button">FILL</button>
-            <button class="v2-tool" data-v2-tool="brush" type="button">BRUSH</button>
-            <button class="v2-tool" data-v2-tool="eraser" type="button">ERASER</button>
             <button class="v2-tool" data-v2-tool="select" type="button">SELECT</button>
         </div>
 
@@ -2158,16 +2255,16 @@ body {
 
     <div class="mobile-tools">
 
-        <button class="mobile-button active"
-                data-tool="fill"
+        <button class="mobile-button"
+                id="mobileToolsLauncher"
                 type="button">
-            FILL
+            TOOLS
         </button>
 
         <button class="mobile-button"
-                data-tool="brush"
+                id="mobileBrushesLauncher"
                 type="button">
-            BRUSH
+            BRUSHES
         </button>
 
         <button class="mobile-button"
@@ -3688,17 +3785,32 @@ body {
 
     const toolsPanel = document.getElementById('toolsPanel');
     const layersPanel = document.getElementById('layersPanel');
-    const toolsLauncher = document.getElementById('toolsLauncher');
-    const layersLauncher = document.getElementById('layersLauncher');
-    const moveQuick = document.getElementById('moveQuick');
+
+    const layersTop = document.getElementById('layersTop');
+    const pagesTop = document.getElementById('pagesTop');
+
+    const mobileToolsLauncher = document.getElementById('mobileToolsLauncher');
+    const mobileBrushesLauncher = document.getElementById('mobileBrushesLauncher');
+    const desktopToolsLauncher = document.getElementById('desktopToolsLauncher');
+    const desktopBrushesLauncher = document.getElementById('desktopBrushesLauncher');
+
+    const generalToolsGroup = document.getElementById('generalToolsGroup');
+    const brushTypesGroup = document.getElementById('brushTypesGroup');
 
     function closeFloatingPanels() {
         [toolsPanel, layersPanel].forEach(function(panel) {
             panel.classList.remove('open');
             panel.setAttribute('aria-hidden', 'true');
         });
-        toolsLauncher.classList.remove('active');
-        layersLauncher.classList.remove('active');
+        [
+            mobileToolsLauncher,
+            mobileBrushesLauncher,
+            desktopToolsLauncher,
+            desktopBrushesLauncher,
+            layersTop
+        ].forEach(function(button) {
+            if (button) button.classList.remove('active');
+        });
     }
 
     function togglePanel(panel, launcher) {
@@ -3711,26 +3823,59 @@ body {
         }
     }
 
-    toolsLauncher.addEventListener('click', function() {
-        togglePanel(toolsPanel, toolsLauncher);
+    function openToolsMode(mode, launcher) {
+        const alreadyOpen =
+            toolsPanel.classList.contains('open') &&
+            toolsPanel.dataset.mode === mode;
+
+        closeFloatingPanels();
+
+        if (alreadyOpen) return;
+
+        toolsPanel.dataset.mode = mode;
+
+        if (mode === 'brushes') {
+            generalToolsGroup.hidden = true;
+            brushTypesGroup.hidden = false;
+            selectTool('brush');
+        } else {
+            generalToolsGroup.hidden = false;
+            brushTypesGroup.hidden = true;
+        }
+
+        toolsPanel.classList.add('open');
+        toolsPanel.setAttribute('aria-hidden', 'false');
+        if (launcher) launcher.classList.add('active');
+    }
+
+    [mobileToolsLauncher, desktopToolsLauncher].forEach(function(button) {
+        if (button) button.addEventListener('click', function() {
+            openToolsMode('tools', button);
+        });
     });
 
-    layersLauncher.addEventListener('click', function() {
-        togglePanel(layersPanel, layersLauncher);
+    [mobileBrushesLauncher, desktopBrushesLauncher].forEach(function(button) {
+        if (button) button.addEventListener('click', function() {
+            openToolsMode('brushes', button);
+        });
+    });
+
+    layersTop.addEventListener('click', function() {
+        togglePanel(layersPanel, layersTop);
+    });
+
+    pagesTop.addEventListener('click', function() {
+        pagesLauncher.click();
     });
 
     document.querySelectorAll('[data-close-panel]').forEach(function(button) {
         button.addEventListener('click', closeFloatingPanels);
     });
 
-    moveQuick.addEventListener('click', function() {
-        selectTool('move');
-        closeFloatingPanels();
-    });
-
     document.querySelectorAll('[data-v2-tool]').forEach(function(button) {
         button.addEventListener('click', function() {
             selectTool(this.dataset.v2Tool);
+            closeFloatingPanels();
         });
     });
 
@@ -3771,6 +3916,7 @@ body {
             document.getElementById('brushTypeReadout').textContent =
                 brushType.charAt(0).toUpperCase() + brushType.slice(1);
             if (currentTool !== 'brush') selectTool('brush');
+            closeFloatingPanels();
         });
     });
 
@@ -3783,6 +3929,9 @@ body {
         brushOpacity = Number(this.value) / 100;
         document.getElementById('opacityReadout').textContent = this.value + '%';
     });
+
+    generalToolsGroup.hidden = false;
+    brushTypesGroup.hidden = true;
 
     /* =========================
        LAYERS
@@ -3968,8 +4117,17 @@ body {
             button.classList.toggle('active', button.dataset.v2Tool === tool);
         });
 
-        moveQuick.classList.toggle('active', tool === 'move');
         document.getElementById('selectionHelp').hidden = tool !== 'select';
+
+        document.querySelectorAll('.desktop-quick-tools [data-tool], .mobile-tools [data-tool]').forEach(function(button) {
+            button.classList.toggle('active', button.dataset.tool === tool);
+        });
+
+        if (tool === 'brush') {
+            [mobileBrushesLauncher, desktopBrushesLauncher].forEach(function(button) {
+                if (button) button.classList.add('active');
+            });
+        }
 
         const status =
             document.getElementById(
