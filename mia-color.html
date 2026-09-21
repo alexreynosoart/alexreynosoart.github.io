@@ -3791,6 +3791,19 @@ body.v254-select-active #clearSelectionTouch {
     let ARTWORK = ARTWORKS.tired;
     let currentArtworkKey = 'tired';
 
+    /* Open the drawing requested by the coloring gallery.
+       Example: mia-color.html?page=witch */
+    const requestedArtworkKey =
+        new URLSearchParams(window.location.search).get('page');
+
+    if (
+        requestedArtworkKey &&
+        ARTWORKS[requestedArtworkKey]
+    ) {
+        currentArtworkKey = requestedArtworkKey;
+        ARTWORK = ARTWORKS[requestedArtworkKey];
+    }
+
 
     /* =========================
        CANVAS
