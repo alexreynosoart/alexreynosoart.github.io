@@ -2700,6 +2700,53 @@ body.v254-select-active #clearSelectionTouch {
     z-index:20 !important;
 }
 
+
+/* =====================================================
+   V2.6.6 CONTEXT + MOBILE SCROLLBAR
+   ===================================================== */
+
+/* Desktop Select options stay visible for the full time Select is active. */
+@media (min-width:1001px) {
+    body.v254-select-active #desktopSelectModes {
+        display:flex !important;
+    }
+}
+
+/* Mobile panel scrollbar/thumb needs contrast against the pale panel. */
+@media (max-width:1000px) {
+    .mobile-panel,
+    .mobile-tools,
+    .mobile-brushes,
+    .mobile-panel-content {
+        scrollbar-color:#777 #e9e9e9;
+        scrollbar-width:thin;
+    }
+
+    .mobile-panel::-webkit-scrollbar,
+    .mobile-tools::-webkit-scrollbar,
+    .mobile-brushes::-webkit-scrollbar,
+    .mobile-panel-content::-webkit-scrollbar {
+        width:8px;
+    }
+
+    .mobile-panel::-webkit-scrollbar-track,
+    .mobile-tools::-webkit-scrollbar-track,
+    .mobile-brushes::-webkit-scrollbar-track,
+    .mobile-panel-content::-webkit-scrollbar-track {
+        background:#e9e9e9;
+        border-radius:999px;
+    }
+
+    .mobile-panel::-webkit-scrollbar-thumb,
+    .mobile-tools::-webkit-scrollbar-thumb,
+    .mobile-brushes::-webkit-scrollbar-thumb,
+    .mobile-panel-content::-webkit-scrollbar-thumb {
+        background:#777;
+        border-radius:999px;
+        border:2px solid #e9e9e9;
+    }
+}
+
 </style>
 
 </head>
@@ -2805,7 +2852,7 @@ body.v254-select-active #clearSelectionTouch {
         </div>
     </section>
 
-    <div class="desktop-build-version" aria-hidden="true">v2.6.5</div>
+    <div class="desktop-build-version" aria-hidden="true">v2.6.6</div>
 </aside>
 
 <div class="studio">
@@ -9422,6 +9469,56 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
             });
         }, true);
     });
+})();
+</script>
+
+
+<script>
+/* =====================================================
+   V2.6.6 LAYER VISIBILITY + MOBILE PANEL CLEANUP
+   ===================================================== */
+(() => {
+    "use strict";
+
+    /* Any layer's eye/radio indicator can hide/show that layer,
+       including the original Drawing layer and the active top layer. */
+    document.addEventListener("click", e => {
+        const row = e.target.closest(".layer-row");
+        if (!row) return;
+
+        const visibilityControl = e.target.closest(
+            ".layer-eye, .layer-visibility, .layer-dot, .layer-radio"
+        );
+        if (!visibilityControl) return;
+
+        const id = row.dataset.layerId || row.dataset.id;
+        const layer = studioLayers.find(l => String(l.id) === String(id));
+        if (!layer) return;
+
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        saveActiveLayer();
+        layer.visible = !layer.visible;
+        renderLayerDisplay();
+        renderLayersUI();
+    }, true);
+
+    /* Mobile: SELECT belongs to Tools, never Brushes.
+       If legacy markup accidentally places a Select button in Brushes,
+       hide that duplicate rather than creating another control. */
+    function cleanMobileBrushPanel() {
+        document.querySelectorAll(
+            '.mobile-brushes [data-tool="select"],' +
+            '.mobile-brushes [data-v2-tool="select"],' +
+            '.mobile-brushes [data-desktop-tool="select"]'
+        ).forEach(el => {
+            el.style.display = "none";
+            el.setAttribute("aria-hidden","true");
+        });
+    }
+
+    cleanMobileBrushPanel();
 })();
 </script>
 
