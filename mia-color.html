@@ -2805,7 +2805,7 @@ body.v254-select-active #clearSelectionTouch {
         </div>
     </section>
 
-    <div class="desktop-build-version" aria-hidden="true">v2.6.4</div>
+    <div class="desktop-build-version" aria-hidden="true">v2.6.5</div>
 </aside>
 
 <div class="studio">
@@ -3724,6 +3724,8 @@ body.v254-select-active #clearSelectionTouch {
 
         if (currentTool === 'select') {
             toolCursor.style.display = 'none';
+            toolCursor.textContent = '';
+            toolCursor.classList.remove('icon','fill-target','circle','eraser-circle');
             return;
         }
 
@@ -3801,6 +3803,14 @@ body.v254-select-active #clearSelectionTouch {
                 event.clientY + 'px';
 
             setToolCursorSize();
+
+            /* Select has its own selection cursor/outline.
+               Never resurrect the previous Move hand on hover. */
+            if (currentTool === 'select') {
+                toolCursor.style.display = 'none';
+                toolCursor.textContent = '';
+                return;
+            }
 
             toolCursor.style.display =
                 currentTool === 'move' ?
@@ -5119,6 +5129,15 @@ body.v254-select-active #clearSelectionTouch {
 
     function renderLayerDisplay() {
         if (!paintCanvas.width) return;
+
+        /* The active layer lives on paintCanvas, so its visibility must be
+           applied separately from the composited lower-layer canvas. */
+        const activeLayer = studioLayers.find(function(layer) {
+            return layer.id === activeLayerId;
+        });
+        paintCanvas.style.visibility =
+            (!activeLayer || activeLayer.visible) ? 'visible' : 'hidden';
+
         layerDisplayCanvas.width = paintCanvas.width;
         layerDisplayCanvas.height = paintCanvas.height;
         layerDisplayCtx.clearRect(0,0,layerDisplayCanvas.width,layerDisplayCanvas.height);
@@ -5189,13 +5208,11 @@ body.v254-select-active #clearSelectionTouch {
             pick.type = 'button';
             pick.textContent = layer.id === activeLayerId ? '✓' : '›';
             pick.addEventListener('click', function() {
-                paintCanvas.style.visibility = 'visible';
                 loadActiveLayer(layer.id);
             });
 
             row.addEventListener('click', function(event) {
                 if (event.target === name || event.target === eye || event.target === pick) return;
-                paintCanvas.style.visibility = 'visible';
                 loadActiveLayer(layer.id);
             });
 
