@@ -53,10 +53,50 @@
             z-index: 1;
         }
 
+
+        /* Footer social bar */
+
+        .footer-social {
+            margin-bottom: 12px;
+        }
+
+        .footer-social a {
+            color: #888;
+            text-decoration: none;
+            margin: 0 8px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-social a:hover,
+        .footer-social a:focus {
+            color: #fff;
+        }
+
+        .footer-social span {
+            color: #555;
+        }
+
+        .footer-copyright {
+            color: #666;
+        }
+
+
         @media (max-width: 600px) {
 
             body::before {
                 background-position: center center;
+            }
+
+            .footer-social {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .footer-social a {
+                margin: 0 4px;
             }
 
         }
@@ -142,7 +182,46 @@
     </main>
 
     <footer>
-        &copy; 2026 Alex Reynoso Art
+
+        <div class="footer-social"
+             aria-label="Alex Reynoso Art on social media">
+
+            <a href="https://www.instagram.com/alexreynosoart/"
+               target="_blank"
+               rel="noopener noreferrer">
+                Instagram
+            </a>
+
+            <span aria-hidden="true">·</span>
+
+            <a href="https://www.tiktok.com/alexreynosoart"
+               target="_blank"
+               rel="noopener noreferrer">
+                TikTok
+            </a>
+
+            <span aria-hidden="true">·</span>
+
+            <a href="https://www.facebook.com/AlexReynosoArt/"
+               target="_blank"
+               rel="noopener noreferrer">
+                Facebook
+            </a>
+
+            <span aria-hidden="true">·</span>
+
+            <a href="https://www.youtube.com/@AlexReynosoArt"
+               target="_blank"
+               rel="noopener noreferrer">
+                YouTube
+            </a>
+
+        </div>
+
+        <div class="footer-copyright">
+            &copy; 2026 Alex Reynoso Art
+        </div>
+
     </footer>
 
 
