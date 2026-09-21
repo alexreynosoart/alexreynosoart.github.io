@@ -4,197 +4,7 @@
 <head>
 
     <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ">
-    /* =========================
-       V2.3 DESKTOP WORKSPACE JS
-       ========================= */
-
-    const desktopSideColors = document.getElementById('desktopSideColors');
-    const desktopSideCustomColor = document.getElementById('desktopSideCustomColor');
-    const desktopSizeSlider = document.getElementById('desktopSizeSlider');
-    const desktopOpacitySlider = document.getElementById('desktopOpacitySlider');
-    const desktopToolReadout = document.getElementById('desktopToolReadout');
-
-    const desktopSidePalette = [
-        '#e88eaa','#f6b3c8','#ef5350','#ff9800','#ffd54f','#81c784',
-        '#4dd0e1','#64b5f6','#9575cd','#795548',
-        '#ffffff','#eeeeee','#dddddd','#bbbbbb','#999999','#777777',
-        '#555555','#333333','#111111'
-    ];
-
-    desktopSidePalette.forEach(function(color) {
-        const swatch = document.createElement('button');
-        swatch.type = 'button';
-        swatch.className = 'color-swatch';
-        swatch.style.background = color;
-        swatch.dataset.color = color;
-        swatch.title = color;
-        swatch.addEventListener('click', function() {
-            selectColor(color);
-            document.querySelectorAll('#desktopSideColors .color-swatch').forEach(function(item) {
-                item.classList.toggle('active', item === swatch);
-            });
-        });
-        desktopSideColors.appendChild(swatch);
-    });
-
-    desktopSideCustomColor.addEventListener('input', function() {
-        selectColor(this.value);
-        document.querySelectorAll('#desktopSideColors .color-swatch').forEach(function(item) {
-            item.classList.remove('active');
-        });
-    });
-
-    document.querySelectorAll('[data-desktop-tool]').forEach(function(button) {
-        button.addEventListener('click', function() {
-            selectTool(this.dataset.desktopTool);
-        });
-    });
-
-    function chooseDesktopBrush(type) {
-        brushType = type;
-        selectTool('brush');
-        document.querySelectorAll('[data-brush-type]').forEach(function(button) {
-            button.classList.toggle('active', button.dataset.brushType === type);
-        });
-    }
-
-    document.getElementById('desktopPen').addEventListener('click', function(){ chooseDesktopBrush('pen'); });
-    document.getElementById('desktopMarker').addEventListener('click', function(){ chooseDesktopBrush('marker'); });
-    document.getElementById('desktopTexture').addEventListener('click', function(){ chooseDesktopBrush('texture'); });
-
-    desktopSizeSlider.addEventListener('input', function() {
-        updateBrushSize(this.value);
-        document.getElementById('desktopSizeReadout').textContent = this.value + ' px';
-    });
-
-    desktopOpacitySlider.addEventListener('input', function() {
-        brushOpacity = Number(this.value) / 100;
-        document.getElementById('desktopOpacityReadout').textContent = this.value + '%';
-        const other = document.getElementById('opacitySlider');
-        if (other) other.value = this.value;
-    });
-
-    document.getElementById('desktopBlankPage').addEventListener('click', function() {
-        const button = document.querySelector('.artwork-thumb[data-art="blank"]');
-        if (button) button.click();
-    });
-
-    document.getElementById('desktopTiredPage').addEventListener('click', function() {
-        const button = document.querySelector('.artwork-thumb[data-art="tired"]');
-        if (button) button.click();
-    });
-
-    document.getElementById('desktopUploadPage').addEventListener('click', function() {
-        const button = document.getElementById('uploadArtworkButton');
-        if (button) button.click();
-    });
-
-    document.getElementById('desktopAddLayer').addEventListener('click', function() {
-        document.getElementById('addLayer').click();
-    });
-    document.getElementById('desktopDeleteLayer').addEventListener('click', function() {
-        document.getElementById('deleteLayer').click();
-    });
-    document.getElementById('desktopLayerUp').addEventListener('click', function() {
-        document.getElementById('layerUp').click();
-    });
-    document.getElementById('desktopLayerDown').addEventListener('click', function() {
-        document.getElementById('layerDown').click();
-    });
-
-    document.getElementById('desktopUndoSide').addEventListener('click', undo);
-    document.getElementById('desktopRedoSide').addEventListener('click', redo);
-    document.getElementById('desktopResetSide').addEventListener('click', resetArtwork);
-    document.getElementById('desktopSaveSide').addEventListener('click', saveArtwork);
-
-    document.getElementById('fitPageButton').addEventListener('click', function() {
-        zoomMultiplier = 1;
-        panX = 0;
-        panY = 0;
-        fitArtwork();
-    });
-
-    function renderDesktopLayers() {
-        const list = document.getElementById('desktopSideLayers');
-        if (!list) return;
-        list.innerHTML = '';
-
-        [...studioLayers].reverse().forEach(function(layer) {
-            const row = document.createElement('div');
-            row.className = 'desktop-side-layer' + (layer.id === activeLayerId ? ' active' : '');
-
-            const eye = document.createElement('button');
-            eye.type = 'button';
-            eye.textContent = layer.visible ? '◉' : '○';
-            eye.addEventListener('click', function(event) {
-                event.stopPropagation();
-                snapshotActiveLayer();
-                layer.visible = !layer.visible;
-                if (layer.id === activeLayerId) {
-                    paintCanvas.style.visibility = layer.visible ? 'visible' : 'hidden';
-                }
-                renderLayerDisplay();
-                renderLayersUI();
-                renderDesktopLayers();
-                markChanged();
-            });
-
-            const name = document.createElement('span');
-            name.textContent = layer.name;
-
-            const pick = document.createElement('button');
-            pick.type = 'button';
-            pick.textContent = layer.id === activeLayerId ? '✓' : '›';
-
-            function activate() {
-                paintCanvas.style.visibility = 'visible';
-                loadActiveLayer(layer.id);
-                renderDesktopLayers();
-            }
-
-            pick.addEventListener('click', function(event) {
-                event.stopPropagation();
-                activate();
-            });
-            row.addEventListener('click', activate);
-
-            row.append(eye, name, pick);
-            list.appendChild(row);
-        });
-    }
-
-    const originalRenderLayersUI = renderLayersUI;
-    renderLayersUI = function() {
-        originalRenderLayersUI();
-        renderDesktopLayers();
-    };
-
-    const originalSelectToolV23 = selectTool;
-    selectTool = function(tool) {
-        originalSelectToolV23(tool);
-
-        desktopToolReadout.textContent =
-            tool.charAt(0).toUpperCase() + tool.slice(1);
-
-        document.querySelectorAll('[data-desktop-tool]').forEach(function(button) {
-            button.classList.toggle('active', button.dataset.desktopTool === tool);
-        });
-    };
-
-    /* Desktop cursor is always visible when a mouse/trackpad is present. */
-    canvasFrame.addEventListener('mouseenter', function(event) {
-        if (event.pointerType === 'touch') return;
-        updateToolCursorMode();
-        setToolCursorSize();
-    });
-
-    renderDesktopLayers();
-
-    updateToolCursorMode();
-
-
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ"></script>
 
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -2470,6 +2280,20 @@ body.has-selection #clearSelectionV24 { display:block; }
     }
 }
 
+
+/* V2.4.1 contextual desktop controls */
+#desktopSelectModes,
+#desktopShapeModes { display:none; }
+
+body.v241-select-active #desktopSelectModes { display:flex; }
+body.v241-shape-active #desktopShapeModes { display:flex; }
+
+@media (min-width:1001px) {
+    #desktopStudioSidebar .desktop-side-colors {
+        margin-top: 2px;
+    }
+}
+
 </style>
 
 </head>
@@ -3045,7 +2869,7 @@ body.has-selection #clearSelectionV24 { display:block; }
 
     <div class="leave-card">
         <h2 id="leaveTitle">Wait, your artwork isn't saved yet. ♥</h2>
-        <p>If you leave the Studio now, your changes may be lost.</p>
+        <p>If you start a new page now, your unsaved changes may be lost.</p>
 
         <div class="leave-actions">
             <button class="keep-creating"
@@ -6930,294 +6754,446 @@ body.has-selection #clearSelectionV24 { display:block; }
 
 
 
+
 /* =========================
-   V2.4 INTERACTION PATCH
+   V2.4.1 CONTROLS FIX
    ========================= */
 
-let v24SelectMode = 'free';
-let v24ShapeMode = 'line';
-let v24ToolBeforeSelect = 'fill';
-let v24ShapeStart = null;
-let v24ShapePreview = null;
+let v241SelectMode = 'free';
+let v241ShapeMode = 'line';
+let v241ToolBeforeSelect = 'fill';
+let v241SpecialStart = null;
+let v241SpecialActive = false;
 
-/* Visible tool indicator that works as a cursor on desktop and a status marker on touch. */
-const v24Indicator = document.createElement('div');
-v24Indicator.className = 'tool-indicator fill';
-canvasFrame.appendChild(v24Indicator);
+/* ---------- Desktop palette ---------- */
+const v241Palette = [
+    '#e88eaa','#f6b3c8','#ef5350','#ff9800','#ffd54f','#81c784',
+    '#4dd0e1','#64b5f6','#9575cd','#795548',
+    '#ffffff','#eeeeee','#dddddd','#bbbbbb','#999999','#777777',
+    '#555555','#333333','#111111'
+];
 
-function v24CurrentToolName() {
-    return (typeof currentTool !== 'undefined' && currentTool) ? currentTool : 'fill';
+const v241ColorBox = document.getElementById('desktopSideColors');
+if (v241ColorBox && !v241ColorBox.children.length) {
+    v241Palette.forEach(function(color) {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'color-swatch';
+        b.style.background = color;
+        b.title = color;
+        b.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            selectColor(color);
+            v241ColorBox.querySelectorAll('.color-swatch').forEach(x => x.classList.toggle('active', x === b));
+        });
+        v241ColorBox.appendChild(b);
+    });
 }
-function v24SyncIndicator() {
-    const t = v24CurrentToolName();
-    v24Indicator.className = 'tool-indicator ' + (t === 'brush' ? 'brush' : t);
-    let size = 22;
-    if (t === 'brush' || t === 'eraser') {
-        const raw = (typeof brushSize !== 'undefined' ? Number(brushSize) : 18);
-        size = Math.max(10, Math.min(90, raw));
-    }
-    v24Indicator.style.width = size + 'px';
-    v24Indicator.style.height = size + 'px';
-}
-canvasFrame.addEventListener('pointermove', function(e) {
-    if (e.pointerType === 'touch') return;
-    const r = canvasFrame.getBoundingClientRect();
-    v24Indicator.style.left = (e.clientX - r.left) + 'px';
-    v24Indicator.style.top = (e.clientY - r.top) + 'px';
+
+document.getElementById('desktopSideCustomColor')?.addEventListener('input', function() {
+    selectColor(this.value);
 });
-canvasFrame.addEventListener('pointerenter', v24SyncIndicator);
 
-/* Desktop sidebar controls: delegate directly to the existing engine. */
-document.getElementById('desktopStudioSidebar')?.addEventListener('click', function(e) {
-    const toolButton = e.target.closest('[data-desktop-tool]');
-    if (toolButton) {
-        e.preventDefault();
-        e.stopPropagation();
-        const tool = toolButton.dataset.desktopTool;
-        if (tool === 'select') {
-            v24ToolBeforeSelect = v24CurrentToolName() === 'select' ? v24ToolBeforeSelect : v24CurrentToolName();
-        }
+/* ---------- Desktop sliders ---------- */
+const v241Size = document.getElementById('desktopSizeSlider');
+if (v241Size) {
+    v241Size.value = brushSize;
+    document.getElementById('desktopSizeReadout').textContent = brushSize + ' px';
+    v241Size.addEventListener('input', function() {
+        updateBrushSize(this.value);
+        document.getElementById('desktopSizeReadout').textContent = this.value + ' px';
+    });
+}
+
+const v241Opacity = document.getElementById('desktopOpacitySlider');
+if (v241Opacity) {
+    v241Opacity.value = Math.round(brushOpacity * 100);
+    document.getElementById('desktopOpacityReadout').textContent = v241Opacity.value + '%';
+    v241Opacity.addEventListener('input', function() {
+        brushOpacity = Number(this.value) / 100;
+        document.getElementById('desktopOpacityReadout').textContent = this.value + '%';
+        const other = document.getElementById('opacitySlider');
+        if (other) other.value = this.value;
+    });
+}
+
+/* ---------- Contextual tool UI ---------- */
+function v241RefreshToolUI() {
+    document.body.classList.toggle('v241-select-active', currentTool === 'select');
+    document.body.classList.toggle('v241-shape-active', currentTool === 'shape');
+
+    const readout = document.getElementById('desktopToolReadout');
+    if (readout) {
+        readout.textContent =
+            currentTool === 'shape' ? 'Line / Shape' :
+            currentTool.charAt(0).toUpperCase() + currentTool.slice(1);
+    }
+
+    document.querySelectorAll('[data-desktop-tool]').forEach(function(b) {
+        b.classList.toggle('active', b.dataset.desktopTool === currentTool);
+    });
+
+    v241SyncIndicator();
+}
+
+function v241ChooseTool(tool) {
+    if (tool === 'select') {
+        if (currentTool !== 'select') v241ToolBeforeSelect = currentTool;
+        selectTool('select');
+    } else if (tool === 'shape') {
+        selectTool('shape');
+        const s = document.getElementById('studioStatus');
+        if (s) s.textContent = 'Line / Shape selected. Drag to draw.';
+    } else {
         selectTool(tool);
-        v24SyncIndicator();
+    }
+    v241RefreshToolUI();
+}
+
+function v241ChooseBrush(type) {
+    brushType = type;
+    document.querySelectorAll('[data-brush-type]').forEach(function(b) {
+        b.classList.toggle('active', b.dataset.brushType === type);
+    });
+    const readout = document.getElementById('brushTypeReadout');
+    if (readout) readout.textContent = type.charAt(0).toUpperCase() + type.slice(1);
+    v241ChooseTool('brush');
+}
+
+/* Capture only the desktop tool controls, preventing old duplicate handlers. */
+document.getElementById('desktopStudioSidebar')?.addEventListener('click', function(e) {
+    const tool = e.target.closest('[data-desktop-tool]');
+    if (tool) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        v241ChooseTool(tool.dataset.desktopTool);
         return;
     }
 
-    const selectMode = e.target.closest('[data-select-mode]');
-    if (selectMode) {
-        v24SelectMode = selectMode.dataset.selectMode;
-        document.querySelectorAll('[data-select-mode]').forEach(b => b.classList.toggle('active', b === selectMode));
+    if (e.target.closest('#desktopPen')) {
+        e.preventDefault(); e.stopImmediatePropagation();
+        v241ChooseBrush('pen'); return;
+    }
+    if (e.target.closest('#desktopMarker')) {
+        e.preventDefault(); e.stopImmediatePropagation();
+        v241ChooseBrush('marker'); return;
+    }
+    if (e.target.closest('#desktopTexture')) {
+        e.preventDefault(); e.stopImmediatePropagation();
+        v241ChooseBrush('texture'); return;
+    }
+
+    const sm = e.target.closest('[data-select-mode]');
+    if (sm) {
+        e.preventDefault(); e.stopImmediatePropagation();
+        v241SelectMode = sm.dataset.selectMode;
+        document.querySelectorAll('[data-select-mode]').forEach(b => b.classList.toggle('active', b === sm));
         return;
     }
 
-    const shapeMode = e.target.closest('[data-shape-mode]');
-    if (shapeMode) {
-        v24ShapeMode = shapeMode.dataset.shapeMode;
-        document.querySelectorAll('[data-shape-mode]').forEach(b => b.classList.toggle('active', b === shapeMode));
+    const hm = e.target.closest('[data-shape-mode]');
+    if (hm) {
+        e.preventDefault(); e.stopImmediatePropagation();
+        v241ShapeMode = hm.dataset.shapeMode;
+        document.querySelectorAll('[data-shape-mode]').forEach(b => b.classList.toggle('active', b === hm));
         return;
     }
 }, true);
 
-/* Remove accidental stale COLOR text in Tools/Brushes at runtime too. */
-document.querySelectorAll('.floating-panel').forEach(function(panel) {
-    [...panel.querySelectorAll('*')].forEach(function(el) {
-        if (el.children.length === 0 && el.textContent.trim().toUpperCase() === 'COLOR') {
-            el.style.display = 'none';
-        }
-    });
-});
-
-/* Clear selection. */
-document.getElementById('clearSelectionV24')?.addEventListener('click', function() {
-    selectionPath = [];
-    if (typeof selectionCtx !== 'undefined') selectionCtx.clearRect(0,0,selectionCanvas.width,selectionCanvas.height);
-    document.body.classList.remove('has-selection');
-});
-
-/* Make SELECT temporary: after a completed selection, return to previous tool. */
-function v24FinishSelectionAndReturn() {
-    if (selectionPath && selectionPath.length > 2) {
-        document.body.classList.add('has-selection');
-        const backTo = (v24ToolBeforeSelect && v24ToolBeforeSelect !== 'select') ? v24ToolBeforeSelect : 'fill';
-        selectTool(backTo);
-        v24SyncIndicator();
-    }
+/* ---------- Selection helpers ---------- */
+function v241RectPath(a,b) {
+    return [{x:a.x,y:a.y},{x:b.x,y:a.y},{x:b.x,y:b.y},{x:a.x,y:b.y}];
 }
-
-/* Selection geometry helpers. */
-function v24RectPath(a,b) {
-    return [
-        {x:a.x,y:a.y},{x:b.x,y:a.y},{x:b.x,y:b.y},{x:a.x,y:b.y}
-    ];
-}
-function v24EllipsePath(a,b,steps=48) {
+function v241EllipsePath(a,b,steps=56) {
     const cx=(a.x+b.x)/2, cy=(a.y+b.y)/2;
     const rx=Math.abs(b.x-a.x)/2, ry=Math.abs(b.y-a.y)/2;
-    const pts=[];
+    const p=[];
     for(let i=0;i<steps;i++){
-        const q=Math.PI*2*i/steps;
-        pts.push({x:cx+Math.cos(q)*rx,y:cy+Math.sin(q)*ry});
+        const t=Math.PI*2*i/steps;
+        p.push({x:cx+Math.cos(t)*rx,y:cy+Math.sin(t)*ry});
     }
-    return pts;
+    return p;
 }
-function v24DrawSelectionPreview(path) {
-    if (!selectionCtx || !selectionCanvas) return;
+function v241DrawSelection(path) {
     selectionCtx.clearRect(0,0,selectionCanvas.width,selectionCanvas.height);
     if (!path || path.length < 2) return;
     selectionCtx.save();
-    selectionCtx.setLineDash([10,7]);
-    selectionCtx.lineWidth = 3;
-    selectionCtx.strokeStyle = '#111';
+    selectionCtx.strokeStyle='#111';
+    selectionCtx.lineWidth=Math.max(2,2/Math.max(fitScale*zoomMultiplier,.25));
+    selectionCtx.setLineDash([8,6]);
     selectionCtx.beginPath();
     selectionCtx.moveTo(path[0].x,path[0].y);
-    for(let i=1;i<path.length;i++) selectionCtx.lineTo(path[i].x,path[i].y);
+    path.slice(1).forEach(p => selectionCtx.lineTo(p.x,p.y));
     selectionCtx.closePath();
     selectionCtx.stroke();
     selectionCtx.restore();
 }
+function v241FinishSelection() {
+    if (selectionPath.length > 2) {
+        document.body.classList.add('has-selection');
+        v241DrawSelection(selectionPath);
+    }
+    selecting = false;
+    v241SpecialActive = false;
+    v241SpecialStart = null;
 
-/* Patch pointer handlers for rectangle/circle selection and line/shape drawing.
-   Existing freehand selection and normal drawing stay untouched. */
-const v24OriginalStartPointer = startPointer;
-const v24OriginalMovePointer = movePointer;
-const v24OriginalEndPointer = endPointer;
+    const back = (v241ToolBeforeSelect && v241ToolBeforeSelect !== 'select')
+        ? v241ToolBeforeSelect : 'fill';
+    selectTool(back);
+    v241RefreshToolUI();
+}
 
-startPointer = function(event) {
-    const t = v24CurrentToolName();
-    if (t === 'select' && v24SelectMode !== 'free') {
-        event.preventDefault();
-        const p = getCanvasPoint(event);
-        selectionPath = [p];
-        v24ShapeStart = p;
-        selecting = true;
-        drawing = false;
-        v24DrawSelectionPreview(selectionPath);
+/* Freehand select uses the proven original engine. Return to previous tool after release. */
+paintCanvas.addEventListener('pointerup', function() {
+    if (currentTool === 'select' && v241SelectMode === 'free' && selectionPath.length > 2) {
+        setTimeout(v241FinishSelection, 0);
+    }
+});
+
+/* Rectangle/Circle Select and Line/Shape need to intercept the normal brush path. */
+paintCanvas.addEventListener('pointerdown', function(e) {
+    if (activePointers && activePointers.size >= 1) return;
+
+    if (currentTool === 'select' && v241SelectMode !== 'free') {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        const p=getCanvasPoint(e);
+        v241SpecialStart=p;
+        v241SpecialActive=true;
+        selecting=true;
+        selectionPath=[p];
+        v241DrawSelection(selectionPath);
         return;
     }
-    if (t === 'shape') {
-        event.preventDefault();
-        v24ShapeStart = getCanvasPoint(event);
-        v24ShapePreview = v24ShapeStart;
-        drawing = false;
+
+    if (currentTool === 'shape') {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        v241SpecialStart=getCanvasPoint(e);
+        v241SpecialActive=true;
         return;
     }
-    return v24OriginalStartPointer(event);
-};
+}, true);
 
-movePointer = function(event) {
-    const t = v24CurrentToolName();
-    if (t === 'select' && v24SelectMode !== 'free' && selecting && v24ShapeStart) {
-        event.preventDefault();
-        const p = getCanvasPoint(event);
-        selectionPath = v24SelectMode === 'rect'
-            ? v24RectPath(v24ShapeStart,p)
-            : v24EllipsePath(v24ShapeStart,p);
-        v24DrawSelectionPreview(selectionPath);
+paintCanvas.addEventListener('pointermove', function(e) {
+    if (!v241SpecialActive || !v241SpecialStart) return;
+
+    if (currentTool === 'select' && v241SelectMode !== 'free') {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        const p=getCanvasPoint(e);
+        selectionPath = v241SelectMode === 'rect'
+            ? v241RectPath(v241SpecialStart,p)
+            : v241EllipsePath(v241SpecialStart,p);
+        v241DrawSelection(selectionPath);
         return;
     }
-    if (t === 'shape' && v24ShapeStart) {
-        event.preventDefault();
-        v24ShapePreview = getCanvasPoint(event);
-        return;
+
+    if (currentTool === 'shape') {
+        e.preventDefault();
+        e.stopImmediatePropagation();
     }
-    return v24OriginalMovePointer(event);
-};
+}, true);
 
-function v24CommitShape(a,b) {
-    if (!a || !b) return;
-    saveState();
-    const ctx = paintCtx;
-    ctx.save();
-    ctx.globalAlpha = (typeof brushOpacity !== 'undefined' ? brushOpacity : 1);
-    ctx.strokeStyle = (typeof currentColor !== 'undefined' ? currentColor : '#e88eaa');
-    ctx.lineWidth = (typeof brushSize !== 'undefined' ? brushSize : 18);
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
+function v241CommitShape(a,b) {
+    saveHistory();
 
-    if (selectionPath && selectionPath.length > 2) {
-        ctx.beginPath();
-        ctx.moveTo(selectionPath[0].x,selectionPath[0].y);
-        for(let i=1;i<selectionPath.length;i++) ctx.lineTo(selectionPath[i].x,selectionPath[i].y);
-        ctx.closePath();
-        ctx.clip();
+    paintCtx.save();
+    paintCtx.globalAlpha=brushOpacity;
+    paintCtx.strokeStyle=currentColor;
+    paintCtx.lineWidth=brushSize;
+    paintCtx.lineCap='round';
+    paintCtx.lineJoin='round';
+
+    if (selectionPath.length > 2) {
+        paintCtx.beginPath();
+        paintCtx.moveTo(selectionPath[0].x,selectionPath[0].y);
+        selectionPath.slice(1).forEach(p => paintCtx.lineTo(p.x,p.y));
+        paintCtx.closePath();
+        paintCtx.clip();
     }
 
-    if (v24ShapeMode === 'line') {
-        ctx.beginPath();
-        ctx.moveTo(a.x,a.y);
-        ctx.lineTo(b.x,b.y);
-        ctx.stroke();
-    } else if (v24ShapeMode === 'rect') {
-        ctx.strokeRect(a.x,a.y,b.x-a.x,b.y-a.y);
+    if (v241ShapeMode === 'line') {
+        paintCtx.beginPath();
+        paintCtx.moveTo(a.x,a.y);
+        paintCtx.lineTo(b.x,b.y);
+        paintCtx.stroke();
+    } else if (v241ShapeMode === 'rect') {
+        paintCtx.strokeRect(a.x,a.y,b.x-a.x,b.y-a.y);
     } else {
         const cx=(a.x+b.x)/2, cy=(a.y+b.y)/2;
-        const rx=Math.max(1,Math.abs(b.x-a.x)/2), ry=Math.max(1,Math.abs(b.y-a.y)/2);
-        ctx.beginPath();
-        ctx.ellipse(cx,cy,rx,ry,0,0,Math.PI*2);
-        ctx.stroke();
+        const rx=Math.max(1,Math.abs(b.x-a.x)/2);
+        const ry=Math.max(1,Math.abs(b.y-a.y)/2);
+        paintCtx.beginPath();
+        paintCtx.ellipse(cx,cy,rx,ry,0,0,Math.PI*2);
+        paintCtx.stroke();
     }
-    ctx.restore();
-    markChanged();
+    paintCtx.restore();
+
+    hasUnsavedChanges=true;
+    snapshotActiveLayer();
     renderLayerDisplay();
 }
 
-endPointer = function(event) {
-    const t = v24CurrentToolName();
+paintCanvas.addEventListener('pointerup', function(e) {
+    if (!v241SpecialActive || !v241SpecialStart) return;
 
-    if (t === 'select' && v24SelectMode !== 'free' && selecting) {
-        event.preventDefault();
-        selecting = false;
-        v24ShapeStart = null;
-        v24FinishSelectionAndReturn();
+    if (currentTool === 'select' && v241SelectMode !== 'free') {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        v241FinishSelection();
         return;
     }
 
-    if (t === 'shape' && v24ShapeStart) {
-        event.preventDefault();
-        const end = getCanvasPoint(event);
-        v24CommitShape(v24ShapeStart,end);
-        v24ShapeStart = null;
-        v24ShapePreview = null;
-        return;
+    if (currentTool === 'shape') {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        const end=getCanvasPoint(e);
+        v241CommitShape(v241SpecialStart,end);
+        v241SpecialActive=false;
+        v241SpecialStart=null;
+        v241RefreshToolUI();
     }
-
-    const wasSelecting = t === 'select';
-    const result = v24OriginalEndPointer(event);
-    if (wasSelecting) v24FinishSelectionAndReturn();
-    return result;
-};
-
-/* Re-bind canvas pointer listeners so the patched handlers are the live handlers. */
-paintCanvas.removeEventListener('pointerdown', v24OriginalStartPointer);
-paintCanvas.removeEventListener('pointermove', v24OriginalMovePointer);
-paintCanvas.removeEventListener('pointerup', v24OriginalEndPointer);
-paintCanvas.removeEventListener('pointercancel', v24OriginalEndPointer);
-paintCanvas.addEventListener('pointerdown', startPointer);
-paintCanvas.addEventListener('pointermove', movePointer);
-paintCanvas.addEventListener('pointerup', endPointer);
-paintCanvas.addEventListener('pointercancel', endPointer);
-
-/* Sidebar Pages use proven engine actions. */
-document.getElementById('desktopBlankPage')?.addEventListener('click', function(e) {
-    e.preventDefault(); e.stopPropagation();
-    const target = [...document.querySelectorAll('button,.artwork-thumb')].find(el =>
-        /blank/i.test((el.textContent || '') + ' ' + (el.dataset?.art || ''))
-    );
-    if (target && target !== this) target.click();
 }, true);
 
-document.getElementById('desktopTiredPage')?.addEventListener('click', function(e) {
-    e.preventDefault(); e.stopPropagation();
-    const target = [...document.querySelectorAll('button,.artwork-thumb')].find(el =>
-        /tired/i.test((el.textContent || '') + ' ' + (el.dataset?.art || '')) && el !== this
-    );
-    if (target) target.click();
+paintCanvas.addEventListener('pointercancel', function() {
+    v241SpecialActive=false;
+    v241SpecialStart=null;
 }, true);
 
-document.getElementById('desktopUploadPage')?.addEventListener('click', function(e) {
-    e.preventDefault(); e.stopPropagation();
-    document.getElementById('artworkUpload')?.click();
-}, true);
-
-/* Sidebar action controls call the already-tested controls/functions. */
-const v24ClickMap = {
-    desktopAddLayer:'addLayer',
-    desktopDeleteLayer:'deleteLayer',
-    desktopLayerUp:'layerUp',
-    desktopLayerDown:'layerDown'
-};
-Object.entries(v24ClickMap).forEach(([from,to]) => {
-    document.getElementById(from)?.addEventListener('click', function(e){
-        e.preventDefault(); e.stopPropagation();
-        document.getElementById(to)?.click();
-    }, true);
+/* ---------- Clear selection ---------- */
+document.getElementById('clearSelectionV24')?.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    selectionPath=[];
+    selectionCtx.clearRect(0,0,selectionCanvas.width,selectionCanvas.height);
+    document.body.classList.remove('has-selection');
 });
 
-document.getElementById('desktopUndoSide')?.addEventListener('click', function(e){e.stopPropagation(); undo();}, true);
-document.getElementById('desktopRedoSide')?.addEventListener('click', function(e){e.stopPropagation(); redo();}, true);
-document.getElementById('desktopResetSide')?.addEventListener('click', function(e){e.stopPropagation(); resetArtwork();}, true);
-document.getElementById('desktopSaveSide')?.addEventListener('click', function(e){e.stopPropagation(); saveArtwork();}, true);
+/* ---------- Desktop pages ---------- */
+document.getElementById('desktopBlankPage')?.addEventListener('click', function(e) {
+    e.preventDefault(); e.stopImmediatePropagation();
+    document.querySelector('.artwork-thumb[data-art="blank"]')?.click();
+}, true);
+document.getElementById('desktopTiredPage')?.addEventListener('click', function(e) {
+    e.preventDefault(); e.stopImmediatePropagation();
+    document.querySelector('.artwork-thumb[data-art="tired"]')?.click();
+}, true);
+document.getElementById('desktopUploadPage')?.addEventListener('click', function(e) {
+    e.preventDefault(); e.stopImmediatePropagation();
+    document.getElementById('uploadArtworkButton')?.click();
+}, true);
 
-v24SyncIndicator();
+/* ---------- Desktop layers ---------- */
+function v241RenderLayers() {
+    const box=document.getElementById('desktopSideLayers');
+    if (!box) return;
+    box.innerHTML='';
+
+    [...studioLayers].reverse().forEach(function(layer) {
+        const row=document.createElement('div');
+        row.className='desktop-side-layer'+(layer.id===activeLayerId?' active':'');
+
+        const eye=document.createElement('button');
+        eye.type='button';
+        eye.textContent=layer.visible?'◉':'○';
+        eye.addEventListener('click',function(e){
+            e.stopPropagation();
+            snapshotActiveLayer();
+            layer.visible=!layer.visible;
+            renderLayerDisplay();
+            renderLayersUI();
+            v241RenderLayers();
+            hasUnsavedChanges=true;
+        });
+
+        const name=document.createElement('span');
+        name.textContent=layer.name;
+
+        const pick=document.createElement('button');
+        pick.type='button';
+        pick.textContent=layer.id===activeLayerId?'✓':'›';
+
+        const activate=function(){
+            loadActiveLayer(layer.id);
+            v241RenderLayers();
+        };
+        pick.addEventListener('click',function(e){e.stopPropagation();activate();});
+        row.addEventListener('click',activate);
+
+        row.append(eye,name,pick);
+        box.appendChild(row);
+    });
+}
+
+const v241OldRenderLayersUI=renderLayersUI;
+renderLayersUI=function(){
+    v241OldRenderLayersUI();
+    v241RenderLayers();
+};
+
+document.getElementById('desktopAddLayer')?.addEventListener('click',function(e){
+    e.preventDefault(); e.stopImmediatePropagation();
+    document.getElementById('addLayer')?.click();
+    setTimeout(v241RenderLayers,0);
+},true);
+document.getElementById('desktopDeleteLayer')?.addEventListener('click',function(e){
+    e.preventDefault(); e.stopImmediatePropagation();
+    document.getElementById('deleteLayer')?.click();
+    setTimeout(v241RenderLayers,0);
+},true);
+document.getElementById('desktopLayerUp')?.addEventListener('click',function(e){
+    e.preventDefault(); e.stopImmediatePropagation();
+    document.getElementById('layerUp')?.click();
+    setTimeout(v241RenderLayers,0);
+},true);
+document.getElementById('desktopLayerDown')?.addEventListener('click',function(e){
+    e.preventDefault(); e.stopImmediatePropagation();
+    document.getElementById('layerDown')?.click();
+    setTimeout(v241RenderLayers,0);
+},true);
+
+/* ---------- Desktop Undo / Redo / Reset / Save ---------- */
+document.getElementById('desktopUndoSide')?.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();undo();},true);
+document.getElementById('desktopRedoSide')?.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();redo();},true);
+document.getElementById('desktopResetSide')?.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();resetArtwork();},true);
+document.getElementById('desktopSaveSide')?.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();saveArtwork();},true);
+
+/* ---------- Fit Page ---------- */
+document.getElementById('fitPageButton')?.addEventListener('click',function(){
+    zoomMultiplier=1;
+    panX=0;
+    panY=0;
+    fitArtwork();
+});
+
+/* ---------- Persistent tool indicator ---------- */
+let v241Indicator=document.querySelector('.tool-indicator');
+if (!v241Indicator) {
+    v241Indicator=document.createElement('div');
+    v241Indicator.className='tool-indicator fill';
+    canvasFrame.appendChild(v241Indicator);
+}
+
+function v241SyncIndicator(){
+    if (!v241Indicator) return;
+    v241Indicator.className='tool-indicator '+(currentTool==='shape'?'shape':currentTool);
+    let s=22;
+    if (currentTool==='brush'||currentTool==='eraser') s=Math.max(10,Math.min(90,Number(brushSize)||18));
+    v241Indicator.style.width=s+'px';
+    v241Indicator.style.height=s+'px';
+}
+canvasFrame.addEventListener('pointermove',function(e){
+    if (e.pointerType==='touch') return;
+    const r=canvasFrame.getBoundingClientRect();
+    v241Indicator.style.left=(e.clientX-r.left)+'px';
+    v241Indicator.style.top=(e.clientY-r.top)+'px';
+    v241SyncIndicator();
+});
+
+v241RenderLayers();
+v241RefreshToolUI();
 
 </script>
 
