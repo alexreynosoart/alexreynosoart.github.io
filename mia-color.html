@@ -8895,6 +8895,169 @@ window.addEventListener('resize',function(){
 
 v251ResizeAnts();
 
+
+
+/* =========================
+   V2.5.2 SELECT INPUT FIX
+   =========================
+   Selection now intercepts pointer input at the canvas-frame level,
+   BEFORE any older paintCanvas handlers can consume the event.
+*/
+
+let v252Selecting = false;
+let v252PointerId = null;
+let v252Start = null;
+let v252Path = [];
+
+function v252SelectionActive() {
+    return currentTool === 'select' || v249Selecting || v247SelectionSession;
+}
+
+function v252Point(e) {
+    return getCanvasPoint(e);
+}
+
+function v252BuildPath(p) {
+    if (v241SelectMode === 'rect') {
+        return v241RectPath(v252Start, p);
+    }
+    if (v241SelectMode === 'ellipse') {
+        return v241EllipsePath(v252Start, p);
+    }
+    return v252Path;
+}
+
+function v252Preview(path) {
+    v250ResizePreview();
+    v250ClearPreview();
+    if (!path || path.length < 2) return;
+
+    const c = v250PreviewCtx;
+    c.save();
+    c.strokeStyle = v246SelectionOp === 'subtract' ? '#d43b3b' : '#111';
+    c.lineWidth = Math.max(2, 2 / Math.max(fitScale * zoomMultiplier, .25));
+    c.setLineDash([8,6]);
+    c.beginPath();
+    c.moveTo(path[0].x, path[0].y);
+    for (let i=1; i<path.length; i++) c.lineTo(path[i].x, path[i].y);
+    if (v241SelectMode !== 'free') c.closePath();
+    c.stroke();
+    c.restore();
+}
+
+function v252Down(e) {
+    if (!v252SelectionActive()) return;
+    if (e.target !== paintCanvas && !paintCanvas.contains(e.target)) return;
+    if (e.pointerType === 'touch' && activePointers && activePointers.size >= 2) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    currentTool = 'select';
+    v249Selecting = true;
+    v247SelectionSession = true;
+
+    v252Selecting = true;
+    v252PointerId = e.pointerId;
+    v252Start = v252Point(e);
+    v252Path = [{x:v252Start.x, y:v252Start.y}];
+
+    v252Preview(v252Path);
+
+    try { paintCanvas.setPointerCapture(e.pointerId); } catch(_) {}
+}
+
+function v252Move(e) {
+    if (!v252Selecting || e.pointerId !== v252PointerId) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    const p = v252Point(e);
+
+    if (v241SelectMode === 'free') {
+        v252Path.push({x:p.x, y:p.y});
+    } else {
+        v252Path = v252BuildPath(p);
+    }
+
+    v252Preview(v252Path);
+}
+
+function v252Up(e) {
+    if (!v252Selecting || e.pointerId !== v252PointerId) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    const p = v252Point(e);
+
+    if (v241SelectMode !== 'free') {
+        v252Path = v252BuildPath(p);
+    }
+
+    const distance = v252Start
+        ? Math.hypot(p.x-v252Start.x, p.y-v252Start.y)
+        : 0;
+
+    const valid = v252Path.length > 2 &&
+        (v241SelectMode === 'free' ? v252Path.length > 4 : distance >= 5);
+
+    if (valid) {
+        v246PathToMask(v252Path, v246SelectionOp);
+        v246RenderMaskOutline();
+        v251DrawAnts();
+        v251StartAnts();
+    }
+
+    v252Selecting = false;
+    v252PointerId = null;
+    v252Start = null;
+    v252Path = [];
+    v250ClearPreview();
+
+    try { paintCanvas.releasePointerCapture(e.pointerId); } catch(_) {}
+
+    /* Stay in Select. */
+    currentTool = 'select';
+    v249Selecting = true;
+    v247SelectionSession = true;
+    document.body.classList.add('v247-selecting');
+    if (typeof v241RefreshToolUI === 'function') v241RefreshToolUI();
+}
+
+function v252Cancel(e) {
+    if (!v252Selecting) return;
+    e.preventDefault();
+    e.stopPropagation();
+    v252Selecting = false;
+    v252PointerId = null;
+    v252Start = null;
+    v252Path = [];
+    v250ClearPreview();
+}
+
+/* Ancestor capture runs before every paintCanvas listener from older builds. */
+canvasFrame.addEventListener('pointerdown', v252Down, true);
+canvasFrame.addEventListener('pointermove', v252Move, true);
+canvasFrame.addEventListener('pointerup', v252Up, true);
+canvasFrame.addEventListener('pointercancel', v252Cancel, true);
+
+/* Make sure choosing Select starts the authoritative session. */
+document.addEventListener('click', function(e) {
+    const b = e.target.closest(
+        '[data-desktop-tool="select"],[data-v2-tool="select"]'
+    );
+    if (!b) return;
+
+    currentTool = 'select';
+    v249Selecting = true;
+    v247SelectionSession = true;
+    document.body.classList.add('v247-selecting');
+
+    if (typeof v241RefreshToolUI === 'function') v241RefreshToolUI();
+}, true);
+
 </script>
 
 
