@@ -2670,6 +2670,14 @@ body.v254-eraser-active #touchEraserOpacityWrap { display:flex; }
     opacity:1 !important;
 }
 
+
+/* V2.6.0: opacity controls use a normal 0-100 scale. */
+#eraserOpacity,
+#touchEraserOpacity,
+#brushOpacity {
+    direction:ltr !important;
+}
+
 </style>
 
 </head>
@@ -2775,7 +2783,7 @@ body.v254-eraser-active #touchEraserOpacityWrap { display:flex; }
         </div>
     </section>
 
-    <div class="desktop-build-version" aria-hidden="true">v2.5.9</div>
+    <div class="desktop-build-version" aria-hidden="true">v2.6.0</div>
 </aside>
 
 <div class="studio">
@@ -8594,6 +8602,162 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
         document.getElementById("touchEraserOpacityReadout").textContent = "100%";
     if (document.getElementById("eraserOpacityReadout"))
         document.getElementById("eraserOpacityReadout").textContent = "100%";
+})();
+</script>
+
+
+<script>
+/* =====================================================
+   V2.6.0 FILL + OPACITY RESET
+   ===================================================== */
+(() => {
+    "use strict";
+
+    /* -------------------------------------------------
+       FILL PERFORMANCE
+       -------------------------------------------------
+       Older Select experiments left pointInSelection wrappers behind.
+       One of them scans/reads a selection canvas on every pixel test.
+       Flood fill can call that millions of times, which is what was
+       freezing Firefox.
+
+       The current selection engine already maintains the V2.5.6 clip.
+       For fill we use ONE cached raster of that clip, or simply allow
+       every pixel when no selection exists.
+    */
+
+    let fillSelectionMaskV260 = null;
+    let fillSelectionW = 0;
+    let fillSelectionH = 0;
+
+    function rebuildFillSelectionMaskV260() {
+        fillSelectionMaskV260 = null;
+        fillSelectionW = paintCanvas.width;
+        fillSelectionH = paintCanvas.height;
+
+        if (!window.__miaSelectionHasClipV256 || !window.__miaSelectionClipV256) {
+            return;
+        }
+
+        const c = document.createElement("canvas");
+        c.width = fillSelectionW;
+        c.height = fillSelectionH;
+        const cx = c.getContext("2d", {willReadFrequently:true});
+
+        cx.fillStyle = "#fff";
+        cx.fill(window.__miaSelectionClipV256);
+
+        const rgba = cx.getImageData(0,0,c.width,c.height).data;
+        const alpha = new Uint8Array(c.width*c.height);
+
+        for (let p=0, i=3; p<alpha.length; p++, i+=4) {
+            alpha[p] = rgba[i];
+        }
+
+        fillSelectionMaskV260 = alpha;
+    }
+
+    /* Replace the whole legacy wrapper chain with a constant-time lookup.
+       No selection = true. Selection = cached alpha byte. */
+    pointInSelection = function(x,y) {
+        x = Math.floor(x);
+        y = Math.floor(y);
+
+        if (!window.__miaSelectionHasClipV256 || !window.__miaSelectionClipV256) {
+            return true;
+        }
+
+        if (
+            !fillSelectionMaskV260 ||
+            fillSelectionW !== paintCanvas.width ||
+            fillSelectionH !== paintCanvas.height
+        ) {
+            rebuildFillSelectionMaskV260();
+        }
+
+        if (x<0 || y<0 || x>=fillSelectionW || y>=fillSelectionH) return false;
+        return fillSelectionMaskV260[y*fillSelectionW+x] > 0;
+    };
+
+    /* Rebuild only when selection controls change the mask. */
+    document.addEventListener("pointerup", function() {
+        if (currentTool === "select") {
+            fillSelectionMaskV260 = null;
+        }
+    }, true);
+
+    ["clearSelectionV24","clearSelectionTouch"].forEach(id => {
+        document.getElementById(id)?.addEventListener("click", function() {
+            fillSelectionMaskV260 = null;
+        }, true);
+    });
+
+    /* -------------------------------------------------
+       OPACITY
+       -------------------------------------------------
+       Return to a conventional 0-100 scale.
+       0% = transparent / no effect.
+       100% = fully opaque / full erase.
+       No inferred starting value from screenshots.
+    */
+
+    function clampPct(v) {
+        return Math.max(0, Math.min(100, Number(v) || 0));
+    }
+
+    function setEraserPct(n) {
+        n = clampPct(n);
+        eraserOpacityV244 = n / 100;
+
+        const desktop = document.getElementById("eraserOpacity");
+        const mobile = document.getElementById("touchEraserOpacity");
+        const dt = document.getElementById("eraserOpacityReadout");
+        const mt = document.getElementById("touchEraserOpacityReadout");
+
+        if (desktop) desktop.value = String(n);
+        if (mobile) mobile.value = String(n);
+        if (dt) dt.textContent = Math.round(n) + "%";
+        if (mt) mt.textContent = Math.round(n) + "%";
+    }
+
+    function setBrushPct(n) {
+        n = clampPct(n);
+        brushOpacity = n / 100;
+
+        const slider = document.getElementById("brushOpacity");
+        const readout = document.getElementById("brushOpacityReadout");
+
+        if (slider) slider.value = String(n);
+        if (readout) readout.textContent = Math.round(n) + "%";
+    }
+
+    ["eraserOpacity","touchEraserOpacity"].forEach(id => {
+        const s = document.getElementById(id);
+        if (!s) return;
+        s.min = "0";
+        s.max = "100";
+        s.step = "1";
+        s.addEventListener("input", function(e) {
+            e.stopImmediatePropagation();
+            setEraserPct(this.value);
+        }, true);
+    });
+
+    const brushSlider = document.getElementById("brushOpacity");
+    if (brushSlider) {
+        brushSlider.min = "0";
+        brushSlider.max = "100";
+        brushSlider.step = "1";
+        brushSlider.addEventListener("input", function(e) {
+            e.stopImmediatePropagation();
+            setBrushPct(this.value);
+        }, true);
+    }
+
+    /* Fresh page defaults. These are normal defaults, not values inferred
+       from the user's previous test screenshot. */
+    setEraserPct(100);
+    setBrushPct(100);
 })();
 </script>
 
