@@ -173,6 +173,7 @@
 
             grid-template-columns:
                 220px
+                88px
                 minmax(0, 1fr);
 
             gap: 16px;
@@ -797,6 +798,198 @@ body {
 
     
         /* =========================
+           ARTWORK TRAY
+           ========================= */
+
+        .artwork-tray {
+            position: sticky;
+            top: 8px;
+            max-height: 74vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 6px;
+            border: 1px solid #ddd;
+            border-radius: 16px;
+            background: #f7f7f7;
+            scrollbar-width: thin;
+        }
+
+        .artwork-tray-label {
+            display: block;
+            margin: 2px 0 7px;
+            text-align: center;
+            color: #777;
+            font-size: 0.62rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .artwork-thumb {
+            width: 100%;
+            margin: 0 0 7px;
+            padding: 5px;
+            border: 2px solid transparent;
+            border-radius: 11px;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        .artwork-thumb.active {
+            border-color: #e88eaa;
+            box-shadow: 0 0 0 2px rgba(232,142,170,0.14);
+        }
+
+        .artwork-thumb img,
+        .artwork-thumb-preview {
+            display: flex;
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            object-fit: contain;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e7e7e7;
+            border-radius: 7px;
+            background: #fff;
+        }
+
+        .artwork-thumb-preview.blank {
+            font-size: 1.45rem;
+            font-weight: 300;
+        }
+
+        .artwork-thumb-preview.soon {
+            background: repeating-linear-gradient(135deg,#fafafa,#fafafa 7px,#f1f1f1 7px,#f1f1f1 14px);
+            color: #aaa;
+            font-size: 1rem;
+        }
+
+        .artwork-thumb span:last-child {
+            display: block;
+            margin-top: 4px;
+            overflow: hidden;
+            text-align: center;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #555;
+            font-size: 0.58rem;
+            font-weight: 700;
+        }
+
+        .artwork-thumb.future {
+            cursor: default;
+            opacity: 0.58;
+        }
+
+        /* UNSAVED ART MODAL */
+
+        .leave-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 3000;
+            display: none;
+            place-items: center;
+            padding: 20px;
+            background: rgba(0,0,0,0.48);
+        }
+
+        .leave-modal.open {
+            display: grid;
+        }
+
+        .leave-card {
+            width: min(420px, 100%);
+            padding: 24px;
+            border-radius: 20px;
+            background: #fff;
+            box-shadow: 0 18px 55px rgba(0,0,0,0.24);
+            text-align: center;
+        }
+
+        .leave-card h2 {
+            margin: 0 0 8px;
+            font-size: 1.2rem;
+        }
+
+        .leave-card p {
+            margin: 0 0 18px;
+            color: #666;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        .leave-actions {
+            display: flex;
+            gap: 9px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .leave-actions button {
+            min-height: 42px;
+            padding: 0 16px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background: #fff;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .leave-actions .keep-creating {
+            border-color: #e88eaa;
+            background: #e88eaa;
+            color: #fff;
+        }
+
+        .leave-skip {
+            display: inline-flex;
+            gap: 7px;
+            align-items: center;
+            margin-top: 16px;
+            color: #777;
+            font-size: 0.75rem;
+        }
+
+        @media (max-width: 850px) {
+            .artwork-tray {
+                position: static;
+                display: flex;
+                gap: 7px;
+                max-height: none;
+                margin-bottom: 6px;
+                padding: 5px;
+                overflow-x: auto;
+                overflow-y: hidden;
+                border-radius: 12px;
+                scroll-snap-type: x proximity;
+            }
+
+            .artwork-tray-label {
+                display: none;
+            }
+
+            .artwork-thumb {
+                flex: 0 0 64px;
+                margin: 0;
+                scroll-snap-align: start;
+            }
+
+            .artwork-thumb span:last-child {
+                font-size: 0.52rem;
+            }
+
+            .canvas-frame {
+                height: calc(100dvh - 305px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .canvas-frame {
+                height: calc(100dvh - 318px);
+            }
+        }
+
+        /* =========================
            STUDIO UX UPGRADE
            Fullscreen + tool cursors
            ========================= */
@@ -930,7 +1123,7 @@ body {
             }
 
             body.studio-fullscreen .canvas-frame {
-                height: calc(100dvh - 168px);
+                height: calc(100dvh - 245px);
                 min-height: 340px;
             }
 
@@ -1130,6 +1323,46 @@ body {
 
 
 
+        <!-- ARTWORK TRAY -->
+
+        <aside class="artwork-tray"
+               id="artworkTray"
+               aria-label="Choose a page">
+
+            <span class="artwork-tray-label">Pages</span>
+
+            <button class="artwork-thumb"
+                    type="button"
+                    data-art="blank"
+                    title="Start from scratch">
+                <span class="artwork-thumb-preview blank">＋</span>
+                <span>Blank</span>
+            </button>
+
+            <button class="artwork-thumb active"
+                    type="button"
+                    data-art="tired"
+                    title="Tired Panda">
+                <img src="images/mia-the-panda-coloring-page.png"
+                     alt="Tired Panda coloring page">
+                <span>Tired Panda</span>
+            </button>
+
+            <div class="artwork-thumb future"
+                 aria-label="Future drawing coming soon">
+                <span class="artwork-thumb-preview soon">♡</span>
+                <span>Coming Soon</span>
+            </div>
+
+            <div class="artwork-thumb future"
+                 aria-label="Future drawing coming soon">
+                <span class="artwork-thumb-preview soon">♪</span>
+                <span>Coming Soon</span>
+            </div>
+
+        </aside>
+
+
         <!-- ART -->
 
         <section class="art-side">
@@ -1232,6 +1465,38 @@ body {
 <div class="brush-size-preview"
      id="brushSizePreview"
      aria-hidden="true"></div>
+
+
+<div class="leave-modal"
+     id="leaveModal"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="leaveTitle">
+
+    <div class="leave-card">
+        <h2 id="leaveTitle">Wait, your artwork isn't saved yet. ♥</h2>
+        <p>If you leave the Studio now, your changes may be lost.</p>
+
+        <div class="leave-actions">
+            <button class="keep-creating"
+                    id="keepCreating"
+                    type="button">
+                KEEP CREATING
+            </button>
+
+            <button id="leaveAnyway"
+                    type="button">
+                LEAVE STUDIO
+            </button>
+        </div>
+
+        <label class="leave-skip">
+            <input id="skipLeaveWarning"
+                   type="checkbox">
+            Don't remind me again this session
+        </label>
+    </div>
+</div>
 
 
 <!-- =========================
@@ -1377,21 +1642,28 @@ body {
        ===================================================== */
 
 
-    const ARTWORK = {
+    const ARTWORKS = {
 
-        id:
-            'tired-panda-001',
+        tired: {
+            id: 'tired-panda-001',
+            title: 'Tired Panda',
+            source: 'images/mia-the-panda-coloring-page.png',
+            creator: 'Mia',
+            blank: false
+        },
 
-        title:
-            'Tired Panda',
-
-        source:
-            'images/mia-the-panda-coloring-page.png',
-
-        creator:
-            'Mia'
+        blank: {
+            id: 'blank-page',
+            title: 'Blank Page',
+            source: null,
+            creator: 'Mia',
+            blank: true
+        }
 
     };
+
+    let ARTWORK = ARTWORKS.tired;
+    let currentArtworkKey = 'tired';
 
 
     /* =========================
@@ -1843,6 +2115,21 @@ body {
     let navigationGesture =
         false;
 
+    let toolBeforePinch =
+        null;
+
+    let pinchMoveHandoff =
+        false;
+
+    let hasUnsavedChanges =
+        false;
+
+    let skipLeaveWarning =
+        false;
+
+    let pendingNavigation =
+        null;
+
 
     /* =========================
        COLORS
@@ -2012,6 +2299,105 @@ body {
 
 
     /* =========================
+       PAGE CHOOSER
+       ========================= */
+
+    function markSaved() {
+        hasUnsavedChanges = false;
+    }
+
+    function markChanged() {
+        hasUnsavedChanges = true;
+    }
+
+    function updateArtworkTray() {
+        document
+            .querySelectorAll('[data-art]')
+            .forEach(function(button) {
+                button.classList.toggle(
+                    'active',
+                    button.dataset.art === currentArtworkKey
+                );
+            });
+    }
+
+    function setupBlankPage() {
+        const width =
+            sourceImage.naturalWidth ||
+            paintCanvas.width ||
+            1600;
+
+        const height =
+            sourceImage.naturalHeight ||
+            paintCanvas.height ||
+            2000;
+
+        paintCanvas.width = width;
+        paintCanvas.height = height;
+        lineCanvas.width = width;
+        lineCanvas.height = height;
+        canvasStage.style.width = width + 'px';
+        canvasStage.style.height = height + 'px';
+
+        paintCtx.clearRect(0, 0, width, height);
+        lineCtx.clearRect(0, 0, width, height);
+
+        /* A white boundary image lets Fill work as a
+           full-page background fill on a blank sheet. */
+        lineCtx.fillStyle = '#ffffff';
+        lineCtx.fillRect(0, 0, width, height);
+        boundaryData = lineCtx.getImageData(0, 0, width, height);
+        lineCtx.clearRect(0, 0, width, height);
+
+        history = [];
+        historyIndex = -1;
+        saveHistory(false);
+        markSaved();
+        selectTool('brush');
+        requestAnimationFrame(fitArtwork);
+    }
+
+    function loadArtwork(key) {
+        if (!ARTWORKS[key]) return;
+
+        currentArtworkKey = key;
+        ARTWORK = ARTWORKS[key];
+        updateArtworkTray();
+
+        if (ARTWORK.blank) {
+            setupBlankPage();
+            return;
+        }
+
+        sourceImage.src = ARTWORK.source;
+    }
+
+    function requestArtworkChange(key) {
+        if (key === currentArtworkKey) return;
+
+        if (
+            hasUnsavedChanges &&
+            !skipLeaveWarning
+        ) {
+            pendingNavigation = function() {
+                loadArtwork(key);
+            };
+            openLeaveModal();
+            return;
+        }
+
+        loadArtwork(key);
+    }
+
+    document
+        .querySelectorAll('[data-art]')
+        .forEach(function(button) {
+            button.addEventListener('click', function() {
+                requestArtworkChange(this.dataset.art);
+            });
+        });
+
+    /* =========================
        INITIALIZE ART
        ========================= */
 
@@ -2161,7 +2547,11 @@ body {
                 height
             );
 
-            saveHistory();
+            history = [];
+            historyIndex = -1;
+            saveHistory(false);
+            markSaved();
+            selectTool('fill');
 
             requestAnimationFrame(
                 fitArtwork
@@ -2742,10 +3132,16 @@ body {
                     panY;
 
                 /*
-                After pinch begins, switch to
-                MOVE so one-finger navigation
-                is safe after fingers are lifted.
+                Pinch navigation temporarily borrows MOVE.
+                Remember the tool so the final finger release
+                returns the artist directly to what they were using.
                 */
+
+                if (!pinchMoveHandoff) {
+                    toolBeforePinch = currentTool;
+                }
+
+                pinchMoveHandoff = true;
 
                 selectTool(
                     'move'
@@ -3099,6 +3495,19 @@ body {
 
             navigationGesture =
                 false;
+
+            if (
+                pinchMoveHandoff &&
+                toolBeforePinch
+            ) {
+                const returnTool =
+                    toolBeforePinch;
+
+                pinchMoveHandoff = false;
+                toolBeforePinch = null;
+
+                selectTool(returnTool);
+            }
 
         }
 
@@ -3670,7 +4079,9 @@ body {
        HISTORY
        ========================= */
 
-    function saveHistory() {
+    function saveHistory(
+        dirty = true
+    ) {
 
         history =
             history.slice(
@@ -3700,6 +4111,10 @@ body {
 
         historyIndex =
             history.length - 1;
+
+        if (dirty) {
+            markChanged();
+        }
 
     }
 
@@ -3875,6 +4290,8 @@ body {
 
         link.remove();
 
+        markSaved();
+
     }
 
 
@@ -3921,6 +4338,94 @@ body {
     No commerce API keys belong in this page.
     */
 
+
+    /* =========================
+       UNSAVED WORK PROTECTION
+       ========================= */
+
+    const leaveModal =
+        document.getElementById('leaveModal');
+
+    const skipLeaveWarningBox =
+        document.getElementById('skipLeaveWarning');
+
+    function openLeaveModal() {
+        leaveModal.classList.add('open');
+    }
+
+    function closeLeaveModal() {
+        leaveModal.classList.remove('open');
+        pendingNavigation = null;
+    }
+
+    document
+        .getElementById('keepCreating')
+        .addEventListener('click', closeLeaveModal);
+
+    document
+        .getElementById('leaveAnyway')
+        .addEventListener('click', function() {
+            if (skipLeaveWarningBox.checked) {
+                skipLeaveWarning = true;
+            }
+
+            hasUnsavedChanges = false;
+            leaveModal.classList.remove('open');
+
+            const action = pendingNavigation;
+            pendingNavigation = null;
+
+            if (action) action();
+        });
+
+    skipLeaveWarningBox.addEventListener(
+        'change',
+        function() {
+            if (this.checked) {
+                skipLeaveWarning = true;
+            }
+        }
+    );
+
+    const exitStudioLink =
+        document.querySelector('.exit-studio');
+
+    exitStudioLink.addEventListener(
+        'click',
+        function(event) {
+            if (
+                !hasUnsavedChanges ||
+                skipLeaveWarning
+            ) {
+                return;
+            }
+
+            event.preventDefault();
+            const destination = this.href;
+
+            pendingNavigation = function() {
+                window.location.href = destination;
+            };
+
+            openLeaveModal();
+        }
+    );
+
+    /* Browsers control the wording of this warning.
+       It covers refresh, closing the tab, and browser
+       back/forward when unsaved artwork exists. */
+    window.addEventListener(
+        'beforeunload',
+        function(event) {
+            if (
+                hasUnsavedChanges &&
+                !skipLeaveWarning
+            ) {
+                event.preventDefault();
+                event.returnValue = '';
+            }
+        }
+    );
 
     /* =========================
        BUTTONS
