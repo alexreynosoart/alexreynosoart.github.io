@@ -2860,6 +2860,46 @@ body.v254-select-active #clearSelectionTouch {
     }
 }
 
+
+/* =====================================================
+   V2.6.8 MOBILE SINGLE TOOLBAR ROW
+   ===================================================== */
+@media (max-width:1000px) {
+    .studio-topbar {
+        display:grid !important;
+        grid-template-columns:1fr auto;
+        align-items:center;
+        column-gap:6px;
+        row-gap:7px;
+    }
+    .zoom-controls {
+        grid-column:1 / -1;
+        grid-row:1;
+    }
+    .mobile-creative-tools {
+        grid-column:1;
+        grid-row:2;
+        order:initial !important;
+        width:auto !important;
+        justify-content:flex-start !important;
+        flex-wrap:nowrap;
+        min-width:0;
+    }
+    .mobile-top-actions {
+        grid-column:2;
+        grid-row:2;
+        order:initial !important;
+        width:auto !important;
+        justify-content:flex-end !important;
+        flex-wrap:nowrap;
+    }
+    .mobile-icon-tool,
+    .mobile-select-icons button,
+    .mobile-top-actions button {
+        flex:0 0 auto;
+    }
+}
+
 </style>
 
 </head>
@@ -2939,7 +2979,10 @@ body.v254-select-active #clearSelectionTouch {
                 <div style="height:54px;background:#fff;border:1px solid #ddd;border-radius:7px;display:grid;place-items:center;font-size:1.2rem">↑</div>
                 UPLOAD
             </button>
-            <button class="desktop-side-page placeholder" type="button" disabled>COMING<br>SOON</button>
+            <button class="desktop-side-page" id="desktopOceanPage" type="button">
+                <img src="images/mia-ocean-adventure-coloring-page.png" alt="">
+                OCEAN
+            </button>
             <button class="desktop-side-page placeholder" type="button" disabled>COMING<br>SOON</button>
             <button class="desktop-side-page placeholder" type="button" disabled>COMING<br>SOON</button>
         </div>
@@ -2965,7 +3008,7 @@ body.v254-select-active #clearSelectionTouch {
         </div>
     </section>
 
-    <div class="desktop-build-version" aria-hidden="true">v2.6.7</div>
+    <div class="desktop-build-version" aria-hidden="true">v2.6.8</div>
 </aside>
 
 <div class="studio">
@@ -3434,11 +3477,14 @@ body.v254-select-active #clearSelectionTouch {
                accept="image/png,image/jpeg,image/webp,image/gif"
                hidden>
 
-        <div class="artwork-thumb future"
-             aria-label="Future drawing coming soon">
-            <span class="artwork-thumb-preview soon">♡</span>
-            <span>Coming Soon</span>
-        </div>
+        <button class="artwork-thumb"
+                type="button"
+                data-art="ocean"
+                title="Ocean Adventure">
+            <img src="images/mia-ocean-adventure-coloring-page.png"
+                 alt="Ocean Adventure coloring page">
+            <span>Ocean Adventure</span>
+        </button>
 
         <div class="artwork-thumb future"
              aria-label="Future drawing coming soon">
@@ -3677,6 +3723,14 @@ body.v254-select-active #clearSelectionTouch {
             id: 'tired-panda-001',
             title: 'Tired Panda',
             source: 'images/mia-the-panda-coloring-page.png',
+            creator: 'Mia',
+            blank: false
+        },
+
+        ocean: {
+            id: 'mia-ocean-adventure-001',
+            title: 'Ocean Adventure',
+            source: 'images/mia-ocean-adventure-coloring-page.png',
             creator: 'Mia',
             blank: false
         },
@@ -7437,6 +7491,10 @@ document.getElementById('desktopBlankPage')?.addEventListener('click', function(
 document.getElementById('desktopTiredPage')?.addEventListener('click', function(e) {
     e.preventDefault(); e.stopImmediatePropagation();
     document.querySelector('.artwork-thumb[data-art="tired"]')?.click();
+}, true);
+document.getElementById('desktopOceanPage')?.addEventListener('click', function(e) {
+    e.preventDefault(); e.stopImmediatePropagation();
+    document.querySelector('.artwork-thumb[data-art="ocean"]')?.click();
 }, true);
 document.getElementById('desktopUploadPage')?.addEventListener('click', function(e) {
     e.preventDefault(); e.stopImmediatePropagation();
