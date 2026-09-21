@@ -2334,6 +2334,81 @@ body.v242-touch-active .tool-indicator {
     border-color:#111 !important;
 }
 
+
+/* =========================
+   V2.4.4 BRUSH / ERASER POLISH
+   ========================= */
+#desktopPen.active,
+#desktopMarker.active,
+#desktopSoft.active,
+#desktopTexture.active {
+    background:#111 !important;
+    color:#fff !important;
+    border-color:#111 !important;
+}
+
+/* Eraser opacity is contextual, not permanent clutter. */
+.eraser-opacity-section { display:none; }
+body.v244-eraser-active .eraser-opacity-section { display:block; }
+
+/* FIT PAGE needs a little breathing room on desktop. */
+@media (min-width:1001px) {
+    #fitPageButton {
+        min-width:74px !important;
+        padding-left:8px !important;
+        padding-right:8px !important;
+        font-size:.66rem !important;
+        white-space:nowrap !important;
+    }
+}
+
+/* Action buttons should not look latched after a tap on touch devices. */
+@media (pointer:coarse) {
+    #fitButton:focus,
+    #fitPageButton:focus,
+    #zoomIn:focus,
+    #zoomOut:focus,
+    #fullscreenButton:focus {
+        outline:none !important;
+        box-shadow:none !important;
+    }
+}
+
+
+/* =========================
+   V2.4.5 PHONE + TABLET SHAPES
+   ========================= */
+#touchSelectModes,
+#touchShapeModes { display:none; }
+
+body.v241-select-active #touchSelectModes { display:block; }
+body.v241-shape-active #touchShapeModes { display:block; }
+
+.v245-clear-selection {
+    width:100%;
+    min-height:38px;
+    margin-top:8px;
+    border:1px solid #d8d8d8;
+    border-radius:10px;
+    background:#fff;
+    font:inherit;
+    font-size:.68rem;
+    font-weight:850;
+}
+body:not(.has-selection) #clearSelectionTouch { display:none; }
+
+/* Three shared tool choices fit comfortably on phone/tablet. */
+@media (max-width:1000px) {
+    #generalToolsGroup {
+        grid-template-columns:repeat(3,minmax(0,1fr));
+    }
+    #generalToolsGroup .v2-tool {
+        min-width:0;
+        padding-left:7px;
+        padding-right:7px;
+    }
+}
+
 </style>
 
 </head>
@@ -2352,15 +2427,18 @@ body.v242-touch-active .tool-indicator {
         <div class="desktop-side-label"><span>Tools</span><span id="desktopToolReadout">Fill</span></div>
         <div class="desktop-side-grid">
             <button data-desktop-tool="fill" type="button">FILL</button>
-            <button data-desktop-tool="brush" type="button">BRUSH</button>
             <button data-desktop-tool="eraser" type="button">ERASE</button>
             <button data-desktop-tool="move" type="button">MOVE</button>
+            <button data-desktop-tool="select" type="button">SELECT</button>
         </div>
         <div class="desktop-side-grid" style="margin-top:6px">
-            <button data-desktop-tool="select" type="button">SELECT</button>
-            <button data-desktop-tool="shape" type="button">LINE/SHAPE</button>
             <button id="desktopPen" type="button">PEN</button>
             <button id="desktopMarker" type="button">MARKER</button>
+            <button id="desktopSoft" type="button">SOFT</button>
+            <button id="desktopTexture" type="button">TEXTURE</button>
+        </div>
+        <div class="desktop-side-grid" style="margin-top:6px;grid-template-columns:1fr">
+            <button data-desktop-tool="shape" type="button">LINE / SHAPE</button>
         </div>
         <div class="v24-mini-options" id="desktopSelectModes">
             <button type="button" data-select-mode="free" class="active">FREE</button>
@@ -2372,7 +2450,6 @@ body.v242-touch-active .tool-indicator {
             <button type="button" data-shape-mode="line" class="active">LINE</button>
             <button type="button" data-shape-mode="rect">SQUARE</button>
             <button type="button" data-shape-mode="ellipse">CIRCLE</button>
-            <button id="desktopTexture" type="button">TEXTURE BRUSH</button>
         </div>
     </section>
 
@@ -2635,6 +2712,22 @@ body.v242-touch-active .tool-indicator {
 
             </div>
 
+            <div class="tool-section eraser-opacity-section" id="eraserOpacitySection">
+                <label class="tool-label" for="eraserOpacity">
+                    Eraser Opacity
+                </label>
+                <input class="brush-slider"
+                       id="eraserOpacity"
+                       type="range"
+                       min="5"
+                       max="100"
+                       value="100">
+                <div class="brush-readout">
+                    <span id="eraserOpacityReadout">100</span>%
+                </div>
+            </div>
+
+
 
         </aside>
 
@@ -2740,6 +2833,26 @@ body.v242-touch-active .tool-indicator {
         <div class="v2-tool-grid" id="generalToolsGroup">
             <button class="v2-tool active" data-v2-tool="fill" type="button">FILL</button>
             <button class="v2-tool" data-v2-tool="select" type="button">SELECT</button>
+            <button class="v2-tool" data-v2-tool="shape" type="button">LINE / SHAPE</button>
+        </div>
+
+        <div class="option-group v245-context-options" id="touchSelectModes">
+            <div class="option-label"><span>Select Shape</span><span></span></div>
+            <div class="brush-type-grid">
+                <button class="brush-type active" data-touch-select-mode="free" type="button">FREE</button>
+                <button class="brush-type" data-touch-select-mode="rect" type="button">SQUARE</button>
+                <button class="brush-type" data-touch-select-mode="ellipse" type="button">CIRCLE</button>
+            </div>
+            <button class="v245-clear-selection" id="clearSelectionTouch" type="button">CLEAR SELECTION</button>
+        </div>
+
+        <div class="option-group v245-context-options" id="touchShapeModes">
+            <div class="option-label"><span>Line / Shape</span><span></span></div>
+            <div class="brush-type-grid">
+                <button class="brush-type active" data-touch-shape-mode="line" type="button">LINE</button>
+                <button class="brush-type" data-touch-shape-mode="rect" type="button">SQUARE</button>
+                <button class="brush-type" data-touch-shape-mode="ellipse" type="button">CIRCLE</button>
+            </div>
         </div>
 
         <div class="option-group" id="brushTypesGroup">
@@ -2765,7 +2878,7 @@ body.v242-touch-active .tool-indicator {
         
 
         <p class="selection-note" id="selectionHelp" hidden>
-            Select uses a freehand lasso. Draw around an area, then use Fill or Eraser to work inside it.
+            Choose Free, Square, or Circle. Make a selection, then use your previous tool inside it.
         </p>
     </aside>
 
@@ -7410,6 +7523,201 @@ v241RefreshToolUI = function() {
     v243DesktopBrushState(brushType);
 };
 v241RefreshToolUI();
+
+
+
+/* =========================
+   V2.4.4 BRUSH STATE + ERASER OPACITY
+   ========================= */
+
+let eraserOpacityV244 = 1;
+
+/* All four desktop brush choices are first-class, mutually exclusive buttons. */
+function v244DesktopBrushState() {
+    const map = {
+        pen: document.getElementById('desktopPen'),
+        marker: document.getElementById('desktopMarker'),
+        soft: document.getElementById('desktopSoft'),
+        texture: document.getElementById('desktopTexture')
+    };
+    Object.entries(map).forEach(([name,button]) => {
+        if (button) button.classList.toggle(
+            'active',
+            currentTool === 'brush' && brushType === name
+        );
+    });
+
+    document.body.classList.toggle('v244-eraser-active', currentTool === 'eraser');
+
+    const readout = document.getElementById('desktopToolReadout');
+    if (readout && currentTool === 'brush') {
+        readout.textContent = brushType.charAt(0).toUpperCase() + brushType.slice(1);
+    }
+}
+
+function v244ChooseDesktopBrush(type,e) {
+    if (e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+    }
+    brushType = type;
+    selectTool('brush');
+    document.querySelectorAll('[data-brush-type]').forEach(b => {
+        b.classList.toggle('active', b.dataset.brushType === type);
+    });
+    const r=document.getElementById('brushTypeReadout');
+    if(r) r.textContent=type.charAt(0).toUpperCase()+type.slice(1);
+    if (typeof v241RefreshToolUI === 'function') v241RefreshToolUI();
+    v244DesktopBrushState();
+}
+
+[
+    ['desktopPen','pen'],
+    ['desktopMarker','marker'],
+    ['desktopSoft','soft'],
+    ['desktopTexture','texture']
+].forEach(([id,type]) => {
+    document.getElementById(id)?.addEventListener(
+        'click',
+        e => v244ChooseDesktopBrush(type,e),
+        true
+    );
+});
+
+/* Keep brush highlighting and eraser controls synchronized after every tool change. */
+const v244SelectTool = selectTool;
+selectTool = function(tool) {
+    const result = v244SelectTool(tool);
+    v244DesktopBrushState();
+    return result;
+};
+
+/* Eraser gets its own opacity without changing paint-brush opacity. */
+const eraserOpacitySliderV244 = document.getElementById('eraserOpacity');
+eraserOpacitySliderV244?.addEventListener('input', function() {
+    eraserOpacityV244 = Number(this.value)/100;
+    document.getElementById('eraserOpacityReadout').textContent = this.value;
+});
+
+/* The existing stroke engine reads brushOpacity. Temporarily substitute
+   eraser opacity only while an eraser stroke is being processed. */
+const v244DrawStrokeSegment = drawStrokeSegment;
+drawStrokeSegment = function(x1,y1,x2,y2) {
+    if (currentTool !== 'eraser') {
+        return v244DrawStrokeSegment(x1,y1,x2,y2);
+    }
+    const saved = brushOpacity;
+    brushOpacity = eraserOpacityV244;
+    try {
+        return v244DrawStrokeSegment(x1,y1,x2,y2);
+    } finally {
+        brushOpacity = saved;
+    }
+};
+
+/* FIT / zoom / fullscreen are momentary actions, never latched controls. */
+['fitButton','fitPageButton','zoomIn','zoomOut','fullscreenButton'].forEach(id => {
+    document.getElementById(id)?.addEventListener('click', function() {
+        this.blur();
+    });
+});
+
+v244DesktopBrushState();
+
+
+
+/* =========================
+   V2.4.5 SHARED PHONE / TABLET TOOL CONTROLS
+   ========================= */
+
+/* The shared floating Tools panel is used by both phone and tablet.
+   It drives the same selection/shape engine as desktop. */
+document.querySelectorAll('[data-v2-tool]').forEach(function(button){
+    button.addEventListener('click',function(e){
+        const tool=this.dataset.v2Tool;
+
+        if(tool==='select'){
+            if(currentTool!=='select') v241ToolBeforeSelect=currentTool;
+            selectTool('select');
+        } else if(tool==='shape'){
+            selectTool('shape');
+            const status=document.getElementById('studioStatus');
+            if(status) status.textContent='Line / Shape selected. Drag to draw.';
+        } else {
+            selectTool(tool);
+        }
+
+        if(typeof v241RefreshToolUI==='function') v241RefreshToolUI();
+
+        document.querySelectorAll('[data-v2-tool]').forEach(b=>{
+            b.classList.toggle('active',b.dataset.v2Tool===tool);
+        });
+    },true);
+});
+
+document.querySelectorAll('[data-touch-select-mode]').forEach(function(button){
+    button.addEventListener('click',function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        v241SelectMode=this.dataset.touchSelectMode;
+
+        document.querySelectorAll('[data-touch-select-mode]').forEach(b=>{
+            b.classList.toggle('active',b===this);
+        });
+        document.querySelectorAll('[data-select-mode]').forEach(b=>{
+            b.classList.toggle('active',b.dataset.selectMode===v241SelectMode);
+        });
+
+        /* Stay in Select while choosing its shape. */
+        if(currentTool!=='select'){
+            v241ToolBeforeSelect=currentTool;
+            selectTool('select');
+        }
+        if(typeof v241RefreshToolUI==='function') v241RefreshToolUI();
+    });
+});
+
+document.querySelectorAll('[data-touch-shape-mode]').forEach(function(button){
+    button.addEventListener('click',function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        v241ShapeMode=this.dataset.touchShapeMode;
+
+        document.querySelectorAll('[data-touch-shape-mode]').forEach(b=>{
+            b.classList.toggle('active',b===this);
+        });
+        document.querySelectorAll('[data-shape-mode]').forEach(b=>{
+            b.classList.toggle('active',b.dataset.shapeMode===v241ShapeMode);
+        });
+
+        selectTool('shape');
+        if(typeof v241RefreshToolUI==='function') v241RefreshToolUI();
+    });
+});
+
+document.getElementById('clearSelectionTouch')?.addEventListener('click',function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    selectionPath=[];
+    selectionCtx.clearRect(0,0,selectionCanvas.width,selectionCanvas.height);
+    document.body.classList.remove('has-selection');
+});
+
+/* Keep phone/tablet mode buttons synchronized if desktop or another control changes them. */
+document.querySelectorAll('[data-select-mode]').forEach(function(button){
+    button.addEventListener('click',function(){
+        document.querySelectorAll('[data-touch-select-mode]').forEach(b=>{
+            b.classList.toggle('active',b.dataset.touchSelectMode===v241SelectMode);
+        });
+    });
+});
+document.querySelectorAll('[data-shape-mode]').forEach(function(button){
+    button.addEventListener('click',function(){
+        document.querySelectorAll('[data-touch-shape-mode]').forEach(b=>{
+            b.classList.toggle('active',b.dataset.touchShapeMode===v241ShapeMode);
+        });
+    });
+});
 
 </script>
 
