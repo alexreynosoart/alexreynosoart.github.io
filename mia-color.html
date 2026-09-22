@@ -3018,7 +3018,7 @@ body.v254-select-active #clearSelectionTouch {
         </div>
     </section>
 
-    <div class="desktop-build-version" aria-hidden="true">v2.6.9</div>
+    <div class="desktop-build-version" aria-hidden="true">v2.7.0</div>
 </aside>
 
 <div class="studio">
@@ -3465,14 +3465,7 @@ body.v254-select-active #clearSelectionTouch {
             <span>Blank</span>
         </button>
 
-        <button class="artwork-thumb active"
-                type="button"
-                data-art="tired"
-                title="Tired Panda">
-            <img src="images/mia-the-panda-coloring-page.png"
-                 alt="Tired Panda coloring page">
-            <span>Tired Panda</span>
-        </button>
+        <span id="artworkCatalogAnchor" hidden></span>
 
         <button class="artwork-thumb"
                 id="uploadArtworkButton"
@@ -3487,29 +3480,6 @@ body.v254-select-active #clearSelectionTouch {
                accept="image/png,image/jpeg,image/webp,image/gif"
                hidden>
 
-        <button class="artwork-thumb"
-                type="button"
-                data-art="ocean"
-                title="Ocean Adventure">
-            <img src="images/mia-ocean-adventure-coloring-page.png"
-                 alt="Ocean Adventure coloring page">
-            <span>Ocean Adventure</span>
-        </button>
-
-        <button class="artwork-thumb" type="button" data-art="santa" title="Santa Panda">
-            <img src="images/mia-santa-panda-coloring-page.png" alt="Santa Panda coloring page">
-            <span>Santa Panda</span>
-        </button>
-
-        <button class="artwork-thumb" type="button" data-art="witch" title="Witch Panda">
-            <img src="images/mia-witch-panda-coloring-page.png" alt="Witch Panda coloring page">
-            <span>Witch Panda</span>
-        </button>
-
-        <button class="artwork-thumb" type="button" data-art="ghost" title="Bow Ghost">
-            <img src="images/mia-bow-ghost-coloring-page.png" alt="Bow Ghost coloring page">
-            <span>Bow Ghost</span>
-        </button>
 
         <p class="upload-note">
             Uploads stay on this device while you create.
@@ -3721,6 +3691,8 @@ body.v254-select-active #clearSelectionTouch {
 
 
 
+<script src="mia-artworks.js"></script>
+
 <script>
 
     /* =====================================================
@@ -3736,57 +3708,54 @@ body.v254-select-active #clearSelectionTouch {
        ===================================================== */
 
 
-    const ARTWORKS = {
+    const ARTWORKS = Object.fromEntries(
+        (window.MIA_ARTWORKS || []).map(artwork => [
+            artwork.key,
+            {
+                id: artwork.id,
+                title: artwork.title,
+                source: artwork.source,
+                creator: 'Mia',
+                blank: false
+            }
+        ])
+    );
 
-        tired: {
-            id: 'tired-panda-001',
-            title: 'Tired Panda',
-            source: 'images/mia-the-panda-coloring-page.png',
-            creator: 'Mia',
-            blank: false
-        },
-
-        ocean: {
-            id: 'mia-ocean-adventure-001',
-            title: 'Ocean Adventure',
-            source: 'images/mia-ocean-adventure-coloring-page.png',
-            creator: 'Mia',
-            blank: false
-        },
-
-        santa: {
-            id: 'mia-santa-panda-001',
-            title: 'Santa Panda',
-            source: 'images/mia-santa-panda-coloring-page.png',
-            creator: 'Mia',
-            blank: false
-        },
-
-        witch: {
-            id: 'mia-witch-panda-001',
-            title: 'Witch Panda',
-            source: 'images/mia-witch-panda-coloring-page.png',
-            creator: 'Mia',
-            blank: false
-        },
-
-        ghost: {
-            id: 'mia-bow-ghost-001',
-            title: 'Bow Ghost',
-            source: 'images/mia-bow-ghost-coloring-page.png',
-            creator: 'Mia',
-            blank: false
-        },
-
-        blank: {
-            id: 'blank-page',
-            title: 'Blank Page',
-            source: null,
-            creator: 'Mia',
-            blank: true
-        }
-
+    ARTWORKS.blank = {
+        id: 'blank-page',
+        title: 'Blank Page',
+        source: null,
+        creator: 'Mia',
+        blank: true
     };
+
+    function renderStudioArtworkPages() {
+        const anchor = document.getElementById('artworkCatalogAnchor');
+        if (!anchor || !window.MIA_ARTWORKS) return;
+
+        window.MIA_ARTWORKS.forEach(artwork => {
+            const button = document.createElement('button');
+            button.className = 'artwork-thumb';
+            button.type = 'button';
+            button.dataset.art = artwork.key;
+            button.title = artwork.title;
+
+            if (artwork.key === currentArtworkKey) {
+                button.classList.add('active');
+            }
+
+            const image = document.createElement('img');
+            image.src = artwork.source;
+            image.alt = artwork.alt;
+
+            const label = document.createElement('span');
+            label.textContent = artwork.title;
+
+            button.append(image, label);
+            anchor.before(button);
+        });
+    }
+
 
     let ARTWORK = ARTWORKS.tired;
     let currentArtworkKey = 'tired';
@@ -3803,6 +3772,8 @@ body.v254-select-active #clearSelectionTouch {
         currentArtworkKey = requestedArtworkKey;
         ARTWORK = ARTWORKS[requestedArtworkKey];
     }
+
+    renderStudioArtworkPages();
 
 
     /* =========================
