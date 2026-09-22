@@ -184,27 +184,54 @@
         }
 
 
-        .mia-corner-button {
-            display: inline-block;
-
+        .mia-corner-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
             margin-top: 22px;
-            padding: 13px 20px;
+        }
+
+
+        .mia-corner-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            margin: 0;
+            padding: 13px 18px;
 
             background: #e88eaa;
             color: #fff;
 
             border-radius: 11px;
 
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             font-weight: 700;
-
             letter-spacing: 0.03em;
+
+            text-decoration: none;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
         }
 
 
-        .mia-corner-link:hover
-        .mia-corner-button {
+        .mia-corner-button:hover {
             background: #df7e9f;
+            transform: translateY(-1px);
+        }
+
+
+        .mia-corner-button.secondary {
+            background: #fff;
+            color: #222;
+            border: 1px solid rgba(0,0,0,0.16);
+        }
+
+
+        .mia-corner-button.secondary:hover {
+            background: #f3edf0;
         }
 
 
@@ -243,6 +270,16 @@
             .mia-corner-description {
                 margin-left: auto;
                 margin-right: auto;
+            }
+
+
+            .mia-corner-actions {
+                justify-content: center;
+            }
+
+
+            .mia-corner-button {
+                flex: 1 1 160px;
             }
 
         }
@@ -420,16 +457,17 @@
 
             <section class="mia-corner">
 
-                <a class="mia-corner-link"
-                   href="mia.html">
+                <div class="mia-corner-link">
 
 
-                    <div class="mia-corner-image">
+                    <a class="mia-corner-image"
+                       href="mia.html"
+                       aria-label="Visit Mia's World">
 
                         <img src="images/mia-the-panda-original.jpg"
                              alt="Mia's original drawing of Mia the Panda">
 
-                    </div>
+                    </a>
 
 
                     <div class="mia-corner-content">
@@ -457,14 +495,30 @@
                         </p>
 
 
-                        <span class="mia-corner-button">
-                            VISIT MIA'S WORLD →
-                        </span>
+                        <div class="mia-corner-actions"
+                             aria-label="Mia's Kids Corner activities">
+
+                            <a class="mia-corner-button"
+                               href="mia.html">
+                                MIA'S WORLD →
+                            </a>
+
+                            <a class="mia-corner-button secondary"
+                               href="mia-coloring.html">
+                                COLORING PAGES
+                            </a>
+
+                            <a class="mia-corner-button"
+                               href="mia-color.html">
+                                OPEN COLOR STUDIO 🎨
+                            </a>
+
+                        </div>
 
                     </div>
 
 
-                </a>
+                </div>
 
             </section>
 
