@@ -2995,6 +2995,10 @@ body.v254-select-active #clearSelectionTouch {
                 <img src="images/mia-bow-ghost-coloring-page.png" alt="">
                 GHOST
             </button>
+            <button class="desktop-side-page" id="desktopDinosaurPage" type="button">
+                <img src="images/mia/mia-dinosaur-coloring-page.png" alt="">
+                DINO
+            </button>
         </div>
     </section>
 
@@ -7534,6 +7538,10 @@ document.getElementById('desktopWitchPage')?.addEventListener('click', function(
 document.getElementById('desktopGhostPage')?.addEventListener('click', function(e) {
     e.preventDefault(); e.stopImmediatePropagation();
     document.querySelector('.artwork-thumb[data-art="ghost"]')?.click();
+}, true);
+document.getElementById('desktopDinosaurPage')?.addEventListener('click', function(e) {
+    e.preventDefault(); e.stopImmediatePropagation();
+    document.querySelector('.artwork-thumb[data-art="dinosaur"]')?.click();
 }, true);
 document.getElementById('desktopUploadPage')?.addEventListener('click', function(e) {
     e.preventDefault(); e.stopImmediatePropagation();
