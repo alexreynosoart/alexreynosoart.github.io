@@ -474,188 +474,7 @@
         <section class="coloring-grid"
                  aria-label="Mia the Panda coloring pages">
 
-
-            <!-- COLORING PAGE 01 -->
-
-            <article class="coloring-card">
-
-
-                <a class="coloring-image-link"
-   href="mia-color.html?page=tired">
-
-                    <div class="coloring-image">
-
-                        <img src="images/mia-the-panda-coloring-page.png"
-                             alt="Mia the Panda Tired coloring page">
-
-                    </div>
-
-                </a>
-
-
-                <div class="coloring-content">
-
-                    <h2>
-                        Tired Panda
-                    </h2>
-
-
-                    <p>
-    The original Mia the Panda character
-    turned into a clean black and white
-    coloring page.
-</p>
-
-
-<a class="color-online-button"
-   href="mia-color.html?page=tired">
-
-    COLOR ONLINE
-
-</a>
-
-
-<div class="coloring-actions">
-
-    <button class="coloring-button"
-            type="button"
-            onclick="printMiaPage(
-                'images/mia-the-panda-coloring-page.png',
-                'Tired Panda'
-            )">
-
-        PRINT
-
-    </button>
-
-
-    <a class="coloring-button"
-       href="images/mia-the-panda-coloring-page.png"
-       download="mia-the-panda-tired-coloring-page.png">
-
-        DOWNLOAD
-
-    </a>
-
-</div>
-
-                </div>
-
-            </article>
-
-
-            <!-- COLORING PAGE 02 -->
-
-            <article class="coloring-card">
-
-                <a class="coloring-image-link"
-                   href="mia-color.html?page=santa">
-
-                    <div class="coloring-image">
-
-                        <img src="images/mia-santa-panda-coloring-page.png"
-                             alt="Mia Santa Panda coloring page">
-
-                    </div>
-
-                </a>
-
-                <div class="coloring-content">
-
-                    <h2>
-                        Santa Panda
-                    </h2>
-
-                    <p>
-                        A festive Mia the Panda coloring page
-                        ready for holiday colors and creativity.
-                    </p>
-
-                    <a class="color-online-button"
-                       href="mia-color.html?page=santa">
-                        COLOR ONLINE
-                    </a>
-
-                    <div class="coloring-actions">
-
-                        <button class="coloring-button"
-                                type="button"
-                                onclick="printMiaPage(
-                                    'images/mia-santa-panda-coloring-page.png',
-                                    'Santa Panda'
-                                )">
-                            PRINT
-                        </button>
-
-                        <a class="coloring-button"
-                           href="images/mia-santa-panda-coloring-page.png"
-                           download="mia-santa-panda-coloring-page.png">
-                            DOWNLOAD
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </article>
-
-
-            <!-- COLORING PAGE 03 -->
-
-            <article class="coloring-card">
-
-                <a class="coloring-image-link"
-                   href="mia-color.html?page=witch">
-
-                    <div class="coloring-image">
-
-                        <img src="images/mia-witch-panda-coloring-page.png"
-                             alt="Mia Witch Panda coloring page">
-
-                    </div>
-
-                </a>
-
-                <div class="coloring-content">
-
-                    <h2>
-                        Witch Panda
-                    </h2>
-
-                    <p>
-                        Mia the Panda brings a little spooky
-                        magic to this black and white coloring page.
-                    </p>
-
-                    <a class="color-online-button"
-                       href="mia-color.html?page=witch">
-                        COLOR ONLINE
-                    </a>
-
-                    <div class="coloring-actions">
-
-                        <button class="coloring-button"
-                                type="button"
-                                onclick="printMiaPage(
-                                    'images/mia-witch-panda-coloring-page.png',
-                                    'Witch Panda'
-                                )">
-                            PRINT
-                        </button>
-
-                        <a class="coloring-button"
-                           href="images/mia-witch-panda-coloring-page.png"
-                           download="mia-witch-panda-coloring-page.png">
-                            DOWNLOAD
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </article>
-
-
+            <div id="miaColoringCatalog" style="display: contents;"></div>
 
         </section>
 
@@ -705,7 +524,47 @@
 
 
 
+    <script src="mia-artworks.js"></script>
+
     <script>
+
+        function renderMiaColoringCatalog() {
+            const catalog = document.getElementById('miaColoringCatalog');
+            if (!catalog || !window.MIA_ARTWORKS) return;
+
+            catalog.innerHTML = window.MIA_ARTWORKS
+                .filter(artwork => artwork.gallery)
+                .map(artwork => `
+                    <article class="coloring-card">
+                        <a class="coloring-image-link" href="mia-color.html?page=${artwork.key}">
+                            <div class="coloring-image">
+                                <img src="${artwork.source}" alt="${artwork.alt}">
+                            </div>
+                        </a>
+                        <div class="coloring-content">
+                            <h2>${artwork.title}</h2>
+                            <p>${artwork.description}</p>
+                            <a class="color-online-button" href="mia-color.html?page=${artwork.key}">COLOR ONLINE</a>
+                            <div class="coloring-actions">
+                                <button class="coloring-button" type="button"
+                                        data-print-source="${artwork.source}"
+                                        data-print-title="${artwork.title}">PRINT</button>
+                                <a class="coloring-button" href="${artwork.source}"
+                                   download="${artwork.download}">DOWNLOAD</a>
+                            </div>
+                        </div>
+                    </article>
+                `).join('');
+
+            catalog.querySelectorAll('[data-print-source]').forEach(button => {
+                button.addEventListener('click', function() {
+                    printMiaPage(this.dataset.printSource, this.dataset.printTitle);
+                });
+            });
+        }
+
+        renderMiaColoringCatalog();
+
 
         function printMiaPage(imageSource, pageTitle) {
 
