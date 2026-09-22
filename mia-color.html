@@ -2966,38 +2966,17 @@ body.v254-select-active #clearSelectionTouch {
 
     <section class="desktop-side-section">
         <div class="desktop-side-label"><span>Pages</span><span></span></div>
-        <div class="desktop-side-pages">
+        <div class="desktop-side-pages" id="desktopSidePages">
             <button class="desktop-side-page" id="desktopBlankPage" type="button">
-                <div style="height:54px;background:#fff;border:1px solid #ddd;border-radius:7px;display:grid;place-items:center;font-size:1.3rem">＋</div>
+                <div style="height:54px;background:#fff;border:1px solid #ddd;border-radius:7px;display:grid;place-items:center;font-size:1.2rem">＋</div>
                 BLANK
             </button>
-            <button class="desktop-side-page" id="desktopTiredPage" type="button">
-                <img src="images/mia-the-panda-coloring-page.png" alt="">
-                TIRED
-            </button>
+
+            <div id="desktopArtworkCatalog" style="display: contents;"></div>
+
             <button class="desktop-side-page" id="desktopUploadPage" type="button">
                 <div style="height:54px;background:#fff;border:1px solid #ddd;border-radius:7px;display:grid;place-items:center;font-size:1.2rem">↑</div>
                 UPLOAD
-            </button>
-            <button class="desktop-side-page" id="desktopOceanPage" type="button">
-                <img src="images/mia-ocean-adventure-coloring-page.png" alt="">
-                OCEAN
-            </button>
-            <button class="desktop-side-page" id="desktopSantaPage" type="button">
-                <img src="images/mia-santa-panda-coloring-page.png" alt="">
-                SANTA
-            </button>
-            <button class="desktop-side-page" id="desktopWitchPage" type="button">
-                <img src="images/mia-witch-panda-coloring-page.png" alt="">
-                WITCH
-            </button>
-            <button class="desktop-side-page" id="desktopGhostPage" type="button">
-                <img src="images/mia-bow-ghost-coloring-page.png" alt="">
-                GHOST
-            </button>
-            <button class="desktop-side-page" id="desktopDinosaurPage" type="button">
-                <img src="images/mia/mia-dinosaur-coloring-page.png" alt="">
-                DINO
             </button>
         </div>
     </section>
@@ -3022,7 +3001,7 @@ body.v254-select-active #clearSelectionTouch {
         </div>
     </section>
 
-    <div class="desktop-build-version" aria-hidden="true">v2.7.0</div>
+    <div class="desktop-build-version" aria-hidden="true">v2.7.1</div>
 </aside>
 
 <div class="studio">
@@ -3695,7 +3674,7 @@ body.v254-select-active #clearSelectionTouch {
 
 
 
-<script src="mia-artworks.js"></script>
+<script src="mia-artworks.js?v=1"></script>
 
 <script>
 
@@ -3735,28 +3714,62 @@ body.v254-select-active #clearSelectionTouch {
 
     function renderStudioArtworkPages() {
         const anchor = document.getElementById('artworkCatalogAnchor');
-        if (!anchor || !window.MIA_ARTWORKS) return;
+        const desktopCatalog = document.getElementById('desktopArtworkCatalog');
+
+        if (!window.MIA_ARTWORKS) return;
 
         window.MIA_ARTWORKS.forEach(artwork => {
-            const button = document.createElement('button');
-            button.className = 'artwork-thumb';
-            button.type = 'button';
-            button.dataset.art = artwork.key;
-            button.title = artwork.title;
 
-            if (artwork.key === currentArtworkKey) {
-                button.classList.add('active');
+            /* Main Pages tray */
+            if (anchor) {
+                const button = document.createElement('button');
+                button.className = 'artwork-thumb';
+                button.type = 'button';
+                button.dataset.art = artwork.key;
+                button.title = artwork.title;
+
+                if (artwork.key === currentArtworkKey) {
+                    button.classList.add('active');
+                }
+
+                const image = document.createElement('img');
+                image.src = artwork.source;
+                image.alt = artwork.alt || artwork.title;
+
+                const label = document.createElement('span');
+                label.textContent = artwork.title;
+
+                button.append(image, label);
+                anchor.before(button);
             }
 
-            const image = document.createElement('img');
-            image.src = artwork.source;
-            image.alt = artwork.alt;
+            /* Desktop sidebar Pages */
+            if (desktopCatalog) {
+                const desktopButton = document.createElement('button');
+                desktopButton.className = 'desktop-side-page';
+                desktopButton.type = 'button';
+                desktopButton.dataset.desktopArt = artwork.key;
+                desktopButton.title = artwork.title;
 
-            const label = document.createElement('span');
-            label.textContent = artwork.title;
+                const desktopImage = document.createElement('img');
+                desktopImage.src = artwork.source;
+                desktopImage.alt = artwork.alt || artwork.title;
 
-            button.append(image, label);
-            anchor.before(button);
+                const desktopLabel = document.createElement('span');
+                desktopLabel.textContent = artwork.title.toUpperCase();
+
+                desktopButton.append(desktopImage, desktopLabel);
+
+                desktopButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const trayButton = document.querySelector(
+                        '.artwork-thumb[data-art="' + artwork.key + '"]'
+                    );
+                    trayButton?.click();
+                });
+
+                desktopCatalog.appendChild(desktopButton);
+            }
         });
     }
 
@@ -7518,30 +7531,6 @@ document.getElementById('clearSelectionV24')?.addEventListener('click', function
 document.getElementById('desktopBlankPage')?.addEventListener('click', function(e) {
     e.preventDefault(); e.stopImmediatePropagation();
     document.querySelector('.artwork-thumb[data-art="blank"]')?.click();
-}, true);
-document.getElementById('desktopTiredPage')?.addEventListener('click', function(e) {
-    e.preventDefault(); e.stopImmediatePropagation();
-    document.querySelector('.artwork-thumb[data-art="tired"]')?.click();
-}, true);
-document.getElementById('desktopOceanPage')?.addEventListener('click', function(e) {
-    e.preventDefault(); e.stopImmediatePropagation();
-    document.querySelector('.artwork-thumb[data-art="ocean"]')?.click();
-}, true);
-document.getElementById('desktopSantaPage')?.addEventListener('click', function(e) {
-    e.preventDefault(); e.stopImmediatePropagation();
-    document.querySelector('.artwork-thumb[data-art="santa"]')?.click();
-}, true);
-document.getElementById('desktopWitchPage')?.addEventListener('click', function(e) {
-    e.preventDefault(); e.stopImmediatePropagation();
-    document.querySelector('.artwork-thumb[data-art="witch"]')?.click();
-}, true);
-document.getElementById('desktopGhostPage')?.addEventListener('click', function(e) {
-    e.preventDefault(); e.stopImmediatePropagation();
-    document.querySelector('.artwork-thumb[data-art="ghost"]')?.click();
-}, true);
-document.getElementById('desktopDinosaurPage')?.addEventListener('click', function(e) {
-    e.preventDefault(); e.stopImmediatePropagation();
-    document.querySelector('.artwork-thumb[data-art="dinosaur"]')?.click();
 }, true);
 document.getElementById('desktopUploadPage')?.addEventListener('click', function(e) {
     e.preventDefault(); e.stopImmediatePropagation();
