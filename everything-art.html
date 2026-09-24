@@ -571,6 +571,44 @@
         }
 
 
+        .ea-opportunity-regions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .ea-opportunity-region {
+            padding: 7px 11px;
+            border: 1px solid rgba(255,255,255,0.10);
+            border-radius: 999px;
+            color: #888;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+        }
+
+        .ea-opportunity-action {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 16px;
+            margin-top: 30px;
+            padding-top: 28px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .ea-opportunity-action .ea-button {
+            margin-top: 0;
+        }
+
+        .ea-opportunity-note {
+            color: #777;
+            font-size: 0.78rem;
+            line-height: 1.5;
+        }
+
+
         /* =========================
            FUTURE
            ========================= */
@@ -1036,43 +1074,52 @@
             </h2>
 
             <p>
-                A future resource for discovering
-                opportunities that help artists create,
-                learn, exhibit and grow.
+                Discover grants, residencies, fellowships, exhibitions,
+                open calls and useful resources for artists. From New York
+                City to opportunities around the world, Everything Art is
+                building one place to help artists find the next door worth opening.
             </p>
 
 
-            <div class="ea-opportunity-types">
+            <div class="ea-opportunity-types"
+                 aria-label="Opportunity types">
 
-                <span class="ea-opportunity-type">
-                    Grants
-                </span>
-
-                <span class="ea-opportunity-type">
-                    Residencies
-                </span>
-
-                <span class="ea-opportunity-type">
-                    Open Calls
-                </span>
-
-                <span class="ea-opportunity-type">
-                    Fellowships
-                </span>
-
-                <span class="ea-opportunity-type">
-                    Exhibitions
-                </span>
-
-                <span class="ea-opportunity-type">
-                    Artist Resources
-                </span>
+                <span class="ea-opportunity-type">Grants</span>
+                <span class="ea-opportunity-type">Residencies</span>
+                <span class="ea-opportunity-type">Open Calls</span>
+                <span class="ea-opportunity-type">Fellowships</span>
+                <span class="ea-opportunity-type">Exhibitions</span>
+                <span class="ea-opportunity-type">Artist Resources</span>
 
             </div>
 
 
-            <div class="ea-coming">
-                Opportunities and resources coming soon.
+            <div class="ea-opportunity-regions"
+                 aria-label="Opportunity locations">
+
+                <span class="ea-opportunity-region">🌎 Worldwide</span>
+                <span class="ea-opportunity-region">🗽 NYC</span>
+                <span class="ea-opportunity-region">🇺🇸 U.S.</span>
+                <span class="ea-opportunity-region">🇩🇪 Germany</span>
+                <span class="ea-opportunity-region">🇫🇷 France</span>
+                <span class="ea-opportunity-region">🇬🇧 UK</span>
+                <span class="ea-opportunity-region">🇨🇦 Canada</span>
+                <span class="ea-opportunity-region">🇯🇵 Japan</span>
+
+            </div>
+
+
+            <div class="ea-opportunity-action">
+
+                <a class="ea-button"
+                   href="everything-art-opportunities.html">
+                    EXPLORE ARTIST OPPORTUNITIES →
+                </a>
+
+                <span class="ea-opportunity-note">
+                    Search by opportunity type, location, funding and deadline.
+                </span>
+
             </div>
 
         </section>
