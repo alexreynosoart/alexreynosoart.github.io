@@ -485,26 +485,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 18px;
+            padding: 34px;
             background:
                 radial-gradient(circle at 50% 35%, rgba(255,255,255,0.08), transparent 42%),
                 #171717;
-            border: 1px solid rgba(255,255,255,0.10);
+            border: 1px dashed rgba(255,255,255,0.16);
             border-radius: 16px;
             text-align: center;
-        }
-
-        .ea-featured-image {
-            display: block;
-            width: min(100%, 380px);
-            height: auto;
-            aspect-ratio: 1 / 1;
-            object-fit: cover;
-            border-radius: 12px;
-        }
-
-        .ea-featured-actions {
-            margin-top: 24px;
         }
 
         .ea-featured-preview strong {
@@ -1283,9 +1270,7 @@
                         Featured Artist · October 2026
                     </div>
 
-                    <h3>
-                        Ink.Designs Shorts
-                    </h3>
+                    <h3>Ink.Designs Shorts</h3>
 
                     <p>
                         Recognized for active participation and creative contributions
@@ -1517,7 +1502,50 @@
 
         <!-- ARTIST OPPORTUNITIES -->
 
-        <section class="ea-opportunities">
+        
+    <!-- ART EVENTS -->
+    <section class="ea-section ea-events" id="art-events">
+
+        <div class="ea-section-kicker">See What's Happening</div>
+
+        <h2>Art Events</h2>
+
+        <p class="ea-section-intro">
+            Discover exhibitions, openings, art fairs, festivals, workshops,
+            talks and online events. Everything Art is building a place to
+            explore what is happening in creative communities near and far.
+        </p>
+
+        <div class="ea-opportunity-types" aria-label="Art event categories">
+            <span>Exhibitions</span>
+            <span>Openings</span>
+            <span>Art Fairs</span>
+            <span>Festivals</span>
+            <span>Workshops</span>
+            <span>Talks</span>
+            <span>Online Events</span>
+        </div>
+
+        <div class="ea-opportunity-regions" aria-label="Art event locations">
+            <span>🗽 NYC</span>
+            <span>🇺🇸 U.S.</span>
+            <span>🌎 Worldwide</span>
+            <span>💻 Online</span>
+        </div>
+
+        <div class="ea-opportunity-action">
+            <a class="ea-button" href="everything-art-events.html">
+                EXPLORE ART EVENTS →
+            </a>
+        </div>
+
+        <p class="ea-opportunity-note">
+            Upcoming event listings and live event resources are being built next.
+        </p>
+
+    </section>
+
+<section class="ea-opportunities">
 
             <div class="ea-section-kicker">
                 Resources for Artists
