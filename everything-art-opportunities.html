@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-MK5FXXVXNJ');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Artist Opportunities | Everything Art</title>
+    <meta name="description" content="Current grants, residencies, fellowships, open calls, exhibitions and artist resources from Everything Art.">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        :root {
+            --ea-bg: #101010;
+            --ea-card: rgba(255,255,255,0.045);
+            --ea-card-strong: rgba(255,255,255,0.075);
+            --ea-border: rgba(255,255,255,0.10);
+            --ea-text: #f5f5f5;
+            --ea-muted: #a5a5a5;
+            --ea-dim: #747474;
+            --ea-light: #f5f3ef;
+            --ea-dark: #151515;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            position: relative;
+            min-height: 100vh;
+            background: var(--ea-bg);
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at 15% 10%, rgba(255,255,255,0.055), transparent 25%),
+                radial-gradient(circle at 85% 75%, rgba(255,255,255,0.035), transparent 28%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        header, main, footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        .opportunities-page {
+            width: min(1220px, calc(100% - 40px));
+            margin: 0 auto;
+            padding: 34px 0 80px;
+        }
+
+        .op-hero {
+            padding: 54px 20px 38px;
+            text-align: center;
+        }
+
+        .op-kicker {
+            margin-bottom: 12px;
+            color: #8e8e8e;
+            font-size: .74rem;
+            font-weight: 800;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+        }
+
+        .op-hero h1 {
+            max-width: 900px;
+            margin: 0 auto;
+            color: #fff;
+            font-size: clamp(2.8rem, 7vw, 6rem);
+            line-height: .98;
+            letter-spacing: -.045em;
+        }
+
+        .op-hero p {
+            max-width: 720px;
+            margin: 20px auto 0;
+            color: #b6b6b6;
+            font-size: clamp(1rem, 2vw, 1.18rem);
+            line-height: 1.7;
+        }
+
+        .op-updated {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+            padding: 8px 12px;
+            border: 1px solid var(--ea-border);
+            border-radius: 999px;
+            color: #999;
+            font-size: .76rem;
+        }
+
+        .op-live-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #7fd49b;
+            box-shadow: 0 0 0 4px rgba(127,212,155,.08);
+        }
+
+        .op-toolbox {
+            position: sticky;
+            top: 10px;
+            z-index: 10;
+            margin: 18px 0 30px;
+            padding: 18px;
+            background: rgba(18,18,18,.94);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--ea-border);
+            border-radius: 20px;
+            box-shadow: 0 15px 45px rgba(0,0,0,.28);
+        }
+
+        .op-search {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid rgba(255,255,255,.13);
+            border-radius: 12px;
+            outline: none;
+            background: rgba(255,255,255,.05);
+            color: #fff;
+            font: inherit;
+        }
+
+        .op-search::placeholder { color: #747474; }
+        .op-search:focus { border-color: rgba(255,255,255,.32); }
+
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .filter-button {
+            appearance: none;
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 999px;
+            padding: 9px 12px;
+            background: transparent;
+            color: #aaa;
+            cursor: pointer;
+            font: inherit;
+            font-size: .76rem;
+            font-weight: 750;
+            transition: .18s ease;
+        }
+
+        .filter-button:hover,
+        .filter-button.active {
+            background: #f4f2ee;
+            color: #111;
+            border-color: #f4f2ee;
+        }
+
+        .op-statusbar {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            align-items: center;
+            margin: 0 2px 20px;
+            color: #7e7e7e;
+            font-size: .78rem;
+        }
+
+        .op-reset {
+            color: #aaa;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            cursor: pointer;
+        }
+
+        .op-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0,1fr));
+            gap: 16px;
+        }
+
+        .op-card {
+            display: flex;
+            flex-direction: column;
+            min-height: 390px;
+            padding: 24px;
+            background: var(--ea-card);
+            border: 1px solid var(--ea-border);
+            border-radius: 20px;
+            transition: transform .2s ease, background .2s ease, border-color .2s ease;
+        }
+
+        .op-card:hover {
+            transform: translateY(-3px);
+            background: var(--ea-card-strong);
+            border-color: rgba(255,255,255,.18);
+        }
+
+        .op-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 17px;
+        }
+
+        .op-badge {
+            display: inline-flex;
+            align-items: center;
+            min-height: 25px;
+            padding: 5px 8px;
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 999px;
+            color: #a8a8a8;
+            font-size: .64rem;
+            font-weight: 850;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+        }
+
+        .op-badge.official {
+            background: #f4f2ee;
+            color: #111;
+            border-color: #f4f2ee;
+        }
+
+        .op-badge.closing {
+            background: rgba(255,255,255,.08);
+            color: #fff;
+        }
+
+        .op-card h2 {
+            margin: 0 0 8px;
+            color: #fff;
+            font-size: 1.35rem;
+            line-height: 1.22;
+        }
+
+        .op-org {
+            margin-bottom: 15px;
+            color: #8f8f8f;
+            font-size: .82rem;
+            font-weight: 650;
+        }
+
+        .op-description {
+            margin: 0 0 18px;
+            color: #aaa;
+            font-size: .91rem;
+            line-height: 1.65;
+        }
+
+        .op-meta {
+            display: grid;
+            gap: 7px;
+            margin-top: auto;
+            padding-top: 17px;
+            border-top: 1px solid rgba(255,255,255,.08);
+            color: #999;
+            font-size: .78rem;
+            line-height: 1.4;
+        }
+
+        .op-meta strong {
+            color: #d7d7d7;
+            font-weight: 750;
+        }
+
+        .op-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-top: 18px;
+            padding: 12px 14px;
+            background: #f4f2ee;
+            color: #111;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: .75rem;
+            font-weight: 850;
+            letter-spacing: .035em;
+            transition: transform .18s ease, background .18s ease;
+        }
+
+        .op-link:hover {
+            transform: translateY(-1px);
+            background: #fff;
+        }
+
+        .op-section {
+            margin-top: 70px;
+        }
+
+        .op-section-heading {
+            max-width: 760px;
+            margin-bottom: 25px;
+        }
+
+        .op-section-kicker {
+            margin-bottom: 9px;
+            color: #858585;
+            font-size: .7rem;
+            font-weight: 850;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+        }
+
+        .op-section h2 {
+            margin: 0 0 10px;
+            color: #fff;
+            font-size: clamp(2rem, 4vw, 3rem);
+        }
+
+        .op-section-heading p {
+            margin: 0;
+            color: #999;
+            line-height: 1.7;
+        }
+
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0,1fr));
+            gap: 14px;
+        }
+
+        .resource-card {
+            display: block;
+            padding: 24px;
+            background: rgba(255,255,255,.035);
+            border: 1px solid var(--ea-border);
+            border-radius: 18px;
+            color: inherit;
+            text-decoration: none;
+            transition: .2s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-2px);
+            background: rgba(255,255,255,.065);
+        }
+
+        .resource-card h3 {
+            margin: 0 0 8px;
+            color: #fff;
+            font-size: 1.05rem;
+        }
+
+        .resource-card p {
+            margin: 0;
+            color: #8f8f8f;
+            font-size: .84rem;
+            line-height: 1.55;
+        }
+
+        .resource-source {
+            display: block;
+            margin-top: 15px;
+            color: #c8c8c8;
+            font-size: .7rem;
+            font-weight: 800;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+        }
+
+        .op-note {
+            margin-top: 70px;
+            padding: 42px;
+            background: var(--ea-light);
+            color: #222;
+            border-radius: 22px;
+        }
+
+        .op-note h2 {
+            margin: 0 0 12px;
+            color: #111;
+            font-size: clamp(1.7rem, 3vw, 2.4rem);
+        }
+
+        .op-note p {
+            max-width: 900px;
+            margin: 0;
+            color: #555;
+            line-height: 1.75;
+        }
+
+        .op-note p + p { margin-top: 12px; }
+
+        .no-results {
+            display: none;
+            grid-column: 1 / -1;
+            padding: 55px 25px;
+            border: 1px dashed rgba(255,255,255,.16);
+            border-radius: 18px;
+            color: #777;
+            text-align: center;
+        }
+
+        .back-ea {
+            margin-top: 42px;
+            text-align: center;
+        }
+
+        .back-ea a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: .82rem;
+        }
+
+        .back-ea a:hover { color: #fff; }
+
+        @media (max-width: 980px) {
+            .op-grid,
+            .resource-grid {
+                grid-template-columns: repeat(2, minmax(0,1fr));
+            }
+        }
+
+        @media (max-width: 700px) {
+            .opportunities-page {
+                width: min(100% - 24px, 1220px);
+                padding-top: 10px;
+            }
+
+            .op-hero { padding: 40px 10px 28px; }
+
+            .op-toolbox {
+                position: relative;
+                top: auto;
+                padding: 14px;
+            }
+
+            .op-grid,
+            .resource-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .op-card { min-height: 0; }
+
+            .op-note { padding: 32px 24px; }
+
+            .op-statusbar {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 6px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <a class="site-logo" href="index.html">
+        <img src="images/AlexReynosoArt-Logo_transparent.png" alt="Alex Reynoso Art">
+    </a>
+
+    <!-- Current site menu intentionally unchanged for now -->
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="art.html">Art</a>
+        <a href="videos.html">Videos</a>
+        <a href="shop.html">Shop</a>
+        <a href="commissions.html">Commissions</a>
+    </nav>
+</header>
+
+<main class="opportunities-page">
+
+    <section class="op-hero">
+        <div class="op-kicker">Everything Art · Resources for Artists</div>
+        <h1>ARTIST OPPORTUNITIES</h1>
+        <p>
+            Grants, residencies, fellowships, exhibitions, open calls and useful resources
+            for artists. Local to global. One place to find the next door worth opening.
+        </p>
+        <div class="op-updated">
+            <span class="op-live-dot" aria-hidden="true"></span>
+            Verified starter listings · Updated September 24, 2026
+        </div>
+    </section>
+
+    <section class="op-toolbox" aria-label="Filter artist opportunities">
+        <input id="opSearch"
+               class="op-search"
+               type="search"
+               placeholder="Search opportunity, organization, location or keyword..."
+               aria-label="Search artist opportunities">
+
+        <div class="filter-row" aria-label="Opportunity type">
+            <button class="filter-button active" data-filter-group="type" data-filter="all">ALL</button>
+            <button class="filter-button" data-filter-group="type" data-filter="grant">GRANTS</button>
+            <button class="filter-button" data-filter-group="type" data-filter="residency">RESIDENCIES</button>
+            <button class="filter-button" data-filter-group="type" data-filter="open-call">OPEN CALLS</button>
+            <button class="filter-button" data-filter-group="type" data-filter="fellowship">FELLOWSHIPS</button>
+            <button class="filter-button" data-filter-group="type" data-filter="exhibition">EXHIBITIONS</button>
+            <button class="filter-button" data-filter-group="type" data-filter="resource">RESOURCES</button>
+        </div>
+
+        <div class="filter-row" aria-label="Location and features">
+            <button class="filter-button active" data-filter-group="feature" data-filter="all">ANYWHERE</button>
+            <button class="filter-button" data-filter-group="feature" data-filter="worldwide">🌎 WORLDWIDE</button>
+            <button class="filter-button" data-filter-group="feature" data-filter="nyc">🗽 NYC</button>
+            <button class="filter-button" data-filter-group="feature" data-filter="us">🇺🇸 U.S.</button>
+            <button class="filter-button" data-filter-group="feature" data-filter="free">FREE TO APPLY</button>
+            <button class="filter-button" data-filter-group="feature" data-filter="funded">💰 FUNDED</button>
+            <button class="filter-button" data-filter-group="feature" data-filter="rolling">♾ ROLLING</button>
+            <button class="filter-button" data-filter-group="feature" data-filter="closing">⏰ CLOSING SOON</button>
+        </div>
+    </section>
+
+    <div class="op-statusbar">
+        <span id="resultCount">Showing current opportunities</span>
+        <span class="op-reset" id="resetFilters">Reset filters</span>
+    </div>
+
+    <section class="op-grid" id="opGrid">
+
+        <article class="op-card"
+                 data-type="residency"
+                 data-features="nyc us funded closing"
+                 data-deadline="2026-09-30">
+            <div class="op-badges">
+                <span class="op-badge">🗽 NYC</span>
+                <span class="op-badge">Residency</span>
+                <span class="op-badge">Funded Space</span>
+                <span class="op-badge closing">Closing Soon</span>
+            </div>
+            <h2>BolsterArts 2027 Artist Residency</h2>
+            <div class="op-org">BolsterArts · New York, NY</div>
+            <p class="op-description">
+                Six artists are selected across three cohorts. Residents receive four months
+                of rent-free studio space in Chinatown, professional studio visits and a
+                public Open Studio.
+            </p>
+            <div class="op-meta">
+                <div><strong>Deadline:</strong> September 30, 2026</div>
+                <div><strong>Best for:</strong> Visual artists with developed practices</div>
+            </div>
+            <a class="op-link"
+               href="https://www.nyfa.org/opportunities/opportunity-info/?id=f2e18bd6-4bfb-408f-b7de-7e0c1c0c595e"
+               target="_blank" rel="noopener noreferrer">
+                VIEW OPPORTUNITY →
+            </a>
+        </article>
+
+        <article class="op-card"
+                 data-type="residency"
+                 data-features="worldwide funded closing"
+                 data-deadline="2026-09-30">
+            <div class="op-badges">
+                <span class="op-badge">🌎 International</span>
+                <span class="op-badge">Residency</span>
+                <span class="op-badge closing">Closing Soon</span>
+            </div>
+            <h2>Rondo Residency 2027 Open Call</h2>
+            <div class="op-org">Rondo Residency · Mexico City, Mexico</div>
+            <p class="op-description">
+                A residency for visual artists centered on production, theory, the art market
+                and public relations, with live-work and other residency formats available.
+            </p>
+            <div class="op-meta">
+                <div><strong>Deadline:</strong> September 30, 2026</div>
+                <div><strong>Disciplines:</strong> Painting, sculpture, digital and interdisciplinary visual arts</div>
+            </div>
+            <a class="op-link"
+               href="https://www.nyfa.org/opportunities/opportunity-info/?id=5cf908c8-0723-4470-a2d1-1b3c29f50e3c"
+               target="_blank" rel="noopener noreferrer">
+                VIEW OPPORTUNITY →
+            </a>
+        </article>
+
+        <article class="op-card"
+                 data-type="grant"
+                 data-features="us closing"
+                 data-deadline="2026-09-29">
+            <div class="op-badges">
+                <span class="op-badge official">Official U.S.</span>
+                <span class="op-badge">Grant</span>
+                <span class="op-badge closing">Closing Soon</span>
+            </div>
+            <h2>NEA Partnership Agreement Grants</h2>
+            <div class="op-org">National Endowment for the Arts</div>
+            <p class="op-description">
+                Federal partnership funding for eligible state arts agencies and regional
+                arts organizations. This is an organizational opportunity rather than an
+                individual artist grant.
+            </p>
+            <div class="op-meta">
+                <div><strong>Deadline:</strong> September 29, 2026</div>
+                <div><strong>Eligibility:</strong> State arts agencies and regional arts organizations</div>
+            </div>
+            <a class="op-link"
+               href="https://www.arts.gov/grants/partnership-agreement-grants"
+               target="_blank" rel="noopener noreferrer">
+                VIEW OFFICIAL OPPORTUNITY →
+            </a>
+        </article>
+
+        <article class="op-card"
+                 data-type="fellowship residency"
+                 data-features="us funded closing"
+                 data-deadline="2026-10-01">
+            <div class="op-badges">
+                <span class="op-badge">New York State</span>
+                <span class="op-badge">Fellowship</span>
+                <span class="op-badge">Funded</span>
+                <span class="op-badge closing">Closing Soon</span>
+            </div>
+            <h2>Lighthouse Works Fellowship Program</h2>
+            <div class="op-org">Lighthouse Works · Fishers Island, NY</div>
+            <p class="op-description">
+                Six-week fellowships for artists and writers with room and board, private
+                studio space and a $1,750 stipend.
+            </p>
+            <div class="op-meta">
+                <div><strong>Deadline:</strong> October 1, 2026</div>
+                <div><strong>Support:</strong> Room, board, studio and stipend</div>
+            </div>
+            <a class="op-link"
+               href="https://www.nyfa.org/opportunities/opportunity-info/?id=0db27da2-fd58-43ae-9f9f-088b049ea34c"
+               target="_blank" rel="noopener noreferrer">
+                VIEW OPPORTUNITY →
+            </a>
+        </article>
+
+        <article class="op-card"
+                 data-type="residency fellowship"
+                 data-features="us funded closing"
+                 data-deadline="2026-10-01">
+            <div class="op-badges">
+                <span class="op-badge">New York State</span>
+                <span class="op-badge">Residency</span>
+                <span class="op-badge">Fully Subsidized</span>
+                <span class="op-badge closing">Closing Soon</span>
+            </div>
+            <h2>Millay Arts Core Artist Residency</h2>
+            <div class="op-org">Millay Arts · Austerlitz, NY</div>
+            <p class="op-description">
+                Fully subsidized two-week to month-long residencies for multidisciplinary
+                creators at the historic Steepletop estate in the upper Hudson Valley.
+            </p>
+            <div class="op-meta">
+                <div><strong>Deadline:</strong> October 1, 2026</div>
+                <div><strong>Note:</strong> Application fee and selected-participant deposit apply</div>
+            </div>
+            <a class="op-link"
+               href="https://www.nyfa.org/opportunities/opportunity-info/?id=8e54e755-8162-4bcf-8054-3f29f4cbe08d"
+               target="_blank" rel="noopener noreferrer">
+                VIEW OPPORTUNITY →
+            </a>
+        </article>
+
+        <article class="op-card"
+                 data-type="grant fellowship"
+                 data-features="us closing"
+                 data-deadline="2026-10-01">
+            <div class="op-badges">
+                <span class="op-badge">Atlanta</span>
+                <span class="op-badge">Artist Award</span>
+                <span class="op-badge closing">Closing Soon</span>
+            </div>
+            <h2>2026 Atlanta Artadia Awards</h2>
+            <div class="op-org">Artadia</div>
+            <p class="op-description">
+                Artadia's 2026 Atlanta application window is open for eligible artists in
+                the Atlanta award area.
+            </p>
+            <div class="op-meta">
+                <div><strong>Deadline:</strong> October 1, 2026</div>
+                <div><strong>Type:</strong> Artist award</div>
+            </div>
+            <a class="op-link"
+               href="https://artadia.org/award-year/2026/"
+               target="_blank" rel="noopener noreferrer">
+                VIEW OFFICIAL OPPORTUNITY →
+            </a>
+        </article>
+
+        <article class="op-card"
+                 data-type="residency"
+                 data-features="nyc us funded"
+                 data-deadline="2026-10-04">
+            <div class="op-badges">
+                <span class="op-badge">🗽 NYC</span>
+                <span class="op-badge">Residency</span>
+                <span class="op-badge">Funded</span>
+            </div>
+            <h2>Abrons Visual Artist AIRspace Residency</h2>
+            <div class="op-org">Abrons Arts Center · Lower East Side, NYC</div>
+            <p class="op-description">
+                A 20-month residency for three early-career visual artists with fully
+                subsidized studio space, honorarium, materials stipend, mentorship and
+                professional development.
+            </p>
+            <div class="op-meta">
+                <div><strong>Deadline:</strong> October 4, 2026</div>
+                <div><strong>Best for:</strong> Early-career visual artists</div>
+            </div>
+            <a class="op-link"
+               href="https://www.nyfa.org/opportunities/opportunity-info/?id=1a1b14dc-64e1-41cc-83c9-cf53d2480a0b"
+               target="_blank" rel="noopener noreferrer">
+                VIEW OPPORTUNITY →
+            </a>
+        </article>
+
+        <article class="op-card"
+                 data-type="residency fellowship"
+                 data-features="us funded"
+                 data-deadline="2026-10-09">
+            <div class="op-badges">
+                <span class="op-badge">California</span>
+                <span class="op-badge">Residency</span>
+                <span class="op-badge">Art + Science</span>
+            </div>
+            <h2>Leonardo@Djerassi 2027</h2>
+            <div class="op-org">Djerassi Resident Artists Program</div>
+            <p class="op-description">
+                A five-week residency connecting artists and scientists at Djerassi's
+                retreat in the Santa Cruz Mountains, with public and academic engagement.
+            </p>
+            <div class="op-meta">
+                <div><strong>Deadline:</strong> October 9, 2026</div>
+                <div><strong>Focus:</strong> Art, science and technology</div>
+            </div>
+            <a class="op-link"
+               href="https://djerassi.org/apply/leonardo-at-djerassi/"
+               target="_blank" rel="noopener noreferrer">
+                VIEW OFFICIAL OPPORTUNITY →
+            </a>
+        </article>
+
+        <article class="op-card"
+                 data-type="grant fellowship"
+                 data-features="worldwide funded"
+                 data-deadline="2026-10-15">
+            <div class="op-badges">
+                <span class="op-badge">🌎 Worldwide</span>
+                <span class="op-badge">Artist Award</span>
+                <span class="op-badge">Cash Prize</span>
+            </div>
+            <h2>The Meridian Award</h2>
+            <div class="op-org">The Meridian Award · Online</div>
+            <p class="op-description">
+                An international award offering one contemporary visual artist a $1,000
+                unrestricted cash prize.
+            </p>
+            <div class="op-meta">
+                <div><strong>Deadline:</strong> October 15, 2026</div>
+                <div><strong>Award:</strong> $1,000 unrestricted</div>
+            </div>
+            <a class="op-link"
+               href="https://www.nyfa.org/opportunities/opportunity-info/?id=79bf0bb0-eddd-45ca-9a43-cd4dd918ae33"
+               target="_blank" rel="noopener noreferrer">
+                VIEW OPPORTUNITY →
+            </a>
+        </article>
+
+        <article class="op-card"
+                 data-type="open-call exhibition"
+                 data-features="nyc us"
+                 data-deadline="2026-10-18">
+            <div class="op-badges">
+                <span class="op-badge">🗽 Brooklyn</span>
+                <span class="op-badge">Open Call</span>
+                <span class="op-badge">Exhibition</span>
+            </div>
+            <h2>Open Call for 2028 Exhibitions</h2>
+            <div class="op-org">Open Source Gallery · Brooklyn, NY</div>
+            <p class="op-description">
+                Artists working in any medium and location may propose conceptually driven
+                exhibitions emphasizing experimentation, sustainability and social engagement.
+            </p>
+            <div class="op-meta">
+                <div><strong>Deadline:</strong> October 18, 2026</div>
+                <div><strong>Location:</strong> Brooklyn, New York</div>
+            </div>
+            <a class="op-link"
+               href="https://www.nyfa.org/opportunities/opportunity-info/?id=e1f3437b-a6a5-44c2-90d9-591e8da0356d"
+               target="_blank" rel="noopener noreferrer">
+                VIEW OPPORTUNITY →
+            </a>
+        </article>
+
+        <article class="op-card"
+                 data-type="open-call exhibition"
+                 data-features="nyc us"
+                 data-deadline="2026-10-20">
+            <div class="op-badges">
+                <span class="op-badge">🗽 NYC</span>
+                <span class="op-badge">Open Call</span>
+                <span class="op-badge">Exhibition</span>
+            </div>
+            <h2>Small Hours Group Exhibition</h2>
+            <div class="op-org">Collective Z Gallery · Lower East Side, NYC</div>
+            <p class="op-description">
+                An open call for small-format drawing, painting, photography and printmaking
+                for a December 2026 to January 2027 group exhibition.
+            </p>
+            <div class="op-meta">
+                <div><strong>Deadline:</strong> October 20, 2026</div>
+                <div><strong>Exhibition:</strong> December 11, 2026 to January 9, 2027</div>
+            </div>
+            <a class="op-link"
+               href="https://www.nyfa.org/opportunities/opportunity-info/?id=98c03c73-4698-4b1e-b6d0-2e410ea6a5e2"
+               target="_blank" rel="noopener noreferrer">
+                VIEW OPPORTUNITY →
+            </a>
+        </article>
+
+        <article class="op-card"
+                 data-type="fellowship resource"
+                 data-features="nyc us free"
+                 data-deadline="2026-10-25">
+            <div class="op-badges">
+                <span class="op-badge">🗽 NYC</span>
+                <span class="op-badge">Fellowship</span>
+                <span class="op-badge">Free to Apply</span>
+            </div>
+            <h2>Bronx Museum AIM Fellowship</h2>
+            <div class="op-org">The Bronx Museum · Bronx, NY</div>
+            <p class="op-description">
+                The AIM program is a professional development and career accelerator for
+                rising artists based in New York City.
+            </p>
+            <div class="op-meta">
+                <div><strong>Listed deadline:</strong> October 25</div>
+                <div><strong>Important:</strong> Confirm the application year and dates on the official listing before applying</div>
+            </div>
+            <a class="op-link"
+               href="https://www.nyfa.org/opportunities/opportunity-info/?id=ff7a65d0-936a-42f2-bcbf-e90e5256dec8"
+               target="_blank" rel="noopener noreferrer">
+                VERIFY CURRENT DETAILS →
+            </a>
+        </article>
+
+        <article class="op-card"
+                 data-type="fellowship resource"
+                 data-features="nyc us"
+                 data-deadline="2026-10-30">
+            <div class="op-badges">
+                <span class="op-badge">🗽 NYC</span>
+                <span class="op-badge">Fellowship</span>
+            </div>
+            <h2>2027 NAC Artist Fellowship</h2>
+            <div class="op-org">The National Arts Club · New York, NY</div>
+            <p class="op-description">
+                Selected established young professional artists receive one year of full
+                membership to the National Arts Club and access to its multidisciplinary
+                arts community.
+            </p>
+            <div class="op-meta">
+                <div><strong>Deadline:</strong> October 30, 2026</div>
+                <div><strong>Disciplines:</strong> Multidisciplinary</div>
+            </div>
+            <a class="op-link"
+               href="https://www.nyfa.org/opportunities/opportunity-info/?id=3cca25d8-e189-494c-b5f0-756dc506844c"
+               target="_blank" rel="noopener noreferrer">
+                VIEW OPPORTUNITY →
+            </a>
+        </article>
+
+        <article class="op-card"
+                 data-type="residency fellowship"
+                 data-features="worldwide funded"
+                 data-deadline="2026-10-30">
+            <div class="op-badges">
+                <span class="op-badge">🌎 International</span>
+                <span class="op-badge official">Official EU</span>
+                <span class="op-badge">Residency</span>
+            </div>
+            <h2>Transatlantic Rising Stars: Visual Arts</h2>
+            <div class="op-org">European Union Delegation to the United States</div>
+            <p class="op-description">
+                Selected mid-career EU visual artists join one of six U.S. artist residency
+                programs for eight weeks in spring 2027, with cohort support and engagement.
+            </p>
+            <div class="op-meta">
+                <div><strong>Deadline:</strong> October 30, 2026</div>
+                <div><strong>Eligibility:</strong> Mid-career EU visual artists</div>
+            </div>
+            <a class="op-link"
+               href="https://www.eeas.europa.eu/delegations/united-states-america/transatlantic-rising-stars-project-visual-arts_en"
+               target="_blank" rel="noopener noreferrer">
+                VIEW OFFICIAL OPPORTUNITY →
+            </a>
+        </article>
+
+        <article class="op-card"
+                 data-type="grant"
+                 data-features="nyc us funded"
+                 data-deadline="2026-11-02">
+            <div class="op-badges">
+                <span class="op-badge">🗽 NYC</span>
+                <span class="op-badge">Grant</span>
+                <span class="op-badge">Up to $10K</span>
+            </div>
+            <h2>Fall 2026 Visual Arts Grant</h2>
+            <div class="op-org">Café Royal Cultural Foundation NYC</div>
+            <p class="op-description">
+                Exhibition and project grants for NYC artists creating paintings, drawings,
+                sculptures and photographs. The cycle may close early once the application
+                limit is reached.
+            </p>
+            <div class="op-meta">
+                <div><strong>Deadline:</strong> November 2, 2026, or earlier if capacity is reached</div>
+                <div><strong>Award:</strong> Up to $10,000</div>
+            </div>
+            <a class="op-link"
+               href="https://crcfapplication.org/project/974b0ece-469c-4412-9e22-ba99e0bf5191/visual"
+               target="_blank" rel="noopener noreferrer">
+                VIEW OPPORTUNITY →
+            </a>
+        </article>
+
+        <article class="op-card"
+                 data-type="grant"
+                 data-features="us funded"
+                 data-deadline="2026-11-05">
+            <div class="op-badges">
+                <span class="op-badge">U.S.</span>
+                <span class="op-badge">Grant</span>
+                <span class="op-badge">Contemporary Art</span>
+            </div>
+            <h2>Artistic Production Grant: Spring 2027</h2>
+            <div class="op-org">VIA Art Fund</div>
+            <p class="op-description">
+                The Spring 2027 award cycle begins with a letter of inquiry for artistic
+                production projects. Full applications are by invitation.
+            </p>
+            <div class="op-meta">
+                <div><strong>LOI deadline:</strong> November 5, 2026</div>
+                <div><strong>Stage:</strong> Letter of inquiry</div>
+            </div>
+            <a class="op-link"
+               href="https://viaartfund.org/apply/"
+               target="_blank" rel="noopener noreferrer">
+                VIEW OFFICIAL OPPORTUNITY →
+            </a>
+        </article>
+
+        <article class="op-card"
+                 data-type="grant"
+                 data-features="worldwide funded"
+                 data-deadline="2026-11-15">
+            <div class="op-badges">
+                <span class="op-badge">🌎 Worldwide</span>
+                <span class="op-badge">Grant</span>
+                <span class="op-badge">$1,200</span>
+            </div>
+            <h2>Artist Grant</h2>
+            <div class="op-org">Artist Grant</div>
+            <p class="op-description">
+                An unrestricted $1,200 award for one visual artist, offered three times each
+                year. Visual artists age 18 and older worldwide may apply.
+            </p>
+            <div class="op-meta">
+                <div><strong>Next annual deadline:</strong> November 15</div>
+                <div><strong>Application fee:</strong> $30</div>
+            </div>
+            <a class="op-link"
+               href="https://artistgrant.org/apply"
+               target="_blank" rel="noopener noreferrer">
+                VIEW OPPORTUNITY →
+            </a>
+        </article>
+
+        <article class="op-card"
+                 data-type="grant"
+                 data-features="worldwide funded"
+                 data-deadline="2026-11-17">
+            <div class="op-badges">
+                <span class="op-badge">🌎 Worldwide</span>
+                <span class="op-badge">Grant</span>
+                <span class="op-badge">$4,500 Awards</span>
+            </div>
+            <h2>The Hopper Prize Fall 2026</h2>
+            <div class="op-org">The Hopper Prize</div>
+            <p class="op-description">
+                International artist grants with a streamlined application accepting image
+                or video work samples.
+            </p>
+            <div class="op-meta">
+                <div><strong>Deadline:</strong> November 17, 2026</div>
+                <div><strong>Application fee:</strong> $40</div>
+            </div>
+            <a class="op-link"
+               href="https://www.nyfa.org/opportunities/opportunity-info/?id=baddbc21-b2db-4f59-95e7-a2f98d076091"
+               target="_blank" rel="noopener noreferrer">
+                VIEW OPPORTUNITY →
+            </a>
+        </article>
+
+        <article class="op-card"
+                 data-type="grant resource"
+                 data-features="worldwide funded rolling"
+                 data-deadline="">
+            <div class="op-badges">
+                <span class="op-badge">🌎 Worldwide</span>
+                <span class="op-badge">Grant</span>
+                <span class="op-badge">♾ Rolling</span>
+            </div>
+            <h2>Pollock-Krasner Foundation Grant</h2>
+            <div class="op-org">Pollock-Krasner Foundation</div>
+            <p class="op-description">
+                Year-round unrestricted grants for eligible professional painters,
+                sculptors and artists working on paper with established professional
+                exhibition histories.
+            </p>
+            <div class="op-meta">
+                <div><strong>Deadline:</strong> Rolling, no deadline</div>
+                <div><strong>Reach:</strong> International</div>
+            </div>
+            <a class="op-link"
+               href="https://www.pkf.org/how-to-apply/"
+               target="_blank" rel="noopener noreferrer">
+                VIEW OFFICIAL GRANT →
+            </a>
+        </article>
+
+        <article class="op-card"
+                 data-type="grant resource"
+                 data-features="us funded rolling"
+                 data-deadline="">
+            <div class="op-badges">
+                <span class="op-badge">U.S.</span>
+                <span class="op-badge">Emergency Grant</span>
+                <span class="op-badge">♾ Rolling</span>
+            </div>
+            <h2>Emergency Grants</h2>
+            <div class="op-org">Foundation for Contemporary Arts</div>
+            <p class="op-description">
+                Rolling emergency support for eligible artists with urgent project-related
+                needs. Applications are reviewed monthly.
+            </p>
+            <div class="op-meta">
+                <div><strong>Deadline:</strong> Rolling</div>
+                <div><strong>Review:</strong> Monthly panel</div>
+            </div>
+            <a class="op-link"
+               href="https://www.foundationforcontemporaryarts.org/grants/emergency-grants/process/"
+               target="_blank" rel="noopener noreferrer">
+                VIEW OFFICIAL GRANT →
+            </a>
+        </article>
+
+        <article class="op-card"
+                 data-type="resource open-call"
+                 data-features="nyc us free rolling"
+                 data-deadline="">
+            <div class="op-badges">
+                <span class="op-badge official">Official NYC</span>
+                <span class="op-badge">Public Art</span>
+                <span class="op-badge">♾ Ongoing</span>
+            </div>
+            <h2>Percent for Art Artist Directory</h2>
+            <div class="op-org">NYC Department of Cultural Affairs</div>
+            <p class="op-description">
+                Artists can submit materials on an ongoing basis to be considered when NYC
+                researches artists for future Percent for Art commissions.
+            </p>
+            <div class="op-meta">
+                <div><strong>Deadline:</strong> Ongoing</div>
+                <div><strong>Source:</strong> NYC Department of Cultural Affairs</div>
+            </div>
+            <a class="op-link"
+               href="https://www.nyc.gov/site/dcla/publicart/opportunities.page"
+               target="_blank" rel="noopener noreferrer">
+                VIEW ON NYC.GOV →
+            </a>
+        </article>
+
+        <div class="no-results" id="noResults">
+            No opportunities match those filters right now. Try another category or reset the filters.
+        </div>
+
+    </section>
+
+    <section class="op-section">
+        <div class="op-section-heading">
+            <div class="op-section-kicker">Keep Digging</div>
+            <h2>Artist Resource Desk</h2>
+            <p>
+                Trusted places worth checking regularly. These links can lead to additional
+                opportunities beyond the featured listings above.
+            </p>
+        </div>
+
+        <div class="resource-grid">
+            <a class="resource-card"
+               href="https://www.nyc.gov/site/dcla/publicart/opportunities.page"
+               target="_blank" rel="noopener noreferrer">
+                <h3>NYC Public Art Opportunities</h3>
+                <p>Current calls and ongoing artist-directory information from the NYC Department of Cultural Affairs.</p>
+                <span class="resource-source">Official NYC</span>
+            </a>
+
+            <a class="resource-card"
+               href="https://www.nyfa.org/opportunities/"
+               target="_blank" rel="noopener noreferrer">
+                <h3>NYFA Opportunities</h3>
+                <p>Searchable opportunities for artists, writers and arts professionals.</p>
+                <span class="resource-source">New York Foundation for the Arts</span>
+            </a>
+
+            <a class="resource-card"
+               href="https://www.arts.gov/grants"
+               target="_blank" rel="noopener noreferrer">
+                <h3>National Endowment for the Arts</h3>
+                <p>Federal arts funding programs, applicant resources and future grant cycles.</p>
+                <span class="resource-source">Official U.S.</span>
+            </a>
+
+            <a class="resource-card"
+               href="https://www.pkf.org/how-to-apply/"
+               target="_blank" rel="noopener noreferrer">
+                <h3>Pollock-Krasner Foundation</h3>
+                <p>Rolling international grant information for eligible professional visual artists.</p>
+                <span class="resource-source">Rolling Resource</span>
+            </a>
+
+            <a class="resource-card"
+               href="https://www.foundationforcontemporaryarts.org/grants/"
+               target="_blank" rel="noopener noreferrer">
+                <h3>Foundation for Contemporary Arts</h3>
+                <p>Grant programs and emergency support resources for contemporary artists.</p>
+                <span class="resource-source">Artist Funding</span>
+            </a>
+
+            <a class="resource-card"
+               href="https://artadia.org/awards/"
+               target="_blank" rel="noopener noreferrer">
+                <h3>Artadia Awards</h3>
+                <p>Artist awards in selected U.S. cities with application cycles throughout the year.</p>
+                <span class="resource-source">Artist Awards</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="op-note">
+        <h2>Before you apply</h2>
+        <p>
+            Everything Art shares opportunities as a resource for artists. Deadlines,
+            eligibility, fees and program details can change. Always confirm the current
+            requirements with the organization offering the opportunity before submitting
+            an application or payment.
+        </p>
+        <p>
+            We prioritize original sources, official government programs and established
+            arts organizations whenever possible.
+        </p>
+    </section>
+
+    <div class="back-ea">
+        <a href="everything-art.html">← BACK TO EVERYTHING ART</a>
+    </div>
+
+</main>
+
+<footer>
+    <div class="footer-social" aria-label="Alex Reynoso Art on social media">
+        <a href="https://www.instagram.com/alexreynosoart/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://www.tiktok.com/@alexreynosoart" target="_blank" rel="noopener noreferrer">TikTok</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://www.facebook.com/AlexReynosoArt/" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://www.youtube.com/@AlexReynosoArt" target="_blank" rel="noopener noreferrer">YouTube</a>
+    </div>
+
+    <div class="footer-copyright">
+        &copy; 2026 Alex Reynoso Art
+    </div>
+</footer>
+
+<script>
+(function () {
+    const cards = Array.from(document.querySelectorAll('.op-card'));
+    const buttons = Array.from(document.querySelectorAll('.filter-button'));
+    const search = document.getElementById('opSearch');
+    const count = document.getElementById('resultCount');
+    const noResults = document.getElementById('noResults');
+    const reset = document.getElementById('resetFilters');
+
+    let typeFilter = 'all';
+    let featureFilter = 'all';
+
+    function daysUntil(dateString) {
+        if (!dateString) return null;
+        const today = new Date();
+        today.setHours(0,0,0,0);
+        const deadline = new Date(dateString + 'T23:59:59');
+        return Math.ceil((deadline - today) / 86400000);
+    }
+
+    function applyFilters() {
+        const q = search.value.trim().toLowerCase();
+        let visible = 0;
+
+        cards.forEach(card => {
+            const types = (card.dataset.type || '').split(/\s+/);
+            const features = (card.dataset.features || '').split(/\s+/);
+            const deadline = card.dataset.deadline || '';
+            const text = card.innerText.toLowerCase();
+
+            let typeMatch = typeFilter === 'all' || types.includes(typeFilter);
+            let featureMatch = featureFilter === 'all' || features.includes(featureFilter);
+
+            if (featureFilter === 'closing') {
+                const days = daysUntil(deadline);
+                featureMatch = days !== null && days >= 0 && days <= 14;
+            }
+
+            const searchMatch = !q || text.includes(q);
+            const show = typeMatch && featureMatch && searchMatch;
+
+            card.style.display = show ? 'flex' : 'none';
+            if (show) visible++;
+        });
+
+        count.textContent = visible === 1
+            ? 'Showing 1 opportunity'
+            : 'Showing ' + visible + ' opportunities';
+
+        noResults.style.display = visible === 0 ? 'block' : 'none';
+    }
+
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            const group = button.dataset.filterGroup;
+            const value = button.dataset.filter;
+
+            document.querySelectorAll('[data-filter-group="' + group + '"]')
+                .forEach(b => b.classList.remove('active'));
+
+            button.classList.add('active');
+
+            if (group === 'type') typeFilter = value;
+            if (group === 'feature') featureFilter = value;
+
+            applyFilters();
+        });
+    });
+
+    search.addEventListener('input', applyFilters);
+
+    reset.addEventListener('click', () => {
+        typeFilter = 'all';
+        featureFilter = 'all';
+        search.value = '';
+
+        document.querySelectorAll('[data-filter-group="type"]')
+            .forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
+
+        document.querySelectorAll('[data-filter-group="feature"]')
+            .forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
+
+        applyFilters();
+    });
+
+    applyFilters();
+})();
+</script>
+
+</body>
+</html>
