@@ -50,7 +50,7 @@
             position: fixed;
             inset: 0;
 
-            background-image: url("images/everything-art-background.png");
+            background-image: url("images/everything-art/everything-art-background.png");
             background-position: center top;
             background-size: cover;
             background-repeat: no-repeat;
@@ -485,13 +485,26 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 34px;
+            padding: 18px;
             background:
                 radial-gradient(circle at 50% 35%, rgba(255,255,255,0.08), transparent 42%),
                 #171717;
-            border: 1px dashed rgba(255,255,255,0.16);
+            border: 1px solid rgba(255,255,255,0.10);
             border-radius: 16px;
             text-align: center;
+        }
+
+        .ea-featured-image {
+            display: block;
+            width: min(100%, 380px);
+            height: auto;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .ea-featured-actions {
+            margin-top: 24px;
         }
 
         .ea-featured-preview strong {
@@ -1259,32 +1272,41 @@
             <div class="ea-featured-artist">
 
                 <div class="ea-featured-preview">
-                    <div>
-                        <strong>October Featured Artist</strong>
-                        <span>Coming Soon</span>
-                    </div>
+                    <img class="ea-featured-image"
+                         src="images/everything-art/everything-art-featured-2026-10-ink-designs-shorts.jpg"
+                         alt="Ink.Designs Shorts creating artwork in a drawing process video">
                 </div>
 
                 <div class="ea-featured-copy">
 
                     <div class="ea-section-kicker">
-                        October 2026
+                        Featured Artist · October 2026
                     </div>
 
                     <h3>
-                        The next artist could be someone already creating with us.
+                        Ink.Designs Shorts
                     </h3>
 
                     <p>
-                        Everything Art has always been about participation,
-                        encouragement and showing up for the creative community.
-                        The Featured Artist is selected from the artists helping
-                        keep that spirit moving.
+                        Recognized for active participation and creative contributions
+                        to the Everything Art community. Ink.Designs Shorts shares
+                        drawing process videos that let the community watch the artwork
+                        take shape from line to finished piece.
                     </p>
 
+                    <div class="ea-featured-actions">
+                        <a class="ea-button"
+                           href="https://www.facebook.com/profile.php?id=61584907662872"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            VIEW THEIR EVERYTHING ART SHOWCASE →
+                        </a>
+                    </div>
+
                     <div class="ea-featured-note">
-                        Artist name, selected artwork, quote and artist link
-                        will appear here when the October feature is announced.
+                        Featured artists are selected from active community contributors.
+                        Once featured, artists step out of the monthly rotation so another
+                        member can have the spotlight.
                     </div>
 
                 </div>
