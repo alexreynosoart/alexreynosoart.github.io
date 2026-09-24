@@ -1,1 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-MK5FXXVXNJ');
+    </script>
 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Art Events | Everything Art</title>
+    <meta name="description" content="Current grants, residencies, fellowships, open calls, exhibitions and artist resources from Everything Art.">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        :root {
+            --ea-bg: #101010;
+            --ea-card: rgba(255,255,255,0.045);
+            --ea-card-strong: rgba(255,255,255,0.075);
+            --ea-border: rgba(255,255,255,0.10);
+            --ea-text: #f5f5f5;
+            --ea-muted: #a5a5a5;
+            --ea-dim: #747474;
+            --ea-light: #f5f3ef;
+            --ea-dark: #151515;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            position: relative;
+            min-height: 100vh;
+            background: var(--ea-bg);
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at 15% 10%, rgba(255,255,255,0.055), transparent 25%),
+                radial-gradient(circle at 85% 75%, rgba(255,255,255,0.035), transparent 28%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        header, main, footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        .opportunities-page {
+            width: min(1220px, calc(100% - 40px));
+            margin: 0 auto;
+            padding: 34px 0 80px;
+        }
+
+        .op-hero {
+            padding: 54px 20px 38px;
+            text-align: center;
+        }
+
+        .op-kicker {
+            margin-bottom: 12px;
+            color: #8e8e8e;
+            font-size: .74rem;
+            font-weight: 800;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+        }
+
+        .op-hero h1 {
+            max-width: 900px;
+            margin: 0 auto;
+            color: #fff;
+            font-size: clamp(2.8rem, 7vw, 6rem);
+            line-height: .98;
+            letter-spacing: -.045em;
+        }
+
+        .op-hero p {
+            max-width: 720px;
+            margin: 20px auto 0;
+            color: #b6b6b6;
+            font-size: clamp(1rem, 2vw, 1.18rem);
+            line-height: 1.7;
+        }
+
+        .op-updated {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+            padding: 8px 12px;
+            border: 1px solid var(--ea-border);
+            border-radius: 999px;
+            color: #999;
+            font-size: .76rem;
+        }
+
+        .op-live-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #7fd49b;
+            box-shadow: 0 0 0 4px rgba(127,212,155,.08);
+        }
+
+        .op-toolbox {
+            position: sticky;
+            top: 10px;
+            z-index: 10;
+            margin: 18px 0 30px;
+            padding: 18px;
+            background: rgba(18,18,18,.94);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--ea-border);
+            border-radius: 20px;
+            box-shadow: 0 15px 45px rgba(0,0,0,.28);
+        }
+
+        .op-search {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid rgba(255,255,255,.13);
+            border-radius: 12px;
+            outline: none;
+            background: rgba(255,255,255,.05);
+            color: #fff;
+            font: inherit;
+        }
+
+        .op-search::placeholder { color: #747474; }
+        .op-search:focus { border-color: rgba(255,255,255,.32); }
+
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .filter-button {
+            appearance: none;
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 999px;
+            padding: 9px 12px;
+            background: transparent;
+            color: #aaa;
+            cursor: pointer;
+            font: inherit;
+            font-size: .76rem;
+            font-weight: 750;
+            transition: .18s ease;
+        }
+
+        .filter-button:hover,
+        .filter-button.active {
+            background: #f4f2ee;
+            color: #111;
+            border-color: #f4f2ee;
+        }
+
+        .op-statusbar {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            align-items: center;
+            margin: 0 2px 20px;
+            color: #7e7e7e;
+            font-size: .78rem;
+        }
+
+        .op-reset {
+            color: #aaa;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            cursor: pointer;
+        }
+
+
+        /* =========================
+           COMPACT OPPORTUNITY THUMBNAILS
+           Commission-page inspired
+           ========================= */
+
+        .op-card {
+            position: relative;
+            display: grid !important;
+            grid-template-columns: 116px minmax(0, 1fr);
+            grid-template-rows: auto;
+            column-gap: 22px;
+            align-content: start;
+        }
+
+        .op-card[style*="display: none"] {
+            display: none !important;
+        }
+
+        .op-thumb {
+            grid-column: 1;
+            grid-row: 1 / span 20;
+            width: 116px;
+            height: 116px;
+            aspect-ratio: 1 / 1;
+            margin: 0;
+            align-self: start;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,.18);
+            border-radius: 0;
+            background:
+                radial-gradient(circle at 25% 20%, rgba(255,255,255,.12), transparent 34%),
+                linear-gradient(145deg, #282828, #111);
+        }
+
+        .op-thumb::after {
+            content: "";
+            position: absolute;
+            inset: 7px;
+            border: 1px solid rgba(255,255,255,.09);
+            pointer-events: none;
+        }
+
+        .op-thumb-inner {
+            position: relative;
+            z-index: 1;
+            padding: 10px 7px;
+            text-align: center;
+        }
+
+        .op-thumb-flag {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 2rem;
+            line-height: 1;
+        }
+
+        .op-thumb-type {
+            display: block;
+            color: #fff;
+            font-size: .66rem;
+            font-weight: 900;
+            line-height: 1.2;
+            letter-spacing: .10em;
+            text-transform: uppercase;
+        }
+
+        .op-thumb-country {
+            display: block;
+            margin-top: 5px;
+            color: #999;
+            font-size: .52rem;
+            font-weight: 800;
+            line-height: 1.25;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .op-card > :not(.op-thumb) {
+            grid-column: 2;
+        }
+
+        .op-card .op-badges {
+            margin-top: 0;
+        }
+
+        .op-card h2 {
+            margin-top: 12px;
+        }
+
+        .op-card .op-link {
+            justify-self: start;
+        }
+
+        .view-more-wrap {
+            display: flex;
+            justify-content: center;
+            margin-top: 28px;
+        }
+
+        .view-more-button {
+            appearance: none;
+            border: 1px solid rgba(255,255,255,.16);
+            background: #f4f2ee;
+            color: #111;
+            border-radius: 999px;
+            padding: 14px 22px;
+            font: inherit;
+            font-size: .78rem;
+            font-weight: 900;
+            letter-spacing: .05em;
+            cursor: pointer;
+            transition: transform .18s ease, background .18s ease;
+        }
+
+        .view-more-button:hover {
+            transform: translateY(-1px);
+            background: #fff;
+        }
+
+        .back-to-top {
+            position: fixed;
+            right: 18px;
+            bottom: 22px;
+            z-index: 50;
+            width: 46px;
+            height: 46px;
+            border: 1px solid rgba(255,255,255,.16);
+            border-radius: 50%;
+            background: rgba(20,20,20,.88);
+            color: #fff;
+            font-size: 1.2rem;
+            line-height: 1;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(8px);
+            transition: opacity .2s ease, transform .2s ease, visibility .2s ease;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 700px) {
+            .op-card {
+                grid-template-columns: 82px minmax(0, 1fr);
+                column-gap: 15px;
+            }
+
+            .op-thumb {
+                width: 82px;
+                height: 82px;
+            }
+
+            .op-thumb::after {
+                inset: 5px;
+            }
+
+            .op-thumb-flag {
+                margin-bottom: 5px;
+                font-size: 1.55rem;
+            }
+
+            .op-thumb-type {
+                font-size: .54rem;
+                letter-spacing: .07em;
+            }
+
+            .op-thumb-country {
+                margin-top: 3px;
+                font-size: .43rem;
+                letter-spacing: .05em;
+            }
+
+            .op-card h2 {
+                margin-top: 9px;
+            }
+
+            .back-to-top {
+                right: 14px;
+                bottom: 18px;
+                width: 44px;
+                height: 44px;
+            }
+        }
+
+        .op-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0,1fr));
+            gap: 16px;
+        }
+
+        .op-card {
+            display: flex;
+            flex-direction: column;
+            min-height: 390px;
+            padding: 24px;
+            background: var(--ea-card);
+            border: 1px solid var(--ea-border);
+            border-radius: 20px;
+            transition: transform .2s ease, background .2s ease, border-color .2s ease;
+        }
+
+        .op-card:hover {
+            transform: translateY(-3px);
+            background: var(--ea-card-strong);
+            border-color: rgba(255,255,255,.18);
+        }
+
+        .op-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 17px;
+        }
+
+        .op-badge {
+            display: inline-flex;
+            align-items: center;
+            min-height: 25px;
+            padding: 5px 8px;
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 999px;
+            color: #a8a8a8;
+            font-size: .64rem;
+            font-weight: 850;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+        }
+
+        .op-badge.official {
+            background: #f4f2ee;
+            color: #111;
+            border-color: #f4f2ee;
+        }
+
+        .op-badge.closing {
+            background: rgba(255,255,255,.08);
+            color: #fff;
+        }
+
+        .op-card h2 {
+            margin: 0 0 8px;
+            color: #fff;
+            font-size: 1.35rem;
+            line-height: 1.22;
+        }
+
+        .op-org {
+            margin-bottom: 15px;
+            color: #8f8f8f;
+            font-size: .82rem;
+            font-weight: 650;
+        }
+
+        .op-description {
+            margin: 0 0 18px;
+            color: #aaa;
+            font-size: .91rem;
+            line-height: 1.65;
+        }
+
+        .op-meta {
+            display: grid;
+            gap: 7px;
+            margin-top: auto;
+            padding-top: 17px;
+            border-top: 1px solid rgba(255,255,255,.08);
+            color: #999;
+            font-size: .78rem;
+            line-height: 1.4;
+        }
+
+        .op-meta strong {
+            color: #d7d7d7;
+            font-weight: 750;
+        }
+
+        .op-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-top: 18px;
+            padding: 12px 14px;
+            background: #f4f2ee;
+            color: #111;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: .75rem;
+            font-weight: 850;
+            letter-spacing: .035em;
+            transition: transform .18s ease, background .18s ease;
+        }
+
+        .op-link:hover {
+            transform: translateY(-1px);
+            background: #fff;
+        }
+
+        .op-section {
+            margin-top: 70px;
+        }
+
+        .op-section-heading {
+            max-width: 760px;
+            margin-bottom: 25px;
+        }
+
+        .op-section-kicker {
+            margin-bottom: 9px;
+            color: #858585;
+            font-size: .7rem;
+            font-weight: 850;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+        }
+
+        .op-section h2 {
+            margin: 0 0 10px;
+            color: #fff;
+            font-size: clamp(2rem, 4vw, 3rem);
+        }
+
+        .op-section-heading p {
+            margin: 0;
+            color: #999;
+            line-height: 1.7;
+        }
+
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0,1fr));
+            gap: 14px;
+        }
+
+        .resource-card {
+            display: block;
+            padding: 24px;
+            background: rgba(255,255,255,.035);
+            border: 1px solid var(--ea-border);
+            border-radius: 18px;
+            color: inherit;
+            text-decoration: none;
+            transition: .2s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-2px);
+            background: rgba(255,255,255,.065);
+        }
+
+        .resource-card h3 {
+            margin: 0 0 8px;
+            color: #fff;
+            font-size: 1.05rem;
+        }
+
+        .resource-card p {
+            margin: 0;
+            color: #8f8f8f;
+            font-size: .84rem;
+            line-height: 1.55;
+        }
+
+        .resource-source {
+            display: block;
+            margin-top: 15px;
+            color: #c8c8c8;
+            font-size: .7rem;
+            font-weight: 800;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+        }
+
+        .op-note {
+            margin-top: 70px;
+            padding: 42px;
+            background: var(--ea-light);
+            color: #222;
+            border-radius: 22px;
+        }
+
+        .op-note h2 {
+            margin: 0 0 12px;
+            color: #111;
+            font-size: clamp(1.7rem, 3vw, 2.4rem);
+        }
+
+        .op-note p {
+            max-width: 900px;
+            margin: 0;
+            color: #555;
+            line-height: 1.75;
+        }
+
+        .op-note p + p { margin-top: 12px; }
+
+        .no-results {
+            display: none;
+            grid-column: 1 / -1;
+            padding: 55px 25px;
+            border: 1px dashed rgba(255,255,255,.16);
+            border-radius: 18px;
+            color: #777;
+            text-align: center;
+        }
+
+        .back-ea {
+            margin-top: 42px;
+            text-align: center;
+        }
+
+        .back-ea a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: .82rem;
+        }
+
+        .back-ea a:hover { color: #fff; }
+
+        @media (max-width: 980px) {
+            .op-grid,
+            .resource-grid {
+                grid-template-columns: repeat(2, minmax(0,1fr));
+            }
+        }
+
+        @media (max-width: 700px) {
+            .opportunities-page {
+                width: min(100% - 24px, 1220px);
+                padding-top: 10px;
+            }
+
+            .op-hero { padding: 40px 10px 28px; }
+
+            .op-toolbox {
+                position: relative;
+                top: auto;
+                padding: 14px;
+            }
+
+            .op-grid,
+            .resource-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .op-card { min-height: 0; }
+
+            .op-note { padding: 32px 24px; }
+
+            .op-statusbar {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 6px;
+            }
+        }
+    
+        /* =========================
+           COMPACT CARD REFINEMENT
+           Thumbnail + badges on top
+           Full-width content below
+           ========================= */
+
+        .op-card {
+            grid-template-columns: 116px minmax(0, 1fr) !important;
+            column-gap: 22px !important;
+            row-gap: 0 !important;
+        }
+
+        .op-thumb {
+            grid-column: 1 !important;
+            grid-row: 1 !important;
+        }
+
+        .op-card .op-badges {
+            grid-column: 2 !important;
+            grid-row: 1 !important;
+            align-self: start;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            gap: 8px !important;
+            margin: 0 !important;
+        }
+
+        .op-card h2,
+        .op-card .op-org,
+        .op-card .op-description,
+        .op-card .op-meta,
+        .op-card .op-link {
+            grid-column: 1 / -1 !important;
+        }
+
+        .op-card h2 {
+            grid-row: 2 !important;
+            margin: 20px 0 0 !important;
+        }
+
+        .op-card .op-org {
+            grid-row: 3 !important;
+        }
+
+        .op-card .op-description {
+            grid-row: 4 !important;
+        }
+
+        .op-card .op-meta {
+            grid-row: 5 !important;
+        }
+
+        .op-card .op-link {
+            grid-row: 6 !important;
+            justify-self: stretch !important;
+        }
+
+        @media (max-width: 700px) {
+            .op-card {
+                grid-template-columns: 82px minmax(0, 1fr) !important;
+                column-gap: 14px !important;
+            }
+
+            .op-card .op-badges {
+                gap: 6px !important;
+            }
+
+            .op-card h2 {
+                margin-top: 16px !important;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+    <a class="site-logo" href="index.html">
+        <img src="images/AlexReynosoArt-Logo_transparent.png" alt="Alex Reynoso Art">
+    </a>
+
+    <!-- Current site menu intentionally unchanged for now -->
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="art.html">Art</a>
+        <a href="videos.html">Videos</a>
+        <a href="shop.html">Shop</a>
+        <a href="commissions.html">Commissions</a>
+    </nav>
+</header>
+
+
+<main class="opportunities-page">
+<section class="op-hero">
+<div class="op-kicker">Everything Art · What’s Happening</div>
+<h1>ART EVENTS</h1>
+<p>Exhibitions, openings, art fairs, festivals, workshops, talks and online events. From New York City to the wider art world, find something worth seeing.</p>
+<div class="op-updated"><span class="op-live-dot" aria-hidden="true"></span>Art event hub · Updated September 24, 2026</div>
+</section>
+
+<section class="op-toolbox" aria-label="Filter art events">
+<input id="opSearch" class="op-search" type="search" placeholder="Search event, museum, city, artist or keyword..." aria-label="Search art events">
+<div class="filter-row" aria-label="Event type">
+<button class="filter-button active" data-filter-group="type" data-filter="all">ALL</button>
+<button class="filter-button" data-filter-group="type" data-filter="exhibition">EXHIBITIONS</button>
+<button class="filter-button" data-filter-group="type" data-filter="opening">OPENINGS</button>
+<button class="filter-button" data-filter-group="type" data-filter="fair">ART FAIRS</button>
+<button class="filter-button" data-filter-group="type" data-filter="workshop">WORKSHOPS</button>
+<button class="filter-button" data-filter-group="type" data-filter="talk">TALKS</button>
+<button class="filter-button" data-filter-group="type" data-filter="family">FAMILY</button>
+</div>
+<div class="filter-row" aria-label="Event location">
+<button class="filter-button active" data-filter-group="feature" data-filter="all">ANYWHERE</button>
+<button class="filter-button" data-filter-group="feature" data-filter="nyc">🗽 NYC</button>
+<button class="filter-button" data-filter-group="feature" data-filter="us">🇺🇸 U.S.</button>
+<button class="filter-button" data-filter-group="feature" data-filter="worldwide">🌎 WORLDWIDE</button>
+<button class="filter-button" data-filter-group="feature" data-filter="online">💻 ONLINE</button>
+<button class="filter-button" data-filter-group="feature" data-filter="free">FREE</button>
+<button class="filter-button" data-filter-group="feature" data-filter="soon">⏰ COMING SOON</button>
+</div>
+</section>
+
+<div class="op-statusbar"><span id="resultCount">Showing upcoming art events</span><span class="op-reset" id="resetFilters">Reset filters</span></div>
+<section class="op-grid" id="opGrid">
+        <article class="op-card" data-type="exhibition" data-features="nyc us soon" data-date="2026-09-27" data-country="United States">
+            <div class="op-badges"><span class="op-badge">🗽 NYC</span><span class="op-badge">Exhibition</span><span class="op-badge">Opens Sep 27</span></div>
+            <h2>Nilima Sheikh: Fractured Skies</h2>
+            <div class="op-org">The Museum of Modern Art · New York, NY</div>
+            <p class="op-description">A new MoMA exhibition opening September 27 and continuing through June 13, 2027.</p>
+            <div class="op-meta"><div><strong>Date(s):</strong> September 27, 2026 – June 13, 2027</div><div><strong>Details:</strong> MoMA</div></div>
+            <a class="op-link" href="https://www.moma.org/calendar/exhibitions" target="_blank" rel="noopener noreferrer">VIEW OFFICIAL LISTING →</a>
+        </article>
+        <article class="op-card" data-type="family workshop" data-features="nyc us" data-date="2026-10-03" data-country="United States">
+            <div class="op-badges"><span class="op-badge">🗽 NYC</span><span class="op-badge">Family</span><span class="op-badge">Museum Event</span></div>
+            <h2>Tiny Tours</h2>
+            <div class="op-org">Museum of the City of New York · New York, NY</div>
+            <p class="op-description">A playful, interactive gallery experience designed for children ages 3–5 and their caregivers.</p>
+            <div class="op-meta"><div><strong>Date(s):</strong> October 3, 2026 · 2:00 PM</div><div><strong>Details:</strong> Families</div></div>
+            <a class="op-link" href="https://www.mcny.org/events?type=76" target="_blank" rel="noopener noreferrer">VIEW OFFICIAL EVENT →</a>
+        </article>
+        <article class="op-card" data-type="exhibition" data-features="nyc us" data-date="2026-10-04" data-country="United States">
+            <div class="op-badges"><span class="op-badge">🗽 NYC</span><span class="op-badge">Exhibition</span><span class="op-badge">MoMA</span></div>
+            <h2>The Surrealist Book: Tomorrow Lives in Mirrors</h2>
+            <div class="op-org">The Museum of Modern Art · New York, NY</div>
+            <p class="op-description">An exhibition exploring the surrealist book, opening to the public October 4.</p>
+            <div class="op-meta"><div><strong>Date(s):</strong> October 4, 2026 – January 23, 2027</div><div><strong>Details:</strong> Member previews October 1–3</div></div>
+            <a class="op-link" href="https://www.moma.org/calendar/exhibitions" target="_blank" rel="noopener noreferrer">VIEW OFFICIAL LISTING →</a>
+        </article>
+        <article class="op-card" data-type="workshop family" data-features="nyc us" data-date="2026-10-07" data-country="United States">
+            <div class="op-badges"><span class="op-badge">🗽 NYC</span><span class="op-badge">Workshop</span><span class="op-badge">Family</span></div>
+            <h2>After-School Kids Art Studio</h2>
+            <div class="op-org">Museum of the City of New York · New York, NY</div>
+            <p class="op-description">A hands-on art experience inspired by the museum’s exhibitions and collection.</p>
+            <div class="op-meta"><div><strong>Date(s):</strong> October 7, 2026 · 2:00 PM</div><div><strong>Details:</strong> Drop-in art program</div></div>
+            <a class="op-link" href="https://www.mcny.org/events?type=76" target="_blank" rel="noopener noreferrer">VIEW OFFICIAL EVENT →</a>
+        </article>
+        <article class="op-card" data-type="exhibition" data-features="nyc us" data-date="2026-10-12" data-country="United States">
+            <div class="op-badges"><span class="op-badge">🗽 NYC</span><span class="op-badge">Exhibition</span><span class="op-badge">MoMA</span></div>
+            <h2>Jakob Kudsk Steensen: Wetland</h2>
+            <div class="op-org">The Museum of Modern Art · New York, NY</div>
+            <p class="op-description">A new installation project opening at MoMA in October.</p>
+            <div class="op-meta"><div><strong>Date(s):</strong> October 12, 2026 – March 7, 2027</div><div><strong>Details:</strong> New York City</div></div>
+            <a class="op-link" href="https://www.moma.org/calendar/exhibitions" target="_blank" rel="noopener noreferrer">VIEW OFFICIAL LISTING →</a>
+        </article>
+        <article class="op-card" data-type="fair" data-features="worldwide soon" data-date="2026-10-14" data-country="United Kingdom">
+            <div class="op-badges"><span class="op-badge">🇬🇧 London</span><span class="op-badge">Art Fair</span><span class="op-badge">International</span></div>
+            <h2>Frieze London &amp; Frieze Masters 2026</h2>
+            <div class="op-org">Frieze · The Regent’s Park, London</div>
+            <p class="op-description">The two fairs return concurrently with galleries and artists from across six continents.</p>
+            <div class="op-meta"><div><strong>Date(s):</strong> October 14–18, 2026</div><div><strong>Details:</strong> London, United Kingdom</div></div>
+            <a class="op-link" href="https://www.frieze.com/fairs/frieze-masters" target="_blank" rel="noopener noreferrer">VIEW OFFICIAL FAIR →</a>
+        </article>
+        <article class="op-card" data-type="fair" data-features="worldwide" data-date="2026-10-23" data-country="France">
+            <div class="op-badges"><span class="op-badge">🇫🇷 Paris</span><span class="op-badge">Art Fair</span><span class="op-badge">International</span></div>
+            <h2>Art Basel Paris 2026</h2>
+            <div class="op-org">Art Basel · Grand Palais, Paris</div>
+            <p class="op-description">Art Basel Paris returns to the Grand Palais with more than 200 exhibitors from 41 countries and territories.</p>
+            <div class="op-meta"><div><strong>Date(s):</strong> October 23–25, 2026</div><div><strong>Details:</strong> Preview October 21–22</div></div>
+            <a class="op-link" href="https://www.artbasel.com/paris" target="_blank" rel="noopener noreferrer">VIEW OFFICIAL FAIR →</a>
+        </article>
+        <article class="op-card" data-type="exhibition" data-features="nyc us" data-date="2026-10-25" data-country="United States">
+            <div class="op-badges"><span class="op-badge">🗽 NYC</span><span class="op-badge">Exhibition</span><span class="op-badge">MoMA</span></div>
+            <h2>Brancusi: The Artist and His Studio</h2>
+            <div class="op-org">The Museum of Modern Art · New York, NY</div>
+            <p class="op-description">A MoMA exhibition focused on Brancusi and the artist’s studio.</p>
+            <div class="op-meta"><div><strong>Date(s):</strong> October 25, 2026 – February 27, 2027</div><div><strong>Details:</strong> Member previews October 22–24</div></div>
+            <a class="op-link" href="https://www.moma.org/calendar/exhibitions" target="_blank" rel="noopener noreferrer">VIEW OFFICIAL LISTING →</a>
+        </article>
+        <article class="op-card" data-type="fair" data-features="us worldwide" data-date="2026-12-04" data-country="United States">
+            <div class="op-badges"><span class="op-badge">🇺🇸 Miami Beach</span><span class="op-badge">Art Fair</span><span class="op-badge">International</span></div>
+            <h2>Art Basel Miami Beach 2026</h2>
+            <div class="op-org">Art Basel · Miami Beach, FL</div>
+            <p class="op-description">Art Basel’s American show returns with galleries from five continents presenting modern and contemporary art.</p>
+            <div class="op-meta"><div><strong>Date(s):</strong> December 4–6, 2026</div><div><strong>Details:</strong> Miami Beach, Florida</div></div>
+            <a class="op-link" href="https://www.artbasel.com/" target="_blank" rel="noopener noreferrer">VIEW OFFICIAL FAIR →</a>
+        </article></section>
+<div class="no-results" id="noResults">No events match those filters yet. Try another category or location.</div>
+
+<section class="resource-desk">
+<div class="resource-heading"><div><div class="op-kicker">Keep Exploring</div><h2>Live Art Event Sources</h2></div>
+<p>Established calendars to check for exhibitions, museum programs, fairs and events between Everything Art updates.</p></div>
+<div class="resource-grid"><a class="resource-card" href="https://www.moma.org/calendar/exhibitions" target="_blank" rel="noopener noreferrer">
+    <h3>MoMA Exhibitions</h3><p>Current and upcoming exhibitions at The Museum of Modern Art in New York.</p><span class="resource-source">NYC · Museum Calendar</span></a><a class="resource-card" href="https://www.mcny.org/events" target="_blank" rel="noopener noreferrer">
+    <h3>Museum of the City of New York</h3><p>Talks, workshops, family programs, exhibitions and special events.</p><span class="resource-source">NYC · Events</span></a><a class="resource-card" href="https://www.nga.gov/calendar" target="_blank" rel="noopener noreferrer">
+    <h3>National Gallery of Art</h3><p>Exhibitions, talks, films, concerts, tours and hands-on activities.</p><span class="resource-source">Washington, DC · Calendar</span></a><a class="resource-card" href="https://www.artbasel.com/" target="_blank" rel="noopener noreferrer">
+    <h3>Art Basel</h3><p>Major international art fairs and public programs across multiple cities.</p><span class="resource-source">Worldwide · Art Fairs</span></a><a class="resource-card" href="https://www.frieze.com/fairs" target="_blank" rel="noopener noreferrer">
+    <h3>Frieze</h3><p>International art fairs, programs and art-week information.</p><span class="resource-source">Worldwide · Art Fairs</span></a><a class="resource-card" href="https://www.artnet.com/events/" target="_blank" rel="noopener noreferrer">
+    <h3>Artnet Events</h3><p>Gallery openings, museum exhibitions, art fairs and other events worldwide.</p><span class="resource-source">Worldwide · Event Directory</span></a></div>
+</section>
+
+<section class="op-note">
+<h2>Before you go</h2>
+<p>Event dates, times, admission, locations and schedules can change. Everything Art links to the organizer or venue whenever possible. Always confirm current details with the official event source before traveling.</p>
+<p>More event sources and automated feed updates can be added as the Art Events hub grows.</p>
+</section>
+<div class="back-ea"><a href="everything-art.html">← BACK TO EVERYTHING ART</a></div>
+</main>
+
+<button class="back-to-top" id="backToTop" type="button" aria-label="Back to top">↑</button>
+
+<footer>
+    <div class="footer-social" aria-label="Alex Reynoso Art on social media">
+        <a href="https://www.instagram.com/alexreynosoart/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://www.tiktok.com/@alexreynosoart" target="_blank" rel="noopener noreferrer">TikTok</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://www.facebook.com/AlexReynosoArt/" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://www.youtube.com/@AlexReynosoArt" target="_blank" rel="noopener noreferrer">YouTube</a>
+    </div>
+
+    <div class="footer-copyright">
+        &copy; 2026 Alex Reynoso Art
+    </div>
+</footer>
+
+<script>
+(function(){
+const cards=[...document.querySelectorAll('.op-card')], buttons=[...document.querySelectorAll('.filter-button')];
+const search=document.getElementById('opSearch'), count=document.getElementById('resultCount'), noResults=document.getElementById('noResults'), reset=document.getElementById('resetFilters'), top=document.getElementById('backToTop');
+let type='all', feature='all';
+function days(d){if(!d)return null;const a=new Date();a.setHours(0,0,0,0);return Math.ceil((new Date(d+'T23:59:59')-a)/86400000);}
+function info(c){const f=(c.dataset.features||'').split(/\s+/),t=(c.dataset.type||'').split(/\s+/);let flag='🎨',place='Art Event';
+if(f.includes('nyc')){flag='🗽';place='New York City';}else if(c.dataset.country==='France'){flag='🇫🇷';place='Paris';}else if(c.dataset.country==='United Kingdom'){flag='🇬🇧';place='London';}else if(f.includes('us')){flag='🇺🇸';place='United States';}else if(f.includes('worldwide')){flag='🌎';place='Worldwide';}
+let kind=t.includes('fair')?'Art Fair':t.includes('exhibition')?'Exhibition':t.includes('workshop')?'Workshop':t.includes('talk')?'Talk':t.includes('family')?'Family':'Event';return{flag,place,kind};}
+cards.forEach(c=>{const i=info(c),d=document.createElement('div');d.className='op-thumb';d.setAttribute('aria-hidden','true');d.innerHTML='<div class="op-thumb-inner"><span class="op-thumb-flag">'+i.flag+'</span><span class="op-thumb-type">'+i.kind+'</span><span class="op-thumb-country">'+i.place+'</span></div>';c.insertBefore(d,c.firstChild);});
+function match(c){const q=search.value.trim().toLowerCase(),types=(c.dataset.type||'').split(/\s+/),features=(c.dataset.features||'').split(/\s+/);let a=type==='all'||types.includes(type),b=feature==='all'||features.includes(feature);if(feature==='soon'){const x=days(c.dataset.date);b=x!==null&&x>=0&&x<=30;}return a&&b&&(!q||c.innerText.toLowerCase().includes(q));}
+function apply(){const m=cards.filter(match).sort((a,b)=>(a.dataset.date||'9999').localeCompare(b.dataset.date||'9999'));cards.forEach(c=>c.style.display='none');m.forEach(c=>c.style.display='flex');count.textContent=m.length===1?'Showing 1 art event':'Showing '+m.length+' art events';noResults.style.display=m.length?'none':'block';}
+buttons.forEach(b=>b.addEventListener('click',()=>{const g=b.dataset.filterGroup;document.querySelectorAll('[data-filter-group="'+g+'"]').forEach(x=>x.classList.remove('active'));b.classList.add('active');if(g==='type')type=b.dataset.filter;else feature=b.dataset.filter;apply();}));
+search.addEventListener('input',apply);
+reset.addEventListener('click',()=>{type=feature='all';search.value='';buttons.forEach(b=>b.classList.remove('active'));document.querySelector('[data-filter-group="type"][data-filter="all"]').classList.add('active');document.querySelector('[data-filter-group="feature"][data-filter="all"]').classList.add('active');apply();});
+window.addEventListener('scroll',()=>top.classList.toggle('show',window.scrollY>700));top.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));apply();
+})();
+</script>
+
+</body>
+</html>
