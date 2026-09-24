@@ -184,6 +184,132 @@
             cursor: pointer;
         }
 
+
+        /* =========================
+           OPPORTUNITY THUMBNAILS
+           ========================= */
+
+        .op-thumb {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            margin: -24px -24px 20px;
+            width: calc(100% + 48px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 25% 20%, rgba(255,255,255,.14), transparent 32%),
+                linear-gradient(145deg, #242424, #0f0f0f);
+            border-bottom: 1px solid rgba(255,255,255,.10);
+        }
+
+        .op-thumb::after {
+            content: "";
+            position: absolute;
+            inset: 12px;
+            border: 1px solid rgba(255,255,255,.10);
+            border-radius: 14px;
+            pointer-events: none;
+        }
+
+        .op-thumb-inner {
+            position: relative;
+            z-index: 1;
+            padding: 22px;
+            text-align: center;
+        }
+
+        .op-thumb-flag {
+            display: block;
+            margin-bottom: 12px;
+            font-size: clamp(2.8rem, 7vw, 4.4rem);
+            line-height: 1;
+        }
+
+        .op-thumb-type {
+            display: block;
+            color: #fff;
+            font-size: clamp(.9rem, 2vw, 1.15rem);
+            font-weight: 900;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+        }
+
+        .op-thumb-country {
+            display: block;
+            margin-top: 7px;
+            color: #9a9a9a;
+            font-size: .7rem;
+            font-weight: 800;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .view-more-wrap {
+            display: flex;
+            justify-content: center;
+            margin-top: 28px;
+        }
+
+        .view-more-button {
+            appearance: none;
+            border: 1px solid rgba(255,255,255,.16);
+            background: #f4f2ee;
+            color: #111;
+            border-radius: 999px;
+            padding: 14px 22px;
+            font: inherit;
+            font-size: .78rem;
+            font-weight: 900;
+            letter-spacing: .05em;
+            cursor: pointer;
+            transition: transform .18s ease, background .18s ease;
+        }
+
+        .view-more-button:hover {
+            transform: translateY(-1px);
+            background: #fff;
+        }
+
+        .back-to-top {
+            position: fixed;
+            right: 18px;
+            bottom: 22px;
+            z-index: 50;
+            width: 46px;
+            height: 46px;
+            border: 1px solid rgba(255,255,255,.16);
+            border-radius: 50%;
+            background: rgba(20,20,20,.88);
+            color: #fff;
+            font-size: 1.2rem;
+            line-height: 1;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(8px);
+            transition: opacity .2s ease, transform .2s ease, visibility .2s ease;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 700px) {
+            .back-to-top {
+                right: 14px;
+                bottom: 18px;
+                width: 44px;
+                height: 44px;
+            }
+        }
+
         .op-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0,1fr));
@@ -487,7 +613,7 @@
         </p>
         <div class="op-updated">
             <span class="op-live-dot" aria-hidden="true"></span>
-            Verified opportunities · Last curated September 24, 2026
+            International opportunity hub · Updated September 24, 2026
         </div>
     </section>
 
@@ -531,6 +657,248 @@
     </div>
 
     <section class="op-grid" id="opGrid">
+
+        <!-- INTERNATIONAL FEED STARTERS: verified from current On the Move country listings -->
+
+        <article class="op-card"
+                 data-type="open-call"
+                 data-features="japan worldwide closing"
+                 data-deadline="2026-09-30"
+                 data-country="Japan">
+            <div class="op-badges">
+                <span class="op-badge">🇯🇵 Japan</span>
+                <span class="op-badge">Open Call</span>
+                <span class="op-badge closing">Closing Soon</span>
+            </div>
+            <h2>Tokyo Biennale 2027: Site-responsive Proposals</h2>
+            <div class="op-org">Tokyo Biennale · Tokyo, Japan</div>
+            <p class="op-description">
+                International call for artists and curators to develop site-responsive work
+                with local places and communities in Tokyo.
+            </p>
+            <div class="op-meta">
+                <div><strong>Deadline:</strong> September 30, 2026</div>
+                <div><strong>Source:</strong> On the Move Japan feed</div>
+            </div>
+            <a class="op-link" href="https://www.on-the-move.org/regions/japan"
+               target="_blank" rel="noopener noreferrer">VIEW JAPAN FEED →</a>
+        </article>
+
+        <article class="op-card"
+                 data-type="fellowship residency"
+                 data-features="france worldwide closing funded"
+                 data-deadline="2026-09-30"
+                 data-country="France">
+            <div class="op-badges">
+                <span class="op-badge">🇫🇷 France</span>
+                <span class="op-badge">Fellowship</span>
+                <span class="op-badge">Residency</span>
+                <span class="op-badge closing">Closing Soon</span>
+            </div>
+            <h2>Institute for Ideas and Imagination Fellowship 2027–28</h2>
+            <div class="op-org">Institute for Ideas and Imagination · Paris, France</div>
+            <p class="op-description">
+                A Paris-based fellowship bringing artists, writers and scholars together
+                for an extended period of independent work and exchange.
+            </p>
+            <div class="op-meta">
+                <div><strong>Deadline:</strong> September 30, 2026</div>
+                <div><strong>Source:</strong> On the Move France feed</div>
+            </div>
+            <a class="op-link" href="https://www.on-the-move.org/regions/france"
+               target="_blank" rel="noopener noreferrer">VIEW FRANCE FEED →</a>
+        </article>
+
+        <article class="op-card"
+                 data-type="open-call resource"
+                 data-features="germany closing"
+                 data-deadline="2026-09-30"
+                 data-country="Germany">
+            <div class="op-badges">
+                <span class="op-badge">🇩🇪 Germany</span>
+                <span class="op-badge">Open Call</span>
+                <span class="op-badge closing">Closing Soon</span>
+            </div>
+            <h2>transmediale: Festival Curation 2028</h2>
+            <div class="op-org">transmediale · Germany</div>
+            <p class="op-description">
+                transmediale is inviting applications for the freelance Festival Curation
+                role for its 2028 edition.
+            </p>
+            <div class="op-meta">
+                <div><strong>Deadline:</strong> September 30, 2026</div>
+                <div><strong>Source:</strong> On the Move Germany feed</div>
+            </div>
+            <a class="op-link" href="https://www.on-the-move.org/regions/germany"
+               target="_blank" rel="noopener noreferrer">VIEW GERMANY FEED →</a>
+        </article>
+
+        <article class="op-card"
+                 data-type="fellowship residency"
+                 data-features="france worldwide funded"
+                 data-deadline="2026-10-01"
+                 data-country="France">
+            <div class="op-badges">
+                <span class="op-badge">🇫🇷 France</span>
+                <span class="op-badge">Fellowship</span>
+                <span class="op-badge">Residency</span>
+            </div>
+            <h2>Camargo Foundation Fellowship 2027–2028</h2>
+            <div class="op-org">Camargo Foundation · Cassis, France</div>
+            <p class="op-description">
+                Research-based residency fellowship welcoming artists, scholars and thinkers
+                from around the world.
+            </p>
+            <div class="op-meta">
+                <div><strong>Deadline:</strong> October 1, 2026</div>
+                <div><strong>Source:</strong> On the Move France feed</div>
+            </div>
+            <a class="op-link" href="https://www.on-the-move.org/regions/france"
+               target="_blank" rel="noopener noreferrer">VIEW FRANCE FEED →</a>
+        </article>
+
+        <article class="op-card"
+                 data-type="residency fellowship"
+                 data-features="germany funded"
+                 data-deadline="2026-10-04"
+                 data-country="Germany">
+            <div class="op-badges">
+                <span class="op-badge">🇩🇪 Germany</span>
+                <span class="op-badge">Residency</span>
+                <span class="op-badge">Fellowship</span>
+            </div>
+            <h2>HBK Braunschweig Projects Residency 2027–28</h2>
+            <div class="op-org">HBK Braunschweig · Germany</div>
+            <p class="op-description">
+                Twelve-month fellowships for visual and sound artists, including dedicated
+                visual arts and sound art positions.
+            </p>
+            <div class="op-meta">
+                <div><strong>Deadline:</strong> October 4, 2026</div>
+                <div><strong>Source:</strong> On the Move Germany feed</div>
+            </div>
+            <a class="op-link" href="https://www.on-the-move.org/regions/germany"
+               target="_blank" rel="noopener noreferrer">VIEW GERMANY FEED →</a>
+        </article>
+
+        <article class="op-card"
+                 data-type="residency"
+                 data-features="france worldwide funded"
+                 data-deadline="2026-10-08"
+                 data-country="France">
+            <div class="op-badges">
+                <span class="op-badge">🇫🇷 France</span>
+                <span class="op-badge">Residency</span>
+            </div>
+            <h2>Institut français x Cité internationale des arts 2027–2028</h2>
+            <div class="op-org">Institut français · Paris, France</div>
+            <p class="op-description">
+                International residency programme supporting research and creative projects
+                across artistic disciplines in Paris.
+            </p>
+            <div class="op-meta">
+                <div><strong>Deadline:</strong> October 8, 2026</div>
+                <div><strong>Source:</strong> On the Move France feed</div>
+            </div>
+            <a class="op-link" href="https://www.on-the-move.org/regions/france"
+               target="_blank" rel="noopener noreferrer">VIEW FRANCE FEED →</a>
+        </article>
+
+        <article class="op-card"
+                 data-type="residency"
+                 data-features="uk worldwide funded"
+                 data-deadline=""
+                 data-country="United Kingdom">
+            <div class="op-badges">
+                <span class="op-badge">🇬🇧 UK</span>
+                <span class="op-badge">Residency</span>
+                <span class="op-badge">Fully Funded</span>
+            </div>
+            <h2>Gasworks Residency for Artists Based in East Africa</h2>
+            <div class="op-org">Gasworks · London, United Kingdom</div>
+            <p class="op-description">
+                An eleven-week fully funded London residency for an artist based in East Africa.
+                Confirm the current application deadline with the issuing organisation.
+            </p>
+            <div class="op-meta">
+                <div><strong>Programme:</strong> April 7 to June 22, 2027</div>
+                <div><strong>Source:</strong> On the Move UK feed</div>
+            </div>
+            <a class="op-link" href="https://www.on-the-move.org/regions/united-kingdom"
+               target="_blank" rel="noopener noreferrer">VIEW UK FEED →</a>
+        </article>
+
+        <article class="op-card"
+                 data-type="fellowship"
+                 data-features="uk worldwide"
+                 data-deadline=""
+                 data-country="United Kingdom">
+            <div class="op-badges">
+                <span class="op-badge">🇬🇧 UK</span>
+                <span class="op-badge">Fellowship</span>
+            </div>
+            <h2>Delfina Foundation: Brooks International Fellowship 2027</h2>
+            <div class="op-org">Delfina Foundation + Tate · London, UK</div>
+            <p class="op-description">
+                A six-month international fellowship connecting selected researchers with
+                Tate colleagues and activities at Delfina Foundation.
+            </p>
+            <div class="op-meta">
+                <div><strong>Programme:</strong> April 5 to September 17, 2027</div>
+                <div><strong>Source:</strong> On the Move UK feed</div>
+            </div>
+            <a class="op-link" href="https://www.on-the-move.org/regions/united-kingdom"
+               target="_blank" rel="noopener noreferrer">VIEW UK FEED →</a>
+        </article>
+
+        <article class="op-card"
+                 data-type="exhibition open-call"
+                 data-features="japan worldwide"
+                 data-deadline=""
+                 data-country="Japan">
+            <div class="op-badges">
+                <span class="op-badge">🇯🇵 Japan</span>
+                <span class="op-badge">Exhibition</span>
+                <span class="op-badge">Open Call</span>
+            </div>
+            <h2>14th International Ceramics Exhibition Mino</h2>
+            <div class="op-org">Ceramics Park MINO · Gifu, Japan</div>
+            <p class="op-description">
+                International call for self-created ceramic works for a major exhibition
+                scheduled for October and November 2027.
+            </p>
+            <div class="op-meta">
+                <div><strong>Exhibition:</strong> October 8 to November 7, 2027</div>
+                <div><strong>Source:</strong> On the Move Japan feed</div>
+            </div>
+            <a class="op-link" href="https://www.on-the-move.org/regions/japan"
+               target="_blank" rel="noopener noreferrer">VIEW JAPAN FEED →</a>
+        </article>
+
+        <article class="op-card"
+                 data-type="resource grant"
+                 data-features="canada funded rolling"
+                 data-deadline=""
+                 data-country="Canada">
+            <div class="op-badges">
+                <span class="op-badge">🇨🇦 Canada</span>
+                <span class="op-badge">Funding Resource</span>
+                <span class="op-badge">Rolling Watch</span>
+            </div>
+            <h2>Canada Opportunities Watch</h2>
+            <div class="op-org">On the Move · Canada</div>
+            <p class="op-description">
+                Country feed for Canadian artist mobility, residencies, calls and funding
+                resources. New opportunities can be added here as they open.
+            </p>
+            <div class="op-meta">
+                <div><strong>Status:</strong> Ongoing country feed</div>
+                <div><strong>Use:</strong> Canada-specific opportunity discovery</div>
+            </div>
+            <a class="op-link" href="https://on-the-move.org/regions/canada"
+               target="_blank" rel="noopener noreferrer">VIEW CANADA FEED →</a>
+        </article>
+
 
         <article class="op-card"
                  data-type="residency"
@@ -1175,6 +1543,8 @@
 
 </main>
 
+<button class="back-to-top" id="backToTop" type="button" aria-label="Back to top">↑</button>
+
 <footer>
     <div class="footer-social" aria-label="Alex Reynoso Art on social media">
         <a href="https://www.instagram.com/alexreynosoart/" target="_blank" rel="noopener noreferrer">Instagram</a>
@@ -1199,9 +1569,14 @@
     const count = document.getElementById('resultCount');
     const noResults = document.getElementById('noResults');
     const reset = document.getElementById('resetFilters');
+    const viewMoreWrap = document.getElementById('viewMoreWrap');
+    const viewMoreButton = document.getElementById('viewMoreButton');
+    const backToTop = document.getElementById('backToTop');
 
+    const PAGE_SIZE = 12;
     let typeFilter = 'all';
     let featureFilter = 'all';
+    let visibleLimit = PAGE_SIZE;
 
     function daysUntil(dateString) {
         if (!dateString) return null;
@@ -1211,36 +1586,94 @@
         return Math.ceil((deadline - today) / 86400000);
     }
 
-    function applyFilters() {
+    function thumbInfo(card) {
+        const f = (card.dataset.features || '').split(/\s+/);
+        const t = (card.dataset.type || '').split(/\s+/)[0] || 'opportunity';
+
+        let flag = '🎨';
+        let country = 'Everything Art';
+
+        if (f.includes('japan')) { flag = '🇯🇵'; country = 'Japan'; }
+        else if (f.includes('germany')) { flag = '🇩🇪'; country = 'Germany'; }
+        else if (f.includes('france')) { flag = '🇫🇷'; country = 'France'; }
+        else if (f.includes('uk')) { flag = '🇬🇧'; country = 'United Kingdom'; }
+        else if (f.includes('canada')) { flag = '🇨🇦'; country = 'Canada'; }
+        else if (f.includes('nyc')) { flag = '🗽'; country = 'New York City'; }
+        else if (f.includes('us')) { flag = '🇺🇸'; country = 'United States'; }
+        else if (f.includes('worldwide')) { flag = '🌎'; country = 'Worldwide'; }
+
+        const labels = {
+            'grant': 'Grant',
+            'residency': 'Residency',
+            'open-call': 'Open Call',
+            'fellowship': 'Fellowship',
+            'exhibition': 'Exhibition',
+            'resource': 'Resource'
+        };
+
+        return { flag, country, type: labels[t] || 'Opportunity' };
+    }
+
+    // Every card gets a square visual. When automated feed images are added later,
+    // an actual source thumbnail can replace this fallback without changing the layout.
+    cards.forEach(card => {
+        if (card.querySelector('.op-thumb')) return;
+        const info = thumbInfo(card);
+        const thumb = document.createElement('div');
+        thumb.className = 'op-thumb';
+        thumb.setAttribute('aria-hidden', 'true');
+        thumb.innerHTML =
+            '<div class="op-thumb-inner">' +
+                '<span class="op-thumb-flag">' + info.flag + '</span>' +
+                '<span class="op-thumb-type">' + info.type + '</span>' +
+                '<span class="op-thumb-country">' + info.country + '</span>' +
+            '</div>';
+        card.insertBefore(thumb, card.firstChild);
+    });
+
+    function matches(card) {
         const q = search.value.trim().toLowerCase();
-        let visible = 0;
+        const types = (card.dataset.type || '').split(/\s+/);
+        const features = (card.dataset.features || '').split(/\s+/);
+        const deadline = card.dataset.deadline || '';
+        const text = card.innerText.toLowerCase();
 
-        cards.forEach(card => {
-            const types = (card.dataset.type || '').split(/\s+/);
-            const features = (card.dataset.features || '').split(/\s+/);
-            const deadline = card.dataset.deadline || '';
-            const text = card.innerText.toLowerCase();
+        let typeMatch = typeFilter === 'all' || types.includes(typeFilter);
+        let featureMatch = featureFilter === 'all' || features.includes(featureFilter);
 
-            let typeMatch = typeFilter === 'all' || types.includes(typeFilter);
-            let featureMatch = featureFilter === 'all' || features.includes(featureFilter);
+        if (featureFilter === 'closing') {
+            const days = daysUntil(deadline);
+            featureMatch = days !== null && days >= 0 && days <= 14;
+        }
 
-            if (featureFilter === 'closing') {
-                const days = daysUntil(deadline);
-                featureMatch = days !== null && days >= 0 && days <= 14;
-            }
+        return typeMatch && featureMatch && (!q || text.includes(q));
+    }
 
-            const searchMatch = !q || text.includes(q);
-            const show = typeMatch && featureMatch && searchMatch;
+    function applyFilters(resetLimit = false) {
+        if (resetLimit) visibleLimit = PAGE_SIZE;
 
-            card.style.display = show ? 'flex' : 'none';
-            if (show) visible++;
+        const matched = cards.filter(matches);
+
+        // Deadline first. Undated/rolling listings follow dated listings.
+        matched.sort((a, b) => {
+            const ad = a.dataset.deadline || '9999-12-31';
+            const bd = b.dataset.deadline || '9999-12-31';
+            return ad.localeCompare(bd);
         });
 
-        count.textContent = visible === 1
-            ? 'Showing 1 opportunity'
-            : 'Showing ' + visible + ' opportunities';
+        cards.forEach(card => card.style.display = 'none');
 
-        noResults.style.display = visible === 0 ? 'block' : 'none';
+        matched.slice(0, visibleLimit).forEach(card => {
+            card.style.display = 'flex';
+        });
+
+        const shown = Math.min(visibleLimit, matched.length);
+        count.textContent = matched.length === 1
+            ? 'Showing 1 opportunity'
+            : 'Showing ' + shown + ' of ' + matched.length + ' opportunities';
+
+        noResults.style.display = matched.length === 0 ? 'block' : 'none';
+        viewMoreWrap.style.display = matched.length > visibleLimit ? 'flex' : 'none';
     }
 
     buttons.forEach(button => {
@@ -1256,11 +1689,16 @@
             if (group === 'type') typeFilter = value;
             if (group === 'feature') featureFilter = value;
 
-            applyFilters();
+            applyFilters(true);
         });
     });
 
-    search.addEventListener('input', applyFilters);
+    search.addEventListener('input', () => applyFilters(true));
+
+    viewMoreButton.addEventListener('click', () => {
+        visibleLimit += PAGE_SIZE;
+        applyFilters(false);
+    });
 
     reset.addEventListener('click', () => {
         typeFilter = 'all';
@@ -1273,10 +1711,18 @@
         document.querySelectorAll('[data-filter-group="feature"]')
             .forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
 
-        applyFilters();
+        applyFilters(true);
     });
 
-    applyFilters();
+    window.addEventListener('scroll', () => {
+        backToTop.classList.toggle('show', window.scrollY > 700);
+    }, { passive: true });
+
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    applyFilters(true);
 })();
 </script>
 
