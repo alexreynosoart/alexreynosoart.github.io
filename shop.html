@@ -1,338 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'G-MK5FXXVXNJ');
-    </script>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Shop | Alex Reynoso Art</title>
-
-    <meta name="description"
-          content="Shop apparel, art and original creations from Alex Reynoso Art.">
-
-    <link rel="stylesheet" href="css/style.css">
-
-    <style>
-
-        /* Shop background */
-
-        body {
-            position: relative;
-            min-height: 100vh;
-            background: #111;
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background-image:
-                url("images/shop-background-alex-reynoso-art.jpg");
-            background-position: center center;
-            background-size: cover;
-            background-repeat: no-repeat;
-            opacity: 0.05;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        header,
-        main,
-        footer {
-            position: relative;
-            z-index: 1;
-        }
-
-        @media (max-width: 600px) {
-
-            body::before {
-                background-position: center center;
-            }
-
-        }
-
-    </style>
-
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ"></script>
+<script>
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','G-MK5FXXVXNJ');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop | Alex Reynoso Art</title>
+<meta name="description" content="Shop Tired. apparel, Frida art merchandise and original creations from Alex Reynoso Art.">
+<link rel="stylesheet" href="css/style.css">
+<style>
+body{position:relative;min-height:100vh;background:#111}
+body::before{content:"";position:fixed;inset:0;background:url("images/shop-background-alex-reynoso-art.jpg") center/cover no-repeat;opacity:.05;pointer-events:none;z-index:0}
+header,main,footer{position:relative;z-index:1}
+.shop{width:min(1180px,calc(100% - 40px));margin:0 auto}
+.shop-header{padding:70px 0 48px;max-width:760px}
+.shop-header h1,.collection-heading h2{margin-bottom:10px}
+.shop-section{margin-bottom:90px}
+.collection-heading{margin-bottom:28px}.collection-heading p,.shop-header p{max-width:720px}
+.shop-product-grid,.world-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.shop-product-card,.world-card{border:1px solid rgba(255,255,255,.13);background:rgba(17,17,17,.72);overflow:hidden}
+.shop-product-card{display:flex;flex-direction:column}
+.shop-product-image{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.035);overflow:hidden}
+.shop-product-image img,.world-image img{width:100%;height:100%;object-fit:contain;display:block}
+.shop-product-copy{padding:22px;display:flex;flex-direction:column;flex:1}
+.shop-product-copy h3{margin:0 0 8px}.shop-product-copy p{margin:0 0 18px}
+.shop-product-price{margin-top:auto;font-weight:700;color:#fff}
+.shop-printful{margin-top:44px;padding:34px;border:1px solid rgba(255,255,255,.13);background:rgba(17,17,17,.76);text-align:center}
+.shop-printful h3{margin:0 0 10px}.shop-printful p{max-width:680px;margin:0 auto 24px}
+.shop-button{display:inline-block;padding:14px 24px;border:1px solid rgba(255,255,255,.45);color:#fff;text-decoration:none;font-weight:700;letter-spacing:.05em;transition:.18s}
+.shop-button:hover,.shop-button:focus-visible{background:#fff;color:#111;border-color:#fff}
+.world-intro{max-width:760px;margin-bottom:30px}
+.world-image{aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;padding:12px;overflow:hidden}
+.world-copy{padding:20px 22px 24px;border-top:1px solid rgba(255,255,255,.10)}
+.world-copy h3{margin:0 0 7px}.coming-soon{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.62)}
+.world-note{margin-top:28px;color:rgba(255,255,255,.70)}
+@media(max-width:900px){.shop-product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.shop{width:min(100% - 32px,1180px)}.shop-header{padding:48px 0 38px}.shop-section{margin-bottom:70px}.shop-product-grid,.world-grid{grid-template-columns:1fr}.shop-printful{padding:28px 20px}.world-image{max-height:720px}}
+@media(max-width:600px){body::before{background-position:center}}
+@media(prefers-reduced-motion:reduce){.shop-button{transition:none}}
+</style>
 </head>
-
 <body>
-
-    <header>
-
-        <a class="site-logo" href="index.html">
-            <img src="images/AlexReynosoArt-Logo_transparent.png"
-                 alt="Alex Reynoso Art">
-        </a>
-
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="art.html">Art</a>
-            <a href="videos.html">Videos</a>
-            <a href="shop.html">Shop</a>
-            <a href="commissions.html">Commissions</a>
-        </nav>
-
-    </header>
-
-    <main class="shop">
-
-        <section class="shop-header">
-
-            <h1>Shop</h1>
-
-            <p>
-                Art, apparel and other creations from Alex Reynoso Art.
-            </p>
-
-        </section>
-
-
-        <section>
-
-            <div class="collection-heading">
-                <h2>Tired.</h2>
-                <p>The original. Start here.</p>
-            </div>
-
-            <div class="featured-product">
-
-                <a class="featured-product-image"
-                   href="tired-black-tee.html">
-
-                    <img
-                        src="images/unisex-classic-tee-white-front-6aaa23d525564.jpg"
-                        alt="Tired. black type unisex classic tee">
-
-                </a>
-
-                <div class="featured-product-info">
-
-                    <h3>Tired.</h3>
-
-                    <p class="product-type">
-                        Black Type Unisex Classic Tee
-                    </p>
-
-                    <p class="price">$12.50</p>
-
-                    <a class="product-link"
-                       href="tired-black-tee.html">
-                        VIEW T-SHIRT
-                    </a>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <section class="country-section">
-
-            <div class="collection-heading">
-                <h2>Tired. Around the World</h2>
-
-                <p>
-                    The collection is traveling. New countries are coming.
-                </p>
-            </div>
-
-            <div class="country-grid">
-
-                <div class="country-card">
-                    <span class="country-name">Norway</span>
-                    <span class="country-status">Coming Soon</span>
-                </div>
-
-                <div class="country-card">
-                    <span class="country-name">Ireland</span>
-                    <span class="country-status">Coming Soon</span>
-                </div>
-
-                <div class="country-card">
-                    <span class="country-name">Luxembourg</span>
-                    <span class="country-status">Coming Soon</span>
-                </div>
-
-                <div class="country-card">
-                    <span class="country-name">Switzerland</span>
-                    <span class="country-status">Coming Soon</span>
-                </div>
-
-                <div class="country-card">
-                    <span class="country-name">Iceland</span>
-                    <span class="country-status">Coming Soon</span>
-                </div>
-
-                <div class="country-card">
-                    <span class="country-name">Singapore</span>
-                    <span class="country-status">Coming Soon</span>
-                </div>
-
-                <div class="country-card">
-                    <span class="country-name">Denmark</span>
-                    <span class="country-status">Coming Soon</span>
-                </div>
-
-                <div class="country-card">
-                    <span class="country-name">Netherlands</span>
-                    <span class="country-status">Coming Soon</span>
-                </div>
-
-                <div class="country-card">
-                    <span class="country-name">Belgium</span>
-                    <span class="country-status">Coming Soon</span>
-                </div>
-
-                <div class="country-card">
-                    <span class="country-name">Sweden</span>
-                    <span class="country-status">Coming Soon</span>
-                </div>
-
-                <div class="country-card">
-                    <span class="country-name">Qatar</span>
-                    <span class="country-status">Coming Soon</span>
-                </div>
-
-                <div class="country-card">
-                    <span class="country-name">Germany</span>
-                    <span class="country-status">Coming Soon</span>
-                </div>
-
-                <div class="country-card">
-                    <span class="country-name">United Arab Emirates</span>
-                    <span class="country-status">Coming Soon</span>
-                </div>
-
-                <div class="country-card">
-                    <span class="country-name">Finland</span>
-                    <span class="country-status">Coming Soon</span>
-                </div>
-
-                <div class="country-card">
-                    <span class="country-name">Australia</span>
-                    <span class="country-status">Coming Soon</span>
-                </div>
-
-                <div class="country-card">
-                    <span class="country-name">Austria</span>
-                    <span class="country-status">Coming Soon</span>
-                </div>
-
-                <div class="country-card">
-                    <span class="country-name">United States</span>
-                    <span class="country-status">Coming Soon</span>
-                </div>
-
-                <div class="country-card">
-                    <span class="country-name">Canada</span>
-                    <span class="country-status">Coming Soon</span>
-                </div>
-
-                <div class="country-card">
-                    <span class="country-name">Czech Republic</span>
-                    <span class="country-status">Coming Soon</span>
-                </div>
-
-                <div class="country-card">
-                    <span class="country-name">France</span>
-                    <span class="country-status">Coming Soon</span>
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <section class="shop-categories">
-
-            <div class="collection-heading">
-                <h2>More from Alex Reynoso Art</h2>
-
-                <p>
-                    More collections will be added as the shop grows.
-                </p>
-            </div>
-
-            <div class="category-grid">
-
-                <div class="category-card">
-                    <h3>Apparel</h3>
-                    <p>T-shirts and more.</p>
-                </div>
-
-                <div class="category-card">
-                    <h3>Home + Stuff</h3>
-                    <p>Cups, totes, blankets and other creations.</p>
-                </div>
-
-                <div class="category-card">
-                    <h3>Art</h3>
-                    <p>Fine art prints and original artwork.</p>
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-    <footer>
-
-        <div class="footer-social"
-             aria-label="Alex Reynoso Art on social media">
-
-            <a href="https://www.instagram.com/alexreynosoart/"
-               target="_blank"
-               rel="noopener noreferrer">
-                Instagram
-            </a>
-
-            <span aria-hidden="true">·</span>
-
-            <a href="https://www.tiktok.com/@alexreynosoart"
-               target="_blank"
-               rel="noopener noreferrer">
-                TikTok
-            </a>
-
-            <span aria-hidden="true">·</span>
-
-            <a href="https://www.facebook.com/AlexReynosoArt/"
-               target="_blank"
-               rel="noopener noreferrer">
-                Facebook
-            </a>
-
-            <span aria-hidden="true">·</span>
-
-            <a href="https://www.youtube.com/@AlexReynosoArt"
-               target="_blank"
-               rel="noopener noreferrer">
-                YouTube
-            </a>
-
-        </div>
-
-        <div class="footer-copyright">
-            &copy; 2026 Alex Reynoso Art
-        </div>
-
-    </footer>
-
-    <script src="js/script.js"></script>
-    
+<header>
+<a class="site-logo" href="index.html"><img src="images/AlexReynosoArt-Logo_transparent.png" alt="Alex Reynoso Art"></a>
+<nav><a href="index.html">Home</a><a href="about.html">About</a><a href="art.html">Art</a><a href="videos.html">Videos</a><a href="shop.html">Shop</a><a href="commissions.html">Commissions</a></nav>
+</header>
+<main class="shop">
+<section class="shop-header">
+<h1>Shop</h1>
+<p>Art, apparel and other creations from Alex Reynoso Art. Some things belong on a wall. Some things belong on a shirt. Apparently some things belong on a tote bag.</p>
+</section>
+<section class="shop-section">
+<div class="collection-heading"><h2>In the Shop</h2><p>Tired. apparel, Frida artwork and a few things that escaped the studio.</p></div>
+<div class="shop-product-grid">
+<article class="shop-product-card"><div class="shop-product-image"><img src="images/shop/all-over-print-large-tote-bag-w-pocket-black-front-6aaca3773eb61.png" alt="Frida all-over print large tote bag"></div><div class="shop-product-copy"><h3>Frida All-Over Print Large Tote Bag</h3><p>Carry the art with you.</p><span class="shop-product-price">From $31.50</span></div></article>
+<article class="shop-product-card"><div class="shop-product-image"><img src="images/shop/unisex-premium-pullover-hoodie-black-front-6ab5b360dc01a.png" alt="Tired. light type unisex hoodie"></div><div class="shop-product-copy"><h3>Tired. Light Type Hoodie</h3><p>The mood, now with a hood.</p><span class="shop-product-price">From $36.50</span></div></article>
+<article class="shop-product-card"><div class="shop-product-image"><img src="images/shop/unisex-premium-pullover-hoodie-carbon-grey-front-6ab5b3026ec72.png" alt="Tired. black type unisex hoodie"></div><div class="shop-product-copy"><h3>Tired. Black Type Hoodie</h3><p>For colder versions of the same feeling.</p><span class="shop-product-price">From $36.50</span></div></article>
+<article class="shop-product-card"><div class="shop-product-image"><img src="images/shop/unisex-basic-softstyle-t-shirt-black-front-6ab5b29c36579.png" alt="Frida short sleeve unisex T-shirt"></div><div class="shop-product-copy"><h3>FRIDA Short-Sleeve Unisex T-Shirt</h3><p>Original Alex Reynoso Art, wearable.</p><span class="shop-product-price">From $15.00</span></div></article>
+<article class="shop-product-card"><div class="shop-product-image"><img src="images/shop/unisex-classic-tee-black-front-6ab5b23c9f41d.png" alt="Tired. white type unisex classic tee"></div><div class="shop-product-copy"><h3>Tired. White Type Classic Tee</h3><p>Simple statement. Accurate condition.</p><span class="shop-product-price">From $12.50</span></div></article>
+<article class="shop-product-card"><div class="shop-product-image"><img src="images/shop/unisex-classic-tee-ash-front-6aaa23d5252e6.jpg" alt="Tired. black type unisex classic tee"></div><div class="shop-product-copy"><h3>Tired. Black Type Classic Tee</h3><p>The original. Start here.</p><span class="shop-product-price">From $12.50</span></div></article>
+</div>
+<div class="shop-printful"><h3>Want the full shop?</h3><p>Browse available colors, sizes and everything currently for sale in the Alex Reynoso Art Printful shop.</p><a class="shop-button" href="https://alexreynosoart.printful.me/" target="_blank" rel="noopener noreferrer">SHOP ALL ON PRINTFUL</a></div>
+</section>
+<section class="shop-section">
+<div class="collection-heading"><h2>Tired. Around the World</h2></div>
+<div class="world-intro"><p>Different faces. Different places. Same attitude. A new Tired. collection is traveling our way.</p></div>
+<div class="world-grid">
+<article class="world-card"><div class="world-image"><img src="images/shop/tired-around-the-world-germany.png" alt="Tired. Around the World Germany character" loading="lazy"></div><div class="world-copy"><h3>Germany</h3><span class="coming-soon">Coming Soon</span></div></article>
+<article class="world-card"><div class="world-image"><img src="images/shop/tired-around-the-world-canada.png" alt="Tired. Around the World Canada character" loading="lazy"></div><div class="world-copy"><h3>Canada</h3><span class="coming-soon">Coming Soon</span></div></article>
+<article class="world-card"><div class="world-image"><img src="images/shop/tired-around-the-world-netherlands.png" alt="Tired. Around the World Netherlands character" loading="lazy"></div><div class="world-copy"><h3>Netherlands</h3><span class="coming-soon">Coming Soon</span></div></article>
+</div>
+<p class="world-note">Three countries for now. The trip is just getting started.</p>
+</section>
+</main>
+<footer>
+<div class="footer-social" aria-label="Alex Reynoso Art on social media">
+<a href="https://www.instagram.com/alexreynosoart/" target="_blank" rel="noopener noreferrer">Instagram</a><span aria-hidden="true">·</span>
+<a href="https://www.tiktok.com/@alexreynosoart" target="_blank" rel="noopener noreferrer">TikTok</a><span aria-hidden="true">·</span>
+<a href="https://www.facebook.com/AlexReynosoArt/" target="_blank" rel="noopener noreferrer">Facebook</a><span aria-hidden="true">·</span>
+<a href="https://www.youtube.com/@AlexReynosoArt" target="_blank" rel="noopener noreferrer">YouTube</a>
+</div>
+<div class="footer-copyright">&copy; 2026 Alex Reynoso Art</div>
+</footer>
+<script src="js/script.js"></script>
 </body>
-
 </html>
