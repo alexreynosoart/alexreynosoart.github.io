@@ -21,26 +21,44 @@ header,main,footer{position:relative;z-index:1}
 .shop-section{margin-bottom:90px}
 .collection-heading{margin-bottom:28px}.collection-heading p,.shop-header p{max-width:720px}
 .shop-product-grid,.world-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+
 .shop-product-card,.world-card{border:1px solid rgba(255,255,255,.13);background:rgba(17,17,17,.72);overflow:hidden}
 .shop-product-card{display:flex;flex-direction:column}
+.shop-product-link{display:flex;flex-direction:column;flex:1;color:inherit;text-decoration:none}
+.shop-product-link:visited{color:inherit}
+.shop-product-link:focus-visible{outline:2px solid #fff;outline-offset:3px}
 .shop-product-image{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;background:#fff;overflow:hidden}
 .shop-product-image img,.world-image img{width:100%;height:100%;object-fit:contain;display:block}
 .shop-product-copy{padding:22px;display:flex;flex-direction:column;flex:1}
 .shop-product-copy h3{margin:0 0 8px}.shop-product-copy p{margin:0 0 18px}
 .shop-product-price{margin-top:auto;font-weight:700;color:#fff}
+
+@media(hover:hover) and (pointer:fine){
+.shop-product-card{transition:transform .18s ease,border-color .18s ease}
+.shop-product-card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.38)}
+}
+
 .shop-printful{margin-top:44px;padding:34px;border:1px solid rgba(255,255,255,.13);background:rgba(17,17,17,.76);text-align:center}
 .shop-printful h3{margin:0 0 10px}.shop-printful p{max-width:680px;margin:0 auto 24px}
 .shop-button{display:inline-block;padding:14px 24px;border:1px solid rgba(255,255,255,.45);color:#fff;text-decoration:none;font-weight:700;letter-spacing:.05em;transition:.18s}
 .shop-button:hover,.shop-button:focus-visible{background:#fff;color:#111;border-color:#fff}
+
 .world-intro{max-width:760px;margin-bottom:30px}
 .world-image{aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;padding:12px;overflow:hidden}
 .world-copy{padding:20px 22px 24px;border-top:1px solid rgba(255,255,255,.10)}
 .world-copy h3{margin:0 0 7px}.coming-soon{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.62)}
 .world-note{margin-top:28px;color:rgba(255,255,255,.70)}
+
+.shop-future{padding:30px 32px;border-top:1px solid rgba(255,255,255,.13);border-bottom:1px solid rgba(255,255,255,.13);background:rgba(17,17,17,.42)}
+.shop-future h2{margin:0 0 10px;font-size:1.35rem}
+.shop-future p{margin:0;color:rgba(255,255,255,.72)}
+.shop-future-items{margin-top:12px!important;font-size:.92rem;letter-spacing:.05em;color:rgba(255,255,255,.56)!important}
+.shop-future-status{display:inline-block;margin-top:16px;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.48)}
+
 @media(max-width:900px){.shop-product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:700px){.shop{width:min(100% - 32px,1180px)}.shop-header{padding:48px 0 38px}.shop-section{margin-bottom:70px}.shop-product-grid,.world-grid{grid-template-columns:1fr}.shop-printful{padding:28px 20px}.world-image{max-height:720px}}
+@media(max-width:700px){.shop{width:min(100% - 32px,1180px)}.shop-header{padding:48px 0 38px}.shop-section{margin-bottom:70px}.shop-product-grid,.world-grid{grid-template-columns:1fr}.shop-printful{padding:28px 20px}.world-image{max-height:720px}.shop-future{padding:26px 22px}}
 @media(max-width:600px){body::before{background-position:center}}
-@media(prefers-reduced-motion:reduce){.shop-button{transition:none}}
+@media(prefers-reduced-motion:reduce){.shop-button,.shop-product-card{transition:none}}
 </style>
 </head>
 <body>
@@ -48,23 +66,69 @@ header,main,footer{position:relative;z-index:1}
 <a class="site-logo" href="index.html"><img src="images/AlexReynosoArt-Logo_transparent.png" alt="Alex Reynoso Art"></a>
 <nav><a href="index.html">Home</a><a href="about.html">About</a><a href="art.html">Art</a><a href="videos.html">Videos</a><a href="shop.html">Shop</a><a href="commissions.html">Commissions</a></nav>
 </header>
+
 <main class="shop">
 <section class="shop-header">
 <h1>Shop</h1>
 <p>Art, apparel and other creations from Alex Reynoso Art. Some things belong on a wall. Some things belong on a shirt. Apparently some things belong on a tote bag.</p>
 </section>
+
 <section class="shop-section">
 <div class="collection-heading"><h2>In the Shop</h2><p>Tired. apparel, Frida artwork and a few things that escaped the studio.</p></div>
+
 <div class="shop-product-grid">
-<article class="shop-product-card"><div class="shop-product-image"><img src="images/shop/all-over-print-large-tote-bag-w-pocket-black-front-6aaca3773eb61.png" alt="Frida all-over print large tote bag"></div><div class="shop-product-copy"><h3>Frida All-Over Print Large Tote Bag</h3><p>Carry the art with you.</p><span class="shop-product-price">From $31.50</span></div></article>
-<article class="shop-product-card"><div class="shop-product-image"><img src="images/shop/unisex-premium-pullover-hoodie-black-front-6ab5b360dc01a.png" alt="Tired. light type unisex hoodie"></div><div class="shop-product-copy"><h3>Tired. Light Type Hoodie</h3><p>The mood, now with a hood.</p><span class="shop-product-price">From $36.50</span></div></article>
-<article class="shop-product-card"><div class="shop-product-image"><img src="images/shop/unisex-premium-pullover-hoodie-carbon-grey-front-6ab5b3026ec72.png" alt="Tired. black type unisex hoodie"></div><div class="shop-product-copy"><h3>Tired. Black Type Hoodie</h3><p>For colder versions of the same feeling.</p><span class="shop-product-price">From $36.50</span></div></article>
-<article class="shop-product-card"><div class="shop-product-image"><img src="images/shop/unisex-basic-softstyle-t-shirt-black-front-6ab5b29c36579.png" alt="Frida short sleeve unisex T-shirt"></div><div class="shop-product-copy"><h3>FRIDA Short-Sleeve Unisex T-Shirt</h3><p>Original Alex Reynoso Art, wearable.</p><span class="shop-product-price">From $15.00</span></div></article>
-<article class="shop-product-card"><div class="shop-product-image"><img src="images/shop/unisex-classic-tee-black-front-6ab5b23c9f41d.png" alt="Tired. white type unisex classic tee"></div><div class="shop-product-copy"><h3>Tired. White Type Classic Tee</h3><p>Simple statement. Accurate condition.</p><span class="shop-product-price">From $12.50</span></div></article>
-<article class="shop-product-card"><div class="shop-product-image"><img src="images/shop/unisex-classic-tee-ash-front-6aaa23d5252e6.jpg" alt="Tired. black type unisex classic tee"></div><div class="shop-product-copy"><h3>Tired. Black Type Classic Tee</h3><p>The original. Start here.</p><span class="shop-product-price">From $12.50</span></div></article>
+
+<article class="shop-product-card">
+<a class="shop-product-link" href="https://alexreynosoart.printful.me/" target="_blank" rel="noopener noreferrer" aria-label="Shop Frida All-Over Print Large Tote Bag on Printful">
+<div class="shop-product-image"><img src="images/shop/all-over-print-large-tote-bag-w-pocket-black-front-6aaca3773eb61.png" alt="Frida all-over print large tote bag"></div>
+<div class="shop-product-copy"><h3>Frida All-Over Print Large Tote Bag</h3><p>Carry the art with you.</p><span class="shop-product-price">From $31.50</span></div>
+</a>
+</article>
+
+<article class="shop-product-card">
+<a class="shop-product-link" href="https://alexreynosoart.printful.me/" target="_blank" rel="noopener noreferrer" aria-label="Shop Tired. Light Type Hoodie on Printful">
+<div class="shop-product-image"><img src="images/shop/unisex-premium-pullover-hoodie-black-front-6ab5b360dc01a.png" alt="Tired. light type unisex hoodie"></div>
+<div class="shop-product-copy"><h3>Tired. Light Type Hoodie</h3><p>The mood, now with a hood.</p><span class="shop-product-price">From $36.50</span></div>
+</a>
+</article>
+
+<article class="shop-product-card">
+<a class="shop-product-link" href="https://alexreynosoart.printful.me/" target="_blank" rel="noopener noreferrer" aria-label="Shop Tired. Black Type Hoodie on Printful">
+<div class="shop-product-image"><img src="images/shop/unisex-premium-pullover-hoodie-carbon-grey-front-6ab5b3026ec72.png" alt="Tired. black type unisex hoodie"></div>
+<div class="shop-product-copy"><h3>Tired. Black Type Hoodie</h3><p>For colder versions of the same feeling.</p><span class="shop-product-price">From $36.50</span></div>
+</a>
+</article>
+
+<article class="shop-product-card">
+<a class="shop-product-link" href="https://alexreynosoart.printful.me/" target="_blank" rel="noopener noreferrer" aria-label="Shop FRIDA Short-Sleeve Unisex T-Shirt on Printful">
+<div class="shop-product-image"><img src="images/shop/unisex-basic-softstyle-t-shirt-black-front-6ab5b29c36579.png" alt="Frida short sleeve unisex T-shirt"></div>
+<div class="shop-product-copy"><h3>FRIDA Short-Sleeve Unisex T-Shirt</h3><p>Original Alex Reynoso Art, wearable.</p><span class="shop-product-price">From $15.00</span></div>
+</a>
+</article>
+
+<article class="shop-product-card">
+<a class="shop-product-link" href="https://alexreynosoart.printful.me/" target="_blank" rel="noopener noreferrer" aria-label="Shop Tired. White Type Classic Tee on Printful">
+<div class="shop-product-image"><img src="images/shop/unisex-classic-tee-black-front-6ab5b23c9f41d.png" alt="Tired. white type unisex classic tee"></div>
+<div class="shop-product-copy"><h3>Tired. White Type Classic Tee</h3><p>Simple statement. Accurate condition.</p><span class="shop-product-price">From $12.50</span></div>
+</a>
+</article>
+
+<article class="shop-product-card">
+<a class="shop-product-link" href="https://alexreynosoart.printful.me/" target="_blank" rel="noopener noreferrer" aria-label="Shop Tired. Black Type Classic Tee on Printful">
+<div class="shop-product-image"><img src="images/shop/unisex-classic-tee-ash-front-6aaa23d5252e6.jpg" alt="Tired. black type unisex classic tee"></div>
+<div class="shop-product-copy"><h3>Tired. Black Type Classic Tee</h3><p>The original. Start here.</p><span class="shop-product-price">From $12.50</span></div>
+</a>
+</article>
+
 </div>
-<div class="shop-printful"><h3>Want the full shop?</h3><p>Browse available colors, sizes and everything currently for sale in the Alex Reynoso Art Printful shop.</p><a class="shop-button" href="https://alexreynosoart.printful.me/" target="_blank" rel="noopener noreferrer">SHOP ALL ON PRINTFUL</a></div>
+
+<div class="shop-printful">
+<h3>Want the full shop?</h3>
+<p>Browse available colors, sizes and everything currently for sale in the Alex Reynoso Art Printful shop.</p>
+<a class="shop-button" href="https://alexreynosoart.printful.me/" target="_blank" rel="noopener noreferrer">SHOP ALL ON PRINTFUL</a>
+</div>
 </section>
+
 <section class="shop-section">
 <div class="collection-heading"><h2>Tired. Around the World</h2></div>
 <div class="world-intro"><p>Different faces. Different places. Same attitude. A new Tired. collection is traveling our way.</p></div>
@@ -75,7 +139,18 @@ header,main,footer{position:relative;z-index:1}
 </div>
 <p class="world-note">Three countries for now. The trip is just getting started.</p>
 </section>
+
+<section class="shop-section" aria-labelledby="future-shop-heading">
+<div class="shop-future">
+<h2 id="future-shop-heading">More stuff is escaping the studio.</h2>
+<p>The shop is still growing.</p>
+<p class="shop-future-items">Mugs · Socks · Home · Art · Probably other questionable decisions.</p>
+<span class="shop-future-status">Coming Later</span>
+</div>
+</section>
+
 </main>
+
 <footer>
 <div class="footer-social" aria-label="Alex Reynoso Art on social media">
 <a href="https://www.instagram.com/alexreynosoart/" target="_blank" rel="noopener noreferrer">Instagram</a><span aria-hidden="true">·</span>
@@ -85,6 +160,7 @@ header,main,footer{position:relative;z-index:1}
 </div>
 <div class="footer-copyright">&copy; 2026 Alex Reynoso Art</div>
 </footer>
+
 <script src="js/script.js"></script>
 </body>
 </html>
