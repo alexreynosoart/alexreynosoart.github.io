@@ -3193,9 +3193,10 @@ body.v254-select-active #clearSelectionTouch {
 
 
         /* =====================================================
-           TEST #5 — COMFORT / ICON POLISH
-           Tight top spacing, paired zoom/history controls,
-           consistent custom icons, dashed triangle Select.
+           TEST #6 — SELECT + TOP BREATHING ROOM
+           Keeps Test #5 controls, replaces the Select triangle
+           with a consistent ⿻ glyph and adds 5px top breathing room
+           on phone and tablet.
         ===================================================== */
         .zoom-pair,
         .history-pair {
@@ -3259,20 +3260,22 @@ body.v254-select-active #clearSelectionTouch {
 
         .select-triangle-icon {
             width:23px;
-            height:21px;
-            display:block;
-            clip-path:polygon(50% 2%, 98% 96%, 2% 96%);
-            background:repeating-linear-gradient(90deg,currentColor 0 4px,transparent 4px 7px);
+            height:23px;
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
             position:relative;
         }
-        .select-triangle-icon::after {
-            content:"";
-            position:absolute;
-            inset:3px;
-            clip-path:polygon(50% 2%, 98% 96%, 2% 96%);
-            background:#fff;
+        .select-triangle-icon::before {
+            content:"⿻";
+            font-size:25px;
+            line-height:1;
+            font-weight:700;
+            font-family:Arial, Helvetica, sans-serif;
+            color:currentColor;
         }
-        body.v254-select-active .select-icon-tool .select-triangle-icon::after { background:#111; }
+        .select-triangle-icon::after { content:none !important; }
+
 
         .layers-icon-custom {
             display:inline-flex;
@@ -3322,7 +3325,7 @@ body.v254-select-active #clearSelectionTouch {
         }
 
         @media (max-width:1000px) {
-            .studio { padding-top:2px !important; }
+            .studio { padding-top:7px !important; }
             .studio-topbar { margin-top:0 !important; padding-top:0 !important; }
             .zoom-controls { gap:5px !important; }
             .mobile-top-actions { gap:5px !important; }
