@@ -3190,6 +3190,165 @@ body.v254-select-active #clearSelectionTouch {
                 display: none !important;
             }
         }
+
+
+        /* =====================================================
+           TEST #5 — COMFORT / ICON POLISH
+           Tight top spacing, paired zoom/history controls,
+           consistent custom icons, dashed triangle Select.
+        ===================================================== */
+        .zoom-pair,
+        .history-pair {
+            display:inline-flex;
+            align-items:center;
+            gap:0;
+            border:1px solid #ccc;
+            border-radius:10px;
+            overflow:hidden;
+            background:#fff;
+        }
+        .zoom-pair .zoom-button,
+        .history-pair button {
+            border:0 !important;
+            border-radius:0 !important;
+            margin:0 !important;
+            box-shadow:none !important;
+        }
+        .zoom-pair .zoom-button + .zoom-button,
+        .history-pair button + button {
+            border-left:1px solid #d8d8d8 !important;
+        }
+        .history-pair button,
+        #desktopUndoSide, #desktopRedoSide,
+        #undoDesktop, #redoDesktop,
+        #undoV2, #redoV2 {
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            gap:5px;
+            font-weight:900 !important;
+        }
+        .history-arrow {
+            position:relative;
+            display:inline-block;
+            width:16px;
+            height:13px;
+            flex:0 0 16px;
+        }
+        .history-arrow::before {
+            content:"";
+            position:absolute;
+            top:3px;
+            width:10px;
+            height:8px;
+            border-top:3px solid currentColor;
+        }
+        .history-arrow::after {
+            content:"";
+            position:absolute;
+            top:0;
+            width:7px;
+            height:7px;
+            border-top:3px solid currentColor;
+            border-left:3px solid currentColor;
+        }
+        .history-arrow-undo::before { left:4px; border-radius:8px 0 0 0; }
+        .history-arrow-undo::after { left:0; transform:rotate(-45deg); }
+        .history-arrow-redo::before { right:4px; border-radius:0 8px 0 0; }
+        .history-arrow-redo::after { right:0; transform:rotate(135deg); }
+
+        .select-triangle-icon {
+            width:23px;
+            height:21px;
+            display:block;
+            clip-path:polygon(50% 2%, 98% 96%, 2% 96%);
+            background:repeating-linear-gradient(90deg,currentColor 0 4px,transparent 4px 7px);
+            position:relative;
+        }
+        .select-triangle-icon::after {
+            content:"";
+            position:absolute;
+            inset:3px;
+            clip-path:polygon(50% 2%, 98% 96%, 2% 96%);
+            background:#fff;
+        }
+        body.v254-select-active .select-icon-tool .select-triangle-icon::after { background:#111; }
+
+        .layers-icon-custom {
+            display:inline-flex;
+            flex-direction:column;
+            gap:2px;
+            width:21px;
+        }
+        .layers-icon-custom i {
+            display:block;
+            height:3px;
+            border-radius:2px;
+            background:currentColor;
+        }
+        .layers-icon-custom i:nth-child(2){ margin-left:3px; margin-right:3px; }
+
+        .pages-icon-custom {
+            display:block;
+            position:relative;
+            width:17px;
+            height:21px;
+            border:2px solid currentColor;
+            border-radius:1px;
+            box-sizing:border-box;
+        }
+        .pages-icon-custom::before {
+            content:"";
+            position:absolute;
+            left:-5px;
+            top:3px;
+            width:15px;
+            height:19px;
+            border:2px solid currentColor;
+            border-radius:1px;
+            background:#fff;
+            z-index:-1;
+            box-sizing:border-box;
+        }
+        .pages-icon-custom::after {
+            content:"";
+            position:absolute;
+            left:3px;
+            right:3px;
+            top:6px;
+            height:2px;
+            background:currentColor;
+            box-shadow:0 4px 0 currentColor,0 8px 0 currentColor;
+        }
+
+        @media (max-width:1000px) {
+            .studio { padding-top:2px !important; }
+            .studio-topbar { margin-top:0 !important; padding-top:0 !important; }
+            .zoom-controls { gap:5px !important; }
+            .mobile-top-actions { gap:5px !important; }
+            .history-pair { flex:0 0 auto; }
+            #undoMobileTop, #redoMobileTop { border:0 !important; }
+        }
+        @media (min-width:481px) and (max-width:1000px) {
+            #undoMobileTop, #redoMobileTop {
+                min-width:72px !important;
+                width:auto !important;
+                padding:0 9px !important;
+                font-size:.68rem !important;
+            }
+        }
+        @media (max-width:480px) {
+            .history-pair { border-radius:9px; }
+            #undoMobileTop, #redoMobileTop {
+                min-width:38px !important;
+                width:38px !important;
+                padding:0 !important;
+            }
+            #undoMobileTop .history-label,
+            #redoMobileTop .history-label { display:none !important; }
+            .history-arrow { width:17px; flex-basis:17px; }
+        }
+
     </style>
 
 </head>
@@ -3284,8 +3443,8 @@ body.v254-select-active #clearSelectionTouch {
 
     <section class="desktop-side-section" style="margin-top:auto">
         <div class="desktop-side-actions">
-            <button class="desktop-side-action" id="desktopUndoSide" type="button">↶ UNDO</button>
-            <button class="desktop-side-action" id="desktopRedoSide" type="button">↷ REDO</button>
+            <button class="desktop-side-action" id="desktopUndoSide" type="button"><span class="history-arrow history-arrow-undo" aria-hidden="true"></span><span>UNDO</span></button>
+            <button class="desktop-side-action" id="desktopRedoSide" type="button"><span>REDO</span><span class="history-arrow history-arrow-redo" aria-hidden="true"></span></button>
             <button class="desktop-side-action" id="desktopResetSide" type="button">RESET</button>
             <button class="desktop-side-action save" id="desktopSaveSide" type="button">SAVE</button>
         </div>
@@ -3346,6 +3505,7 @@ body.v254-select-active #clearSelectionTouch {
 
         <div class="zoom-controls">
 
+            <div class="zoom-pair" aria-label="Canvas zoom controls">
             <button class="zoom-button"
                     id="zoomOut"
                     type="button"
@@ -3358,6 +3518,7 @@ body.v254-select-active #clearSelectionTouch {
                     aria-label="Zoom in">
                 +
             </button>
+            </div>
 
 
             <button class="zoom-button"
@@ -3370,7 +3531,7 @@ body.v254-select-active #clearSelectionTouch {
                     type="button"
                     aria-label="Open layers"
                     title="Layers">
-                ▱
+                <span class="layers-icon-custom" aria-hidden="true"><i></i><i></i><i></i></span>
             </button>
 
             <button class="zoom-button top-utility-button"
@@ -3378,7 +3539,7 @@ body.v254-select-active #clearSelectionTouch {
                     type="button"
                     aria-label="Open pages"
                     title="Pages">
-                ▤
+                <span class="pages-icon-custom" aria-hidden="true"></span>
             </button>
 
             <button class="fullscreen-button"
@@ -3392,8 +3553,10 @@ body.v254-select-active #clearSelectionTouch {
         </div>
 
         <div class="mobile-top-actions" aria-label="Artwork actions">
-            <button type="button" id="undoMobileTop" aria-label="Undo" title="Undo"><span class="history-symbol" aria-hidden="true">↶</span><span class="history-label">Undo</span></button>
-            <button type="button" id="redoMobileTop" aria-label="Redo" title="Redo"><span class="history-symbol" aria-hidden="true">↷</span><span class="history-label">Redo</span></button>
+            <div class="history-pair" aria-label="History controls">
+                <button type="button" id="undoMobileTop" aria-label="Undo" title="Undo"><span class="history-arrow history-arrow-undo" aria-hidden="true"></span><span class="history-label">UNDO</span></button>
+                <button type="button" id="redoMobileTop" aria-label="Redo" title="Redo"><span class="history-label">REDO</span><span class="history-arrow history-arrow-redo" aria-hidden="true"></span></button>
+            </div>
             <button type="button" id="resetMobileTop">RESET</button>
             <button type="button" id="saveMobileTop">SAVE</button>
         </div>
@@ -3409,7 +3572,7 @@ body.v254-select-active #clearSelectionTouch {
                     data-v2-tool="select"
                     type="button"
                     aria-label="Select"
-                    title="Select">⌁</button>
+                    title="Select"><span class="select-triangle-icon" aria-hidden="true"></span></button>
 
             <div class="mobile-select-icons" aria-label="Selection shape">
                 <button type="button" data-v253-select-mode="free" aria-label="Free selection" title="Free">〰</button>
@@ -3593,13 +3756,13 @@ body.v254-select-active #clearSelectionTouch {
                 <button class="action-button"
                         id="undoDesktop"
                         type="button">
-                    ↶ UNDO
+                    <span class="history-arrow history-arrow-undo" aria-hidden="true"></span><span>UNDO</span>
                 </button>
 
                 <button class="action-button"
                         id="redoDesktop"
                         type="button">
-                    ↷ REDO
+                    <span>REDO</span><span class="history-arrow history-arrow-redo" aria-hidden="true"></span>
                 </button>
 
                 <button class="action-button"
@@ -3722,8 +3885,8 @@ body.v254-select-active #clearSelectionTouch {
     </aside>
 
     <div class="bottom-actions-v2">
-        <button id="undoV2" type="button">↶ UNDO</button>
-        <button id="redoV2" type="button">↷ REDO</button>
+        <button id="undoV2" type="button"><span class="history-arrow history-arrow-undo" aria-hidden="true"></span><span>UNDO</span></button>
+        <button id="redoV2" type="button"><span>REDO</span><span class="history-arrow history-arrow-redo" aria-hidden="true"></span></button>
         <button id="resetV2" type="button">RESET</button>
         <button class="save" id="saveV2" type="button">SAVE MY ART</button>
     </div>
