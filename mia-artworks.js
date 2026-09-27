@@ -19,6 +19,17 @@ window.MIA_ARTWORKS = [
     },
 
     {
+        key: "bunny",
+        id: "mia-easter-bunny-001",
+        title: "Easter Bunny Panda",
+        source: "images/mia/mia-easter-bunny-coloring-page.png",
+        alt: "Mia Easter Bunny Panda coloring page",
+        description: "Mia the Panda dresses up for Easter with bunny ears, carrots and an Easter egg ready to color.",
+        download: "mia-easter-bunny-coloring-page.png",
+        gallery: true
+    },
+
+    {
         key: "ocean",
         id: "mia-ocean-adventure-001",
         title: "Ocean Adventure",
