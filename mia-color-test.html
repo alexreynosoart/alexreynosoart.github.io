@@ -3352,51 +3352,6 @@ body.v254-select-active #clearSelectionTouch {
             .history-arrow { width:17px; flex-basis:17px; }
         }
 
-
-
-        /* =====================================================
-           TEST #7 CORRECTED — POINTER-SAFE VISUAL GROUPING
-           Test #5 introduced extra wrapper elements around zoom and history.
-           Remove those wrappers from the interaction layer and recreate the
-           grouped appearance directly on the buttons. This restores the
-           Test #4 pointer path while keeping the approved Test #6 look.
-        ===================================================== */
-        @media (max-width:1000px) {
-            /* Zoom pair: no wrapper element participates in hit testing. */
-            #zoomOut, #zoomIn {
-                margin:0 !important;
-                border:1px solid #ccc !important;
-                border-radius:0 !important;
-                box-shadow:none !important;
-            }
-            #zoomOut {
-                border-radius:10px 0 0 10px !important;
-                border-right:0 !important;
-            }
-            #zoomIn {
-                border-radius:0 10px 10px 0 !important;
-            }
-
-            /* History pair: same visual grouping, original direct-button DOM. */
-            #undoMobileTop, #redoMobileTop {
-                margin:0 !important;
-                border:1px solid #ccc !important;
-                border-radius:0 !important;
-                box-shadow:none !important;
-            }
-            #undoMobileTop {
-                border-radius:9px 0 0 9px !important;
-                border-right:0 !important;
-            }
-            #redoMobileTop {
-                border-radius:0 9px 9px 0 !important;
-            }
-
-            /* Keep the header only as tall as its two visible rows. */
-            .studio-topbar {
-                align-content:start !important;
-            }
-        }
     </style>
 
 </head>
@@ -3553,6 +3508,7 @@ body.v254-select-active #clearSelectionTouch {
 
         <div class="zoom-controls">
 
+            <div class="zoom-pair" aria-label="Canvas zoom controls">
             <button class="zoom-button"
                     id="zoomOut"
                     type="button"
@@ -3565,6 +3521,7 @@ body.v254-select-active #clearSelectionTouch {
                     aria-label="Zoom in">
                 +
             </button>
+            </div>
 
 
             <button class="zoom-button"
@@ -3599,8 +3556,10 @@ body.v254-select-active #clearSelectionTouch {
         </div>
 
         <div class="mobile-top-actions" aria-label="Artwork actions">
-            <button type="button" id="undoMobileTop" aria-label="Undo" title="Undo"><span class="history-arrow history-arrow-undo" aria-hidden="true"></span><span class="history-label">UNDO</span></button>
-            <button type="button" id="redoMobileTop" aria-label="Redo" title="Redo"><span class="history-label">REDO</span><span class="history-arrow history-arrow-redo" aria-hidden="true"></span></button>
+            <div class="history-pair" aria-label="History controls">
+                <button type="button" id="undoMobileTop" aria-label="Undo" title="Undo"><span class="history-arrow history-arrow-undo" aria-hidden="true"></span><span class="history-label">UNDO</span></button>
+                <button type="button" id="redoMobileTop" aria-label="Redo" title="Redo"><span class="history-label">REDO</span><span class="history-arrow history-arrow-redo" aria-hidden="true"></span></button>
+            </div>
             <button type="button" id="resetMobileTop">RESET</button>
             <button type="button" id="saveMobileTop">SAVE</button>
         </div>
