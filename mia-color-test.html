@@ -11459,6 +11459,145 @@ document.addEventListener('pointerup', function() {
 })();
 </script>
 
+
+
+<style>
+/* =====================================================
+   TEST #17 — INPUT-AWARE HELP + PAGE NOTE CONTAINMENT
+   + DESKTOP 5PX CONTROL RHYTHM
+   ===================================================== */
+@media (max-width:1000px) {
+    .pages-panel-note {
+        box-sizing:border-box !important;
+        left:12px !important;
+        right:auto !important;
+        width:calc(100% - 24px);
+        max-width:none !important;
+        overflow-wrap:anywhere;
+        padding:0 2px;
+    }
+}
+
+@media (min-width:1001px) {
+    .studio { padding-top:5px !important; padding-bottom:5px !important; }
+    .studio-topbar {
+        margin-bottom:5px !important;
+        row-gap:5px !important;
+        padding-top:5px !important;
+        padding-bottom:5px !important;
+    }
+    .canvas-frame {
+        height:calc(100dvh - 194px) !important;
+        min-height:360px !important;
+    }
+}
+</style>
+
+<script>
+/* TEST #17 — tips follow the input actually being used, not screen size. */
+(() => {
+    'use strict';
+    const status = document.getElementById('studioStatus');
+    const wrap = status?.closest('.studio-tip-wrap');
+    if (!status || !wrap) return;
+
+    const TOOL_TIPS_17 = {
+        fill:'Fill: tap and hold to preview the color. Release to fill. Tip: a second finger cancels the preview for pinch zoom.',
+        brush:'Brush: draw freely on the artwork. Adjust size and opacity to change the stroke.',
+        eraser:'Eraser: drag over anything you added to remove it. Adjust size for more control.',
+        move:'Move: drag the artwork to reposition it. Pinch with two fingers to zoom.',
+        select:'Select: draw around an area, then add, subtract, clear, or finish with Done.',
+        shape:'Line / Shape: choose a shape, then drag on the artwork to draw it.'
+    };
+    const BRUSH_TIPS_17 = {
+        pen:'Pen: draw clean freehand lines. Adjust size and opacity for more control.',
+        marker:'Marker: build broad strokes and layered color. Lower opacity for softer overlaps.',
+        soft:'Soft brush: paint gentle edges and shading. Try a larger size for smooth blends.',
+        texture:'Texture brush: add grain and character with short or layered strokes.'
+    };
+
+    const colorTip='Colors: choose a color for Fill or your brushes. Use the custom color square to create your own.';
+    const sizeTip='Brush Size: make your brush or eraser smaller for detail or larger for broader strokes.';
+    const opacityTip='Opacity: control how solid or transparent your brush strokes are.';
+
+    function activeTip(){
+        const t=(typeof currentTool!=='undefined' && currentTool) ? currentTool : 'fill';
+        if(t==='brush'){
+            const b=document.querySelector('[data-brush-type].active');
+            return BRUSH_TIPS_17[(b?.dataset.brushType||'pen').toLowerCase()]||TOOL_TIPS_17.brush;
+        }
+        return TOOL_TIPS_17[t]||'Choose a tool and start creating.';
+    }
+
+    function tipFor(target){
+        if(!target?.closest) return null;
+        if(target.closest('#pagesTop,#desktopSidePages,#pagesLauncher,.artwork-tray')) return 'Pages: choose a coloring page, start with Blank, or upload your own image. Your current page stays until you choose another.';
+        if(target.closest('#layersTop,#desktopSideLayers,#layersPanel')) return 'Layers: choose where you want to work. Add, reorder, hide, or remove layers without changing the original line art.';
+        if(target.closest('.mobile-color-row,.mobile-palette,.mobile-custom-color,#desktopSideColors,.desktop-side-colors,.desktop-side-custom,.desktop-custom-color')) return colorTip;
+        if(target.closest('#mobileBrushSize,#desktopSizeSlider,#v2BrushSize,.mobile-brush-row:not(#touchEraserOpacityWrap)')) return sizeTip;
+        if(target.closest('#desktopOpacitySlider,#opacitySlider,#touchEraserOpacity,#touchEraserOpacityWrap')) return opacityTip;
+        const brush=target.closest('[data-brush-type],#desktopPen,#desktopMarker,#desktopSoft,#desktopTexture');
+        if(brush){
+            let n=(brush.dataset?.brushType||brush.id.replace('desktop','')).toLowerCase();
+            return BRUSH_TIPS_17[n]||TOOL_TIPS_17.brush;
+        }
+        const tool=target.closest('[data-tool],[data-v2-tool],[data-desktop-tool]');
+        if(tool){
+            const t=tool.dataset.tool||tool.dataset.v2Tool||tool.dataset.desktopTool;
+            return TOOL_TIPS_17[t]||null;
+        }
+        if(target.closest('#zoomOut')) return 'Zoom out: make the artwork smaller inside the workspace.';
+        if(target.closest('#zoomIn')) return 'Zoom in: get closer to small details.';
+        if(target.closest('#fitButton,#fitTop,#desktopFitPage')) return 'Fit: center the whole artwork comfortably inside the workspace.';
+        if(target.closest('[data-fullscreen],#fullscreenButton,#fullscreenTop')) return 'Full view: give the artwork more room on screen.';
+        if(target.closest('[id*="undo" i]')) return 'Undo: step back one change.';
+        if(target.closest('[id*="redo" i]')) return 'Redo: bring back the last change you undid.';
+        if(target.closest('[id*="reset" i]')) return 'Reset: return this page to its starting state.';
+        if(target.closest('[id*="save" i]')) return 'Save: export your artwork when you are ready.';
+        return null;
+    }
+
+    /* Mouse/trackpad hover works at every viewport size, including tablets with a mouse. */
+    document.addEventListener('pointerover', e=>{
+        if(e.pointerType && e.pointerType!=='mouse' && e.pointerType!=='pen') return;
+        const tip=tipFor(e.target);
+        if(tip) status.textContent=tip;
+    }, true);
+    document.addEventListener('pointerout', e=>{
+        if(e.pointerType && e.pointerType!=='mouse' && e.pointerType!=='pen') return;
+        const from=tipFor(e.target);
+        if(!from) return;
+        const to=e.relatedTarget && tipFor(e.relatedTarget);
+        if(!to) status.textContent=activeTip();
+    }, true);
+
+    /* Touch/click users get the same explanations when they use a control. */
+    document.addEventListener('click', e=>{
+        const tip=tipFor(e.target);
+        if(!tip) return;
+        const isDrawingTool=!!e.target.closest('[data-tool],[data-v2-tool],[data-desktop-tool],[data-brush-type],#desktopPen,#desktopMarker,#desktopSoft,#desktopTexture');
+        requestAnimationFrame(()=>{ status.textContent=isDrawingTool ? activeTip() : tip; });
+    }, true);
+
+    /* Keep the Pages note visually pinned inside the visible panel while its cards scroll. */
+    const tray=document.getElementById('artworkTray');
+    const note=tray?.querySelector('.pages-panel-note');
+    if(tray && note){
+        const pinNote=()=>{
+            if(window.innerWidth<=1000){
+                note.style.width=Math.max(120, tray.clientWidth-24)+'px';
+                note.style.transform='translateX('+tray.scrollLeft+'px)';
+            } else {
+                note.style.width='';
+                note.style.transform='';
+            }
+        };
+        tray.addEventListener('scroll',pinNote,{passive:true});
+        window.addEventListener('resize',pinNote,{passive:true});
+        pinNote();
+    }
+})();
+</script>
 </body>
 
 </html>
