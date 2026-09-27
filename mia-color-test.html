@@ -6158,10 +6158,10 @@ body.v254-select-active #clearSelectionTouch {
 
 
     /* =========================
-       TOUCH FILL PREVIEW TEST #1
-       Press/drag previews a fill. Release commits it.
-       A second finger cancels the preview so pinch always wins.
-       Desktop mouse fill keeps its existing click behavior.
+       FILL PREVIEW TEST #2 — ALL DEVICES
+       Press/click and hold previews a fill. Dragging moves the preview.
+       Release commits it. On touch, a second finger cancels the preview
+       immediately so pinch/zoom always wins.
        ========================= */
 
     let touchFillPreview = null;
@@ -6352,32 +6352,22 @@ body.v254-select-active #clearSelectionTouch {
                 currentTool === 'fill'
             ) {
 
-                /* Touch/pen: preview first, commit only on release.
-                   Mouse keeps the familiar instant click-to-fill behavior. */
-                if (event.pointerType === 'touch' || event.pointerType === 'pen') {
-                    touchFillPreview = {
-                        pointerId: event.pointerId,
-                        color: currentColor,
-                        baseImage: paintCtx.getImageData(
-                            0, 0, paintCanvas.width, paintCanvas.height
-                        )
-                    };
+                /* All pointer types use the same safe Fill interaction:
+                   press = preview, drag = retarget preview, release = commit.
+                   Touch keeps the extra rule that a second finger cancels
+                   this preview and hands control to pinch/zoom. */
+                touchFillPreview = {
+                    pointerId: event.pointerId,
+                    color: currentColor,
+                    baseImage: paintCtx.getImageData(
+                        0, 0, paintCanvas.width, paintCanvas.height
+                    )
+                };
 
-                    touchFillLastX = -1;
-                    touchFillLastY = -1;
-                    touchFillLastTime = 0;
-                    previewTouchFill(event, true);
-                    return;
-                }
-
-                floodFill(
-                    point.x,
-                    point.y,
-                    currentColor
-                );
-
-                saveHistory();
-
+                touchFillLastX = -1;
+                touchFillLastY = -1;
+                touchFillLastTime = 0;
+                previewTouchFill(event, true);
                 return;
 
             }
