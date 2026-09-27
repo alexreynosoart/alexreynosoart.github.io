@@ -10080,14 +10080,39 @@ document.querySelectorAll('.studio-mia-nav a').forEach(function(link) {
     });
 });
 
-/* On phone/tablet, tapping outside the open Mia menu closes it. */
+/* Close the Mia menu when the user taps/clicks outside it WITHOUT
+   allowing that same gesture to reach the canvas or any studio control.
+   This applies on desktop, tablet and phone. */
+let suppressMiaMenuOutsideClick = false;
+
 document.addEventListener('pointerdown', function(event) {
     var menu = document.querySelector('.studio-mia-menu[open]');
     if (!menu || menu.contains(event.target)) return;
-    if (window.matchMedia('(max-width: 1000px)').matches) {
-        menu.removeAttribute('open');
-    }
-});
+
+    suppressMiaMenuOutsideClick = true;
+    menu.removeAttribute('open');
+
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+}, true);
+
+document.addEventListener('click', function(event) {
+    if (!suppressMiaMenuOutsideClick) return;
+
+    suppressMiaMenuOutsideClick = false;
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+}, true);
+
+/* Safety reset for browsers that do not dispatch a click after pointerdown. */
+document.addEventListener('pointerup', function() {
+    if (!suppressMiaMenuOutsideClick) return;
+    window.setTimeout(function() {
+        suppressMiaMenuOutsideClick = false;
+    }, 0);
+}, true);
 </script>
 
 </body>
