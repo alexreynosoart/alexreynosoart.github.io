@@ -3786,6 +3786,20 @@ body.v268-fill-active #opacitySlider {
                     aria-label="Select"
                     title="Select"><span class="select-triangle-icon" aria-hidden="true"></span></button>
 
+            <button class="mobile-icon-tool brush-menu-tool"
+                    data-v2-tool="brush"
+                    data-mobile-submenu="brush"
+                    type="button"
+                    aria-label="Brush"
+                    title="Brush"><span class="brush-menu-icon" aria-hidden="true">✎</span></button>
+
+            <button class="mobile-icon-tool shape-menu-tool"
+                    data-v2-tool="shape"
+                    data-mobile-submenu="shape"
+                    type="button"
+                    aria-label="Line and shapes"
+                    title="Line / Shape"><span class="shape-menu-icon" aria-hidden="true"><b>□</b><b>○</b></span></button>
+
             <div class="mobile-select-icons" aria-label="Selection shape">
                 <button type="button" data-v253-select-mode="free" aria-label="Free selection" title="Free">〰</button>
                 <button type="button" data-v253-select-mode="rect" aria-label="Square selection" title="Square">□</button>
@@ -3801,6 +3815,19 @@ body.v268-fill-active #opacitySlider {
             <button type="button" data-mobile-selection-op="subtract">− SUBTRACT</button>
             <button type="button" data-mobile-selection-clear>CLEAR</button>
             <button type="button" class="mobile-select-done" data-mobile-selection-done>DONE</button>
+        </div>
+
+        <div class="mobile-tool-submenu mobile-brush-submenu" id="mobileBrushSubmenu" aria-label="Brush choices">
+            <button type="button" data-mobile-brush-choice="pen" class="active">PEN</button>
+            <button type="button" data-mobile-brush-choice="marker">MARKER</button>
+            <button type="button" data-mobile-brush-choice="soft">SOFT</button>
+            <button type="button" data-mobile-brush-choice="texture">TEXTURE</button>
+        </div>
+
+        <div class="mobile-tool-submenu mobile-shape-submenu" id="mobileShapeSubmenu" aria-label="Line and shape choices">
+            <button type="button" data-mobile-shape-choice="line" class="active"><span class="scribble-line" aria-hidden="true">〰</span> LINE</button>
+            <button type="button" data-mobile-shape-choice="rect"><span class="bold-shape" aria-hidden="true">□</span> SQUARE</button>
+            <button type="button" data-mobile-shape-choice="ellipse"><span class="bold-shape" aria-hidden="true">○</span> CIRCLE</button>
         </div>
 
     </header>
@@ -11598,6 +11625,181 @@ document.addEventListener('pointerup', function() {
     }
 })();
 </script>
+
+
+<style>
+/* =====================================================
+   TEST #18 — PRIMARY TOOL SUBMENUS
+   Fill | Select | Brush | Shape now form the touch creative-tool row.
+   ===================================================== */
+@media (max-width:1000px) {
+    .mobile-creative-tools {
+        gap:6px !important;
+    }
+    .mobile-creative-tools > .mobile-icon-tool {
+        min-width:42px;
+    }
+    .brush-menu-icon {
+        font-size:1.25rem;
+        line-height:1;
+        font-weight:900;
+    }
+    .shape-menu-icon {
+        display:inline-flex;
+        align-items:center;
+        gap:0;
+        font-size:1.12rem;
+        line-height:1;
+        font-family:Arial,Helvetica,sans-serif;
+        font-weight:900;
+    }
+    .shape-menu-icon b { font-weight:900; }
+
+    .mobile-tool-submenu {
+        display:none;
+        position:absolute;
+        left:0;
+        top:100%;
+        z-index:1785;
+        gap:5px;
+        max-width:calc(100vw - 14px);
+        margin-top:4px;
+        padding:7px;
+        overflow-x:auto;
+        overflow-y:hidden;
+        white-space:nowrap;
+        border:1px solid #ddd;
+        border-radius:0 12px 12px 12px;
+        background:rgba(255,255,255,.98);
+        box-shadow:0 10px 26px rgba(0,0,0,.14);
+        scrollbar-width:none;
+        backdrop-filter:blur(12px);
+    }
+    .mobile-tool-submenu::-webkit-scrollbar { display:none; }
+    body.mobile-brush-submenu-open .mobile-brush-submenu,
+    body.mobile-shape-submenu-open .mobile-shape-submenu {
+        display:flex;
+        align-items:center;
+    }
+    .mobile-tool-submenu button {
+        min-height:34px;
+        padding:5px 9px;
+        border:1px solid #ccc;
+        border-radius:9px;
+        background:#fff;
+        color:#222;
+        font:inherit;
+        font-size:.62rem;
+        font-weight:850;
+        cursor:pointer;
+    }
+    .mobile-tool-submenu button.active {
+        background:#111;
+        border-color:#111;
+        color:#fff;
+    }
+    .scribble-line {
+        display:inline-block;
+        margin-right:3px;
+        font-size:1.15rem;
+        font-weight:900;
+        transform:scaleX(1.18);
+    }
+    .bold-shape {
+        display:inline-block;
+        margin-right:3px;
+        font-size:1.15rem;
+        line-height:.8;
+        font-weight:900;
+        -webkit-text-stroke:1px currentColor;
+    }
+
+    /* Brush choices now live in the Brush submenu. Keep Erase + Move below. */
+    .mobile-direct-tools [data-brush-type] { display:none !important; }
+    .mobile-direct-tools {
+        grid-template-columns:repeat(2,1fr) !important;
+    }
+
+    /* Keep opacity present for every tool. Fill shows it as context only. */
+    #touchEraserOpacityWrap { display:flex !important; }
+    #touchEraserOpacityWrap .mobile-brush-label::before { content:""; }
+    body.v268-fill-active #touchEraserOpacityWrap {
+        opacity:.34;
+        filter:grayscale(.65);
+        pointer-events:none;
+    }
+}
+
+@media (min-width:1001px) {
+    .mobile-tool-submenu { display:none !important; }
+}
+</style>
+
+<script>
+/* TEST #18 — lightweight submenu routing. Existing drawing engines remain the source of truth. */
+(() => {
+    "use strict";
+    const body=document.body;
+    const brushBar=document.getElementById('mobileBrushSubmenu');
+    const shapeBar=document.getElementById('mobileShapeSubmenu');
+
+    function closeNewSubmenus(except) {
+        if (except !== 'brush') body.classList.remove('mobile-brush-submenu-open');
+        if (except !== 'shape') body.classList.remove('mobile-shape-submenu-open');
+    }
+
+    document.addEventListener('click', e => {
+        const launcher=e.target.closest('[data-mobile-submenu]');
+        if (launcher) {
+            const kind=launcher.dataset.mobileSubmenu;
+            const cls='mobile-'+kind+'-submenu-open';
+            const wasOpen=body.classList.contains(cls);
+            closeNewSubmenus(kind);
+            body.classList.toggle(cls,!wasOpen);
+            if (!body.classList.contains('has-selection')) {
+                body.classList.remove('v254-select-active','v247-selecting','v241-select-active');
+            }
+            return;
+        }
+
+        const brush=e.target.closest('[data-mobile-brush-choice]');
+        if (brush) {
+            const kind=brush.dataset.mobileBrushChoice;
+            const source=[...document.querySelectorAll('[data-brush-type]')].find(b => b.dataset.brushType===kind);
+            if (source) source.click();
+            brushBar?.querySelectorAll('[data-mobile-brush-choice]').forEach(b=>b.classList.toggle('active',b===brush));
+            body.classList.add('mobile-brush-submenu-open');
+            body.classList.remove('mobile-shape-submenu-open');
+            return;
+        }
+
+        const shape=e.target.closest('[data-mobile-shape-choice]');
+        if (shape) {
+            const kind=shape.dataset.mobileShapeChoice;
+            const source=document.querySelector('[data-touch-shape-mode="'+kind+'"]');
+            if (source) source.click();
+            shapeBar?.querySelectorAll('[data-mobile-shape-choice]').forEach(b=>b.classList.toggle('active',b===shape));
+            body.classList.add('mobile-shape-submenu-open');
+            body.classList.remove('mobile-brush-submenu-open');
+            return;
+        }
+
+        const tool=e.target.closest('[data-v2-tool],[data-tool],[data-desktop-tool]');
+        if (tool) {
+            const name=tool.dataset.v2Tool || tool.dataset.tool || tool.dataset.desktopTool;
+            if (name !== 'brush' && name !== 'shape') closeNewSubmenus();
+        }
+    });
+
+    /* Selection, Brush and Shape are peer menus. */
+    document.addEventListener('click', e => {
+        if (e.target.closest('[data-v2-tool="select"],[data-tool="select"],[data-desktop-tool="select"]')) {
+            closeNewSubmenus();
+        }
+    }, true);
+})();
+</script>
+
 </body>
 
 </html>
