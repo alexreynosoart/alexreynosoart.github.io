@@ -37,7 +37,7 @@ window.MIA_ARTWORKS = [
         alt: "Mia Ocean Adventure coloring page",
         description: "An underwater adventure ready for color, imagination and a little ocean magic.",
         download: "mia-ocean-adventure-coloring-page.png",
-        gallery: false
+        gallery: true
     },
 
     {
@@ -70,7 +70,7 @@ window.MIA_ARTWORKS = [
         alt: "Mia Bow Ghost coloring page",
         description: "A sweet little ghost with a giant bow, ready for creative colors.",
         download: "mia-bow-ghost-coloring-page.png",
-        gallery: false
+        gallery: true
     },
 
     {
@@ -81,7 +81,7 @@ window.MIA_ARTWORKS = [
         alt: "Mia Dinosaur coloring page",
         description: "Mia's friendly dinosaur joins the creative studio.",
         download: "mia-dinosaur-coloring-page.png",
-        gallery: false
+        gallery: true
     }
 
 ];
