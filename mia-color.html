@@ -3050,14 +3050,67 @@ body.v254-select-active #clearSelectionTouch {
         }
 
         @media (max-width: 480px) {
+            /* Phone only: MIA MENU shares the first utility row with
+               zoom, fit, layers, pages and fullscreen. */
+            .studio-topbar {
+                grid-template-columns: auto minmax(0, 1fr) !important;
+                column-gap: 6px !important;
+                row-gap: 7px !important;
+            }
+
+            .studio-mia-menu {
+                grid-column: 1 !important;
+                grid-row: 1 !important;
+                justify-self: start;
+            }
+
+            .studio-mia-menu > summary {
+                min-height: 34px;
+                padding: 0 9px;
+                font-size: .60rem;
+                white-space: nowrap;
+            }
+
+            .studio-name {
+                display: none !important;
+            }
+
+            .zoom-controls {
+                grid-column: 2 !important;
+                grid-row: 1 !important;
+                justify-self: stretch !important;
+                display: flex !important;
+                justify-content: flex-end !important;
+                gap: 5px !important;
+                min-width: 0;
+            }
+
+            .zoom-controls .zoom-button,
+            .zoom-controls .fullscreen-button {
+                min-width: 34px !important;
+                min-height: 34px !important;
+                padding: 0 7px !important;
+            }
+
+            #fitButton {
+                padding-left: 8px !important;
+                padding-right: 8px !important;
+            }
+
+            .mobile-creative-tools {
+                grid-column: 1 !important;
+                grid-row: 2 !important;
+            }
+
+            .mobile-top-actions {
+                grid-column: 2 !important;
+                grid-row: 2 !important;
+            }
+
             .studio-mia-nav {
                 top: 54px;
                 width: calc(100vw - 20px);
                 padding: 12px;
-            }
-
-            .studio-name strong {
-                font-size: .72rem;
             }
         }
 
