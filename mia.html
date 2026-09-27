@@ -236,9 +236,9 @@
         }
 
 
-        /* KIDS CORNER */
+        /* CREATIVE STUDIO */
 
-        .kids-corner {
+        .mia-studio {
             max-width: 850px;
             margin: 90px auto 0;
             padding: 50px 35px;
@@ -251,25 +251,65 @@
         }
 
 
-        .kids-corner h2 {
-            margin: 0 0 16px;
+        .mia-studio h2 {
+            margin: 0;
             font-size: clamp(2rem, 5vw, 3rem);
         }
 
 
-        .kids-corner p {
+        .mia-studio-name {
+            color: #222;
+        }
+
+
+        .mia-studio-heart {
+            color: #e88eaa;
+        }
+
+
+        .mia-studio-label {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #888;
+        }
+
+
+        .mia-studio p {
             max-width: 620px;
-            margin: 0 auto;
+            margin: 22px auto 0;
 
             line-height: 1.8;
             color: #555;
         }
 
 
-        .coming-soon {
-            margin-top: 24px;
+        .mia-studio-button {
+            display: inline-block;
+
+            margin-top: 28px;
+            padding: 15px 34px;
+
+            background: #e88eaa;
+            color: #fff;
+
+            border-radius: 14px;
+
+            text-decoration: none;
+            font-size: 0.95rem;
             font-weight: 700;
-            color: #e07f9f;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+
+        .mia-studio-button:hover {
+            background: #df7e9f;
+            transform: translateY(-2px);
         }
 
 
@@ -302,7 +342,7 @@
             }
 
 
-            .kids-corner {
+            .mia-studio {
                 padding: 38px 22px;
             }
 
@@ -422,12 +462,13 @@
                 <article class="mia-card">
 
 
-                    <div class="mia-card-image">
+                    <a class="mia-card-image"
+                       href="mia-originals.html">
 
                         <img src="images/mia-the-panda-original.jpg"
                              alt="Mia's original drawing of Mia the Panda">
 
-                    </div>
+                    </a>
 
 
                     <div class="mia-card-content">
@@ -443,6 +484,14 @@
                             pair of heart-shaped paws.
                         </p>
 
+
+                        <a class="mia-card-button"
+                           href="mia-originals.html">
+
+                            SEE MIA'S ORIGINALS →
+
+                        </a>
+
                     </div>
 
 
@@ -456,12 +505,12 @@
 
 
                     <a class="mia-card-image"
-   href="mia-coloring.html">
+                       href="mia-coloring.html">
 
-    <img src="images/mia-the-panda-coloring-page.png"
-         alt="Mia the Panda black and white coloring page">
+                        <img src="images/mia-the-panda-coloring-page.png"
+                             alt="Mia the Panda black and white coloring page">
 
-</a>
+                    </a>
 
 
                     <div class="mia-card-content">
@@ -530,26 +579,35 @@
 
 
 
-        <!-- KIDS CORNER -->
+        <!-- MIA: MAKE IT ART -->
 
-        <section class="kids-corner">
+        <section class="mia-studio">
 
 
             <h2>
-                Mia's Kids Corner ♥
+                <span class="mia-studio-name">MIA: MAKE IT ART</span>
+                <span class="mia-studio-heart">♥</span>
             </h2>
 
 
+            <div class="mia-studio-label">
+                Creative Studio
+            </div>
+
+
             <p>
-                A growing collection of drawings, coloring pages,
-                music, stories and creative experiments inspired
-                by imagination, kindness and big dreams.
+                Draw. Color. Create. Make it yours.
+                Choose a Mia artwork, start with a blank page
+                or bring in an image of your own.
             </p>
 
 
-            <div class="coming-soon">
-                MORE COMING SOON.
-            </div>
+            <a class="mia-studio-button"
+               href="mia-color.html">
+
+                OPEN CREATIVE STUDIO 🎨
+
+            </a>
 
 
         </section>
@@ -577,7 +635,9 @@
         &copy; 2026 Alex Reynoso Art
     </footer>
 
+
     <script src="js/script.js"></script>
+
 
 </body>
 
