@@ -12268,6 +12268,54 @@ body.v268-fill-active #touchEraserOpacity {
 })();
 </script>
 
+
+<style>
+/* =====================================================
+   TEST #23 — TOUCH SHAPE SYNC + TIP LIFT
+   Opacity / brush engine intentionally unchanged.
+   ===================================================== */
+@media (max-width:1000px) {
+    /* Give the contextual helper a little more breathing room above colors. */
+    .studio-tip-wrap {
+        bottom:calc(176px + env(safe-area-inset-bottom)) !important;
+    }
+}
+</style>
+
+<script>
+/* TEST #23 — Make the compact phone/tablet Shape submenu drive the exact
+   same v241ShapeMode used by the working desktop Line / Square / Circle engine.
+   Line behavior itself is unchanged. */
+(() => {
+    'use strict';
+
+    document.querySelectorAll('[data-mobile-shape-choice]').forEach(button => {
+        button.addEventListener('click', function(e) {
+            const mode=this.dataset.mobileShapeChoice;
+            if(!['line','rect','ellipse'].includes(mode)) return;
+
+            /* Set the shared shape engine directly rather than depending on
+               a second responsive control to relay the choice. */
+            v241ShapeMode=mode;
+
+            document.querySelectorAll('[data-mobile-shape-choice]').forEach(b => {
+                b.classList.toggle('active', b===this);
+            });
+            document.querySelectorAll('[data-touch-shape-mode]').forEach(b => {
+                b.classList.toggle('active', b.dataset.touchShapeMode===mode);
+            });
+            document.querySelectorAll('[data-shape-mode]').forEach(b => {
+                b.classList.toggle('active', b.dataset.shapeMode===mode);
+            });
+
+            if(currentTool!=='shape') selectTool('shape');
+            if(typeof v241RefreshToolUI==='function') v241RefreshToolUI();
+        }, true);
+    });
+})();
+</script>
+
+
 </body>
 
 </html>
