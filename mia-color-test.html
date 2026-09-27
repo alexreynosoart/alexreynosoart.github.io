@@ -3774,24 +3774,20 @@ body.v268-fill-active #opacitySlider {
         </div>
 
         <div class="mobile-creative-tools" aria-label="Creative tools">
+
+            <button class="mobile-icon-tool brush-menu-tool active"
+                    data-v2-tool="brush"
+                    data-mobile-submenu="brush"
+                    type="button"
+                    aria-label="Brush"
+                    title="Brush"><span class="brush-menu-icon" aria-hidden="true">✎</span></button>
+
             <button class="mobile-icon-tool fill-icon-tool"
                     data-v2-tool="fill"
                     type="button"
                     aria-label="Fill"
                     title="Fill"><span class="bucket-icon" aria-hidden="true"></span></button>
 
-            <button class="mobile-icon-tool select-icon-tool"
-                    data-v2-tool="select"
-                    type="button"
-                    aria-label="Select"
-                    title="Select"><span class="select-triangle-icon" aria-hidden="true"></span></button>
-
-            <button class="mobile-icon-tool brush-menu-tool"
-                    data-v2-tool="brush"
-                    data-mobile-submenu="brush"
-                    type="button"
-                    aria-label="Brush"
-                    title="Brush"><span class="brush-menu-icon" aria-hidden="true">✎</span></button>
 
             <button class="mobile-icon-tool shape-menu-tool"
                     data-v2-tool="shape"
@@ -3799,6 +3795,13 @@ body.v268-fill-active #opacitySlider {
                     type="button"
                     aria-label="Line and shapes"
                     title="Line / Shape"><span class="shape-menu-icon" aria-hidden="true"><b>□</b><b>○</b></span></button>
+
+
+            <button class="mobile-icon-tool select-icon-tool"
+                    data-v2-tool="select"
+                    type="button"
+                    aria-label="Select"
+                    title="Select"><span class="select-triangle-icon" aria-hidden="true"></span></button>
 
             <div class="mobile-select-icons" aria-label="Selection shape">
                 <button type="button" data-v253-select-mode="free" aria-label="Free selection" title="Free">〰</button>
@@ -3851,14 +3854,14 @@ body.v268-fill-active #opacitySlider {
 
                 <div class="tool-buttons">
 
-                    <button class="tool-button active"
+                    <button class="tool-button"
                             data-tool="fill"
                             type="button">
                         FILL
                     </button>
 
 
-                    <button class="tool-button"
+                    <button class="tool-button active"
                             data-tool="brush"
                             type="button">
                         BRUSH
@@ -3924,13 +3927,13 @@ body.v268-fill-active #opacitySlider {
                        type="range"
                        min="3"
                        max="100"
-                       value="18">
+                       value="75">
 
 
                 <div class="brush-readout">
 
                     <span id="brushReadout">
-                        18
+                        75
                     </span>
 
                     px
@@ -4100,8 +4103,8 @@ body.v268-fill-active #opacitySlider {
         </div>
 
         <div class="option-group">
-            <div class="option-label"><span>Size</span><span id="v2SizeReadout">18 px</span></div>
-            <input class="v2-range" id="v2BrushSize" type="range" min="3" max="120" value="18">
+            <div class="option-label"><span>Size</span><span id="v2SizeReadout">75 px</span></div>
+            <input class="v2-range" id="v2BrushSize" type="range" min="3" max="120" value="75">
         </div>
 
         <div class="option-group">
@@ -4334,13 +4337,13 @@ body.v268-fill-active #opacitySlider {
                type="range"
                min="3"
                max="100"
-               value="18">
+               value="75">
 
 
         <span class="mobile-brush-value">
 
             <span id="mobileBrushReadout">
-                18
+                75
             </span>
 
             px
@@ -4916,13 +4919,13 @@ body.v268-fill-active #opacitySlider {
        ========================= */
 
     let currentTool =
-        'fill';
+        'brush';
 
     let currentColor =
         '#e88eaa';
 
     let brushSize =
-        18;
+        75;
 
     let brushOpacity =
         1;
@@ -8076,7 +8079,7 @@ body.v268-fill-active #opacitySlider {
 
 let v241SelectMode = 'free';
 let v241ShapeMode = 'line';
-let v241ToolBeforeSelect = 'fill';
+let v241ToolBeforeSelect = 'brush';
 let v241SpecialStart = null;
 let v241SpecialActive = false;
 
@@ -12106,6 +12109,129 @@ document.addEventListener('pointerup', function() {
         status.textContent=tip;
     }
     document.addEventListener('pointerdown', showTouchTip, {capture:true, passive:true});
+})();
+</script>
+
+
+<style>
+/* =====================================================
+   TEST #21 — TOOL ORDER + UNIFIED HISTORY BAR
+   Layout/state only. Opacity drawing mechanics remain unchanged.
+   ===================================================== */
+
+/* Undo/Redo is one joined control, matching the joined -/+ control. */
+.history-pair {
+    display:inline-flex !important;
+    align-items:stretch !important;
+    gap:0 !important;
+    border:1px solid #ccc !important;
+    border-radius:10px !important;
+    overflow:hidden !important;
+    background:#fff !important;
+    height:38px !important;
+    box-sizing:border-box !important;
+    flex:0 0 auto !important;
+}
+#undoMobileTop,
+#redoMobileTop {
+    height:36px !important;
+    min-height:36px !important;
+    min-width:58px !important;
+    padding:0 9px !important;
+    margin:0 !important;
+    border:0 !important;
+    border-radius:0 !important;
+    background:#fff !important;
+    color:#222 !important;
+    box-shadow:none !important;
+    font:inherit !important;
+    font-size:.72rem !important;
+    font-weight:900 !important;
+    line-height:1 !important;
+}
+#redoMobileTop { border-left:1px solid #d8d8d8 !important; }
+
+/* Match the utility row's neighboring control weight/height. */
+.zoom-controls .zoom-pair,
+.zoom-controls #fitButton,
+.zoom-controls #layersTop,
+.zoom-controls #pagesTop,
+.zoom-controls #fullscreenButton {
+    min-height:38px !important;
+}
+
+/* Fill keeps Size + Opacity visible but both are truly locked. */
+body.v268-fill-active .mobile-brush-row {
+    opacity:.34 !important;
+    filter:grayscale(.65) !important;
+}
+body.v268-fill-active #mobileBrushSize,
+body.v268-fill-active #touchEraserOpacity {
+    pointer-events:none !important;
+}
+
+/* Primary mobile order: DRAW, FILL, SHAPES, SELECT. */
+@media (max-width:1000px) {
+    .mobile-creative-tools { gap:8px !important; }
+}
+
+/* Phone has enough room when labels disappear inside history. */
+@media (max-width:480px) {
+    .zoom-controls { gap:4px !important; }
+    .zoom-controls .history-pair { height:34px !important; }
+    #undoMobileTop,
+    #redoMobileTop {
+        width:32px !important;
+        min-width:32px !important;
+        height:32px !important;
+        min-height:32px !important;
+        padding:0 !important;
+    }
+    #undoMobileTop .history-label,
+    #redoMobileTop .history-label { display:none !important; }
+    .history-arrow { margin:0 !important; }
+}
+</style>
+
+<script>
+/* TEST #21 — one history location on every device + Fill slider lock. */
+(() => {
+    'use strict';
+    const zoomControls=document.querySelector('.zoom-controls');
+    const zoomPair=zoomControls?.querySelector('.zoom-pair');
+    const history=document.querySelector('.history-pair');
+    const size=document.getElementById('mobileBrushSize');
+    const opacity=document.getElementById('touchEraserOpacity');
+
+    function placeHistoryWithZoom(){
+        if(!zoomControls || !zoomPair || !history) return;
+        if(history.parentNode!==zoomControls || history.nextElementSibling!==zoomPair){
+            zoomControls.insertBefore(history, zoomPair);
+        }
+    }
+
+    function syncFillLocks(){
+        const locked=(typeof currentTool!=='undefined' && currentTool==='fill');
+        if(size) size.disabled=locked;
+        if(opacity) opacity.disabled=locked;
+        if(size) size.setAttribute('aria-disabled', String(locked));
+        if(opacity) opacity.setAttribute('aria-disabled', String(locked));
+    }
+
+    placeHistoryWithZoom();
+    syncFillLocks();
+    window.addEventListener('resize', placeHistoryWithZoom, {passive:true});
+
+    /* Keep the lock synchronized without changing any drawing calculations. */
+    document.addEventListener('pointerup', () => setTimeout(syncFillLocks,0), true);
+    document.addEventListener('click', () => setTimeout(syncFillLocks,0), true);
+
+    /* Pen is the primary starting tool for this build. */
+    if(typeof selectTool==='function') {
+        try { selectTool('brush'); } catch(e) {}
+    }
+    if(typeof brushType!=='undefined') brushType='pen';
+    syncFillLocks();
 })();
 </script>
 
