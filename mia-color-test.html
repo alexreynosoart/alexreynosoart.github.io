@@ -10753,6 +10753,59 @@ document.addEventListener('pointerup', function() {
         .forEach(button => button.classList.remove('active'));
 })();
 </script>
+
+
+<style>
+/* =====================================================
+   V2.6.12 MOBILE/TABLET VIEWPORT + SELECT PANEL POLISH
+   ===================================================== */
+@media (max-width:1000px) {
+    /* Status text is useful on desktop, but on touch layouts it steals a
+       thin strip of vertical room and can peek out between canvas and dock. */
+    .studio-status {
+        display:none !important;
+    }
+
+    /* Give the touch layout a little more breathing room so the full top
+       control area remains visible without increasing page height. */
+    .canvas-frame {
+        height:calc(100dvh - 258px) !important;
+    }
+}
+
+@media (min-width:481px) and (max-width:1000px) {
+    .canvas-frame {
+        height:calc(100dvh - 248px) !important;
+    }
+}
+</style>
+
+<script>
+/* =====================================================
+   V2.6.12 BRUSH CHOICES FOLLOW SELECT PANEL LIFECYCLE
+   Pen / Marker / Soft / Texture behave like the other tools:
+   leave the Select submenu only when a committed selection exists.
+   ===================================================== */
+(() => {
+    "use strict";
+
+    document.addEventListener("click", event => {
+        const brushButton = event.target.closest("[data-brush-type]");
+        if (!brushButton) return;
+
+        requestAnimationFrame(() => {
+            if (!document.body.classList.contains("has-selection")) {
+                document.body.classList.remove(
+                    "v254-select-active",
+                    "v247-selecting",
+                    "v241-select-active"
+                );
+            }
+        });
+    }, true);
+})();
+</script>
+
 </body>
 
 </html>
