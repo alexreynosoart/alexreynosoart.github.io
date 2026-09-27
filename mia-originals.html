@@ -1,1 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mia's Original Art | Alex Reynoso Art</title>
+
+    <meta name="description"
+          content="Explore original artwork created by Mia, the young artist behind Mia the Panda.">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ"></script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+        gtag('config', 'G-MK5FXXVXNJ');
+    </script>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        /* =========================
+           MIA ORIGINALS PAGE
+        ========================== */
+
+        .mia-originals-page {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 45px 24px 80px;
+        }
+
+
+        /* =========================
+           INTRO
+        ========================== */
+
+        .mia-originals-intro {
+            max-width: 760px;
+            margin: 0 auto 28px;
+            text-align: center;
+        }
+
+        .mia-kicker {
+            margin: 0 0 10px;
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #777;
+        }
+
+        .mia-originals-intro h1 {
+            margin: 0;
+            font-size: clamp(2.4rem, 7vw, 4.8rem);
+            line-height: 0.95;
+            letter-spacing: -0.045em;
+        }
+
+        .mia-heart {
+            color: #ff4f87;
+        }
+
+        .mia-originals-intro h2 {
+            margin: 13px 0 0;
+            font-size: 1.05rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .mia-originals-intro p {
+            max-width: 620px;
+            margin: 18px auto 0;
+            line-height: 1.7;
+            color: #555;
+        }
+
+
+        /* =========================
+           MIA MINI NAV
+        ========================== */
+
+        .mia-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+
+            max-width: 850px;
+            margin: 30px auto 55px;
+        }
+
+        .mia-nav a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-height: 44px;
+            padding: 10px 17px;
+
+            border: 1px solid #dedede;
+            border-radius: 999px;
+
+            background: #fff;
+            color: #222;
+
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+
+            text-decoration: none;
+
+            transition:
+                transform 0.18s ease,
+                border-color 0.18s ease,
+                background 0.18s ease;
+        }
+
+        .mia-nav a:hover {
+            transform: translateY(-2px);
+            border-color: #ff4f87;
+        }
+
+        .mia-nav .current {
+            background: #f4f4f4;
+        }
+
+        .mia-nav .studio {
+            background: #ff4f87;
+            border-color: #ff4f87;
+            color: #fff;
+        }
+
+        .mia-nav .studio:hover {
+            background: #ef3f78;
+            border-color: #ef3f78;
+        }
+
+
+        /* =========================
+           GALLERY
+        ========================== */
+
+        .originals-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 28px;
+        }
+
+        .original-card {
+            margin: 0;
+        }
+
+        .original-button {
+            display: block;
+            width: 100%;
+            padding: 0;
+
+            border: 0;
+            background: transparent;
+
+            cursor: zoom-in;
+            text-align: left;
+        }
+
+        .original-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 100%;
+            aspect-ratio: 4 / 5;
+
+            padding: 18px;
+
+            background: #f7f7f7;
+            border: 1px solid #e8e8e8;
+            border-radius: 18px;
+
+            overflow: hidden;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .original-image img {
+            display: block;
+            width: 100%;
+            height: 100%;
+
+            object-fit: contain;
+
+            border-radius: 10px;
+        }
+
+        .original-button:hover .original-image {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .original-card figcaption {
+            padding: 14px 5px 0;
+        }
+
+        .original-card h3 {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .original-card p {
+            margin: 5px 0 0;
+            color: #777;
+            font-size: 0.85rem;
+        }
+
+
+        /* =========================
+           STUDIO CTA
+        ========================== */
+
+        .studio-cta {
+            max-width: 780px;
+            margin: 75px auto 0;
+            padding: 40px 30px;
+
+            text-align: center;
+
+            background: #fff5f8;
+            border: 1px solid #ffd4e1;
+            border-radius: 22px;
+        }
+
+        .studio-cta h2 {
+            margin: 0;
+            font-size: clamp(1.8rem, 5vw, 2.7rem);
+            letter-spacing: -0.03em;
+        }
+
+        .studio-cta .studio-label {
+            margin-top: 6px;
+
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .studio-cta p {
+            max-width: 540px;
+            margin: 16px auto 24px;
+            line-height: 1.65;
+            color: #555;
+        }
+
+        .studio-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-height: 48px;
+            padding: 12px 22px;
+
+            border-radius: 999px;
+
+            background: #ff4f87;
+            color: #fff;
+
+            font-size: 0.85rem;
+            font-weight: 800;
+
+            text-decoration: none;
+
+            transition:
+                transform 0.18s ease,
+                background 0.18s ease;
+        }
+
+        .studio-button:hover {
+            transform: translateY(-2px);
+            background: #ef3f78;
+        }
+
+
+        /* =========================
+           LIGHTBOX
+        ========================== */
+
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+
+            display: none;
+            align-items: center;
+            justify-content: center;
+
+            padding: 25px;
+
+            background: rgba(0, 0, 0, 0.88);
+        }
+
+        .lightbox.open {
+            display: flex;
+        }
+
+        .lightbox img {
+            display: block;
+
+            max-width: min(92vw, 1100px);
+            max-height: 88vh;
+
+            object-fit: contain;
+
+            border-radius: 10px;
+
+            background: #fff;
+        }
+
+        .lightbox-close {
+            position: fixed;
+            top: 18px;
+            right: 22px;
+
+            width: 46px;
+            height: 46px;
+
+            border: 0;
+            border-radius: 50%;
+
+            background: #fff;
+            color: #111;
+
+            font-size: 1.8rem;
+            line-height: 1;
+
+            cursor: pointer;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 850px) {
+
+            .originals-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+        }
+
+        @media (max-width: 560px) {
+
+            .mia-originals-page {
+                padding: 35px 16px 60px;
+            }
+
+            .mia-nav {
+                margin-bottom: 40px;
+            }
+
+            .mia-nav a {
+                font-size: 0.72rem;
+                padding: 9px 13px;
+            }
+
+            .originals-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .original-image {
+                aspect-ratio: auto;
+                min-height: 380px;
+            }
+
+            .studio-cta {
+                margin-top: 55px;
+                padding: 32px 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<header>
+
+    <div class="logo">
+        <a href="index.html">Alex Reynoso Art</a>
+    </div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="art.html">Art</a>
+        <a href="videos.html">Videos</a>
+        <a href="shop.html">Shop</a>
+        <a href="commissions.html">Commissions</a>
+    </nav>
+
+</header>
+
+
+<main class="mia-originals-page">
+
+
+    <!-- INTRO -->
+
+    <section class="mia-originals-intro">
+
+        <p class="mia-kicker">
+            Alex Reynoso Art · Kids Corner
+        </p>
+
+        <h1>
+            MIA<span class="mia-heart">♥</span>
+        </h1>
+
+        <h2>Original Art</h2>
+
+        <p>
+            Before the coloring pages, characters and creative studio,
+            there were Mia's drawings. These are her original artworks,
+            with all the lines, colors and little details that make them hers.
+        </p>
+
+    </section>
+
+
+    <!-- MIA MINI NAV -->
+
+    <nav class="mia-nav" aria-label="Mia's Kids Corner">
+
+        <a href="mia.html">
+            MIA'S WORLD
+        </a>
+
+        <a class="current"
+           href="mia-originals.html"
+           aria-current="page">
+            ORIGINAL ART
+        </a>
+
+        <a href="mia-coloring.html">
+            COLORING PAGES
+        </a>
+
+        <a class="studio"
+           href="mia-color.html">
+            CREATIVE STUDIO 🎨
+        </a>
+
+    </nav>
+
+
+    <!-- ORIGINAL ART GALLERY -->
+
+    <section class="originals-grid"
+             aria-label="Mia's original artwork">
+
+
+        <figure class="original-card">
+
+            <button class="original-button"
+                    type="button"
+                    data-full="images/mia/originals/mia-the-panda-original.webp"
+                    data-alt="Mia the Panda original drawing">
+
+                <span class="original-image">
+
+                    <img
+                        src="images/mia/originals/mia-the-panda-original.webp"
+                        alt="Mia the Panda original drawing"
+                        loading="lazy">
+
+                </span>
+
+            </button>
+
+            <figcaption>
+                <h3>Mia the Panda</h3>
+                <p>The original.</p>
+            </figcaption>
+
+        </figure>
+
+
+        <figure class="original-card">
+
+            <button class="original-button"
+                    type="button"
+                    data-full="images/mia/originals/mia-easter-bunny-original.webp"
+                    data-alt="Mia Easter Bunny Panda original drawing">
+
+                <span class="original-image">
+
+                    <img
+                        src="images/mia/originals/mia-easter-bunny-original.webp"
+                        alt="Mia Easter Bunny Panda original drawing"
+                        loading="lazy">
+
+                </span>
+
+            </button>
+
+            <figcaption>
+                <h3>Easter Bunny Panda</h3>
+                <p>Original drawing by Mia.</p>
+            </figcaption>
+
+        </figure>
+
+
+        <figure class="original-card">
+
+            <button class="original-button"
+                    type="button"
+                    data-full="images/mia/originals/mia-santa-panda-original.webp"
+                    data-alt="Mia Santa Panda original drawing">
+
+                <span class="original-image">
+
+                    <img
+                        src="images/mia/originals/mia-santa-panda-original.webp"
+                        alt="Mia Santa Panda original drawing"
+                        loading="lazy">
+
+                </span>
+
+            </button>
+
+            <figcaption>
+                <h3>Santa Panda</h3>
+                <p>Original drawing by Mia.</p>
+            </figcaption>
+
+        </figure>
+
+
+        <figure class="original-card">
+
+            <button class="original-button"
+                    type="button"
+                    data-full="images/mia/originals/mia-witch-panda-original.webp"
+                    data-alt="Mia Witch Panda original drawing">
+
+                <span class="original-image">
+
+                    <img
+                        src="images/mia/originals/mia-witch-panda-original.webp"
+                        alt="Mia Witch Panda original drawing"
+                        loading="lazy">
+
+                </span>
+
+            </button>
+
+            <figcaption>
+                <h3>Witch Panda</h3>
+                <p>Original drawing by Mia.</p>
+            </figcaption>
+
+        </figure>
+
+
+        <figure class="original-card">
+
+            <button class="original-button"
+                    type="button"
+                    data-full="images/mia/originals/mia-bow-ghost-original.webp"
+                    data-alt="Mia Bow Ghost original drawing">
+
+                <span class="original-image">
+
+                    <img
+                        src="images/mia/originals/mia-bow-ghost-original.webp"
+                        alt="Mia Bow Ghost original drawing"
+                        loading="lazy">
+
+                </span>
+
+            </button>
+
+            <figcaption>
+                <h3>Bow Ghost</h3>
+                <p>Original drawing by Mia.</p>
+            </figcaption>
+
+        </figure>
+
+
+        <figure class="original-card">
+
+            <button class="original-button"
+                    type="button"
+                    data-full="images/mia/originals/mia-ocean-adventure-original.webp"
+                    data-alt="Mia Ocean Adventure original drawing">
+
+                <span class="original-image">
+
+                    <img
+                        src="images/mia/originals/mia-ocean-adventure-original.webp"
+                        alt="Mia Ocean Adventure original drawing"
+                        loading="lazy">
+
+                </span>
+
+            </button>
+
+            <figcaption>
+                <h3>Ocean Adventure</h3>
+                <p>Original drawing by Mia.</p>
+            </figcaption>
+
+        </figure>
+
+
+        <figure class="original-card">
+
+            <button class="original-button"
+                    type="button"
+                    data-full="images/mia/originals/mia-dinosaur-original.webp"
+                    data-alt="Mia dinosaur original drawing">
+
+                <span class="original-image">
+
+                    <img
+                        src="images/mia/originals/mia-dinosaur-original.webp"
+                        alt="Mia dinosaur original drawing"
+                        loading="lazy">
+
+                </span>
+
+            </button>
+
+            <figcaption>
+                <h3>Dinosaur</h3>
+                <p>Original drawing by Mia.</p>
+            </figcaption>
+
+        </figure>
+
+
+    </section>
+
+
+    <!-- CREATIVE STUDIO -->
+
+    <section class="studio-cta">
+
+        <h2>
+            MIA: MAKE IT ART
+            <span class="mia-heart">♥</span>
+        </h2>
+
+        <div class="studio-label">
+            Creative Studio
+        </div>
+
+        <p>
+            Ready to make something?
+            Draw, color, create and make it yours.
+        </p>
+
+        <a class="studio-button"
+           href="mia-color.html">
+            OPEN CREATIVE STUDIO 🎨
+        </a>
+
+    </section>
+
+
+</main>
+
+
+<!-- LIGHTBOX -->
+
+<div class="lightbox"
+     id="miaLightbox"
+     role="dialog"
+     aria-modal="true"
+     aria-label="Artwork viewer">
+
+    <button class="lightbox-close"
+            id="lightboxClose"
+            type="button"
+            aria-label="Close artwork">
+        ×
+    </button>
+
+    <img id="lightboxImage"
+         src=""
+         alt="">
+
+</div>
+
+
+<script>
+
+    const lightbox = document.getElementById('miaLightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxClose = document.getElementById('lightboxClose');
+
+    const artworkButtons =
+        document.querySelectorAll('.original-button');
+
+
+    artworkButtons.forEach((button) => {
+
+        button.addEventListener('click', () => {
+
+            lightboxImage.src = button.dataset.full;
+            lightboxImage.alt = button.dataset.alt;
+
+            lightbox.classList.add('open');
+
+            document.body.style.overflow = 'hidden';
+
+            lightboxClose.focus();
+
+        });
+
+    });
+
+
+    function closeLightbox() {
+
+        lightbox.classList.remove('open');
+
+        lightboxImage.src = '';
+
+        document.body.style.overflow = '';
+
+    }
+
+
+    lightboxClose.addEventListener(
+        'click',
+        closeLightbox
+    );
+
+
+    lightbox.addEventListener('click', (event) => {
+
+        if (event.target === lightbox) {
+            closeLightbox();
+        }
+
+    });
+
+
+    document.addEventListener('keydown', (event) => {
+
+        if (
+            event.key === 'Escape' &&
+            lightbox.classList.contains('open')
+        ) {
+            closeLightbox();
+        }
+
+    });
+
+</script>
+
+
+<script src="js/script.js"></script>
+
+</body>
+
+</html>
