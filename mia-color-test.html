@@ -3326,7 +3326,25 @@ body.v254-select-active #clearSelectionTouch {
 
         @media (max-width:1000px) {
             .studio { padding-top:7px !important; }
-            .studio-topbar { margin-top:0 !important; padding-top:0 !important; }
+            .studio-topbar {
+                margin-top:0 !important;
+                padding-top:0 !important;
+                /* TEST #7: the responsive header may span beyond its visible controls
+                   in touch emulation. Empty header space must never block the canvas. */
+                pointer-events:none !important;
+            }
+            .studio-topbar button,
+            .studio-topbar summary,
+            .studio-topbar details,
+            .studio-topbar a,
+            .studio-topbar .studio-mia-nav,
+            .studio-topbar .zoom-pair,
+            .studio-topbar .history-pair,
+            .studio-topbar .mobile-creative-tools,
+            .studio-topbar .mobile-top-actions,
+            .studio-topbar .zoom-controls {
+                pointer-events:auto !important;
+            }
             .zoom-controls { gap:5px !important; }
             .mobile-top-actions { gap:5px !important; }
             .history-pair { flex:0 0 auto; }
