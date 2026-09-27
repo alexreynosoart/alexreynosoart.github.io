@@ -89,61 +89,69 @@
            MIA MINI NAV
         ========================== */
 
-        .mia-nav {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
+.mia-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
 
-            max-width: 850px;
-            margin: 30px auto 55px;
-        }
+    max-width: 850px;
+    margin: 30px auto 55px;
+}
 
-        .mia-nav a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+.mia-nav a,
+.mia-nav .current {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-            min-height: 44px;
-            padding: 10px 17px;
+    min-height: 44px;
+    padding: 10px 17px;
 
-            border: 1px solid #dedede;
-            border-radius: 999px;
+    border: 1px solid #dedede;
+    border-radius: 999px;
 
-            background: #fff;
-            color: #222;
+    background: #fff;
+    color: #222;
 
-            font-size: 0.78rem;
-            font-weight: 800;
-            letter-spacing: 0.04em;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
 
-            text-decoration: none;
+    text-decoration: none;
+}
 
-            transition:
-                transform 0.18s ease,
-                border-color 0.18s ease,
-                background 0.18s ease;
-        }
+.mia-nav a {
+    transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        background 0.18s ease;
+}
 
-        .mia-nav a:hover {
-            transform: translateY(-2px);
-            border-color: #ff4f87;
-        }
+.mia-nav a:hover {
+    transform: translateY(-2px);
+    border-color: #ff4f87;
+}
 
-        .mia-nav .current {
-            background: #f4f4f4;
-        }
+/* CURRENT PAGE */
+.mia-nav .current {
+    background: transparent;
+    color: #ff4f87;
+    border: 2px solid #ff4f87;
+    cursor: default;
+}
 
-        .mia-nav .studio {
-            background: #ff4f87;
-            border-color: #ff4f87;
-            color: #fff;
-        }
+/* CREATIVE STUDIO */
+.mia-nav .studio {
+    background: #ff4f87;
+    border-color: #ff4f87;
+    color: #fff;
+}
 
-        .mia-nav .studio:hover {
-            background: #ef3f78;
-            border-color: #ef3f78;
-        }
+.mia-nav .studio:hover {
+    background: #ef3f78;
+    border-color: #ef3f78;
+}
 
 
         /* =========================
