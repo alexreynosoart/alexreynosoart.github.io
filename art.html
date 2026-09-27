@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ"></script>
 
@@ -16,15 +17,19 @@
         gtag('config', 'G-MK5FXXVXNJ');
     </script>
 
+
     <meta charset="UTF-8">
 
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
+
     <title>Art | Alex Reynoso Art</title>
+
 
     <meta name="description"
           content="Original artwork by Alex Reynoso, painting, illustration, mixed media and creative projects.">
+
 
     <link rel="stylesheet"
           href="css/style.css">
@@ -34,7 +39,7 @@
 
         /* =========================
            ART BACKGROUND
-           ========================= */
+        ========================== */
 
         body {
             position: relative;
@@ -74,7 +79,7 @@
 
         /* =========================
            MIA'S KIDS CORNER
-           ========================= */
+        ========================== */
 
         .mia-corner {
             grid-column: 1 / -1;
@@ -184,10 +189,15 @@
         }
 
 
+        /* =========================
+           MIA BUTTONS
+        ========================== */
+
         .mia-corner-actions {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
+
             margin-top: 22px;
         }
 
@@ -197,47 +207,56 @@
             align-items: center;
             justify-content: center;
 
+            min-height: 44px;
+
             margin: 0;
-            padding: 13px 18px;
+            padding: 11px 16px;
 
-            background: #e88eaa;
-            color: #fff;
+            background: #fff;
+            color: #222;
 
-            border-radius: 11px;
+            border: 1px solid rgba(0,0,0,0.16);
+            border-radius: 999px;
 
-            font-size: 0.82rem;
-            font-weight: 700;
+            font-size: 0.76rem;
+            font-weight: 800;
             letter-spacing: 0.03em;
 
             text-decoration: none;
 
             transition:
                 background 0.2s ease,
+                border-color 0.2s ease,
+                color 0.2s ease,
                 transform 0.2s ease;
         }
 
 
         .mia-corner-button:hover {
-            background: #df7e9f;
-            transform: translateY(-1px);
+            border-color: #ff4f87;
+            transform: translateY(-2px);
         }
 
 
-        .mia-corner-button.secondary {
-            background: #fff;
-            color: #222;
-            border: 1px solid rgba(0,0,0,0.16);
+        /* CREATIVE STUDIO */
+
+        .mia-corner-button.studio {
+            background: #ff4f87;
+            color: #fff;
+
+            border-color: #ff4f87;
         }
 
 
-        .mia-corner-button.secondary:hover {
-            background: #f3edf0;
+        .mia-corner-button.studio:hover {
+            background: #ef3f78;
+            border-color: #ef3f78;
         }
 
 
         /* =========================
            MOBILE
-           ========================= */
+        ========================== */
 
         @media (max-width: 700px) {
 
@@ -292,6 +311,10 @@
 <body>
 
 
+    <!-- =========================
+         HEADER
+    ========================== -->
+
     <header>
 
         <a class="site-logo"
@@ -305,17 +328,29 @@
 
         <nav>
 
-            <a href="index.html">Home</a>
+            <a href="index.html">
+                Home
+            </a>
 
-            <a href="about.html">About</a>
+            <a href="about.html">
+                About
+            </a>
 
-            <a href="art.html">Art</a>
+            <a href="art.html">
+                Art
+            </a>
 
-            <a href="videos.html">Videos</a>
+            <a href="videos.html">
+                Videos
+            </a>
 
-            <a href="shop.html">Shop</a>
+            <a href="shop.html">
+                Shop
+            </a>
 
-            <a href="commissions.html">Commissions</a>
+            <a href="commissions.html">
+                Commissions
+            </a>
 
         </nav>
 
@@ -326,7 +361,9 @@
     <main>
 
 
-        <!-- ART INTRO -->
+        <!-- =========================
+             ART INTRO
+        ========================== -->
 
         <section class="art-intro">
 
@@ -343,7 +380,9 @@
 
 
 
-        <!-- ART GALLERY -->
+        <!-- =========================
+             ART GALLERY
+        ========================== -->
 
         <section class="art-gallery">
 
@@ -453,24 +492,31 @@
 
 
 
-            <!-- MIA'S KIDS CORNER -->
+            <!-- =========================
+                 MIA'S KIDS CORNER
+            ========================== -->
 
             <section class="mia-corner">
 
                 <div class="mia-corner-link">
 
 
+                    <!-- NEW WEBP ORIGINAL -->
+
                     <a class="mia-corner-image"
                        href="mia.html"
                        aria-label="Visit Mia's World">
 
-                        <img src="images/mia-the-panda-original.jpg"
-                             alt="Mia's original drawing of Mia the Panda">
+                        <img
+                            src="images/mia/mia-the-panda-original.webp"
+                            alt="Mia's original drawing of Mia the Panda">
 
                     </a>
 
 
+
                     <div class="mia-corner-content">
+
 
                         <div class="mia-corner-kicker">
                             Alex Reynoso Art · Kids Corner
@@ -495,23 +541,46 @@
                         </p>
 
 
+
+                        <!-- =========================
+                             MIA NAVIGATION
+                        ========================== -->
+
                         <div class="mia-corner-actions"
                              aria-label="Mia's Kids Corner activities">
 
+
                             <a class="mia-corner-button"
                                href="mia.html">
-                                MIA'S WORLD →
+
+                                MIA'S WORLD
+
                             </a>
 
-                            <a class="mia-corner-button secondary"
-                               href="mia-coloring.html">
-                                COLORING PAGES
-                            </a>
 
                             <a class="mia-corner-button"
-                               href="mia-color.html">
-                                OPEN COLOR STUDIO 🎨
+                               href="mia-originals.html">
+
+                                ORIGINAL ART
+
                             </a>
+
+
+                            <a class="mia-corner-button"
+                               href="mia-coloring.html">
+
+                                COLORING PAGES
+
+                            </a>
+
+
+                            <a class="mia-corner-button studio"
+                               href="mia-color.html">
+
+                                CREATIVE STUDIO 🎨
+
+                            </a>
+
 
                         </div>
 
@@ -524,7 +593,9 @@
 
 
 
-            <!-- MORE ART -->
+            <!-- =========================
+                 MORE ART
+            ========================== -->
 
             <div class="artwork">
                 Artwork coming soon
@@ -545,6 +616,10 @@
     </main>
 
 
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
 
     <footer>
 
@@ -583,14 +658,17 @@
 
         </div>
 
+
         <div class="footer-copyright">
             &copy; 2026 Alex Reynoso Art
         </div>
 
     </footer>
 
+
     <script src="js/script.js"></script>
-    
+
+
 </body>
 
 </html>
