@@ -13,13 +13,11 @@
 
 
     <!-- Google tag (gtag.js) -->
-
     <script async
             src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ">
     </script>
 
     <script>
-
         window.dataLayer = window.dataLayer || [];
 
         function gtag() {
@@ -27,12 +25,7 @@
         }
 
         gtag('js', new Date());
-
-        gtag(
-            'config',
-            'G-MK5FXXVXNJ'
-        );
-
+        gtag('config', 'G-MK5FXXVXNJ');
     </script>
 
 
@@ -65,9 +58,7 @@
 
         .mia-kicker {
             margin: 0 0 10px;
-
             color: #777;
-
             font-size: 0.78rem;
             font-weight: 800;
             letter-spacing: 0.14em;
@@ -76,7 +67,6 @@
 
         .mia-originals-intro h1 {
             margin: 0;
-
             font-size: clamp(2.4rem, 7vw, 4.8rem);
             line-height: 0.95;
             letter-spacing: -0.045em;
@@ -88,7 +78,6 @@
 
         .mia-originals-intro h2 {
             margin: 13px 0 0;
-
             font-size: 1.05rem;
             letter-spacing: 0.12em;
             text-transform: uppercase;
@@ -97,9 +86,7 @@
         .mia-originals-intro p {
             max-width: 620px;
             margin: 18px auto 0;
-
             color: #777;
-
             line-height: 1.7;
         }
 
@@ -158,9 +145,7 @@
         .mia-nav .current {
             background: transparent;
             color: #ff4f87;
-
             border: 2px solid #ff4f87;
-
             cursor: default;
         }
 
@@ -185,10 +170,8 @@
 
         .originals-grid {
             display: grid;
-
             grid-template-columns:
                 repeat(3, minmax(0, 1fr));
-
             gap: 28px;
         }
 
@@ -198,15 +181,10 @@
 
         .original-button {
             display: block;
-
             width: 100%;
-
             padding: 0;
-
             border: 0;
-
             background: transparent;
-
             cursor: zoom-in;
             text-align: left;
         }
@@ -217,7 +195,6 @@
             justify-content: center;
 
             width: 100%;
-
             aspect-ratio: 4 / 5;
 
             padding: 18px;
@@ -236,18 +213,14 @@
 
         .original-image img {
             display: block;
-
             width: 100%;
             height: 100%;
-
             object-fit: contain;
-
             border-radius: 10px;
         }
 
         .original-button:hover .original-image {
             transform: translateY(-4px);
-
             box-shadow:
                 0 12px 30px
                 rgba(0, 0, 0, 0.25);
@@ -259,17 +232,13 @@
 
         .original-card h3 {
             margin: 0;
-
             color: #fff;
-
             font-size: 1rem;
         }
 
         .original-card p {
             margin: 5px 0 0;
-
             color: #777;
-
             font-size: 0.85rem;
         }
 
@@ -280,21 +249,17 @@
 
         .studio-cta {
             max-width: 1180px;
-
             margin: 65px auto 0;
-
             padding: 48px 24px;
 
             text-align: center;
 
             background: transparent;
-
             border-top: 1px solid #333;
         }
 
         .studio-cta h2 {
             margin: 0;
-
             color: #fff;
 
             font-size:
@@ -305,23 +270,18 @@
 
         .studio-cta .studio-label {
             margin-top: 7px;
-
             color: #ff4f87;
 
             font-size: 0.8rem;
             font-weight: 800;
             letter-spacing: 0.15em;
-
             text-transform: uppercase;
         }
 
         .studio-cta p {
             max-width: 540px;
-
             margin: 16px auto 24px;
-
             color: #aaa;
-
             line-height: 1.65;
         }
 
@@ -331,7 +291,6 @@
             justify-content: center;
 
             min-height: 48px;
-
             padding: 12px 22px;
 
             border-radius: 999px;
@@ -351,57 +310,83 @@
 
         .studio-button:hover {
             transform: translateY(-2px);
-
             background: #ef3f78;
         }
 
 
         /* =========================
-           LIGHTBOX
+           GALLERY VIEWER
         ========================== */
 
         .lightbox {
             position: fixed;
-
             inset: 0;
-
             z-index: 9999;
 
             display: none;
-
             align-items: center;
             justify-content: center;
 
-            padding: 25px;
+            padding: 70px 90px 40px;
 
-            background:
-                rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.94);
         }
 
         .lightbox.open {
             display: flex;
         }
 
+        .lightbox-inner {
+            position: relative;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            width: 100%;
+            height: 100%;
+        }
+
+        .lightbox-image-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 100%;
+            min-height: 0;
+            flex: 1;
+        }
+
         .lightbox img {
             display: block;
 
-            max-width:
-                min(92vw, 1100px);
-
-            max-height: 88vh;
+            max-width: min(86vw, 1100px);
+            max-height: calc(100vh - 180px);
 
             object-fit: contain;
 
             border-radius: 10px;
 
             background: #fff;
+
+            box-shadow:
+                0 15px 55px
+                rgba(0, 0, 0, 0.45);
+
+            user-select: none;
+            -webkit-user-drag: none;
         }
+
+
+        /* CLOSE */
 
         .lightbox-close {
             position: fixed;
+            top: 20px;
+            right: 24px;
 
-            top: 18px;
-            right: 22px;
+            z-index: 3;
 
             width: 46px;
             height: 46px;
@@ -416,6 +401,98 @@
             line-height: 1;
 
             cursor: pointer;
+
+            transition:
+                transform 0.18s ease,
+                background 0.18s ease;
+        }
+
+        .lightbox-close:hover {
+            transform: scale(1.06);
+            background: #ff4f87;
+            color: #fff;
+        }
+
+
+        /* PREVIOUS / NEXT */
+
+        .lightbox-arrow {
+            position: fixed;
+            top: 50%;
+            z-index: 3;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 58px;
+            height: 58px;
+
+            padding: 0;
+
+            border: 1px solid
+                rgba(255, 255, 255, 0.25);
+
+            border-radius: 50%;
+
+            background:
+                rgba(255, 255, 255, 0.1);
+
+            color: #fff;
+
+            font-size: 2.4rem;
+            line-height: 1;
+
+            cursor: pointer;
+
+            transform: translateY(-50%);
+
+            transition:
+                background 0.18s ease,
+                border-color 0.18s ease;
+        }
+
+        .lightbox-arrow:hover {
+            background: #ff4f87;
+            border-color: #ff4f87;
+        }
+
+        .lightbox-prev {
+            left: 24px;
+        }
+
+        .lightbox-next {
+            right: 24px;
+        }
+
+
+        /* ARTWORK INFO */
+
+        .lightbox-info {
+            flex: 0 0 auto;
+
+            padding-top: 16px;
+
+            text-align: center;
+
+            color: #fff;
+        }
+
+        .lightbox-title {
+            margin: 0 0 5px;
+
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .lightbox-counter {
+            margin: 0;
+
+            color: #ff4f87;
+
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
         }
 
 
@@ -428,6 +505,26 @@
             .originals-grid {
                 grid-template-columns:
                     repeat(2, minmax(0, 1fr));
+            }
+
+            .lightbox {
+                padding:
+                    65px 65px 30px;
+            }
+
+            .lightbox-arrow {
+                width: 48px;
+                height: 48px;
+
+                font-size: 2rem;
+            }
+
+            .lightbox-prev {
+                left: 10px;
+            }
+
+            .lightbox-next {
+                right: 10px;
             }
 
         }
@@ -447,27 +544,75 @@
             .mia-nav a,
             .mia-nav .current {
                 font-size: 0.72rem;
-
                 padding: 9px 13px;
             }
 
             .originals-grid {
                 grid-template-columns: 1fr;
-
                 gap: 32px;
             }
 
             .original-image {
                 aspect-ratio: auto;
-
                 min-height: 380px;
             }
 
             .studio-cta {
                 margin-top: 55px;
-
                 padding:
                     40px 10px 20px;
+            }
+
+
+            /* MOBILE GALLERY VIEWER */
+
+            .lightbox {
+                padding:
+                    70px 16px 25px;
+            }
+
+            .lightbox img {
+                max-width: 92vw;
+                max-height:
+                    calc(100vh - 175px);
+            }
+
+            .lightbox-close {
+                top: 14px;
+                right: 14px;
+
+                width: 42px;
+                height: 42px;
+
+                font-size: 1.6rem;
+            }
+
+            .lightbox-arrow {
+                top: auto;
+                bottom: 24px;
+
+                width: 44px;
+                height: 44px;
+
+                background:
+                    rgba(255, 255, 255, 0.12);
+
+                transform: none;
+
+                font-size: 1.8rem;
+            }
+
+            .lightbox-prev {
+                left: 16px;
+            }
+
+            .lightbox-next {
+                right: 16px;
+            }
+
+            .lightbox-info {
+                padding:
+                    12px 60px 5px;
             }
 
         }
@@ -576,9 +721,7 @@
 
             <span class="current"
                   aria-current="page">
-
                 ORIGINAL ART
-
             </span>
 
 
@@ -589,9 +732,7 @@
 
             <a class="studio"
                href="mia-color.html">
-
                 CREATIVE STUDIO 🎨
-
             </a>
 
         </nav>
@@ -613,8 +754,12 @@
                 <button
                     class="original-button"
                     type="button"
+
                     data-full="images/mia/originals/mia-the-panda-original.webp"
-                    data-alt="Mia the Panda original drawing">
+
+                    data-alt="Mia the Panda original drawing"
+
+                    data-title="Mia the Panda">
 
                     <span class="original-image">
 
@@ -650,8 +795,12 @@
                 <button
                     class="original-button"
                     type="button"
+
                     data-full="images/mia/originals/mia-easter-bunny-original.webp"
-                    data-alt="Mia Easter Bunny Panda original drawing">
+
+                    data-alt="Mia Easter Bunny Panda original drawing"
+
+                    data-title="Easter Bunny Panda">
 
                     <span class="original-image">
 
@@ -687,8 +836,12 @@
                 <button
                     class="original-button"
                     type="button"
+
                     data-full="images/mia/originals/mia-santa-panda-original.webp"
-                    data-alt="Mia Santa Panda original drawing">
+
+                    data-alt="Mia Santa Panda original drawing"
+
+                    data-title="Santa Panda">
 
                     <span class="original-image">
 
@@ -724,8 +877,12 @@
                 <button
                     class="original-button"
                     type="button"
+
                     data-full="images/mia/originals/mia-witch-panda-original.webp"
-                    data-alt="Mia Witch Panda original drawing">
+
+                    data-alt="Mia Witch Panda original drawing"
+
+                    data-title="Witch Panda">
 
                     <span class="original-image">
 
@@ -761,8 +918,12 @@
                 <button
                     class="original-button"
                     type="button"
+
                     data-full="images/mia/originals/mia-bow-ghost-original.webp"
-                    data-alt="Mia Bow Ghost original drawing">
+
+                    data-alt="Mia Bow Ghost original drawing"
+
+                    data-title="Bow Ghost">
 
                     <span class="original-image">
 
@@ -798,8 +959,12 @@
                 <button
                     class="original-button"
                     type="button"
+
                     data-full="images/mia/originals/mia-ocean-adventure-original.webp"
-                    data-alt="Mia Ocean Adventure original drawing">
+
+                    data-alt="Mia Ocean Adventure original drawing"
+
+                    data-title="Ocean Adventure">
 
                     <span class="original-image">
 
@@ -835,8 +1000,12 @@
                 <button
                     class="original-button"
                     type="button"
+
                     data-full="images/mia/originals/mia-dinosaur-original.webp"
-                    data-alt="Mia dinosaur original drawing">
+
+                    data-alt="Mia dinosaur original drawing"
+
+                    data-title="Dinosaur">
 
                     <span class="original-image">
 
@@ -875,10 +1044,8 @@
         <section class="studio-cta">
 
             <h2>
-
                 MIA: MAKE IT ART
                 <span class="mia-heart">♥</span>
-
             </h2>
 
 
@@ -908,7 +1075,7 @@
 
 
     <!-- =========================
-         LIGHTBOX
+         GALLERY VIEWER
     ========================== -->
 
     <div
@@ -916,24 +1083,77 @@
         id="miaLightbox"
         role="dialog"
         aria-modal="true"
-        aria-label="Artwork viewer">
+        aria-label="Mia original artwork viewer">
 
+
+        <!-- CLOSE -->
 
         <button
             class="lightbox-close"
             id="lightboxClose"
             type="button"
-            aria-label="Close artwork">
+            aria-label="Close artwork viewer">
 
             ×
 
         </button>
 
 
-        <img
-            id="lightboxImage"
-            src=""
-            alt="">
+        <!-- PREVIOUS -->
+
+        <button
+            class="lightbox-arrow lightbox-prev"
+            id="lightboxPrev"
+            type="button"
+            aria-label="Previous artwork">
+
+            ‹
+
+        </button>
+
+
+        <!-- VIEWER -->
+
+        <div class="lightbox-inner">
+
+            <div class="lightbox-image-wrap">
+
+                <img
+                    id="lightboxImage"
+                    src=""
+                    alt="">
+
+            </div>
+
+
+            <div class="lightbox-info">
+
+                <p
+                    class="lightbox-title"
+                    id="lightboxTitle">
+                </p>
+
+                <p
+                    class="lightbox-counter"
+                    id="lightboxCounter">
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- NEXT -->
+
+        <button
+            class="lightbox-arrow lightbox-next"
+            id="lightboxNext"
+            type="button"
+            aria-label="Next artwork">
+
+            ›
+
+        </button>
 
 
     </div>
@@ -941,60 +1161,143 @@
 
 
     <!-- =========================
-         LIGHTBOX SCRIPT
+         GALLERY VIEWER SCRIPT
     ========================== -->
 
     <script>
+
+        const artworkButtons =
+            Array.from(
+                document.querySelectorAll(
+                    '.original-button'
+                )
+            );
+
 
         const lightbox =
             document.getElementById(
                 'miaLightbox'
             );
 
+
         const lightboxImage =
             document.getElementById(
                 'lightboxImage'
             );
+
+
+        const lightboxTitle =
+            document.getElementById(
+                'lightboxTitle'
+            );
+
+
+        const lightboxCounter =
+            document.getElementById(
+                'lightboxCounter'
+            );
+
 
         const lightboxClose =
             document.getElementById(
                 'lightboxClose'
             );
 
-        const artworkButtons =
-            document.querySelectorAll(
-                '.original-button'
+
+        const lightboxPrev =
+            document.getElementById(
+                'lightboxPrev'
             );
 
 
-        artworkButtons.forEach(
-            (button) => {
+        const lightboxNext =
+            document.getElementById(
+                'lightboxNext'
+            );
 
-                button.addEventListener(
-                    'click',
-                    () => {
 
-                        lightboxImage.src =
-                            button.dataset.full;
+        let currentArtwork = 0;
 
-                        lightboxImage.alt =
-                            button.dataset.alt;
+        let touchStartX = 0;
+        let touchEndX = 0;
 
-                        lightbox.classList.add(
-                            'open'
-                        );
 
-                        document.body.style.overflow =
-                            'hidden';
+        /* -------------------------
+           SHOW ARTWORK
+        -------------------------- */
 
-                        lightboxClose.focus();
+        function showArtwork(index) {
 
-                    }
-                );
+            if (index < 0) {
+
+                index =
+                    artworkButtons.length - 1;
 
             }
-        );
 
+
+            if (
+                index >=
+                artworkButtons.length
+            ) {
+
+                index = 0;
+
+            }
+
+
+            currentArtwork = index;
+
+
+            const artwork =
+                artworkButtons[
+                    currentArtwork
+                ];
+
+
+            lightboxImage.src =
+                artwork.dataset.full;
+
+
+            lightboxImage.alt =
+                artwork.dataset.alt;
+
+
+            lightboxTitle.textContent =
+                artwork.dataset.title;
+
+
+            lightboxCounter.textContent =
+                `${currentArtwork + 1} / ${artworkButtons.length}`;
+
+        }
+
+
+
+        /* -------------------------
+           OPEN VIEWER
+        -------------------------- */
+
+        function openLightbox(index) {
+
+            showArtwork(index);
+
+            lightbox.classList.add(
+                'open'
+            );
+
+            document.body.style.overflow =
+                'hidden';
+
+            lightboxClose.focus();
+
+        }
+
+
+
+        /* -------------------------
+           CLOSE VIEWER
+        -------------------------- */
 
         function closeLightbox() {
 
@@ -1009,11 +1312,89 @@
         }
 
 
+
+        /* -------------------------
+           PREVIOUS / NEXT
+        -------------------------- */
+
+        function previousArtwork() {
+
+            showArtwork(
+                currentArtwork - 1
+            );
+
+        }
+
+
+        function nextArtwork() {
+
+            showArtwork(
+                currentArtwork + 1
+            );
+
+        }
+
+
+
+        /* -------------------------
+           OPEN FROM THUMBNAIL
+        -------------------------- */
+
+        artworkButtons.forEach(
+            (button, index) => {
+
+                button.addEventListener(
+                    'click',
+                    () => {
+
+                        openLightbox(index);
+
+                    }
+                );
+
+            }
+        );
+
+
+
+        /* -------------------------
+           BUTTON CONTROLS
+        -------------------------- */
+
         lightboxClose.addEventListener(
             'click',
             closeLightbox
         );
 
+
+        lightboxPrev.addEventListener(
+            'click',
+            (event) => {
+
+                event.stopPropagation();
+
+                previousArtwork();
+
+            }
+        );
+
+
+        lightboxNext.addEventListener(
+            'click',
+            (event) => {
+
+                event.stopPropagation();
+
+                nextArtwork();
+
+            }
+        );
+
+
+
+        /* -------------------------
+           CLICK BACKGROUND TO CLOSE
+        -------------------------- */
 
         lightbox.addEventListener(
             'click',
@@ -1031,23 +1412,141 @@
         );
 
 
+
+        /* -------------------------
+           KEYBOARD CONTROLS
+        -------------------------- */
+
         document.addEventListener(
             'keydown',
             (event) => {
 
                 if (
-                    event.key === 'Escape' &&
-                    lightbox.classList.contains(
+                    !lightbox.classList.contains(
                         'open'
                     )
+                ) {
+
+                    return;
+
+                }
+
+
+                if (
+                    event.key ===
+                    'Escape'
                 ) {
 
                     closeLightbox();
 
                 }
 
+
+                if (
+                    event.key ===
+                    'ArrowLeft'
+                ) {
+
+                    previousArtwork();
+
+                }
+
+
+                if (
+                    event.key ===
+                    'ArrowRight'
+                ) {
+
+                    nextArtwork();
+
+                }
+
             }
         );
+
+
+
+        /* -------------------------
+           MOBILE SWIPE
+        -------------------------- */
+
+        lightbox.addEventListener(
+            'touchstart',
+            (event) => {
+
+                touchStartX =
+                    event.changedTouches[0]
+                        .screenX;
+
+            },
+            {
+                passive: true
+            }
+        );
+
+
+        lightbox.addEventListener(
+            'touchend',
+            (event) => {
+
+                touchEndX =
+                    event.changedTouches[0]
+                        .screenX;
+
+
+                const swipeDistance =
+                    touchEndX -
+                    touchStartX;
+
+
+                /*
+                   Ignore tiny movements.
+                   This prevents normal taps
+                   from changing artwork.
+                */
+
+                if (
+                    Math.abs(
+                        swipeDistance
+                    ) < 50
+                ) {
+
+                    return;
+
+                }
+
+
+                /*
+                   Swipe right:
+                   previous artwork
+                */
+
+                if (
+                    swipeDistance > 0
+                ) {
+
+                    previousArtwork();
+
+                }
+
+
+                /*
+                   Swipe left:
+                   next artwork
+                */
+
+                else {
+
+                    nextArtwork();
+
+                }
+
+            },
+            {
+                passive: true
+            }
+        );
+
 
     </script>
 
