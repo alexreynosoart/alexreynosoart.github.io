@@ -6158,7 +6158,7 @@ body.v254-select-active #clearSelectionTouch {
 
 
     /* =========================
-       FILL PREVIEW TEST #2 — ALL DEVICES
+       FILL PREVIEW TEST #3 — ALL DEVICES + ESC CANCEL
        Press/click and hold previews a fill. Dragging moves the preview.
        Release commits it. On touch, a second finger cancels the preview
        immediately so pinch/zoom always wins.
@@ -6182,6 +6182,17 @@ body.v254-select-active #clearSelectionTouch {
         touchFillLastY = -1;
         touchFillLastTime = 0;
     }
+
+    /* Desktop/web safety: Escape cancels an active Fill preview without
+       committing it. Because the preview state is cleared here, the later
+       pointerup is harmless and cannot save the cancelled Fill. */
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && touchFillPreview) {
+            event.preventDefault();
+            cancelTouchFillPreview();
+        }
+    });
+
 
     function previewTouchFill(event, force = false) {
         if (!touchFillPreview || event.pointerId !== touchFillPreview.pointerId) return;
