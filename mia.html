@@ -39,9 +39,7 @@
 
         /* =========================
            MIA THE PANDA
-           Temporary Kids Corner
            ========================= */
-
 
         body {
             background: #f8f5f7;
@@ -56,12 +54,14 @@
         }
 
 
-        /* INTRO */
+        /* =========================
+           INTRO
+        ========================== */
 
         .mia-intro {
             text-align: center;
             max-width: 800px;
-            margin: 0 auto 65px;
+            margin: 0 auto 30px;
         }
 
 
@@ -102,7 +102,86 @@
         }
 
 
-        /* STORY */
+        /* =========================
+           MIA MINI NAV
+        ========================== */
+
+        .mia-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+
+            max-width: 850px;
+            margin: 30px auto 65px;
+        }
+
+
+        .mia-nav a,
+        .mia-nav .current {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-height: 44px;
+            padding: 10px 17px;
+
+            border: 1px solid #dedede;
+            border-radius: 999px;
+
+            background: #fff;
+            color: #222;
+
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+
+            text-decoration: none;
+        }
+
+
+        .mia-nav a {
+            transition:
+                transform 0.18s ease,
+                border-color 0.18s ease,
+                background 0.18s ease;
+        }
+
+
+        .mia-nav a:hover {
+            transform: translateY(-2px);
+            border-color: #ff4f87;
+        }
+
+
+        /* CURRENT PAGE */
+
+        .mia-nav .current {
+            background: transparent;
+            color: #ff4f87;
+            border: 2px solid #ff4f87;
+            cursor: default;
+        }
+
+
+        /* CREATIVE STUDIO */
+
+        .mia-nav .studio {
+            background: #ff4f87;
+            border-color: #ff4f87;
+            color: #fff;
+        }
+
+
+        .mia-nav .studio:hover {
+            background: #ef3f78;
+            border-color: #ef3f78;
+        }
+
+
+        /* =========================
+           STORY
+        ========================== */
 
         .mia-story {
             max-width: 720px;
@@ -124,7 +203,9 @@
         }
 
 
-        /* PROJECT CARDS */
+        /* =========================
+           PROJECT CARDS
+        ========================== */
 
         .mia-projects {
             margin-top: 60px;
@@ -204,7 +285,9 @@
         }
 
 
-        /* CARD BUTTON */
+        /* =========================
+           CARD BUTTON
+        ========================== */
 
         .mia-card-button {
             display: block;
@@ -236,7 +319,9 @@
         }
 
 
-        /* CREATIVE STUDIO */
+        /* =========================
+           CREATIVE STUDIO
+        ========================== */
 
         .mia-studio {
             max-width: 850px;
@@ -313,7 +398,9 @@
         }
 
 
-        /* CREDIT */
+        /* =========================
+           CREDIT
+        ========================== */
 
         .mia-credit {
             text-align: center;
@@ -323,7 +410,9 @@
         }
 
 
-        /* MOBILE */
+        /* =========================
+           MOBILE
+        ========================== */
 
         @media (max-width: 800px) {
 
@@ -338,7 +427,19 @@
 
 
             .mia-intro {
-                margin-bottom: 45px;
+                margin-bottom: 25px;
+            }
+
+
+            .mia-nav {
+                margin-bottom: 50px;
+            }
+
+
+            .mia-nav a,
+            .mia-nav .current {
+                font-size: 0.72rem;
+                padding: 9px 13px;
             }
 
 
@@ -356,6 +457,10 @@
 <body class="mia-page-body">
 
 
+    <!-- =========================
+         MAIN SITE HEADER
+    ========================== -->
+
     <header>
 
         <a class="site-logo"
@@ -369,17 +474,29 @@
 
         <nav>
 
-            <a href="index.html">Home</a>
+            <a href="index.html">
+                Home
+            </a>
 
-            <a href="about.html">About</a>
+            <a href="about.html">
+                About
+            </a>
 
-            <a href="art.html">Art</a>
+            <a href="art.html">
+                Art
+            </a>
 
-            <a href="videos.html">Videos</a>
+            <a href="videos.html">
+                Videos
+            </a>
 
-            <a href="shop.html">Shop</a>
+            <a href="shop.html">
+                Shop
+            </a>
 
-            <a href="commissions.html">Commissions</a>
+            <a href="commissions.html">
+                Commissions
+            </a>
 
         </nav>
 
@@ -390,7 +507,9 @@
     <main class="mia-page">
 
 
-        <!-- INTRO -->
+        <!-- =========================
+             INTRO
+        ========================== -->
 
         <section class="mia-intro">
 
@@ -417,7 +536,49 @@
 
 
 
-        <!-- STORY -->
+        <!-- =========================
+             MIA MINI NAV
+        ========================== -->
+
+        <nav class="mia-nav"
+             aria-label="Mia's Kids Corner">
+
+
+            <!-- CURRENT PAGE -->
+
+            <span class="current"
+                  aria-current="page">
+
+                MIA'S WORLD
+
+            </span>
+
+
+            <a href="mia-originals.html">
+                ORIGINAL ART
+            </a>
+
+
+            <a href="mia-coloring.html">
+                COLORING PAGES
+            </a>
+
+
+            <a class="studio"
+               href="mia-color.html">
+
+                CREATIVE STUDIO 🎨
+
+            </a>
+
+
+        </nav>
+
+
+
+        <!-- =========================
+             STORY
+        ========================== -->
 
         <section class="mia-story">
 
@@ -443,7 +604,9 @@
 
 
 
-        <!-- MIA'S WORLD -->
+        <!-- =========================
+             MIA'S WORLD
+        ========================== -->
 
         <section class="mia-projects">
 
@@ -457,7 +620,9 @@
 
 
 
-                <!-- ORIGINAL -->
+                <!-- =========================
+                     ORIGINAL
+                ========================== -->
 
                 <article class="mia-card">
 
@@ -465,8 +630,9 @@
                     <a class="mia-card-image"
                        href="mia-originals.html">
 
-                        <img src="images/mia-the-panda-original.jpg"
-                             alt="Mia's original drawing of Mia the Panda">
+                        <img
+                            src="images/mia/originals/mia-the-panda-original.webp"
+                            alt="Mia's original drawing of Mia the Panda">
 
                     </a>
 
@@ -499,7 +665,9 @@
 
 
 
-                <!-- COLORING PAGE -->
+                <!-- =========================
+                     COLORING PAGE
+                ========================== -->
 
                 <article class="mia-card">
 
@@ -507,8 +675,9 @@
                     <a class="mia-card-image"
                        href="mia-coloring.html">
 
-                        <img src="images/mia-the-panda-coloring-page.png"
-                             alt="Mia the Panda black and white coloring page">
+                        <img
+                            src="images/mia-the-panda-coloring-page.png"
+                            alt="Mia the Panda black and white coloring page">
 
                     </a>
 
@@ -541,15 +710,18 @@
 
 
 
-                <!-- MUSIC AND ANIMATION -->
+                <!-- =========================
+                     MUSIC AND ANIMATION
+                ========================== -->
 
                 <article class="mia-card">
 
 
                     <div class="mia-card-image">
 
-                        <img src="images/mia-the-panda-music-animation.png"
-                             alt="Mia the Panda music and character development sheet">
+                        <img
+                            src="images/mia-the-panda-music-animation.png"
+                            alt="Mia the Panda music and character development sheet">
 
                     </div>
 
@@ -579,14 +751,23 @@
 
 
 
-        <!-- MIA: MAKE IT ART -->
+        <!-- =========================
+             MIA: MAKE IT ART
+        ========================== -->
 
         <section class="mia-studio">
 
 
             <h2>
-                <span class="mia-studio-name">MIA: MAKE IT ART</span>
-                <span class="mia-studio-heart">♥</span>
+
+                <span class="mia-studio-name">
+                    MIA: MAKE IT ART
+                </span>
+
+                <span class="mia-studio-heart">
+                    ♥
+                </span>
+
             </h2>
 
 
@@ -614,7 +795,9 @@
 
 
 
-        <!-- CREDIT -->
+        <!-- =========================
+             CREDIT
+        ========================== -->
 
         <div class="mia-credit">
 
@@ -632,7 +815,9 @@
 
 
     <footer>
+
         &copy; 2026 Alex Reynoso Art
+
     </footer>
 
 
