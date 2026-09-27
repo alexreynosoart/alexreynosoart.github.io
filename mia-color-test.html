@@ -3619,8 +3619,8 @@ body.v268-fill-active #opacitySlider {
     </section>
 
     <section class="desktop-side-section">
-        <div class="desktop-side-label"><span>Size</span><span id="desktopSizeReadout">18 px</span></div>
-        <input class="desktop-side-range" id="desktopSizeSlider" type="range" min="3" max="120" value="18">
+        <div class="desktop-side-label"><span>Size</span><span id="desktopSizeReadout">75 px</span></div>
+        <input class="desktop-side-range" id="desktopSizeSlider" type="range" min="23" max="100" value="75">
         <div class="desktop-side-label" style="margin-top:8px"><span>Opacity</span><span id="desktopOpacityReadout">100%</span></div>
         <input class="desktop-side-range" id="desktopOpacitySlider" type="range" min="5" max="100" value="100">
     </section>
@@ -3925,7 +3925,7 @@ body.v268-fill-active #opacitySlider {
                 <input class="brush-slider"
                        id="brushSize"
                        type="range"
-                       min="3"
+                       min="23"
                        max="100"
                        value="75">
 
@@ -4104,7 +4104,7 @@ body.v268-fill-active #opacitySlider {
 
         <div class="option-group">
             <div class="option-label"><span>Size</span><span id="v2SizeReadout">75 px</span></div>
-            <input class="v2-range" id="v2BrushSize" type="range" min="3" max="120" value="75">
+            <input class="v2-range" id="v2BrushSize" type="range" min="23" max="100" value="75">
         </div>
 
         <div class="option-group">
@@ -4335,7 +4335,7 @@ body.v268-fill-active #opacitySlider {
         <input class="mobile-brush-slider"
                id="mobileBrushSize"
                type="range"
-               min="3"
+               min="23"
                max="100"
                value="75">
 
@@ -5701,7 +5701,11 @@ body.v268-fill-active #opacitySlider {
             saveHistory(false);
             resetLayersFromCurrent();
             markSaved();
-            selectTool('fill');
+            /* TEST #22: Pen is the true startup tool after artwork initialization. */
+            brushType = 'pen';
+            brushSize = 75;
+            selectTool('brush');
+            updateBrushSize(75);
 
             requestAnimationFrame(
                 fitArtwork
@@ -12232,6 +12236,35 @@ body.v268-fill-active #touchEraserOpacity {
     }
     if(typeof brushType!=='undefined') brushType='pen';
     syncFillLocks();
+})();
+</script>
+
+<style>
+/* TEST #22 — baseline brush reset + true Pen startup + centered Pages glyph. */
+@media (max-width:1000px) {
+    #pagesTop {
+        display:inline-flex !important;
+        align-items:center !important;
+        justify-content:center !important;
+    }
+    #pagesTop .pages-icon-custom {
+        margin:0 auto !important;
+        flex:0 0 17px !important;
+        transform:translateX(2px);
+    }
+}
+</style>
+<script>
+/* Keep every brush-size UI on one useful, matching 23–100 px scale.
+   This does not alter opacity mechanics. */
+(() => {
+    const ids=['brushSize','mobileBrushSize','v2BrushSize','desktopSizeSlider'];
+    ids.forEach(id => {
+        const el=document.getElementById(id);
+        if(!el) return;
+        el.min='23';
+        el.max='100';
+    });
 })();
 </script>
 
