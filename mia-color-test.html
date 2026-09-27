@@ -3441,6 +3441,27 @@ body.v268-fill-active #opacitySlider {
     pointer-events:none;
 }
 
+
+
+/* =====================================================
+   V2.6.9 SELECT TOGGLE + CONTEXT PANEL LIFECYCLE
+   ===================================================== */
+@media (max-width:1000px) {
+    /* A real selection keeps its contextual controls available even after
+       another tool is chosen. With no selection, leaving Select closes it. */
+    body.has-selection .mobile-selection-bar {
+        display:flex;
+        align-items:center;
+    }
+
+    /* DONE is an action, not a selected mode. */
+    .mobile-selection-bar .mobile-select-done,
+    .mobile-selection-bar .mobile-select-done.active {
+        background:#fff !important;
+        border-color:#ccc !important;
+        color:#222 !important;
+    }
+}
 </style>
 
 </head>
@@ -10651,6 +10672,84 @@ document.addEventListener('pointerup', function() {
 })();
 </script>
 
+
+
+<script>
+/* =====================================================
+   V2.6.9 SELECT TOGGLE
+   Tap Select again to leave Select. Preserve a committed selection.
+   ===================================================== */
+(() => {
+    "use strict";
+
+    let toolBeforeSelectV269 = "fill";
+
+    function toolNameV269(button) {
+        return button?.dataset?.desktopTool ||
+               button?.dataset?.v2Tool ||
+               button?.dataset?.tool ||
+               "";
+    }
+
+    function refreshToolButtonsV269(tool) {
+        document.querySelectorAll('[data-tool]').forEach(b =>
+            b.classList.toggle('active', b.dataset.tool === tool)
+        );
+        document.querySelectorAll('[data-v2-tool]').forEach(b =>
+            b.classList.toggle('active', b.dataset.v2Tool === tool)
+        );
+        document.querySelectorAll('[data-desktop-tool]').forEach(b =>
+            b.classList.toggle('active', b.dataset.desktopTool === tool)
+        );
+    }
+
+    /* Capture the tool that Select should return to before the older Select
+       lifecycle changes currentTool to "select". On a second Select click,
+       consume that click and return to the previous tool instead of reopening. */
+    document.addEventListener('click', event => {
+        const button = event.target.closest(
+            '[data-tool="select"],[data-v2-tool="select"],[data-desktop-tool="select"]'
+        );
+        if (!button) return;
+
+        const selectIsOpen = document.body.classList.contains('v254-select-active') ||
+                             currentTool === 'select';
+
+        if (!selectIsOpen) {
+            if (currentTool && currentTool !== 'select') {
+                toolBeforeSelectV269 = currentTool;
+            }
+            return;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+
+        const back = toolBeforeSelectV269 && toolBeforeSelectV269 !== 'select'
+            ? toolBeforeSelectV269
+            : 'fill';
+
+        selectTool(back);
+        refreshToolButtonsV269(back);
+
+        /* An older capture handler schedules Select open in rAF. Run after it
+           and make the toggle-off state authoritative. */
+        requestAnimationFrame(() => {
+            document.body.classList.remove(
+                'v254-select-active',
+                'v247-selecting',
+                'v241-select-active'
+            );
+            refreshToolButtonsV269(back);
+        });
+    }, true);
+
+    /* DONE must never look like a selected mode. */
+    document.querySelectorAll('[data-v253-selection-done],[data-mobile-selection-done]')
+        .forEach(button => button.classList.remove('active'));
+})();
+</script>
 </body>
 
 </html>
