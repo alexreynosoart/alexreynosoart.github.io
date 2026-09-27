@@ -3360,15 +3360,28 @@ body.v254-select-active #clearSelectionTouch {
 @media (max-width:1000px) {
     .mobile-selection-bar {
         display:none;
-        grid-column:1 / -1 !important;
-        grid-row:3 !important;
-        width:100%;
-        grid-template-columns:repeat(4,minmax(0,1fr));
+        position:absolute;
+        left:0;
+        top:calc(100% + 2px);
+        z-index:1850;
+        width:max-content;
+        max-width:calc(100vw - 14px);
         gap:5px;
-        padding-top:1px;
+        padding:7px;
+        overflow-x:auto;
+        overflow-y:hidden;
+        white-space:nowrap;
+        border:1px solid #ddd;
+        border-radius:0 12px 12px 12px;
+        background:rgba(255,255,255,.98);
+        box-shadow:0 10px 26px rgba(0,0,0,.14);
+        scrollbar-width:none;
+        backdrop-filter:blur(12px);
     }
+    .mobile-selection-bar::-webkit-scrollbar { display:none; }
     body.v254-select-active .mobile-selection-bar {
-        display:grid;
+        display:flex;
+        align-items:center;
     }
     .mobile-selection-bar button {
         min-width:0;
@@ -3394,8 +3407,8 @@ body.v254-select-active #clearSelectionTouch {
         color:#fff;
     }
 
-    /* The old tiny shape icons beside SELECT are replaced by the full
-       selection controls on their own row below the header controls. */
+    /* The old tiny shape icons beside SELECT are replaced by a floating
+       submenu below the header. It overlays the canvas instead of moving it. */
     .mobile-select-icons {
         display:none !important;
     }
