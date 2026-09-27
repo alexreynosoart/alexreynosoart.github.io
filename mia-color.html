@@ -22,10 +22,10 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
 
-    <title>Color Studio | Mia the Panda</title>
+    <title>MIA: MAKE IT ART | Creative Studio</title>
 
     <meta name="description"
-          content="A creative online coloring studio from Mia the Panda and Alex Reynoso Art.">
+          content="MIA: MAKE IT ART Creative Studio. Draw, color, create and make it yours with Mia the Panda and Alex Reynoso Art.">
 
 
     <link rel="stylesheet"
@@ -2900,7 +2900,82 @@ body.v254-select-active #clearSelectionTouch {
     }
 }
 
-</style>
+
+
+        /* =========================
+           MIA STUDIO NAVIGATION
+           Compact menu preserves drawing space
+        ========================== */
+
+        .studio-mia-menu {
+            position: relative;
+            z-index: 900;
+        }
+
+        .studio-mia-menu > summary {
+            list-style: none;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .studio-mia-menu > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .studio-mia-nav {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            width: 210px;
+            display: grid;
+            gap: 7px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 16px;
+            background: rgba(255,255,255,.98);
+            box-shadow: 0 14px 38px rgba(0,0,0,.16);
+            backdrop-filter: blur(14px);
+        }
+
+        .studio-mia-nav a,
+        .studio-mia-nav .current {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 42px;
+            padding: 9px 12px;
+            border: 1px solid #ddd;
+            border-radius: 999px;
+            background: #fff;
+            color: #222;
+            font-size: .7rem;
+            font-weight: 800;
+            letter-spacing: .04em;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .studio-mia-nav a:hover {
+            border-color: #ff4f87;
+        }
+
+        .studio-mia-nav .current {
+            border: 2px solid #ff4f87;
+            background: transparent;
+            color: #ff4f87;
+            cursor: default;
+        }
+
+        @media (max-width: 850px) {
+            .studio-mia-nav {
+                position: fixed;
+                top: 54px;
+                left: 8px;
+                width: min(230px, calc(100vw - 16px));
+            }
+        }
+
+    </style>
 
 </head>
 
@@ -3012,16 +3087,39 @@ body.v254-select-active #clearSelectionTouch {
     <header class="studio-topbar">
 
 
-        <a class="exit-studio"
-           href="mia-coloring.html">
-            ← EXIT STUDIO
-        </a>
+        <details class="studio-mia-menu">
+
+            <summary class="exit-studio">
+                MIA MENU
+            </summary>
+
+            <nav class="studio-mia-nav" aria-label="Mia's Kids Corner">
+
+                <a class="studio-nav-link" href="mia.html">
+                    MIA'S WORLD
+                </a>
+
+                <a class="studio-nav-link" href="mia-originals.html">
+                    ORIGINAL ART
+                </a>
+
+                <a class="studio-nav-link" href="mia-coloring.html">
+                    COLORING PAGES
+                </a>
+
+                <span class="current" aria-current="page">
+                    CREATIVE STUDIO 🎨
+                </span>
+
+            </nav>
+
+        </details>
 
 
         <div class="studio-name">
 
             <strong>
-                Color Mia<span class="studio-heart">♥</span>
+                MIA: MAKE IT ART <span class="studio-heart">♥</span>
             </strong>
 
             <span>
@@ -3674,7 +3772,7 @@ body.v254-select-active #clearSelectionTouch {
 
 
 
-<script src="mia-artworks.js?v=1"></script>
+<script src="js/mia-artworks.js?v=1"></script>
 
 <script>
 
@@ -7108,29 +7206,32 @@ body.v254-select-active #clearSelectionTouch {
         }
     );
 
-    const exitStudioLink =
-        document.querySelector('.exit-studio');
+    document
+        .querySelectorAll('.studio-nav-link')
+        .forEach(function(link) {
 
-    exitStudioLink.addEventListener(
-        'click',
-        function(event) {
-            if (
-                !hasUnsavedChanges ||
-                skipLeaveWarning
-            ) {
-                return;
-            }
+            link.addEventListener(
+                'click',
+                function(event) {
+                    if (
+                        !hasUnsavedChanges ||
+                        skipLeaveWarning
+                    ) {
+                        return;
+                    }
 
-            event.preventDefault();
-            const destination = this.href;
+                    event.preventDefault();
+                    const destination = this.href;
 
-            pendingNavigation = function() {
-                window.location.href = destination;
-            };
+                    pendingNavigation = function() {
+                        window.location.href = destination;
+                    };
 
-            openLeaveModal();
-        }
-    );
+                    openLeaveModal();
+                }
+            );
+
+        });
 
     /* Browsers control the wording of this warning.
        It covers refresh, closing the tab, and browser
