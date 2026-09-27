@@ -11952,6 +11952,163 @@ document.addEventListener('pointerup', function() {
 })();
 </script>
 
+
+<style>
+/* =====================================================
+   TEST #20 — RESPONSIVE CONTROL CORRECTION
+   UI only. Drawing / opacity mechanics are unchanged.
+   ===================================================== */
+
+/* History now uses the same visual language as the other utility buttons. */
+.history-pair {
+    border:0 !important;
+    border-radius:0 !important;
+    overflow:visible !important;
+    background:transparent !important;
+    gap:5px !important;
+}
+#undoMobileTop,
+#redoMobileTop {
+    min-height:34px !important;
+    height:34px !important;
+    border:1px solid #ccc !important;
+    border-radius:9px !important;
+    background:#fff !important;
+    color:#222 !important;
+    box-shadow:none !important;
+}
+.history-arrow {
+    width:14px !important;
+    height:14px !important;
+    flex:0 0 14px !important;
+}
+.history-arrow::before {
+    top:4px !important;
+    width:9px !important;
+    height:7px !important;
+    border-top:2px solid currentColor !important;
+}
+.history-arrow::after {
+    top:1px !important;
+    width:6px !important;
+    height:6px !important;
+    border-top:2px solid currentColor !important;
+    border-left:2px solid currentColor !important;
+}
+.history-arrow-undo::before { left:4px !important; border-radius:8px 0 0 0 !important; }
+.history-arrow-redo::before { right:4px !important; border-radius:0 8px 0 0 !important; }
+
+/* Keep the opacity number visible. This does not change opacity math. */
+#touchEraserOpacityWrap .mobile-brush-value,
+#touchEraserOpacityReadout {
+    display:inline-block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    min-width:48px !important;
+    color:#444 !important;
+    font-weight:800 !important;
+}
+
+/* Web does not need a second exit control. The fullscreen button and Esc exit. */
+@media (min-width:1001px) {
+    #fullscreenExit { display:none !important; }
+}
+
+/* Tablet: history remains before zoom, but as normal individual buttons. */
+@media (min-width:481px) and (max-width:1000px) {
+    .zoom-controls .history-pair { margin-right:0 !important; }
+    #undoMobileTop,
+    #redoMobileTop {
+        min-width:68px !important;
+        width:auto !important;
+        padding:0 8px !important;
+        gap:4px !important;
+        font-size:.66rem !important;
+    }
+}
+
+/* Phone: fullscreen is not useful here. Reclaim that width for zoom/history. */
+@media (max-width:480px) {
+    #fullscreenButton { display:none !important; }
+    .zoom-controls { gap:4px !important; }
+    .zoom-pair { flex:0 0 auto !important; min-width:72px !important; }
+    .zoom-pair .zoom-button {
+        width:36px !important;
+        min-width:36px !important;
+        padding:0 !important;
+    }
+    #fitButton,
+    #layersTop,
+    #pagesTop {
+        flex:0 0 34px !important;
+        width:34px !important;
+        min-width:34px !important;
+        padding:0 !important;
+    }
+    #undoMobileTop,
+    #redoMobileTop {
+        width:34px !important;
+        min-width:34px !important;
+        padding:0 !important;
+    }
+}
+</style>
+
+<script>
+/* TEST #20 — make touch tips explicit on every responsive control.
+   Capture-phase pointer handling keeps this independent of tool click logic. */
+(() => {
+    'use strict';
+    const status=document.getElementById('studioStatus');
+    const wrap=status?.closest('.studio-tip-wrap');
+    if(!status || !wrap) return;
+
+    function getTip(target){
+        if(!target?.closest) return null;
+        if(target.closest('#pagesTop,.pages-launcher')) return 'Pages: choose a coloring page, start with Blank, or upload your own image.';
+        if(target.closest('#layersTop')) return 'Layers: add, reorder, hide, or remove layers without changing the original line art.';
+        if(target.closest('.mobile-color-row,.mobile-palette,.mobile-custom-color')) return 'Colors: choose a color for Fill or your brushes. Tap the color square to create your own.';
+        if(target.closest('#touchEraserOpacity,#touchEraserOpacityWrap')) return 'Opacity: control how solid or transparent the active drawing or erasing stroke is.';
+        if(target.closest('#mobileBrushSize,.mobile-brush-row')) return 'Brush Size: use a smaller size for detail or a larger size for broader strokes.';
+        if(target.closest('#undoMobileTop')) return 'Undo: step back one change.';
+        if(target.closest('#redoMobileTop')) return 'Redo: bring back the last change you undid.';
+        if(target.closest('#resetMobileTop')) return 'Reset: return this page to its starting state.';
+        if(target.closest('#saveMobileTop')) return 'Save: export your artwork when you are ready.';
+        if(target.closest('#zoomOut')) return 'Zoom out: make the artwork smaller inside the workspace.';
+        if(target.closest('#zoomIn')) return 'Zoom in: get closer to small details.';
+        if(target.closest('#fitButton')) return 'Fit: center the whole artwork comfortably inside the workspace.';
+        if(target.closest('#fullscreenButton')) return 'Full view: give the artwork more room on screen.';
+        if(target.closest('[data-mobile-brush-choice="pen"]')) return 'Pen: draw clean freehand lines. Adjust size and opacity for more control.';
+        if(target.closest('[data-mobile-brush-choice="marker"]')) return 'Marker: build broad strokes and layered color. Lower opacity for softer overlaps.';
+        if(target.closest('[data-mobile-brush-choice="soft"]')) return 'Soft brush: paint gentle edges and shading. Try a larger size for smooth blends.';
+        if(target.closest('[data-mobile-brush-choice="texture"]')) return 'Texture brush: add grain and character with short or layered strokes.';
+        if(target.closest('[data-mobile-shape-choice="line"]')) return 'Line: drag to create a straight line.';
+        if(target.closest('[data-mobile-shape-choice="rect"]')) return 'Square: drag to create a square or rectangle.';
+        if(target.closest('[data-mobile-shape-choice="circle"]')) return 'Circle: drag to create a circle or oval.';
+        const tool=target.closest('[data-v2-tool],[data-tool],[data-desktop-tool]');
+        const n=tool && (tool.dataset.v2Tool||tool.dataset.tool||tool.dataset.desktopTool);
+        return ({
+            fill:'Fill: tap and hold to preview the color. Release to fill.',
+            select:'Select: draw around an area, then add, subtract, clear, or finish with Done.',
+            brush:'Brush: choose Pen, Marker, Soft, or Texture, then draw. Adjust size and opacity below.',
+            shape:'Line / Shape: choose Line, Square, or Circle, then drag to draw it.',
+            eraser:'Eraser: drag over anything you added to remove it. Adjust size and opacity below.',
+            move:'Move: drag the artwork to reposition it. Pinch with two fingers to zoom.'
+        })[n] || null;
+    }
+
+    function showTouchTip(e){
+        if(e.pointerType !== 'touch' && e.pointerType !== 'pen') return;
+        const tip=getTip(e.target);
+        if(!tip) return;
+        wrap.classList.remove('tip-hidden');
+        wrap.style.display='flex';
+        status.textContent=tip;
+    }
+    document.addEventListener('pointerdown', showTouchTip, {capture:true, passive:true});
+})();
+</script>
+
 </body>
 
 </html>
