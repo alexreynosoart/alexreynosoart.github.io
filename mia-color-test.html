@@ -3352,7 +3352,83 @@ body.v254-select-active #clearSelectionTouch {
             .history-arrow { width:17px; flex-basis:17px; }
         }
 
-    </style>
+    
+
+/* =====================================================
+   V2.6.8 MOBILE SELECT CONTROLS + TOOL STATE POLISH
+   ===================================================== */
+@media (max-width:1000px) {
+    .mobile-selection-bar {
+        display:none;
+        grid-column:1 / -1 !important;
+        grid-row:3 !important;
+        width:100%;
+        grid-template-columns:repeat(4,minmax(0,1fr));
+        gap:5px;
+        padding-top:1px;
+    }
+    body.v254-select-active .mobile-selection-bar {
+        display:grid;
+    }
+    .mobile-selection-bar button {
+        min-width:0;
+        min-height:34px;
+        padding:5px 4px;
+        border:1px solid #ccc;
+        border-radius:9px;
+        background:#fff;
+        color:#222;
+        font:inherit;
+        font-size:.62rem;
+        font-weight:850;
+        cursor:pointer;
+    }
+    .mobile-selection-bar button.active {
+        background:#111;
+        border-color:#111;
+        color:#fff;
+    }
+    .mobile-selection-bar .mobile-select-done {
+        background:#111;
+        border-color:#111;
+        color:#fff;
+    }
+
+    /* The old tiny shape icons beside SELECT are replaced by the full
+       selection controls on their own row below the header controls. */
+    .mobile-select-icons {
+        display:none !important;
+    }
+
+    /* Fill does not use brush size. Keep it visible for context, but clearly inactive. */
+    body.v268-fill-active .mobile-brush-row:not(#touchEraserOpacityWrap) {
+        opacity:.34;
+        filter:grayscale(.65);
+        pointer-events:none;
+    }
+}
+
+/* Fill does not use brush size or brush opacity on desktop either. */
+@media (min-width:1001px) {
+    body.v268-fill-active #desktopSizeSlider,
+    body.v268-fill-active #desktopOpacitySlider {
+        opacity:.34;
+        pointer-events:none;
+    }
+    body.v268-fill-active #desktopSizeSlider + *,
+    body.v268-fill-active #desktopOpacitySlider + * {
+        opacity:.45;
+    }
+}
+
+/* The floating Tools panel can still be opened on some layouts. */
+body.v268-fill-active #v2BrushSize,
+body.v268-fill-active #opacitySlider {
+    opacity:.34;
+    pointer-events:none;
+}
+
+</style>
 
 </head>
 
@@ -3582,6 +3658,16 @@ body.v254-select-active #clearSelectionTouch {
                 <button type="button" data-v253-select-mode="rect" aria-label="Square selection" title="Square">□</button>
                 <button type="button" data-v253-select-mode="ellipse" aria-label="Circle selection" title="Circle">○</button>
             </div>
+        </div>
+
+        <div class="mobile-selection-bar" id="mobileSelectionBar" aria-label="Selection controls">
+            <button type="button" data-mobile-select-mode="free" class="active">FREE</button>
+            <button type="button" data-mobile-select-mode="rect">SQUARE</button>
+            <button type="button" data-mobile-select-mode="ellipse">CIRCLE</button>
+            <button type="button" class="mobile-select-done" data-mobile-selection-done>DONE</button>
+            <button type="button" data-mobile-selection-op="add" class="active">+ ADD</button>
+            <button type="button" data-mobile-selection-op="subtract">− SUBTRACT</button>
+            <button type="button" data-mobile-selection-clear>CLEAR</button>
         </div>
 
     </header>
@@ -10466,6 +10552,90 @@ document.addEventListener('pointerup', function() {
         suppressMiaMenuOutsideClick = false;
     }, 0);
 }, true);
+</script>
+
+
+<script>
+/* =====================================================
+   V2.6.8 MOBILE SELECT CONTROLS + TOOL STATE POLISH
+   Keeps the existing selection engine untouched.
+   ===================================================== */
+(() => {
+    "use strict";
+
+    function syncV268ToolState() {
+        const isFill = currentTool === "fill";
+        document.body.classList.toggle("v268-fill-active", isFill);
+
+        /* The HTML starts with PEN visually active because Pen is the default
+           brush type. That must not make Pen look like the active tool while
+           Fill is actually selected. */
+        document.querySelectorAll(".mobile-direct-tools [data-brush-type]").forEach(button => {
+            button.classList.toggle(
+                "active",
+                currentTool === "brush" && button.dataset.brushType === brushType
+            );
+        });
+
+        document.querySelectorAll(".mobile-creative-tools [data-v2-tool]").forEach(button => {
+            button.classList.toggle("active", button.dataset.v2Tool === currentTool);
+        });
+    }
+
+    /* Wrap the final tool selector, after all earlier compatibility wrappers. */
+    const selectToolV268 = selectTool;
+    selectTool = function(tool) {
+        const result = selectToolV268(tool);
+        syncV268ToolState();
+        return result;
+    };
+
+    const bar = document.getElementById("mobileSelectionBar");
+    if (bar) {
+        bar.addEventListener("click", event => {
+            const button = event.target.closest("button");
+            if (!button) return;
+
+            if (button.dataset.mobileSelectMode) {
+                const mode = button.dataset.mobileSelectMode;
+                const source = document.querySelector(
+                    '#touchSelectModes [data-v253-select-mode="' + mode + '"]'
+                );
+                if (source) source.click();
+                bar.querySelectorAll("[data-mobile-select-mode]").forEach(b =>
+                    b.classList.toggle("active", b === button)
+                );
+                return;
+            }
+
+            if (button.dataset.mobileSelectionOp) {
+                const op = button.dataset.mobileSelectionOp;
+                const source = document.querySelector(
+                    '#touchSelectModes [data-v253-selection-op="' + op + '"]'
+                );
+                if (source) source.click();
+                bar.querySelectorAll("[data-mobile-selection-op]").forEach(b =>
+                    b.classList.toggle("active", b === button)
+                );
+                return;
+            }
+
+            if (button.hasAttribute("data-mobile-selection-clear")) {
+                document.getElementById("clearSelectionTouch")?.click();
+                return;
+            }
+
+            if (button.hasAttribute("data-mobile-selection-done")) {
+                document.querySelector(
+                    '#touchSelectModes [data-v253-selection-done]'
+                )?.click();
+            }
+        });
+    }
+
+    /* Correct the first paint immediately after refresh/reload. */
+    syncV268ToolState();
+})();
 </script>
 
 </body>
