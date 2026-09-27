@@ -11206,6 +11206,259 @@ document.addEventListener('pointerup', function() {
 })();
 </script>
 
+
+<style>
+/* =====================================================
+   TEST #16 — PAGE PANEL HELP + RESPONSIVE PAGE CARDS
+   + DISMISSIBLE / POINTER-AWARE CONTEXT HELP
+   ===================================================== */
+
+/* The status sentence now lives in a small wrapper so its close control can
+   survive older code that updates #studioStatus with textContent. */
+.studio-tip-wrap {
+    position:absolute;
+    left:12px;
+    bottom:8px;
+    z-index:26;
+    display:flex;
+    align-items:center;
+    max-width:min(760px, calc(100% - 24px));
+    border:1px solid rgba(0,0,0,.08);
+    border-radius:8px;
+    background:rgba(255,255,255,.90);
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
+    backdrop-filter:blur(8px);
+}
+.studio-tip-wrap .studio-status {
+    position:static !important;
+    left:auto !important;
+    top:auto !important;
+    bottom:auto !important;
+    z-index:auto !important;
+    max-width:none !important;
+    padding:5px 7px 5px 9px !important;
+    border:0 !important;
+    border-radius:0 !important;
+    background:transparent !important;
+    box-shadow:none !important;
+    backdrop-filter:none !important;
+    pointer-events:none !important;
+}
+.studio-tip-close {
+    flex:0 0 25px;
+    width:25px;
+    height:25px;
+    margin-right:3px;
+    padding:0;
+    border:0;
+    border-radius:50%;
+    background:transparent;
+    color:#777;
+    font:inherit;
+    font-size:.8rem;
+    font-weight:800;
+    cursor:pointer;
+}
+.studio-tip-close:hover { background:#eee; color:#222; }
+.studio-tip-wrap.tip-hidden { display:none !important; }
+
+/* Pages guidance belongs inside the Pages window, just like Layers. */
+.pages-panel-note {
+    color:#777;
+    font-size:.62rem;
+    line-height:1.3;
+}
+
+@media (max-width:1000px) {
+    .studio-tip-wrap {
+        left:9px;
+        bottom:7px;
+        max-width:calc(100% - 18px);
+    }
+    .studio-tip-wrap .studio-status {
+        padding:4px 6px 4px 8px !important;
+        font-size:.63rem !important;
+    }
+
+    .artwork-tray {
+        padding-bottom:38px !important;
+    }
+    .pages-panel-note {
+        position:absolute;
+        left:12px;
+        right:12px;
+        bottom:7px;
+        margin:0;
+        white-space:normal;
+        pointer-events:none;
+    }
+}
+
+/* Tablet: fewer, larger page cards. Roughly four artwork choices are visible. */
+@media (min-width:481px) and (max-width:1000px) {
+    .artwork-tray .artwork-thumb {
+        flex:0 0 clamp(120px, 21vw, 180px) !important;
+    }
+    .artwork-tray .artwork-thumb img,
+    .artwork-tray .artwork-thumb-preview {
+        font-size:1.8rem;
+    }
+}
+
+/* Phone: roughly three artwork choices are visible, including Blank. */
+@media (max-width:480px) {
+    .artwork-tray .artwork-thumb {
+        flex:0 0 calc((100vw - 82px) / 3) !important;
+        min-width:92px;
+    }
+}
+
+@media (min-width:1001px) {
+    /* Trim the remaining top and bottom reserve. The page itself stays fixed;
+       the canvas owns the recovered vertical space. */
+    .studio { padding-top:2px !important; padding-bottom:2px !important; }
+    .studio-topbar { margin-bottom:0 !important; row-gap:2px !important; }
+    .canvas-frame {
+        height:calc(100dvh - 188px) !important;
+        min-height:360px !important;
+    }
+}
+</style>
+
+<script>
+/* =====================================================
+   TEST #16 — CONTEXT HELP BEHAVIOR
+   Desktop: hover previews a control's tip; leaving restores the current tool.
+   Touch: taps update the tip. The X hides tips for this tab/session only.
+   ===================================================== */
+(() => {
+    "use strict";
+
+    const status = document.getElementById('studioStatus');
+    if (!status) return;
+
+    /* Wrap without changing the status element itself; legacy code can keep
+       assigning status.textContent safely. */
+    let wrap = status.closest('.studio-tip-wrap');
+    if (!wrap) {
+        wrap = document.createElement('div');
+        wrap.className = 'studio-tip-wrap';
+        status.parentNode.insertBefore(wrap, status);
+        wrap.appendChild(status);
+
+        const close = document.createElement('button');
+        close.type = 'button';
+        close.className = 'studio-tip-close';
+        close.setAttribute('aria-label', 'Hide tips');
+        close.title = 'Hide tips for this visit';
+        close.textContent = '×';
+        wrap.appendChild(close);
+
+        close.addEventListener('click', e => {
+            e.preventDefault();
+            e.stopPropagation();
+            wrap.classList.add('tip-hidden');
+            try { sessionStorage.setItem('miaStudioTipsHidden', '1'); } catch (_) {}
+        });
+    }
+
+    try {
+        if (sessionStorage.getItem('miaStudioTipsHidden') === '1') {
+            wrap.classList.add('tip-hidden');
+        }
+    } catch (_) {}
+
+    const TOOL_TIPS = {
+        fill: 'Fill: tap and hold to preview the color. Release to fill. Tip: a second finger cancels the preview for pinch zoom.',
+        brush: 'Brush: draw freely on the artwork. Adjust size and opacity to change the stroke.',
+        eraser: 'Eraser: drag over anything you added to remove it. Adjust size for more control.',
+        move: 'Move: drag the artwork to reposition it. Pinch with two fingers to zoom.',
+        select: 'Select: draw around an area, then add, subtract, clear, or finish with Done.',
+        shape: 'Line / Shape: choose a shape, then drag on the artwork to draw it.'
+    };
+    const BRUSH_TIPS = {
+        pen: 'Pen: draw clean freehand lines. Adjust size and opacity for more control.',
+        marker: 'Marker: build broad strokes and layered color. Lower opacity for softer overlaps.',
+        soft: 'Soft brush: paint gentle edges and shading. Try a larger size for smooth blends.',
+        texture: 'Texture brush: add grain and character with short or layered strokes.'
+    };
+
+    function currentToolTip() {
+        const t = (typeof currentTool !== 'undefined' && currentTool) ? currentTool : 'fill';
+        if (t === 'brush') {
+            const activeBrush = document.querySelector('[data-brush-type].active');
+            const name = activeBrush?.dataset.brushType?.toLowerCase() || 'pen';
+            return BRUSH_TIPS[name] || TOOL_TIPS.brush;
+        }
+        return TOOL_TIPS[t] || 'Choose a tool and start creating.';
+    }
+
+    function hoverTipFor(target) {
+        const pages = target.closest('#pagesTop,#desktopSidePages,#pagesLauncher,.artwork-tray');
+        if (pages) return 'Pages: choose another coloring page, start blank, or upload your own artwork.';
+
+        const layers = target.closest('#layersTop,#desktopSideLayers,#layersPanel');
+        if (layers) return 'Layers: choose where you want to work. Add, reorder, hide, or remove layers without changing the original line art.';
+
+        const brush = target.closest('[data-brush-type]');
+        if (brush) return BRUSH_TIPS[(brush.dataset.brushType || '').toLowerCase()] || TOOL_TIPS.brush;
+
+        const tool = target.closest('[data-tool],[data-v2-tool],[data-desktop-tool]');
+        if (tool) {
+            const t = tool.dataset.tool || tool.dataset.v2Tool || tool.dataset.desktopTool;
+            return TOOL_TIPS[t] || null;
+        }
+
+        const zoomOut = target.closest('#zoomOut');
+        if (zoomOut) return 'Zoom out: make the artwork smaller inside the workspace.';
+        const zoomIn = target.closest('#zoomIn');
+        if (zoomIn) return 'Zoom in: get closer to small details.';
+        if (target.closest('#fitButton,#fitTop,#desktopFitPage')) return 'Fit: center the whole artwork comfortably inside the workspace.';
+        if (target.closest('[data-fullscreen],#fullscreenButton,#fullscreenTop')) return 'Full view: give the artwork more room on screen.';
+        if (target.closest('[id*="undo" i]')) return 'Undo: step back one change.';
+        if (target.closest('[id*="redo" i]')) return 'Redo: bring back the last change you undid.';
+        if (target.closest('[id*="reset" i]')) return 'Reset: return this page to its starting state.';
+        if (target.closest('[id*="save" i]')) return 'Save: export your artwork when you are ready.';
+        return null;
+    }
+
+    /* Mouse/trackpad only. Responsive touch emulation may report coarse pointer,
+       so real touch layouts continue using click/tap updates instead. */
+    if (window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
+        document.addEventListener('mouseover', e => {
+            const tip = hoverTipFor(e.target);
+            if (tip) status.textContent = tip;
+        }, true);
+
+        document.addEventListener('mouseout', e => {
+            const from = hoverTipFor(e.target);
+            if (!from) return;
+            const to = e.relatedTarget && hoverTipFor(e.relatedTarget);
+            if (!to) status.textContent = currentToolTip();
+        }, true);
+    }
+
+    /* When a real drawing tool is clicked it becomes the persistent home tip. */
+    document.addEventListener('click', e => {
+        const tool = e.target.closest('[data-tool],[data-v2-tool],[data-desktop-tool]');
+        if (!tool) return;
+        requestAnimationFrame(() => { status.textContent = currentToolTip(); });
+    }, false);
+})();
+</script>
+
+<script>
+/* Put Pages help inside the Pages panel itself. */
+(() => {
+    const tray = document.getElementById('artworkTray');
+    if (!tray || tray.querySelector('.pages-panel-note')) return;
+    const note = document.createElement('p');
+    note.className = 'pages-panel-note';
+    note.textContent = 'Choose a coloring page, start with Blank, or upload your own image. Your current page stays until you choose another.';
+    tray.appendChild(note);
+})();
+</script>
+
 </body>
 
 </html>
