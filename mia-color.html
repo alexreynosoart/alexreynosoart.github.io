@@ -3114,6 +3114,82 @@ body.v254-select-active #clearSelectionTouch {
             }
         }
 
+
+
+        /* =====================================================
+           TEST #4 — RESPONSIVE BUTTON / TABLET POLISH
+           Tablet: MIA MENU left, utility controls flush right.
+           Tablet + desktop: labeled curved Undo / Redo controls.
+           Phone: curved icons only.
+        ===================================================== */
+        @media (min-width: 481px) and (max-width: 1000px) {
+            .studio-topbar {
+                grid-template-columns: auto minmax(0, 1fr) !important;
+                column-gap: 12px !important;
+                row-gap: 7px !important;
+            }
+
+            .studio-mia-menu {
+                grid-column: 1 !important;
+                grid-row: 1 !important;
+                justify-self: start !important;
+            }
+
+            .zoom-controls {
+                grid-column: 2 !important;
+                grid-row: 1 !important;
+                justify-self: stretch !important;
+                display: flex !important;
+                justify-content: flex-end !important;
+                min-width: 0;
+            }
+
+            .mobile-creative-tools {
+                grid-column: 1 !important;
+                grid-row: 2 !important;
+            }
+
+            .mobile-top-actions {
+                grid-column: 2 !important;
+                grid-row: 2 !important;
+            }
+
+            #undoMobileTop,
+            #redoMobileTop {
+                width: auto !important;
+                min-width: 76px !important;
+                padding: 0 11px !important;
+                gap: 5px;
+                font-size: .68rem !important;
+            }
+
+            .history-symbol {
+                font-size: 1.05rem;
+                line-height: 1;
+            }
+
+            .history-label {
+                display: inline;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #undoMobileTop,
+            #redoMobileTop {
+                min-width: 34px !important;
+                width: 34px !important;
+                padding: 0 !important;
+            }
+
+            .history-symbol {
+                font-size: 1.05rem;
+                line-height: 1;
+            }
+
+            .history-label {
+                display: none !important;
+            }
+        }
     </style>
 
 </head>
@@ -3208,8 +3284,8 @@ body.v254-select-active #clearSelectionTouch {
 
     <section class="desktop-side-section" style="margin-top:auto">
         <div class="desktop-side-actions">
-            <button class="desktop-side-action" id="desktopUndoSide" type="button">UNDO</button>
-            <button class="desktop-side-action" id="desktopRedoSide" type="button">REDO</button>
+            <button class="desktop-side-action" id="desktopUndoSide" type="button">↶ UNDO</button>
+            <button class="desktop-side-action" id="desktopRedoSide" type="button">↷ REDO</button>
             <button class="desktop-side-action" id="desktopResetSide" type="button">RESET</button>
             <button class="desktop-side-action save" id="desktopSaveSide" type="button">SAVE</button>
         </div>
@@ -3316,8 +3392,8 @@ body.v254-select-active #clearSelectionTouch {
         </div>
 
         <div class="mobile-top-actions" aria-label="Artwork actions">
-            <button type="button" id="undoMobileTop" aria-label="Undo" title="Undo">←</button>
-            <button type="button" id="redoMobileTop" aria-label="Redo" title="Redo">→</button>
+            <button type="button" id="undoMobileTop" aria-label="Undo" title="Undo"><span class="history-symbol" aria-hidden="true">↶</span><span class="history-label">Undo</span></button>
+            <button type="button" id="redoMobileTop" aria-label="Redo" title="Redo"><span class="history-symbol" aria-hidden="true">↷</span><span class="history-label">Redo</span></button>
             <button type="button" id="resetMobileTop">RESET</button>
             <button type="button" id="saveMobileTop">SAVE</button>
         </div>
@@ -3517,13 +3593,13 @@ body.v254-select-active #clearSelectionTouch {
                 <button class="action-button"
                         id="undoDesktop"
                         type="button">
-                    UNDO
+                    ↶ UNDO
                 </button>
 
                 <button class="action-button"
                         id="redoDesktop"
                         type="button">
-                    REDO
+                    ↷ REDO
                 </button>
 
                 <button class="action-button"
@@ -3646,8 +3722,8 @@ body.v254-select-active #clearSelectionTouch {
     </aside>
 
     <div class="bottom-actions-v2">
-        <button id="undoV2" type="button">UNDO</button>
-        <button id="redoV2" type="button">REDO</button>
+        <button id="undoV2" type="button">↶ UNDO</button>
+        <button id="redoV2" type="button">↷ REDO</button>
         <button id="resetV2" type="button">RESET</button>
         <button class="save" id="saveV2" type="button">SAVE MY ART</button>
     </div>
@@ -5843,6 +5919,10 @@ body.v254-select-active #clearSelectionTouch {
         tool
     ) {
 
+        if (touchFillPreview && tool !== 'fill') {
+            cancelTouchFillPreview();
+        }
+
         currentTool =
             tool;
 
@@ -6154,6 +6234,68 @@ body.v254-select-active #clearSelectionTouch {
 
 
     /* =========================
+       FILL PREVIEW TEST #3 — ALL DEVICES + ESC CANCEL
+       Press/click and hold previews a fill. Dragging moves the preview.
+       Release commits it. On touch, a second finger cancels the preview
+       immediately so pinch/zoom always wins.
+       ========================= */
+
+    let touchFillPreview = null;
+    let touchFillLastX = -1;
+    let touchFillLastY = -1;
+    let touchFillLastTime = 0;
+
+    function restoreTouchFillPreview() {
+        if (!touchFillPreview || !touchFillPreview.baseImage) return;
+        paintCtx.putImageData(touchFillPreview.baseImage, 0, 0);
+    }
+
+    function cancelTouchFillPreview() {
+        if (!touchFillPreview) return;
+        restoreTouchFillPreview();
+        touchFillPreview = null;
+        touchFillLastX = -1;
+        touchFillLastY = -1;
+        touchFillLastTime = 0;
+    }
+
+    /* Desktop/web safety: Escape cancels an active Fill preview without
+       committing it. Because the preview state is cleared here, the later
+       pointerup is harmless and cannot save the cancelled Fill. */
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && touchFillPreview) {
+            event.preventDefault();
+            cancelTouchFillPreview();
+        }
+    });
+
+
+    function previewTouchFill(event, force = false) {
+        if (!touchFillPreview || event.pointerId !== touchFillPreview.pointerId) return;
+        if (activePointers.size >= 2 || navigationGesture) {
+            cancelTouchFillPreview();
+            return;
+        }
+
+        const point = getCanvasPoint(event);
+        const x = Math.floor(point.x);
+        const y = Math.floor(point.y);
+        const now = performance.now();
+
+        /* Avoid repeatedly flood-filling the exact same pixel while a finger
+           jitters in place. A tiny throttle also keeps dragging responsive. */
+        if (!force && x === touchFillLastX && y === touchFillLastY) return;
+        if (!force && now - touchFillLastTime < 40) return;
+
+        restoreTouchFillPreview();
+        floodFill(x, y, touchFillPreview.color);
+
+        touchFillLastX = x;
+        touchFillLastY = y;
+        touchFillLastTime = now;
+    }
+
+    /* =========================
        POINTER DOWN
        ========================= */
 
@@ -6191,6 +6333,9 @@ body.v254-select-active #clearSelectionTouch {
             if (
                 activePointers.size >= 2
             ) {
+
+                /* A pinch always wins over a pending touch Fill. */
+                cancelTouchFillPreview();
 
                 drawing =
                     false;
@@ -6294,14 +6439,22 @@ body.v254-select-active #clearSelectionTouch {
                 currentTool === 'fill'
             ) {
 
-                floodFill(
-                    point.x,
-                    point.y,
-                    currentColor
-                );
+                /* All pointer types use the same safe Fill interaction:
+                   press = preview, drag = retarget preview, release = commit.
+                   Touch keeps the extra rule that a second finger cancels
+                   this preview and hands control to pinch/zoom. */
+                touchFillPreview = {
+                    pointerId: event.pointerId,
+                    color: currentColor,
+                    baseImage: paintCtx.getImageData(
+                        0, 0, paintCanvas.width, paintCanvas.height
+                    )
+                };
 
-                saveHistory();
-
+                touchFillLastX = -1;
+                touchFillLastY = -1;
+                touchFillLastTime = 0;
+                previewTouchFill(event, true);
                 return;
 
             }
@@ -6430,6 +6583,21 @@ body.v254-select-active #clearSelectionTouch {
 
 
             /*
+            TOUCH FILL PREVIEW
+            */
+
+            if (
+                touchFillPreview &&
+                event.pointerId === touchFillPreview.pointerId &&
+                currentTool === 'fill'
+            ) {
+                event.preventDefault();
+                previewTouchFill(event);
+                return;
+            }
+
+
+            /*
             ONE-FINGER MOVE
             */
 
@@ -6532,6 +6700,25 @@ body.v254-select-active #clearSelectionTouch {
     function endPointer(
         event
     ) {
+
+        const endingTouchFill =
+            touchFillPreview &&
+            event.pointerId === touchFillPreview.pointerId;
+
+        if (endingTouchFill) {
+            if (event.type === 'pointercancel' || navigationGesture || activePointers.size >= 2) {
+                cancelTouchFillPreview();
+            } else {
+                /* Make the release location the final preview target, then
+                   keep that preview on the canvas as the committed Fill. */
+                previewTouchFill(event, true);
+                touchFillPreview = null;
+                touchFillLastX = -1;
+                touchFillLastY = -1;
+                touchFillLastTime = 0;
+                saveHistory();
+            }
+        }
 
         activePointers.delete(
             event.pointerId
