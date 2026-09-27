@@ -10676,22 +10676,23 @@ document.addEventListener('pointerup', function() {
 
 <script>
 /* =====================================================
-   V2.6.9 SELECT TOGGLE
-   Tap Select again to leave Select. Preserve a committed selection.
+   V2.6.10 SELECT TOGGLE FIX
+   Determine toggle intent on pointerdown, before the existing click
+   lifecycle changes currentTool. This keeps first-click Select working.
    ===================================================== */
 (() => {
     "use strict";
 
-    let toolBeforeSelectV269 = "fill";
+    let toolBeforeSelectV2610 = "fill";
+    let toggleSelectOffV2610 = false;
 
-    function toolNameV269(button) {
-        return button?.dataset?.desktopTool ||
-               button?.dataset?.v2Tool ||
-               button?.dataset?.tool ||
-               "";
+    function isSelectButtonV2610(target) {
+        return target.closest(
+            '[data-tool="select"],[data-v2-tool="select"],[data-desktop-tool="select"]'
+        );
     }
 
-    function refreshToolButtonsV269(tool) {
+    function refreshToolButtonsV2610(tool) {
         document.querySelectorAll('[data-tool]').forEach(b =>
             b.classList.toggle('active', b.dataset.tool === tool)
         );
@@ -10703,49 +10704,51 @@ document.addEventListener('pointerup', function() {
         );
     }
 
-    /* Capture the tool that Select should return to before the older Select
-       lifecycle changes currentTool to "select". On a second Select click,
-       consume that click and return to the previous tool instead of reopening. */
-    document.addEventListener('click', event => {
-        const button = event.target.closest(
-            '[data-tool="select"],[data-v2-tool="select"],[data-desktop-tool="select"]'
-        );
-        if (!button) return;
-
-        const selectIsOpen = document.body.classList.contains('v254-select-active') ||
-                             currentTool === 'select';
-
-        if (!selectIsOpen) {
-            if (currentTool && currentTool !== 'select') {
-                toolBeforeSelectV269 = currentTool;
-            }
+    /* Record whether this gesture began while Select was already active.
+       This happens before any click handler can change currentTool. */
+    document.addEventListener('pointerdown', event => {
+        if (!isSelectButtonV2610(event.target)) {
+            toggleSelectOffV2610 = false;
             return;
         }
+
+        toggleSelectOffV2610 = currentTool === 'select';
+
+        if (!toggleSelectOffV2610 && currentTool) {
+            toolBeforeSelectV2610 = currentTool;
+        }
+    }, true);
+
+    document.addEventListener('click', event => {
+        if (!isSelectButtonV2610(event.target)) return;
+
+        /* First click: do not interfere. The existing Select engine handles it. */
+        if (!toggleSelectOffV2610) return;
 
         event.preventDefault();
         event.stopPropagation();
         event.stopImmediatePropagation();
+        toggleSelectOffV2610 = false;
 
-        const back = toolBeforeSelectV269 && toolBeforeSelectV269 !== 'select'
-            ? toolBeforeSelectV269
+        const back = toolBeforeSelectV2610 && toolBeforeSelectV2610 !== 'select'
+            ? toolBeforeSelectV2610
             : 'fill';
 
         selectTool(back);
-        refreshToolButtonsV269(back);
+        refreshToolButtonsV2610(back);
 
-        /* An older capture handler schedules Select open in rAF. Run after it
-           and make the toggle-off state authoritative. */
         requestAnimationFrame(() => {
             document.body.classList.remove(
                 'v254-select-active',
                 'v247-selecting',
                 'v241-select-active'
             );
-            refreshToolButtonsV269(back);
+            refreshToolButtonsV2610(back);
         });
     }, true);
 
-    /* DONE must never look like a selected mode. */
+    /* Keyboard-generated clicks have no pointerdown. Let the existing Select
+       behavior run rather than accidentally treating them as toggle-off. */
     document.querySelectorAll('[data-v253-selection-done],[data-mobile-selection-done]')
         .forEach(button => button.classList.remove('active'));
 })();
