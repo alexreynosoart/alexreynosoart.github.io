@@ -3114,6 +3114,82 @@ body.v254-select-active #clearSelectionTouch {
             }
         }
 
+
+
+        /* =====================================================
+           TEST #4 — RESPONSIVE BUTTON / TABLET POLISH
+           Tablet: MIA MENU left, utility controls flush right.
+           Tablet + desktop: labeled curved Undo / Redo controls.
+           Phone: curved icons only.
+        ===================================================== */
+        @media (min-width: 481px) and (max-width: 1000px) {
+            .studio-topbar {
+                grid-template-columns: auto minmax(0, 1fr) !important;
+                column-gap: 12px !important;
+                row-gap: 7px !important;
+            }
+
+            .studio-mia-menu {
+                grid-column: 1 !important;
+                grid-row: 1 !important;
+                justify-self: start !important;
+            }
+
+            .zoom-controls {
+                grid-column: 2 !important;
+                grid-row: 1 !important;
+                justify-self: stretch !important;
+                display: flex !important;
+                justify-content: flex-end !important;
+                min-width: 0;
+            }
+
+            .mobile-creative-tools {
+                grid-column: 1 !important;
+                grid-row: 2 !important;
+            }
+
+            .mobile-top-actions {
+                grid-column: 2 !important;
+                grid-row: 2 !important;
+            }
+
+            #undoMobileTop,
+            #redoMobileTop {
+                width: auto !important;
+                min-width: 76px !important;
+                padding: 0 11px !important;
+                gap: 5px;
+                font-size: .68rem !important;
+            }
+
+            .history-symbol {
+                font-size: 1.05rem;
+                line-height: 1;
+            }
+
+            .history-label {
+                display: inline;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #undoMobileTop,
+            #redoMobileTop {
+                min-width: 34px !important;
+                width: 34px !important;
+                padding: 0 !important;
+            }
+
+            .history-symbol {
+                font-size: 1.05rem;
+                line-height: 1;
+            }
+
+            .history-label {
+                display: none !important;
+            }
+        }
     </style>
 
 </head>
@@ -3208,8 +3284,8 @@ body.v254-select-active #clearSelectionTouch {
 
     <section class="desktop-side-section" style="margin-top:auto">
         <div class="desktop-side-actions">
-            <button class="desktop-side-action" id="desktopUndoSide" type="button">UNDO</button>
-            <button class="desktop-side-action" id="desktopRedoSide" type="button">REDO</button>
+            <button class="desktop-side-action" id="desktopUndoSide" type="button">↶ UNDO</button>
+            <button class="desktop-side-action" id="desktopRedoSide" type="button">↷ REDO</button>
             <button class="desktop-side-action" id="desktopResetSide" type="button">RESET</button>
             <button class="desktop-side-action save" id="desktopSaveSide" type="button">SAVE</button>
         </div>
@@ -3316,8 +3392,8 @@ body.v254-select-active #clearSelectionTouch {
         </div>
 
         <div class="mobile-top-actions" aria-label="Artwork actions">
-            <button type="button" id="undoMobileTop" aria-label="Undo" title="Undo">←</button>
-            <button type="button" id="redoMobileTop" aria-label="Redo" title="Redo">→</button>
+            <button type="button" id="undoMobileTop" aria-label="Undo" title="Undo"><span class="history-symbol" aria-hidden="true">↶</span><span class="history-label">Undo</span></button>
+            <button type="button" id="redoMobileTop" aria-label="Redo" title="Redo"><span class="history-symbol" aria-hidden="true">↷</span><span class="history-label">Redo</span></button>
             <button type="button" id="resetMobileTop">RESET</button>
             <button type="button" id="saveMobileTop">SAVE</button>
         </div>
@@ -3517,13 +3593,13 @@ body.v254-select-active #clearSelectionTouch {
                 <button class="action-button"
                         id="undoDesktop"
                         type="button">
-                    UNDO
+                    ↶ UNDO
                 </button>
 
                 <button class="action-button"
                         id="redoDesktop"
                         type="button">
-                    REDO
+                    ↷ REDO
                 </button>
 
                 <button class="action-button"
@@ -3646,8 +3722,8 @@ body.v254-select-active #clearSelectionTouch {
     </aside>
 
     <div class="bottom-actions-v2">
-        <button id="undoV2" type="button">UNDO</button>
-        <button id="redoV2" type="button">REDO</button>
+        <button id="undoV2" type="button">↶ UNDO</button>
+        <button id="redoV2" type="button">↷ REDO</button>
         <button id="resetV2" type="button">RESET</button>
         <button class="save" id="saveV2" type="button">SAVE MY ART</button>
     </div>
