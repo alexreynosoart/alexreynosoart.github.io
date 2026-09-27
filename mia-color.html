@@ -2966,12 +2966,98 @@ body.v254-select-active #clearSelectionTouch {
             cursor: default;
         }
 
-        @media (max-width: 850px) {
+        /* Phone + tablet navigation: keep the menu inside the top bar,
+           then open a centered vertical panel above the workspace. */
+        @media (max-width: 1000px) {
+            .studio-mia-menu {
+                grid-column: 1;
+                grid-row: 1;
+                justify-self: start;
+                align-self: center;
+                z-index: 1800;
+            }
+
+            .studio-mia-menu > summary {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 36px;
+                padding: 0 12px;
+                border: 1px solid #ccc;
+                border-radius: 999px;
+                background: #fff;
+                color: #222;
+                font-size: .68rem;
+                font-weight: 800;
+                letter-spacing: .04em;
+                box-shadow: 0 3px 10px rgba(0,0,0,.06);
+            }
+
+            .studio-name {
+                grid-column: 2;
+                grid-row: 1;
+                justify-self: end;
+                text-align: right;
+                min-width: 0;
+            }
+
+            .studio-name strong {
+                font-size: .78rem;
+                white-space: nowrap;
+            }
+
+            .studio-name span:not(.studio-heart) {
+                display: none;
+            }
+
+            .zoom-controls {
+                grid-column: 1 / -1 !important;
+                grid-row: 2 !important;
+                justify-self: center;
+            }
+
+            .mobile-creative-tools {
+                grid-column: 1;
+                grid-row: 3;
+            }
+
+            .mobile-top-actions {
+                grid-column: 2;
+                grid-row: 3;
+            }
+
             .studio-mia-nav {
                 position: fixed;
+                top: 62px;
+                left: 50%;
+                width: min(360px, calc(100vw - 24px));
+                max-height: calc(100dvh - 86px);
+                overflow-y: auto;
+                gap: 9px;
+                padding: 14px;
+                border-radius: 20px;
+                transform: translateX(-50%);
+                box-shadow: 0 18px 55px rgba(0,0,0,.22);
+                z-index: 1900;
+            }
+
+            .studio-mia-nav a,
+            .studio-mia-nav .current {
+                width: 100%;
+                min-height: 48px;
+                font-size: .78rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .studio-mia-nav {
                 top: 54px;
-                left: 8px;
-                width: min(230px, calc(100vw - 16px));
+                width: calc(100vw - 20px);
+                padding: 12px;
+            }
+
+            .studio-name strong {
+                font-size: .72rem;
             }
         }
 
@@ -9929,6 +10015,26 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
         }
     }, true);
 })();
+</script>
+
+
+<script>
+/* Close the compact Mia navigation after choosing a destination. */
+document.querySelectorAll('.studio-mia-nav a').forEach(function(link) {
+    link.addEventListener('click', function() {
+        var menu = link.closest('.studio-mia-menu');
+        if (menu) menu.removeAttribute('open');
+    });
+});
+
+/* On phone/tablet, tapping outside the open Mia menu closes it. */
+document.addEventListener('pointerdown', function(event) {
+    var menu = document.querySelector('.studio-mia-menu[open]');
+    if (!menu || menu.contains(event.target)) return;
+    if (window.matchMedia('(max-width: 1000px)').matches) {
+        menu.removeAttribute('open');
+    }
+});
 </script>
 
 </body>
