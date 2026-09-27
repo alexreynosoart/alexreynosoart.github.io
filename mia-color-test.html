@@ -5843,6 +5843,10 @@ body.v254-select-active #clearSelectionTouch {
         tool
     ) {
 
+        if (touchFillPreview && tool !== 'fill') {
+            cancelTouchFillPreview();
+        }
+
         currentTool =
             tool;
 
@@ -6154,6 +6158,57 @@ body.v254-select-active #clearSelectionTouch {
 
 
     /* =========================
+       TOUCH FILL PREVIEW TEST #1
+       Press/drag previews a fill. Release commits it.
+       A second finger cancels the preview so pinch always wins.
+       Desktop mouse fill keeps its existing click behavior.
+       ========================= */
+
+    let touchFillPreview = null;
+    let touchFillLastX = -1;
+    let touchFillLastY = -1;
+    let touchFillLastTime = 0;
+
+    function restoreTouchFillPreview() {
+        if (!touchFillPreview || !touchFillPreview.baseImage) return;
+        paintCtx.putImageData(touchFillPreview.baseImage, 0, 0);
+    }
+
+    function cancelTouchFillPreview() {
+        if (!touchFillPreview) return;
+        restoreTouchFillPreview();
+        touchFillPreview = null;
+        touchFillLastX = -1;
+        touchFillLastY = -1;
+        touchFillLastTime = 0;
+    }
+
+    function previewTouchFill(event, force = false) {
+        if (!touchFillPreview || event.pointerId !== touchFillPreview.pointerId) return;
+        if (activePointers.size >= 2 || navigationGesture) {
+            cancelTouchFillPreview();
+            return;
+        }
+
+        const point = getCanvasPoint(event);
+        const x = Math.floor(point.x);
+        const y = Math.floor(point.y);
+        const now = performance.now();
+
+        /* Avoid repeatedly flood-filling the exact same pixel while a finger
+           jitters in place. A tiny throttle also keeps dragging responsive. */
+        if (!force && x === touchFillLastX && y === touchFillLastY) return;
+        if (!force && now - touchFillLastTime < 40) return;
+
+        restoreTouchFillPreview();
+        floodFill(x, y, touchFillPreview.color);
+
+        touchFillLastX = x;
+        touchFillLastY = y;
+        touchFillLastTime = now;
+    }
+
+    /* =========================
        POINTER DOWN
        ========================= */
 
@@ -6191,6 +6246,9 @@ body.v254-select-active #clearSelectionTouch {
             if (
                 activePointers.size >= 2
             ) {
+
+                /* A pinch always wins over a pending touch Fill. */
+                cancelTouchFillPreview();
 
                 drawing =
                     false;
@@ -6293,6 +6351,24 @@ body.v254-select-active #clearSelectionTouch {
             if (
                 currentTool === 'fill'
             ) {
+
+                /* Touch/pen: preview first, commit only on release.
+                   Mouse keeps the familiar instant click-to-fill behavior. */
+                if (event.pointerType === 'touch' || event.pointerType === 'pen') {
+                    touchFillPreview = {
+                        pointerId: event.pointerId,
+                        color: currentColor,
+                        baseImage: paintCtx.getImageData(
+                            0, 0, paintCanvas.width, paintCanvas.height
+                        )
+                    };
+
+                    touchFillLastX = -1;
+                    touchFillLastY = -1;
+                    touchFillLastTime = 0;
+                    previewTouchFill(event, true);
+                    return;
+                }
 
                 floodFill(
                     point.x,
@@ -6430,6 +6506,21 @@ body.v254-select-active #clearSelectionTouch {
 
 
             /*
+            TOUCH FILL PREVIEW
+            */
+
+            if (
+                touchFillPreview &&
+                event.pointerId === touchFillPreview.pointerId &&
+                currentTool === 'fill'
+            ) {
+                event.preventDefault();
+                previewTouchFill(event);
+                return;
+            }
+
+
+            /*
             ONE-FINGER MOVE
             */
 
@@ -6532,6 +6623,25 @@ body.v254-select-active #clearSelectionTouch {
     function endPointer(
         event
     ) {
+
+        const endingTouchFill =
+            touchFillPreview &&
+            event.pointerId === touchFillPreview.pointerId;
+
+        if (endingTouchFill) {
+            if (event.type === 'pointercancel' || navigationGesture || activePointers.size >= 2) {
+                cancelTouchFillPreview();
+            } else {
+                /* Make the release location the final preview target, then
+                   keep that preview on the canvas as the committed Fill. */
+                previewTouchFill(event, true);
+                touchFillPreview = null;
+                touchFillLastX = -1;
+                touchFillLastY = -1;
+                touchFillLastTime = 0;
+                saveHistory();
+            }
+        }
 
         activePointers.delete(
             event.pointerId
