@@ -3825,7 +3825,7 @@ body.v268-fill-active #opacitySlider {
         </div>
 
         <div class="mobile-tool-submenu mobile-shape-submenu" id="mobileShapeSubmenu" aria-label="Line and shape choices">
-            <button type="button" data-mobile-shape-choice="line" class="active"><span class="scribble-line" aria-hidden="true">〰</span> LINE</button>
+            <button type="button" data-mobile-shape-choice="line" class="active"><span class="straight-line-icon" aria-hidden="true"></span> LINE</button>
             <button type="button" data-mobile-shape-choice="rect"><span class="bold-shape" aria-hidden="true">□</span> SQUARE</button>
             <button type="button" data-mobile-shape-choice="ellipse"><span class="bold-shape" aria-hidden="true">○</span> CIRCLE</button>
         </div>
@@ -3941,7 +3941,7 @@ body.v268-fill-active #opacitySlider {
 
             <div class="tool-section eraser-opacity-section" id="eraserOpacitySection">
                 <label class="tool-label" for="eraserOpacity">
-                    Eraser Opacity
+                    Opacity
                 </label>
                 <input class="brush-slider"
                        id="eraserOpacity"
@@ -4351,9 +4351,9 @@ body.v268-fill-active #opacitySlider {
 
 
 
-    <!-- ERASER OPACITY: visible only while Erase is active -->
+    <!-- OPACITY: visible only while Erase is active -->
     <div class="mobile-brush-row v250-mobile-eraser-opacity" id="touchEraserOpacityWrap">
-        <span class="mobile-brush-label">ERASER OPACITY</span>
+        <span class="mobile-brush-label">OPACITY</span>
         <input class="mobile-brush-slider"
                id="touchEraserOpacity"
                type="range"
@@ -8669,7 +8669,7 @@ v241RefreshToolUI();
 
 
 /* =========================
-   V2.4.4 BRUSH STATE + ERASER OPACITY
+   V2.4.4 BRUSH STATE + OPACITY
    ========================= */
 
 let eraserOpacityV244 = 1;
@@ -11796,6 +11796,158 @@ document.addEventListener('pointerup', function() {
         if (e.target.closest('[data-v2-tool="select"],[data-tool="select"],[data-desktop-tool="select"]')) {
             closeNewSubmenus();
         }
+    }, true);
+})();
+</script>
+
+
+<style>
+/* =====================================================
+   TEST #19 — LAYOUT / TIPS / PAGES CLOSE ONLY
+   Drawing + opacity mechanics intentionally unchanged.
+   ===================================================== */
+@media (max-width:1000px) {
+    /* Keep the helper visible above the fixed studio dock on touch layouts. */
+    .studio-tip-wrap {
+        position:fixed !important;
+        left:9px !important;
+        right:auto !important;
+        bottom:calc(158px + env(safe-area-inset-bottom)) !important;
+        z-index:2050 !important;
+        max-width:calc(100vw - 18px) !important;
+    }
+
+    /* Make Pages close affordance unmistakable and keep it at the panel edge. */
+    .artwork-tray-head {
+        position:sticky;
+        left:0;
+        z-index:8;
+        background:rgba(250,250,250,.97);
+    }
+    .pages-close {
+        display:inline-flex !important;
+        align-items:center;
+        justify-content:center;
+        flex:0 0 28px;
+        width:28px !important;
+        height:28px !important;
+        background:#f8d7e3 !important;
+        color:#7d2948 !important;
+        font-size:1.05rem !important;
+        font-weight:900 !important;
+        line-height:1 !important;
+    }
+
+    /* Temporary shape language: all geometry is clean, not scribbled. */
+    .straight-line-icon {
+        display:inline-block;
+        width:18px;
+        height:18px;
+        margin-right:4px;
+        position:relative;
+        vertical-align:middle;
+    }
+    .straight-line-icon::before {
+        content:"";
+        position:absolute;
+        left:1px;
+        top:8px;
+        width:17px;
+        height:3px;
+        border-radius:3px;
+        background:currentColor;
+        transform:rotate(-38deg);
+        transform-origin:center;
+    }
+}
+
+/* Tablet gets history on the first utility row so row two cannot collide. */
+@media (min-width:481px) and (max-width:1000px) {
+    .zoom-controls .history-pair {
+        flex:0 0 auto;
+        margin-right:5px;
+    }
+    .mobile-top-actions {
+        min-width:0 !important;
+    }
+    .mobile-top-actions #resetMobileTop,
+    .mobile-top-actions #saveMobileTop {
+        flex:0 0 auto;
+    }
+}
+</style>
+
+<script>
+/* TEST #19 — input-aware touch tips + tablet history placement.
+   No drawing, erasing, brush, or opacity calculations are changed here. */
+(() => {
+    'use strict';
+    const status=document.getElementById('studioStatus');
+    const wrap=status?.closest('.studio-tip-wrap');
+    const zoomControls=document.querySelector('.zoom-controls');
+    const zoomPair=zoomControls?.querySelector('.zoom-pair');
+    const actions=document.querySelector('.mobile-top-actions');
+    const history=actions?.querySelector('.history-pair') || document.querySelector('.history-pair');
+    const reset=document.getElementById('resetMobileTop');
+
+    function placeHistory(){
+        if(!history || !zoomControls || !actions) return;
+        if(window.innerWidth>=481 && window.innerWidth<=1000){
+            if(history.parentNode!==zoomControls) zoomControls.insertBefore(history, zoomPair || zoomControls.firstChild);
+        } else if(history.parentNode!==actions){
+            actions.insertBefore(history, reset || actions.firstChild);
+        }
+    }
+    placeHistory();
+    window.addEventListener('resize', placeHistory, {passive:true});
+
+    if(!status || !wrap) return;
+
+    const tips={
+        fill:'Fill: tap and hold to preview the color. Release to fill. Tip: a second finger cancels the preview for pinch zoom.',
+        brush:'Brush: choose Pen, Marker, Soft, or Texture, then draw. Adjust size and opacity below.',
+        eraser:'Eraser: drag over anything you added to remove it. Adjust size and opacity below.',
+        move:'Move: drag the artwork to reposition it. Pinch with two fingers to zoom.',
+        select:'Select: draw around an area, then add, subtract, clear, or finish with Done.',
+        shape:'Line / Shape: choose Line, Square, or Circle, then drag on the artwork to draw it.'
+    };
+    const brushTips={
+        pen:'Pen: draw clean freehand lines. Adjust size and opacity for more control.',
+        marker:'Marker: build broad strokes and layered color. Lower opacity for softer overlaps.',
+        soft:'Soft brush: paint gentle edges and shading. Try a larger size for smooth blends.',
+        texture:'Texture brush: add grain and character with short or layered strokes.'
+    };
+    function tipFor(target){
+        if(!target?.closest) return null;
+        if(target.closest('#pagesTop,.pages-launcher')) return 'Pages: choose a coloring page, start with Blank, or upload your own image.';
+        if(target.closest('#layersTop')) return 'Layers: choose where you want to work. Add, reorder, hide, or remove layers without changing the original line art.';
+        if(target.closest('.mobile-color-row,.mobile-palette,.mobile-custom-color')) return 'Colors: choose a color for Fill or your brushes. Tap the color square to create your own.';
+        if(target.closest('#mobileBrushSize,.mobile-brush-row') && !target.closest('#touchEraserOpacityWrap')) return 'Brush Size: make your brush or eraser smaller for detail or larger for broader strokes.';
+        if(target.closest('#touchEraserOpacity,#touchEraserOpacityWrap')) return 'Opacity: control how solid or transparent the active drawing or erasing stroke is.';
+        const bc=target.closest('[data-mobile-brush-choice],[data-brush-type]');
+        if(bc){ const n=bc.dataset.mobileBrushChoice||bc.dataset.brushType; return brushTips[n]||tips.brush; }
+        const sc=target.closest('[data-mobile-shape-choice]');
+        if(sc){ const n=sc.dataset.mobileShapeChoice; return n==='line'?'Line: drag to create a straight line.':n==='rect'?'Square: drag to create a square or rectangle.':'Circle: drag to create a circle or oval.'; }
+        const tool=target.closest('[data-tool],[data-v2-tool],[data-desktop-tool]');
+        if(tool){ const n=tool.dataset.tool||tool.dataset.v2Tool||tool.dataset.desktopTool; return tips[n]||null; }
+        if(target.closest('#zoomOut')) return 'Zoom out: make the artwork smaller inside the workspace.';
+        if(target.closest('#zoomIn')) return 'Zoom in: get closer to small details.';
+        if(target.closest('#fitButton')) return 'Fit: center the whole artwork comfortably inside the workspace.';
+        if(target.closest('#fullscreenButton')) return 'Full view: give the artwork more room on screen.';
+        if(target.closest('#undoMobileTop')) return 'Undo: step back one change.';
+        if(target.closest('#redoMobileTop')) return 'Redo: bring back the last change you undid.';
+        if(target.closest('#resetMobileTop')) return 'Reset: return this page to its starting state.';
+        if(target.closest('#saveMobileTop')) return 'Save: export your artwork when you are ready.';
+        return null;
+    }
+
+    /* pointerdown capture fires reliably for touch even when a tool later prevents click. */
+    document.addEventListener('pointerdown', e=>{
+        if(e.pointerType!=='touch' && e.pointerType!=='pen') return;
+        const tip=tipFor(e.target);
+        if(!tip) return;
+        wrap.classList.remove('tip-hidden');
+        status.textContent=tip;
     }, true);
 })();
 </script>
