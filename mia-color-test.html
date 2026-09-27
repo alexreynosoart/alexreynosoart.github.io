@@ -11107,6 +11107,105 @@ document.addEventListener('pointerup', function() {
 })();
 </script>
 
+
+<style>
+/* =====================================================
+   TEST #15 — BOTTOM CONTEXT TIPS + DESKTOP FIT POLISH
+   ===================================================== */
+
+/* Keep the helper out of the growing top-control area. */
+.studio-status {
+    top:auto !important;
+    bottom:8px !important;
+    left:12px !important;
+    max-width:min(720px, calc(100% - 24px)) !important;
+}
+
+@media (max-width:1000px) {
+    .studio-status {
+        bottom:7px !important;
+        left:9px !important;
+        max-width:calc(100% - 18px) !important;
+        padding:4px 8px !important;
+        font-size:.63rem !important;
+    }
+}
+
+@media (min-width:1001px) {
+    /* The desktop header now has two control rows. Reserve its real height so
+       the complete fitted workspace remains inside the browser viewport. */
+    .studio {
+        padding-top:4px !important;
+        padding-bottom:5px !important;
+    }
+    .studio-topbar {
+        margin-top:0 !important;
+        margin-bottom:1px !important;
+        padding-top:0 !important;
+        padding-bottom:0 !important;
+        row-gap:3px !important;
+    }
+    .canvas-frame {
+        height:calc(100dvh - 238px) !important;
+        min-height:360px !important;
+    }
+    .studio-status {
+        bottom:8px !important;
+        left:14px !important;
+    }
+}
+</style>
+
+<script>
+/* =====================================================
+   TEST #15 — PAGE/LAYER CONTEXT HELP
+   ===================================================== */
+(() => {
+    "use strict";
+
+    const status = document.getElementById('studioStatus');
+    if (!status) return;
+
+    const setTip = text => { if (text) status.textContent = text; };
+
+    document.addEventListener('click', event => {
+        /* Top launchers on phone/tablet. */
+        if (event.target.closest('#pagesTop')) {
+            setTip('Pages: choose another coloring page, start blank, or upload your own artwork. Your current page stays here until you choose another.');
+            return;
+        }
+        if (event.target.closest('#layersTop')) {
+            setTip('Layers: choose the layer you want to work on. Add, reorder, hide, or remove layers to build your artwork in pieces.');
+            return;
+        }
+
+        /* Desktop Pages area. */
+        if (event.target.closest('#desktopSidePages')) {
+            const upload = event.target.closest('#desktopUploadPage');
+            const blank = event.target.closest('#desktopBlankPage');
+            if (upload) {
+                setTip('Upload: bring in your own image and use it as a new page in the Creative Studio.');
+            } else if (blank) {
+                setTip('Blank page: start with an empty canvas and make something completely your own.');
+            } else {
+                setTip('Pages: pick a coloring page to work on. You can always come back and choose another.');
+            }
+            return;
+        }
+
+        /* Desktop/mobile layer controls and rows. */
+        if (event.target.closest('#desktopSideLayers,#layersPanel')) {
+            const row = event.target.closest('.desktop-side-layer,.layer-row');
+            if (row) {
+                setTip('Layer selected: anything you draw now goes on this layer. Use separate layers to keep parts of your artwork easy to edit.');
+            } else {
+                setTip('Layers: choose where you want to work. Add, reorder, hide, or remove layers without changing the original line art.');
+            }
+        }
+    }, true);
+})();
+</script>
+
 </body>
 
 </html>
