@@ -3797,10 +3797,10 @@ body.v268-fill-active #opacitySlider {
             <button type="button" data-mobile-select-mode="free" class="active">FREE</button>
             <button type="button" data-mobile-select-mode="rect">SQUARE</button>
             <button type="button" data-mobile-select-mode="ellipse">CIRCLE</button>
-            <button type="button" class="mobile-select-done" data-mobile-selection-done>DONE</button>
             <button type="button" data-mobile-selection-op="add" class="active">+ ADD</button>
             <button type="button" data-mobile-selection-op="subtract">− SUBTRACT</button>
             <button type="button" data-mobile-selection-clear>CLEAR</button>
+            <button type="button" class="mobile-select-done" data-mobile-selection-done>DONE</button>
         </div>
 
     </header>
@@ -10902,6 +10902,208 @@ document.addEventListener('pointerup', function() {
             }
         });
     }, true);
+})();
+</script>
+
+
+
+<style>
+/* =====================================================
+   TEST #14 — COMPACT MENUS + FITTED DESKTOP + CONTEXT TIPS
+   ===================================================== */
+
+/* Context tip is an overlay, not another layout row. */
+.art-side { position:relative; }
+.studio-status {
+    position:absolute;
+    left:12px;
+    top:8px;
+    z-index:24;
+    width:auto;
+    max-width:min(620px, calc(100% - 24px));
+    min-height:0 !important;
+    margin:0 !important;
+    padding:5px 9px;
+    border:1px solid rgba(0,0,0,.08);
+    border-radius:8px;
+    background:rgba(255,255,255,.86);
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
+    color:#666;
+    font-size:.66rem;
+    line-height:1.25;
+    text-align:left;
+    pointer-events:none;
+    backdrop-filter:blur(8px);
+}
+
+@media (max-width:1000px) {
+    /* Restore the contextual helper on touch layouts without consuming height. */
+    .studio-status { display:block !important; }
+
+    /* MIA MENU uses the same compact floating language as Select. */
+    .studio-mia-nav {
+        position:fixed !important;
+        top:54px !important;
+        left:7px !important;
+        right:auto !important;
+        width:max-content !important;
+        max-width:calc(100vw - 14px) !important;
+        max-height:none !important;
+        display:flex !important;
+        align-items:center;
+        gap:5px !important;
+        padding:7px !important;
+        overflow-x:auto !important;
+        overflow-y:hidden !important;
+        white-space:nowrap;
+        border:1px solid #ddd;
+        border-radius:0 12px 12px 12px !important;
+        background:rgba(255,255,255,.98);
+        box-shadow:0 10px 26px rgba(0,0,0,.14) !important;
+        transform:none !important;
+        scrollbar-width:none;
+        z-index:1950 !important;
+    }
+    .studio-mia-nav::-webkit-scrollbar { display:none; }
+    .studio-mia-nav a,
+    .studio-mia-nav .current {
+        flex:0 0 auto;
+        width:auto !important;
+        min-height:34px !important;
+        padding:5px 10px !important;
+        border-radius:9px !important;
+        font-size:.62rem !important;
+        letter-spacing:0 !important;
+    }
+
+    /* MIA navigation temporarily owns this floating-menu layer. */
+    body.mia-menu-open .mobile-selection-bar { display:none !important; }
+
+    /* DONE is the clear finish/exit action and lives at the far end. */
+    .mobile-selection-bar .mobile-select-done,
+    .mobile-selection-bar .mobile-select-done.active {
+        background:#f8d7e3 !important;
+        border-color:#e8a9bf !important;
+        color:#7d2948 !important;
+    }
+}
+
+@media (min-width:1001px) {
+    /* The second desktop control row made the old canvas calculation too tall.
+       Pull the artwork upward and keep the fitted workspace inside the viewport. */
+    .studio-topbar {
+        min-height:0 !important;
+        margin-bottom:3px !important;
+        row-gap:4px !important;
+    }
+    .canvas-frame {
+        height:calc(100dvh - 142px) !important;
+        min-height:420px !important;
+    }
+    .studio-status {
+        left:14px;
+        top:8px;
+    }
+}
+</style>
+
+<script>
+/* =====================================================
+   TEST #14 — MENU ARBITRATION + CONTEXTUAL TIPS
+   ===================================================== */
+(() => {
+    "use strict";
+
+    const miaMenu = document.querySelector('.studio-mia-menu');
+    const status = document.getElementById('studioStatus');
+
+    function setTip(text) {
+        if (status && text) status.textContent = text;
+    }
+
+    /* MIA MENU and Select share the same floating space on touch layouts.
+       Preserve a committed selection, but temporarily hide its controls.
+       With no committed selection, opening MIA MENU closes Select. */
+    if (miaMenu) {
+        miaMenu.addEventListener('toggle', () => {
+            const open = miaMenu.open;
+            document.body.classList.toggle('mia-menu-open', open);
+
+            if (open && !document.body.classList.contains('has-selection')) {
+                document.body.classList.remove(
+                    'v254-select-active',
+                    'v247-selecting',
+                    'v241-select-active'
+                );
+            }
+        });
+    }
+
+    /* Richer little helper sentences. Existing tool logic can still update
+       studioStatus; these refine sub-tools that the main selector cannot name. */
+    document.addEventListener('click', event => {
+        const brush = event.target.closest('[data-brush-type]');
+        if (brush) {
+            const name = (brush.dataset.brushType || 'brush').toLowerCase();
+            const tips = {
+                pen: 'Pen: draw clean freehand lines. Adjust size and opacity for more control.',
+                marker: 'Marker: build broad strokes and layered color. Lower opacity for softer overlaps.',
+                soft: 'Soft brush: paint gentle edges and shading. Try a larger size for smooth blends.',
+                texture: 'Texture brush: add grain and character with short or layered strokes.'
+            };
+            setTip(tips[name] || 'Brush: draw freely. Adjust size and opacity to change the stroke.');
+            return;
+        }
+
+        const mode = event.target.closest('[data-mobile-select-mode],[data-v253-select-mode]');
+        if (mode) {
+            const m = mode.dataset.mobileSelectMode || mode.dataset.v253SelectMode;
+            const tips = {
+                free: 'Select: draw a freehand loop around an area. Add or subtract more, then tap Done.',
+                rect: 'Select: drag a square or rectangle around the area you want. Tap Done when finished.',
+                ellipse: 'Select: drag a circle or oval around the area you want. Tap Done when finished.'
+            };
+            setTip(tips[m]);
+            return;
+        }
+
+        if (event.target.closest('[data-mobile-selection-op="add"],[data-v253-selection-op="add"]')) {
+            setTip('Add: draw another area to include it in your current selection.');
+            return;
+        }
+        if (event.target.closest('[data-mobile-selection-op="subtract"],[data-v253-selection-op="subtract"]')) {
+            setTip('Subtract: draw over part of the selection to remove that area.');
+            return;
+        }
+        if (event.target.closest('[data-mobile-selection-clear],#clearSelectionV24,#clearSelectionTouch')) {
+            setTip('Selection cleared. Draw a new area, or choose another tool.');
+            return;
+        }
+        if (event.target.closest('[data-mobile-selection-done],[data-v253-selection-done]')) {
+            setTip('Selection finished. Choose a tool to keep creating.');
+            return;
+        }
+
+        const tool = event.target.closest('[data-tool],[data-v2-tool],[data-desktop-tool]');
+        if (!tool) return;
+        const t = tool.dataset.tool || tool.dataset.v2Tool || tool.dataset.desktopTool;
+        const tips = {
+            fill: 'Fill: tap and hold to preview the color. Release to fill. Tip: a second finger cancels the preview for pinch zoom.',
+            brush: 'Brush: draw freely on the artwork. Adjust size and opacity to change the stroke.',
+            eraser: 'Eraser: drag over anything you added to remove it. Adjust size for more control.',
+            move: 'Move: drag the artwork to reposition it. Pinch with two fingers to zoom.',
+            select: 'Select: draw around an area, then add, subtract, clear, or finish with Done.',
+            shape: 'Line / Shape: choose a shape, then drag on the artwork to draw it.'
+        };
+        setTip(tips[t]);
+    }, true);
+
+    /* Correct initial helper text to match the real default tool. */
+    requestAnimationFrame(() => {
+        if (typeof currentTool !== 'undefined' && currentTool === 'fill') {
+            setTip('Fill: tap and hold to preview the color. Release to fill. Tip: a second finger cancels the preview for pinch zoom.');
+        }
+    });
 })();
 </script>
 
