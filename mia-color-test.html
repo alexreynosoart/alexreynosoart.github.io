@@ -11989,10 +11989,134 @@ document.addEventListener('pointerup', function() {
 
 
 <style>
-/* TEST #34 — one authoritative brush/eraser footprint. */
+/* =====================================================
+   TEST #35 — TABLET DOUBLE RING + MOVE PAW
+   Inner ring remains the proven Test #34 painted footprint.
+   Outer ring is visibility only and never changes paint size.
+   ===================================================== */
+.tool-indicator.brush,
+.tool-indicator.eraser {
+    box-sizing:border-box !important;
+}
 .tool-indicator.brush { border-style:solid !important; }
 .tool-indicator.eraser { border-style:dashed !important; }
+
+/* Tablet only for this calibration pass. Phone and desktop geometry stay untouched. */
+@media (min-width:481px) and (max-width:1000px) {
+    body.v242-touch-active .tool-indicator.brush::after,
+    body.v242-touch-active .tool-indicator.eraser::after {
+        content:"";
+        position:absolute;
+        left:-10px;
+        top:-10px;
+        right:-10px;
+        bottom:-10px;
+        border-width:2px;
+        border-color:rgba(17,17,17,.78);
+        border-radius:50%;
+        box-sizing:border-box;
+        pointer-events:none;
+        background:transparent;
+        box-shadow:0 0 0 1px rgba(255,255,255,.58);
+    }
+    body.v242-touch-active .tool-indicator.brush::after {
+        border-style:solid;
+    }
+    body.v242-touch-active .tool-indicator.eraser::after {
+        border-style:dashed;
+    }
+}
+
+/* Move uses the same monochrome paw language as the floating Move control. */
+.tool-cursor.move-paw {
+    width:34px !important;
+    height:34px !important;
+    display:none;
+    border-radius:50%;
+    background:rgba(255,255,255,.9);
+    box-shadow:0 2px 8px rgba(0,0,0,.18);
+    color:#111;
+}
+.tool-cursor.move-paw::before {
+    content:"";
+    position:absolute;
+    left:10px;
+    top:14px;
+    width:14px;
+    height:11px;
+    border-radius:52% 52% 58% 58%;
+    background:currentColor;
+}
+.tool-cursor.move-paw::after {
+    content:"";
+    position:absolute;
+    left:7px;
+    top:7px;
+    width:6px;
+    height:7px;
+    border-radius:50%;
+    background:currentColor;
+    box-shadow:7px -2px 0 -0.2px currentColor,14px 0 0 -0.2px currentColor,19px 5px 0 -0.5px currentColor;
+    transform:rotate(-8deg);
+}
+
+/* Touch Move indicator is a paw too, never the legacy yellow hand. */
+body.v242-touch-active .tool-indicator.move {
+    border:0 !important;
+    box-shadow:none !important;
+    background:transparent !important;
+}
+body.v242-touch-active .tool-indicator.move::before {
+    content:"" !important;
+    position:absolute !important;
+    left:5px !important;
+    top:10px !important;
+    width:13px !important;
+    height:11px !important;
+    border-radius:52% 52% 58% 58% !important;
+    background:#111 !important;
+    transform:none !important;
+}
+body.v242-touch-active .tool-indicator.move::after {
+    content:"" !important;
+    position:absolute !important;
+    left:1px !important;
+    top:2px !important;
+    width:6px !important;
+    height:7px !important;
+    border-radius:50% !important;
+    background:#111 !important;
+    box-shadow:7px -2px 0 -0.2px #111,14px 0 0 -0.2px #111,19px 5px 0 -0.5px #111 !important;
+    transform:rotate(-8deg) !important;
+}
 </style>
+
+<script>
+(() => {
+    'use strict';
+    /* Replace the old emoji Move cursor at its source. No new cursor engine. */
+    const oldUpdateToolCursorMode = updateToolCursorMode;
+    updateToolCursorMode = function() {
+        oldUpdateToolCursorMode();
+        if (currentTool === 'move') {
+            toolCursor.textContent = '';
+            toolCursor.classList.remove('icon');
+            toolCursor.classList.add('move-paw');
+        } else {
+            toolCursor.classList.remove('move-paw');
+        }
+    };
+
+    /* Old pointermove code writes hand/fist emoji after mode setup. Strip it immediately. */
+    canvasFrame.addEventListener('pointermove', function() {
+        if (currentTool === 'move') {
+            toolCursor.textContent = '';
+            toolCursor.classList.remove('icon');
+            toolCursor.classList.add('move-paw');
+        }
+    }, true);
+})();
+</script>
 
 </body>
 
