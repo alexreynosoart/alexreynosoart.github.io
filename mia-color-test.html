@@ -2186,11 +2186,7 @@ body {
 .tool-indicator.eraser { border-style:dashed; }
 .tool-indicator.select { border-radius:3px; border-style:dashed; }
 .tool-indicator.move::before {
-    content:"✋";
-    position:absolute;
-    font-size:17px;
-    left:50%;top:50%;
-    transform:translate(-50%,-55%);
+    content:"";
 }
 .tool-indicator.move { border:0; box-shadow:none; background:transparent; }
 .tool-indicator.shape { border-radius:3px; }
@@ -4548,7 +4544,7 @@ function fullscreenElement() {
                 toolCursor.classList.remove('icon');
                 toolCursor.classList.add('fill-target');
             } else {
-                toolCursor.textContent = '✋';
+                toolCursor.textContent = '';
             }
         } else {
             toolCursor.textContent =
@@ -4597,12 +4593,12 @@ function fullscreenElement() {
                 moving
             ) {
                 toolCursor.textContent =
-                    '✊';
+                    '';
             } else if (
                 currentTool === 'move'
             ) {
                 toolCursor.textContent =
-                    '✋';
+                    '';
             }
         }
     );
@@ -12001,8 +11997,8 @@ document.addEventListener('pointerup', function() {
 .tool-indicator.brush { border-style:solid !important; }
 .tool-indicator.eraser { border-style:dashed !important; }
 
-/* Tablet only for this calibration pass. Phone and desktop geometry stay untouched. */
-@media (min-width:481px) and (max-width:1000px) {
+/* Phone + tablet use the same proven double-ring geometry. */
+@media (max-width:1000px) {
     body.v242-touch-active .tool-indicator.brush::after,
     body.v242-touch-active .tool-indicator.eraser::after {
         content:"";
@@ -12114,6 +12110,84 @@ body.v242-touch-active .tool-indicator.move::after {
             toolCursor.classList.remove('icon');
             toolCursor.classList.add('move-paw');
         }
+    }, true);
+})();
+</script>
+
+<style>
+/* =====================================================
+   TEST #36 — LOCKED CURSOR SYSTEM
+   Same double-ring geometry on desktop, tablet and phone.
+   Move uses paw only. Long-press/context menu is suppressed
+   on the floating Move control as well as the drawing surface.
+   ===================================================== */
+
+/* Desktop/web: the zoom-aware canvas indicator gets the same outer guide. */
+@media (min-width:1001px) {
+    .tool-indicator.brush::after,
+    .tool-indicator.eraser::after {
+        content:"";
+        position:absolute;
+        left:-10px;
+        top:-10px;
+        right:-10px;
+        bottom:-10px;
+        border-width:2px;
+        border-color:rgba(17,17,17,.78);
+        border-radius:50%;
+        box-sizing:border-box;
+        pointer-events:none;
+        background:transparent;
+        box-shadow:0 0 0 1px rgba(255,255,255,.58);
+    }
+    .tool-indicator.brush::after { border-style:solid; }
+    .tool-indicator.eraser::after { border-style:dashed; }
+}
+
+/* No browser selection/callout on any Move paw surface. */
+#floatingMoveButton,
+.floating-move-button,
+[data-tool="move"],
+[data-desktop-tool="move"],
+.tool-indicator.move,
+.tool-cursor.move-paw {
+    -webkit-touch-callout:none !important;
+    -webkit-user-select:none !important;
+    user-select:none !important;
+    touch-action:none;
+}
+</style>
+
+<script>
+(() => {
+    'use strict';
+
+    /* Kill browser context menus/long-press callouts on every Move control,
+       including the draggable floating paw. */
+    const moveTargets = [
+        document.getElementById('floatingMoveButton'),
+        ...document.querySelectorAll(
+            '.floating-move-button,[data-tool="move"],[data-desktop-tool="move"],.tool-indicator.move,.tool-cursor.move-paw'
+        )
+    ].filter(Boolean);
+
+    moveTargets.forEach(el => {
+        el.addEventListener('contextmenu', e => {
+            e.preventDefault();
+            e.stopPropagation();
+        }, {capture:true});
+        el.style.webkitTouchCallout='none';
+        el.style.webkitUserSelect='none';
+        el.style.userSelect='none';
+    });
+
+    /* The legacy desktop cursor must never restore a hand/fist.
+       The existing paw CSS remains the only Move cursor artwork. */
+    canvasFrame.addEventListener('pointermove', () => {
+        if (currentTool !== 'move') return;
+        toolCursor.textContent='';
+        toolCursor.classList.remove('icon');
+        toolCursor.classList.add('move-paw');
     }, true);
 })();
 </script>
