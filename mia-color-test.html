@@ -3526,6 +3526,11 @@ body.v254-select-active #clearSelectionTouch {
             <button type="button" data-desktop-tablet-brush="texture">TEXTURE</button>
         </div>
 
+        <div class="desktop-tablet-submenu" id="desktopTabletFillMenu" aria-label="Fill choices">
+            <button type="button" data-desktop-tablet-fill="bucket" class="active"><span class="bucket-mini-icon" aria-hidden="true"></span> BUCKET</button>
+            <button type="button" data-desktop-tablet-fill="gradient"><span class="gradient-mini-icon" aria-hidden="true"></span> GRADIENT</button>
+        </div>
+
         <div class="desktop-tablet-submenu" id="desktopTabletEraserMenu" aria-label="Eraser choices">
             <button type="button" data-desktop-tablet-eraser="hard" class="active">HARD</button>
             <button type="button" data-desktop-tablet-eraser="soft">SOFT</button>
@@ -3535,7 +3540,10 @@ body.v254-select-active #clearSelectionTouch {
         <div class="desktop-tablet-submenu" id="desktopTabletShapeMenu" aria-label="Line and shape choices">
             <button type="button" data-desktop-tablet-shape="line" class="active"><span class="straight-line-icon" aria-hidden="true"></span> LINE</button>
             <button type="button" data-desktop-tablet-shape="rect"><span class="bold-shape" aria-hidden="true">□</span> SQUARE</button>
-            <button type="button" data-desktop-tablet-shape="ellipse"><span class="bold-shape" aria-hidden="true">○</span> CIRCLE</button>
+            <button type="button" data-desktop-tablet-shape="ellipse"><span class="shape-glyph shape-circle-glyph" aria-hidden="true">○</span><span>CIRCLE</span></button>
+            <button type="button" data-desktop-tablet-shape="octagon"><span class="shape-glyph" aria-hidden="true">⯃</span><span>OCTAGON</span></button>
+            <button type="button" data-desktop-tablet-shape="star"><span class="shape-glyph" aria-hidden="true">☆</span><span>STAR</span></button>
+            <button type="button" data-desktop-tablet-shape="spiral"><span class="shape-glyph" aria-hidden="true">◎</span><span>SPIRAL</span></button>
         </div>
 
         <div class="desktop-tablet-submenu desktop-tablet-select-menu" id="desktopTabletSelectMenu" aria-label="Selection controls">
@@ -12983,6 +12991,142 @@ body.v242-touch-active .tool-indicator.move::after {
     }
     requestAnimationFrame(recenterDesktopCanvas);
     window.addEventListener('resize', recenterDesktopCanvas, {passive:true});
+})();
+</script>
+
+<style>
+/* =====================================================
+   TEST #42 — DESKTOP TOOL LAYOUT REFINEMENT
+   UI only. Gradient + extra shapes are staged, not wired to new engines yet.
+   ===================================================== */
+@media (min-width:1001px) {
+    /* Pull the reserved future Size/Opacity area back by about 25%. */
+    .desktop-tablet-tools {
+        padding-bottom:90px !important;
+    }
+
+    /* Fill now behaves like the other tools and owns a two-choice submenu. */
+    #desktopTabletFillMenu {
+        grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    }
+    #desktopTabletFillMenu button {
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:8px;
+    }
+    .bucket-mini-icon {
+        width:15px;
+        height:12px;
+        border:2px solid currentColor;
+        border-radius:2px 2px 4px 4px;
+        transform:rotate(-35deg);
+        display:inline-block;
+    }
+    .gradient-mini-icon {
+        width:25px;
+        height:15px;
+        display:inline-block;
+        border:1px solid currentColor;
+        border-radius:4px;
+        background:linear-gradient(90deg,currentColor 0%,transparent 100%);
+    }
+
+    /* Shape menu expands naturally. Existing Line/Square remain, Circle gets
+       the same icon-over-label treatment as Square. */
+    #desktopTabletShapeMenu {
+        grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    }
+    #desktopTabletShapeMenu button {
+        min-height:58px !important;
+        display:flex !important;
+        align-items:center !important;
+        justify-content:center !important;
+        gap:8px !important;
+        flex-wrap:wrap;
+    }
+    #desktopTabletShapeMenu .shape-glyph,
+    #desktopTabletShapeMenu .bold-shape {
+        display:inline-flex !important;
+        width:30px !important;
+        height:30px !important;
+        align-items:center !important;
+        justify-content:center !important;
+        margin:0 !important;
+        font:900 31px/1 Arial,Helvetica,sans-serif !important;
+    }
+    #desktopTabletShapeMenu .shape-circle-glyph {
+        font-size:34px !important;
+    }
+
+    /* The fixed sidebar owns 330px. The topbar/workspace should use the
+       remaining viewport width, rather than being centered under the sidebar. */
+    .studio-topbar,
+    .studio-main {
+        margin-left:330px !important;
+        width:calc(100% - 330px) !important;
+        max-width:none !important;
+        box-sizing:border-box !important;
+    }
+    .studio {
+        padding-left:0 !important;
+    }
+    .canvas-frame {
+        margin-left:auto !important;
+        margin-right:auto !important;
+    }
+}
+</style>
+
+<script>
+(() => {
+    'use strict';
+    const root=document.querySelector('.desktop-tablet-tools');
+    if(!root) return;
+
+    const fillMenu=document.getElementById('desktopTabletFillMenu');
+    const brushMenu=document.getElementById('desktopTabletBrushMenu');
+    const eraserMenu=document.getElementById('desktopTabletEraserMenu');
+    const shapeMenu=document.getElementById('desktopTabletShapeMenu');
+    const selectMenu=document.getElementById('desktopTabletSelectMenu');
+    const allMenus=[brushMenu,eraserMenu,fillMenu,shapeMenu,selectMenu];
+
+    function showMenu(menu){
+        allMenus.forEach(m=>m?.classList.toggle('open',m===menu));
+    }
+
+    /* Override only submenu visibility from the earlier desktop relay. */
+    root.addEventListener('click',e=>{
+        const main=e.target.closest('[data-desktop-tablet-tool]');
+        if(main){
+            const n=main.dataset.desktopTabletTool;
+            if(n==='brush') showMenu(brushMenu);
+            if(n==='eraser') showMenu(eraserMenu);
+            if(n==='fill') showMenu(fillMenu);
+            if(n==='shape') showMenu(shapeMenu);
+            if(n==='select') showMenu(selectMenu);
+        }
+
+        const fill=e.target.closest('[data-desktop-tablet-fill]');
+        if(fill){
+            root.querySelectorAll('[data-desktop-tablet-fill]').forEach(b=>b.classList.toggle('active',b===fill));
+            /* Bucket remains the working Fill engine. Gradient is intentionally
+               staged as UI until its controls/behavior are designed. */
+            if(fill.dataset.desktopTabletFill==='bucket'){
+                document.querySelector('[data-v2-tool="fill"]')?.click();
+            }
+            showMenu(fillMenu);
+        }
+
+        const futureShape=e.target.closest('[data-desktop-tablet-shape="octagon"],[data-desktop-tablet-shape="star"],[data-desktop-tablet-shape="spiral"]');
+        if(futureShape){
+            /* UI preview only. Do not corrupt the current proven shape engine. */
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            root.querySelectorAll('[data-desktop-tablet-shape]').forEach(b=>b.classList.toggle('active',b===futureShape));
+            showMenu(shapeMenu);
+        }
+    },true);
 })();
 </script>
 
