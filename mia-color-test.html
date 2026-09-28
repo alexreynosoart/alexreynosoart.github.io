@@ -12791,6 +12791,48 @@ body.v268-fill-active #touchEraserOpacity {
 })();
 </script>
 
+
+
+<!-- =====================================================
+     TEST #28 — PAW ACTIVE/DRAG INVERT + SINGLE TRUE SIZE RING
+     Drawing / erasing / opacity mechanics intentionally unchanged.
+     ===================================================== -->
+<style>
+/* The center ring is the size reference. Remove the extra halo/frame so the
+   preview is one honest diameter on desktop, tablet, and phone. */
+.brush-size-preview {
+    box-sizing:border-box !important;
+    box-shadow:none !important;
+}
+
+/* Move paw: invert both when Move is selected and while the control itself is dragged. */
+@media (max-width:1000px) {
+    .floating-move-tool.dragging {
+        background:#111 !important;
+        border-color:#111 !important;
+        color:#fff !important;
+        box-shadow:0 5px 16px rgba(0,0,0,.22) !important;
+    }
+}
+</style>
+
+<script>
+(() => {
+    "use strict";
+    const move=document.getElementById('floatingMoveTool');
+    if(!move) return;
+
+    /* Visual feedback only. Existing Test #25 drag/tap behavior remains authoritative. */
+    move.addEventListener('pointerdown', () => {
+        move.classList.add('dragging');
+    }, true);
+    const endDragVisual=() => move.classList.remove('dragging');
+    move.addEventListener('pointerup', endDragVisual, true);
+    move.addEventListener('pointercancel', endDragVisual, true);
+    move.addEventListener('lostpointercapture', endDragVisual, true);
+})();
+</script>
+
 </body>
 
 </html>
