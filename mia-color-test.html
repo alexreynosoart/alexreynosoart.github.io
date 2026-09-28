@@ -3484,49 +3484,6 @@ body.v254-select-active #clearSelectionTouch {
         <strong>Creative Studio</strong><span>🐼</span>
     </div>
 
-    <section class="desktop-side-section desktop-modern-tools">
-        <div class="desktop-side-label"><span>Tools</span><span id="desktopToolReadout">Pen</span></div>
-
-        <div class="desktop-main-tools" aria-label="Drawing tools">
-            <button type="button" data-desktop-modern-tool="brush" class="active">BRUSH</button>
-            <button type="button" data-desktop-modern-tool="eraser">ERASE</button>
-            <button type="button" data-desktop-tool="fill">FILL</button>
-            <button type="button" data-desktop-tool="shape">SHAPE</button>
-            <button type="button" data-desktop-tool="select">SELECT</button>
-        </div>
-
-        <div class="desktop-modern-submenu desktop-modern-brush-submenu open" id="desktopModernBrushSubmenu">
-            <button type="button" data-desktop-brush-choice="pen" class="active">PEN</button>
-            <button type="button" data-desktop-brush-choice="marker">MARKER</button>
-            <button type="button" data-desktop-brush-choice="soft">SOFT</button>
-            <button type="button" data-desktop-brush-choice="texture">TEXTURE</button>
-        </div>
-
-        <div class="desktop-modern-submenu desktop-modern-eraser-submenu" id="desktopModernEraserSubmenu">
-            <button type="button" data-desktop-eraser-choice="hard" class="active">HARD</button>
-            <button type="button" data-desktop-eraser-choice="soft">SOFT</button>
-            <button type="button" data-desktop-eraser-choice="texture">TEXTURE</button>
-        </div>
-
-        <div class="desktop-modern-submenu desktop-modern-shape-submenu" id="desktopModernShapeSubmenu">
-            <button type="button" data-shape-mode="line" class="active">LINE</button>
-            <button type="button" data-shape-mode="rect">SQUARE</button>
-            <button type="button" data-shape-mode="ellipse">CIRCLE</button>
-        </div>
-
-        <div class="desktop-modern-submenu desktop-modern-select-submenu" id="desktopSelectModes">
-            <button type="button" data-v253-select-mode="free" class="active">FREE</button>
-            <button type="button" data-v253-select-mode="rect">SQUARE</button>
-            <button type="button" data-v253-select-mode="ellipse">CIRCLE</button>
-            <button type="button" data-v253-selection-op="add" class="active">+ ADD</button>
-            <button type="button" data-v253-selection-op="subtract">− SUBTRACT</button>
-            <button type="button" id="clearSelectionV24">CLEAR</button>
-            <button type="button" data-v253-selection-done class="desktop-done">DONE</button>
-        </div>
-
-        <button type="button" class="desktop-move-wide" data-desktop-tool="move"><span class="desktop-paw" aria-hidden="true">●</span> MOVE</button>
-    </section>
-
     <section class="desktop-side-section desktop-color-studio">
         <div class="desktop-side-label"><span>Colors</span><span id="desktopPaletteReadout">BASIC</span></div>
 
@@ -12228,87 +12185,11 @@ body.v242-touch-active .tool-indicator.move::after {
 
 <style>
 /* =====================================================
-   TEST #37 — DESKTOP TOOL + COLOR PANEL REFRESH
-   Desktop sidebar mirrors the proven tablet submenu language.
-   No brush-engine, cursor, size or opacity changes.
+   TEST #38 — DESKTOP TOOLS STRIPPED / COLOR PANEL PRESERVED
+   Desktop Tools area intentionally removed before rebuilding from tablet UI.
+   Color, Pages and Layers remain. No brush-engine, cursor, size or opacity changes.
    ===================================================== */
 @media (min-width:1001px) {
-    .desktop-modern-tools button,
-    .desktop-color-studio button {
-        font-family:inherit;
-    }
-    .desktop-main-tools {
-        display:grid;
-        grid-template-columns:repeat(5,minmax(0,1fr));
-        gap:5px;
-    }
-    .desktop-main-tools button {
-        min-width:0;
-        padding:9px 3px;
-        border:1px solid #d5d5d5;
-        border-radius:10px;
-        background:#fff;
-        color:#222;
-        font-size:.58rem;
-        font-weight:900;
-    }
-    .desktop-main-tools button.active {
-        background:#111;
-        border-color:#111;
-        color:#fff;
-    }
-    .desktop-modern-submenu {
-        display:none;
-        grid-template-columns:repeat(4,minmax(0,1fr));
-        gap:5px;
-        margin-top:7px;
-        padding:7px;
-        border:1px solid #e2e2e2;
-        border-radius:11px;
-        background:#fafafa;
-    }
-    .desktop-modern-submenu.open { display:grid; }
-    .desktop-modern-submenu button {
-        min-width:0;
-        padding:8px 3px;
-        border:1px solid #d5d5d5;
-        border-radius:9px;
-        background:#fff;
-        color:#222;
-        font-size:.58rem;
-        font-weight:900;
-    }
-    .desktop-modern-submenu button.active {
-        background:#111;
-        border-color:#111;
-        color:#fff;
-    }
-    .desktop-modern-eraser-submenu { grid-template-columns:repeat(3,1fr); }
-    .desktop-modern-shape-submenu { grid-template-columns:repeat(3,1fr); }
-    .desktop-modern-select-submenu {
-        grid-template-columns:repeat(3,1fr);
-    }
-    .desktop-modern-select-submenu .desktop-done {
-        background:#f8d7e3;
-        border-color:#efb6cb;
-        color:#7d2948;
-    }
-    .desktop-move-wide {
-        width:100%;
-        margin-top:7px;
-        padding:9px;
-        border:1px solid #d5d5d5;
-        border-radius:10px;
-        background:#fff;
-        font-weight:900;
-        font-size:.62rem;
-    }
-    .desktop-move-wide.active {
-        background:#111;
-        color:#fff;
-        border-color:#111;
-    }
-    .desktop-paw { font-size:.72rem; margin-right:3px; }
 
     /* Old desktop brush buttons are retired. */
     #desktopPen,#desktopMarker,#desktopSoft,#desktopTexture,#desktopShapeModes {
@@ -12455,76 +12336,6 @@ body.v242-touch-active .tool-indicator.move::after {
 (() => {
     'use strict';
     if (window.innerWidth < 1001) return;
-
-    const sidebar=document.getElementById('desktopStudioSidebar');
-    if(!sidebar) return;
-
-    const brushMenu=document.getElementById('desktopModernBrushSubmenu');
-    const eraserMenu=document.getElementById('desktopModernEraserSubmenu');
-    const shapeMenu=document.getElementById('desktopModernShapeSubmenu');
-    const selectMenu=document.getElementById('desktopSelectModes');
-    const readout=document.getElementById('desktopToolReadout');
-
-    function closeDesktopSubmenus(except){
-        [brushMenu,eraserMenu,shapeMenu,selectMenu].forEach(m=>{
-            if(m && m!==except) m.classList.remove('open');
-        });
-    }
-    function setMainActive(name){
-        sidebar.querySelectorAll('[data-desktop-modern-tool]').forEach(b=>{
-            b.classList.toggle('active',b.dataset.desktopModernTool===name);
-        });
-        sidebar.querySelectorAll('[data-desktop-tool]').forEach(b=>{
-            if(['fill','shape','select'].includes(b.dataset.desktopTool))
-                b.classList.toggle('active',b.dataset.desktopTool===name);
-        });
-        sidebar.querySelector('.desktop-move-wide')?.classList.toggle('active',name==='move');
-    }
-    function chooseBrush(kind){
-        brushType=kind;
-        selectTool('brush');
-        setMainActive('brush');
-        closeDesktopSubmenus(brushMenu);
-        brushMenu?.classList.add('open');
-        brushMenu?.querySelectorAll('[data-desktop-brush-choice]').forEach(b=>b.classList.toggle('active',b.dataset.desktopBrushChoice===kind));
-        if(readout) readout.textContent=kind.charAt(0).toUpperCase()+kind.slice(1);
-    }
-    function chooseEraser(kind){
-        eraserMode=kind;
-        selectTool('eraser');
-        setMainActive('eraser');
-        closeDesktopSubmenus(eraserMenu);
-        eraserMenu?.classList.add('open');
-        eraserMenu?.querySelectorAll('[data-desktop-eraser-choice]').forEach(b=>b.classList.toggle('active',b.dataset.desktopEraserChoice===kind));
-        if(readout) readout.textContent=kind.charAt(0).toUpperCase()+kind.slice(1)+' Eraser';
-    }
-
-    sidebar.addEventListener('click',e=>{
-        const modern=e.target.closest('[data-desktop-modern-tool]');
-        if(modern){
-            e.preventDefault(); e.stopImmediatePropagation();
-            const name=modern.dataset.desktopModernTool;
-            if(name==='brush'){ chooseBrush(brushType||'pen'); return; }
-            if(name==='eraser'){ chooseEraser(eraserMode||'hard'); return; }
-        }
-        const bc=e.target.closest('[data-desktop-brush-choice]');
-        if(bc){ e.preventDefault();e.stopImmediatePropagation();chooseBrush(bc.dataset.desktopBrushChoice);return; }
-        const ec=e.target.closest('[data-desktop-eraser-choice]');
-        if(ec){ e.preventDefault();e.stopImmediatePropagation();chooseEraser(ec.dataset.desktopEraserChoice);return; }
-
-        const tool=e.target.closest('[data-desktop-tool]');
-        if(tool){
-            const name=tool.dataset.desktopTool;
-            if(!['fill','shape','select','move'].includes(name)) return;
-            e.preventDefault();e.stopImmediatePropagation();
-            selectTool(name);
-            setMainActive(name);
-            if(name==='shape'){ closeDesktopSubmenus(shapeMenu);shapeMenu?.classList.add('open'); }
-            else if(name==='select'){ closeDesktopSubmenus(selectMenu);selectMenu?.classList.add('open'); }
-            else closeDesktopSubmenus();
-            if(readout) readout.textContent=name==='shape'?'Line / Shape':name.charAt(0).toUpperCase()+name.slice(1);
-        }
-    },true);
 
     /* ---------- Desktop palette families ---------- */
     const palettes={
