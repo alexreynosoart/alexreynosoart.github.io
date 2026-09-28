@@ -3190,8 +3190,379 @@ body.v254-select-active #clearSelectionTouch {
                 display: none !important;
             }
         }
-    </style>
 
+
+        /* =====================================================
+           TEST #6 — SELECT + TOP BREATHING ROOM
+           Keeps Test #5 controls, replaces the Select triangle
+           with a consistent ⿻ glyph and adds 5px top breathing room
+           on phone and tablet.
+        ===================================================== */
+        .zoom-pair,
+        .history-pair {
+            display:inline-flex;
+            align-items:center;
+            gap:0;
+            border:1px solid #ccc;
+            border-radius:10px;
+            overflow:hidden;
+            background:#fff;
+        }
+        .zoom-pair .zoom-button,
+        .history-pair button {
+            border:0 !important;
+            border-radius:0 !important;
+            margin:0 !important;
+            box-shadow:none !important;
+        }
+        .zoom-pair .zoom-button + .zoom-button,
+        .history-pair button + button {
+            border-left:1px solid #d8d8d8 !important;
+        }
+        .history-pair button,
+        #desktopUndoSide, #desktopRedoSide,
+        #undoDesktop, #redoDesktop,
+        #undoV2, #redoV2 {
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            gap:5px;
+            font-weight:900 !important;
+        }
+        .history-arrow {
+            position:relative;
+            display:inline-block;
+            width:16px;
+            height:13px;
+            flex:0 0 16px;
+        }
+        .history-arrow::before {
+            content:"";
+            position:absolute;
+            top:3px;
+            width:10px;
+            height:8px;
+            border-top:3px solid currentColor;
+        }
+        .history-arrow::after {
+            content:"";
+            position:absolute;
+            top:0;
+            width:7px;
+            height:7px;
+            border-top:3px solid currentColor;
+            border-left:3px solid currentColor;
+        }
+        .history-arrow-undo::before { left:4px; border-radius:8px 0 0 0; }
+        .history-arrow-undo::after { left:0; transform:rotate(-45deg); }
+        .history-arrow-redo::before { right:4px; border-radius:0 8px 0 0; }
+        .history-arrow-redo::after { right:0; transform:rotate(135deg); }
+
+        .select-triangle-icon {
+            width:23px;
+            height:23px;
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            position:relative;
+        }
+        .select-triangle-icon::before {
+            content:"⿻";
+            font-size:25px;
+            line-height:1;
+            font-weight:700;
+            font-family:Arial, Helvetica, sans-serif;
+            color:currentColor;
+        }
+        .select-triangle-icon::after { content:none !important; }
+
+
+        .layers-icon-custom {
+            display:inline-flex;
+            flex-direction:column;
+            gap:2px;
+            width:21px;
+        }
+        .layers-icon-custom i {
+            display:block;
+            height:3px;
+            border-radius:2px;
+            background:currentColor;
+        }
+        .layers-icon-custom i:nth-child(2){ margin-left:3px; margin-right:3px; }
+
+        .pages-icon-custom {
+            display:block;
+            position:relative;
+            width:17px;
+            height:21px;
+            border:2px solid currentColor;
+            border-radius:1px;
+            box-sizing:border-box;
+        }
+        .pages-icon-custom::before {
+            content:"";
+            position:absolute;
+            left:-5px;
+            top:3px;
+            width:15px;
+            height:19px;
+            border:2px solid currentColor;
+            border-radius:1px;
+            background:#fff;
+            z-index:-1;
+            box-sizing:border-box;
+        }
+        .pages-icon-custom::after {
+            content:"";
+            position:absolute;
+            left:3px;
+            right:3px;
+            top:6px;
+            height:2px;
+            background:currentColor;
+            box-shadow:0 4px 0 currentColor,0 8px 0 currentColor;
+        }
+
+        @media (max-width:1000px) {
+            .studio { padding-top:7px !important; }
+            .studio-topbar { margin-top:0 !important; padding-top:0 !important; }
+            .zoom-controls { gap:5px !important; }
+            .mobile-top-actions { gap:5px !important; }
+            .history-pair { flex:0 0 auto; }
+            #undoMobileTop, #redoMobileTop { border:0 !important; }
+        }
+        @media (min-width:481px) and (max-width:1000px) {
+            #undoMobileTop, #redoMobileTop {
+                min-width:72px !important;
+                width:auto !important;
+                padding:0 9px !important;
+                font-size:.68rem !important;
+            }
+        }
+        @media (max-width:480px) {
+            .history-pair { border-radius:9px; }
+            #undoMobileTop, #redoMobileTop {
+                min-width:38px !important;
+                width:38px !important;
+                padding:0 !important;
+            }
+            #undoMobileTop .history-label,
+            #redoMobileTop .history-label { display:none !important; }
+            .history-arrow { width:17px; flex-basis:17px; }
+        }
+
+    
+
+/* =====================================================
+   V2.6.8 MOBILE SELECT CONTROLS + TOOL STATE POLISH
+   ===================================================== */
+@media (max-width:1000px) {
+    .mobile-selection-bar {
+        display:none;
+        position:absolute;
+        left:0;
+        top:calc(100% + 2px);
+        z-index:1850;
+        width:max-content;
+        max-width:calc(100vw - 14px);
+        gap:5px;
+        padding:7px;
+        overflow-x:auto;
+        overflow-y:hidden;
+        white-space:nowrap;
+        border:1px solid #ddd;
+        border-radius:0 12px 12px 12px;
+        background:rgba(255,255,255,.98);
+        box-shadow:0 10px 26px rgba(0,0,0,.14);
+        scrollbar-width:none;
+        backdrop-filter:blur(12px);
+    }
+    .mobile-selection-bar::-webkit-scrollbar { display:none; }
+    body.v254-select-active .mobile-selection-bar {
+        display:flex;
+        align-items:center;
+    }
+    .mobile-selection-bar button {
+        min-width:0;
+        min-height:34px;
+        padding:5px 4px;
+        border:1px solid #ccc;
+        border-radius:9px;
+        background:#fff;
+        color:#222;
+        font:inherit;
+        font-size:.62rem;
+        font-weight:850;
+        cursor:pointer;
+    }
+    .mobile-selection-bar button.active {
+        background:#111;
+        border-color:#111;
+        color:#fff;
+    }
+    .mobile-selection-bar .mobile-select-done {
+        background:#111;
+        border-color:#111;
+        color:#fff;
+    }
+
+    /* The old tiny shape icons beside SELECT are replaced by a floating
+       submenu below the header. It overlays the canvas instead of moving it. */
+    .mobile-select-icons {
+        display:none !important;
+    }
+
+    /* Fill does not use brush size. Keep it visible for context, but clearly inactive. */
+    body.v268-fill-active .mobile-brush-row:not(#touchEraserOpacityWrap) {
+        opacity:.34;
+        filter:grayscale(.65);
+        pointer-events:none;
+    }
+}
+
+/* Fill does not use brush size or brush opacity on desktop either. */
+@media (min-width:1001px) {
+    body.v268-fill-active #desktopSizeSlider,
+    body.v268-fill-active #desktopOpacitySlider {
+        opacity:.34;
+        pointer-events:none;
+    }
+    body.v268-fill-active #desktopSizeSlider + *,
+    body.v268-fill-active #desktopOpacitySlider + * {
+        opacity:.45;
+    }
+}
+
+/* The floating Tools panel can still be opened on some layouts. */
+body.v268-fill-active #v2BrushSize,
+body.v268-fill-active #opacitySlider {
+    opacity:.34;
+    pointer-events:none;
+}
+
+
+
+/* =====================================================
+   V2.6.9 SELECT TOGGLE + CONTEXT PANEL LIFECYCLE
+   ===================================================== */
+@media (max-width:1000px) {
+    /* A real selection keeps its contextual controls available even after
+       another tool is chosen. With no selection, leaving Select closes it. */
+    body.has-selection .mobile-selection-bar {
+        display:flex;
+        align-items:center;
+    }
+
+    /* DONE is an action, not a selected mode. */
+    .mobile-selection-bar .mobile-select-done,
+    .mobile-selection-bar .mobile-select-done.active {
+        background:#fff !important;
+        border-color:#ccc !important;
+        color:#222 !important;
+    }
+}
+</style>
+
+
+
+<style>
+/* =====================================================
+   V2.6.13 DESKTOP TOP ACTIONS + TOUCH-ONLY SELECT BAR
+   Desktop keeps Select controls in the sidebar.
+   Undo/Redo/Reset/Save move beneath zoom/fit/fullscreen.
+   ===================================================== */
+
+/* The floating selection submenu belongs only to touch layouts.
+   Without this base rule the div falls back to display:block on desktop. */
+.mobile-selection-bar {
+    display:none;
+}
+
+@media (min-width:1001px) {
+    .studio-topbar {
+        display:grid !important;
+        grid-template-columns:auto minmax(0,1fr) auto;
+        grid-template-rows:auto auto;
+        align-items:center;
+        column-gap:18px;
+        row-gap:7px;
+    }
+
+    .studio-mia-menu {
+        grid-column:1;
+        grid-row:1 / 3;
+        align-self:center;
+    }
+
+    .studio-name {
+        grid-column:2;
+        grid-row:1 / 3;
+        align-self:center;
+    }
+
+    .zoom-controls {
+        grid-column:3;
+        grid-row:1;
+        justify-self:end;
+    }
+
+    /* Desktop Pages and Layers stay in the sidebar, so their touch launchers
+       remain hidden exactly as before. */
+    #layersTop,
+    #pagesTop {
+        display:none !important;
+    }
+
+    .mobile-top-actions {
+        display:flex !important;
+        grid-column:3;
+        grid-row:2;
+        width:auto !important;
+        justify-self:end;
+        justify-content:flex-end;
+        align-items:center;
+        gap:5px;
+    }
+
+    .mobile-top-actions button {
+        min-width:72px;
+        height:34px;
+        padding:0 11px;
+        border:1px solid #ccc;
+        border-radius:9px;
+        background:#fff;
+        color:#222;
+        font-size:.68rem;
+        font-weight:850;
+        line-height:1;
+        cursor:pointer;
+    }
+
+    .mobile-top-actions .history-pair {
+        height:34px;
+    }
+
+    #undoMobileTop,
+    #redoMobileTop {
+        min-width:76px;
+        border:0 !important;
+        border-radius:0 !important;
+    }
+
+    #saveMobileTop {
+        background:#e88eaa;
+        border-color:#e88eaa;
+        color:#fff;
+    }
+
+    /* These actions now live in the header, leaving the lower sidebar
+       available to Pages and Layers. */
+    .desktop-studio-sidebar > .desktop-side-section:last-of-type {
+        display:none !important;
+    }
+}
+</style>
 </head>
 
 
@@ -3248,8 +3619,8 @@ body.v254-select-active #clearSelectionTouch {
     </section>
 
     <section class="desktop-side-section">
-        <div class="desktop-side-label"><span>Size</span><span id="desktopSizeReadout">18 px</span></div>
-        <input class="desktop-side-range" id="desktopSizeSlider" type="range" min="3" max="120" value="18">
+        <div class="desktop-side-label"><span>Size</span><span id="desktopSizeReadout">75 px</span></div>
+        <input class="desktop-side-range" id="desktopSizeSlider" type="range" min="23" max="100" value="75">
         <div class="desktop-side-label" style="margin-top:8px"><span>Opacity</span><span id="desktopOpacityReadout">100%</span></div>
         <input class="desktop-side-range" id="desktopOpacitySlider" type="range" min="5" max="100" value="100">
     </section>
@@ -3284,8 +3655,8 @@ body.v254-select-active #clearSelectionTouch {
 
     <section class="desktop-side-section" style="margin-top:auto">
         <div class="desktop-side-actions">
-            <button class="desktop-side-action" id="desktopUndoSide" type="button">↶ UNDO</button>
-            <button class="desktop-side-action" id="desktopRedoSide" type="button">↷ REDO</button>
+            <button class="desktop-side-action" id="desktopUndoSide" type="button"><span class="history-arrow history-arrow-undo" aria-hidden="true"></span><span>UNDO</span></button>
+            <button class="desktop-side-action" id="desktopRedoSide" type="button"><span>REDO</span><span class="history-arrow history-arrow-redo" aria-hidden="true"></span></button>
             <button class="desktop-side-action" id="desktopResetSide" type="button">RESET</button>
             <button class="desktop-side-action save" id="desktopSaveSide" type="button">SAVE</button>
         </div>
@@ -3346,6 +3717,7 @@ body.v254-select-active #clearSelectionTouch {
 
         <div class="zoom-controls">
 
+            <div class="zoom-pair" aria-label="Canvas zoom controls">
             <button class="zoom-button"
                     id="zoomOut"
                     type="button"
@@ -3358,6 +3730,7 @@ body.v254-select-active #clearSelectionTouch {
                     aria-label="Zoom in">
                 +
             </button>
+            </div>
 
 
             <button class="zoom-button"
@@ -3370,7 +3743,7 @@ body.v254-select-active #clearSelectionTouch {
                     type="button"
                     aria-label="Open layers"
                     title="Layers">
-                ▱
+                <span class="layers-icon-custom" aria-hidden="true"><i></i><i></i><i></i></span>
             </button>
 
             <button class="zoom-button top-utility-button"
@@ -3378,7 +3751,7 @@ body.v254-select-active #clearSelectionTouch {
                     type="button"
                     aria-label="Open pages"
                     title="Pages">
-                ▤
+                <span class="pages-icon-custom" aria-hidden="true"></span>
             </button>
 
             <button class="fullscreen-button"
@@ -3392,30 +3765,72 @@ body.v254-select-active #clearSelectionTouch {
         </div>
 
         <div class="mobile-top-actions" aria-label="Artwork actions">
-            <button type="button" id="undoMobileTop" aria-label="Undo" title="Undo"><span class="history-symbol" aria-hidden="true">↶</span><span class="history-label">Undo</span></button>
-            <button type="button" id="redoMobileTop" aria-label="Redo" title="Redo"><span class="history-symbol" aria-hidden="true">↷</span><span class="history-label">Redo</span></button>
+            <div class="history-pair" aria-label="History controls">
+                <button type="button" id="undoMobileTop" aria-label="Undo" title="Undo"><span class="history-arrow history-arrow-undo" aria-hidden="true"></span><span class="history-label">UNDO</span></button>
+                <button type="button" id="redoMobileTop" aria-label="Redo" title="Redo"><span class="history-label">REDO</span><span class="history-arrow history-arrow-redo" aria-hidden="true"></span></button>
+            </div>
             <button type="button" id="resetMobileTop">RESET</button>
             <button type="button" id="saveMobileTop">SAVE</button>
         </div>
 
         <div class="mobile-creative-tools" aria-label="Creative tools">
+
+            <button class="mobile-icon-tool brush-menu-tool active"
+                    data-v2-tool="brush"
+                    data-mobile-submenu="brush"
+                    type="button"
+                    aria-label="Brush"
+                    title="Brush"><span class="brush-menu-icon" aria-hidden="true">✎</span></button>
+
             <button class="mobile-icon-tool fill-icon-tool"
                     data-v2-tool="fill"
                     type="button"
                     aria-label="Fill"
                     title="Fill"><span class="bucket-icon" aria-hidden="true"></span></button>
 
+
+            <button class="mobile-icon-tool shape-menu-tool"
+                    data-v2-tool="shape"
+                    data-mobile-submenu="shape"
+                    type="button"
+                    aria-label="Line and shapes"
+                    title="Line / Shape"><span class="shape-menu-icon" aria-hidden="true"><b>□</b><b>○</b></span></button>
+
+
             <button class="mobile-icon-tool select-icon-tool"
                     data-v2-tool="select"
                     type="button"
                     aria-label="Select"
-                    title="Select">⌁</button>
+                    title="Select"><span class="select-triangle-icon" aria-hidden="true"></span></button>
 
             <div class="mobile-select-icons" aria-label="Selection shape">
                 <button type="button" data-v253-select-mode="free" aria-label="Free selection" title="Free">〰</button>
                 <button type="button" data-v253-select-mode="rect" aria-label="Square selection" title="Square">□</button>
                 <button type="button" data-v253-select-mode="ellipse" aria-label="Circle selection" title="Circle">○</button>
             </div>
+        </div>
+
+        <div class="mobile-selection-bar" id="mobileSelectionBar" aria-label="Selection controls">
+            <button type="button" data-mobile-select-mode="free" class="active">FREE</button>
+            <button type="button" data-mobile-select-mode="rect">SQUARE</button>
+            <button type="button" data-mobile-select-mode="ellipse">CIRCLE</button>
+            <button type="button" data-mobile-selection-op="add" class="active">+ ADD</button>
+            <button type="button" data-mobile-selection-op="subtract">− SUBTRACT</button>
+            <button type="button" data-mobile-selection-clear>CLEAR</button>
+            <button type="button" class="mobile-select-done" data-mobile-selection-done>DONE</button>
+        </div>
+
+        <div class="mobile-tool-submenu mobile-brush-submenu" id="mobileBrushSubmenu" aria-label="Brush choices">
+            <button type="button" data-mobile-brush-choice="pen" class="active">PEN</button>
+            <button type="button" data-mobile-brush-choice="marker">MARKER</button>
+            <button type="button" data-mobile-brush-choice="soft">SOFT</button>
+            <button type="button" data-mobile-brush-choice="texture">TEXTURE</button>
+        </div>
+
+        <div class="mobile-tool-submenu mobile-shape-submenu" id="mobileShapeSubmenu" aria-label="Line and shape choices">
+            <button type="button" data-mobile-shape-choice="line" class="active"><span class="straight-line-icon" aria-hidden="true"></span> LINE</button>
+            <button type="button" data-mobile-shape-choice="rect"><span class="bold-shape" aria-hidden="true">□</span> SQUARE</button>
+            <button type="button" data-mobile-shape-choice="ellipse"><span class="bold-shape" aria-hidden="true">○</span> CIRCLE</button>
         </div>
 
     </header>
@@ -3439,14 +3854,14 @@ body.v254-select-active #clearSelectionTouch {
 
                 <div class="tool-buttons">
 
-                    <button class="tool-button active"
+                    <button class="tool-button"
                             data-tool="fill"
                             type="button">
                         FILL
                     </button>
 
 
-                    <button class="tool-button"
+                    <button class="tool-button active"
                             data-tool="brush"
                             type="button">
                         BRUSH
@@ -3510,15 +3925,15 @@ body.v254-select-active #clearSelectionTouch {
                 <input class="brush-slider"
                        id="brushSize"
                        type="range"
-                       min="3"
+                       min="23"
                        max="100"
-                       value="18">
+                       value="75">
 
 
                 <div class="brush-readout">
 
                     <span id="brushReadout">
-                        18
+                        75
                     </span>
 
                     px
@@ -3529,7 +3944,7 @@ body.v254-select-active #clearSelectionTouch {
 
             <div class="tool-section eraser-opacity-section" id="eraserOpacitySection">
                 <label class="tool-label" for="eraserOpacity">
-                    Eraser Opacity
+                    Opacity
                 </label>
                 <input class="brush-slider"
                        id="eraserOpacity"
@@ -3593,13 +4008,13 @@ body.v254-select-active #clearSelectionTouch {
                 <button class="action-button"
                         id="undoDesktop"
                         type="button">
-                    ↶ UNDO
+                    <span class="history-arrow history-arrow-undo" aria-hidden="true"></span><span>UNDO</span>
                 </button>
 
                 <button class="action-button"
                         id="redoDesktop"
                         type="button">
-                    ↷ REDO
+                    <span>REDO</span><span class="history-arrow history-arrow-redo" aria-hidden="true"></span>
                 </button>
 
                 <button class="action-button"
@@ -3688,8 +4103,8 @@ body.v254-select-active #clearSelectionTouch {
         </div>
 
         <div class="option-group">
-            <div class="option-label"><span>Size</span><span id="v2SizeReadout">18 px</span></div>
-            <input class="v2-range" id="v2BrushSize" type="range" min="3" max="120" value="18">
+            <div class="option-label"><span>Size</span><span id="v2SizeReadout">75 px</span></div>
+            <input class="v2-range" id="v2BrushSize" type="range" min="23" max="100" value="75">
         </div>
 
         <div class="option-group">
@@ -3722,8 +4137,8 @@ body.v254-select-active #clearSelectionTouch {
     </aside>
 
     <div class="bottom-actions-v2">
-        <button id="undoV2" type="button">↶ UNDO</button>
-        <button id="redoV2" type="button">↷ REDO</button>
+        <button id="undoV2" type="button"><span class="history-arrow history-arrow-undo" aria-hidden="true"></span><span>UNDO</span></button>
+        <button id="redoV2" type="button"><span>REDO</span><span class="history-arrow history-arrow-redo" aria-hidden="true"></span></button>
         <button id="resetV2" type="button">RESET</button>
         <button class="save" id="saveV2" type="button">SAVE MY ART</button>
     </div>
@@ -3920,15 +4335,15 @@ body.v254-select-active #clearSelectionTouch {
         <input class="mobile-brush-slider"
                id="mobileBrushSize"
                type="range"
-               min="3"
+               min="23"
                max="100"
-               value="18">
+               value="75">
 
 
         <span class="mobile-brush-value">
 
             <span id="mobileBrushReadout">
-                18
+                75
             </span>
 
             px
@@ -3939,9 +4354,9 @@ body.v254-select-active #clearSelectionTouch {
 
 
 
-    <!-- ERASER OPACITY: visible only while Erase is active -->
+    <!-- OPACITY: visible only while Erase is active -->
     <div class="mobile-brush-row v250-mobile-eraser-opacity" id="touchEraserOpacityWrap">
-        <span class="mobile-brush-label">ERASER OPACITY</span>
+        <span class="mobile-brush-label">OPACITY</span>
         <input class="mobile-brush-slider"
                id="touchEraserOpacity"
                type="range"
@@ -4504,13 +4919,13 @@ body.v254-select-active #clearSelectionTouch {
        ========================= */
 
     let currentTool =
-        'fill';
+        'brush';
 
     let currentColor =
         '#e88eaa';
 
     let brushSize =
-        18;
+        75;
 
     let brushOpacity =
         1;
@@ -5286,7 +5701,11 @@ body.v254-select-active #clearSelectionTouch {
             saveHistory(false);
             resetLayersFromCurrent();
             markSaved();
-            selectTool('fill');
+            /* TEST #22: Pen is the true startup tool after artwork initialization. */
+            brushType = 'pen';
+            brushSize = 75;
+            selectTool('brush');
+            updateBrushSize(75);
 
             requestAnimationFrame(
                 fitArtwork
@@ -7664,7 +8083,7 @@ body.v254-select-active #clearSelectionTouch {
 
 let v241SelectMode = 'free';
 let v241ShapeMode = 'line';
-let v241ToolBeforeSelect = 'fill';
+let v241ToolBeforeSelect = 'brush';
 let v241SpecialStart = null;
 let v241SpecialActive = false;
 
@@ -8257,7 +8676,7 @@ v241RefreshToolUI();
 
 
 /* =========================
-   V2.4.4 BRUSH STATE + ERASER OPACITY
+   V2.4.4 BRUSH STATE + OPACITY
    ========================= */
 
 let eraserOpacityV244 = 1;
@@ -10301,6 +10720,1601 @@ document.addEventListener('pointerup', function() {
     }, 0);
 }, true);
 </script>
+
+
+<script>
+/* =====================================================
+   V2.6.8 MOBILE SELECT CONTROLS + TOOL STATE POLISH
+   Keeps the existing selection engine untouched.
+   ===================================================== */
+(() => {
+    "use strict";
+
+    function syncV268ToolState() {
+        const isFill = currentTool === "fill";
+        document.body.classList.toggle("v268-fill-active", isFill);
+
+        /* The HTML starts with PEN visually active because Pen is the default
+           brush type. That must not make Pen look like the active tool while
+           Fill is actually selected. */
+        document.querySelectorAll(".mobile-direct-tools [data-brush-type]").forEach(button => {
+            button.classList.toggle(
+                "active",
+                currentTool === "brush" && button.dataset.brushType === brushType
+            );
+        });
+
+        document.querySelectorAll(".mobile-creative-tools [data-v2-tool]").forEach(button => {
+            button.classList.toggle("active", button.dataset.v2Tool === currentTool);
+        });
+    }
+
+    /* Wrap the final tool selector, after all earlier compatibility wrappers. */
+    const selectToolV268 = selectTool;
+    selectTool = function(tool) {
+        const result = selectToolV268(tool);
+        syncV268ToolState();
+        return result;
+    };
+
+    const bar = document.getElementById("mobileSelectionBar");
+    if (bar) {
+        bar.addEventListener("click", event => {
+            const button = event.target.closest("button");
+            if (!button) return;
+
+            if (button.dataset.mobileSelectMode) {
+                const mode = button.dataset.mobileSelectMode;
+                const source = document.querySelector(
+                    '#touchSelectModes [data-v253-select-mode="' + mode + '"]'
+                );
+                if (source) source.click();
+                bar.querySelectorAll("[data-mobile-select-mode]").forEach(b =>
+                    b.classList.toggle("active", b === button)
+                );
+                return;
+            }
+
+            if (button.dataset.mobileSelectionOp) {
+                const op = button.dataset.mobileSelectionOp;
+                const source = document.querySelector(
+                    '#touchSelectModes [data-v253-selection-op="' + op + '"]'
+                );
+                if (source) source.click();
+                bar.querySelectorAll("[data-mobile-selection-op]").forEach(b =>
+                    b.classList.toggle("active", b === button)
+                );
+                return;
+            }
+
+            if (button.hasAttribute("data-mobile-selection-clear")) {
+                document.getElementById("clearSelectionTouch")?.click();
+                return;
+            }
+
+            if (button.hasAttribute("data-mobile-selection-done")) {
+                document.querySelector(
+                    '#touchSelectModes [data-v253-selection-done]'
+                )?.click();
+            }
+        });
+    }
+
+    /* Correct the first paint immediately after refresh/reload. */
+    syncV268ToolState();
+})();
+</script>
+
+
+
+<script>
+/* =====================================================
+   V2.6.10 SELECT TOGGLE FIX
+   Determine toggle intent on pointerdown, before the existing click
+   lifecycle changes currentTool. This keeps first-click Select working.
+   ===================================================== */
+(() => {
+    "use strict";
+
+    let toolBeforeSelectV2610 = "fill";
+    let toggleSelectOffV2610 = false;
+
+    function isSelectButtonV2610(target) {
+        return target.closest(
+            '[data-tool="select"],[data-v2-tool="select"],[data-desktop-tool="select"]'
+        );
+    }
+
+    function refreshToolButtonsV2610(tool) {
+        document.querySelectorAll('[data-tool]').forEach(b =>
+            b.classList.toggle('active', b.dataset.tool === tool)
+        );
+        document.querySelectorAll('[data-v2-tool]').forEach(b =>
+            b.classList.toggle('active', b.dataset.v2Tool === tool)
+        );
+        document.querySelectorAll('[data-desktop-tool]').forEach(b =>
+            b.classList.toggle('active', b.dataset.desktopTool === tool)
+        );
+    }
+
+    /* Record whether this gesture began while Select was already active.
+       This happens before any click handler can change currentTool. */
+    document.addEventListener('pointerdown', event => {
+        if (!isSelectButtonV2610(event.target)) {
+            toggleSelectOffV2610 = false;
+            return;
+        }
+
+        toggleSelectOffV2610 = currentTool === 'select';
+
+        if (!toggleSelectOffV2610 && currentTool) {
+            toolBeforeSelectV2610 = currentTool;
+        }
+    }, true);
+
+    document.addEventListener('click', event => {
+        if (!isSelectButtonV2610(event.target)) return;
+
+        /* First click: do not interfere. The existing Select engine handles it. */
+        if (!toggleSelectOffV2610) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+        toggleSelectOffV2610 = false;
+
+        const back = toolBeforeSelectV2610 && toolBeforeSelectV2610 !== 'select'
+            ? toolBeforeSelectV2610
+            : 'fill';
+
+        selectTool(back);
+        refreshToolButtonsV2610(back);
+
+        requestAnimationFrame(() => {
+            document.body.classList.remove(
+                'v254-select-active',
+                'v247-selecting',
+                'v241-select-active'
+            );
+            refreshToolButtonsV2610(back);
+        });
+    }, true);
+
+    /* Keyboard-generated clicks have no pointerdown. Let the existing Select
+       behavior run rather than accidentally treating them as toggle-off. */
+    document.querySelectorAll('[data-v253-selection-done],[data-mobile-selection-done]')
+        .forEach(button => button.classList.remove('active'));
+})();
+</script>
+
+
+<style>
+/* =====================================================
+   V2.6.12 MOBILE/TABLET VIEWPORT + SELECT PANEL POLISH
+   ===================================================== */
+@media (max-width:1000px) {
+    /* Status text is useful on desktop, but on touch layouts it steals a
+       thin strip of vertical room and can peek out between canvas and dock. */
+    .studio-status {
+        display:none !important;
+    }
+
+    /* Give the touch layout a little more breathing room so the full top
+       control area remains visible without increasing page height. */
+    .canvas-frame {
+        height:calc(100dvh - 258px) !important;
+    }
+}
+
+@media (min-width:481px) and (max-width:1000px) {
+    .canvas-frame {
+        height:calc(100dvh - 248px) !important;
+    }
+}
+</style>
+
+<script>
+/* =====================================================
+   V2.6.12 BRUSH CHOICES FOLLOW SELECT PANEL LIFECYCLE
+   Pen / Marker / Soft / Texture behave like the other tools:
+   leave the Select submenu only when a committed selection exists.
+   ===================================================== */
+(() => {
+    "use strict";
+
+    document.addEventListener("click", event => {
+        const brushButton = event.target.closest("[data-brush-type]");
+        if (!brushButton) return;
+
+        requestAnimationFrame(() => {
+            if (!document.body.classList.contains("has-selection")) {
+                document.body.classList.remove(
+                    "v254-select-active",
+                    "v247-selecting",
+                    "v241-select-active"
+                );
+            }
+        });
+    }, true);
+})();
+</script>
+
+
+
+<style>
+/* =====================================================
+   TEST #14 — COMPACT MENUS + FITTED DESKTOP + CONTEXT TIPS
+   ===================================================== */
+
+/* Context tip is an overlay, not another layout row. */
+.art-side { position:relative; }
+.studio-status {
+    position:absolute;
+    left:12px;
+    top:8px;
+    z-index:24;
+    width:auto;
+    max-width:min(620px, calc(100% - 24px));
+    min-height:0 !important;
+    margin:0 !important;
+    padding:5px 9px;
+    border:1px solid rgba(0,0,0,.08);
+    border-radius:8px;
+    background:rgba(255,255,255,.86);
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
+    color:#666;
+    font-size:.66rem;
+    line-height:1.25;
+    text-align:left;
+    pointer-events:none;
+    backdrop-filter:blur(8px);
+}
+
+@media (max-width:1000px) {
+    /* Restore the contextual helper on touch layouts without consuming height. */
+    .studio-status { display:block !important; }
+
+    /* MIA MENU uses the same compact floating language as Select. */
+    .studio-mia-nav {
+        position:fixed !important;
+        top:54px !important;
+        left:7px !important;
+        right:auto !important;
+        width:max-content !important;
+        max-width:calc(100vw - 14px) !important;
+        max-height:none !important;
+        display:flex !important;
+        align-items:center;
+        gap:5px !important;
+        padding:7px !important;
+        overflow-x:auto !important;
+        overflow-y:hidden !important;
+        white-space:nowrap;
+        border:1px solid #ddd;
+        border-radius:0 12px 12px 12px !important;
+        background:rgba(255,255,255,.98);
+        box-shadow:0 10px 26px rgba(0,0,0,.14) !important;
+        transform:none !important;
+        scrollbar-width:none;
+        z-index:1950 !important;
+    }
+    .studio-mia-nav::-webkit-scrollbar { display:none; }
+    .studio-mia-nav a,
+    .studio-mia-nav .current {
+        flex:0 0 auto;
+        width:auto !important;
+        min-height:34px !important;
+        padding:5px 10px !important;
+        border-radius:9px !important;
+        font-size:.62rem !important;
+        letter-spacing:0 !important;
+    }
+
+    /* MIA navigation temporarily owns this floating-menu layer. */
+    body.mia-menu-open .mobile-selection-bar { display:none !important; }
+
+    /* DONE is the clear finish/exit action and lives at the far end. */
+    .mobile-selection-bar .mobile-select-done,
+    .mobile-selection-bar .mobile-select-done.active {
+        background:#f8d7e3 !important;
+        border-color:#e8a9bf !important;
+        color:#7d2948 !important;
+    }
+}
+
+@media (min-width:1001px) {
+    /* The second desktop control row made the old canvas calculation too tall.
+       Pull the artwork upward and keep the fitted workspace inside the viewport. */
+    .studio-topbar {
+        min-height:0 !important;
+        margin-bottom:3px !important;
+        row-gap:4px !important;
+    }
+    .canvas-frame {
+        height:calc(100dvh - 142px) !important;
+        min-height:420px !important;
+    }
+    .studio-status {
+        left:14px;
+        top:8px;
+    }
+}
+</style>
+
+<script>
+/* =====================================================
+   TEST #14 — MENU ARBITRATION + CONTEXTUAL TIPS
+   ===================================================== */
+(() => {
+    "use strict";
+
+    const miaMenu = document.querySelector('.studio-mia-menu');
+    const status = document.getElementById('studioStatus');
+
+    function setTip(text) {
+        if (status && text) status.textContent = text;
+    }
+
+    /* MIA MENU and Select share the same floating space on touch layouts.
+       Preserve a committed selection, but temporarily hide its controls.
+       With no committed selection, opening MIA MENU closes Select. */
+    if (miaMenu) {
+        miaMenu.addEventListener('toggle', () => {
+            const open = miaMenu.open;
+            document.body.classList.toggle('mia-menu-open', open);
+
+            if (open && !document.body.classList.contains('has-selection')) {
+                document.body.classList.remove(
+                    'v254-select-active',
+                    'v247-selecting',
+                    'v241-select-active'
+                );
+            }
+        });
+    }
+
+    /* Richer little helper sentences. Existing tool logic can still update
+       studioStatus; these refine sub-tools that the main selector cannot name. */
+    document.addEventListener('click', event => {
+        const brush = event.target.closest('[data-brush-type]');
+        if (brush) {
+            const name = (brush.dataset.brushType || 'brush').toLowerCase();
+            const tips = {
+                pen: 'Pen: draw clean freehand lines. Adjust size and opacity for more control.',
+                marker: 'Marker: build broad strokes and layered color. Lower opacity for softer overlaps.',
+                soft: 'Soft brush: paint gentle edges and shading. Try a larger size for smooth blends.',
+                texture: 'Texture brush: add grain and character with short or layered strokes.'
+            };
+            setTip(tips[name] || 'Brush: draw freely. Adjust size and opacity to change the stroke.');
+            return;
+        }
+
+        const mode = event.target.closest('[data-mobile-select-mode],[data-v253-select-mode]');
+        if (mode) {
+            const m = mode.dataset.mobileSelectMode || mode.dataset.v253SelectMode;
+            const tips = {
+                free: 'Select: draw a freehand loop around an area. Add or subtract more, then tap Done.',
+                rect: 'Select: drag a square or rectangle around the area you want. Tap Done when finished.',
+                ellipse: 'Select: drag a circle or oval around the area you want. Tap Done when finished.'
+            };
+            setTip(tips[m]);
+            return;
+        }
+
+        if (event.target.closest('[data-mobile-selection-op="add"],[data-v253-selection-op="add"]')) {
+            setTip('Add: draw another area to include it in your current selection.');
+            return;
+        }
+        if (event.target.closest('[data-mobile-selection-op="subtract"],[data-v253-selection-op="subtract"]')) {
+            setTip('Subtract: draw over part of the selection to remove that area.');
+            return;
+        }
+        if (event.target.closest('[data-mobile-selection-clear],#clearSelectionV24,#clearSelectionTouch')) {
+            setTip('Selection cleared. Draw a new area, or choose another tool.');
+            return;
+        }
+        if (event.target.closest('[data-mobile-selection-done],[data-v253-selection-done]')) {
+            setTip('Selection finished. Choose a tool to keep creating.');
+            return;
+        }
+
+        const tool = event.target.closest('[data-tool],[data-v2-tool],[data-desktop-tool]');
+        if (!tool) return;
+        const t = tool.dataset.tool || tool.dataset.v2Tool || tool.dataset.desktopTool;
+        const tips = {
+            fill: 'Fill: tap and hold to preview the color. Release to fill. Tip: a second finger cancels the preview for pinch zoom.',
+            brush: 'Brush: draw freely on the artwork. Adjust size and opacity to change the stroke.',
+            eraser: 'Eraser: drag over anything you added to remove it. Adjust size for more control.',
+            move: 'Move: drag the artwork to reposition it. Pinch with two fingers to zoom.',
+            select: 'Select: draw around an area, then add, subtract, clear, or finish with Done.',
+            shape: 'Line / Shape: choose a shape, then drag on the artwork to draw it.'
+        };
+        setTip(tips[t]);
+    }, true);
+
+    /* Correct initial helper text to match the real default tool. */
+    requestAnimationFrame(() => {
+        if (typeof currentTool !== 'undefined' && currentTool === 'fill') {
+            setTip('Fill: tap and hold to preview the color. Release to fill. Tip: a second finger cancels the preview for pinch zoom.');
+        }
+    });
+})();
+</script>
+
+
+<style>
+/* =====================================================
+   TEST #15 — BOTTOM CONTEXT TIPS + DESKTOP FIT POLISH
+   ===================================================== */
+
+/* Keep the helper out of the growing top-control area. */
+.studio-status {
+    top:auto !important;
+    bottom:8px !important;
+    left:12px !important;
+    max-width:min(720px, calc(100% - 24px)) !important;
+}
+
+@media (max-width:1000px) {
+    .studio-status {
+        bottom:7px !important;
+        left:9px !important;
+        max-width:calc(100% - 18px) !important;
+        padding:4px 8px !important;
+        font-size:.63rem !important;
+    }
+}
+
+@media (min-width:1001px) {
+    /* The desktop header now has two control rows. Reserve its real height so
+       the complete fitted workspace remains inside the browser viewport. */
+    .studio {
+        padding-top:4px !important;
+        padding-bottom:5px !important;
+    }
+    .studio-topbar {
+        margin-top:0 !important;
+        margin-bottom:1px !important;
+        padding-top:0 !important;
+        padding-bottom:0 !important;
+        row-gap:3px !important;
+    }
+    .canvas-frame {
+        height:calc(100dvh - 238px) !important;
+        min-height:360px !important;
+    }
+    .studio-status {
+        bottom:8px !important;
+        left:14px !important;
+    }
+}
+</style>
+
+<script>
+/* =====================================================
+   TEST #15 — PAGE/LAYER CONTEXT HELP
+   ===================================================== */
+(() => {
+    "use strict";
+
+    const status = document.getElementById('studioStatus');
+    if (!status) return;
+
+    const setTip = text => { if (text) status.textContent = text; };
+
+    document.addEventListener('click', event => {
+        /* Top launchers on phone/tablet. */
+        if (event.target.closest('#pagesTop')) {
+            setTip('Pages: choose another coloring page, start blank, or upload your own artwork. Your current page stays here until you choose another.');
+            return;
+        }
+        if (event.target.closest('#layersTop')) {
+            setTip('Layers: choose the layer you want to work on. Add, reorder, hide, or remove layers to build your artwork in pieces.');
+            return;
+        }
+
+        /* Desktop Pages area. */
+        if (event.target.closest('#desktopSidePages')) {
+            const upload = event.target.closest('#desktopUploadPage');
+            const blank = event.target.closest('#desktopBlankPage');
+            if (upload) {
+                setTip('Upload: bring in your own image and use it as a new page in the Creative Studio.');
+            } else if (blank) {
+                setTip('Blank page: start with an empty canvas and make something completely your own.');
+            } else {
+                setTip('Pages: pick a coloring page to work on. You can always come back and choose another.');
+            }
+            return;
+        }
+
+        /* Desktop/mobile layer controls and rows. */
+        if (event.target.closest('#desktopSideLayers,#layersPanel')) {
+            const row = event.target.closest('.desktop-side-layer,.layer-row');
+            if (row) {
+                setTip('Layer selected: anything you draw now goes on this layer. Use separate layers to keep parts of your artwork easy to edit.');
+            } else {
+                setTip('Layers: choose where you want to work. Add, reorder, hide, or remove layers without changing the original line art.');
+            }
+        }
+    }, true);
+})();
+</script>
+
+
+<style>
+/* =====================================================
+   TEST #16 — PAGE PANEL HELP + RESPONSIVE PAGE CARDS
+   + DISMISSIBLE / POINTER-AWARE CONTEXT HELP
+   ===================================================== */
+
+/* The status sentence now lives in a small wrapper so its close control can
+   survive older code that updates #studioStatus with textContent. */
+.studio-tip-wrap {
+    position:absolute;
+    left:12px;
+    bottom:8px;
+    z-index:26;
+    display:flex;
+    align-items:center;
+    max-width:min(760px, calc(100% - 24px));
+    border:1px solid rgba(0,0,0,.08);
+    border-radius:8px;
+    background:rgba(255,255,255,.90);
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
+    backdrop-filter:blur(8px);
+}
+.studio-tip-wrap .studio-status {
+    position:static !important;
+    left:auto !important;
+    top:auto !important;
+    bottom:auto !important;
+    z-index:auto !important;
+    max-width:none !important;
+    padding:5px 7px 5px 9px !important;
+    border:0 !important;
+    border-radius:0 !important;
+    background:transparent !important;
+    box-shadow:none !important;
+    backdrop-filter:none !important;
+    pointer-events:none !important;
+}
+.studio-tip-close {
+    flex:0 0 25px;
+    width:25px;
+    height:25px;
+    margin-right:3px;
+    padding:0;
+    border:0;
+    border-radius:50%;
+    background:transparent;
+    color:#777;
+    font:inherit;
+    font-size:.8rem;
+    font-weight:800;
+    cursor:pointer;
+}
+.studio-tip-close:hover { background:#eee; color:#222; }
+.studio-tip-wrap.tip-hidden { display:none !important; }
+
+/* Pages guidance belongs inside the Pages window, just like Layers. */
+.pages-panel-note {
+    color:#777;
+    font-size:.62rem;
+    line-height:1.3;
+}
+
+@media (max-width:1000px) {
+    .studio-tip-wrap {
+        left:9px;
+        bottom:7px;
+        max-width:calc(100% - 18px);
+    }
+    .studio-tip-wrap .studio-status {
+        padding:4px 6px 4px 8px !important;
+        font-size:.63rem !important;
+    }
+
+    .artwork-tray {
+        padding-bottom:38px !important;
+    }
+    .pages-panel-note {
+        position:absolute;
+        left:12px;
+        right:12px;
+        bottom:7px;
+        margin:0;
+        white-space:normal;
+        pointer-events:none;
+    }
+}
+
+/* Tablet: fewer, larger page cards. Roughly four artwork choices are visible. */
+@media (min-width:481px) and (max-width:1000px) {
+    .artwork-tray .artwork-thumb {
+        flex:0 0 clamp(120px, 21vw, 180px) !important;
+    }
+    .artwork-tray .artwork-thumb img,
+    .artwork-tray .artwork-thumb-preview {
+        font-size:1.8rem;
+    }
+}
+
+/* Phone: roughly three artwork choices are visible, including Blank. */
+@media (max-width:480px) {
+    .artwork-tray .artwork-thumb {
+        flex:0 0 calc((100vw - 82px) / 3) !important;
+        min-width:92px;
+    }
+}
+
+@media (min-width:1001px) {
+    /* Trim the remaining top and bottom reserve. The page itself stays fixed;
+       the canvas owns the recovered vertical space. */
+    .studio { padding-top:2px !important; padding-bottom:2px !important; }
+    .studio-topbar { margin-bottom:0 !important; row-gap:2px !important; }
+    .canvas-frame {
+        height:calc(100dvh - 188px) !important;
+        min-height:360px !important;
+    }
+}
+</style>
+
+<script>
+/* =====================================================
+   TEST #16 — CONTEXT HELP BEHAVIOR
+   Desktop: hover previews a control's tip; leaving restores the current tool.
+   Touch: taps update the tip. The X hides tips for this tab/session only.
+   ===================================================== */
+(() => {
+    "use strict";
+
+    const status = document.getElementById('studioStatus');
+    if (!status) return;
+
+    /* Wrap without changing the status element itself; legacy code can keep
+       assigning status.textContent safely. */
+    let wrap = status.closest('.studio-tip-wrap');
+    if (!wrap) {
+        wrap = document.createElement('div');
+        wrap.className = 'studio-tip-wrap';
+        status.parentNode.insertBefore(wrap, status);
+        wrap.appendChild(status);
+
+        const close = document.createElement('button');
+        close.type = 'button';
+        close.className = 'studio-tip-close';
+        close.setAttribute('aria-label', 'Hide tips');
+        close.title = 'Hide tips for this visit';
+        close.textContent = '×';
+        wrap.appendChild(close);
+
+        close.addEventListener('click', e => {
+            e.preventDefault();
+            e.stopPropagation();
+            wrap.classList.add('tip-hidden');
+            try { sessionStorage.setItem('miaStudioTipsHidden', '1'); } catch (_) {}
+        });
+    }
+
+    try {
+        if (sessionStorage.getItem('miaStudioTipsHidden') === '1') {
+            wrap.classList.add('tip-hidden');
+        }
+    } catch (_) {}
+
+    const TOOL_TIPS = {
+        fill: 'Fill: tap and hold to preview the color. Release to fill. Tip: a second finger cancels the preview for pinch zoom.',
+        brush: 'Brush: draw freely on the artwork. Adjust size and opacity to change the stroke.',
+        eraser: 'Eraser: drag over anything you added to remove it. Adjust size for more control.',
+        move: 'Move: drag the artwork to reposition it. Pinch with two fingers to zoom.',
+        select: 'Select: draw around an area, then add, subtract, clear, or finish with Done.',
+        shape: 'Line / Shape: choose a shape, then drag on the artwork to draw it.'
+    };
+    const BRUSH_TIPS = {
+        pen: 'Pen: draw clean freehand lines. Adjust size and opacity for more control.',
+        marker: 'Marker: build broad strokes and layered color. Lower opacity for softer overlaps.',
+        soft: 'Soft brush: paint gentle edges and shading. Try a larger size for smooth blends.',
+        texture: 'Texture brush: add grain and character with short or layered strokes.'
+    };
+
+    function currentToolTip() {
+        const t = (typeof currentTool !== 'undefined' && currentTool) ? currentTool : 'fill';
+        if (t === 'brush') {
+            const activeBrush = document.querySelector('[data-brush-type].active');
+            const name = activeBrush?.dataset.brushType?.toLowerCase() || 'pen';
+            return BRUSH_TIPS[name] || TOOL_TIPS.brush;
+        }
+        return TOOL_TIPS[t] || 'Choose a tool and start creating.';
+    }
+
+    function hoverTipFor(target) {
+        const pages = target.closest('#pagesTop,#desktopSidePages,#pagesLauncher,.artwork-tray');
+        if (pages) return 'Pages: choose another coloring page, start blank, or upload your own artwork.';
+
+        const layers = target.closest('#layersTop,#desktopSideLayers,#layersPanel');
+        if (layers) return 'Layers: choose where you want to work. Add, reorder, hide, or remove layers without changing the original line art.';
+
+        const brush = target.closest('[data-brush-type]');
+        if (brush) return BRUSH_TIPS[(brush.dataset.brushType || '').toLowerCase()] || TOOL_TIPS.brush;
+
+        const tool = target.closest('[data-tool],[data-v2-tool],[data-desktop-tool]');
+        if (tool) {
+            const t = tool.dataset.tool || tool.dataset.v2Tool || tool.dataset.desktopTool;
+            return TOOL_TIPS[t] || null;
+        }
+
+        const zoomOut = target.closest('#zoomOut');
+        if (zoomOut) return 'Zoom out: make the artwork smaller inside the workspace.';
+        const zoomIn = target.closest('#zoomIn');
+        if (zoomIn) return 'Zoom in: get closer to small details.';
+        if (target.closest('#fitButton,#fitTop,#desktopFitPage')) return 'Fit: center the whole artwork comfortably inside the workspace.';
+        if (target.closest('[data-fullscreen],#fullscreenButton,#fullscreenTop')) return 'Full view: give the artwork more room on screen.';
+        if (target.closest('[id*="undo" i]')) return 'Undo: step back one change.';
+        if (target.closest('[id*="redo" i]')) return 'Redo: bring back the last change you undid.';
+        if (target.closest('[id*="reset" i]')) return 'Reset: return this page to its starting state.';
+        if (target.closest('[id*="save" i]')) return 'Save: export your artwork when you are ready.';
+        return null;
+    }
+
+    /* Mouse/trackpad only. Responsive touch emulation may report coarse pointer,
+       so real touch layouts continue using click/tap updates instead. */
+    if (window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
+        document.addEventListener('mouseover', e => {
+            const tip = hoverTipFor(e.target);
+            if (tip) status.textContent = tip;
+        }, true);
+
+        document.addEventListener('mouseout', e => {
+            const from = hoverTipFor(e.target);
+            if (!from) return;
+            const to = e.relatedTarget && hoverTipFor(e.relatedTarget);
+            if (!to) status.textContent = currentToolTip();
+        }, true);
+    }
+
+    /* When a real drawing tool is clicked it becomes the persistent home tip. */
+    document.addEventListener('click', e => {
+        const tool = e.target.closest('[data-tool],[data-v2-tool],[data-desktop-tool]');
+        if (!tool) return;
+        requestAnimationFrame(() => { status.textContent = currentToolTip(); });
+    }, false);
+})();
+</script>
+
+<script>
+/* Put Pages help inside the Pages panel itself. */
+(() => {
+    const tray = document.getElementById('artworkTray');
+    if (!tray || tray.querySelector('.pages-panel-note')) return;
+    const note = document.createElement('p');
+    note.className = 'pages-panel-note';
+    note.textContent = 'Choose a coloring page, start with Blank, or upload your own image. Your current page stays until you choose another.';
+    tray.appendChild(note);
+})();
+</script>
+
+
+
+<style>
+/* =====================================================
+   TEST #17 — INPUT-AWARE HELP + PAGE NOTE CONTAINMENT
+   + DESKTOP 5PX CONTROL RHYTHM
+   ===================================================== */
+@media (max-width:1000px) {
+    .pages-panel-note {
+        box-sizing:border-box !important;
+        left:12px !important;
+        right:auto !important;
+        width:calc(100% - 24px);
+        max-width:none !important;
+        overflow-wrap:anywhere;
+        padding:0 2px;
+    }
+}
+
+@media (min-width:1001px) {
+    .studio { padding-top:5px !important; padding-bottom:5px !important; }
+    .studio-topbar {
+        margin-bottom:5px !important;
+        row-gap:5px !important;
+        padding-top:5px !important;
+        padding-bottom:5px !important;
+    }
+    .canvas-frame {
+        height:calc(100dvh - 194px) !important;
+        min-height:360px !important;
+    }
+}
+</style>
+
+<script>
+/* TEST #17 — tips follow the input actually being used, not screen size. */
+(() => {
+    'use strict';
+    const status = document.getElementById('studioStatus');
+    const wrap = status?.closest('.studio-tip-wrap');
+    if (!status || !wrap) return;
+
+    const TOOL_TIPS_17 = {
+        fill:'Fill: tap and hold to preview the color. Release to fill. Tip: a second finger cancels the preview for pinch zoom.',
+        brush:'Brush: draw freely on the artwork. Adjust size and opacity to change the stroke.',
+        eraser:'Eraser: drag over anything you added to remove it. Adjust size for more control.',
+        move:'Move: drag the artwork to reposition it. Pinch with two fingers to zoom.',
+        select:'Select: draw around an area, then add, subtract, clear, or finish with Done.',
+        shape:'Line / Shape: choose a shape, then drag on the artwork to draw it.'
+    };
+    const BRUSH_TIPS_17 = {
+        pen:'Pen: draw clean freehand lines. Adjust size and opacity for more control.',
+        marker:'Marker: build broad strokes and layered color. Lower opacity for softer overlaps.',
+        soft:'Soft brush: paint gentle edges and shading. Try a larger size for smooth blends.',
+        texture:'Texture brush: add grain and character with short or layered strokes.'
+    };
+
+    const colorTip='Colors: choose a color for Fill or your brushes. Use the custom color square to create your own.';
+    const sizeTip='Brush Size: make your brush or eraser smaller for detail or larger for broader strokes.';
+    const opacityTip='Opacity: control how solid or transparent your brush strokes are.';
+
+    function activeTip(){
+        const t=(typeof currentTool!=='undefined' && currentTool) ? currentTool : 'fill';
+        if(t==='brush'){
+            const b=document.querySelector('[data-brush-type].active');
+            return BRUSH_TIPS_17[(b?.dataset.brushType||'pen').toLowerCase()]||TOOL_TIPS_17.brush;
+        }
+        return TOOL_TIPS_17[t]||'Choose a tool and start creating.';
+    }
+
+    function tipFor(target){
+        if(!target?.closest) return null;
+        if(target.closest('#pagesTop,#desktopSidePages,#pagesLauncher,.artwork-tray')) return 'Pages: choose a coloring page, start with Blank, or upload your own image. Your current page stays until you choose another.';
+        if(target.closest('#layersTop,#desktopSideLayers,#layersPanel')) return 'Layers: choose where you want to work. Add, reorder, hide, or remove layers without changing the original line art.';
+        if(target.closest('.mobile-color-row,.mobile-palette,.mobile-custom-color,#desktopSideColors,.desktop-side-colors,.desktop-side-custom,.desktop-custom-color')) return colorTip;
+        if(target.closest('#mobileBrushSize,#desktopSizeSlider,#v2BrushSize,.mobile-brush-row:not(#touchEraserOpacityWrap)')) return sizeTip;
+        if(target.closest('#desktopOpacitySlider,#opacitySlider,#touchEraserOpacity,#touchEraserOpacityWrap')) return opacityTip;
+        const brush=target.closest('[data-brush-type],#desktopPen,#desktopMarker,#desktopSoft,#desktopTexture');
+        if(brush){
+            let n=(brush.dataset?.brushType||brush.id.replace('desktop','')).toLowerCase();
+            return BRUSH_TIPS_17[n]||TOOL_TIPS_17.brush;
+        }
+        const tool=target.closest('[data-tool],[data-v2-tool],[data-desktop-tool]');
+        if(tool){
+            const t=tool.dataset.tool||tool.dataset.v2Tool||tool.dataset.desktopTool;
+            return TOOL_TIPS_17[t]||null;
+        }
+        if(target.closest('#zoomOut')) return 'Zoom out: make the artwork smaller inside the workspace.';
+        if(target.closest('#zoomIn')) return 'Zoom in: get closer to small details.';
+        if(target.closest('#fitButton,#fitTop,#desktopFitPage')) return 'Fit: center the whole artwork comfortably inside the workspace.';
+        if(target.closest('[data-fullscreen],#fullscreenButton,#fullscreenTop')) return 'Full view: give the artwork more room on screen.';
+        if(target.closest('[id*="undo" i]')) return 'Undo: step back one change.';
+        if(target.closest('[id*="redo" i]')) return 'Redo: bring back the last change you undid.';
+        if(target.closest('[id*="reset" i]')) return 'Reset: return this page to its starting state.';
+        if(target.closest('[id*="save" i]')) return 'Save: export your artwork when you are ready.';
+        return null;
+    }
+
+    /* Mouse/trackpad hover works at every viewport size, including tablets with a mouse. */
+    document.addEventListener('pointerover', e=>{
+        if(e.pointerType && e.pointerType!=='mouse' && e.pointerType!=='pen') return;
+        const tip=tipFor(e.target);
+        if(tip) status.textContent=tip;
+    }, true);
+    document.addEventListener('pointerout', e=>{
+        if(e.pointerType && e.pointerType!=='mouse' && e.pointerType!=='pen') return;
+        const from=tipFor(e.target);
+        if(!from) return;
+        const to=e.relatedTarget && tipFor(e.relatedTarget);
+        if(!to) status.textContent=activeTip();
+    }, true);
+
+    /* Touch/click users get the same explanations when they use a control. */
+    document.addEventListener('click', e=>{
+        const tip=tipFor(e.target);
+        if(!tip) return;
+        const isDrawingTool=!!e.target.closest('[data-tool],[data-v2-tool],[data-desktop-tool],[data-brush-type],#desktopPen,#desktopMarker,#desktopSoft,#desktopTexture');
+        requestAnimationFrame(()=>{ status.textContent=isDrawingTool ? activeTip() : tip; });
+    }, true);
+
+    /* Keep the Pages note visually pinned inside the visible panel while its cards scroll. */
+    const tray=document.getElementById('artworkTray');
+    const note=tray?.querySelector('.pages-panel-note');
+    if(tray && note){
+        const pinNote=()=>{
+            if(window.innerWidth<=1000){
+                note.style.width=Math.max(120, tray.clientWidth-24)+'px';
+                note.style.transform='translateX('+tray.scrollLeft+'px)';
+            } else {
+                note.style.width='';
+                note.style.transform='';
+            }
+        };
+        tray.addEventListener('scroll',pinNote,{passive:true});
+        window.addEventListener('resize',pinNote,{passive:true});
+        pinNote();
+    }
+})();
+</script>
+
+
+<style>
+/* =====================================================
+   TEST #18 — PRIMARY TOOL SUBMENUS
+   Fill | Select | Brush | Shape now form the touch creative-tool row.
+   ===================================================== */
+@media (max-width:1000px) {
+    .mobile-creative-tools {
+        gap:6px !important;
+    }
+    .mobile-creative-tools > .mobile-icon-tool {
+        min-width:42px;
+    }
+    .brush-menu-icon {
+        font-size:1.25rem;
+        line-height:1;
+        font-weight:900;
+    }
+    .shape-menu-icon {
+        display:inline-flex;
+        align-items:center;
+        gap:0;
+        font-size:1.12rem;
+        line-height:1;
+        font-family:Arial,Helvetica,sans-serif;
+        font-weight:900;
+    }
+    .shape-menu-icon b { font-weight:900; }
+
+    .mobile-tool-submenu {
+        display:none;
+        position:absolute;
+        left:0;
+        top:100%;
+        z-index:1785;
+        gap:5px;
+        max-width:calc(100vw - 14px);
+        margin-top:4px;
+        padding:7px;
+        overflow-x:auto;
+        overflow-y:hidden;
+        white-space:nowrap;
+        border:1px solid #ddd;
+        border-radius:0 12px 12px 12px;
+        background:rgba(255,255,255,.98);
+        box-shadow:0 10px 26px rgba(0,0,0,.14);
+        scrollbar-width:none;
+        backdrop-filter:blur(12px);
+    }
+    .mobile-tool-submenu::-webkit-scrollbar { display:none; }
+    body.mobile-brush-submenu-open .mobile-brush-submenu,
+    body.mobile-shape-submenu-open .mobile-shape-submenu {
+        display:flex;
+        align-items:center;
+    }
+    .mobile-tool-submenu button {
+        min-height:34px;
+        padding:5px 9px;
+        border:1px solid #ccc;
+        border-radius:9px;
+        background:#fff;
+        color:#222;
+        font:inherit;
+        font-size:.62rem;
+        font-weight:850;
+        cursor:pointer;
+    }
+    .mobile-tool-submenu button.active {
+        background:#111;
+        border-color:#111;
+        color:#fff;
+    }
+    .scribble-line {
+        display:inline-block;
+        margin-right:3px;
+        font-size:1.15rem;
+        font-weight:900;
+        transform:scaleX(1.18);
+    }
+    .bold-shape {
+        display:inline-block;
+        margin-right:3px;
+        font-size:1.15rem;
+        line-height:.8;
+        font-weight:900;
+        -webkit-text-stroke:1px currentColor;
+    }
+
+    /* Brush choices now live in the Brush submenu. Keep Erase + Move below. */
+    .mobile-direct-tools [data-brush-type] { display:none !important; }
+    .mobile-direct-tools {
+        grid-template-columns:repeat(2,1fr) !important;
+    }
+
+    /* Keep opacity present for every tool. Fill shows it as context only. */
+    #touchEraserOpacityWrap { display:flex !important; }
+    #touchEraserOpacityWrap .mobile-brush-label::before { content:""; }
+    body.v268-fill-active #touchEraserOpacityWrap {
+        opacity:.34;
+        filter:grayscale(.65);
+        pointer-events:none;
+    }
+}
+
+@media (min-width:1001px) {
+    .mobile-tool-submenu { display:none !important; }
+}
+</style>
+
+<script>
+/* TEST #18 — lightweight submenu routing. Existing drawing engines remain the source of truth. */
+(() => {
+    "use strict";
+    const body=document.body;
+    const brushBar=document.getElementById('mobileBrushSubmenu');
+    const shapeBar=document.getElementById('mobileShapeSubmenu');
+
+    function closeNewSubmenus(except) {
+        if (except !== 'brush') body.classList.remove('mobile-brush-submenu-open');
+        if (except !== 'shape') body.classList.remove('mobile-shape-submenu-open');
+    }
+
+    document.addEventListener('click', e => {
+        const launcher=e.target.closest('[data-mobile-submenu]');
+        if (launcher) {
+            const kind=launcher.dataset.mobileSubmenu;
+            const cls='mobile-'+kind+'-submenu-open';
+            const wasOpen=body.classList.contains(cls);
+            closeNewSubmenus(kind);
+            body.classList.toggle(cls,!wasOpen);
+            if (!body.classList.contains('has-selection')) {
+                body.classList.remove('v254-select-active','v247-selecting','v241-select-active');
+            }
+            return;
+        }
+
+        const brush=e.target.closest('[data-mobile-brush-choice]');
+        if (brush) {
+            const kind=brush.dataset.mobileBrushChoice;
+            const source=[...document.querySelectorAll('[data-brush-type]')].find(b => b.dataset.brushType===kind);
+            if (source) source.click();
+            brushBar?.querySelectorAll('[data-mobile-brush-choice]').forEach(b=>b.classList.toggle('active',b===brush));
+            body.classList.add('mobile-brush-submenu-open');
+            body.classList.remove('mobile-shape-submenu-open');
+            return;
+        }
+
+        const shape=e.target.closest('[data-mobile-shape-choice]');
+        if (shape) {
+            const kind=shape.dataset.mobileShapeChoice;
+            const source=document.querySelector('[data-touch-shape-mode="'+kind+'"]');
+            if (source) source.click();
+            shapeBar?.querySelectorAll('[data-mobile-shape-choice]').forEach(b=>b.classList.toggle('active',b===shape));
+            body.classList.add('mobile-shape-submenu-open');
+            body.classList.remove('mobile-brush-submenu-open');
+            return;
+        }
+
+        const tool=e.target.closest('[data-v2-tool],[data-tool],[data-desktop-tool]');
+        if (tool) {
+            const name=tool.dataset.v2Tool || tool.dataset.tool || tool.dataset.desktopTool;
+            if (name !== 'brush' && name !== 'shape') closeNewSubmenus();
+        }
+    });
+
+    /* Selection, Brush and Shape are peer menus. */
+    document.addEventListener('click', e => {
+        if (e.target.closest('[data-v2-tool="select"],[data-tool="select"],[data-desktop-tool="select"]')) {
+            closeNewSubmenus();
+        }
+    }, true);
+})();
+</script>
+
+
+<style>
+/* =====================================================
+   TEST #19 — LAYOUT / TIPS / PAGES CLOSE ONLY
+   Drawing + opacity mechanics intentionally unchanged.
+   ===================================================== */
+@media (max-width:1000px) {
+    /* Keep the helper visible above the fixed studio dock on touch layouts. */
+    .studio-tip-wrap {
+        position:fixed !important;
+        left:9px !important;
+        right:auto !important;
+        bottom:calc(158px + env(safe-area-inset-bottom)) !important;
+        z-index:2050 !important;
+        max-width:calc(100vw - 18px) !important;
+    }
+
+    /* Make Pages close affordance unmistakable and keep it at the panel edge. */
+    .artwork-tray-head {
+        position:sticky;
+        left:0;
+        z-index:8;
+        background:rgba(250,250,250,.97);
+    }
+    .pages-close {
+        display:inline-flex !important;
+        align-items:center;
+        justify-content:center;
+        flex:0 0 28px;
+        width:28px !important;
+        height:28px !important;
+        background:#f8d7e3 !important;
+        color:#7d2948 !important;
+        font-size:1.05rem !important;
+        font-weight:900 !important;
+        line-height:1 !important;
+    }
+
+    /* Temporary shape language: all geometry is clean, not scribbled. */
+    .straight-line-icon {
+        display:inline-block;
+        width:18px;
+        height:18px;
+        margin-right:4px;
+        position:relative;
+        vertical-align:middle;
+    }
+    .straight-line-icon::before {
+        content:"";
+        position:absolute;
+        left:1px;
+        top:8px;
+        width:17px;
+        height:3px;
+        border-radius:3px;
+        background:currentColor;
+        transform:rotate(-38deg);
+        transform-origin:center;
+    }
+}
+
+/* Tablet gets history on the first utility row so row two cannot collide. */
+@media (min-width:481px) and (max-width:1000px) {
+    .zoom-controls .history-pair {
+        flex:0 0 auto;
+        margin-right:5px;
+    }
+    .mobile-top-actions {
+        min-width:0 !important;
+    }
+    .mobile-top-actions #resetMobileTop,
+    .mobile-top-actions #saveMobileTop {
+        flex:0 0 auto;
+    }
+}
+</style>
+
+<script>
+/* TEST #19 — input-aware touch tips + tablet history placement.
+   No drawing, erasing, brush, or opacity calculations are changed here. */
+(() => {
+    'use strict';
+    const status=document.getElementById('studioStatus');
+    const wrap=status?.closest('.studio-tip-wrap');
+    const zoomControls=document.querySelector('.zoom-controls');
+    const zoomPair=zoomControls?.querySelector('.zoom-pair');
+    const actions=document.querySelector('.mobile-top-actions');
+    const history=actions?.querySelector('.history-pair') || document.querySelector('.history-pair');
+    const reset=document.getElementById('resetMobileTop');
+
+    function placeHistory(){
+        if(!history || !zoomControls || !actions) return;
+        if(window.innerWidth>=481 && window.innerWidth<=1000){
+            if(history.parentNode!==zoomControls) zoomControls.insertBefore(history, zoomPair || zoomControls.firstChild);
+        } else if(history.parentNode!==actions){
+            actions.insertBefore(history, reset || actions.firstChild);
+        }
+    }
+    placeHistory();
+    window.addEventListener('resize', placeHistory, {passive:true});
+
+    if(!status || !wrap) return;
+
+    const tips={
+        fill:'Fill: tap and hold to preview the color. Release to fill. Tip: a second finger cancels the preview for pinch zoom.',
+        brush:'Brush: choose Pen, Marker, Soft, or Texture, then draw. Adjust size and opacity below.',
+        eraser:'Eraser: drag over anything you added to remove it. Adjust size and opacity below.',
+        move:'Move: drag the artwork to reposition it. Pinch with two fingers to zoom.',
+        select:'Select: draw around an area, then add, subtract, clear, or finish with Done.',
+        shape:'Line / Shape: choose Line, Square, or Circle, then drag on the artwork to draw it.'
+    };
+    const brushTips={
+        pen:'Pen: draw clean freehand lines. Adjust size and opacity for more control.',
+        marker:'Marker: build broad strokes and layered color. Lower opacity for softer overlaps.',
+        soft:'Soft brush: paint gentle edges and shading. Try a larger size for smooth blends.',
+        texture:'Texture brush: add grain and character with short or layered strokes.'
+    };
+    function tipFor(target){
+        if(!target?.closest) return null;
+        if(target.closest('#pagesTop,.pages-launcher')) return 'Pages: choose a coloring page, start with Blank, or upload your own image.';
+        if(target.closest('#layersTop')) return 'Layers: choose where you want to work. Add, reorder, hide, or remove layers without changing the original line art.';
+        if(target.closest('.mobile-color-row,.mobile-palette,.mobile-custom-color')) return 'Colors: choose a color for Fill or your brushes. Tap the color square to create your own.';
+        if(target.closest('#mobileBrushSize,.mobile-brush-row') && !target.closest('#touchEraserOpacityWrap')) return 'Brush Size: make your brush or eraser smaller for detail or larger for broader strokes.';
+        if(target.closest('#touchEraserOpacity,#touchEraserOpacityWrap')) return 'Opacity: control how solid or transparent the active drawing or erasing stroke is.';
+        const bc=target.closest('[data-mobile-brush-choice],[data-brush-type]');
+        if(bc){ const n=bc.dataset.mobileBrushChoice||bc.dataset.brushType; return brushTips[n]||tips.brush; }
+        const sc=target.closest('[data-mobile-shape-choice]');
+        if(sc){ const n=sc.dataset.mobileShapeChoice; return n==='line'?'Line: drag to create a straight line.':n==='rect'?'Square: drag to create a square or rectangle.':'Circle: drag to create a circle or oval.'; }
+        const tool=target.closest('[data-tool],[data-v2-tool],[data-desktop-tool]');
+        if(tool){ const n=tool.dataset.tool||tool.dataset.v2Tool||tool.dataset.desktopTool; return tips[n]||null; }
+        if(target.closest('#zoomOut')) return 'Zoom out: make the artwork smaller inside the workspace.';
+        if(target.closest('#zoomIn')) return 'Zoom in: get closer to small details.';
+        if(target.closest('#fitButton')) return 'Fit: center the whole artwork comfortably inside the workspace.';
+        if(target.closest('#fullscreenButton')) return 'Full view: give the artwork more room on screen.';
+        if(target.closest('#undoMobileTop')) return 'Undo: step back one change.';
+        if(target.closest('#redoMobileTop')) return 'Redo: bring back the last change you undid.';
+        if(target.closest('#resetMobileTop')) return 'Reset: return this page to its starting state.';
+        if(target.closest('#saveMobileTop')) return 'Save: export your artwork when you are ready.';
+        return null;
+    }
+
+    /* pointerdown capture fires reliably for touch even when a tool later prevents click. */
+    document.addEventListener('pointerdown', e=>{
+        if(e.pointerType!=='touch' && e.pointerType!=='pen') return;
+        const tip=tipFor(e.target);
+        if(!tip) return;
+        wrap.classList.remove('tip-hidden');
+        status.textContent=tip;
+    }, true);
+})();
+</script>
+
+
+<style>
+/* =====================================================
+   TEST #20 — RESPONSIVE CONTROL CORRECTION
+   UI only. Drawing / opacity mechanics are unchanged.
+   ===================================================== */
+
+/* History now uses the same visual language as the other utility buttons. */
+.history-pair {
+    border:0 !important;
+    border-radius:0 !important;
+    overflow:visible !important;
+    background:transparent !important;
+    gap:5px !important;
+}
+#undoMobileTop,
+#redoMobileTop {
+    min-height:34px !important;
+    height:34px !important;
+    border:1px solid #ccc !important;
+    border-radius:9px !important;
+    background:#fff !important;
+    color:#222 !important;
+    box-shadow:none !important;
+}
+.history-arrow {
+    width:14px !important;
+    height:14px !important;
+    flex:0 0 14px !important;
+}
+.history-arrow::before {
+    top:4px !important;
+    width:9px !important;
+    height:7px !important;
+    border-top:2px solid currentColor !important;
+}
+.history-arrow::after {
+    top:1px !important;
+    width:6px !important;
+    height:6px !important;
+    border-top:2px solid currentColor !important;
+    border-left:2px solid currentColor !important;
+}
+.history-arrow-undo::before { left:4px !important; border-radius:8px 0 0 0 !important; }
+.history-arrow-redo::before { right:4px !important; border-radius:0 8px 0 0 !important; }
+
+/* Keep the opacity number visible. This does not change opacity math. */
+#touchEraserOpacityWrap .mobile-brush-value,
+#touchEraserOpacityReadout {
+    display:inline-block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    min-width:48px !important;
+    color:#444 !important;
+    font-weight:800 !important;
+}
+
+/* Web does not need a second exit control. The fullscreen button and Esc exit. */
+@media (min-width:1001px) {
+    #fullscreenExit { display:none !important; }
+}
+
+/* Tablet: history remains before zoom, but as normal individual buttons. */
+@media (min-width:481px) and (max-width:1000px) {
+    .zoom-controls .history-pair { margin-right:0 !important; }
+    #undoMobileTop,
+    #redoMobileTop {
+        min-width:68px !important;
+        width:auto !important;
+        padding:0 8px !important;
+        gap:4px !important;
+        font-size:.66rem !important;
+    }
+}
+
+/* Phone: fullscreen is not useful here. Reclaim that width for zoom/history. */
+@media (max-width:480px) {
+    #fullscreenButton { display:none !important; }
+    .zoom-controls { gap:4px !important; }
+    .zoom-pair { flex:0 0 auto !important; min-width:72px !important; }
+    .zoom-pair .zoom-button {
+        width:36px !important;
+        min-width:36px !important;
+        padding:0 !important;
+    }
+    #fitButton,
+    #layersTop,
+    #pagesTop {
+        flex:0 0 34px !important;
+        width:34px !important;
+        min-width:34px !important;
+        padding:0 !important;
+    }
+    #undoMobileTop,
+    #redoMobileTop {
+        width:34px !important;
+        min-width:34px !important;
+        padding:0 !important;
+    }
+}
+</style>
+
+<script>
+/* TEST #20 — make touch tips explicit on every responsive control.
+   Capture-phase pointer handling keeps this independent of tool click logic. */
+(() => {
+    'use strict';
+    const status=document.getElementById('studioStatus');
+    const wrap=status?.closest('.studio-tip-wrap');
+    if(!status || !wrap) return;
+
+    function getTip(target){
+        if(!target?.closest) return null;
+        if(target.closest('#pagesTop,.pages-launcher')) return 'Pages: choose a coloring page, start with Blank, or upload your own image.';
+        if(target.closest('#layersTop')) return 'Layers: add, reorder, hide, or remove layers without changing the original line art.';
+        if(target.closest('.mobile-color-row,.mobile-palette,.mobile-custom-color')) return 'Colors: choose a color for Fill or your brushes. Tap the color square to create your own.';
+        if(target.closest('#touchEraserOpacity,#touchEraserOpacityWrap')) return 'Opacity: control how solid or transparent the active drawing or erasing stroke is.';
+        if(target.closest('#mobileBrushSize,.mobile-brush-row')) return 'Brush Size: use a smaller size for detail or a larger size for broader strokes.';
+        if(target.closest('#undoMobileTop')) return 'Undo: step back one change.';
+        if(target.closest('#redoMobileTop')) return 'Redo: bring back the last change you undid.';
+        if(target.closest('#resetMobileTop')) return 'Reset: return this page to its starting state.';
+        if(target.closest('#saveMobileTop')) return 'Save: export your artwork when you are ready.';
+        if(target.closest('#zoomOut')) return 'Zoom out: make the artwork smaller inside the workspace.';
+        if(target.closest('#zoomIn')) return 'Zoom in: get closer to small details.';
+        if(target.closest('#fitButton')) return 'Fit: center the whole artwork comfortably inside the workspace.';
+        if(target.closest('#fullscreenButton')) return 'Full view: give the artwork more room on screen.';
+        if(target.closest('[data-mobile-brush-choice="pen"]')) return 'Pen: draw clean freehand lines. Adjust size and opacity for more control.';
+        if(target.closest('[data-mobile-brush-choice="marker"]')) return 'Marker: build broad strokes and layered color. Lower opacity for softer overlaps.';
+        if(target.closest('[data-mobile-brush-choice="soft"]')) return 'Soft brush: paint gentle edges and shading. Try a larger size for smooth blends.';
+        if(target.closest('[data-mobile-brush-choice="texture"]')) return 'Texture brush: add grain and character with short or layered strokes.';
+        if(target.closest('[data-mobile-shape-choice="line"]')) return 'Line: drag to create a straight line.';
+        if(target.closest('[data-mobile-shape-choice="rect"]')) return 'Square: drag to create a square or rectangle.';
+        if(target.closest('[data-mobile-shape-choice="circle"]')) return 'Circle: drag to create a circle or oval.';
+        const tool=target.closest('[data-v2-tool],[data-tool],[data-desktop-tool]');
+        const n=tool && (tool.dataset.v2Tool||tool.dataset.tool||tool.dataset.desktopTool);
+        return ({
+            fill:'Fill: tap and hold to preview the color. Release to fill.',
+            select:'Select: draw around an area, then add, subtract, clear, or finish with Done.',
+            brush:'Brush: choose Pen, Marker, Soft, or Texture, then draw. Adjust size and opacity below.',
+            shape:'Line / Shape: choose Line, Square, or Circle, then drag to draw it.',
+            eraser:'Eraser: drag over anything you added to remove it. Adjust size and opacity below.',
+            move:'Move: drag the artwork to reposition it. Pinch with two fingers to zoom.'
+        })[n] || null;
+    }
+
+    function showTouchTip(e){
+        if(e.pointerType !== 'touch' && e.pointerType !== 'pen') return;
+        const tip=getTip(e.target);
+        if(!tip) return;
+        wrap.classList.remove('tip-hidden');
+        wrap.style.display='flex';
+        status.textContent=tip;
+    }
+    document.addEventListener('pointerdown', showTouchTip, {capture:true, passive:true});
+})();
+</script>
+
+
+<style>
+/* =====================================================
+   TEST #21 — TOOL ORDER + UNIFIED HISTORY BAR
+   Layout/state only. Opacity drawing mechanics remain unchanged.
+   ===================================================== */
+
+/* Undo/Redo is one joined control, matching the joined -/+ control. */
+.history-pair {
+    display:inline-flex !important;
+    align-items:stretch !important;
+    gap:0 !important;
+    border:1px solid #ccc !important;
+    border-radius:10px !important;
+    overflow:hidden !important;
+    background:#fff !important;
+    height:38px !important;
+    box-sizing:border-box !important;
+    flex:0 0 auto !important;
+}
+#undoMobileTop,
+#redoMobileTop {
+    height:36px !important;
+    min-height:36px !important;
+    min-width:58px !important;
+    padding:0 9px !important;
+    margin:0 !important;
+    border:0 !important;
+    border-radius:0 !important;
+    background:#fff !important;
+    color:#222 !important;
+    box-shadow:none !important;
+    font:inherit !important;
+    font-size:.72rem !important;
+    font-weight:900 !important;
+    line-height:1 !important;
+}
+#redoMobileTop { border-left:1px solid #d8d8d8 !important; }
+
+/* Match the utility row's neighboring control weight/height. */
+.zoom-controls .zoom-pair,
+.zoom-controls #fitButton,
+.zoom-controls #layersTop,
+.zoom-controls #pagesTop,
+.zoom-controls #fullscreenButton {
+    min-height:38px !important;
+}
+
+/* Fill keeps Size + Opacity visible but both are truly locked. */
+body.v268-fill-active .mobile-brush-row {
+    opacity:.34 !important;
+    filter:grayscale(.65) !important;
+}
+body.v268-fill-active #mobileBrushSize,
+body.v268-fill-active #touchEraserOpacity {
+    pointer-events:none !important;
+}
+
+/* Primary mobile order: DRAW, FILL, SHAPES, SELECT. */
+@media (max-width:1000px) {
+    .mobile-creative-tools { gap:8px !important; }
+}
+
+/* Phone has enough room when labels disappear inside history. */
+@media (max-width:480px) {
+    .zoom-controls { gap:4px !important; }
+    .zoom-controls .history-pair { height:34px !important; }
+    #undoMobileTop,
+    #redoMobileTop {
+        width:32px !important;
+        min-width:32px !important;
+        height:32px !important;
+        min-height:32px !important;
+        padding:0 !important;
+    }
+    #undoMobileTop .history-label,
+    #redoMobileTop .history-label { display:none !important; }
+    .history-arrow { margin:0 !important; }
+}
+</style>
+
+<script>
+/* TEST #21 — one history location on every device + Fill slider lock. */
+(() => {
+    'use strict';
+    const zoomControls=document.querySelector('.zoom-controls');
+    const zoomPair=zoomControls?.querySelector('.zoom-pair');
+    const history=document.querySelector('.history-pair');
+    const size=document.getElementById('mobileBrushSize');
+    const opacity=document.getElementById('touchEraserOpacity');
+
+    function placeHistoryWithZoom(){
+        if(!zoomControls || !zoomPair || !history) return;
+        if(history.parentNode!==zoomControls || history.nextElementSibling!==zoomPair){
+            zoomControls.insertBefore(history, zoomPair);
+        }
+    }
+
+    function syncFillLocks(){
+        const locked=(typeof currentTool!=='undefined' && currentTool==='fill');
+        if(size) size.disabled=locked;
+        if(opacity) opacity.disabled=locked;
+        if(size) size.setAttribute('aria-disabled', String(locked));
+        if(opacity) opacity.setAttribute('aria-disabled', String(locked));
+    }
+
+    placeHistoryWithZoom();
+    syncFillLocks();
+    window.addEventListener('resize', placeHistoryWithZoom, {passive:true});
+
+    /* Keep the lock synchronized without changing any drawing calculations. */
+    document.addEventListener('pointerup', () => setTimeout(syncFillLocks,0), true);
+    document.addEventListener('click', () => setTimeout(syncFillLocks,0), true);
+
+    /* Pen is the primary starting tool for this build. */
+    if(typeof selectTool==='function') {
+        try { selectTool('brush'); } catch(e) {}
+    }
+    if(typeof brushType!=='undefined') brushType='pen';
+    syncFillLocks();
+})();
+</script>
+
+<style>
+/* TEST #22 — baseline brush reset + true Pen startup + centered Pages glyph. */
+@media (max-width:1000px) {
+    #pagesTop {
+        display:inline-flex !important;
+        align-items:center !important;
+        justify-content:center !important;
+    }
+    #pagesTop .pages-icon-custom {
+        margin:0 auto !important;
+        flex:0 0 17px !important;
+        transform:translateX(2px);
+    }
+}
+</style>
+<script>
+/* Keep every brush-size UI on one useful, matching 23–100 px scale.
+   This does not alter opacity mechanics. */
+(() => {
+    const ids=['brushSize','mobileBrushSize','v2BrushSize','desktopSizeSlider'];
+    ids.forEach(id => {
+        const el=document.getElementById(id);
+        if(!el) return;
+        el.min='23';
+        el.max='100';
+    });
+})();
+</script>
+
+
+<style>
+/* =====================================================
+   TEST #23 — TOUCH SHAPE SYNC + TIP LIFT
+   Opacity / brush engine intentionally unchanged.
+   ===================================================== */
+@media (max-width:1000px) {
+    /* Give the contextual helper a little more breathing room above colors. */
+    .studio-tip-wrap {
+        bottom:calc(176px + env(safe-area-inset-bottom)) !important;
+    }
+}
+</style>
+
+<script>
+/* TEST #23 — Make the compact phone/tablet Shape submenu drive the exact
+   same v241ShapeMode used by the working desktop Line / Square / Circle engine.
+   Line behavior itself is unchanged. */
+(() => {
+    'use strict';
+
+    document.querySelectorAll('[data-mobile-shape-choice]').forEach(button => {
+        button.addEventListener('click', function(e) {
+            const mode=this.dataset.mobileShapeChoice;
+            if(!['line','rect','ellipse'].includes(mode)) return;
+
+            /* Set the shared shape engine directly rather than depending on
+               a second responsive control to relay the choice. */
+            v241ShapeMode=mode;
+
+            document.querySelectorAll('[data-mobile-shape-choice]').forEach(b => {
+                b.classList.toggle('active', b===this);
+            });
+            document.querySelectorAll('[data-touch-shape-mode]').forEach(b => {
+                b.classList.toggle('active', b.dataset.touchShapeMode===mode);
+            });
+            document.querySelectorAll('[data-shape-mode]').forEach(b => {
+                b.classList.toggle('active', b.dataset.shapeMode===mode);
+            });
+
+            if(currentTool!=='shape') selectTool('shape');
+            if(typeof v241RefreshToolUI==='function') v241RefreshToolUI();
+        }, true);
+    });
+})();
+</script>
+
 
 </body>
 
