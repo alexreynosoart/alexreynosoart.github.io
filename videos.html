@@ -29,7 +29,7 @@
         }
         /* Video extends beneath the feathered border. Percentages track the square artwork. */
         .theater-video {
-            position: absolute; left: 15%; top: 7%; width: 70%; height: 73%;
+            position: absolute; left: 17.5%; top: 7%; width: 65%; height: 68%;
             z-index: 1; background: #000; overflow: hidden;
         }
         .theater-video iframe { display: block; width: 100%; height: 100%; border: 0; }
@@ -46,17 +46,17 @@
         .theater-feature a { color: inherit; text-decoration: underline; }
         /* Desktop: enlarge the entire theater without creating horizontal scrolling. */
         @media (min-width: 1025px) {
-            .theater-stage { width: 108%; margin-left: -4%; }
+            .theater-stage { width: 116%; margin-left: -8%; }
         }
         /* Tablet: bring the audience closer without losing the curtains. */
         @media (min-width: 701px) and (max-width: 1024px) {
-            .theater-stage { width: 115%; margin-left: -7.5%; }
+            .theater-stage { width: 124%; margin-left: -12%; }
         }
         @media (max-width: 700px) {
             .theater-page { padding: 24px 0 45px; }
             .theater-page h1, .theater-intro { padding-left: 12px; padding-right: 12px; }
             /* Phone: mostly screen, with a little curtain and the front-row audience. */
-            .theater-stage { width: 140%; margin-left: -20%; }
+            .theater-stage { width: 151%; margin-left: -25.5%; }
             .theater-feature { padding: 0 16px; }
             .theater-status { padding: 0 12px; }
         }
