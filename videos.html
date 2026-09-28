@@ -5,7 +5,7 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag(){ dataLayer.push(arguments); }
         gtag('js', new Date());
         gtag('config', 'G-MK5FXXVXNJ');
     </script>
@@ -22,29 +22,38 @@
             opacity: .05; pointer-events: none; z-index: 0;
         }
         header, main, footer { position: relative; z-index: 1; }
-        .theater-page { width: 100%; max-width: 1100px; margin: 0 auto; padding: 35px 16px 65px; text-align: center; }
+        .theater-page { width: 100%; max-width: 1200px; margin: 0 auto; padding: 35px 12px 65px; text-align: center; }
         .theater-page h1 { margin-bottom: 8px; }
         .theater-intro { max-width: 700px; margin: 0 auto 24px; }
-        /* Square artwork stays proportional at every screen size. */
-        .theater-stage { position: relative; isolation: isolate; width: 100%; max-width: 850px; aspect-ratio: 1 / 1; margin: 0 auto; }
-        /* The video sits behind the PNG, inside its transparent opening. */
+        /* One square artwork file for desktop, tablet and phone. */
+        .theater-stage {
+            position: relative; isolation: isolate; width: 100%; max-width: 1100px;
+            aspect-ratio: 1 / 1; margin: 0 auto; overflow: hidden;
+        }
+        /* Video extends beneath the feathered border. Percentages track the square artwork. */
         .theater-video {
-            position: absolute; left: 19%; top: 17%; width: 62%; height: 62%;
+            position: absolute; left: 15%; top: 13%; width: 70%; height: 70%;
             z-index: 1; background: #000; overflow: hidden;
         }
         .theater-video iframe { display: block; width: 100%; height: 100%; border: 0; }
+        /* Dim only the artwork, never the video. Transparent PNG remains transparent. */
         .theater-frame {
-            position: absolute; inset: 0; width: 100%; height: 100%;
+            position: absolute; inset: 0; display: block; width: 100%; height: 100%;
             object-fit: contain; z-index: 2; pointer-events: none;
+            transition: filter 1.1s ease;
         }
+        .theater-stage.is-playing .theater-frame { filter: brightness(.43); }
+        .theater-status { min-height: 1.5em; margin: 10px auto 0; color: #ddd; font-size: .95rem; }
         .theater-feature { max-width: 760px; margin: 24px auto 0; text-align: left; }
         .theater-feature h2 { margin-bottom: 10px; }
         .theater-feature a { color: inherit; text-decoration: underline; }
         @media (max-width: 700px) {
-            .theater-page { padding: 24px 8px 45px; }
-            .theater-intro { padding: 0 8px; }
-            .theater-feature { padding: 0 10px; }
+            .theater-page { padding: 24px 0 45px; }
+            .theater-page h1, .theater-intro { padding-left: 12px; padding-right: 12px; }
+            .theater-feature { padding: 0 16px; }
+            .theater-status { padding: 0 12px; }
         }
+        @media (prefers-reduced-motion: reduce) { .theater-frame { transition: none; } }
     </style>
 </head>
 <body>
@@ -63,18 +72,11 @@
     <section class="theater-page">
         <h1>Welcome to the Theater</h1>
         <p class="theater-intro">Animation, characters, dancing animals and other questionable decisions. Grab some popcorn. 🍿</p>
-        <div class="theater-stage" aria-label="Alex Reynoso Art theater featuring a hydroponics video">
-            <div class="theater-video">
-                <iframe
-                    src="https://www.youtube-nocookie.com/embed/Y9GLrpanUY4?playsinline=1&rel=0"
-                    title="Hydroponics walkthrough by Alex Reynoso Art"
-                    loading="lazy"
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen></iframe>
-            </div>
+        <div class="theater-stage" id="theater" aria-label="Alex Reynoso Art theater featuring a hydroponics video">
+            <div class="theater-video"><div id="youtubePlayer"></div></div>
             <img class="theater-frame" src="images/videos-theater-frame.png" alt="" aria-hidden="true" width="1254" height="1254" fetchpriority="high">
         </div>
+        <p class="theater-status" id="theaterStatus" aria-live="polite">The lights go down when the movie starts.</p>
         <section class="theater-feature">
             <h2>Featured: Hydroponics</h2>
             <p>A look inside one of my hands-on creative and educational projects. Art, experimentation, and growing something from the ground up.</p>
@@ -95,5 +97,39 @@
     <div class="footer-copyright">&copy; 2026 Alex Reynoso Art</div>
 </footer>
 <script src="js/script.js"></script>
+<script>
+    const theater = document.getElementById('theater');
+    const status = document.getElementById('theaterStatus');
+    function onYouTubeIframeAPIReady() {
+        new YT.Player('youtubePlayer', {
+            host: 'https://www.youtube-nocookie.com',
+            videoId: 'Y9GLrpanUY4',
+            playerVars: { playsinline: 1, rel: 0 },
+            events: {
+                onStateChange: function (event) {
+                    if (event.data === YT.PlayerState.PLAYING) {
+                        theater.classList.add('is-playing');
+                        status.textContent = 'Enjoy the show. 🍿';
+                    } else if (event.data === YT.PlayerState.PAUSED) {
+                        theater.classList.remove('is-playing');
+                        status.textContent = 'Intermission. The lights are back on.';
+                    } else if (event.data === YT.PlayerState.ENDED) {
+                        theater.classList.remove('is-playing');
+                        status.textContent = 'That’s a wrap! The lights are back on.';
+                    } else if (event.data === YT.PlayerState.CUED || event.data === YT.PlayerState.UNSTARTED) {
+                        theater.classList.remove('is-playing');
+                    }
+                },
+                onError: function () {
+                    theater.classList.remove('is-playing');
+                    status.textContent = 'Video unavailable here. Use the YouTube link below.';
+                }
+            }
+        });
+    }
+    const youtubeAPI = document.createElement('script');
+    youtubeAPI.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(youtubeAPI);
+</script>
 </body>
 </html>
