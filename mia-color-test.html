@@ -3484,47 +3484,81 @@ body.v254-select-active #clearSelectionTouch {
         <strong>Creative Studio</strong><span>🐼</span>
     </div>
 
-    <section class="desktop-side-section">
-        <div class="desktop-side-label"><span>Tools</span><span id="desktopToolReadout">Fill</span></div>
-        <div class="desktop-side-grid">
-            <button data-desktop-tool="fill" type="button">FILL</button>
-            <button data-desktop-tool="eraser" type="button">ERASE</button>
-            <button data-desktop-tool="move" type="button">MOVE</button>
-            <button data-desktop-tool="select" type="button">SELECT</button>
+    <section class="desktop-side-section desktop-modern-tools">
+        <div class="desktop-side-label"><span>Tools</span><span id="desktopToolReadout">Pen</span></div>
+
+        <div class="desktop-main-tools" aria-label="Drawing tools">
+            <button type="button" data-desktop-modern-tool="brush" class="active">BRUSH</button>
+            <button type="button" data-desktop-modern-tool="eraser">ERASE</button>
+            <button type="button" data-desktop-tool="fill">FILL</button>
+            <button type="button" data-desktop-tool="shape">SHAPE</button>
+            <button type="button" data-desktop-tool="select">SELECT</button>
         </div>
-        <div class="desktop-side-grid" style="margin-top:6px">
-            <button id="desktopPen" type="button">PEN</button>
-            <button id="desktopMarker" type="button">MARKER</button>
-            <button id="desktopSoft" type="button">SOFT</button>
-            <button id="desktopTexture" type="button">TEXTURE</button>
+
+        <div class="desktop-modern-submenu desktop-modern-brush-submenu open" id="desktopModernBrushSubmenu">
+            <button type="button" data-desktop-brush-choice="pen" class="active">PEN</button>
+            <button type="button" data-desktop-brush-choice="marker">MARKER</button>
+            <button type="button" data-desktop-brush-choice="soft">SOFT</button>
+            <button type="button" data-desktop-brush-choice="texture">TEXTURE</button>
         </div>
-        <div class="desktop-side-grid" style="margin-top:6px;grid-template-columns:1fr">
-            <button data-desktop-tool="shape" type="button">LINE / SHAPE</button>
+
+        <div class="desktop-modern-submenu desktop-modern-eraser-submenu" id="desktopModernEraserSubmenu">
+            <button type="button" data-desktop-eraser-choice="hard" class="active">HARD</button>
+            <button type="button" data-desktop-eraser-choice="soft">SOFT</button>
+            <button type="button" data-desktop-eraser-choice="texture">TEXTURE</button>
         </div>
-        <div class="v24-mini-options" id="desktopSelectModes">
+
+        <div class="desktop-modern-submenu desktop-modern-shape-submenu" id="desktopModernShapeSubmenu">
+            <button type="button" data-shape-mode="line" class="active">LINE</button>
+            <button type="button" data-shape-mode="rect">SQUARE</button>
+            <button type="button" data-shape-mode="ellipse">CIRCLE</button>
+        </div>
+
+        <div class="desktop-modern-submenu desktop-modern-select-submenu" id="desktopSelectModes">
             <button type="button" data-v253-select-mode="free" class="active">FREE</button>
             <button type="button" data-v253-select-mode="rect">SQUARE</button>
             <button type="button" data-v253-select-mode="ellipse">CIRCLE</button>
             <button type="button" data-v253-selection-op="add" class="active">+ ADD</button>
             <button type="button" data-v253-selection-op="subtract">− SUBTRACT</button>
-            <button type="button" data-v253-selection-done class="selection-done-v246">DONE</button>
             <button type="button" id="clearSelectionV24">CLEAR</button>
+            <button type="button" data-v253-selection-done class="desktop-done">DONE</button>
         </div>
-        <div class="v24-mini-options" id="desktopShapeModes">
-            <button type="button" data-shape-mode="line" class="active">LINE</button>
-            <button type="button" data-shape-mode="rect">SQUARE</button>
-            <button type="button" data-shape-mode="ellipse">CIRCLE</button>
-        </div>
+
+        <button type="button" class="desktop-move-wide" data-desktop-tool="move"><span class="desktop-paw" aria-hidden="true">●</span> MOVE</button>
     </section>
 
-    <section class="desktop-side-section">
-        <div class="desktop-side-colors" id="desktopSideColors"></div>
-        <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
-            <label class="desktop-side-custom" title="Custom color">
-                <input id="desktopSideCustomColor" type="color" value="#e88eaa">
-            </label>
-            <span style="font-size:.65rem;font-weight:800;color:#777">CUSTOM COLOR</span>
+    <section class="desktop-side-section desktop-color-studio">
+        <div class="desktop-side-label"><span>Colors</span><span id="desktopPaletteReadout">BASIC</span></div>
+
+        <div class="desktop-palette-tabs" aria-label="Color palettes">
+            <button type="button" data-desktop-palette="basic" class="active">BASIC</button>
+            <button type="button" data-desktop-palette="warm">WARM</button>
+            <button type="button" data-desktop-palette="cool">COOL</button>
+            <button type="button" data-desktop-palette="skin">SKIN</button>
+            <button type="button" data-desktop-palette="sky">SKY / WATER</button>
         </div>
+
+        <button type="button" class="desktop-hues-toggle" id="desktopHuesToggle" aria-expanded="false">
+            <span>HUES + SHADES</span><span aria-hidden="true">⌄</span>
+        </button>
+        <div class="desktop-hues-panel" id="desktopHuesPanel"></div>
+
+        <div class="desktop-side-colors desktop-modern-colors" id="desktopSideColors"></div>
+
+        <div class="desktop-custom-favorites">
+            <label class="desktop-custom-color-card" title="Choose a custom color">
+                <input id="desktopSideCustomColor" type="color" value="#e88eaa">
+                <span class="custom-color-preview" id="desktopCustomPreview"></span>
+                <span>CUSTOM</span>
+            </label>
+            <button type="button" class="desktop-add-favorite" id="desktopAddFavorite">+ FAVORITE</button>
+        </div>
+
+        <div class="desktop-favorites-head">
+            <span>MY SWATCHES</span>
+            <button type="button" id="desktopClearFavorites">CLEAR</button>
+        </div>
+        <div class="desktop-favorites" id="desktopFavoriteSwatches"></div>
     </section>
 <section class="desktop-side-section">
         <div class="desktop-side-label"><span>Pages</span><span></span></div>
@@ -12189,6 +12223,392 @@ body.v242-touch-active .tool-indicator.move::after {
         toolCursor.classList.remove('icon');
         toolCursor.classList.add('move-paw');
     }, true);
+})();
+</script>
+
+<style>
+/* =====================================================
+   TEST #37 — DESKTOP TOOL + COLOR PANEL REFRESH
+   Desktop sidebar mirrors the proven tablet submenu language.
+   No brush-engine, cursor, size or opacity changes.
+   ===================================================== */
+@media (min-width:1001px) {
+    .desktop-modern-tools button,
+    .desktop-color-studio button {
+        font-family:inherit;
+    }
+    .desktop-main-tools {
+        display:grid;
+        grid-template-columns:repeat(5,minmax(0,1fr));
+        gap:5px;
+    }
+    .desktop-main-tools button {
+        min-width:0;
+        padding:9px 3px;
+        border:1px solid #d5d5d5;
+        border-radius:10px;
+        background:#fff;
+        color:#222;
+        font-size:.58rem;
+        font-weight:900;
+    }
+    .desktop-main-tools button.active {
+        background:#111;
+        border-color:#111;
+        color:#fff;
+    }
+    .desktop-modern-submenu {
+        display:none;
+        grid-template-columns:repeat(4,minmax(0,1fr));
+        gap:5px;
+        margin-top:7px;
+        padding:7px;
+        border:1px solid #e2e2e2;
+        border-radius:11px;
+        background:#fafafa;
+    }
+    .desktop-modern-submenu.open { display:grid; }
+    .desktop-modern-submenu button {
+        min-width:0;
+        padding:8px 3px;
+        border:1px solid #d5d5d5;
+        border-radius:9px;
+        background:#fff;
+        color:#222;
+        font-size:.58rem;
+        font-weight:900;
+    }
+    .desktop-modern-submenu button.active {
+        background:#111;
+        border-color:#111;
+        color:#fff;
+    }
+    .desktop-modern-eraser-submenu { grid-template-columns:repeat(3,1fr); }
+    .desktop-modern-shape-submenu { grid-template-columns:repeat(3,1fr); }
+    .desktop-modern-select-submenu {
+        grid-template-columns:repeat(3,1fr);
+    }
+    .desktop-modern-select-submenu .desktop-done {
+        background:#f8d7e3;
+        border-color:#efb6cb;
+        color:#7d2948;
+    }
+    .desktop-move-wide {
+        width:100%;
+        margin-top:7px;
+        padding:9px;
+        border:1px solid #d5d5d5;
+        border-radius:10px;
+        background:#fff;
+        font-weight:900;
+        font-size:.62rem;
+    }
+    .desktop-move-wide.active {
+        background:#111;
+        color:#fff;
+        border-color:#111;
+    }
+    .desktop-paw { font-size:.72rem; margin-right:3px; }
+
+    /* Old desktop brush buttons are retired. */
+    #desktopPen,#desktopMarker,#desktopSoft,#desktopTexture,#desktopShapeModes {
+        display:none !important;
+    }
+
+    .desktop-palette-tabs {
+        display:flex;
+        flex-wrap:wrap;
+        gap:5px;
+        margin-bottom:7px;
+    }
+    .desktop-palette-tabs button {
+        padding:6px 8px;
+        border:1px solid #d5d5d5;
+        border-radius:999px;
+        background:#fff;
+        font-size:.55rem;
+        font-weight:900;
+    }
+    .desktop-palette-tabs button.active {
+        background:#111;
+        color:#fff;
+        border-color:#111;
+    }
+    .desktop-hues-toggle {
+        width:100%;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:7px 9px;
+        margin-bottom:7px;
+        border:1px solid #d8d8d8;
+        border-radius:9px;
+        background:#f8f8f8;
+        font-size:.57rem;
+        font-weight:900;
+    }
+    .desktop-hues-panel {
+        display:none;
+        grid-template-columns:repeat(8,1fr);
+        gap:5px;
+        margin:0 0 8px;
+        padding:7px;
+        border:1px solid #e3e3e3;
+        border-radius:10px;
+        background:#fafafa;
+    }
+    .desktop-hues-panel.open { display:grid; }
+    .desktop-modern-colors {
+        display:grid !important;
+        grid-template-columns:repeat(8,1fr) !important;
+        gap:5px !important;
+    }
+    .desktop-modern-colors .color-swatch,
+    .desktop-hues-panel .color-swatch,
+    .desktop-favorites .color-swatch {
+        width:100% !important;
+        aspect-ratio:1 !important;
+        height:auto !important;
+        min-width:0 !important;
+        border-radius:50% !important;
+        border:2px solid #d1d1d1 !important;
+        box-shadow:inset 0 0 0 2px #fff;
+        padding:0 !important;
+    }
+    .desktop-modern-colors .color-swatch.active,
+    .desktop-hues-panel .color-swatch.active,
+    .desktop-favorites .color-swatch.active {
+        outline:2px solid #111;
+        outline-offset:2px;
+    }
+    .desktop-custom-favorites {
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:6px;
+        margin-top:9px;
+    }
+    .desktop-custom-color-card,
+    .desktop-add-favorite {
+        min-height:42px;
+        border:1px solid #d5d5d5;
+        border-radius:10px;
+        background:#fff;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:6px;
+        font-size:.56rem;
+        font-weight:900;
+        cursor:pointer;
+    }
+    .desktop-custom-color-card input {
+        position:absolute;
+        width:1px;height:1px;
+        opacity:0;
+        pointer-events:none;
+    }
+    .custom-color-preview {
+        width:22px;height:22px;
+        border-radius:50%;
+        background:#e88eaa;
+        border:2px solid #fff;
+        outline:1px solid #bbb;
+    }
+    .desktop-favorites-head {
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-top:9px;
+        font-size:.56rem;
+        font-weight:900;
+        color:#666;
+    }
+    .desktop-favorites-head button {
+        border:0;
+        background:transparent;
+        color:#777;
+        font-size:.52rem;
+        font-weight:900;
+        padding:3px;
+    }
+    .desktop-favorites {
+        display:grid;
+        grid-template-columns:repeat(8,1fr);
+        gap:5px;
+        min-height:28px;
+        margin-top:6px;
+    }
+    .desktop-favorites:empty::before {
+        content:"Choose Custom, then + Favorite";
+        grid-column:1/-1;
+        padding:7px;
+        border:1px dashed #ccc;
+        border-radius:8px;
+        color:#888;
+        font-size:.54rem;
+        text-align:center;
+    }
+}
+</style>
+
+<script>
+(() => {
+    'use strict';
+    if (window.innerWidth < 1001) return;
+
+    const sidebar=document.getElementById('desktopStudioSidebar');
+    if(!sidebar) return;
+
+    const brushMenu=document.getElementById('desktopModernBrushSubmenu');
+    const eraserMenu=document.getElementById('desktopModernEraserSubmenu');
+    const shapeMenu=document.getElementById('desktopModernShapeSubmenu');
+    const selectMenu=document.getElementById('desktopSelectModes');
+    const readout=document.getElementById('desktopToolReadout');
+
+    function closeDesktopSubmenus(except){
+        [brushMenu,eraserMenu,shapeMenu,selectMenu].forEach(m=>{
+            if(m && m!==except) m.classList.remove('open');
+        });
+    }
+    function setMainActive(name){
+        sidebar.querySelectorAll('[data-desktop-modern-tool]').forEach(b=>{
+            b.classList.toggle('active',b.dataset.desktopModernTool===name);
+        });
+        sidebar.querySelectorAll('[data-desktop-tool]').forEach(b=>{
+            if(['fill','shape','select'].includes(b.dataset.desktopTool))
+                b.classList.toggle('active',b.dataset.desktopTool===name);
+        });
+        sidebar.querySelector('.desktop-move-wide')?.classList.toggle('active',name==='move');
+    }
+    function chooseBrush(kind){
+        brushType=kind;
+        selectTool('brush');
+        setMainActive('brush');
+        closeDesktopSubmenus(brushMenu);
+        brushMenu?.classList.add('open');
+        brushMenu?.querySelectorAll('[data-desktop-brush-choice]').forEach(b=>b.classList.toggle('active',b.dataset.desktopBrushChoice===kind));
+        if(readout) readout.textContent=kind.charAt(0).toUpperCase()+kind.slice(1);
+    }
+    function chooseEraser(kind){
+        eraserMode=kind;
+        selectTool('eraser');
+        setMainActive('eraser');
+        closeDesktopSubmenus(eraserMenu);
+        eraserMenu?.classList.add('open');
+        eraserMenu?.querySelectorAll('[data-desktop-eraser-choice]').forEach(b=>b.classList.toggle('active',b.dataset.desktopEraserChoice===kind));
+        if(readout) readout.textContent=kind.charAt(0).toUpperCase()+kind.slice(1)+' Eraser';
+    }
+
+    sidebar.addEventListener('click',e=>{
+        const modern=e.target.closest('[data-desktop-modern-tool]');
+        if(modern){
+            e.preventDefault(); e.stopImmediatePropagation();
+            const name=modern.dataset.desktopModernTool;
+            if(name==='brush'){ chooseBrush(brushType||'pen'); return; }
+            if(name==='eraser'){ chooseEraser(eraserMode||'hard'); return; }
+        }
+        const bc=e.target.closest('[data-desktop-brush-choice]');
+        if(bc){ e.preventDefault();e.stopImmediatePropagation();chooseBrush(bc.dataset.desktopBrushChoice);return; }
+        const ec=e.target.closest('[data-desktop-eraser-choice]');
+        if(ec){ e.preventDefault();e.stopImmediatePropagation();chooseEraser(ec.dataset.desktopEraserChoice);return; }
+
+        const tool=e.target.closest('[data-desktop-tool]');
+        if(tool){
+            const name=tool.dataset.desktopTool;
+            if(!['fill','shape','select','move'].includes(name)) return;
+            e.preventDefault();e.stopImmediatePropagation();
+            selectTool(name);
+            setMainActive(name);
+            if(name==='shape'){ closeDesktopSubmenus(shapeMenu);shapeMenu?.classList.add('open'); }
+            else if(name==='select'){ closeDesktopSubmenus(selectMenu);selectMenu?.classList.add('open'); }
+            else closeDesktopSubmenus();
+            if(readout) readout.textContent=name==='shape'?'Line / Shape':name.charAt(0).toUpperCase()+name.slice(1);
+        }
+    },true);
+
+    /* ---------- Desktop palette families ---------- */
+    const palettes={
+        basic:['#e88eaa','#f6b3c8','#ef5350','#ff9800','#ffd54f','#81c784','#4dd0e1','#64b5f6','#9575cd','#795548','#ffffff','#dddddd','#999999','#555555','#111111','#000000'],
+        warm:['#fff3e0','#ffccbc','#ffab91','#ff8a65','#ff7043','#ef5350','#e53935','#c62828','#ffd180','#ffb74d','#fb8c00','#ef6c00','#f8bbd0','#ec407a','#ad1457','#6d4c41'],
+        cool:['#e0f7fa','#b2ebf2','#80deea','#4dd0e1','#26c6da','#00acc1','#90caf9','#64b5f6','#42a5f5','#1e88e5','#b39ddb','#9575cd','#7e57c2','#5e35b1','#80cbc4','#26a69a'],
+        skin:['#fff3e0','#ffe0b2','#ffccbc','#f8c9a4','#eab38d','#d99b73','#c6865d','#a86f4c','#8d5a3b','#6d4530','#523323','#3b2419','#f3c6b8','#dba08c','#b97866','#8d5145'],
+        sky:['#f5fbff','#dff4ff','#bfe8ff','#90d5f7','#64b5f6','#42a5f5','#1e88e5','#1565c0','#e0f7fa','#b2ebf2','#80deea','#4dd0e1','#26c6da','#00acc1','#00838f','#006064']
+    };
+    const colorBox=document.getElementById('desktopSideColors');
+    const paletteReadout=document.getElementById('desktopPaletteReadout');
+    let currentPalette='basic';
+    let selected='#e88eaa';
+
+    function swatch(color){
+        const b=document.createElement('button');
+        b.type='button';b.className='color-swatch';b.style.background=color;b.title=color;
+        b.addEventListener('click',e=>{
+            e.preventDefault();e.stopPropagation();
+            selected=color;
+            selectColor(color);
+            document.querySelectorAll('.desktop-color-studio .color-swatch').forEach(x=>x.classList.toggle('active',x===b));
+        });
+        return b;
+    }
+    function renderPalette(name){
+        currentPalette=name;
+        colorBox.innerHTML='';
+        palettes[name].forEach(c=>colorBox.appendChild(swatch(c)));
+        document.querySelectorAll('[data-desktop-palette]').forEach(b=>b.classList.toggle('active',b.dataset.desktopPalette===name));
+        if(paletteReadout) paletteReadout.textContent=name==='sky'?'SKY / WATER':name.toUpperCase();
+    }
+    document.querySelectorAll('[data-desktop-palette]').forEach(b=>b.addEventListener('click',()=>renderPalette(b.dataset.desktopPalette)));
+
+    /* Hues/shades derive from the currently chosen color and are intentionally collapsible. */
+    const huesToggle=document.getElementById('desktopHuesToggle');
+    const huesPanel=document.getElementById('desktopHuesPanel');
+    function hexToRgb(hex){hex=hex.replace('#','');return [parseInt(hex.slice(0,2),16),parseInt(hex.slice(2,4),16),parseInt(hex.slice(4,6),16)];}
+    function rgbToHex(r,g,b){return '#'+[r,g,b].map(v=>Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,'0')).join('');}
+    function mix(a,b,t){return a.map((v,i)=>v+(b[i]-v)*t);}
+    function renderHues(){
+        huesPanel.innerHTML='';
+        const rgb=hexToRgb(selected);
+        [0.75,0.55,0.35,0.18].forEach(t=>huesPanel.appendChild(swatch(rgbToHex(...mix(rgb,[255,255,255],t)))));
+        [0.15,0.3,0.45,0.6].forEach(t=>huesPanel.appendChild(swatch(rgbToHex(...mix(rgb,[0,0,0],t)))));
+    }
+    huesToggle?.addEventListener('click',()=>{
+        const open=!huesPanel.classList.contains('open');
+        huesPanel.classList.toggle('open',open);
+        huesToggle.setAttribute('aria-expanded',String(open));
+        if(open) renderHues();
+    });
+
+    /* Custom color + persistent favorite swatches. */
+    const custom=document.getElementById('desktopSideCustomColor');
+    const preview=document.getElementById('desktopCustomPreview');
+    const favBox=document.getElementById('desktopFavoriteSwatches');
+    const FKEY='miaDesktopFavoriteColorsV37';
+    let favorites=[];
+    try{ favorites=JSON.parse(localStorage.getItem(FKEY)||'[]'); }catch(_){}
+    function renderFavorites(){
+        favBox.innerHTML='';
+        favorites.forEach(c=>favBox.appendChild(swatch(c)));
+    }
+    custom?.addEventListener('input',()=>{
+        selected=custom.value;
+        preview.style.background=selected;
+        selectColor(selected);
+        if(huesPanel.classList.contains('open')) renderHues();
+    });
+    document.getElementById('desktopAddFavorite')?.addEventListener('click',()=>{
+        const c=(custom?.value||selected).toLowerCase();
+        if(!favorites.includes(c)) favorites.unshift(c);
+        favorites=favorites.slice(0,16);
+        localStorage.setItem(FKEY,JSON.stringify(favorites));
+        renderFavorites();
+    });
+    document.getElementById('desktopClearFavorites')?.addEventListener('click',()=>{
+        favorites=[];localStorage.removeItem(FKEY);renderFavorites();
+    });
+
+    renderPalette('basic');
+    renderFavorites();
+    chooseBrush('pen');
 })();
 </script>
 
