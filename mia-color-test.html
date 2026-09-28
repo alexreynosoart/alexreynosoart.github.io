@@ -12732,86 +12732,85 @@ body.v268-fill-active #touchEraserOpacity {
 })();
 </script>
 
+
+
+
+
 <!-- =====================================================
-     TEST #31 — CLEAN TABLET PEN SIZE CALIBRATION
-     One authoritative tablet geometry for BOTH the slider preview and live cursor.
-     Pen paint engine, opacity, Marker/Soft/Texture, phone and desktop are untouched.
-     Inner ring = actual Pen footprint. Outer ring = 8px clearance on each side.
+     TEST #32 — STRIPPED SIZE + OPACITY BASELINE
+     Temporary diagnostic baseline.
+     Removes size/opacity controls and size-preview/cursor geometry from the UI.
+     Drawing remains available at fixed 75px / 100% so the raw brush engine can be inspected.
      ===================================================== -->
 <style>
-@media (min-width:481px) and (max-width:1000px) {
-    .brush-size-preview,
-    .tool-cursor.circle {
-        box-sizing:border-box !important;
-        overflow:visible !important;
-        border:1.5px solid rgba(0,0,0,.78) !important;
-        border-radius:50% !important;
-        background:rgba(255,255,255,.06) !important;
-        box-shadow:0 0 0 1px rgba(255,255,255,.78) !important;
-    }
-    .brush-size-preview::after,
-    .tool-cursor.circle::after {
-        content:"" !important;
-        position:absolute !important;
-        left:50% !important;
-        top:50% !important;
-        width:var(--mia-pen-footprint, 6px) !important;
-        height:var(--mia-pen-footprint, 6px) !important;
-        transform:translate(-50%,-50%) !important;
-        box-sizing:border-box !important;
-        border:1.5px solid rgba(0,0,0,.9) !important;
-        border-radius:50% !important;
-        background:transparent !important;
-        box-shadow:0 0 0 1px rgba(255,255,255,.84) !important;
-        pointer-events:none !important;
-    }
+/* Remove every current Brush Size / Opacity control while we rebuild them. */
+#brushSize,
+#mobileBrushSize,
+#v2BrushSize,
+#desktopSizeSlider,
+#brushOpacity,
+#opacitySlider,
+#desktopOpacitySlider,
+#eraserOpacity,
+#touchEraserOpacity,
+#brushSizePreview,
+#toolCursor,
+.mobile-brush-row,
+#touchEraserOpacityWrap,
+#eraserOpacitySection,
+.eraser-opacity-section,
+.option-group:has(#v2BrushSize),
+.option-group:has(#opacitySlider),
+.tool-section:has(#brushSize) {
+    display:none !important;
 }
 </style>
 <script>
 (() => {
-    "use strict";
+    'use strict';
 
-    const baseShowBrushSizePreview = showBrushSizePreview;
-    const baseSetToolCursorSize = setToolCursorSize;
+    /* Fresh diagnostic constants only. No slider, preview, or cursor may rewrite them. */
+    brushSize = 75;
+    brushOpacity = 1;
 
-    function tabletPenGeometry() {
-        const rect = paintCanvas.getBoundingClientRect();
-        if (!paintCanvas.width || !rect.width) return null;
-        const scale = rect.width / paintCanvas.width;
-        const footprint = Math.max(6, brushSize * scale);
-        return { footprint, outer: footprint + 16 };
+    /* Disable the old size UI pipeline without disturbing drawing startup calls. */
+    updateBrushSize = function() {
+        brushSize = 75;
+    };
+
+    /* Disable both old size visualizers completely. */
+    setToolCursorSize = function() {};
+    showBrushSizePreview = function() {};
+
+    if (brushSizePreview) {
+        brushSizePreview.classList.remove('show');
+        brushSizePreview.style.display = 'none';
+    }
+    if (toolCursor) {
+        toolCursor.style.display = 'none';
     }
 
-    /* Tablet Pen only. Both indicators consume the SAME geometry object. */
-    showBrushSizePreview = function() {
-        if (window.innerWidth <= 480 || window.innerWidth > 1000 ||
-            currentTool !== 'brush' || brushType !== 'pen') {
-            return baseShowBrushSizePreview();
-        }
-        const g = tabletPenGeometry();
-        if (!g) return;
-        brushSizePreview.style.setProperty('--mia-pen-footprint', g.footprint + 'px');
-        brushSizePreview.style.width = g.outer + 'px';
-        brushSizePreview.style.height = g.outer + 'px';
-        brushSizePreview.classList.add('show');
-        clearTimeout(brushPreviewTimer);
-        brushPreviewTimer = setTimeout(() => brushSizePreview.classList.remove('show'), 650);
-    };
+    /* Keep legacy opacity controls, if any hidden code reaches them, pinned to 100%. */
+    const opacityIds = [
+        'brushOpacity','opacitySlider','desktopOpacitySlider',
+        'eraserOpacity','touchEraserOpacity'
+    ];
+    opacityIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.value = '100';
+        el.disabled = true;
+    });
 
-    setToolCursorSize = function() {
-        if (window.innerWidth <= 480 || window.innerWidth > 1000 ||
-            currentTool !== 'brush' || brushType !== 'pen') {
-            return baseSetToolCursorSize();
-        }
-        const g = tabletPenGeometry();
-        if (!g) return;
-        toolCursor.style.setProperty('--mia-pen-footprint', g.footprint + 'px');
-        toolCursor.style.width = g.outer + 'px';
-        toolCursor.style.height = g.outer + 'px';
-    };
+    /* Reassert the diagnostic baseline after legacy input handlers fire. */
+    document.addEventListener('input', e => {
+        if (opacityIds.includes(e.target?.id)) brushOpacity = 1;
+        if (['brushSize','mobileBrushSize','v2BrushSize','desktopSizeSlider'].includes(e.target?.id)) brushSize = 75;
+    }, true);
 })();
 </script>
 
 </body>
 
 </html>
+
