@@ -4572,6 +4572,13 @@ function fullscreenElement() {
             toolCursor.style.top =
                 event.clientY + 'px';
 
+            /* Brush and Eraser now use the single zoom-aware canvas indicator.
+               Do not allow the legacy fixed-screen cursor to compete with it. */
+            if (currentTool === 'brush' || currentTool === 'eraser') {
+                toolCursor.style.display = 'none';
+                return;
+            }
+
             /* Select has its own selection cursor/outline.
                Never resurrect the previous Move hand on hover. */
             if (currentTool === 'select') {
@@ -6916,20 +6923,14 @@ function fullscreenElement() {
         paintCtx.globalAlpha =
             1;
 
+        /* CLEAN BASELINE: every Brush mode uses the same exact circular
+           footprint. Pen / Marker / Soft / Texture remain selectable, but
+           their spray/texture personalities will be rebuilt after size is proven. */
         if (currentTool === 'brush') {
-            if (brushType === 'marker') {
-                paintCtx.globalAlpha = 0.42;
-                paintCtx.lineWidth = brushSize * 1.35;
-            } else if (brushType === 'soft') {
-                /* V2.4.3: noticeably softer watercolor / airbrush feel */
-                paintCtx.globalAlpha = 0.09;
-                paintCtx.shadowColor = currentColor;
-                paintCtx.shadowBlur = brushSize * 1.45;
-                paintCtx.lineWidth = brushSize * 1.55;
-            } else if (brushType === 'texture') {
-                paintCtx.globalAlpha = 0.62;
-                paintCtx.lineWidth = brushSize * 0.55;
-            }
+            paintCtx.globalAlpha = 1;
+            paintCtx.shadowColor = 'transparent';
+            paintCtx.shadowBlur = 0;
+            paintCtx.lineWidth = brushSize;
         }
 
 
@@ -6947,15 +6948,12 @@ function fullscreenElement() {
             paintCtx.fillStyle =
                 '#000';
 
-            /* TEST #25 eraser family: hard keeps the established eraser.
-               Soft feathers the edge; Texture uses the existing grain engine. */
-            if (eraserMode === 'soft') {
-                paintCtx.shadowColor = '#000';
-                paintCtx.shadowBlur = brushSize * 0.9;
-                paintCtx.lineWidth = brushSize * 0.82;
-            } else if (eraserMode === 'texture') {
-                paintCtx.lineWidth = brushSize * 0.55;
-            }
+            /* CLEAN BASELINE: Hard / Soft / Texture erasers all use the
+               same exact circular footprint until eraser behavior is rebuilt. */
+            paintCtx.globalAlpha = 1;
+            paintCtx.shadowColor = 'transparent';
+            paintCtx.shadowBlur = 0;
+            paintCtx.lineWidth = brushSize;
 
         } else {
 
@@ -6971,38 +6969,7 @@ function fullscreenElement() {
         }
 
 
-        if ((currentTool === 'brush' && brushType === 'texture') || (currentTool === 'eraser' && eraserMode === 'texture')) {
-            const dx = x2 - x1;
-            const dy = y2 - y1;
-            const distance = Math.max(1, Math.hypot(dx, dy));
-            const steps = Math.max(2, Math.ceil(distance / Math.max(2, brushSize * 0.10)));
-
-            for (let i = 0; i <= steps; i++) {
-                const t = i / steps;
-                const cx = x1 + dx * t;
-                const cy = y1 + dy * t;
-                const grains = Math.max(4, Math.round(brushSize * 0.28));
-
-                for (let g = 0; g < grains; g++) {
-                    const angle = Math.random() * Math.PI * 2;
-                    const radius = Math.sqrt(Math.random()) * brushSize * 0.48;
-                    const dot = Math.max(0.7, brushSize * (0.025 + Math.random() * 0.055));
-
-                    paintCtx.beginPath();
-                    paintCtx.arc(
-                        cx + Math.cos(angle) * radius,
-                        cy + Math.sin(angle) * radius,
-                        dot,
-                        0,
-                        Math.PI * 2
-                    );
-                    paintCtx.fill();
-                }
-            }
-
-            paintCtx.restore();
-            return;
-        }
+        /* Texture spray engine intentionally removed from the clean size baseline. */
 
 
         paintCtx.beginPath();
@@ -8077,15 +8044,26 @@ if (!v241Indicator) {
 
 function v241SyncIndicator(){
     if (!v241Indicator) return;
+
     if (currentTool==='brush' || currentTool==='eraser') {
-        v241Indicator.style.display='none';
+        const rect=paintCanvas.getBoundingClientRect();
+        const scale=(paintCanvas.width && rect.width) ? rect.width/paintCanvas.width : 1;
+        const visibleSize=Math.max(1, brushSize*scale);
+
+        v241Indicator.style.display='block';
+        v241Indicator.className='tool-indicator '+(currentTool==='eraser'?'eraser':'brush');
+        v241Indicator.style.width=visibleSize+'px';
+        v241Indicator.style.height=visibleSize+'px';
+        v241Indicator.style.borderRadius='50%';
         return;
     }
+
     v241Indicator.style.display='';
     v241Indicator.className='tool-indicator '+(currentTool==='shape'?'shape':currentTool);
     v241Indicator.style.width='22px';
     v241Indicator.style.height='22px';
 }
+
 canvasFrame.addEventListener('pointermove',function(e){
     if (e.pointerType==='touch') return;
     const r=canvasFrame.getBoundingClientRect();
@@ -12009,6 +11987,12 @@ document.addEventListener('pointerup', function() {
 
 
 
+
+<style>
+/* TEST #34 — one authoritative brush/eraser footprint. */
+.tool-indicator.brush { border-style:solid !important; }
+.tool-indicator.eraser { border-style:dashed !important; }
+</style>
 
 </body>
 
