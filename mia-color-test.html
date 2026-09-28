@@ -12697,6 +12697,100 @@ body.v268-fill-active #touchEraserOpacity {
 })();
 </script>
 
+
+
+<!-- =====================================================
+     TEST #27 — WEB-MATCH SIZE PREVIEW + PAW MOVE + TABLET FULLSCREEN CLEANUP
+     Opacity / brush / eraser paint mechanics intentionally unchanged.
+     ===================================================== -->
+<style>
+/* Phone/tablet use the same size-preview math as desktop/web. */
+@media (max-width:1000px) {
+    /* The separate Exit Full Screen pill is unnecessary on tablet/phone. */
+    .fullscreen-exit,
+    body.studio-fullscreen .fullscreen-exit {
+        display:none !important;
+    }
+
+    /* Monochrome panda-paw Move icon. It inherits the button color, so there is
+       no platform-dependent colored emoji rendering. */
+    .floating-move-tool .move-cross {
+        width:25px !important;
+        height:23px !important;
+        position:relative !important;
+    }
+    .floating-move-tool .move-cross::before {
+        content:"" !important;
+        position:absolute !important;
+        left:6px !important;
+        top:9px !important;
+        width:13px !important;
+        height:11px !important;
+        border-radius:52% 52% 58% 58% !important;
+        background:currentColor !important;
+        transform:rotate(0deg) !important;
+    }
+    .floating-move-tool .move-cross::after {
+        content:"" !important;
+        position:absolute !important;
+        left:2px !important;
+        top:1px !important;
+        width:6px !important;
+        height:7px !important;
+        border-radius:50% !important;
+        background:currentColor !important;
+        box-shadow:
+            7px -2px 0 -0.2px currentColor,
+            14px 0 0 -0.2px currentColor,
+            19px 5px 0 -0.5px currentColor !important;
+        transform:rotate(-8deg) !important;
+    }
+}
+</style>
+
+<script>
+(() => {
+    "use strict";
+
+    /* TEST #26 experimented with responsive-only visual scaling. Remove that
+       difference. The desktop/web calculation is the reference because it
+       already matches the real stroke correctly. */
+    showBrushSizePreview = function() {
+        if (currentTool !== 'brush' && currentTool !== 'eraser') return;
+
+        const rect = paintCanvas.getBoundingClientRect();
+        if (!paintCanvas.width || !rect.width) return;
+
+        const scale = rect.width / paintCanvas.width;
+        const size = Math.max(8, brushSize * scale);
+
+        brushSizePreview.style.width = size + 'px';
+        brushSizePreview.style.height = size + 'px';
+        brushSizePreview.classList.add('show');
+
+        clearTimeout(brushPreviewTimer);
+        brushPreviewTimer = setTimeout(() => {
+            brushSizePreview.classList.remove('show');
+        }, 650);
+    };
+
+    /* Same rule for the live Pen/Eraser ring. No responsive-only subtraction
+       or enlargement. This is the exact desktop/web cursor-size formula. */
+    setToolCursorSize = function() {
+        if (currentTool !== 'brush' && currentTool !== 'eraser') return;
+
+        const rect = paintCanvas.getBoundingClientRect();
+        if (!paintCanvas.width || !rect.width) return;
+
+        const scale = rect.width / paintCanvas.width;
+        const size = Math.max(6, brushSize * scale);
+
+        toolCursor.style.width = size + 'px';
+        toolCursor.style.height = size + 'px';
+    };
+})();
+</script>
+
 </body>
 
 </html>
