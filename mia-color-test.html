@@ -12316,6 +12316,95 @@ body.v268-fill-active #touchEraserOpacity {
 </script>
 
 
+
+
+<style>
+/* =====================================================
+   TEST #24 — HYBRID HOVER + DRAWING LONG-PRESS + TRUE CURSOR SIZE + SIMPLE HISTORY ARROWS
+   Drawing/opacity mechanics intentionally unchanged.
+   ===================================================== */
+
+/* The selected px value describes the OUTER diameter of the cursor ring.
+   Without border-box, the 2px border made the visible ring larger than the real hard stroke. */
+.tool-cursor.circle,
+.tool-cursor.eraser-circle {
+    box-sizing:border-box !important;
+}
+
+/* Use the familiar simple curved history arrows everywhere. */
+.history-arrow {
+    width:auto !important;
+    min-width:1em !important;
+    height:auto !important;
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    font-size:1.15em !important;
+    font-weight:800 !important;
+    line-height:1 !important;
+}
+.history-arrow::before,
+.history-arrow::after {
+    content:none !important;
+    display:none !important;
+}
+</style>
+
+<script>
+/* TEST #24 — behavior polish only. */
+(() => {
+    'use strict';
+
+    /* 1. Simple, consistent ↶ / ↷ arrows in every Undo/Redo control. */
+    document.querySelectorAll('.history-arrow-undo').forEach(el => { el.textContent='↶'; });
+    document.querySelectorAll('.history-arrow-redo').forEach(el => { el.textContent='↷'; });
+
+    /* 2. Drawing is an app interaction. A press-and-hold/right-click on the
+          drawing surface must not open the browser context menu. */
+    const frame=document.querySelector('.canvas-frame');
+    const paint=document.getElementById('paintCanvas');
+    const line=document.getElementById('lineCanvas');
+    [frame,paint,line].filter(Boolean).forEach(el => {
+        el.addEventListener('contextmenu', e => e.preventDefault(), {capture:true});
+        el.style.webkitTouchCallout='none';
+        el.style.webkitUserSelect='none';
+        el.style.userSelect='none';
+    });
+
+    /* 3. A real mouse/trackpad gets true hover tips even when the responsive
+          phone/tablet layout is showing. Existing touch-tap tips stay intact. */
+    const status=document.getElementById('studioStatus');
+    const wrap=status?.closest('.studio-tip-wrap');
+    if(status && wrap){
+        function hoverTip(target){
+            if(!target?.closest) return null;
+            if(target.closest('#undoMobileTop,[id*="undo" i]')) return 'Undo: step back one change.';
+            if(target.closest('#redoMobileTop,[id*="redo" i]')) return 'Redo: bring back the last change you undid.';
+            if(target.closest('#zoomOut')) return 'Zoom out: make the artwork smaller inside the workspace.';
+            if(target.closest('#zoomIn')) return 'Zoom in: get closer to small details.';
+            if(target.closest('#fitButton,#fitTop,#desktopFitPage')) return 'Fit: center the whole artwork comfortably inside the workspace.';
+            if(target.closest('#pagesTop,.pages-launcher')) return 'Pages: choose a coloring page, start with Blank, or upload your own image.';
+            if(target.closest('#layersTop')) return 'Layers: add, reorder, hide, or remove layers without changing the original line art.';
+            if(target.closest('[data-fullscreen],#fullscreenButton,#fullscreenTop')) return 'Full view: give the artwork more room on screen.';
+            if(target.closest('[id*="reset" i]')) return 'Reset: return this page to its starting state.';
+            if(target.closest('[id*="save" i]')) return 'Save: export your artwork when you are ready.';
+            if(target.closest('.mobile-color-row,.mobile-palette,.mobile-custom-color')) return 'Colors: choose a color for Fill or your brushes. Tap the color square to create your own.';
+            if(target.closest('#mobileBrushSize,.mobile-brush-row:not(#touchEraserOpacityWrap)')) return 'Brush Size: use a smaller size for detail or a larger size for broader strokes.';
+            if(target.closest('#touchEraserOpacity,#touchEraserOpacityWrap')) return 'Opacity: control how solid or transparent the active drawing or erasing stroke is.';
+            return null;
+        }
+        document.addEventListener('pointerover', e => {
+            if(e.pointerType!=='mouse') return;
+            const tip=hoverTip(e.target);
+            if(!tip) return;
+            wrap.classList.remove('tip-hidden');
+            wrap.style.display='flex';
+            status.textContent=tip;
+        }, true);
+    }
+})();
+</script>
+
 </body>
 
 </html>
