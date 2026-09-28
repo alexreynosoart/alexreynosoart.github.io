@@ -12904,6 +12904,86 @@ body.v268-fill-active #touchEraserOpacity {
 </script>
 
 
+
+
+<!-- =====================================================
+     TEST #30 — TABLET LIVE DUAL CURSOR CALIBRATION
+     Slider preview, phone, desktop, paint, erase and opacity are untouched.
+     Inner ring = actual nominal brush footprint.
+     Outer guide = 8px radial clearance (16px added to diameter).
+     Eraser keeps its dashed outer guide.
+     ===================================================== -->
+<style>
+@media (min-width:481px) and (max-width:1000px) {
+    /* The live cursor itself is the OUTER guide. */
+    .tool-cursor.circle,
+    .tool-cursor.eraser-circle {
+        overflow:visible !important;
+        background:rgba(255,255,255,.06) !important;
+        box-shadow:0 0 0 1px rgba(255,255,255,.78) !important;
+    }
+
+    /* Pen/brush outer guide stays solid. */
+    .tool-cursor.circle {
+        border:1.5px solid rgba(0,0,0,.78) !important;
+    }
+
+    /* Eraser keeps the dotted/dashed visual language. */
+    .tool-cursor.eraser-circle {
+        border:2px dashed rgba(0,0,0,.82) !important;
+    }
+
+    /* Inner ring is the true nominal footprint. */
+    .tool-cursor.circle::after,
+    .tool-cursor.eraser-circle::after {
+        content:"" !important;
+        position:absolute !important;
+        left:50% !important;
+        top:50% !important;
+        width:var(--mia-live-inner-size, 6px) !important;
+        height:var(--mia-live-inner-size, 6px) !important;
+        transform:translate(-50%,-50%) !important;
+        box-sizing:border-box !important;
+        border:1.5px solid rgba(0,0,0,.88) !important;
+        border-radius:50% !important;
+        background:transparent !important;
+        box-shadow:0 0 0 1px rgba(255,255,255,.82) !important;
+        pointer-events:none !important;
+    }
+}
+</style>
+
+<script>
+(() => {
+    "use strict";
+
+    const test29SetToolCursorSize = setToolCursorSize;
+
+    setToolCursorSize = function() {
+        /* Phone + desktop stay exactly as they were. */
+        if (window.innerWidth <= 480 || window.innerWidth > 1000) {
+            return test29SetToolCursorSize();
+        }
+
+        if (currentTool !== 'brush' && currentTool !== 'eraser') return;
+
+        const rect = paintCanvas.getBoundingClientRect();
+        if (!paintCanvas.width || !rect.width) return;
+
+        /* Same web calculation that already matches the Pen footprint. */
+        const scale = rect.width / paintCanvas.width;
+        const innerSize = Math.max(6, brushSize * scale);
+
+        /* 8px of visible breathing room on each side of the true footprint. */
+        const outerSize = innerSize + 16;
+
+        toolCursor.style.setProperty('--mia-live-inner-size', innerSize + 'px');
+        toolCursor.style.width = outerSize + 'px';
+        toolCursor.style.height = outerSize + 'px';
+    };
+})();
+</script>
+
 </body>
 
 </html>
