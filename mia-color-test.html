@@ -310,13 +310,6 @@
             cursor: pointer;
         }
 
-
-        /* BRUSH SIZE */
-
-        .brush-slider {
-            width: 100%;
-        }
-
         .brush-readout {
             margin-top: 5px;
 
@@ -676,21 +669,6 @@ body {
                 margin-bottom: 7px;
             }
 
-
-            /* MOBILE BRUSH SIZE */
-
-            .mobile-brush-row {
-                display: flex;
-                align-items: center;
-
-                gap: 9px;
-
-                margin-bottom: 7px;
-
-                padding:
-                    0 3px;
-            }
-
             .mobile-brush-label {
                 flex:
                     0 0 auto;
@@ -701,11 +679,6 @@ body {
                 font-weight: 700;
 
                 white-space: nowrap;
-            }
-
-            .mobile-brush-slider {
-                flex: 1;
-                min-width: 0;
             }
 
             .mobile-brush-value {
@@ -2347,9 +2320,6 @@ body.v242-touch-active .tool-indicator {
     border-color:#111 !important;
 }
 
-/* Eraser opacity is contextual, not permanent clutter. */
-.eraser-opacity-section { display:none; }
-body.v244-eraser-active .eraser-opacity-section { display:block; }
 
 /* FIT PAGE needs a little breathing room on desktop. */
 @media (min-width:1001px) {
@@ -2413,7 +2383,7 @@ body:not(.has-selection) #clearSelectionTouch { display:none; }
 
 /* =====================================================
    V2.5.4 CLEAN CONSOLIDATION
-   One selection UI, one eraser opacity system.
+   One selection UI.
    ===================================================== */
 
 /* Desktop-only build marker. Does not exist in mobile layout. */
@@ -2462,12 +2432,7 @@ body.has-selection #clearSelectionTouch { display:inline-flex; }
     pointer-events:none !important;
 }
 
-/* Eraser opacity */
-#touchEraserOpacityWrap { display:none; }
-body.v254-eraser-active #touchEraserOpacityWrap { display:flex; }
-
 @media (max-width:1000px) {
-    #eraserOpacitySection { display:none !important; }
 
     /* Mobile header: reclaim the title space. */
     .studio-name { display:none !important; }
@@ -2499,7 +2464,6 @@ body.v254-eraser-active #touchEraserOpacityWrap { display:flex; }
 }
 
 @media (min-width:1001px) {
-    #touchEraserOpacityWrap { display:none !important; }
 }
 
 
@@ -2618,19 +2582,6 @@ body.v254-eraser-active #touchEraserOpacityWrap { display:flex; }
 }
 
 @media (max-width:1000px) {
-    /* Keep the mobile eraser value plainly visible. */
-    #touchEraserOpacityWrap .mobile-brush-value {
-        display:block !important;
-        flex:0 0 48px !important;
-        min-width:48px;
-        color:#444 !important;
-        font-weight:800;
-        opacity:1 !important;
-    }
-
-    #touchEraserOpacity {
-        min-width:80px;
-    }
 }
 
 
@@ -2642,7 +2593,7 @@ body.v254-eraser-active #touchEraserOpacityWrap { display:flex; }
 
 
 /* =====================================================
-   V2.5.9 FULLSCREEN + OPACITY
+   V2.5.9 FULLSCREEN
    ===================================================== */
 @media (min-width:1001px) {
     body.studio-fullscreen .studio-status,
@@ -2661,21 +2612,6 @@ body.v254-eraser-active #touchEraserOpacityWrap { display:flex; }
         align-items:center !important;
         justify-content:center !important;
     }
-}
-
-/* Opacity labels always display the real slider value. */
-#eraserOpacityReadout,
-#touchEraserOpacityReadout,
-#brushOpacityReadout {
-    opacity:1 !important;
-}
-
-
-/* V2.6.0: opacity controls use a normal 0-100 scale. */
-#eraserOpacity,
-#touchEraserOpacity,
-#brushOpacity {
-    direction:ltr !important;
 }
 
 
@@ -3412,33 +3348,10 @@ body.v254-select-active #clearSelectionTouch {
     .mobile-select-icons {
         display:none !important;
     }
-
-    /* Fill does not use brush size. Keep it visible for context, but clearly inactive. */
-    body.v268-fill-active .mobile-brush-row:not(#touchEraserOpacityWrap) {
-        opacity:.34;
-        filter:grayscale(.65);
-        pointer-events:none;
-    }
 }
 
-/* Fill does not use brush size or brush opacity on desktop either. */
+/* Fill has no brush controls. */
 @media (min-width:1001px) {
-    body.v268-fill-active #desktopSizeSlider,
-    body.v268-fill-active #desktopOpacitySlider {
-        opacity:.34;
-        pointer-events:none;
-    }
-    body.v268-fill-active #desktopSizeSlider + *,
-    body.v268-fill-active #desktopOpacitySlider + * {
-        opacity:.45;
-    }
-}
-
-/* The floating Tools panel can still be opened on some layouts. */
-body.v268-fill-active #v2BrushSize,
-body.v268-fill-active #opacitySlider {
-    opacity:.34;
-    pointer-events:none;
 }
 
 
@@ -3617,15 +3530,7 @@ body.v268-fill-active #opacitySlider {
             <span style="font-size:.65rem;font-weight:800;color:#777">CUSTOM COLOR</span>
         </div>
     </section>
-
-    <section class="desktop-side-section">
-        <div class="desktop-side-label"><span>Size</span><span id="desktopSizeReadout">75 px</span></div>
-        <input class="desktop-side-range" id="desktopSizeSlider" type="range" min="23" max="100" value="75">
-        <div class="desktop-side-label" style="margin-top:8px"><span>Opacity</span><span id="desktopOpacityReadout">100%</span></div>
-        <input class="desktop-side-range" id="desktopOpacitySlider" type="range" min="5" max="100" value="100">
-    </section>
-
-    <section class="desktop-side-section">
+<section class="desktop-side-section">
         <div class="desktop-side-label"><span>Pages</span><span></span></div>
         <div class="desktop-side-pages" id="desktopSidePages">
             <button class="desktop-side-page" id="desktopBlankPage" type="button">
@@ -3924,51 +3829,7 @@ body.v268-fill-active #opacitySlider {
                 </label>
 
             </div>
-
-
-
-            <div class="tool-section">
-
-                <label class="tool-label"
-                       for="brushSize">
-                    Brush Size
-                </label>
-
-
-                <input class="brush-slider"
-                       id="brushSize"
-                       type="range"
-                       min="23"
-                       max="100"
-                       value="75">
-
-
-                <div class="brush-readout">
-
-                    <span id="brushReadout">
-                        75
-                    </span>
-
-                    px
-
-                </div>
-
-            </div>
-
-            <div class="tool-section eraser-opacity-section" id="eraserOpacitySection">
-                <label class="tool-label" for="eraserOpacity">
-                    Opacity
-                </label>
-                <input class="brush-slider"
-                       id="eraserOpacity"
-                       type="range"
-                       min="5"
-                       max="100"
-                       value="100">
-                <div class="brush-readout">
-                    <span id="eraserOpacityReadout">100</span>%
-                </div>
-            </div>
+</div>
 
 
 
@@ -4114,20 +3975,7 @@ body.v268-fill-active #opacitySlider {
                 <button class="brush-type" data-brush-type="texture" type="button">TEXTURE</button>
             </div>
         </div>
-
-        <div class="option-group">
-            <div class="option-label"><span>Size</span><span id="v2SizeReadout">75 px</span></div>
-            <input class="v2-range" id="v2BrushSize" type="range" min="23" max="100" value="75">
-        </div>
-
-        <div class="option-group">
-            <div class="option-label"><span>Opacity</span><span id="opacityReadout">100%</span></div>
-            <input class="v2-range" id="opacitySlider" type="range" min="5" max="100" value="100">
-        </div>
-
-        
-
-        <p class="selection-note" id="selectionHelp" hidden>
+<p class="selection-note" id="selectionHelp" hidden>
             Choose Free, Square, or Circle. Make a selection, then use your previous tool inside it.
         </p>
     </aside>
@@ -4237,11 +4085,6 @@ body.v268-fill-active #opacitySlider {
      id="toolCursor"
      aria-hidden="true"></div>
 
-<div class="brush-size-preview"
-     id="brushSizePreview"
-     aria-hidden="true"></div>
-
-
 <div class="leave-modal"
      id="leaveModal"
      role="dialog"
@@ -4333,54 +4176,7 @@ body.v268-fill-active #opacitySlider {
                 type="button">MOVE</button>
 
     </div>
-
-
-
-    <!-- BRUSH SIZE -->
-
-    <div class="mobile-brush-row">
-
-        <span class="mobile-brush-label">
-            BRUSH SIZE
-        </span>
-
-
-        <input class="mobile-brush-slider"
-               id="mobileBrushSize"
-               type="range"
-               min="23"
-               max="100"
-               value="75">
-
-
-        <span class="mobile-brush-value">
-
-            <span id="mobileBrushReadout">
-                75
-            </span>
-
-            px
-
-        </span>
-
-    </div>
-
-
-
-    <!-- OPACITY: visible only while Erase is active -->
-    <div class="mobile-brush-row v250-mobile-eraser-opacity" id="touchEraserOpacityWrap">
-        <span class="mobile-brush-label">OPACITY</span>
-        <input class="mobile-brush-slider"
-               id="touchEraserOpacity"
-               type="range"
-               min="0"
-               max="100"
-               step="1"
-               value="100">
-        <span class="mobile-brush-value" id="touchEraserOpacityReadout">100%</span>
-    </div>
-
-    <!-- ACTIONS -->
+<!-- ACTIONS -->
 
     <div class="mobile-actions">
 
@@ -4613,16 +4409,7 @@ body.v268-fill-active #opacitySlider {
         document.getElementById(
             'toolCursor'
         );
-
-    const brushSizePreview =
-        document.getElementById(
-            'brushSizePreview'
-        );
-
-    let brushPreviewTimer =
-        null;
-
-    function fullscreenElement() {
+function fullscreenElement() {
         return (
             document.fullscreenElement ||
             document.webkitFullscreenElement ||
@@ -4769,42 +4556,6 @@ body.v268-fill-active #opacitySlider {
         }
     }
 
-    function setToolCursorSize() {
-        if (
-            currentTool !== 'brush' &&
-            currentTool !== 'eraser'
-        ) {
-            return;
-        }
-
-        const rect =
-            paintCanvas
-                .getBoundingClientRect();
-
-        if (
-            !paintCanvas.width ||
-            !rect.width
-        ) {
-            return;
-        }
-
-        const scale =
-            rect.width /
-            paintCanvas.width;
-
-        const size =
-            Math.max(
-                6,
-                brushSize * scale
-            );
-
-        toolCursor.style.width =
-            size + 'px';
-
-        toolCursor.style.height =
-            size + 'px';
-    }
-
     canvasFrame.addEventListener(
         'pointermove',
         function(event) {
@@ -4820,8 +4571,6 @@ body.v268-fill-active #opacitySlider {
 
             toolCursor.style.top =
                 event.clientY + 'px';
-
-            setToolCursorSize();
 
             /* Select has its own selection cursor/outline.
                Never resurrect the previous Move hand on hover. */
@@ -4864,62 +4613,6 @@ body.v268-fill-active #opacitySlider {
         }
     );
 
-    function showBrushSizePreview() {
-        if (
-            currentTool !== 'brush' &&
-            currentTool !== 'eraser'
-        ) {
-            return;
-        }
-
-        const rect =
-            paintCanvas
-                .getBoundingClientRect();
-
-        if (
-            !paintCanvas.width ||
-            !rect.width
-        ) {
-            return;
-        }
-
-        const scale =
-            rect.width /
-            paintCanvas.width;
-
-        const size =
-            Math.max(
-                8,
-                brushSize * scale
-            );
-
-        brushSizePreview.style.width =
-            size + 'px';
-
-        brushSizePreview.style.height =
-            size + 'px';
-
-        brushSizePreview.classList.add(
-            'show'
-        );
-
-        clearTimeout(
-            brushPreviewTimer
-        );
-
-        brushPreviewTimer =
-            setTimeout(
-                function() {
-                    brushSizePreview
-                        .classList.remove(
-                            'show'
-                        );
-                },
-                650
-            );
-    }
-
-
     const sourceImage =
         new Image();
 
@@ -4937,16 +4630,14 @@ body.v268-fill-active #opacitySlider {
     let currentColor =
         '#e88eaa';
 
+    /* Temporary fixed diameter. Size controls will be rebuilt from scratch next. */
     let brushSize =
         75;
-
-    let brushOpacity =
-        1;
 
     let brushType =
         'pen';
 
-    /* TEST #25: eraser family. Opacity mechanics remain unchanged. */
+    /* TEST #25: eraser family. Brush paint mechanics remain unchanged. */
     let eraserMode =
         'hard';
 
@@ -5720,9 +5411,7 @@ body.v268-fill-active #opacitySlider {
             markSaved();
             /* TEST #22: Pen is the true startup tool after artwork initialization. */
             brushType = 'pen';
-            brushSize = 75;
             selectTool('brush');
-            updateBrushSize(75);
 
             requestAnimationFrame(
                 fitArtwork
@@ -6112,15 +5801,6 @@ body.v268-fill-active #opacitySlider {
         });
     });
 
-    document.getElementById('v2BrushSize').addEventListener('input', function() {
-        updateBrushSize(this.value);
-        document.getElementById('v2SizeReadout').textContent = this.value + ' px';
-    });
-
-    document.getElementById('opacitySlider').addEventListener('input', function() {
-        brushOpacity = Number(this.value) / 100;
-        document.getElementById('opacityReadout').textContent = this.value + '%';
-    });
 
     generalToolsGroup.hidden = false;
     brushTypesGroup.hidden = true;
@@ -6363,7 +6043,6 @@ body.v268-fill-active #opacitySlider {
             tool;
 
         updateToolCursorMode();
-        setToolCursorSize();
 
         document
             .querySelectorAll(
@@ -6471,88 +6150,6 @@ body.v268-fill-active #opacitySlider {
 
             }
         );
-
-
-    /* =========================
-       BRUSH SIZE
-       ========================= */
-
-    const desktopBrushSlider =
-        document.getElementById(
-            'brushSize'
-        );
-
-    const mobileBrushSlider =
-        document.getElementById(
-            'mobileBrushSize'
-        );
-
-
-    function updateBrushSize(
-        value
-    ) {
-
-        brushSize =
-            Number(
-                value
-            );
-
-        const v2Slider = document.getElementById('v2BrushSize');
-        const v2Readout = document.getElementById('v2SizeReadout');
-        if (v2Slider) v2Slider.value = brushSize;
-        if (v2Readout) v2Readout.textContent = brushSize + ' px';
-
-        setToolCursorSize();
-        showBrushSizePreview();
-
-        desktopBrushSlider.value =
-            brushSize;
-
-        mobileBrushSlider.value =
-            brushSize;
-
-        document
-            .getElementById(
-                'brushReadout'
-            )
-            .textContent =
-                brushSize;
-
-        document
-            .getElementById(
-                'mobileBrushReadout'
-            )
-            .textContent =
-                brushSize;
-
-    }
-
-
-    desktopBrushSlider
-        .addEventListener(
-            'input',
-            function() {
-
-                updateBrushSize(
-                    this.value
-                );
-
-            }
-        );
-
-
-    mobileBrushSlider
-        .addEventListener(
-            'input',
-            function() {
-
-                updateBrushSize(
-                    this.value
-                );
-
-            }
-        );
-
 
     /* =========================
        CANVAS COORDINATES
@@ -7317,20 +6914,20 @@ body.v268-fill-active #opacitySlider {
             brushSize;
 
         paintCtx.globalAlpha =
-            brushOpacity;
+            1;
 
         if (currentTool === 'brush') {
             if (brushType === 'marker') {
-                paintCtx.globalAlpha = Math.min(brushOpacity, 0.42);
+                paintCtx.globalAlpha = 0.42;
                 paintCtx.lineWidth = brushSize * 1.35;
             } else if (brushType === 'soft') {
                 /* V2.4.3: noticeably softer watercolor / airbrush feel */
-                paintCtx.globalAlpha = Math.min(brushOpacity, 0.09);
+                paintCtx.globalAlpha = 0.09;
                 paintCtx.shadowColor = currentColor;
                 paintCtx.shadowBlur = brushSize * 1.45;
                 paintCtx.lineWidth = brushSize * 1.55;
             } else if (brushType === 'texture') {
-                paintCtx.globalAlpha = Math.min(brushOpacity, 0.62);
+                paintCtx.globalAlpha = 0.62;
                 paintCtx.lineWidth = brushSize * 0.55;
             }
         }
@@ -8144,29 +7741,6 @@ document.getElementById('desktopSideCustomColor')?.addEventListener('input', fun
     selectColor(this.value);
 });
 
-/* ---------- Desktop sliders ---------- */
-const v241Size = document.getElementById('desktopSizeSlider');
-if (v241Size) {
-    v241Size.value = brushSize;
-    document.getElementById('desktopSizeReadout').textContent = brushSize + ' px';
-    v241Size.addEventListener('input', function() {
-        updateBrushSize(this.value);
-        document.getElementById('desktopSizeReadout').textContent = this.value + ' px';
-    });
-}
-
-const v241Opacity = document.getElementById('desktopOpacitySlider');
-if (v241Opacity) {
-    v241Opacity.value = Math.round(brushOpacity * 100);
-    document.getElementById('desktopOpacityReadout').textContent = v241Opacity.value + '%';
-    v241Opacity.addEventListener('input', function() {
-        brushOpacity = Number(this.value) / 100;
-        document.getElementById('desktopOpacityReadout').textContent = this.value + '%';
-        const other = document.getElementById('opacitySlider');
-        if (other) other.value = this.value;
-    });
-}
-
 /* ---------- Contextual tool UI ---------- */
 function v241RefreshToolUI() {
     document.body.classList.toggle('v241-select-active', currentTool === 'select');
@@ -8331,7 +7905,7 @@ function v241CommitShape(a,b) {
     saveHistory();
 
     paintCtx.save();
-    paintCtx.globalAlpha=brushOpacity;
+    paintCtx.globalAlpha=1;
     paintCtx.strokeStyle=currentColor;
     paintCtx.lineWidth=brushSize;
     paintCtx.lineCap='round';
@@ -8503,11 +8077,14 @@ if (!v241Indicator) {
 
 function v241SyncIndicator(){
     if (!v241Indicator) return;
+    if (currentTool==='brush' || currentTool==='eraser') {
+        v241Indicator.style.display='none';
+        return;
+    }
+    v241Indicator.style.display='';
     v241Indicator.className='tool-indicator '+(currentTool==='shape'?'shape':currentTool);
-    let s=22;
-    if (currentTool==='brush'||currentTool==='eraser') s=Math.max(10,Math.min(90,Number(brushSize)||18));
-    v241Indicator.style.width=s+'px';
-    v241Indicator.style.height=s+'px';
+    v241Indicator.style.width='22px';
+    v241Indicator.style.height='22px';
 }
 canvasFrame.addEventListener('pointermove',function(e){
     if (e.pointerType==='touch') return;
@@ -8542,7 +8119,7 @@ function v242PreviewShape(a,b){
     v242ResizePreview(); v242ClearPreview();
     const c=v242PreviewCtx;
     c.save();
-    c.globalAlpha=Math.max(.4,brushOpacity);
+    c.globalAlpha=1;
     c.strokeStyle=currentColor;
     c.lineWidth=brushSize;
     c.lineCap='round'; c.lineJoin='round';
@@ -8703,10 +8280,9 @@ v241RefreshToolUI();
 
 
 /* =========================
-   V2.4.4 BRUSH STATE + OPACITY
+   V2.4.4 BRUSH STATE
    ========================= */
 
-let eraserOpacityV244 = 1;
 
 /* All four desktop brush choices are first-class, mutually exclusive buttons. */
 function v244DesktopBrushState() {
@@ -8766,29 +8342,6 @@ selectTool = function(tool) {
     const result = v244SelectTool(tool);
     v244DesktopBrushState();
     return result;
-};
-
-/* Eraser gets its own opacity without changing paint-brush opacity. */
-const eraserOpacitySliderV244 = document.getElementById('eraserOpacity');
-eraserOpacitySliderV244?.addEventListener('input', function() {
-    eraserOpacityV244 = Number(this.value)/100;
-    document.getElementById('eraserOpacityReadout').textContent = this.value;
-});
-
-/* The existing stroke engine reads brushOpacity. Temporarily substitute
-   eraser opacity only while an eraser stroke is being processed. */
-const v244DrawStrokeSegment = drawStrokeSegment;
-drawStrokeSegment = function(x1,y1,x2,y2) {
-    if (currentTool !== 'eraser') {
-        return v244DrawStrokeSegment(x1,y1,x2,y2);
-    }
-    const saved = brushOpacity;
-    brushOpacity = eraserOpacityV244;
-    try {
-        return v244DrawStrokeSegment(x1,y1,x2,y2);
-    } finally {
-        brushOpacity = saved;
-    }
 };
 
 /* FIT / zoom / fullscreen are momentary actions, never latched controls. */
@@ -9280,33 +8833,6 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
         return SELECT.maskCtx.getImageData(x,y,1,1).data[3] > 0;
     };
 
-    /* One eraser opacity value. */
-    function setEraserOpacity(value) {
-        const n=Math.max(0,Math.min(100,Number(value)));
-        eraserOpacityV244=n/100;
-
-        const desktop=document.getElementById("eraserOpacity");
-        const mobile=document.getElementById("touchEraserOpacity");
-        const desktopReadout=document.getElementById("eraserOpacityReadout");
-        const mobileReadout=document.getElementById("touchEraserOpacityReadout");
-
-        if (desktop) desktop.value=String(n);
-        if (mobile) mobile.value=String(n);
-        if (desktopReadout) desktopReadout.textContent=String(Math.round(n));
-        if (mobileReadout) mobileReadout.textContent=Math.round(n)+"%";
-    }
-
-    const desktopEraser=document.getElementById("eraserOpacity");
-    const mobileEraser=document.getElementById("touchEraserOpacity");
-
-    [desktopEraser,mobileEraser].forEach(slider => {
-        if (!slider) return;
-        slider.min="0";
-        slider.max="100";
-        slider.step="1";
-        slider.value="100";
-        slider.addEventListener("input", () => setEraserOpacity(slider.value));
-    });
 
     document.addEventListener("click", e => {
         const tool=e.target.closest("[data-tool],[data-v2-tool],[data-desktop-tool]");
@@ -9315,7 +8841,6 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
         document.body.classList.toggle("v254-eraser-active", name === "eraser");
     });
 
-    setEraserOpacity(100);
     refreshSelectionButtons();
 
     /* Keep overlay and mask aligned when artwork dimensions change. */
@@ -9727,114 +9252,7 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
 
 <script>
 /* =====================================================
-   V2.5.7 MOBILE ERASER INITIALIZATION
-   ===================================================== */
-(() => {
-    "use strict";
-
-    let mobileEraserStarted = false;
-
-    function setMobileEraser(value) {
-        const n = Math.max(0, Math.min(100, Number(value)));
-        eraserOpacityV244 = n / 100;
-
-        const slider = document.getElementById("touchEraserOpacity");
-        const readout = document.getElementById("touchEraserOpacityReadout");
-        const desktop = document.getElementById("eraserOpacity");
-        const desktopReadout = document.getElementById("eraserOpacityReadout");
-
-        if (slider) slider.value = String(n);
-        if (readout) readout.textContent = Math.round(n) + "%";
-        if (desktop) desktop.value = String(n);
-        if (desktopReadout) desktopReadout.textContent = String(Math.round(n));
-    }
-
-    /* Guarantee the first mobile eraser session begins at 100%.
-       After the user changes it, their chosen value is preserved. */
-    document.querySelectorAll('.mobile-tools [data-tool="eraser"]').forEach(button => {
-        button.addEventListener("click", () => {
-            if (!mobileEraserStarted) {
-                mobileEraserStarted = true;
-                setMobileEraser(100);
-            } else {
-                const slider = document.getElementById("touchEraserOpacity");
-                if (slider) setMobileEraser(slider.value);
-            }
-        }, true);
-    });
-
-    const slider = document.getElementById("touchEraserOpacity");
-    if (slider) {
-        slider.min = "0";
-        slider.max = "100";
-        slider.step = "1";
-        slider.value = "100";
-
-        slider.addEventListener("input", function() {
-            mobileEraserStarted = true;
-            setMobileEraser(this.value);
-        }, true);
-    }
-
-    /* Initial DOM/readout state only. No canvas/pointer handlers added here. */
-    setMobileEraser(100);
-})();
-</script>
-
-
-
-
-
-<script>
-/* =====================================================
-   V2.5.9 TRUE 1:1 OPACITY
-   ===================================================== */
-(() => {
-    "use strict";
-
-    function pct(v) {
-        return Math.max(0, Math.min(100, Number(v)));
-    }
-
-    function syncEraserFrom(slider) {
-        if (!slider) return;
-        const n = pct(slider.value);
-        eraserOpacityV244 = n / 100;
-
-        const desktop = document.getElementById("eraserOpacity");
-        const mobile = document.getElementById("touchEraserOpacity");
-        const desktopText = document.getElementById("eraserOpacityReadout");
-        const mobileText = document.getElementById("touchEraserOpacityReadout");
-
-        if (desktop && desktop !== slider) desktop.value = String(n);
-        if (mobile && mobile !== slider) mobile.value = String(n);
-        if (desktopText) desktopText.textContent = Math.round(n) + "%";
-        if (mobileText) mobileText.textContent = Math.round(n) + "%";
-    }
-
-    ["eraserOpacity","touchEraserOpacity"].forEach(id => {
-        const slider = document.getElementById(id);
-        if (!slider) return;
-        slider.addEventListener("input", () => syncEraserFrom(slider), true);
-    });
-
-    /* Initialize at true 100%. */
-    const mobile = document.getElementById("touchEraserOpacity");
-    const desktop = document.getElementById("eraserOpacity");
-    if (mobile) mobile.value = "100";
-    if (desktop) desktop.value = "100";
-    eraserOpacityV244 = 1;
-    if (document.getElementById("touchEraserOpacityReadout"))
-        document.getElementById("touchEraserOpacityReadout").textContent = "100%";
-    if (document.getElementById("eraserOpacityReadout"))
-        document.getElementById("eraserOpacityReadout").textContent = "100%";
-})();
-</script>
-
-
-<script>
-/* =====================================================
-   V2.6.0 FILL + OPACITY RESET
+   V2.6.0 FILL RESET
    ===================================================== */
 (() => {
     "use strict";
@@ -9918,72 +9336,6 @@ document.querySelectorAll('[data-shape-mode]').forEach(function(button){
         }, true);
     });
 
-    /* -------------------------------------------------
-       OPACITY
-       -------------------------------------------------
-       Return to a conventional 0-100 scale.
-       0% = transparent / no effect.
-       100% = fully opaque / full erase.
-       No inferred starting value from screenshots.
-    */
-
-    function clampPct(v) {
-        return Math.max(0, Math.min(100, Number(v) || 0));
-    }
-
-    function setEraserPct(n) {
-        n = clampPct(n);
-        eraserOpacityV244 = n / 100;
-
-        const desktop = document.getElementById("eraserOpacity");
-        const mobile = document.getElementById("touchEraserOpacity");
-        const dt = document.getElementById("eraserOpacityReadout");
-        const mt = document.getElementById("touchEraserOpacityReadout");
-
-        if (desktop) desktop.value = String(n);
-        if (mobile) mobile.value = String(n);
-        if (dt) dt.textContent = Math.round(n) + "%";
-        if (mt) mt.textContent = Math.round(n) + "%";
-    }
-
-    function setBrushPct(n) {
-        n = clampPct(n);
-        brushOpacity = n / 100;
-
-        const slider = document.getElementById("brushOpacity");
-        const readout = document.getElementById("brushOpacityReadout");
-
-        if (slider) slider.value = String(n);
-        if (readout) readout.textContent = Math.round(n) + "%";
-    }
-
-    ["eraserOpacity","touchEraserOpacity"].forEach(id => {
-        const s = document.getElementById(id);
-        if (!s) return;
-        s.min = "0";
-        s.max = "100";
-        s.step = "1";
-        s.addEventListener("input", function(e) {
-            e.stopImmediatePropagation();
-            setEraserPct(this.value);
-        }, true);
-    });
-
-    const brushSlider = document.getElementById("brushOpacity");
-    if (brushSlider) {
-        brushSlider.min = "0";
-        brushSlider.max = "100";
-        brushSlider.step = "1";
-        brushSlider.addEventListener("input", function(e) {
-            e.stopImmediatePropagation();
-            setBrushPct(this.value);
-        }, true);
-    }
-
-    /* Fresh page defaults. These are normal defaults, not values inferred
-       from the user's previous test screenshot. */
-    setEraserPct(100);
-    setBrushPct(100);
 })();
 </script>
 
@@ -11107,12 +10459,12 @@ document.addEventListener('pointerup', function() {
         if (brush) {
             const name = (brush.dataset.brushType || 'brush').toLowerCase();
             const tips = {
-                pen: 'Pen: draw clean freehand lines. Adjust size and opacity for more control.',
-                marker: 'Marker: build broad strokes and layered color. Lower opacity for softer overlaps.',
+                pen: 'Pen: draw clean freehand lines.',
+                marker: 'Marker: build broad strokes and layered color.',
                 soft: 'Soft brush: paint gentle edges and shading. Try a larger size for smooth blends.',
                 texture: 'Texture brush: add grain and character with short or layered strokes.'
             };
-            setTip(tips[name] || 'Brush: draw freely. Adjust size and opacity to change the stroke.');
+            setTip(tips[name] || 'Brush: draw freely on the artwork.');
             return;
         }
 
@@ -11150,7 +10502,7 @@ document.addEventListener('pointerup', function() {
         const t = tool.dataset.tool || tool.dataset.v2Tool || tool.dataset.desktopTool;
         const tips = {
             fill: 'Fill: tap and hold to preview the color. Release to fill. Tip: a second finger cancels the preview for pinch zoom.',
-            brush: 'Brush: draw freely on the artwork. Adjust size and opacity to change the stroke.',
+            brush: 'Brush: draw freely on the artwork.',
             eraser: 'Eraser: drag over anything you added to remove it. Adjust size for more control.',
             move: 'Move: drag the artwork to reposition it. Pinch with two fingers to zoom.',
             select: 'Select: draw around an area, then add, subtract, clear, or finish with Done.',
@@ -11431,15 +10783,15 @@ document.addEventListener('pointerup', function() {
 
     const TOOL_TIPS = {
         fill: 'Fill: tap and hold to preview the color. Release to fill. Tip: a second finger cancels the preview for pinch zoom.',
-        brush: 'Brush: draw freely on the artwork. Adjust size and opacity to change the stroke.',
+        brush: 'Brush: draw freely on the artwork.',
         eraser: 'Eraser: drag over anything you added to remove it. Adjust size for more control.',
         move: 'Move: drag the artwork to reposition it. Pinch with two fingers to zoom.',
         select: 'Select: draw around an area, then add, subtract, clear, or finish with Done.',
         shape: 'Line / Shape: choose a shape, then drag on the artwork to draw it.'
     };
     const BRUSH_TIPS = {
-        pen: 'Pen: draw clean freehand lines. Adjust size and opacity for more control.',
-        marker: 'Marker: build broad strokes and layered color. Lower opacity for softer overlaps.',
+        pen: 'Pen: draw clean freehand lines.',
+        marker: 'Marker: build broad strokes and layered color.',
         soft: 'Soft brush: paint gentle edges and shading. Try a larger size for smooth blends.',
         texture: 'Texture brush: add grain and character with short or layered strokes.'
     };
@@ -11564,22 +10916,20 @@ document.addEventListener('pointerup', function() {
 
     const TOOL_TIPS_17 = {
         fill:'Fill: tap and hold to preview the color. Release to fill. Tip: a second finger cancels the preview for pinch zoom.',
-        brush:'Brush: draw freely on the artwork. Adjust size and opacity to change the stroke.',
+        brush:'Brush: draw freely on the artwork.',
         eraser:'Eraser: drag over anything you added to remove it. Adjust size for more control.',
         move:'Move: drag the artwork to reposition it. Pinch with two fingers to zoom.',
         select:'Select: draw around an area, then add, subtract, clear, or finish with Done.',
         shape:'Line / Shape: choose a shape, then drag on the artwork to draw it.'
     };
     const BRUSH_TIPS_17 = {
-        pen:'Pen: draw clean freehand lines. Adjust size and opacity for more control.',
-        marker:'Marker: build broad strokes and layered color. Lower opacity for softer overlaps.',
+        pen:'Pen: draw clean freehand lines.',
+        marker:'Marker: build broad strokes and layered color.',
         soft:'Soft brush: paint gentle edges and shading. Try a larger size for smooth blends.',
         texture:'Texture brush: add grain and character with short or layered strokes.'
     };
 
     const colorTip='Colors: choose a color for Fill or your brushes. Use the custom color square to create your own.';
-    const sizeTip='Brush Size: make your brush or eraser smaller for detail or larger for broader strokes.';
-    const opacityTip='Opacity: control how solid or transparent your brush strokes are.';
 
     function activeTip(){
         const t=(typeof currentTool!=='undefined' && currentTool) ? currentTool : 'fill';
@@ -11595,8 +10945,6 @@ document.addEventListener('pointerup', function() {
         if(target.closest('#pagesTop,#desktopSidePages,#pagesLauncher,.artwork-tray')) return 'Pages: choose a coloring page, start with Blank, or upload your own image. Your current page stays until you choose another.';
         if(target.closest('#layersTop,#desktopSideLayers,#layersPanel')) return 'Layers: choose where you want to work. Add, reorder, hide, or remove layers without changing the original line art.';
         if(target.closest('.mobile-color-row,.mobile-palette,.mobile-custom-color,#desktopSideColors,.desktop-side-colors,.desktop-side-custom,.desktop-custom-color')) return colorTip;
-        if(target.closest('#mobileBrushSize,#desktopSizeSlider,#v2BrushSize,.mobile-brush-row:not(#touchEraserOpacityWrap)')) return sizeTip;
-        if(target.closest('#desktopOpacitySlider,#opacitySlider,#touchEraserOpacity,#touchEraserOpacityWrap')) return opacityTip;
         const brush=target.closest('[data-brush-type],#desktopPen,#desktopMarker,#desktopSoft,#desktopTexture');
         if(brush){
             let n=(brush.dataset?.brushType||brush.id.replace('desktop','')).toLowerCase();
@@ -11754,15 +11102,6 @@ document.addEventListener('pointerup', function() {
     .mobile-direct-tools {
         grid-template-columns:repeat(2,1fr) !important;
     }
-
-    /* Keep opacity present for every tool. Fill shows it as context only. */
-    #touchEraserOpacityWrap { display:flex !important; }
-    #touchEraserOpacityWrap .mobile-brush-label::before { content:""; }
-    body.v268-fill-active #touchEraserOpacityWrap {
-        opacity:.34;
-        filter:grayscale(.65);
-        pointer-events:none;
-    }
 }
 
 @media (min-width:1001px) {
@@ -11840,7 +11179,7 @@ document.addEventListener('pointerup', function() {
 <style>
 /* =====================================================
    TEST #19 — LAYOUT / TIPS / PAGES CLOSE ONLY
-   Drawing + opacity mechanics intentionally unchanged.
+   Drawing mechanics intentionally unchanged.
    ===================================================== */
 @media (max-width:1000px) {
     /* Keep the helper visible above the fixed studio dock on touch layouts. */
@@ -11915,7 +11254,7 @@ document.addEventListener('pointerup', function() {
 
 <script>
 /* TEST #19 — input-aware touch tips + tablet history placement.
-   No drawing, erasing, brush, or opacity calculations are changed here. */
+   No drawing, erasing, or brush calculations are changed here. */
 (() => {
     'use strict';
     const status=document.getElementById('studioStatus');
@@ -11941,15 +11280,15 @@ document.addEventListener('pointerup', function() {
 
     const tips={
         fill:'Fill: tap and hold to preview the color. Release to fill. Tip: a second finger cancels the preview for pinch zoom.',
-        brush:'Brush: choose Pen, Marker, Soft, or Texture, then draw. Adjust size and opacity below.',
-        eraser:'Eraser: drag over anything you added to remove it. Adjust size and opacity below.',
+        brush:'Brush: choose Pen, Marker, Soft, or Texture, then draw.',
+        eraser:'Eraser: drag over anything you added to remove it.',
         move:'Move: drag the artwork to reposition it. Pinch with two fingers to zoom.',
         select:'Select: draw around an area, then add, subtract, clear, or finish with Done.',
         shape:'Line / Shape: choose Line, Square, or Circle, then drag on the artwork to draw it.'
     };
     const brushTips={
-        pen:'Pen: draw clean freehand lines. Adjust size and opacity for more control.',
-        marker:'Marker: build broad strokes and layered color. Lower opacity for softer overlaps.',
+        pen:'Pen: draw clean freehand lines.',
+        marker:'Marker: build broad strokes and layered color.',
         soft:'Soft brush: paint gentle edges and shading. Try a larger size for smooth blends.',
         texture:'Texture brush: add grain and character with short or layered strokes.'
     };
@@ -11958,8 +11297,6 @@ document.addEventListener('pointerup', function() {
         if(target.closest('#pagesTop,.pages-launcher')) return 'Pages: choose a coloring page, start with Blank, or upload your own image.';
         if(target.closest('#layersTop')) return 'Layers: choose where you want to work. Add, reorder, hide, or remove layers without changing the original line art.';
         if(target.closest('.mobile-color-row,.mobile-palette,.mobile-custom-color')) return 'Colors: choose a color for Fill or your brushes. Tap the color square to create your own.';
-        if(target.closest('#mobileBrushSize,.mobile-brush-row') && !target.closest('#touchEraserOpacityWrap')) return 'Brush Size: make your brush or eraser smaller for detail or larger for broader strokes.';
-        if(target.closest('#touchEraserOpacity,#touchEraserOpacityWrap')) return 'Opacity: control how solid or transparent the active drawing or erasing stroke is.';
         const bc=target.closest('[data-mobile-brush-choice],[data-brush-type]');
         if(bc){ const n=bc.dataset.mobileBrushChoice||bc.dataset.brushType; return brushTips[n]||tips.brush; }
         const sc=target.closest('[data-mobile-shape-choice]');
@@ -11992,7 +11329,7 @@ document.addEventListener('pointerup', function() {
 <style>
 /* =====================================================
    TEST #20 — RESPONSIVE CONTROL CORRECTION
-   UI only. Drawing / opacity mechanics are unchanged.
+   UI only. Drawing mechanics are unchanged.
    ===================================================== */
 
 /* History now uses the same visual language as the other utility buttons. */
@@ -12033,17 +11370,6 @@ document.addEventListener('pointerup', function() {
 }
 .history-arrow-undo::before { left:4px !important; border-radius:8px 0 0 0 !important; }
 .history-arrow-redo::before { right:4px !important; border-radius:0 8px 0 0 !important; }
-
-/* Keep the opacity number visible. This does not change opacity math. */
-#touchEraserOpacityWrap .mobile-brush-value,
-#touchEraserOpacityReadout {
-    display:inline-block !important;
-    visibility:visible !important;
-    opacity:1 !important;
-    min-width:48px !important;
-    color:#444 !important;
-    font-weight:800 !important;
-}
 
 /* Web does not need a second exit control. The fullscreen button and Esc exit. */
 @media (min-width:1001px) {
@@ -12104,8 +11430,6 @@ document.addEventListener('pointerup', function() {
         if(target.closest('#pagesTop,.pages-launcher')) return 'Pages: choose a coloring page, start with Blank, or upload your own image.';
         if(target.closest('#layersTop')) return 'Layers: add, reorder, hide, or remove layers without changing the original line art.';
         if(target.closest('.mobile-color-row,.mobile-palette,.mobile-custom-color')) return 'Colors: choose a color for Fill or your brushes. Tap the color square to create your own.';
-        if(target.closest('#touchEraserOpacity,#touchEraserOpacityWrap')) return 'Opacity: control how solid or transparent the active drawing or erasing stroke is.';
-        if(target.closest('#mobileBrushSize,.mobile-brush-row')) return 'Brush Size: use a smaller size for detail or a larger size for broader strokes.';
         if(target.closest('#undoMobileTop')) return 'Undo: step back one change.';
         if(target.closest('#redoMobileTop')) return 'Redo: bring back the last change you undid.';
         if(target.closest('#resetMobileTop')) return 'Reset: return this page to its starting state.';
@@ -12114,8 +11438,8 @@ document.addEventListener('pointerup', function() {
         if(target.closest('#zoomIn')) return 'Zoom in: get closer to small details.';
         if(target.closest('#fitButton')) return 'Fit: center the whole artwork comfortably inside the workspace.';
         if(target.closest('#fullscreenButton')) return 'Full view: give the artwork more room on screen.';
-        if(target.closest('[data-mobile-brush-choice="pen"]')) return 'Pen: draw clean freehand lines. Adjust size and opacity for more control.';
-        if(target.closest('[data-mobile-brush-choice="marker"]')) return 'Marker: build broad strokes and layered color. Lower opacity for softer overlaps.';
+        if(target.closest('[data-mobile-brush-choice="pen"]')) return 'Pen: draw clean freehand lines.';
+        if(target.closest('[data-mobile-brush-choice="marker"]')) return 'Marker: build broad strokes and layered color.';
         if(target.closest('[data-mobile-brush-choice="soft"]')) return 'Soft brush: paint gentle edges and shading. Try a larger size for smooth blends.';
         if(target.closest('[data-mobile-brush-choice="texture"]')) return 'Texture brush: add grain and character with short or layered strokes.';
         if(target.closest('[data-mobile-shape-choice="line"]')) return 'Line: drag to create a straight line.';
@@ -12126,9 +11450,9 @@ document.addEventListener('pointerup', function() {
         return ({
             fill:'Fill: tap and hold to preview the color. Release to fill.',
             select:'Select: draw around an area, then add, subtract, clear, or finish with Done.',
-            brush:'Brush: choose Pen, Marker, Soft, or Texture, then draw. Adjust size and opacity below.',
+            brush:'Brush: choose Pen, Marker, Soft, or Texture, then draw.',
             shape:'Line / Shape: choose Line, Square, or Circle, then drag to draw it.',
-            eraser:'Eraser: drag over anything you added to remove it. Adjust size and opacity below.',
+            eraser:'Eraser: drag over anything you added to remove it.',
             move:'Move: drag the artwork to reposition it. Pinch with two fingers to zoom.'
         })[n] || null;
     }
@@ -12149,7 +11473,7 @@ document.addEventListener('pointerup', function() {
 <style>
 /* =====================================================
    TEST #21 — TOOL ORDER + UNIFIED HISTORY BAR
-   Layout/state only. Opacity drawing mechanics remain unchanged.
+   Layout/state only. Drawing mechanics remain unchanged.
    ===================================================== */
 
 /* Undo/Redo is one joined control, matching the joined -/+ control. */
@@ -12193,16 +11517,6 @@ document.addEventListener('pointerup', function() {
     min-height:38px !important;
 }
 
-/* Fill keeps Size + Opacity visible but both are truly locked. */
-body.v268-fill-active .mobile-brush-row {
-    opacity:.34 !important;
-    filter:grayscale(.65) !important;
-}
-body.v268-fill-active #mobileBrushSize,
-body.v268-fill-active #touchEraserOpacity {
-    pointer-events:none !important;
-}
-
 /* Primary mobile order: DRAW, FILL, SHAPES, SELECT. */
 @media (max-width:1000px) {
     .mobile-creative-tools { gap:8px !important; }
@@ -12227,44 +11541,20 @@ body.v268-fill-active #touchEraserOpacity {
 </style>
 
 <script>
-/* TEST #21 — one history location on every device + Fill slider lock. */
+/* TEST #21 — one history location on every device. */
 (() => {
     'use strict';
     const zoomControls=document.querySelector('.zoom-controls');
     const zoomPair=zoomControls?.querySelector('.zoom-pair');
     const history=document.querySelector('.history-pair');
-    const size=document.getElementById('mobileBrushSize');
-    const opacity=document.getElementById('touchEraserOpacity');
-
     function placeHistoryWithZoom(){
         if(!zoomControls || !zoomPair || !history) return;
         if(history.parentNode!==zoomControls || history.nextElementSibling!==zoomPair){
             zoomControls.insertBefore(history, zoomPair);
         }
     }
-
-    function syncFillLocks(){
-        const locked=(typeof currentTool!=='undefined' && currentTool==='fill');
-        if(size) size.disabled=locked;
-        if(opacity) opacity.disabled=locked;
-        if(size) size.setAttribute('aria-disabled', String(locked));
-        if(opacity) opacity.setAttribute('aria-disabled', String(locked));
-    }
-
     placeHistoryWithZoom();
-    syncFillLocks();
     window.addEventListener('resize', placeHistoryWithZoom, {passive:true});
-
-    /* Keep the lock synchronized without changing any drawing calculations. */
-    document.addEventListener('pointerup', () => setTimeout(syncFillLocks,0), true);
-    document.addEventListener('click', () => setTimeout(syncFillLocks,0), true);
-
-    /* Pen is the primary starting tool for this build. */
-    if(typeof selectTool==='function') {
-        try { selectTool('brush'); } catch(e) {}
-    }
-    if(typeof brushType!=='undefined') brushType='pen';
-    syncFillLocks();
 })();
 </script>
 
@@ -12283,25 +11573,10 @@ body.v268-fill-active #touchEraserOpacity {
     }
 }
 </style>
-<script>
-/* Keep every brush-size UI on one useful, matching 23–100 px scale.
-   This does not alter opacity mechanics. */
-(() => {
-    const ids=['brushSize','mobileBrushSize','v2BrushSize','desktopSizeSlider'];
-    ids.forEach(id => {
-        const el=document.getElementById(id);
-        if(!el) return;
-        el.min='23';
-        el.max='100';
-    });
-})();
-</script>
-
-
 <style>
 /* =====================================================
    TEST #23 — TOUCH SHAPE SYNC + TIP LIFT
-   Opacity / brush engine intentionally unchanged.
+   Brush engine intentionally unchanged.
    ===================================================== */
 @media (max-width:1000px) {
     /* Give the contextual helper a little more breathing room above colors. */
@@ -12350,7 +11625,7 @@ body.v268-fill-active #touchEraserOpacity {
 <style>
 /* =====================================================
    TEST #24 — HYBRID HOVER + DRAWING LONG-PRESS + TRUE CURSOR SIZE + SIMPLE HISTORY ARROWS
-   Drawing/opacity mechanics intentionally unchanged.
+   Drawing mechanics intentionally unchanged.
    ===================================================== */
 
 /* The selected px value describes the OUTER diameter of the cursor ring.
@@ -12418,8 +11693,6 @@ body.v268-fill-active #touchEraserOpacity {
             if(target.closest('[id*="reset" i]')) return 'Reset: return this page to its starting state.';
             if(target.closest('[id*="save" i]')) return 'Save: export your artwork when you are ready.';
             if(target.closest('.mobile-color-row,.mobile-palette,.mobile-custom-color')) return 'Colors: choose a color for Fill or your brushes. Tap the color square to create your own.';
-            if(target.closest('#mobileBrushSize,.mobile-brush-row:not(#touchEraserOpacityWrap)')) return 'Brush Size: use a smaller size for detail or a larger size for broader strokes.';
-            if(target.closest('#touchEraserOpacity,#touchEraserOpacityWrap')) return 'Opacity: control how solid or transparent the active drawing or erasing stroke is.';
             return null;
         }
         document.addEventListener('pointerover', e => {
@@ -12438,7 +11711,7 @@ body.v268-fill-active #touchEraserOpacity {
 
 <!-- =====================================================
      TEST #25 — ERASER FAMILY + FLOATING MOVE
-     Opacity mechanics intentionally unchanged.
+     Drawing mechanics intentionally unchanged.
      ===================================================== -->
 <style>
 @media (max-width:1000px) {
@@ -12641,7 +11914,7 @@ body.v268-fill-active #touchEraserOpacity {
 
 <!-- =====================================================
      TEST #27 — WEB-MATCH SIZE PREVIEW + PAW MOVE + TABLET FULLSCREEN CLEANUP
-     Opacity / brush / eraser paint mechanics intentionally unchanged.
+     Brush / eraser paint mechanics intentionally unchanged.
      ===================================================== -->
 <style>
 /* Phone/tablet use the same size-preview math as desktop/web. */
@@ -12694,7 +11967,7 @@ body.v268-fill-active #touchEraserOpacity {
 
 <!-- =====================================================
      TEST #28 — PAW ACTIVE/DRAG INVERT + SINGLE TRUE SIZE RING
-     Drawing / erasing / opacity mechanics intentionally unchanged.
+     Drawing / erasing mechanics intentionally unchanged.
      ===================================================== -->
 <style>
 /* The center ring is the size reference. Remove the extra halo/frame so the
@@ -12736,79 +12009,6 @@ body.v268-fill-active #touchEraserOpacity {
 
 
 
-<!-- =====================================================
-     TEST #32 — STRIPPED SIZE + OPACITY BASELINE
-     Temporary diagnostic baseline.
-     Removes size/opacity controls and size-preview/cursor geometry from the UI.
-     Drawing remains available at fixed 75px / 100% so the raw brush engine can be inspected.
-     ===================================================== -->
-<style>
-/* Remove every current Brush Size / Opacity control while we rebuild them. */
-#brushSize,
-#mobileBrushSize,
-#v2BrushSize,
-#desktopSizeSlider,
-#brushOpacity,
-#opacitySlider,
-#desktopOpacitySlider,
-#eraserOpacity,
-#touchEraserOpacity,
-#brushSizePreview,
-#toolCursor,
-.mobile-brush-row,
-#touchEraserOpacityWrap,
-#eraserOpacitySection,
-.eraser-opacity-section,
-.option-group:has(#v2BrushSize),
-.option-group:has(#opacitySlider),
-.tool-section:has(#brushSize) {
-    display:none !important;
-}
-</style>
-<script>
-(() => {
-    'use strict';
-
-    /* Fresh diagnostic constants only. No slider, preview, or cursor may rewrite them. */
-    brushSize = 75;
-    brushOpacity = 1;
-
-    /* Disable the old size UI pipeline without disturbing drawing startup calls. */
-    updateBrushSize = function() {
-        brushSize = 75;
-    };
-
-    /* Disable both old size visualizers completely. */
-    setToolCursorSize = function() {};
-    showBrushSizePreview = function() {};
-
-    if (brushSizePreview) {
-        brushSizePreview.classList.remove('show');
-        brushSizePreview.style.display = 'none';
-    }
-    if (toolCursor) {
-        toolCursor.style.display = 'none';
-    }
-
-    /* Keep legacy opacity controls, if any hidden code reaches them, pinned to 100%. */
-    const opacityIds = [
-        'brushOpacity','opacitySlider','desktopOpacitySlider',
-        'eraserOpacity','touchEraserOpacity'
-    ];
-    opacityIds.forEach(id => {
-        const el = document.getElementById(id);
-        if (!el) return;
-        el.value = '100';
-        el.disabled = true;
-    });
-
-    /* Reassert the diagnostic baseline after legacy input handlers fire. */
-    document.addEventListener('input', e => {
-        if (opacityIds.includes(e.target?.id)) brushOpacity = 1;
-        if (['brushSize','mobileBrushSize','v2BrushSize','desktopSizeSlider'].includes(e.target?.id)) brushSize = 75;
-    }, true);
-})();
-</script>
 
 </body>
 
