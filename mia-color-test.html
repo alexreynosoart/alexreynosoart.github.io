@@ -12640,66 +12640,6 @@ body.v268-fill-active #touchEraserOpacity {
 
 
 <!-- =====================================================
-     TEST #26 — RESPONSIVE SIZE INDICATORS + ERASER SUBMENU FIX
-     Drawing / erasing / opacity mechanics intentionally unchanged.
-     ===================================================== -->
-<script>
-(() => {
-    "use strict";
-
-    const originalShowBrushSizePreview = showBrushSizePreview;
-    showBrushSizePreview = function() {
-        if (currentTool !== 'brush' && currentTool !== 'eraser') return;
-
-        /* Desktop already matches correctly, so preserve its established behavior. */
-        if (window.innerWidth > 1000) {
-            return originalShowBrushSizePreview();
-        }
-
-        const rect = paintCanvas.getBoundingClientRect();
-        if (!paintCanvas.width || !rect.width) return;
-
-        const scale = rect.width / paintCanvas.width;
-        let diameter = brushSize * scale;
-
-        /* On the compact UI the preview should represent the visible footprint of
-           the selected brush family, not just the base slider number. */
-        if (currentTool === 'brush') {
-            if (brushType === 'marker') diameter *= 1.35;
-            else if (brushType === 'soft') diameter *= 1.55;
-            else if (brushType === 'texture') diameter *= 0.55;
-        }
-
-        /* Eraser sizing preview was already visually correct, so leave its
-           diameter on the established base-size calculation. */
-        diameter = Math.max(8, diameter);
-        brushSizePreview.style.width = diameter + 'px';
-        brushSizePreview.style.height = diameter + 'px';
-        brushSizePreview.classList.add('show');
-        clearTimeout(brushPreviewTimer);
-        brushPreviewTimer = setTimeout(() => brushSizePreview.classList.remove('show'), 650);
-    };
-
-    const originalSetToolCursorSize = setToolCursorSize;
-    setToolCursorSize = function() {
-        originalSetToolCursorSize();
-        if (window.innerWidth > 1000 || currentTool !== 'eraser') return;
-
-        /* The responsive eraser ring was reading larger than the erased footprint.
-           Pull only the visual ring inward. The eraser engine itself is untouched. */
-        const rect = paintCanvas.getBoundingClientRect();
-        if (!paintCanvas.width || !rect.width) return;
-        const scale = rect.width / paintCanvas.width;
-        const diameter = Math.max(6, (brushSize * scale) - 4);
-        toolCursor.style.width = diameter + 'px';
-        toolCursor.style.height = diameter + 'px';
-    };
-})();
-</script>
-
-
-
-<!-- =====================================================
      TEST #27 — WEB-MATCH SIZE PREVIEW + PAW MOVE + TABLET FULLSCREEN CLEANUP
      Opacity / brush / eraser paint mechanics intentionally unchanged.
      ===================================================== -->
@@ -12748,48 +12688,7 @@ body.v268-fill-active #touchEraserOpacity {
 }
 </style>
 
-<script>
-(() => {
-    "use strict";
 
-    /* TEST #26 experimented with responsive-only visual scaling. Remove that
-       difference. The desktop/web calculation is the reference because it
-       already matches the real stroke correctly. */
-    showBrushSizePreview = function() {
-        if (currentTool !== 'brush' && currentTool !== 'eraser') return;
-
-        const rect = paintCanvas.getBoundingClientRect();
-        if (!paintCanvas.width || !rect.width) return;
-
-        const scale = rect.width / paintCanvas.width;
-        const size = Math.max(8, brushSize * scale);
-
-        brushSizePreview.style.width = size + 'px';
-        brushSizePreview.style.height = size + 'px';
-        brushSizePreview.classList.add('show');
-
-        clearTimeout(brushPreviewTimer);
-        brushPreviewTimer = setTimeout(() => {
-            brushSizePreview.classList.remove('show');
-        }, 650);
-    };
-
-    /* Same rule for the live Pen/Eraser ring. No responsive-only subtraction
-       or enlargement. This is the exact desktop/web cursor-size formula. */
-    setToolCursorSize = function() {
-        if (currentTool !== 'brush' && currentTool !== 'eraser') return;
-
-        const rect = paintCanvas.getBoundingClientRect();
-        if (!paintCanvas.width || !rect.width) return;
-
-        const scale = rect.width / paintCanvas.width;
-        const size = Math.max(6, brushSize * scale);
-
-        toolCursor.style.width = size + 'px';
-        toolCursor.style.height = size + 'px';
-    };
-})();
-</script>
 
 
 
@@ -12834,152 +12733,81 @@ body.v268-fill-active #touchEraserOpacity {
 </script>
 
 <!-- =====================================================
-     TEST #29 — TABLET-ONLY DUAL SIZE PREVIEW CALIBRATION
-     Phone and desktop intentionally unchanged.
-     Paint / erase / opacity mechanics intentionally unchanged.
+     TEST #31 — CLEAN TABLET PEN SIZE CALIBRATION
+     One authoritative tablet geometry for BOTH the slider preview and live cursor.
+     Pen paint engine, opacity, Marker/Soft/Texture, phone and desktop are untouched.
+     Inner ring = actual Pen footprint. Outer ring = 8px clearance on each side.
      ===================================================== -->
 <style>
-/* Tablet only: restore the inner reference circle and keep the outer frame
-   close to it. The inner ring is the exact web-calculated brush diameter. */
 @media (min-width:481px) and (max-width:1000px) {
-    .brush-size-preview {
-        overflow:visible !important;
-        border:1px solid rgba(0,0,0,.58) !important;
-        background:rgba(255,255,255,.10) !important;
-        box-shadow:none !important;
-    }
-    .brush-size-preview::after {
-        content:"" !important;
-        position:absolute !important;
-        left:50% !important;
-        top:50% !important;
-        width:var(--mia-inner-size, 8px) !important;
-        height:var(--mia-inner-size, 8px) !important;
-        transform:translate(-50%,-50%) !important;
+    .brush-size-preview,
+    .tool-cursor.circle {
         box-sizing:border-box !important;
-        border:2px solid #222 !important;
-        border-radius:50% !important;
-        background:rgba(255,255,255,.08) !important;
-        box-shadow:0 0 0 1px rgba(255,255,255,.85) !important;
-    }
-}
-</style>
-
-<script>
-(() => {
-    "use strict";
-
-    const previousShowBrushSizePreview = showBrushSizePreview;
-
-    showBrushSizePreview = function() {
-        /* Desktop and phone stay exactly as Test #28. */
-        if (window.innerWidth <= 480 || window.innerWidth > 1000) {
-            return previousShowBrushSizePreview();
-        }
-
-        if (currentTool !== 'brush' && currentTool !== 'eraser') return;
-
-        const rect = paintCanvas.getBoundingClientRect();
-        if (!paintCanvas.width || !rect.width) return;
-
-        /* This is the same base size calculation used by the web version. */
-        const scale = rect.width / paintCanvas.width;
-        const innerSize = Math.max(8, brushSize * scale);
-
-        /* Keep only a narrow 3px frame around the correct inner reference.
-           This changes the tablet indicator only, never the actual stroke. */
-        const outerSize = innerSize + 6;
-
-        brushSizePreview.style.setProperty('--mia-inner-size', innerSize + 'px');
-        brushSizePreview.style.width = outerSize + 'px';
-        brushSizePreview.style.height = outerSize + 'px';
-        brushSizePreview.classList.add('show');
-
-        clearTimeout(brushPreviewTimer);
-        brushPreviewTimer = setTimeout(() => {
-            brushSizePreview.classList.remove('show');
-        }, 650);
-    };
-})();
-</script>
-
-
-
-
-<!-- =====================================================
-     TEST #30 — TABLET LIVE DUAL CURSOR CALIBRATION
-     Slider preview, phone, desktop, paint, erase and opacity are untouched.
-     Inner ring = actual nominal brush footprint.
-     Outer guide = 8px radial clearance (16px added to diameter).
-     Eraser keeps its dashed outer guide.
-     ===================================================== -->
-<style>
-@media (min-width:481px) and (max-width:1000px) {
-    /* The live cursor itself is the OUTER guide. */
-    .tool-cursor.circle,
-    .tool-cursor.eraser-circle {
         overflow:visible !important;
+        border:1.5px solid rgba(0,0,0,.78) !important;
+        border-radius:50% !important;
         background:rgba(255,255,255,.06) !important;
         box-shadow:0 0 0 1px rgba(255,255,255,.78) !important;
     }
-
-    /* Pen/brush outer guide stays solid. */
-    .tool-cursor.circle {
-        border:1.5px solid rgba(0,0,0,.78) !important;
-    }
-
-    /* Eraser keeps the dotted/dashed visual language. */
-    .tool-cursor.eraser-circle {
-        border:2px dashed rgba(0,0,0,.82) !important;
-    }
-
-    /* Inner ring is the true nominal footprint. */
-    .tool-cursor.circle::after,
-    .tool-cursor.eraser-circle::after {
+    .brush-size-preview::after,
+    .tool-cursor.circle::after {
         content:"" !important;
         position:absolute !important;
         left:50% !important;
         top:50% !important;
-        width:var(--mia-live-inner-size, 6px) !important;
-        height:var(--mia-live-inner-size, 6px) !important;
+        width:var(--mia-pen-footprint, 6px) !important;
+        height:var(--mia-pen-footprint, 6px) !important;
         transform:translate(-50%,-50%) !important;
         box-sizing:border-box !important;
-        border:1.5px solid rgba(0,0,0,.88) !important;
+        border:1.5px solid rgba(0,0,0,.9) !important;
         border-radius:50% !important;
         background:transparent !important;
-        box-shadow:0 0 0 1px rgba(255,255,255,.82) !important;
+        box-shadow:0 0 0 1px rgba(255,255,255,.84) !important;
         pointer-events:none !important;
     }
 }
 </style>
-
 <script>
 (() => {
     "use strict";
 
-    const test29SetToolCursorSize = setToolCursorSize;
+    const baseShowBrushSizePreview = showBrushSizePreview;
+    const baseSetToolCursorSize = setToolCursorSize;
+
+    function tabletPenGeometry() {
+        const rect = paintCanvas.getBoundingClientRect();
+        if (!paintCanvas.width || !rect.width) return null;
+        const scale = rect.width / paintCanvas.width;
+        const footprint = Math.max(6, brushSize * scale);
+        return { footprint, outer: footprint + 16 };
+    }
+
+    /* Tablet Pen only. Both indicators consume the SAME geometry object. */
+    showBrushSizePreview = function() {
+        if (window.innerWidth <= 480 || window.innerWidth > 1000 ||
+            currentTool !== 'brush' || brushType !== 'pen') {
+            return baseShowBrushSizePreview();
+        }
+        const g = tabletPenGeometry();
+        if (!g) return;
+        brushSizePreview.style.setProperty('--mia-pen-footprint', g.footprint + 'px');
+        brushSizePreview.style.width = g.outer + 'px';
+        brushSizePreview.style.height = g.outer + 'px';
+        brushSizePreview.classList.add('show');
+        clearTimeout(brushPreviewTimer);
+        brushPreviewTimer = setTimeout(() => brushSizePreview.classList.remove('show'), 650);
+    };
 
     setToolCursorSize = function() {
-        /* Phone + desktop stay exactly as they were. */
-        if (window.innerWidth <= 480 || window.innerWidth > 1000) {
-            return test29SetToolCursorSize();
+        if (window.innerWidth <= 480 || window.innerWidth > 1000 ||
+            currentTool !== 'brush' || brushType !== 'pen') {
+            return baseSetToolCursorSize();
         }
-
-        if (currentTool !== 'brush' && currentTool !== 'eraser') return;
-
-        const rect = paintCanvas.getBoundingClientRect();
-        if (!paintCanvas.width || !rect.width) return;
-
-        /* Same web calculation that already matches the Pen footprint. */
-        const scale = rect.width / paintCanvas.width;
-        const innerSize = Math.max(6, brushSize * scale);
-
-        /* 8px of visible breathing room on each side of the true footprint. */
-        const outerSize = innerSize + 16;
-
-        toolCursor.style.setProperty('--mia-live-inner-size', innerSize + 'px');
-        toolCursor.style.width = outerSize + 'px';
-        toolCursor.style.height = outerSize + 'px';
+        const g = tabletPenGeometry();
+        if (!g) return;
+        toolCursor.style.setProperty('--mia-pen-footprint', g.footprint + 'px');
+        toolCursor.style.width = g.outer + 'px';
+        toolCursor.style.height = g.outer + 'px';
     };
 })();
 </script>
@@ -12987,4 +12815,3 @@ body.v268-fill-active #touchEraserOpacity {
 </body>
 
 </html>
-
