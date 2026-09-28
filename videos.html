@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ"></script>
@@ -8,146 +7,93 @@
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-
         gtag('config', 'G-MK5FXXVXNJ');
     </script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Videos | Alex Reynoso Art</title>
-
-    <meta name="description"
-          content="Video, animation and character projects by Alex Reynoso Art.">
-
+    <meta name="description" content="Animation, characters, dancing animals and creative videos by Alex Reynoso Art.">
     <link rel="stylesheet" href="css/style.css">
-
     <style>
-
-        /* Videos background */
-
-        body {
-            position: relative;
-            min-height: 100vh;
-            background: #111;
-        }
-
+        body { position: relative; min-height: 100vh; background: #111; }
         body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background-image:
-                url("images/videos-background-alex-reynoso-art.jpg");
-            background-position: center center;
-            background-size: cover;
-            background-repeat: no-repeat;
-            opacity: 0.05;
-            pointer-events: none;
-            z-index: 0;
+            content: ""; position: fixed; inset: 0;
+            background: url("images/videos-background-alex-reynoso-art.jpg") center / cover no-repeat;
+            opacity: .05; pointer-events: none; z-index: 0;
         }
-
-        header,
-        main,
-        footer {
-            position: relative;
-            z-index: 1;
+        header, main, footer { position: relative; z-index: 1; }
+        .theater-page { width: 100%; max-width: 1100px; margin: 0 auto; padding: 35px 16px 65px; text-align: center; }
+        .theater-page h1 { margin-bottom: 8px; }
+        .theater-intro { max-width: 700px; margin: 0 auto 24px; }
+        /* Square artwork stays proportional at every screen size. */
+        .theater-stage { position: relative; isolation: isolate; width: 100%; max-width: 850px; aspect-ratio: 1 / 1; margin: 0 auto; }
+        /* The video sits behind the PNG, inside its transparent opening. */
+        .theater-video {
+            position: absolute; left: 19%; top: 17%; width: 62%; height: 62%;
+            z-index: 1; background: #000; overflow: hidden;
         }
-
-        @media (max-width: 600px) {
-
-            body::before {
-                background-position: center center;
-            }
-
+        .theater-video iframe { display: block; width: 100%; height: 100%; border: 0; }
+        .theater-frame {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            object-fit: contain; z-index: 2; pointer-events: none;
         }
-
+        .theater-feature { max-width: 760px; margin: 24px auto 0; text-align: left; }
+        .theater-feature h2 { margin-bottom: 10px; }
+        .theater-feature a { color: inherit; text-decoration: underline; }
+        @media (max-width: 700px) {
+            .theater-page { padding: 24px 8px 45px; }
+            .theater-intro { padding: 0 8px; }
+            .theater-feature { padding: 0 10px; }
+        }
     </style>
-
 </head>
-
 <body>
-
-    <header>
-
-        <a class="site-logo" href="index.html">
-            <img src="images/AlexReynosoArt-Logo_transparent.png"
-                 alt="Alex Reynoso Art">
-        </a>
-
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="art.html">Art</a>
-            <a href="videos.html">Videos</a>
-            <a href="shop.html">Shop</a>
-            <a href="commissions.html">Commissions</a>
-        </nav>
-
-    </header>
-
-    <main>
-
-        <section class="info-page">
-
-            <h1>Videos</h1>
-
-            <p>
-                Animation, characters, dancing animals and other questionable decisions.
-            </p>
-
-            <div class="coming-soon">
-                Coming Soon
+<header>
+    <a class="site-logo" href="index.html"><img src="images/AlexReynosoArt-Logo_transparent.png" alt="Alex Reynoso Art"></a>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="art.html">Art</a>
+        <a href="videos.html">Videos</a>
+        <a href="shop.html">Shop</a>
+        <a href="commissions.html">Commissions</a>
+    </nav>
+</header>
+<main>
+    <section class="theater-page">
+        <h1>Welcome to the Theater</h1>
+        <p class="theater-intro">Animation, characters, dancing animals and other questionable decisions. Grab some popcorn. 🍿</p>
+        <div class="theater-stage" aria-label="Alex Reynoso Art theater featuring a hydroponics video">
+            <div class="theater-video">
+                <iframe
+                    src="https://www.youtube-nocookie.com/embed/Y9GLrpanUY4?playsinline=1&rel=0"
+                    title="Hydroponics walkthrough by Alex Reynoso Art"
+                    loading="lazy"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen></iframe>
             </div>
-
+            <img class="theater-frame" src="images/videos-theater-frame.png" alt="" aria-hidden="true" width="1254" height="1254" fetchpriority="high">
+        </div>
+        <section class="theater-feature">
+            <h2>Featured: Hydroponics</h2>
+            <p>A look inside one of my hands-on creative and educational projects. Art, experimentation, and growing something from the ground up.</p>
+            <p><a href="https://www.youtube.com/watch?v=Y9GLrpanUY4" target="_blank" rel="noopener noreferrer">Watch the hydroponics walkthrough on YouTube ↗</a></p>
         </section>
-
-    </main>
-
-    <footer>
-
-        <div class="footer-social"
-             aria-label="Alex Reynoso Art on social media">
-
-            <a href="https://www.instagram.com/alexreynosoart/"
-               target="_blank"
-               rel="noopener noreferrer">
-                Instagram
-            </a>
-
-            <span aria-hidden="true">·</span>
-
-            <a href="https://www.tiktok.com/@alexreynosoart"
-               target="_blank"
-               rel="noopener noreferrer">
-                TikTok
-            </a>
-
-            <span aria-hidden="true">·</span>
-
-            <a href="https://www.facebook.com/AlexReynosoArt/"
-               target="_blank"
-               rel="noopener noreferrer">
-                Facebook
-            </a>
-
-            <span aria-hidden="true">·</span>
-
-            <a href="https://www.youtube.com/@AlexReynosoArt"
-               target="_blank"
-               rel="noopener noreferrer">
-                YouTube
-            </a>
-
-        </div>
-
-        <div class="footer-copyright">
-            &copy; 2026 Alex Reynoso Art
-        </div>
-
-    </footer>
-
-    <script src="js/script.js"></script>
-    
+    </section>
+</main>
+<footer>
+    <div class="footer-social" aria-label="Alex Reynoso Art on social media">
+        <a href="https://www.instagram.com/alexreynosoart/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://www.tiktok.com/@alexreynosoart" target="_blank" rel="noopener noreferrer">TikTok</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://www.facebook.com/AlexReynosoArt/" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://www.youtube.com/@AlexReynosoArt" target="_blank" rel="noopener noreferrer">YouTube</a>
+    </div>
+    <div class="footer-copyright">&copy; 2026 Alex Reynoso Art</div>
+</footer>
+<script src="js/script.js"></script>
 </body>
-
 </html>
