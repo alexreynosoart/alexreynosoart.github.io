@@ -13227,6 +13227,32 @@ body.v242-touch-active .tool-indicator.move::after {
 })();
 </script>
 
+<style>
+/* =====================================================
+   TEST #44 — COMPACT TWO-ROW SHAPE TRAY
+   Match Select submenu height. Shape icon sizes unchanged.
+   ===================================================== */
+@media (min-width:1001px) {
+    #desktopTabletShapeMenu {
+        grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+        grid-template-rows:repeat(2,52px) !important;
+        grid-auto-rows:52px !important;
+        max-height:none !important;
+        height:auto !important;
+        overflow:hidden !important;
+        row-gap:7px !important;
+        align-content:start !important;
+        padding:7px !important;
+    }
+
+    #desktopTabletShapeMenu button {
+        height:52px !important;
+        min-height:52px !important;
+        padding:4px 7px !important;
+    }
+}
+</style>
+
 </body>
 
 </html>
