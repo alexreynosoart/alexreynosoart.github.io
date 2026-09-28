@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ"></script>
@@ -8,146 +7,113 @@
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-
         gtag('config', 'G-MK5FXXVXNJ');
     </script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Videos | Alex Reynoso Art</title>
-
-    <meta name="description"
-          content="Video, animation and character projects by Alex Reynoso Art.">
-
+    <meta name="description" content="Step into the Alex Reynoso Art theater for animation, character videos, and creative projects.">
     <link rel="stylesheet" href="css/style.css">
-
     <style>
-
-        /* Videos background */
-
-        body {
-            position: relative;
-            min-height: 100vh;
-            background: #111;
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background-image:
-                url("images/videos-background-alex-reynoso-art.jpg");
-            background-position: center center;
-            background-size: cover;
-            background-repeat: no-repeat;
-            opacity: 0.05;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        header,
-        main,
-        footer {
-            position: relative;
-            z-index: 1;
-        }
-
-        @media (max-width: 600px) {
-
-            body::before {
-                background-position: center center;
-            }
-
-        }
-
+        body { position: relative; min-height: 100vh; background: #111; }
+        body::before { content: ""; position: fixed; inset: 0; background: url("images/videos-background-alex-reynoso-art.jpg") center/cover no-repeat; opacity: .05; pointer-events: none; z-index: 0; }
+        header, main, footer { position: relative; z-index: 1; }
+        .theater-page { max-width: 1200px; margin: 0 auto; padding: 35px 18px 65px; text-align: center; }
+        .theater-page h1 { margin-bottom: 8px; }
+        .theater-intro { margin: 0 auto 26px; max-width: 700px; }
+        .theater { position: relative; isolation: isolate; width: 100%; aspect-ratio: 16/9; overflow: hidden; border: 2px solid #5c2424; border-radius: 16px; background: #090909; box-shadow: 0 20px 55px #0009; }
+        .theater-art { position: absolute; inset: 0; background: url("images/videos-background-alex-reynoso-art.jpg") center/cover no-repeat; transition: filter 1.5s ease; }
+        .theater.playing .theater-art { filter: brightness(.17); }
+        .screen-area { position: absolute; top: 3%; left: 25%; width: 50%; aspect-ratio: 16/9; display: grid; place-items: center; }
+        .screen-area iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #000; opacity: 0; pointer-events: none; transition: opacity .6s ease; }
+        .theater.playing .screen-area iframe, .theater.paused .screen-area iframe { opacity: 1; pointer-events: auto; }
+        .play-button { position: relative; z-index: 2; display: inline-flex; align-items: center; justify-content: center; width: 76px; height: 76px; border-radius: 50%; border: 2px solid #fff; color: #fff; background: #000b; font-size: 30px; cursor: pointer; transition: transform .2s ease, opacity .3s ease; }
+        .play-button:hover { transform: scale(1.08); }
+        .theater.playing .play-button, .theater.paused .play-button { opacity: 0; pointer-events: none; }
+        .theater-status { margin: 12px auto 0; color: #ddd; font-size: .9rem; }
+        .theater-feature { max-width: 760px; margin: 44px auto 0; text-align: left; }
+        .theater-feature h2 { margin-bottom: 10px; }
+        .theater-feature a { color: inherit; text-decoration: underline; }
+        @media (max-width: 700px) { .theater-page { padding: 24px 10px 45px; } .theater { border-radius: 8px; } .play-button { width: 54px; height: 54px; font-size: 23px; } }
+        @media (prefers-reduced-motion: reduce) { .theater-art, .screen-area iframe, .play-button { transition: none; } }
     </style>
-
 </head>
-
 <body>
-
-    <header>
-
-        <a class="site-logo" href="index.html">
-            <img src="images/AlexReynosoArt-Logo_transparent.png"
-                 alt="Alex Reynoso Art">
-        </a>
-
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="art.html">Art</a>
-            <a href="videos.html">Videos</a>
-            <a href="shop.html">Shop</a>
-            <a href="commissions.html">Commissions</a>
-        </nav>
-
-    </header>
-
-    <main>
-
-        <section class="info-page">
-
-            <h1>Videos</h1>
-
-            <p>
-                Animation, characters, dancing animals and other questionable decisions.
-            </p>
-
-            <div class="coming-soon">
-                Coming Soon
+<header>
+    <a class="site-logo" href="index.html"><img src="images/AlexReynosoArt-Logo_transparent.png" alt="Alex Reynoso Art"></a>
+    <nav>
+        <a href="index.html">Home</a><a href="about.html">About</a><a href="art.html">Art</a><a href="videos.html">Videos</a><a href="shop.html">Shop</a><a href="commissions.html">Commissions</a>
+    </nav>
+</header>
+<main>
+    <section class="theater-page">
+        <h1>Welcome to the Theater</h1>
+        <p class="theater-intro">Animation, characters, dancing animals and other questionable decisions. Grab some popcorn. 🍿</p>
+        <div class="theater" id="theater" aria-label="Alex Reynoso Art theater">
+            <div class="theater-art" aria-hidden="true"></div>
+            <div class="screen-area">
+                <button class="play-button" id="playMovie" type="button" aria-label="Play the featured video">▶</button>
+                <div id="youtubePlayer"></div>
             </div>
-
+        </div>
+        <p class="theater-status" id="theaterStatus" aria-live="polite">The lights go down when the movie starts.</p>
+        <section class="theater-feature">
+            <h2>Featured: Hydroponics</h2>
+            <p>A look inside one of my hands-on creative and educational projects. Art, experimentation, and growing something from the ground up.</p>
+            <p><a href="https://www.youtube.com/watch?v=Y9GLrpanUY4" target="_blank" rel="noopener noreferrer">Watch the hydroponics walkthrough on YouTube ↗</a></p>
         </section>
-
-    </main>
-
-    <footer>
-
-        <div class="footer-social"
-             aria-label="Alex Reynoso Art on social media">
-
-            <a href="https://www.instagram.com/alexreynosoart/"
-               target="_blank"
-               rel="noopener noreferrer">
-                Instagram
-            </a>
-
-            <span aria-hidden="true">·</span>
-
-            <a href="https://www.tiktok.com/@alexreynosoart"
-               target="_blank"
-               rel="noopener noreferrer">
-                TikTok
-            </a>
-
-            <span aria-hidden="true">·</span>
-
-            <a href="https://www.facebook.com/AlexReynosoArt/"
-               target="_blank"
-               rel="noopener noreferrer">
-                Facebook
-            </a>
-
-            <span aria-hidden="true">·</span>
-
-            <a href="https://www.youtube.com/@AlexReynosoArt"
-               target="_blank"
-               rel="noopener noreferrer">
-                YouTube
-            </a>
-
-        </div>
-
-        <div class="footer-copyright">
-            &copy; 2026 Alex Reynoso Art
-        </div>
-
-    </footer>
-
-    <script src="js/script.js"></script>
-    
+    </section>
+</main>
+<footer>
+    <div class="footer-social" aria-label="Alex Reynoso Art on social media">
+        <a href="https://www.instagram.com/alexreynosoart/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://www.tiktok.com/@alexreynosoart" target="_blank" rel="noopener noreferrer">TikTok</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://www.facebook.com/AlexReynosoArt/" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://www.youtube.com/@AlexReynosoArt" target="_blank" rel="noopener noreferrer">YouTube</a>
+    </div>
+    <div class="footer-copyright">&copy; 2026 Alex Reynoso Art</div>
+</footer>
+<script src="js/script.js"></script>
+<script>
+    const theater = document.getElementById('theater');
+    const playButton = document.getElementById('playMovie');
+    const status = document.getElementById('theaterStatus');
+    let player;
+    let requestedPlay = false;
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('youtubePlayer', {
+            videoId: 'Y9GLrpanUY4',
+            playerVars: { playsinline: 1, rel: 0 },
+            events: {
+                onReady: function () { if (requestedPlay) player.playVideo(); },
+                onStateChange: function (event) {
+                    if (event.data === YT.PlayerState.PLAYING) {
+                        theater.classList.add('playing'); theater.classList.remove('paused');
+                        status.textContent = 'Enjoy the show. 🍿';
+                    } else if (event.data === YT.PlayerState.PAUSED) {
+                        theater.classList.remove('playing'); theater.classList.add('paused');
+                        status.textContent = 'Intermission. The lights are back on.';
+                    } else if (event.data === YT.PlayerState.ENDED) {
+                        theater.classList.remove('playing', 'paused');
+                        status.textContent = 'That’s a wrap! Play it again?';
+                        requestedPlay = false;
+                    }
+                },
+                onError: function () { status.textContent = 'Video unavailable here. Use the YouTube link below.'; }
+            }
+        });
+    }
+    playButton.addEventListener('click', function () {
+        requestedPlay = true;
+        if (player && typeof player.playVideo === 'function') player.playVideo();
+        else status.textContent = 'Preparing the projector…';
+    });
+    const youtubeAPI = document.createElement('script');
+    youtubeAPI.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(youtubeAPI);
+</script>
 </body>
-
 </html>
