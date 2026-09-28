@@ -3782,6 +3782,13 @@ body.v268-fill-active #opacitySlider {
                     aria-label="Brush"
                     title="Brush"><span class="brush-menu-icon" aria-hidden="true">✎</span></button>
 
+            <button class="mobile-icon-tool eraser-menu-tool"
+                    data-v2-tool="eraser"
+                    data-mobile-submenu="eraser"
+                    type="button"
+                    aria-label="Eraser"
+                    title="Eraser"><span class="eraser-menu-icon" aria-hidden="true"></span></button>
+
             <button class="mobile-icon-tool fill-icon-tool"
                     data-v2-tool="fill"
                     type="button"
@@ -3825,6 +3832,12 @@ body.v268-fill-active #opacitySlider {
             <button type="button" data-mobile-brush-choice="marker">MARKER</button>
             <button type="button" data-mobile-brush-choice="soft">SOFT</button>
             <button type="button" data-mobile-brush-choice="texture">TEXTURE</button>
+        </div>
+
+        <div class="mobile-tool-submenu mobile-eraser-submenu" id="mobileEraserSubmenu" aria-label="Eraser choices">
+            <button type="button" data-mobile-eraser-choice="hard" class="active">HARD</button>
+            <button type="button" data-mobile-eraser-choice="soft">SOFT</button>
+            <button type="button" data-mobile-eraser-choice="texture">TEXTURE</button>
         </div>
 
         <div class="mobile-tool-submenu mobile-shape-submenu" id="mobileShapeSubmenu" aria-label="Line and shape choices">
@@ -4932,6 +4945,10 @@ body.v268-fill-active #opacitySlider {
 
     let brushType =
         'pen';
+
+    /* TEST #25: eraser family. Opacity mechanics remain unchanged. */
+    let eraserMode =
+        'hard';
 
     let selectionPath =
         [];
@@ -7333,6 +7350,16 @@ body.v268-fill-active #opacitySlider {
             paintCtx.fillStyle =
                 '#000';
 
+            /* TEST #25 eraser family: hard keeps the established eraser.
+               Soft feathers the edge; Texture uses the existing grain engine. */
+            if (eraserMode === 'soft') {
+                paintCtx.shadowColor = '#000';
+                paintCtx.shadowBlur = brushSize * 0.9;
+                paintCtx.lineWidth = brushSize * 0.82;
+            } else if (eraserMode === 'texture') {
+                paintCtx.lineWidth = brushSize * 0.55;
+            }
+
         } else {
 
             paintCtx.globalCompositeOperation =
@@ -7347,7 +7374,7 @@ body.v268-fill-active #opacitySlider {
         }
 
 
-        if (currentTool === 'brush' && brushType === 'texture') {
+        if ((currentTool === 'brush' && brushType === 'texture') || (currentTool === 'eraser' && eraserMode === 'texture')) {
             const dx = x2 - x1;
             const dy = y2 - y1;
             const distance = Math.max(1, Math.hypot(dx, dy));
@@ -12402,6 +12429,218 @@ body.v268-fill-active #touchEraserOpacity {
             status.textContent=tip;
         }, true);
     }
+})();
+</script>
+
+
+
+<!-- =====================================================
+     TEST #25 — ERASER FAMILY + FLOATING MOVE
+     Opacity mechanics intentionally unchanged.
+     ===================================================== -->
+<style>
+@media (max-width:1000px) {
+    /* Five primary creative tools: Brush, Erase, Fill, Shape, Select. */
+    .mobile-creative-tools { gap:6px !important; }
+    .mobile-creative-tools > .mobile-icon-tool { flex:0 0 42px; }
+
+    .eraser-menu-icon {
+        display:inline-block;
+        width:17px;
+        height:10px;
+        border:3px solid currentColor;
+        border-radius:3px;
+        transform:rotate(-34deg);
+        box-sizing:border-box;
+        position:relative;
+    }
+    .eraser-menu-icon::after {
+        content:"";
+        position:absolute;
+        right:-3px;
+        top:-3px;
+        width:6px;
+        height:10px;
+        border-left:2px solid currentColor;
+        box-sizing:border-box;
+    }
+
+    /* Temporary fill icon: clearly a tilted paint bucket, not a handbag. */
+    .bucket-icon {
+        width:16px !important;
+        height:13px !important;
+        border:3px solid currentColor !important;
+        border-radius:2px 2px 5px 5px !important;
+        transform:rotate(-38deg) !important;
+    }
+    .bucket-icon::before {
+        width:10px !important;
+        height:7px !important;
+        left:0 !important;
+        top:-9px !important;
+        border:2px solid currentColor !important;
+        border-bottom:0 !important;
+        border-radius:8px 8px 0 0 !important;
+    }
+    .bucket-icon::after {
+        content:"";
+        position:absolute;
+        right:-9px;
+        bottom:-7px;
+        width:5px;
+        height:7px;
+        background:currentColor;
+        border-radius:70% 30% 70% 30%;
+        transform:rotate(35deg);
+    }
+
+    body.mobile-eraser-submenu-open .mobile-eraser-submenu {
+        display:flex;
+        align-items:center;
+    }
+
+    /* Erase and Move no longer consume the large lower button row. */
+    .mobile-direct-tools { display:none !important; }
+
+    .floating-move-tool {
+        display:flex;
+        position:fixed;
+        right:14px;
+        top:184px;
+        z-index:1900;
+        width:48px;
+        height:48px;
+        align-items:center;
+        justify-content:center;
+        border:1px solid #cfcfcf;
+        border-radius:50%;
+        background:rgba(255,255,255,.96);
+        color:#222;
+        box-shadow:0 5px 16px rgba(0,0,0,.16);
+        font:900 18px/1 Arial,sans-serif;
+        touch-action:none;
+        user-select:none;
+        -webkit-user-select:none;
+        cursor:grab;
+    }
+    .floating-move-tool:active { cursor:grabbing; }
+    .floating-move-tool.active,
+    body.v254-move-active .floating-move-tool {
+        background:#111;
+        border-color:#111;
+        color:#fff;
+    }
+    .floating-move-tool .move-cross {
+        position:relative;
+        width:22px;
+        height:22px;
+    }
+    .floating-move-tool .move-cross::before { content:"↕"; position:absolute; left:6px; top:0; }
+    .floating-move-tool .move-cross::after  { content:"↔"; position:absolute; left:0; top:5px; }
+}
+@media (min-width:1001px) {
+    .floating-move-tool { display:none !important; }
+}
+</style>
+
+<button class="floating-move-tool" id="floatingMoveTool" type="button" aria-label="Move artwork" title="Move artwork">
+    <span class="move-cross" aria-hidden="true"></span>
+</button>
+
+<script>
+(() => {
+    "use strict";
+    const body=document.body;
+    const eraserBar=document.getElementById('mobileEraserSubmenu');
+    const move=document.getElementById('floatingMoveTool');
+
+    /* Extend the existing peer-submenu behavior without changing Brush/Shape/Select engines. */
+    document.addEventListener('click', e => {
+        const launcher=e.target.closest('[data-mobile-submenu]');
+        if (launcher) {
+            const kind=launcher.dataset.mobileSubmenu;
+            if (kind==='eraser') {
+                const wasOpen=body.classList.contains('mobile-eraser-submenu-open');
+                body.classList.remove('mobile-brush-submenu-open','mobile-shape-submenu-open');
+                body.classList.toggle('mobile-eraser-submenu-open',!wasOpen);
+            } else {
+                body.classList.remove('mobile-eraser-submenu-open');
+            }
+        } else if (e.target.closest('[data-v2-tool="select"],[data-tool="select"],[data-desktop-tool="select"]')) {
+            body.classList.remove('mobile-eraser-submenu-open');
+        }
+
+        const choice=e.target.closest('[data-mobile-eraser-choice]');
+        if (choice) {
+            eraserMode=choice.dataset.mobileEraserChoice || 'hard';
+            eraserBar?.querySelectorAll('[data-mobile-eraser-choice]').forEach(b=>b.classList.toggle('active',b===choice));
+            const source=document.querySelector('[data-tool="eraser"], [data-desktop-tool="eraser"]');
+            if (source) source.click();
+            body.classList.add('mobile-eraser-submenu-open');
+            body.classList.remove('mobile-brush-submenu-open','mobile-shape-submenu-open');
+        }
+    }, true);
+
+    if (!move) return;
+    const KEY='miaFloatingMovePositionV25';
+    let startX=0,startY=0,startLeft=0,startTop=0,dragging=false,moved=false;
+
+    function clampPosition(left,top){
+        const pad=8;
+        const maxLeft=Math.max(pad,window.innerWidth-move.offsetWidth-pad);
+        const maxTop=Math.max(pad,window.innerHeight-move.offsetHeight-pad);
+        return {left:Math.min(maxLeft,Math.max(pad,left)),top:Math.min(maxTop,Math.max(pad,top))};
+    }
+    function setPosition(left,top,save){
+        const p=clampPosition(left,top);
+        move.style.left=p.left+'px';
+        move.style.top=p.top+'px';
+        move.style.right='auto';
+        if(save){ try{localStorage.setItem(KEY,JSON.stringify(p));}catch(_){} }
+    }
+    function restore(){
+        try{
+            const p=JSON.parse(localStorage.getItem(KEY)||'null');
+            if(p && Number.isFinite(p.left) && Number.isFinite(p.top)) setPosition(p.left,p.top,false);
+        }catch(_){}
+    }
+    restore();
+
+    move.addEventListener('pointerdown',e=>{
+        if(e.pointerType==='mouse' && e.button!==0) return;
+        const r=move.getBoundingClientRect();
+        startX=e.clientX; startY=e.clientY; startLeft=r.left; startTop=r.top;
+        dragging=true; moved=false;
+        move.setPointerCapture?.(e.pointerId);
+        e.preventDefault();
+    });
+    move.addEventListener('pointermove',e=>{
+        if(!dragging) return;
+        const dx=e.clientX-startX,dy=e.clientY-startY;
+        if(Math.hypot(dx,dy)>5) moved=true;
+        if(moved) setPosition(startLeft+dx,startTop+dy,false);
+        e.preventDefault();
+    });
+    move.addEventListener('pointerup',e=>{
+        if(!dragging) return;
+        dragging=false;
+        if(moved){
+            const r=move.getBoundingClientRect();
+            setPosition(r.left,r.top,true);
+        } else {
+            const source=document.querySelector('.mobile-direct-tools [data-tool="move"], [data-tool="move"]');
+            source?.click();
+        }
+        try{move.releasePointerCapture?.(e.pointerId);}catch(_){}
+        e.preventDefault();
+    });
+    move.addEventListener('pointercancel',()=>{dragging=false;});
+    window.addEventListener('resize',()=>{
+        if(move.style.left){
+            const r=move.getBoundingClientRect();
+            setPosition(r.left,r.top,false);
+        }
+    },{passive:true});
 })();
 </script>
 
