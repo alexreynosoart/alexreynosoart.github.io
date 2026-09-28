@@ -3484,6 +3484,71 @@ body.v254-select-active #clearSelectionTouch {
         <strong>Creative Studio</strong><span>🐼</span>
     </div>
 
+    <section class="desktop-side-section desktop-tablet-tools" aria-label="Desktop drawing tools">
+        <div class="desktop-side-label"><span>Tools</span><span id="desktopTabletToolReadout">PEN</span></div>
+
+        <div class="desktop-tablet-tool-row" aria-label="Creative tools">
+            <button class="mobile-icon-tool brush-menu-tool active"
+                    data-desktop-tablet-tool="brush"
+                    type="button"
+                    aria-label="Brush"
+                    title="Brush"><span class="brush-menu-icon" aria-hidden="true">✎</span></button>
+
+            <button class="mobile-icon-tool eraser-menu-tool"
+                    data-desktop-tablet-tool="eraser"
+                    type="button"
+                    aria-label="Eraser"
+                    title="Eraser"><span class="eraser-menu-icon" aria-hidden="true"></span></button>
+
+            <button class="mobile-icon-tool fill-icon-tool"
+                    data-desktop-tablet-tool="fill"
+                    type="button"
+                    aria-label="Fill"
+                    title="Fill"><span class="bucket-icon" aria-hidden="true"></span></button>
+
+            <button class="mobile-icon-tool shape-menu-tool"
+                    data-desktop-tablet-tool="shape"
+                    type="button"
+                    aria-label="Line and shapes"
+                    title="Line / Shape"><span class="shape-menu-icon" aria-hidden="true"><b>□</b><b>○</b></span></button>
+
+            <button class="mobile-icon-tool select-icon-tool"
+                    data-desktop-tablet-tool="select"
+                    type="button"
+                    aria-label="Select"
+                    title="Select"><span class="select-triangle-icon" aria-hidden="true"></span></button>
+        </div>
+
+        <div class="desktop-tablet-submenu" id="desktopTabletBrushMenu" aria-label="Brush choices">
+            <button type="button" data-desktop-tablet-brush="pen" class="active">PEN</button>
+            <button type="button" data-desktop-tablet-brush="marker">MARKER</button>
+            <button type="button" data-desktop-tablet-brush="soft">SOFT</button>
+            <button type="button" data-desktop-tablet-brush="texture">TEXTURE</button>
+        </div>
+
+        <div class="desktop-tablet-submenu" id="desktopTabletEraserMenu" aria-label="Eraser choices">
+            <button type="button" data-desktop-tablet-eraser="hard" class="active">HARD</button>
+            <button type="button" data-desktop-tablet-eraser="soft">SOFT</button>
+            <button type="button" data-desktop-tablet-eraser="texture">TEXTURE</button>
+        </div>
+
+        <div class="desktop-tablet-submenu" id="desktopTabletShapeMenu" aria-label="Line and shape choices">
+            <button type="button" data-desktop-tablet-shape="line" class="active"><span class="straight-line-icon" aria-hidden="true"></span> LINE</button>
+            <button type="button" data-desktop-tablet-shape="rect"><span class="bold-shape" aria-hidden="true">□</span> SQUARE</button>
+            <button type="button" data-desktop-tablet-shape="ellipse"><span class="bold-shape" aria-hidden="true">○</span> CIRCLE</button>
+        </div>
+
+        <div class="desktop-tablet-submenu desktop-tablet-select-menu" id="desktopTabletSelectMenu" aria-label="Selection controls">
+            <button type="button" data-desktop-tablet-select="free" class="active">FREE</button>
+            <button type="button" data-desktop-tablet-select="rect">SQUARE</button>
+            <button type="button" data-desktop-tablet-select="ellipse">CIRCLE</button>
+            <button type="button" data-desktop-tablet-select-op="add" class="active">+ ADD</button>
+            <button type="button" data-desktop-tablet-select-op="subtract">− SUBTRACT</button>
+            <button type="button" data-desktop-tablet-select-clear>CLEAR</button>
+            <button type="button" class="desktop-tablet-done" data-desktop-tablet-select-done>DONE</button>
+        </div>
+    </section>
+
     <section class="desktop-side-section desktop-color-studio">
         <div class="desktop-side-label"><span>Colors</span><span id="desktopPaletteReadout">BASIC</span></div>
 
@@ -12420,6 +12485,223 @@ body.v242-touch-active .tool-indicator.move::after {
     renderPalette('basic');
     renderFavorites();
     chooseBrush('pen');
+})();
+</script>
+
+<style>
+/* =====================================================
+   TEST #39 — DESKTOP TOOLS COPIED FROM TABLET UI
+   Same five icon buttons and same submenu vocabulary.
+   Drawing engines, cursor geometry, colors, Pages and Layers untouched.
+   ===================================================== */
+@media (min-width:1001px) {
+    .desktop-tablet-tools .desktop-side-label { margin-bottom:8px; }
+
+    .desktop-tablet-tool-row {
+        display:grid;
+        grid-template-columns:repeat(5,1fr);
+        gap:7px;
+    }
+
+    /* Use the existing tablet icon classes, but size them for the sidebar. */
+    .desktop-tablet-tool-row .mobile-icon-tool {
+        display:flex !important;
+        align-items:center !important;
+        justify-content:center !important;
+        width:100% !important;
+        min-width:0 !important;
+        height:48px !important;
+        min-height:48px !important;
+        padding:0 !important;
+        border:1px solid #ccc !important;
+        border-radius:12px !important;
+        background:#fff !important;
+        color:#222 !important;
+        box-shadow:none !important;
+        cursor:pointer !important;
+    }
+    .desktop-tablet-tool-row .mobile-icon-tool.active {
+        background:#111 !important;
+        border-color:#111 !important;
+        color:#fff !important;
+    }
+
+    .desktop-tablet-tool-row .brush-menu-icon {
+        font-size:1.25rem;
+        line-height:1;
+        font-weight:900;
+    }
+    .desktop-tablet-tool-row .shape-menu-icon {
+        display:inline-flex;
+        align-items:center;
+        gap:0;
+        font-size:1.12rem;
+        line-height:1;
+        font-family:Arial,Helvetica,sans-serif;
+        font-weight:900;
+    }
+
+    .desktop-tablet-submenu {
+        display:none;
+        grid-template-columns:repeat(4,minmax(0,1fr));
+        gap:5px;
+        margin-top:7px;
+        padding:7px;
+        border:1px solid #ddd;
+        border-radius:12px;
+        background:rgba(255,255,255,.98);
+    }
+    .desktop-tablet-submenu.open { display:grid; }
+    #desktopTabletEraserMenu,
+    #desktopTabletShapeMenu { grid-template-columns:repeat(3,1fr); }
+    #desktopTabletSelectMenu { grid-template-columns:repeat(3,1fr); }
+
+    .desktop-tablet-submenu button {
+        min-width:0;
+        min-height:34px;
+        padding:5px 6px;
+        border:1px solid #ccc;
+        border-radius:9px;
+        background:#fff;
+        color:#222;
+        font:inherit;
+        font-size:.60rem;
+        font-weight:850;
+        cursor:pointer;
+    }
+    .desktop-tablet-submenu button.active {
+        background:#111;
+        border-color:#111;
+        color:#fff;
+    }
+    .desktop-tablet-submenu .desktop-tablet-done {
+        border-color:#efb6cb;
+        color:#7d2948;
+    }
+}
+@media (max-width:1000px) {
+    .desktop-tablet-tools { display:none !important; }
+}
+</style>
+
+<script>
+/* TEST #39 — desktop sidebar relays to the already-working tablet controls.
+   This avoids creating another drawing engine or another set of tool rules. */
+(() => {
+    'use strict';
+
+    const root=document.querySelector('.desktop-tablet-tools');
+    if(!root) return;
+
+    const readout=document.getElementById('desktopTabletToolReadout');
+    const brushMenu=document.getElementById('desktopTabletBrushMenu');
+    const eraserMenu=document.getElementById('desktopTabletEraserMenu');
+    const shapeMenu=document.getElementById('desktopTabletShapeMenu');
+    const selectMenu=document.getElementById('desktopTabletSelectMenu');
+    const menus=[brushMenu,eraserMenu,shapeMenu,selectMenu];
+
+    function closeMenus(except=null){
+        menus.forEach(m=>{ if(m && m!==except) m.classList.remove('open'); });
+    }
+    function activeMain(name){
+        root.querySelectorAll('[data-desktop-tablet-tool]').forEach(b=>{
+            b.classList.toggle('active',b.dataset.desktopTabletTool===name);
+        });
+    }
+    function relay(selector){
+        const source=document.querySelector(selector);
+        if(source) source.click();
+        return !!source;
+    }
+    function label(text){ if(readout) readout.textContent=text.toUpperCase(); }
+
+    root.addEventListener('click', e => {
+        const main=e.target.closest('[data-desktop-tablet-tool]');
+        if(main){
+            const name=main.dataset.desktopTabletTool;
+            activeMain(name);
+
+            if(name==='brush'){
+                relay('[data-v2-tool="brush"]');
+                closeMenus(brushMenu); brushMenu.classList.toggle('open');
+                label(brushType || 'pen');
+            } else if(name==='eraser'){
+                relay('[data-v2-tool="eraser"]');
+                closeMenus(eraserMenu); eraserMenu.classList.toggle('open');
+                label((eraserMode || 'hard')+' eraser');
+            } else if(name==='shape'){
+                relay('[data-v2-tool="shape"]');
+                closeMenus(shapeMenu); shapeMenu.classList.toggle('open');
+                label('shape');
+            } else if(name==='select'){
+                relay('[data-v2-tool="select"]');
+                closeMenus(selectMenu); selectMenu.classList.toggle('open');
+                label('select');
+            } else {
+                relay('[data-v2-tool="fill"]');
+                closeMenus();
+                label('fill');
+            }
+            return;
+        }
+
+        const brush=e.target.closest('[data-desktop-tablet-brush]');
+        if(brush){
+            const kind=brush.dataset.desktopTabletBrush;
+            relay('[data-mobile-brush-choice="'+kind+'"]');
+            root.querySelectorAll('[data-desktop-tablet-brush]').forEach(b=>b.classList.toggle('active',b===brush));
+            activeMain('brush'); brushMenu.classList.add('open'); label(kind);
+            return;
+        }
+
+        const eraser=e.target.closest('[data-desktop-tablet-eraser]');
+        if(eraser){
+            const kind=eraser.dataset.desktopTabletEraser;
+            relay('[data-mobile-eraser-choice="'+kind+'"]');
+            root.querySelectorAll('[data-desktop-tablet-eraser]').forEach(b=>b.classList.toggle('active',b===eraser));
+            activeMain('eraser'); eraserMenu.classList.add('open'); label(kind+' eraser');
+            return;
+        }
+
+        const shape=e.target.closest('[data-desktop-tablet-shape]');
+        if(shape){
+            const kind=shape.dataset.desktopTabletShape;
+            relay('[data-mobile-shape-choice="'+kind+'"]');
+            root.querySelectorAll('[data-desktop-tablet-shape]').forEach(b=>b.classList.toggle('active',b===shape));
+            activeMain('shape'); shapeMenu.classList.add('open'); label(kind==='rect'?'square':kind==='ellipse'?'circle':'line');
+            return;
+        }
+
+        const sel=e.target.closest('[data-desktop-tablet-select]');
+        if(sel){
+            const kind=sel.dataset.desktopTabletSelect;
+            relay('[data-mobile-select-mode="'+kind+'"]') || relay('[data-v253-select-mode="'+kind+'"]');
+            root.querySelectorAll('[data-desktop-tablet-select]').forEach(b=>b.classList.toggle('active',b===sel));
+            return;
+        }
+        const op=e.target.closest('[data-desktop-tablet-select-op]');
+        if(op){
+            const kind=op.dataset.desktopTabletSelectOp;
+            relay('[data-mobile-selection-op="'+kind+'"]') || relay('[data-v253-selection-op="'+kind+'"]');
+            root.querySelectorAll('[data-desktop-tablet-select-op]').forEach(b=>b.classList.toggle('active',b===op));
+            return;
+        }
+        if(e.target.closest('[data-desktop-tablet-select-clear]')){
+            relay('[data-mobile-selection-clear]') || relay('#clearSelectionV24');
+            return;
+        }
+        if(e.target.closest('[data-desktop-tablet-select-done]')){
+            relay('[data-mobile-selection-done]') || relay('[data-v253-selection-done]');
+            selectMenu.classList.remove('open');
+            return;
+        }
+    });
+
+    /* Do not add a new tip system. Existing title/hover/tip code remains untouched
+       so we can first see what desktop already provides. */
+    brushMenu.classList.add('open');
+    activeMain('brush');
+    label('pen');
 })();
 </script>
 
