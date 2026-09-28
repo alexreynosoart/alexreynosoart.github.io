@@ -12833,6 +12833,78 @@ body.v268-fill-active #touchEraserOpacity {
 })();
 </script>
 
+<!-- =====================================================
+     TEST #29 — TABLET-ONLY DUAL SIZE PREVIEW CALIBRATION
+     Phone and desktop intentionally unchanged.
+     Paint / erase / opacity mechanics intentionally unchanged.
+     ===================================================== -->
+<style>
+/* Tablet only: restore the inner reference circle and keep the outer frame
+   close to it. The inner ring is the exact web-calculated brush diameter. */
+@media (min-width:481px) and (max-width:1000px) {
+    .brush-size-preview {
+        overflow:visible !important;
+        border:1px solid rgba(0,0,0,.58) !important;
+        background:rgba(255,255,255,.10) !important;
+        box-shadow:none !important;
+    }
+    .brush-size-preview::after {
+        content:"" !important;
+        position:absolute !important;
+        left:50% !important;
+        top:50% !important;
+        width:var(--mia-inner-size, 8px) !important;
+        height:var(--mia-inner-size, 8px) !important;
+        transform:translate(-50%,-50%) !important;
+        box-sizing:border-box !important;
+        border:2px solid #222 !important;
+        border-radius:50% !important;
+        background:rgba(255,255,255,.08) !important;
+        box-shadow:0 0 0 1px rgba(255,255,255,.85) !important;
+    }
+}
+</style>
+
+<script>
+(() => {
+    "use strict";
+
+    const previousShowBrushSizePreview = showBrushSizePreview;
+
+    showBrushSizePreview = function() {
+        /* Desktop and phone stay exactly as Test #28. */
+        if (window.innerWidth <= 480 || window.innerWidth > 1000) {
+            return previousShowBrushSizePreview();
+        }
+
+        if (currentTool !== 'brush' && currentTool !== 'eraser') return;
+
+        const rect = paintCanvas.getBoundingClientRect();
+        if (!paintCanvas.width || !rect.width) return;
+
+        /* This is the same base size calculation used by the web version. */
+        const scale = rect.width / paintCanvas.width;
+        const innerSize = Math.max(8, brushSize * scale);
+
+        /* Keep only a narrow 3px frame around the correct inner reference.
+           This changes the tablet indicator only, never the actual stroke. */
+        const outerSize = innerSize + 6;
+
+        brushSizePreview.style.setProperty('--mia-inner-size', innerSize + 'px');
+        brushSizePreview.style.width = outerSize + 'px';
+        brushSizePreview.style.height = outerSize + 'px';
+        brushSizePreview.classList.add('show');
+
+        clearTimeout(brushPreviewTimer);
+        brushPreviewTimer = setTimeout(() => {
+            brushSizePreview.classList.remove('show');
+        }, 650);
+    };
+})();
+</script>
+
+
 </body>
 
 </html>
+
