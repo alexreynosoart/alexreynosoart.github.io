@@ -24,8 +24,8 @@
         .theater-intro { max-width: 700px; margin: 0 auto 24px; }
         /* One square artwork file for desktop, tablet and phone. */
         .theater-stage {
-            position: relative; isolation: isolate; width: 100%; max-width: 1200px;
-            aspect-ratio: 1 / 1; margin: 0 auto; overflow: hidden;
+            position: relative; isolation: isolate; left: 50%; transform: translateX(-50%);
+            width: 100%; max-width: none; aspect-ratio: 1 / 1; margin: 0; overflow: hidden;
         }
         /* Video extends beneath the feathered border. Percentages track the square artwork. */
         .theater-video {
@@ -46,17 +46,17 @@
         .theater-feature a { color: inherit; text-decoration: underline; }
         /* Desktop: enlarge the entire theater without creating horizontal scrolling. */
         @media (min-width: 1025px) {
-            .theater-stage { width: 116%; margin-left: -8%; }
+            .theater-stage { width: 116%; }
         }
         /* Tablet: bring the audience closer without losing the curtains. */
         @media (min-width: 701px) and (max-width: 1024px) {
-            .theater-stage { width: 124%; margin-left: -12%; }
+            .theater-stage { width: 124%; }
         }
         @media (max-width: 700px) {
             .theater-page { padding: 24px 0 45px; }
             .theater-page h1, .theater-intro { padding-left: 12px; padding-right: 12px; }
             /* Phone: mostly screen, with a little curtain and the front-row audience. */
-            .theater-stage { width: 151%; margin-left: -25.5%; }
+            .theater-stage { width: 151%; }
             .theater-feature { padding: 0 16px; }
             .theater-status { padding: 0 12px; }
         }
