@@ -11711,7 +11711,8 @@ document.addEventListener('pointerup', function() {
     }
     .mobile-tool-submenu::-webkit-scrollbar { display:none; }
     body.mobile-brush-submenu-open .mobile-brush-submenu,
-    body.mobile-shape-submenu-open .mobile-shape-submenu {
+    body.mobile-shape-submenu-open .mobile-shape-submenu,
+    body.mobile-eraser-submenu-open .mobile-eraser-submenu {
         display:flex;
         align-items:center;
     }
@@ -11780,6 +11781,7 @@ document.addEventListener('pointerup', function() {
     function closeNewSubmenus(except) {
         if (except !== 'brush') body.classList.remove('mobile-brush-submenu-open');
         if (except !== 'shape') body.classList.remove('mobile-shape-submenu-open');
+        if (except !== 'eraser') body.classList.remove('mobile-eraser-submenu-open');
     }
 
     document.addEventListener('click', e => {
@@ -12556,17 +12558,9 @@ body.v268-fill-active #touchEraserOpacity {
 
     /* Extend the existing peer-submenu behavior without changing Brush/Shape/Select engines. */
     document.addEventListener('click', e => {
-        const launcher=e.target.closest('[data-mobile-submenu]');
-        if (launcher) {
-            const kind=launcher.dataset.mobileSubmenu;
-            if (kind==='eraser') {
-                const wasOpen=body.classList.contains('mobile-eraser-submenu-open');
-                body.classList.remove('mobile-brush-submenu-open','mobile-shape-submenu-open');
-                body.classList.toggle('mobile-eraser-submenu-open',!wasOpen);
-            } else {
-                body.classList.remove('mobile-eraser-submenu-open');
-            }
-        } else if (e.target.closest('[data-v2-tool="select"],[data-tool="select"],[data-desktop-tool="select"]')) {
+        /* Eraser launcher is handled by the same peer-submenu router as Brush/Shape.
+           Keeping only one launcher handler prevents the old open-then-close double toggle. */
+        if (e.target.closest('[data-v2-tool="select"],[data-tool="select"],[data-desktop-tool="select"]')) {
             body.classList.remove('mobile-eraser-submenu-open');
         }
 
@@ -12641,6 +12635,65 @@ body.v268-fill-active #touchEraserOpacity {
             setPosition(r.left,r.top,false);
         }
     },{passive:true});
+})();
+</script>
+
+
+<!-- =====================================================
+     TEST #26 — RESPONSIVE SIZE INDICATORS + ERASER SUBMENU FIX
+     Drawing / erasing / opacity mechanics intentionally unchanged.
+     ===================================================== -->
+<script>
+(() => {
+    "use strict";
+
+    const originalShowBrushSizePreview = showBrushSizePreview;
+    showBrushSizePreview = function() {
+        if (currentTool !== 'brush' && currentTool !== 'eraser') return;
+
+        /* Desktop already matches correctly, so preserve its established behavior. */
+        if (window.innerWidth > 1000) {
+            return originalShowBrushSizePreview();
+        }
+
+        const rect = paintCanvas.getBoundingClientRect();
+        if (!paintCanvas.width || !rect.width) return;
+
+        const scale = rect.width / paintCanvas.width;
+        let diameter = brushSize * scale;
+
+        /* On the compact UI the preview should represent the visible footprint of
+           the selected brush family, not just the base slider number. */
+        if (currentTool === 'brush') {
+            if (brushType === 'marker') diameter *= 1.35;
+            else if (brushType === 'soft') diameter *= 1.55;
+            else if (brushType === 'texture') diameter *= 0.55;
+        }
+
+        /* Eraser sizing preview was already visually correct, so leave its
+           diameter on the established base-size calculation. */
+        diameter = Math.max(8, diameter);
+        brushSizePreview.style.width = diameter + 'px';
+        brushSizePreview.style.height = diameter + 'px';
+        brushSizePreview.classList.add('show');
+        clearTimeout(brushPreviewTimer);
+        brushPreviewTimer = setTimeout(() => brushSizePreview.classList.remove('show'), 650);
+    };
+
+    const originalSetToolCursorSize = setToolCursorSize;
+    setToolCursorSize = function() {
+        originalSetToolCursorSize();
+        if (window.innerWidth > 1000 || currentTool !== 'eraser') return;
+
+        /* The responsive eraser ring was reading larger than the erased footprint.
+           Pull only the visual ring inward. The eraser engine itself is untouched. */
+        const rect = paintCanvas.getBoundingClientRect();
+        if (!paintCanvas.width || !rect.width) return;
+        const scale = rect.width / paintCanvas.width;
+        const diameter = Math.max(6, (brushSize * scale) - 4);
+        toolCursor.style.width = diameter + 'px';
+        toolCursor.style.height = diameter + 'px';
+    };
 })();
 </script>
 
