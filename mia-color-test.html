@@ -3541,9 +3541,9 @@ body.v254-select-active #clearSelectionTouch {
             <button type="button" data-desktop-tablet-shape="line" class="active"><span class="straight-line-icon" aria-hidden="true"></span> LINE</button>
             <button type="button" data-desktop-tablet-shape="rect"><span class="bold-shape" aria-hidden="true">□</span> SQUARE</button>
             <button type="button" data-desktop-tablet-shape="ellipse"><span class="shape-glyph shape-circle-glyph" aria-hidden="true">○</span><span>CIRCLE</span></button>
-            <button type="button" data-desktop-tablet-shape="octagon"><span class="shape-glyph" aria-hidden="true">⯃</span><span>OCTAGON</span></button>
+            <button type="button" data-desktop-tablet-shape="octagon"><span class="shape-glyph" aria-hidden="true">⬡</span><span>OCTAGON</span></button>
             <button type="button" data-desktop-tablet-shape="star"><span class="shape-glyph" aria-hidden="true">☆</span><span>STAR</span></button>
-            <button type="button" data-desktop-tablet-shape="spiral"><span class="shape-glyph" aria-hidden="true">◎</span><span>SPIRAL</span></button>
+            <button type="button" data-desktop-tablet-shape="spiral"><span class="shape-glyph" aria-hidden="true">𖦹</span><span>SPIRAL</span></button>
         </div>
 
         <div class="desktop-tablet-submenu desktop-tablet-select-menu" id="desktopTabletSelectMenu" aria-label="Selection controls">
@@ -13127,6 +13127,103 @@ body.v242-touch-active .tool-indicator.move::after {
             showMenu(shapeMenu);
         }
     },true);
+})();
+</script>
+
+<style>
+/* =====================================================
+   TEST #43 — SHAPE TRAY + WORKSPACE EDGE CLEANUP
+   UI/layout only. Shape engines remain untouched.
+   ===================================================== */
+@media (min-width:1001px) {
+    /* Match the shape tray to the same compact footprint as the Select tray.
+       It scrolls vertically inside the tray so future shapes do not grow it. */
+    #desktopTabletShapeMenu {
+        grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+        grid-auto-rows:58px !important;
+        max-height:130px !important;
+        overflow-y:auto !important;
+        overflow-x:hidden !important;
+        align-content:start !important;
+        scrollbar-width:thin;
+    }
+    #desktopTabletShapeMenu button {
+        min-height:58px !important;
+        height:58px !important;
+        padding:5px 7px !important;
+        flex-wrap:nowrap !important;
+    }
+
+    /* One clean divider only. */
+    #desktopTabletShapeMenu button {
+        box-shadow:none !important;
+    }
+
+    /* Shape glyphs use one visual line/weight. */
+    #desktopTabletShapeMenu .shape-glyph,
+    #desktopTabletShapeMenu .bold-shape {
+        width:30px !important;
+        height:30px !important;
+        flex:0 0 30px !important;
+        font-family:"Noto Sans Symbols 2","Noto Sans Symbols","Arial Unicode MS",Arial,sans-serif !important;
+        font-size:30px !important;
+        font-weight:400 !important;
+        line-height:30px !important;
+    }
+
+    /* Close the artwork/workspace AFTER the fixed sidebar.
+       Nothing from the canvas may visually sit underneath the panel. */
+    .studio-main {
+        position:relative !important;
+        margin-left:330px !important;
+        width:calc(100vw - 330px) !important;
+        max-width:calc(100vw - 330px) !important;
+        overflow:hidden !important;
+        box-sizing:border-box !important;
+    }
+    .studio-main::before {
+        content:"";
+        position:fixed;
+        left:330px;
+        top:0;
+        bottom:0;
+        width:1px;
+        background:#e6e6e6;
+        z-index:149;
+        pointer-events:none;
+    }
+    .canvas-frame {
+        max-width:100% !important;
+        margin-left:auto !important;
+        margin-right:auto !important;
+        overflow:hidden !important;
+    }
+}
+</style>
+
+<script>
+/* TEST #43 — keep the canvas/workspace clipped to the right of the sidebar. */
+(() => {
+    'use strict';
+    if(window.innerWidth<1001) return;
+
+    function lockWorkspaceEdge(){
+        const main=document.querySelector('.studio-main');
+        const frame=document.querySelector('.canvas-frame');
+        if(main){
+            main.style.marginLeft='330px';
+            main.style.width='calc(100vw - 330px)';
+            main.style.maxWidth='calc(100vw - 330px)';
+            main.style.overflow='hidden';
+        }
+        if(frame){
+            frame.style.maxWidth='100%';
+            frame.style.marginLeft='auto';
+            frame.style.marginRight='auto';
+        }
+    }
+    requestAnimationFrame(lockWorkspaceEdge);
+    window.addEventListener('resize',lockWorkspaceEdge,{passive:true});
 })();
 </script>
 
