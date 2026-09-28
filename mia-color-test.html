@@ -12705,6 +12705,205 @@ body.v242-touch-active .tool-indicator.move::after {
 })();
 </script>
 
+<style>
+/* =====================================================
+   TEST #40 — DESKTOP TABLET-STYLE TOOL POPOVERS
+   UI/layout only. Drawing mechanics untouched.
+   ===================================================== */
+@media (min-width:1001px) {
+    /* The tool section keeps one permanent submenu-height slot.
+       Switching tools therefore never pushes Colors/Pages/Layers around. */
+    .desktop-tablet-tools {
+        position:relative;
+        padding-bottom:72px !important;
+        overflow:visible !important;
+    }
+
+    .desktop-tablet-submenu {
+        display:none !important;
+        position:absolute !important;
+        left:0 !important;
+        right:0 !important;
+        top:78px !important;
+        z-index:160 !important;
+        margin:8px 0 0 !important;
+        padding:7px !important;
+        border:1px solid #ddd !important;
+        border-radius:12px !important;
+        background:rgba(255,255,255,.985) !important;
+        box-shadow:0 10px 26px rgba(0,0,0,.12) !important;
+        backdrop-filter:blur(12px);
+    }
+    .desktop-tablet-submenu.open { display:grid !important; }
+
+    #desktopTabletBrushMenu { grid-template-columns:repeat(4,minmax(0,1fr)) !important; }
+    #desktopTabletEraserMenu,
+    #desktopTabletShapeMenu { grid-template-columns:repeat(3,minmax(0,1fr)) !important; }
+    #desktopTabletSelectMenu {
+        grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+        overflow-x:auto;
+        scrollbar-width:none;
+    }
+    #desktopTabletSelectMenu::-webkit-scrollbar { display:none; }
+
+    /* Bring the exact crafted tablet Eraser + Fill artwork to desktop too.
+       The old rules were restricted to max-width:1000px. */
+    .desktop-tablet-tool-row .eraser-menu-icon {
+        display:inline-block !important;
+        width:17px !important;
+        height:10px !important;
+        border:3px solid currentColor !important;
+        border-radius:3px !important;
+        transform:rotate(-34deg) !important;
+        box-sizing:border-box !important;
+        position:relative !important;
+    }
+    .desktop-tablet-tool-row .eraser-menu-icon::after {
+        content:"" !important;
+        position:absolute !important;
+        right:-3px !important;
+        top:-3px !important;
+        width:6px !important;
+        height:10px !important;
+        border-left:2px solid currentColor !important;
+        box-sizing:border-box !important;
+    }
+
+    .desktop-tablet-tool-row .bucket-icon {
+        display:inline-block !important;
+        position:relative !important;
+        width:16px !important;
+        height:13px !important;
+        border:3px solid currentColor !important;
+        border-radius:2px 2px 5px 5px !important;
+        transform:rotate(-38deg) !important;
+        box-sizing:border-box !important;
+    }
+    .desktop-tablet-tool-row .bucket-icon::before {
+        content:"" !important;
+        position:absolute !important;
+        width:10px !important;
+        height:7px !important;
+        left:0 !important;
+        top:-9px !important;
+        border:2px solid currentColor !important;
+        border-bottom:0 !important;
+        border-radius:8px 8px 0 0 !important;
+        box-sizing:border-box !important;
+    }
+    .desktop-tablet-tool-row .bucket-icon::after {
+        content:"" !important;
+        position:absolute !important;
+        right:-9px !important;
+        bottom:-7px !important;
+        width:5px !important;
+        height:7px !important;
+        background:currentColor !important;
+        border-radius:70% 30% 70% 30% !important;
+        transform:rotate(35deg) !important;
+    }
+
+    /* Restore the tablet's visible Line mark. */
+    #desktopTabletShapeMenu .straight-line-icon {
+        display:inline-block !important;
+        width:18px !important;
+        height:3px !important;
+        margin-right:4px !important;
+        border-radius:999px !important;
+        background:currentColor !important;
+        transform:rotate(-32deg) !important;
+        vertical-align:middle !important;
+    }
+
+    /* Tips belong to the artwork on desktop, not underneath the fixed sidebar. */
+    .studio-tip-wrap {
+        left:342px !important;
+        z-index:2050 !important;
+        max-width:min(760px, calc(100vw - 370px)) !important;
+    }
+}
+
+/* Hover help remains desktop-only. Touch/mobile keeps its existing tap tips. */
+@media (max-width:1000px) {
+    .desktop-tablet-tools { display:none !important; }
+}
+</style>
+
+<script>
+/* TEST #40 — stable popover lifecycle + desktop hover tips for the new tools only. */
+(() => {
+    'use strict';
+    const root=document.querySelector('.desktop-tablet-tools');
+    if(!root) return;
+
+    const menus={
+        brush:document.getElementById('desktopTabletBrushMenu'),
+        eraser:document.getElementById('desktopTabletEraserMenu'),
+        shape:document.getElementById('desktopTabletShapeMenu'),
+        select:document.getElementById('desktopTabletSelectMenu')
+    };
+
+    function showOnly(name){
+        Object.entries(menus).forEach(([key,menu])=>{
+            if(menu) menu.classList.toggle('open', key===name);
+        });
+    }
+
+    /* Run after Test #39's relay. This only controls visibility, so Fill closes
+       the popover while the reserved slot keeps Colors perfectly still. */
+    root.addEventListener('click', e => {
+        const main=e.target.closest('[data-desktop-tablet-tool]');
+        if(main){
+            const name=main.dataset.desktopTabletTool;
+            if(name==='fill') showOnly(null);
+            else showOnly(name);
+            return;
+        }
+        if(e.target.closest('[data-desktop-tablet-brush]')) showOnly('brush');
+        if(e.target.closest('[data-desktop-tablet-eraser]')) showOnly('eraser');
+        if(e.target.closest('[data-desktop-tablet-shape]')) showOnly('shape');
+        if(e.target.closest('[data-desktop-tablet-select],[data-desktop-tablet-select-op]')) showOnly('select');
+        if(e.target.closest('[data-desktop-tablet-select-done]')) showOnly(null);
+    });
+
+    /* Desktop hover tips only. No new phone/tablet hover behavior. */
+    const status=document.getElementById('studioStatus');
+    const wrap=status?.closest('.studio-tip-wrap');
+    if(status && wrap){
+        function tip(target){
+            if(!target?.closest) return null;
+            if(target.closest('[data-desktop-tablet-tool="brush"]')) return 'Brush: choose Pen, Marker, Soft, or Texture, then draw.';
+            if(target.closest('[data-desktop-tablet-tool="eraser"]')) return 'Eraser: choose Hard, Soft, or Texture, then drag over your artwork.';
+            if(target.closest('[data-desktop-tablet-tool="fill"]')) return 'Fill: click an area to fill it with the selected color.';
+            if(target.closest('[data-desktop-tablet-tool="shape"]')) return 'Line / Shape: choose Line, Square, or Circle, then drag to draw it.';
+            if(target.closest('[data-desktop-tablet-tool="select"]')) return 'Select: choose a selection shape, then add, subtract, clear, or finish with Done.';
+            if(target.closest('[data-desktop-tablet-brush="pen"]')) return 'Pen: draw clean freehand lines.';
+            if(target.closest('[data-desktop-tablet-brush="marker"]')) return 'Marker: build broad strokes and layered color.';
+            if(target.closest('[data-desktop-tablet-brush="soft"]')) return 'Soft brush: paint gentle edges and shading.';
+            if(target.closest('[data-desktop-tablet-brush="texture"]')) return 'Texture brush: add grain and character.';
+            if(target.closest('[data-desktop-tablet-eraser="hard"]')) return 'Hard eraser: erase with a clean edge.';
+            if(target.closest('[data-desktop-tablet-eraser="soft"]')) return 'Soft eraser: erase with a softer feathered edge.';
+            if(target.closest('[data-desktop-tablet-eraser="texture"]')) return 'Texture eraser: erase with a textured edge.';
+            if(target.closest('[data-desktop-tablet-shape="line"]')) return 'Line: drag to create a straight line.';
+            if(target.closest('[data-desktop-tablet-shape="rect"]')) return 'Square: drag to create a square or rectangle.';
+            if(target.closest('[data-desktop-tablet-shape="ellipse"]')) return 'Circle: drag to create a circle or oval.';
+            return null;
+        }
+        root.addEventListener('pointerover', e => {
+            if(window.innerWidth<=1000 || e.pointerType!=='mouse') return;
+            const t=tip(e.target);
+            if(!t) return;
+            wrap.classList.remove('tip-hidden');
+            wrap.style.display='flex';
+            status.textContent=t;
+        }, true);
+    }
+
+    /* Start exactly like tablet: Brush active with its submenu visible. */
+    showOnly('brush');
+})();
+</script>
+
 </body>
 
 </html>
