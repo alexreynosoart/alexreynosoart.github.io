@@ -1,199 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <!-- Google Analytics -->
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
+
         gtag('config', 'G-MK5FXXVXNJ');
     </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Videos | Alex Reynoso Art</title>
-    <meta name="description" content="Step into the Alex Reynoso Art theater for animation, character videos, and creative projects.">
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        body { position: relative; min-height: 100vh; background: #111; }
-        body::before {
-            content: ""; position: fixed; inset: 0;
-            background: url("images/videos-background-alex-reynoso-art.jpg") center/cover no-repeat;
-            opacity: .05; pointer-events: none; z-index: 0;
-        }
-        header, main, footer { position: relative; z-index: 1; }
-        .theater-page { max-width: 1200px; margin: 0 auto; padding: 35px 18px 65px; text-align: center; }
-        .theater-page h1 { margin-bottom: 8px; }
-        .theater-intro { margin: 0 auto 26px; max-width: 700px; }
-        .theater {
-            position: relative; isolation: isolate; width: 100%; aspect-ratio: 16 / 9;
-            overflow: hidden; border: 2px solid #5c2424; border-radius: 16px;
-            background: #090909; box-shadow: 0 20px 55px #0009;
-        }
-        .theater-art {
-            position: absolute; inset: 0;
-            background: url("images/videos-background-alex-reynoso-art.jpg") center/cover no-repeat;
-            transition: filter 1.2s ease;
-        }
-        .theater.playing .theater-art { filter: brightness(.17); }
-        .theater.paused .theater-art { filter: brightness(.7); }
-        /* Initial play button is positioned over the screen in the artwork. */
-        .poster-play {
-            position: absolute; z-index: 2; top: 28%; left: 50%; transform: translate(-50%, -50%);
-            display: grid; place-items: center; width: 76px; height: 76px;
-            border: 2px solid white; border-radius: 50%; background: #000b;
-            color: white; font-size: 30px; cursor: pointer;
-        }
-        .poster-play:hover { background: #000e; }
-        .theater.active .poster-play { display: none; }
-        /* This layer is deliberately separate from the background artwork. */
-        .movie-layer {
-            position: absolute; z-index: 3; inset: 2% 3%; display: none;
-            align-items: center; justify-content: center; pointer-events: none;
-        }
-        .theater.active .movie-layer { display: flex; }
-        .movie-frame {
-            position: relative; width: min(100%, 840px); aspect-ratio: var(--movie-ratio, 4 / 3);
-            max-height: 100%; background: #000; pointer-events: auto;
-            box-shadow: 0 10px 35px #000a;
-        }
-        .movie-frame iframe, #youtubePlayer { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-        /* Future transparent PNG decorations can go here. Clicks pass through to YouTube. */
-        .critter-overlay { position: absolute; z-index: 4; inset: 0; pointer-events: none; background: none; background-size: contain; background-position: center; background-repeat: no-repeat; }
-        .theater-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 16px auto 0; }
-        .theater-controls button {
-            background: #292222; border: 1px solid #855050; border-radius: 8px;
-            color: #fff; padding: 9px 14px; cursor: pointer; font: inherit;
-        }
-        .theater-controls button:hover { background: #482b2b; }
-        .theater-controls button[hidden] { display: none; }
-        .theater-status { margin: 12px auto 0; color: #ddd; font-size: .9rem; }
-        .theater-feature { max-width: 760px; margin: 44px auto 0; text-align: left; }
-        .theater-feature h2 { margin-bottom: 10px; }
-        .theater-feature a { color: inherit; text-decoration: underline; }
-        /* Focus mode makes the movie the main attraction without cropping it. */
-        .theater.focus .movie-layer { inset: 1%; }
-        .theater.focus .movie-frame { width: min(100%, 1050px); }
-        @media (max-width: 700px) {
-            .theater-page { padding: 24px 10px 45px; }
-            .theater { border-radius: 8px; }
-            .poster-play { width: 54px; height: 54px; font-size: 23px; }
-            /* Once playing, mobile becomes a video-first stage with theater art behind it. */
-            .theater.active { aspect-ratio: auto; min-height: 0; height: auto; padding: 14px 6px; }
-            .theater.active .theater-art { background-position: center; }
-            .theater.active .movie-layer { position: relative; inset: auto; width: 100%; display: flex; }
-            .theater.active .movie-frame { width: 100%; max-height: none; }
-        }
-        @media (prefers-reduced-motion: reduce) { .theater-art { transition: none; } }
-    </style>
-</head>
-<body>
-<header>
-    <a class="site-logo" href="index.html"><img src="images/AlexReynosoArt-Logo_transparent.png" alt="Alex Reynoso Art"></a>
-    <nav>
-        <a href="index.html">Home</a><a href="about.html">About</a><a href="art.html">Art</a><a href="videos.html">Videos</a><a href="shop.html">Shop</a><a href="commissions.html">Commissions</a>
-    </nav>
-</header>
-<main>
-    <section class="theater-page">
-        <h1>Welcome to the Theater</h1>
-        <p class="theater-intro">Animation, characters, dancing animals and other questionable decisions. Grab some popcorn. 🍿</p>
-        <div class="theater" id="theater" aria-label="Alex Reynoso Art theater">
-            <div class="theater-art" aria-hidden="true"></div>
-            <button class="poster-play" id="playMovie" type="button" aria-label="Play the featured video">▶</button>
-            <div class="movie-layer" id="movieLayer">
-                <div class="movie-frame" id="movieFrame" style="--movie-ratio: 4 / 3;">
-                    <div id="youtubePlayer"></div>
-                </div>
-            </div>
-            <div class="critter-overlay" aria-hidden="true"></div>
-        </div>
-        <div class="theater-controls">
-            <button type="button" id="focusButton" hidden>⛶ Expand movie</button>
-            <button type="button" id="resetButton" hidden>↩ Return to theater</button>
-        </div>
-        <p class="theater-status" id="theaterStatus" aria-live="polite">The lights go down when the movie starts.</p>
-        <section class="theater-feature">
-            <h2>Featured: Hydroponics</h2>
-            <p>A look inside one of my hands-on creative and educational projects. Art, experimentation, and growing something from the ground up.</p>
-            <p><a href="https://www.youtube.com/watch?v=Y9GLrpanUY4" target="_blank" rel="noopener noreferrer">Watch the hydroponics walkthrough on YouTube ↗</a></p>
-        </section>
-    </section>
-</main>
-<footer>
-    <div class="footer-social" aria-label="Alex Reynoso Art on social media">
-        <a href="https://www.instagram.com/alexreynosoart/" target="_blank" rel="noopener noreferrer">Instagram</a>
-        <span aria-hidden="true">·</span>
-        <a href="https://www.tiktok.com/@alexreynosoart" target="_blank" rel="noopener noreferrer">TikTok</a>
-        <span aria-hidden="true">·</span>
-        <a href="https://www.facebook.com/AlexReynosoArt/" target="_blank" rel="noopener noreferrer">Facebook</a>
-        <span aria-hidden="true">·</span>
-        <a href="https://www.youtube.com/@AlexReynosoArt" target="_blank" rel="noopener noreferrer">YouTube</a>
-    </div>
-    <div class="footer-copyright">&copy; 2026 Alex Reynoso Art</div>
-</footer>
-<script src="js/script.js"></script>
-<script>
-    const theater = document.getElementById('theater');
-    const playButton = document.getElementById('playMovie');
-    const focusButton = document.getElementById('focusButton');
-    const resetButton = document.getElementById('resetButton');
-    const status = document.getElementById('theaterStatus');
-    let player = null;
-    let apiReady = false;
-    let playRequested = false;
 
-    function onYouTubeIframeAPIReady() {
-        apiReady = true;
-        if (playRequested) startMovie();
-    }
-    function startMovie() {
-        theater.classList.add('active');
-        focusButton.hidden = false;
-        resetButton.hidden = false;
-        if (player) { player.playVideo(); return; }
-        if (!apiReady) { status.textContent = 'Preparing the projector…'; return; }
-        player = new YT.Player('youtubePlayer', {
-            videoId: 'Y9GLrpanUY4',
-            playerVars: { playsinline: 1, rel: 0, enablejsapi: 1, origin: window.location.origin },
-            events: {
-                onReady: function (event) { if (playRequested) event.target.playVideo(); },
-                onStateChange: function (event) {
-                    if (event.data === YT.PlayerState.PLAYING) {
-                        theater.classList.add('playing'); theater.classList.remove('paused');
-                        status.textContent = 'Enjoy the show. 🍿';
-                    } else if (event.data === YT.PlayerState.PAUSED) {
-                        theater.classList.remove('playing'); theater.classList.add('paused');
-                        status.textContent = 'Intermission. The lights are back on.';
-                    } else if (event.data === YT.PlayerState.ENDED) {
-                        theater.classList.remove('playing'); theater.classList.add('paused');
-                        status.textContent = 'That’s a wrap! Play it again?';
-                    }
-                },
-                onError: function () { status.textContent = 'Video unavailable here. Use the YouTube link below.'; }
+    <title>Videos | Alex Reynoso Art</title>
+
+    <meta name="description"
+          content="Video, animation and character projects by Alex Reynoso Art.">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        /* Videos background */
+
+        body {
+            position: relative;
+            min-height: 100vh;
+            background: #111;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image:
+                url("images/videos-background-alex-reynoso-art.jpg");
+            background-position: center center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        header,
+        main,
+        footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 600px) {
+
+            body::before {
+                background-position: center center;
             }
-        });
-    }
-    playButton.addEventListener('click', function () {
-        playRequested = true;
-        startMovie();
-    });
-    focusButton.addEventListener('click', function () {
-        const focused = theater.classList.toggle('focus');
-        focusButton.textContent = focused ? '⊟ Original size' : '⛶ Expand movie';
-    });
-    resetButton.addEventListener('click', function () {
-        if (player && typeof player.stopVideo === 'function') player.stopVideo();
-        playRequested = false;
-        theater.classList.remove('active', 'playing', 'paused', 'focus');
-        focusButton.hidden = true;
-        resetButton.hidden = true;
-        focusButton.textContent = '⛶ Expand movie';
-        status.textContent = 'The lights are back on. 🍿';
-    });
-    const youtubeAPI = document.createElement('script');
-    youtubeAPI.src = 'https://www.youtube.com/iframe_api';
-    document.head.appendChild(youtubeAPI);
-</script>
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+
+        <a class="site-logo" href="index.html">
+            <img src="images/AlexReynosoArt-Logo_transparent.png"
+                 alt="Alex Reynoso Art">
+        </a>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="art.html">Art</a>
+            <a href="videos.html">Videos</a>
+            <a href="shop.html">Shop</a>
+            <a href="commissions.html">Commissions</a>
+        </nav>
+
+    </header>
+
+    <main>
+
+        <section class="info-page">
+
+            <h1>Videos</h1>
+
+            <p>
+                Animation, characters, dancing animals and other questionable decisions.
+            </p>
+
+            <div class="coming-soon">
+                Coming Soon
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+
+        <div class="footer-social"
+             aria-label="Alex Reynoso Art on social media">
+
+            <a href="https://www.instagram.com/alexreynosoart/"
+               target="_blank"
+               rel="noopener noreferrer">
+                Instagram
+            </a>
+
+            <span aria-hidden="true">·</span>
+
+            <a href="https://www.tiktok.com/@alexreynosoart"
+               target="_blank"
+               rel="noopener noreferrer">
+                TikTok
+            </a>
+
+            <span aria-hidden="true">·</span>
+
+            <a href="https://www.facebook.com/AlexReynosoArt/"
+               target="_blank"
+               rel="noopener noreferrer">
+                Facebook
+            </a>
+
+            <span aria-hidden="true">·</span>
+
+            <a href="https://www.youtube.com/@AlexReynosoArt"
+               target="_blank"
+               rel="noopener noreferrer">
+                YouTube
+            </a>
+
+        </div>
+
+        <div class="footer-copyright">
+            &copy; 2026 Alex Reynoso Art
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+    
 </body>
+
 </html>
