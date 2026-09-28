@@ -15,14 +15,16 @@
     <meta name="description" content="Animation, characters, dancing animals and creative videos by Alex Reynoso Art.">
     <link rel="stylesheet" href="css/style.css">
     <style>
-        body { position: relative; min-height: 100vh; background: #111; }
+        body { position: relative; min-height: 100vh; background: #111; overflow-x: clip; }
         body::before {
             content: ""; position: fixed; inset: 0;
             background: url("images/videos-background-alex-reynoso-art.jpg") center / cover no-repeat;
             opacity: .05; pointer-events: none; z-index: 0;
         }
         header, main, footer { position: relative; z-index: 1; }
-        .theater-page { width: 100%; max-width: 1200px; margin: 0 auto; padding: 35px 12px 65px; text-align: center; }
+        .theater-page { box-sizing: border-box; width: 100%; max-width: 1200px; margin: 0 auto; padding: 35px 12px 65px; text-align: center; }
+        /* Clip the zoomed theater, not the entire page, to prevent sideways scrolling. */
+        .theater-viewport { width: 100%; overflow: hidden; }
         .theater-page h1 { margin-bottom: 8px; }
         .theater-intro { max-width: 700px; margin: 0 auto 24px; }
         /* One square artwork file for desktop, tablet and phone. */
@@ -32,7 +34,7 @@
         }
         /* Video extends beneath the feathered border. Percentages track the square artwork. */
         .theater-video {
-            position: absolute; left: 11.5%; top: 7%; width: 77%; height: 78%;
+            position: absolute; left: 12.5%; top: 7%; width: 75%; height: 78%;
             z-index: 1; background: #000; overflow: hidden;
         }
         .theater-video iframe { display: block; width: 100%; height: 100%; border: 0; }
@@ -78,9 +80,11 @@
     <section class="theater-page">
         <h1>Welcome to the Theater</h1>
         <p class="theater-intro">Animation, characters, dancing animals and other questionable decisions. Grab some popcorn. 🍿</p>
+        <div class="theater-viewport">
         <div class="theater-stage" id="theater" aria-label="Alex Reynoso Art theater featuring a hydroponics video">
             <div class="theater-video"><div id="youtubePlayer"></div></div>
             <img class="theater-frame" src="images/videos-theater-frame.png" alt="" aria-hidden="true" width="1254" height="1254" fetchpriority="high">
+        </div>
         </div>
         <p class="theater-status" id="theaterStatus" aria-live="polite">The lights go down when the movie starts.</p>
         <section class="theater-feature">
