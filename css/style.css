@@ -143,7 +143,7 @@ nav a:hover {
 }
 
 .home-door:hover .home-door-number {
-    color: #f4c430;
+    color: #f5a623;
 }
 
 .home-door-title {
@@ -1324,12 +1324,13 @@ body.mia-page-body header nav a:hover {
 
 :root {
     --alex-yellow: #f4c430;
+    --alex-amber: #f5a623;
 }
 
 /* Three doors: keep yellow accents without occupying ::before or ::after.
    index.html uses those pseudo-elements for its artwork and dark overlay. */
 .home-door-number {
-    color: var(--alex-yellow);
+    color: var(--alex-amber);
 }
 
 .home-door {
