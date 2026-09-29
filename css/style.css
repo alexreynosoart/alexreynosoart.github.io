@@ -1363,20 +1363,23 @@ body.mia-page-body header nav a:hover {
    HOME SPACING + ART PAGE HEADING
    ======================================== */
 
-/* Shorten the empty space around HELLO without shrinking the word. */
+/* Balanced homepage spacing. Header remains unchanged. */
 .hero {
-    min-height: 0;
-    padding-top: 12px;
-    padding-bottom: 26px;
+    min-height: 32vh;
+    padding: 36px 20px 48px;
 }
-.hello {
-    margin-bottom: 24px;
-}
-.hello-translation {
-    margin-top: 14px;
-}
-.hero-tagline {
-    margin-top: 12px;
+.hello { margin-bottom: 36px; }
+.hello-translation { margin-top: 18px; }
+.hero-tagline { margin-top: 22px; }
+
+/* The same small signature underline used on About. */
+.hello-main::after {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 3px;
+    margin: 20px auto 0;
+    background: var(--alex-yellow, #f4c430);
 }
 
 /* The About page's short yellow underline, now on the Art page too. */
@@ -1391,17 +1394,12 @@ body.mia-page-body header nav a:hover {
 
 @media (max-width: 750px) {
     .hero {
-        min-height: 0;
-        padding-top: 8px;
-        padding-bottom: 20px;
+        min-height: 30vh;
+        padding: 32px 20px 42px;
     }
-    .hello {
-        margin-bottom: 18px;
-    }
-    .hello-translation {
-        margin-top: 12px;
-    }
-    .art-intro h1::after {
-        margin-top: 16px;
-    }
+    .hello { margin-bottom: 30px; }
+    .hello-translation { margin-top: 16px; }
+    .hero-tagline { margin-top: 18px; }
+    .hello-main::after { margin-top: 18px; }
+    .art-intro h1::after { margin-top: 16px; }
 }
