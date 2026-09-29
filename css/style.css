@@ -1472,3 +1472,8 @@ body:has(.hero) .hello-main::after {
     .theater-page { padding-top: 45px; }
     .shop { margin-top: 45px; }
 }
+
+/* Theater seat 33: antique gold caption, without changing other page accents. */
+.theater-page .theater-status {
+    color: #bd894c;
+}
