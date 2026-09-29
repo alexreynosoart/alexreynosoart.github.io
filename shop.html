@@ -16,10 +16,10 @@ body{position:relative;min-height:100vh;background:#111}
 body::before{content:"";position:fixed;inset:0;background:url("images/shop-background-alex-reynoso-art.jpg") center/cover no-repeat;opacity:.05;pointer-events:none;z-index:0}
 header,main,footer{position:relative;z-index:1}
 .shop{width:min(1180px,calc(100% - 40px));margin:0 auto}
-.shop-header{padding:70px 0 48px;max-width:760px}
+.shop-header{padding:60px 0 48px;max-width:760px}
 .shop-header h1,.collection-heading h2{margin-bottom:10px}
 .shop-section{margin-bottom:90px}
-.collection-heading{margin-bottom:28px}.collection-heading p,.shop-header p{max-width:720px}
+.collection-heading{margin-bottom:28px;padding-top:22px;border-top:2px solid #f4c430}.collection-heading p,.shop-header p{max-width:720px}
 .shop-product-grid,.world-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
 
 .shop-product-card,.world-card{border:1px solid rgba(255,255,255,.13);background:rgba(17,17,17,.72);overflow:hidden}
@@ -56,7 +56,7 @@ header,main,footer{position:relative;z-index:1}
 .shop-future-status{display:inline-block;margin-top:16px;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.48)}
 
 @media(max-width:900px){.shop-product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:700px){.shop{width:min(100% - 32px,1180px)}.shop-header{padding:48px 0 38px}.shop-section{margin-bottom:70px}.shop-product-grid,.world-grid{grid-template-columns:1fr}.shop-printful{padding:28px 20px}.world-image{max-height:720px}.shop-future{padding:26px 22px}}
+@media(max-width:700px){.shop{width:min(100% - 32px,1180px)}.shop-header{padding:45px 0 38px}.shop-section{margin-bottom:70px}.shop-product-grid,.world-grid{grid-template-columns:1fr}.shop-printful{padding:28px 20px}.world-image{max-height:720px}.shop-future{padding:26px 22px}}
 @media(max-width:600px){body::before{background-position:center}}
 @media(prefers-reduced-motion:reduce){.shop-button,.shop-product-card{transition:none}}
 </style>
