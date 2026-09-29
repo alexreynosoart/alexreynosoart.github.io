@@ -1447,3 +1447,22 @@ body:has(.hero) .hello-main::after {
 }
 .shop-header h1 { margin-bottom: 0; }
 .shop-header p { line-height: 1.6; }
+
+
+/* ========================================
+   MATCHED PAGE TITLE TOP ALIGNMENT
+   Art is the reference: 60px desktop, 45px phone.
+   Only title positions change; title font sizes stay as they are.
+   ======================================== */
+@media (min-width: 751px) {
+    body:has(.hero) > main { justify-content: flex-start; }
+    body:has(.hero) .hero { padding-top: 30px; }
+    .theater-page { padding-top: 60px; }
+    .shop { margin-top: 60px; }
+}
+@media (max-width: 750px) {
+    body:has(.hero) > main { justify-content: flex-start; }
+    body:has(.hero) .hero { padding-top: 20px; }
+    .theater-page { padding-top: 45px; }
+    .shop { margin-top: 45px; }
+}
