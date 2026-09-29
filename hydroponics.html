@@ -28,6 +28,20 @@
         .hydro-links a { display: inline-block; border: 1px solid currentColor; border-radius: 100px; padding: 10px 17px; text-decoration: none; }
         .hydro-links a:hover { background: rgba(120,170,108,.14); }
         @media (max-width: 600px) { .hydro-page { padding: 25px 16px 65px; } .hydro-video { margin-top: 22px; } }
+
+        /* A small collection preview, not a duplicate of the Shop page. */
+        .hydro-merch { margin: 54px 0 48px; padding: 26px; border: 1px solid rgba(198,216,58,.4); border-radius: 16px; background: rgba(15,20,14,.84); color: #fff; }
+        .hydro-merch .hydro-kicker { color: #c6d83a; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; font-size: .78rem; }
+        .hydro-merch h2 { margin: 6px 0 10px; }
+        .hydro-merch > p:not(.hydro-kicker) { color: #e1e1df; }
+        .hydro-merch-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 22px 0; }
+        .hydro-merch-card { display: block; color: inherit; text-decoration: none; background: #242424; border: 1px solid #414141; border-radius: 10px; overflow: hidden; transition: transform .18s, border-color .18s; }
+        .hydro-merch-card:hover, .hydro-merch-card:focus-visible { transform: translateY(-3px); border-color: #c6d83a; }
+        .hydro-merch-card img { display: block; width: 100%; aspect-ratio: 1; object-fit: contain; background: #fff; }
+        .hydro-merch-card span { display: block; padding: 12px; font-weight: 700; line-height: 1.35; }
+        .hydro-merch-all { display: inline-block; border-radius: 100px; padding: 12px 20px; background: #c6d83a; color: #17200d; font-weight: 800; text-decoration: none; }
+        .hydro-merch-all:hover, .hydro-merch-all:focus-visible { background: #e0ed79; }
+        @media (max-width: 600px) { .hydro-merch { padding: 18px; } .hydro-merch-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } .hydro-merch-card span { font-size: .88rem; } }
     </style>
 <link href="css/hydroponics-gallery.css" rel="stylesheet"/></head>
 <body>
@@ -105,6 +119,18 @@ We got baby tomatoes, cucumbers, eggplants, chili peppers, lettuce, spinach and 
 We got baby tomatoes, cucumbers, eggplants, chili peppers, lettuce, spina" loading="lazy" src="images/hydroponics/hydroponics-balcony-52.webp"/></button><figcaption>Seeds went through the germination stage &amp; were transferred onto the hydroponics system, Thurs 13, 2013. 
 
 We got baby tomato…</figcaption></figure><figure class="hydro-photo"><button aria-label="Enlarge photo: Cucumbers" class="hydro-photo-button" data-caption="Cucumbers" data-gallery="balcony" data-src="images/hydroponics/hydroponics-balcony-53.webp" type="button"><img alt="Cucumbers" loading="lazy" src="images/hydroponics/hydroponics-balcony-53.webp"/></button><figcaption>Cucumbers</figcaption></figure><figure class="hydro-photo"><button aria-label="Enlarge photo: small tomatoes" class="hydro-photo-button" data-caption="small tomatoes" data-gallery="balcony" data-src="images/hydroponics/hydroponics-balcony-54.webp" type="button"><img alt="small tomatoes" loading="lazy" src="images/hydroponics/hydroponics-balcony-54.webp"/></button><figcaption>small tomatoes</figcaption></figure><figure class="hydro-photo"><button aria-label="Enlarge photo: lettuce" class="hydro-photo-button" data-caption="lettuce" data-gallery="balcony" data-src="images/hydroponics/hydroponics-balcony-55.webp" type="button"><img alt="lettuce" loading="lazy" src="images/hydroponics/hydroponics-balcony-55.webp"/></button><figcaption>lettuce</figcaption></figure><figure class="hydro-photo"><button aria-label="Enlarge photo: spinach" class="hydro-photo-button" data-caption="spinach" data-gallery="balcony" data-src="images/hydroponics/hydroponics-balcony-56.webp" type="button"><img alt="spinach" loading="lazy" src="images/hydroponics/hydroponics-balcony-56.webp"/></button><figcaption>spinach</figcaption></figure><figure class="hydro-photo"><button aria-label="Enlarge photo: chili peppers" class="hydro-photo-button" data-caption="chili peppers" data-gallery="balcony" data-src="images/hydroponics/hydroponics-balcony-57.webp" type="button"><img alt="chili peppers" loading="lazy" src="images/hydroponics/hydroponics-balcony-57.webp"/></button><figcaption>chili peppers</figcaption></figure></div><p class="hydro-swipe-tip">← Swipe to explore 6 photos · Tap to enlarge →</p></section></div>
+
+<section class="hydro-merch" aria-labelledby="hydro-merch-title">
+  <p class="hydro-kicker">Alex Reynoso Art · Hydroponics Collection</p>
+  <h2 id="hydro-merch-title">From the Garden to the Wardrobe 🌱</h2>
+  <p>Turns out growing plants without soil can grow a few ideas, too. Meet the shirts inspired by my Bronx hydroponics experiments.</p>
+  <div class="hydro-merch-grid">
+    <a class="hydro-merch-card" href="https://alexreynosoart.printful.me/product/ph-me-later-hydroponics-t-shirt" target="_blank" rel="noopener noreferrer"><img src="images/shop/hydroponics-ph-me-later.webp" alt="Yellow pH Me Later hydroponics T-shirt" loading="lazy"><span>pH Me Later ↗</span></a>
+    <a class="hydro-merch-card" href="https://alexreynosoart.printful.me/product/dirt-is-overrated-classic-hydroponics-t-shirt" target="_blank" rel="noopener noreferrer"><img src="images/shop/hydroponics-dirt-is-overrated-classic.webp" alt="Green Dirt Is Overrated Classic hydroponics T-shirt" loading="lazy"><span>Dirt Is Overrated | Classic ↗</span></a>
+    <a class="hydro-merch-card" href="https://alexreynosoart.printful.me/product/i-have-a-growing-problem-hydroponics-t-shirt" target="_blank" rel="noopener noreferrer"><img src="images/shop/hydroponics-growing-problem.webp" alt="Blue I Have a Growing Problem hydroponics T-shirt" loading="lazy"><span>I Have a Growing Problem ↗</span></a>
+  </div>
+  <a class="hydro-merch-all" href="shop.html">See all six designs →</a>
+</section>
 <div class="hydro-video-intro"><h2>Watch the original walkthrough</h2><p>See the growing system in action in the original video.</p></div><div class="hydro-video">
 <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/Y9GLrpanUY4" title="Hydroponics: Growing Plants Without Soil"></iframe>
 </div>
