@@ -1419,7 +1419,8 @@ body:has(.hero) .hello-main::after {
     width: 62px;
     height: 3px;
     margin: 18px auto 35px;
-    background: var(--alex-yellow, #f4c430);
+    background: var(--alex-amber, #f5a623);
+    opacity: 0.82;
 }
 
 /* Keep the existing phone-friendly title size. Match About's gap below the rule. */
@@ -1430,9 +1431,13 @@ body:has(.hero) .hello-main::after {
 
 /* The single featured project uses the same yellow category divider. */
 .theater-page .theater-feature {
-    border-top: 2px solid var(--alex-yellow, #f4c430);
+    border-top: 2px solid rgba(245, 166, 35, 0.72);
     padding-top: 22px;
 }
+.theater-page .theater-feature h2 {
+    color: var(--alex-amber, #f5a623);
+}
+
 @media (max-width: 700px) {
     .theater-page .theater-feature { padding-top: 22px; }
 }
