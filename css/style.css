@@ -1337,29 +1337,19 @@ body.mia-page-body header nav a:hover {
     background: var(--alex-yellow);
 }
 
-/* Three doors: quiet yellow section numbers, brighter on hover. */
+/* Three doors: keep yellow accents without occupying ::before or ::after.
+   index.html uses those pseudo-elements for its artwork and dark overlay. */
 .home-door-number {
     color: var(--alex-yellow);
 }
 
 .home-door {
-    position: relative;
+    border-top: 2px solid rgba(244, 196, 48, 0.75);
 }
 
-.home-door::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 46px;
-    height: 2px;
-    background: var(--alex-yellow);
-    transition: width 200ms ease;
-}
-
-.home-door:hover::before,
-.home-door:focus-visible::before {
-    width: 100%;
+.home-door:hover,
+.home-door:focus-visible {
+    border-top-color: var(--alex-yellow);
 }
 
 .home-door:focus-visible {
@@ -1367,6 +1357,3 @@ body.mia-page-body header nav a:hover {
     outline-offset: 3px;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .home-door::before { transition: none; }
-}
