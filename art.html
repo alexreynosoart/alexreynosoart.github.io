@@ -77,6 +77,33 @@
         }
 
 
+
+        /* =========================
+           ART PAGE HEADING
+           Matches the About page's title and yellow underline.
+           Scoped to Art so other pages stay unchanged.
+        ========================== */
+
+        .art-intro h1 {
+            margin: 0 0 18px;
+            font-size: clamp(40px, 7vw, 70px);
+            line-height: 1.1;
+        }
+
+        .art-title-rule {
+            display: block;
+            width: 62px;
+            height: 3px;
+            margin: 0 auto 35px;
+            background: #f4c430;
+        }
+
+        /* Give the gallery a subtle section boundary. */
+        .art-gallery {
+            padding-top: 24px;
+            border-top: 1px solid #373326;
+        }
+
         /* =========================
            MIA'S KIDS CORNER
         ========================== */
@@ -370,6 +397,8 @@
             <h1>
                 Art
             </h1>
+
+            <span class="art-title-rule" aria-hidden="true"></span>
 
             <p>
                 A selection of paintings, illustrations, mixed media
