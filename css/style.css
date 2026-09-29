@@ -1456,13 +1456,13 @@ body:has(.hero) .hello-main::after {
    ======================================== */
 @media (min-width: 751px) {
     body:has(.hero) > main { justify-content: flex-start; }
-    body:has(.hero) .hero { padding-top: 30px; }
+    body:has(.hero) .hero { padding-top: 60px; }
     .theater-page { padding-top: 60px; }
     .shop { margin-top: 60px; }
 }
 @media (max-width: 750px) {
     body:has(.hero) > main { justify-content: flex-start; }
-    body:has(.hero) .hero { padding-top: 20px; }
+    body:has(.hero) .hero { padding-top: 45px; }
     .theater-page { padding-top: 45px; }
     .shop { margin-top: 45px; }
 }
