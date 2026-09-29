@@ -1357,3 +1357,51 @@ body.mia-page-body header nav a:hover {
     outline-offset: 3px;
 }
 
+
+
+/* ========================================
+   HOME SPACING + ART PAGE HEADING
+   ======================================== */
+
+/* Shorten the empty space around HELLO without shrinking the word. */
+.hero {
+    min-height: 0;
+    padding-top: 12px;
+    padding-bottom: 26px;
+}
+.hello {
+    margin-bottom: 24px;
+}
+.hello-translation {
+    margin-top: 14px;
+}
+.hero-tagline {
+    margin-top: 12px;
+}
+
+/* The About page's short yellow underline, now on the Art page too. */
+.art-intro h1::after {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 3px;
+    margin: 20px auto 0;
+    background: var(--alex-yellow);
+}
+
+@media (max-width: 750px) {
+    .hero {
+        min-height: 0;
+        padding-top: 8px;
+        padding-bottom: 20px;
+    }
+    .hello {
+        margin-bottom: 18px;
+    }
+    .hello-translation {
+        margin-top: 12px;
+    }
+    .art-intro h1::after {
+        margin-top: 16px;
+    }
+}
