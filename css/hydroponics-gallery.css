@@ -33,3 +33,21 @@
 .hydro-lightbox-prev { left:16px; top:50%; transform:translateY(-50%); }
 .hydro-lightbox-next { right:16px; top:50%; transform:translateY(-50%); }
 @media(max-width:600px) { .hydro-photo { flex-basis:80%; } .hydro-photo img { height:220px; } .hydro-lightbox { padding:65px 12px 85px; } .hydro-lightbox-content img { max-height:calc(100dvh - 255px); max-width:95vw; } .hydro-lightbox-prev,.hydro-lightbox-next { top:auto; bottom:18px; transform:none; } .hydro-lightbox-prev { left:16px; } .hydro-lightbox-next { right:16px; } .hydro-lightbox-caption { max-height:95px; } }
+
+/* Hydroponics navigation buttons: match the gallery's yellow-green palette. */
+.hydro-page .hydro-links a,
+.hydro-page .hydro-links a:visited {
+    color: #c6d83a;
+    border-color: #c6d83a;
+    background: transparent;
+}
+.hydro-page .hydro-links a:hover,
+.hydro-page .hydro-links a:focus-visible {
+    color: #111;
+    background: #c6d83a;
+    border-color: #c6d83a;
+}
+.hydro-page .hydro-links a:focus-visible {
+    outline: 2px solid #c6d83a;
+    outline-offset: 3px;
+}
