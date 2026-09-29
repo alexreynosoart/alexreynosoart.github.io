@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ"></script>
@@ -8,72 +7,81 @@
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-
         gtag('config', 'G-MK5FXXVXNJ');
     </script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>About | Alex Reynoso Art</title>
-
-    <meta name="description"
-          content="About Alex Reynoso Art, visual artist, animator and creator working across art, video, characters and digital media.">
-
+    <meta name="description" content="Meet Alex Reynoso, a visual artist working across painting, illustration, animation, video, digital media and creative experiments.">
     <link rel="stylesheet" href="css/style.css">
-
     <style>
-
-        /* About background */
-
-        body {
-            position: relative;
-            min-height: 100vh;
-            background: #111;
-        }
-
+        /* About page only. Shared site styling stays in css/style.css. */
+        body { position: relative; min-height: 100vh; background: #111; }
         body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background-image:
-                url("images/about-background-alex-reynoso-art.jpg");
-            background-position: center center;
-            background-size: cover;
-            background-repeat: no-repeat;
-            opacity: 0.05;
-            pointer-events: none;
-            z-index: 0;
+            content: ""; position: fixed; inset: 0;
+            background: url("images/about-background-alex-reynoso-art.jpg") center center / cover no-repeat;
+            opacity: .05; pointer-events: none; z-index: 0;
         }
-
-        header,
-        main,
-        footer {
-            position: relative;
-            z-index: 1;
+        header, main, footer { position: relative; z-index: 1; }
+        .about { margin-bottom: 65px; }
+        .about h1 { margin-bottom: 18px; }
+        .about-title-rule {
+            display: block; width: 62px; height: 3px; margin: 0 auto 35px;
+            background: #f4c430;
         }
-
-        @media (max-width: 600px) {
-
-            body::before {
-                background-position: center center;
-            }
-
+        .about-explore {
+            width: min(1000px, calc(100% - 48px));
+            margin: 0 auto 100px;
+            padding-top: 42px;
+            border-top: 1px solid #373326;
         }
-
+        .about-section-label {
+            margin: 0 0 12px; color: #f4c430; font-size: 12px;
+            font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+        }
+        .about-explore h2 {
+            margin: 0 0 16px; font-size: clamp(30px, 5vw, 46px); line-height: 1.12;
+        }
+        .about-explore-intro {
+            max-width: 710px; margin: 0 0 30px; color: #bbb;
+            font-size: 17px; line-height: 1.7;
+        }
+        .about-feature-grid {
+            display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px;
+        }
+        .about-feature {
+            display: flex; flex-direction: column; align-items: flex-start;
+            min-height: 225px; padding: 28px;
+            background: rgba(19,19,19,.93); border: 1px solid #333;
+        }
+        .about-feature h3 { margin: 0 0 12px; font-size: 23px; line-height: 1.2; }
+        .about-feature p { margin: 0 0 25px; color: #aaa; line-height: 1.65; }
+        .about-feature a {
+            margin-top: auto; color: #f4c430; font-weight: 700;
+            font-size: 14px; text-decoration: none; border-bottom: 1px solid currentColor;
+            padding-bottom: 4px;
+        }
+        .about-feature a:hover, .about-feature a:focus-visible { color: #fff; }
+        .about-feature-plants { border-top: 3px solid #c6d83a; }
+        .about-feature-plants .about-section-label, .about-feature-plants a { color: #c6d83a; }
+        .about-feature-plants a:hover, .about-feature-plants a:focus-visible { color: #fff; }
+        .about-feature-future { border-top: 3px solid #f4c430; }
+        .about-feature-future .about-feature-note {
+            margin-top: auto; color: #f4c430; font-size: 12px;
+            font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+        }
+        @media (max-width: 700px) {
+            .about-feature-grid { grid-template-columns: 1fr; }
+            .about-explore { width: min(100% - 40px, 1000px); margin-bottom: 75px; }
+            .about-feature { min-height: 190px; padding: 23px; }
+        }
     </style>
-
 </head>
-
 <body>
-
     <header>
-
         <a class="site-logo" href="index.html">
-            <img src="images/AlexReynosoArt-Logo_transparent.png"
-                 alt="Alex Reynoso Art">
+            <img src="images/AlexReynosoArt-Logo_transparent.png" alt="Alex Reynoso Art">
         </a>
-
         <nav>
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
@@ -82,90 +90,62 @@
             <a href="shop.html">Shop</a>
             <a href="commissions.html">Commissions</a>
         </nav>
-
     </header>
-
     <main>
-
         <section class="about">
-
-            <img
-                src="images/alexreynosoart-profile-400x400.jpg"
-                alt="Alex Reynoso"
-                class="profile"
-            >
-
+            <img src="images/alexreynosoart-profile-400x400.jpg" alt="Alex Reynoso" class="profile">
             <h1>About Alex</h1>
-
+            <span class="about-title-rule" aria-hidden="true"></span>
             <div class="about-text">
-
-                <p>
-                    I'm Alex Reynoso, a visual artist working across illustration,
-                    painting, animation, video and digital media.
-                </p>
-
-                <p>
-                    I've spent years moving between traditional art and new technology,
-                    always looking for different ways to bring an idea to life.
-                    Sometimes that means a painting. Sometimes it's animation.
-                    Sometimes it's a dancing animal that probably shouldn't be dancing.
-                </p>
-
-                <p>
-                    Alex Reynoso Art is where all of those worlds meet.
-                </p>
-
+                <p>I'm Alex Reynoso, a visual artist working across illustration,
+                   painting, animation, video and digital media.</p>
+                <p>I've spent years moving between traditional art and new technology,
+                   always looking for different ways to bring an idea to life.
+                   Sometimes that means a painting. Sometimes it's animation.
+                   Sometimes it's a dancing animal that probably shouldn't be dancing.</p>
+                <p>Alex Reynoso Art is where all of those worlds meet.</p>
             </div>
-
         </section>
 
+        <section class="about-explore" aria-labelledby="beyond-title">
+            <p class="about-section-label">Beyond the Canvas</p>
+            <h2 id="beyond-title">Curiosity takes many forms.</h2>
+            <p class="about-explore-intro">
+                Some ideas become paintings. Others turn into videos, experiments
+                or projects that take an entirely different direction.
+                Here's a little more of the story.
+            </p>
+            <div class="about-feature-grid">
+                <article class="about-feature about-feature-plants">
+                    <p class="about-section-label">Creative Experiment / Hydroponics</p>
+                    <h3>A little water, a little science and a whole lot of green.</h3>
+                    <p>Explore an earlier hands-on hydroponic growing project,
+                       including a look at how drip systems work.</p>
+                    <a href="hydroponics.html">Explore Hydroponics &rarr;</a>
+                </article>
+                <article class="about-feature about-feature-future">
+                    <p class="about-section-label">Creative History</p>
+                    <h3>There's more in the archive.</h3>
+                    <p>Artwork, exhibitions, collaborations, community projects
+                       and experiments from across the years. A searchable archive
+                       is in the works.</p>
+                    <span class="about-feature-note">Coming soon</span>
+                </article>
+            </div>
+        </section>
     </main>
-
     <footer>
-
-        <div class="footer-social"
-             aria-label="Alex Reynoso Art on social media">
-
-            <a href="https://www.instagram.com/alexreynosoart/"
-               target="_blank"
-               rel="noopener noreferrer">
-                Instagram
-            </a>
-
+        <div class="footer-social" aria-label="Alex Reynoso Art on social media">
+            <a href="https://www.instagram.com/alexreynosoart/" target="_blank" rel="noopener noreferrer">Instagram</a>
             <span aria-hidden="true">·</span>
-
-            <a href="https://www.tiktok.com/@alexreynosoart"
-               target="_blank"
-               rel="noopener noreferrer">
-                TikTok
-            </a>
-
+            <a href="https://www.tiktok.com/@alexreynosoart" target="_blank" rel="noopener noreferrer">TikTok</a>
             <span aria-hidden="true">·</span>
-
-            <a href="https://www.facebook.com/AlexReynosoArt/"
-               target="_blank"
-               rel="noopener noreferrer">
-                Facebook
-            </a>
-
+            <a href="https://www.facebook.com/AlexReynosoArt/" target="_blank" rel="noopener noreferrer">Facebook</a>
             <span aria-hidden="true">·</span>
-
-            <a href="https://www.youtube.com/@AlexReynosoArt"
-               target="_blank"
-               rel="noopener noreferrer">
-                YouTube
-            </a>
-
+            <a href="https://www.youtube.com/@AlexReynosoArt" target="_blank" rel="noopener noreferrer">YouTube</a>
         </div>
-
-        <div class="footer-copyright">
-            &copy; 2026 Alex Reynoso Art
-        </div>
-
+        <div class="footer-copyright">&copy; 2026 Alex Reynoso Art</div>
     </footer>
-
     <script src="js/script.js"></script>
-    
 </body>
-
 </html>
