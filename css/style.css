@@ -1315,3 +1315,58 @@ body.mia-page-body header nav a:hover {
     }
 }
 
+
+
+/* ========================================
+   HOME PAGE | SIGNATURE YELLOW ACCENTS
+   Scoped to Home so other pages remain unchanged.
+   ======================================== */
+
+:root {
+    --alex-yellow: #f4c430;
+}
+
+/* Keep the HELLO and primary heading white. Add a little signature
+   yellow underneath the main title to separate the introduction. */
+.hero-title::after {
+    content: "";
+    display: block;
+    width: 72px;
+    height: 3px;
+    margin: 22px auto 0;
+    background: var(--alex-yellow);
+}
+
+/* Three doors: quiet yellow section numbers, brighter on hover. */
+.home-door-number {
+    color: var(--alex-yellow);
+}
+
+.home-door {
+    position: relative;
+}
+
+.home-door::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 46px;
+    height: 2px;
+    background: var(--alex-yellow);
+    transition: width 200ms ease;
+}
+
+.home-door:hover::before,
+.home-door:focus-visible::before {
+    width: 100%;
+}
+
+.home-door:focus-visible {
+    outline: 2px solid var(--alex-yellow);
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .home-door::before { transition: none; }
+}
