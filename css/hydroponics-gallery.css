@@ -1,0 +1,35 @@
+/* Hydroponics-only styles. Does not change the shared website CSS. */
+.hydro-page { --hydro-accent:#c6d83a; }
+.hydro-page .hydro-hero { margin:28px 0 50px; }
+.hydro-hero img { display:block; width:100%; height:auto; max-height:760px; object-fit:contain; background:#0b0b0b; border:1px solid #343b1a; border-radius:12px; }
+.hydro-hero figcaption { margin-top:10px; color:#abb77c; font-size:.9rem; }
+.hydro-story { margin:0 0 65px; }
+.hydro-story > h2,.hydro-project-intro h2 { margin-top:40px; }
+.hydro-story > p,.hydro-project-intro p { max-width:760px; color:#ccc; }
+.hydro-kicker { color:#c6d83a!important; font-size:.8rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; }
+.hydro-project-intro { border-top:1px solid rgba(198,216,58,.55); margin:65px 0 24px; padding-top:28px; }
+.hydro-chapter { margin:32px 0 48px; }
+.hydro-chapter h3 { font-size:clamp(1.2rem,3vw,1.6rem); margin:0 0 12px; }
+.hydro-chapter > p:not(.hydro-swipe-tip) { max-width:740px; color:#ccc; }
+.hydro-strip { display:flex; gap:15px; overflow-x:auto; scroll-snap-type:x mandatory; overscroll-behavior-inline:contain; -webkit-overflow-scrolling:touch; padding:8px 2px 18px; scrollbar-color:#c6d83a #242424; }
+.hydro-photo { margin:0; flex:0 0 clamp(205px,34%,310px); scroll-snap-align:start; min-width:0; }
+.hydro-photo-button { display:block; width:100%; padding:0; border:1px solid #394022; border-radius:10px; background:#151515; cursor:zoom-in; overflow:hidden; }
+.hydro-photo-button:focus-visible { outline:3px solid #c6d83a; outline-offset:3px; }
+.hydro-photo img { display:block; width:100%; height:210px; object-fit:cover; transition:transform .2s ease; }
+.hydro-photo-button:hover img { transform:scale(1.025); }
+.hydro-photo figcaption { color:#aaa; font-size:.84rem; line-height:1.5; margin:10px 2px 0; }
+.hydro-swipe-tip { color:#c6d83a; font-size:.82rem; margin-top:0!important; }
+.hydro-video-intro { border-top:1px solid rgba(198,216,58,.55); padding-top:22px; }
+.hydro-education-heading { border-top:1px solid rgba(198,216,58,.55); margin-top:50px; padding-top:20px; }
+.hydro-lightbox { position:fixed; inset:0; z-index:10000; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.96); padding:70px 78px 35px; }
+.hydro-lightbox.open { display:flex; }
+.hydro-lightbox-content { display:flex; flex-direction:column; align-items:center; justify-content:center; max-width:100%; max-height:100%; min-height:0; }
+.hydro-lightbox-content img { max-width:min(100%,1200px); max-height:calc(100dvh - 200px); object-fit:contain; border-radius:6px; }
+.hydro-lightbox-caption { color:#eee; text-align:center; max-width:760px; line-height:1.5; margin:15px 0 4px; max-height:80px; overflow:auto; }
+.hydro-lightbox-counter { color:#c6d83a; font-size:.85rem; margin:0; }
+.hydro-lightbox button { position:fixed; border:1px solid #6d7542; border-radius:50%; background:#1e2414; color:#fff; cursor:pointer; width:48px; height:48px; font-size:2rem; }
+.hydro-lightbox button:hover,.hydro-lightbox button:focus-visible { background:#50601a; outline:2px solid #c6d83a; }
+.hydro-lightbox-close { right:20px; top:18px; }
+.hydro-lightbox-prev { left:16px; top:50%; transform:translateY(-50%); }
+.hydro-lightbox-next { right:16px; top:50%; transform:translateY(-50%); }
+@media(max-width:600px) { .hydro-photo { flex-basis:80%; } .hydro-photo img { height:220px; } .hydro-lightbox { padding:65px 12px 85px; } .hydro-lightbox-content img { max-height:calc(100dvh - 255px); max-width:95vw; } .hydro-lightbox-prev,.hydro-lightbox-next { top:auto; bottom:18px; transform:none; } .hydro-lightbox-prev { left:16px; } .hydro-lightbox-next { right:16px; } .hydro-lightbox-caption { max-height:95px; } }
