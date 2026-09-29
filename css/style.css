@@ -1408,3 +1408,15 @@ body:has(.hero) .hello-main::after {
     body:has(.hero) .hello-main::after { margin-top: 18px; }
     .art-intro h1::after { margin-top: 16px; }
 }
+
+
+/* ---------- VIDEOS | SINGLE SIGNATURE YELLOW RULE ---------- */
+/* Match Art's underline without changing the Theater heading size. */
+.theater-page h1::after {
+    content: "";
+    display: block;
+    width: 62px;
+    height: 3px;
+    margin: 18px auto 0;
+    background: var(--alex-yellow, #f4c430);
+}
