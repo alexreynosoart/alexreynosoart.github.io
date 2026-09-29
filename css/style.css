@@ -1417,6 +1417,33 @@ body:has(.hero) .hello-main::after {
     display: block;
     width: 62px;
     height: 3px;
-    margin: 18px auto 0;
+    margin: 18px auto 35px;
     background: var(--alex-yellow, #f4c430);
 }
+
+/* Keep the existing phone-friendly title size. Match About's gap below the rule. */
+.theater-page h1 { margin-bottom: 0 !important; }
+.theater-page .theater-intro {
+    line-height: 1.6;
+}
+
+/* The single featured project uses the same yellow category divider. */
+.theater-page .theater-feature {
+    border-top: 2px solid var(--alex-yellow, #f4c430);
+    padding-top: 22px;
+}
+@media (max-width: 700px) {
+    .theater-page .theater-feature { padding-top: 22px; }
+}
+
+/* Shop: a single centered rule, with the same space beneath it. */
+.shop-header h1::after {
+    content: "";
+    display: block;
+    width: 62px;
+    height: 3px;
+    margin: 18px auto 35px;
+    background: var(--alex-yellow, #f4c430);
+}
+.shop-header h1 { margin-bottom: 0; }
+.shop-header p { line-height: 1.6; }
