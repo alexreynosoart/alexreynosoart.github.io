@@ -1326,17 +1326,6 @@ body.mia-page-body header nav a:hover {
     --alex-yellow: #f4c430;
 }
 
-/* Keep the HELLO and primary heading white. Add a little signature
-   yellow underneath the main title to separate the introduction. */
-.hero-title::after {
-    content: "";
-    display: block;
-    width: 72px;
-    height: 3px;
-    margin: 22px auto 0;
-    background: var(--alex-yellow);
-}
-
 /* Three doors: keep yellow accents without occupying ::before or ::after.
    index.html uses those pseudo-elements for its artwork and dark overlay. */
 .home-door-number {
@@ -1360,20 +1349,49 @@ body.mia-page-body header nav a:hover {
 
 
 /* ========================================
-   HOME SPACING + ART PAGE HEADING
+   HOME LAYOUT + SHARED ART HEADING
    ======================================== */
 
-/* Balanced homepage spacing. Header remains unchanged. */
-.hero {
-    min-height: 32vh;
-    padding: 36px 20px 48px;
+/* The home page alone fills the viewport. This keeps the footer at
+   the bottom on tall screens without altering About or other pages. */
+body:has(.hero) {
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
 }
-.hello { margin-bottom: 36px; }
-.hello-translation { margin-top: 18px; }
-.hero-tagline { margin-top: 22px; }
 
-/* The same small signature underline used on About. */
-.hello-main::after {
+body:has(.hero) > main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Allow natural scrolling when content is taller than the screen. */
+body:has(.hero) .hero {
+    min-height: 0;
+    padding: 45px 20px 42px;
+}
+
+body:has(.hero) .hello { margin-bottom: 34px; }
+body:has(.hero) .hello-translation { margin-top: 24px; }
+body:has(.hero) .hero-tagline { margin-top: 18px; }
+body:has(.hero) .home-doors { margin-bottom: 28px; }
+body:has(.hero) > footer { padding-top: 20px; padding-bottom: 22px; }
+
+/* HELLO gets the same centered gold rule as About Alex. */
+body:has(.hero) .hello-main::after {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 3px;
+    margin: 22px auto 0;
+    background: var(--alex-yellow, #f4c430);
+}
+
+/* Art retains its matching heading rule. */
+.art-intro h1::after {
     content: "";
     display: block;
     width: 64px;
@@ -1382,24 +1400,11 @@ body.mia-page-body header nav a:hover {
     background: var(--alex-yellow, #f4c430);
 }
 
-/* The About page's short yellow underline, now on the Art page too. */
-.art-intro h1::after {
-    content: "";
-    display: block;
-    width: 64px;
-    height: 3px;
-    margin: 20px auto 0;
-    background: var(--alex-yellow);
-}
-
 @media (max-width: 750px) {
-    .hero {
-        min-height: 30vh;
-        padding: 32px 20px 42px;
-    }
-    .hello { margin-bottom: 30px; }
-    .hello-translation { margin-top: 16px; }
-    .hero-tagline { margin-top: 18px; }
-    .hello-main::after { margin-top: 18px; }
+    body:has(.hero) .hero { padding: 34px 20px 36px; }
+    body:has(.hero) .hello { margin-bottom: 30px; }
+    body:has(.hero) .hello-translation { margin-top: 20px; }
+    body:has(.hero) .home-doors { margin-bottom: 28px; }
+    body:has(.hero) .hello-main::after { margin-top: 18px; }
     .art-intro h1::after { margin-top: 16px; }
 }
