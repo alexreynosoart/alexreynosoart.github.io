@@ -11,6 +11,14 @@
     <link rel="canonical" href="https://alexreynosoart.com/hydroponics.html">
     <link rel="stylesheet" href="css/style.css">
     <style>
+        /* Hydroponics palette: yellow-green accents, shared site typography. */
+        .hydro-page { --hydro-accent: #c6d83a; }
+        .hydro-page h1::after { content: ""; display: block; width: 76px; height: 4px; margin: 19px 0 0; background: var(--hydro-accent); }
+        .hydro-page h2 { border-left: 4px solid var(--hydro-accent); padding-left: 14px; }
+        .hydro-page .hydro-video { border: 1px solid rgba(198,216,58,.45); }
+        .hydro-page .hydro-caption { color: #c6d83a; opacity: 1; }
+        .hydro-page .hydro-links a { color: var(--hydro-accent); border-color: var(--hydro-accent); transition: background .2s ease; }
+        .hydro-page .hydro-links a:focus-visible { outline: 2px solid var(--hydro-accent); outline-offset: 3px; }
         .hydro-page { max-width: 980px; margin: 0 auto; padding: 40px 22px 85px; }
         .hydro-page h1 { font-size: clamp(2rem, 5vw, 3.1rem); line-height: 1.15; margin-bottom: 12px; }
         .hydro-page h2 { margin: 38px 0 12px; font-size: clamp(1.4rem, 3vw, 1.9rem); }
@@ -22,10 +30,10 @@
         .hydro-article { max-width: 760px; }
         .hydro-article ul { padding-left: 23px; line-height: 1.75; margin-bottom: 20px; }
         .hydro-article li { margin-bottom: 8px; }
-        .hydro-callout { border-left: 3px solid #78aa6c; padding: 16px 20px; background: rgba(120,170,108,.09); margin: 28px 0; border-radius: 0 10px 10px 0; }
+        .hydro-callout { border-left: 3px solid var(--hydro-accent); padding: 16px 20px; background: rgba(198,216,58,.075); margin: 28px 0; border-radius: 0 10px 10px 0; }
         .hydro-links { margin-top: 38px; display: flex; flex-wrap: wrap; gap: 12px; }
         .hydro-links a { display: inline-block; border: 1px solid currentColor; border-radius: 100px; padding: 10px 17px; text-decoration: none; }
-        .hydro-links a:hover { background: rgba(120,170,108,.14); }
+        .hydro-links a:hover { background: rgba(198,216,58,.14); }
         @media (max-width: 600px) { .hydro-page { padding: 25px 16px 65px; } .hydro-video { margin-top: 22px; } }
     </style>
 </head>
