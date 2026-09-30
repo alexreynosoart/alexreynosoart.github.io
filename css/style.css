@@ -1775,3 +1775,75 @@ body:has(.hero) .hello-main::after {
         padding-left: 0;
     }
 }
+
+
+
+/* ========================================
+   PRINCE | ARTWORK ACCENTS
+   ======================================== */
+
+/* Alex Reynoso Art signature yellow line */
+.prince-page .art-detail-header h1::after {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 3px;
+    margin: 20px auto 0;
+    background: var(--alex-yellow, #f4c430);
+}
+
+/* Prince-specific purple accents */
+.prince-page .art-detail-year,
+.prince-page .art-archive-label,
+.prince-page .art-archive-date {
+    color: #a58ad8;
+}
+
+.prince-page .art-detail-meta {
+    border-left: 3px solid #6f55a8;
+    padding-left: 22px;
+}
+
+.prince-page .art-archive {
+    border-top-color: rgba(111, 85, 168, 0.55);
+}
+
+.prince-page .art-archive-media img,
+.prince-page .art-archive-media video {
+    border-color: rgba(111, 85, 168, 0.48);
+}
+
+
+/* ---------- PRINCE | GALLERY NAVIGATION ---------- */
+
+.prince-page .artwork-navigation {
+    border-top-color: rgba(111, 85, 168, 0.75);
+    border-bottom-color: rgba(111, 85, 168, 0.45);
+}
+
+.prince-page .artwork-navigation-previous a,
+.prince-page .artwork-navigation-next a {
+    color: #a58ad8;
+}
+
+.prince-page .artwork-navigation-previous a:hover,
+.prince-page .artwork-navigation-next a:hover,
+.prince-page .artwork-navigation-previous a:focus,
+.prince-page .artwork-navigation-next a:focus {
+    color: var(--alex-yellow, #f4c430);
+}
+
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 750px) {
+
+    .prince-page .art-detail-header h1::after {
+        margin-top: 16px;
+    }
+
+    .prince-page .art-detail-meta {
+        border-left: 0;
+        padding-left: 0;
+    }
+}
