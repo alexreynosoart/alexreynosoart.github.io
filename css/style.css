@@ -1447,3 +1447,71 @@ body:has(.hero) .hello-main::after {
 }
 .shop-header h1 { margin-bottom: 0; }
 .shop-header p { line-height: 1.6; }
+
+
+
+/* ========================================
+   IT'S HER LIFE | ART DETAIL PAGE
+   Isolated to this artwork only.
+   ======================================== */
+
+.its-her-life-page {
+    position: relative;
+    isolation: isolate;
+    min-height: 100vh;
+}
+
+/* 5% artwork background */
+.its-her-life-page::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: url("../images/its-her-life-background-alex-reynoso-art.jpg");
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+    opacity: 0.05;
+    pointer-events: none;
+}
+
+/* Alex Reynoso Art signature yellow line */
+.its-her-life-page .art-detail-header h1::after {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 3px;
+    margin: 20px auto 0;
+    background: var(--alex-yellow, #f4c430);
+}
+
+/* Painting-specific burgundy accents */
+.its-her-life-page .art-detail-year,
+.its-her-life-page .art-archive-label,
+.its-her-life-page .art-archive-date {
+    color: #c34b5f;
+}
+
+.its-her-life-page .art-detail-meta {
+    border-left: 3px solid #8f263d;
+    padding-left: 22px;
+}
+
+.its-her-life-page .art-archive {
+    border-top-color: rgba(143, 38, 61, 0.55);
+}
+
+.its-her-life-page .art-archive-media img {
+    border-color: rgba(143, 38, 61, 0.48);
+}
+
+@media (max-width: 750px) {
+    .its-her-life-page .art-detail-header h1::after {
+        margin-top: 16px;
+    }
+
+    .its-her-life-page .art-detail-meta {
+        border-left: 0;
+        padding-left: 0;
+    }
+}
