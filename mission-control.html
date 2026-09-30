@@ -1,36 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
-
-      <link rel="icon" 
-        type="image/png" 
+  <link rel="icon"
+        type="image/png"
         sizes="48x48"
         href="images/favicon.png">
 
-  
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
   <title>Mission Control | Alex Reynoso Art</title>
 
   <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-MK5FXXVXNJ');
+  <script async
+          src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ">
   </script>
 
-  <link rel="stylesheet" href="css/style.css">
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag("js", new Date());
+
+    gtag(
+      "config",
+      "G-MK5FXXVXNJ"
+    );
+  </script>
+
+  <link rel="stylesheet"
+        href="css/style.css">
 
   <style>
 
     /* =========================================================
-       MISSION CONTROL BACKGROUND
-       Full-strength image stays in /images.
-       The website displays it at 5% opacity.
+       MISSION CONTROL
        ========================================================= */
 
     body {
@@ -43,22 +54,38 @@
       content: "";
       position: fixed;
       inset: 0;
+
       background-image:
         url("images/mission-control-background-alex-reynoso-art.jpg");
-      background-position: center center;
-      background-size: cover;
-      background-repeat: no-repeat;
+
+      background-position:
+        center center;
+
+      background-size:
+        cover;
+
+      background-repeat:
+        no-repeat;
+
       opacity: 0.05;
+
       pointer-events: none;
+
       z-index: 0;
     }
 
     .mission-control {
       position: relative;
       z-index: 1;
-      width: min(1200px, 92%);
-      margin: 0 auto;
-      padding: 70px 0 100px;
+
+      width:
+        min(1200px, 92%);
+
+      margin:
+        0 auto;
+
+      padding:
+        70px 0 100px;
     }
 
 
@@ -73,45 +100,91 @@
 
     .mc-eyebrow {
       color: #f4c430;
+
       font-size: 0.8rem;
+
       letter-spacing: 0.22em;
+
       text-transform: uppercase;
+
       margin-bottom: 12px;
     }
 
     .mc-header h1 {
-      font-size: clamp(2.8rem, 8vw, 6rem);
+      font-size:
+        clamp(2.8rem, 8vw, 6rem);
+
       line-height: 0.95;
+
       margin: 0;
     }
 
     .mc-subtitle {
       color: #aaa;
+
       margin-top: 18px;
+
       font-size: 1rem;
     }
 
     .mc-status {
       display: inline-flex;
+
       align-items: center;
+
       gap: 8px;
+
       margin-top: 18px;
+
       padding: 7px 13px;
-      border: 1px solid #333;
+
+      border:
+        1px solid #333;
+
       border-radius: 999px;
+
       color: #bbb;
+
       font-size: 0.75rem;
+
       letter-spacing: 0.08em;
+
       text-transform: uppercase;
-      background: rgba(15, 15, 15, 0.78);
+
+      background:
+        rgba(15, 15, 15, 0.78);
     }
 
     .mc-status-dot {
       width: 8px;
+
       height: 8px;
+
       border-radius: 50%;
+
       background: #f4c430;
-      box-shadow: 0 0 12px rgba(244, 196, 48, 0.8);
+
+      box-shadow:
+        0 0 12px
+        rgba(244, 196, 48, 0.8);
+    }
+
+    .mc-status.is-live
+    .mc-status-dot {
+      background: #f4c430;
+    }
+
+    .mc-status.is-error
+    .mc-status-dot {
+      background: #8f7cff;
+    }
+
+    .mc-updated {
+      margin-top: 10px;
+
+      color: #666;
+
+      font-size: 0.72rem;
     }
 
 
@@ -125,66 +198,115 @@
 
     .mc-section-heading {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
+
+      justify-content:
+        space-between;
+
+      align-items:
+        flex-end;
+
       gap: 20px;
+
       margin-bottom: 18px;
+
       padding-bottom: 12px;
-      border-bottom: 1px solid #252525;
+
+      border-bottom:
+        1px solid #252525;
     }
 
     .mc-section-heading h2 {
       margin: 0;
+
       font-size: 1.4rem;
     }
 
     .mc-section-heading span {
       color: #777;
+
       font-size: 0.75rem;
     }
 
 
     /* =========================================================
-       DATA CARDS
+       CARDS
        ========================================================= */
 
     .mc-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
       gap: 14px;
     }
 
-    .mc-card {
-      background: rgba(17, 17, 17, 0.92);
-      border: 1px solid #242424;
+    .mc-card,
+    .mc-live-card,
+    .mc-period-card,
+    .mc-list-card,
+    .mc-art-card,
+    .mc-insight {
+      background:
+        rgba(17, 17, 17, 0.92);
+
+      border:
+        1px solid #242424;
+
       border-radius: 12px;
-      padding: 22px;
-      min-height: 125px;
-      backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(2px);
+
+      backdrop-filter:
+        blur(2px);
+
+      -webkit-backdrop-filter:
+        blur(2px);
     }
 
-    .mc-card:hover {
+    .mc-card,
+    .mc-live-card,
+    .mc-period-card,
+    .mc-art-card {
+      padding: 22px;
+    }
+
+    .mc-card {
+      min-height: 125px;
+    }
+
+    .mc-card:hover,
+    .mc-live-card:hover,
+    .mc-period-card:hover,
+    .mc-art-card:hover,
+    .mc-list-card:hover {
       border-color: #8f7cff;
     }
 
     .mc-label {
       color: #888;
+
       font-size: 0.72rem;
+
       letter-spacing: 0.1em;
+
       text-transform: uppercase;
+
       margin-bottom: 13px;
     }
 
     .mc-number {
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-size:
+        clamp(1.8rem, 4vw, 2.8rem);
+
       font-weight: 700;
+
       line-height: 1;
+
       margin-bottom: 10px;
     }
 
     .mc-change {
       font-size: 0.78rem;
+
       color: #aaa;
     }
 
@@ -202,51 +324,289 @@
 
 
     /* =========================================================
-       INTELLIGENCE CARDS
+       LIVE NOW
        ========================================================= */
 
-    .mc-insight {
-      background: rgba(17, 17, 17, 0.92);
-      border: 1px solid #242424;
-      border-radius: 12px;
-      padding: 26px;
-      backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(2px);
+    .mc-live-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 14px;
     }
 
-    .mc-insight strong {
+    .mc-live-card {
+      text-align: center;
+
+      min-height: 145px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: center;
+    }
+
+    .mc-live-card
+    .mc-number {
       color: #f4c430;
+
+      font-size:
+        clamp(2.4rem, 6vw, 4.5rem);
     }
 
-    .mc-insight p {
-      color: #bbb;
-      line-height: 1.65;
-      margin: 0;
+    .mc-live-pulse {
+      display: inline-block;
+
+      width: 7px;
+
+      height: 7px;
+
+      margin-right: 6px;
+
+      border-radius: 50%;
+
+      background: #f4c430;
+
+      box-shadow:
+        0 0 10px
+        rgba(244, 196, 48, 0.8);
     }
 
 
     /* =========================================================
-       PRINCE
+       TIME PERIODS
        ========================================================= */
 
-    .mc-prince {
+    .mc-period-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
       gap: 14px;
     }
 
-    .mc-prince-card {
-      background: rgba(17, 17, 17, 0.92);
-      border: 1px solid #242424;
-      border-radius: 12px;
-      padding: 22px;
-      text-align: center;
-      backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(2px);
+    .mc-period-title {
+      color: #f4c430;
+
+      font-size: 1rem;
+
+      font-weight: 700;
+
+      margin-bottom: 20px;
     }
 
-    .mc-prince-card .mc-number {
+    .mc-period-row {
+      display: flex;
+
+      justify-content:
+        space-between;
+
+      align-items: center;
+
+      gap: 20px;
+
+      padding: 10px 0;
+
+      border-top:
+        1px solid #242424;
+
+      color: #aaa;
+
+      font-size: 0.8rem;
+    }
+
+    .mc-period-row strong {
+      color: #fff;
+
+      font-size: 0.95rem;
+    }
+
+
+    /* =========================================================
+       ARTWORK
+       ========================================================= */
+
+    .mc-art-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
+      gap: 14px;
+    }
+
+    .mc-art-card {
+      min-height: 150px;
+    }
+
+    .mc-art-title {
+      color: #bbb;
+
+      font-size: 0.82rem;
+
+      line-height: 1.4;
+
+      min-height: 42px;
+
+      margin-bottom: 18px;
+    }
+
+    .mc-art-card
+    .mc-number {
       color: #8f7cff;
+    }
+
+    .mc-art-stats {
+      color: #777;
+
+      font-size: 0.75rem;
+
+      line-height: 1.7;
+    }
+
+
+    /* =========================================================
+       LIVE LISTS
+       ========================================================= */
+
+    .mc-two-column {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 14px;
+    }
+
+    .mc-list-card {
+      padding: 0;
+
+      overflow: hidden;
+    }
+
+    .mc-list-header {
+      padding:
+        18px 20px;
+
+      color: #888;
+
+      font-size: 0.72rem;
+
+      letter-spacing: 0.1em;
+
+      text-transform: uppercase;
+
+      border-bottom:
+        1px solid #242424;
+    }
+
+    .mc-list {
+      margin: 0;
+
+      padding: 0;
+
+      list-style: none;
+    }
+
+    .mc-list li {
+      display: flex;
+
+      justify-content:
+        space-between;
+
+      align-items:
+        center;
+
+      gap: 20px;
+
+      padding:
+        13px 20px;
+
+      border-bottom:
+        1px solid #1f1f1f;
+
+      color: #aaa;
+
+      font-size: 0.8rem;
+    }
+
+    .mc-list li:last-child {
+      border-bottom: 0;
+    }
+
+    .mc-list-name {
+      min-width: 0;
+
+      overflow-wrap:
+        anywhere;
+    }
+
+    .mc-list-value {
+      flex: 0 0 auto;
+
+      color: #f4c430;
+
+      font-weight: 700;
+    }
+
+    .mc-empty {
+      padding: 22px;
+
+      color: #666;
+
+      font-size: 0.8rem;
+    }
+
+
+    /* =========================================================
+       INSTAGRAM SNAPSHOT
+       ========================================================= */
+
+    .mc-snapshot-note {
+      color: #666;
+
+      font-size: 0.75rem;
+
+      margin-top: 14px;
+
+      line-height: 1.5;
+    }
+
+
+    /* =========================================================
+       ERROR MESSAGE
+       ========================================================= */
+
+    .mc-error {
+      display: none;
+
+      margin:
+        25px auto 0;
+
+      max-width: 700px;
+
+      padding: 14px 18px;
+
+      border:
+        1px solid #8f7cff;
+
+      border-radius: 10px;
+
+      color: #bbb;
+
+      background:
+        rgba(143, 124, 255, 0.08);
+
+      font-size: 0.8rem;
+
+      line-height: 1.5;
+    }
+
+    .mc-error.is-visible {
+      display: block;
     }
 
 
@@ -256,11 +616,18 @@
 
     .mc-footer-note {
       margin-top: 60px;
+
       padding-top: 20px;
-      border-top: 1px solid #222;
+
+      border-top:
+        1px solid #222;
+
       color: #666;
+
       text-align: center;
+
       font-size: 0.75rem;
+
       line-height: 1.6;
     }
 
@@ -269,29 +636,50 @@
        MOBILE
        ========================================================= */
 
-    @media (max-width: 850px) {
+    @media (max-width: 950px) {
 
-      .mc-grid {
-        grid-template-columns: repeat(2, 1fr);
+      .mc-grid,
+      .mc-art-grid {
+        grid-template-columns:
+          repeat(2, 1fr);
       }
 
-      .mc-prince {
+      .mc-period-grid {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+
+    @media (max-width: 750px) {
+
+      .mc-live-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .mc-two-column {
         grid-template-columns: 1fr;
       }
 
       body::before {
-        background-position: center top;
+        background-position:
+          center top;
       }
+
     }
+
 
     @media (max-width: 520px) {
 
       .mission-control {
-        width: min(92%, 600px);
+        width:
+          min(92%, 600px);
+
         padding-top: 45px;
       }
 
-      .mc-grid {
+      .mc-grid,
+      .mc-art-grid {
         grid-template-columns: 1fr;
       }
 
@@ -300,18 +688,35 @@
       }
 
       .mc-section-heading {
-        align-items: flex-start;
-        flex-direction: column;
+        align-items:
+          flex-start;
+
+        flex-direction:
+          column;
+
         gap: 5px;
       }
+
+      .mc-list li {
+        padding:
+          12px 15px;
+      }
+
     }
 
   </style>
+
 </head>
+
 
 <body>
 
   <main class="mission-control">
+
+
+    <!-- ======================================================
+         HEADER
+         ====================================================== -->
 
     <header class="mc-header">
 
@@ -327,147 +732,108 @@
         Instagram + Website + Content + Shop
       </p>
 
-      <div class="mc-status">
+      <div class="mc-status"
+           id="mc-status">
+
         <span class="mc-status-dot"></span>
-        Systems Online
+
+        <span id="mc-status-text">
+          Connecting...
+        </span>
+
+      </div>
+
+      <div class="mc-updated"
+           id="mc-updated">
+
+        Waiting for live data
+
+      </div>
+
+      <div class="mc-error"
+           id="mc-error">
+
+        Mission Control could not reach the live analytics feed.
+
       </div>
 
     </header>
 
 
-    <!-- INSTAGRAM -->
+
+    <!-- ======================================================
+         LIVE NOW
+         ====================================================== -->
 
     <section class="mc-section">
 
       <div class="mc-section-heading">
-        <h2>Instagram</h2>
-        <span>Last 28 days · Aug 21 to Sep 17, 2026</span>
-      </div>
 
-      <div class="mc-grid">
+        <h2>
+          Live Now
+        </h2>
 
-        <div class="mc-card">
-          <div class="mc-label">Views</div>
-          <div class="mc-number">3.9M</div>
-          <div class="mc-change mc-up">↑ 6.1%</div>
-        </div>
-
-        <div class="mc-card">
-          <div class="mc-label">Reach</div>
-          <div class="mc-number">1.6M</div>
-          <div class="mc-change mc-up">↑ 7.9%</div>
-        </div>
-
-        <div class="mc-card">
-          <div class="mc-label">Interactions</div>
-          <div class="mc-number">587.4K</div>
-          <div class="mc-change mc-up">↑ 2%</div>
-        </div>
-
-        <div class="mc-card">
-          <div class="mc-label">Follows</div>
-          <div class="mc-number">30.5K</div>
-          <div class="mc-change mc-up">↑ 143.1%</div>
-        </div>
-
-        <div class="mc-card">
-          <div class="mc-label">Profile Visits</div>
-          <div class="mc-number">53.7K</div>
-          <div class="mc-change mc-down">↓ 6.5%</div>
-        </div>
-
-        <div class="mc-card">
-          <div class="mc-label">Link Clicks</div>
-          <div class="mc-number">55</div>
-          <div class="mc-change mc-up">↑ 100%</div>
-        </div>
+        <span>
+          Google Analytics · Last 30 minutes
+        </span>
 
       </div>
 
-    </section>
 
+      <div class="mc-live-grid">
 
-    <!-- WEBSITE -->
+        <div class="mc-live-card">
 
-    <section class="mc-section">
+          <div class="mc-label">
+            <span class="mc-live-pulse"></span>
+            Active Users
+          </div>
 
-      <div class="mc-section-heading">
-        <h2>Website</h2>
-        <span>Google Analytics · Early data</span>
-      </div>
+          <div class="mc-number"
+               id="live-users">
+            ...
+          </div>
 
-      <div class="mc-grid">
-
-        <div class="mc-card">
-          <div class="mc-label">Users</div>
-          <div class="mc-number">12</div>
-          <div class="mc-change">12 new users</div>
-        </div>
-
-        <div class="mc-card">
-          <div class="mc-label">Sessions</div>
-          <div class="mc-number">20</div>
-          <div class="mc-change">10 engaged</div>
-        </div>
-
-        <div class="mc-card">
-          <div class="mc-label">Page Views</div>
-          <div class="mc-number">139</div>
-          <div class="mc-change">Across the site</div>
-        </div>
-
-        <div class="mc-card">
-          <div class="mc-label">Engagement Rate</div>
-          <div class="mc-number">50%</div>
-          <div class="mc-change">Average 2m 27s / session</div>
-        </div>
-
-        <div class="mc-card">
-          <div class="mc-label">Scroll Events</div>
-          <div class="mc-number">99</div>
-          <div class="mc-change">7 users</div>
-        </div>
-
-        <div class="mc-card">
-          <div class="mc-label">Outbound Clicks</div>
-          <div class="mc-number">8</div>
-          <div class="mc-change">2 users</div>
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- PRINCE -->
-
-    <section class="mc-section">
-
-      <div class="mc-section-heading">
-        <h2>Prince · Through the Years</h2>
-        <span>First tracked artwork story</span>
-      </div>
-
-      <div class="mc-prince">
-
-        <div class="mc-prince-card">
-          <div class="mc-label">Social Clicks</div>
-          <div class="mc-number">8</div>
-          <div class="mc-change">From the Prince page</div>
-        </div>
-
-        <div class="mc-prince-card">
-          <div class="mc-label">Visitors Clicking</div>
-          <div class="mc-number">2</div>
-          <div class="mc-change">Both explored multiple links</div>
-        </div>
-
-        <div class="mc-prince-card">
-          <div class="mc-label">2022 / 2024</div>
-          <div class="mc-number">5 / 3</div>
           <div class="mc-change">
-            2022 appears first on page
+            On the site now
           </div>
+
+        </div>
+
+
+        <div class="mc-live-card">
+
+          <div class="mc-label">
+            Page Views
+          </div>
+
+          <div class="mc-number"
+               id="live-views">
+            ...
+          </div>
+
+          <div class="mc-change">
+            Last 30 minutes
+          </div>
+
+        </div>
+
+
+        <div class="mc-live-card">
+
+          <div class="mc-label">
+            Events
+          </div>
+
+          <div class="mc-number"
+               id="live-events">
+            ...
+          </div>
+
+          <div class="mc-change">
+            Last 30 minutes
+          </div>
+
         </div>
 
       </div>
@@ -475,45 +841,150 @@
     </section>
 
 
-    <!-- INTELLIGENCE -->
+
+    <!-- ======================================================
+         WEBSITE PERFORMANCE
+         ====================================================== -->
 
     <section class="mc-section">
 
       <div class="mc-section-heading">
-        <h2>What's Moving?</h2>
-        <span>Signals worth watching</span>
+
+        <h2>
+          Website
+        </h2>
+
+        <span>
+          Live Google Analytics reporting
+        </span>
+
       </div>
 
-      <div class="mc-grid">
 
-        <div class="mc-insight mc-wide">
+      <div class="mc-period-grid">
 
-          <div class="mc-label">
-            Instagram Signal
+
+        <!-- TODAY -->
+
+        <div class="mc-period-card">
+
+          <div class="mc-period-title">
+            Today
           </div>
 
-          <p>
-            Follows increased
-            <strong>143.1%</strong>
-            while profile visits decreased 6.5%.
-            More people are converting into followers
-            even though fewer profile visits were recorded.
-          </p>
+          <div class="mc-period-row">
+            <span>Users</span>
+            <strong id="today-users">...</strong>
+          </div>
+
+          <div class="mc-period-row">
+            <span>Sessions</span>
+            <strong id="today-sessions">...</strong>
+          </div>
+
+          <div class="mc-period-row">
+            <span>Views</span>
+            <strong id="today-views">...</strong>
+          </div>
+
+          <div class="mc-period-row">
+            <span>Engagement</span>
+            <strong id="today-engagement">...</strong>
+          </div>
+
+          <div class="mc-period-row">
+            <span>Avg. Session</span>
+            <strong id="today-duration">...</strong>
+          </div>
+
+          <div class="mc-period-row">
+            <span>Events</span>
+            <strong id="today-events">...</strong>
+          </div>
 
         </div>
 
-        <div class="mc-insight mc-wide">
 
-          <div class="mc-label">
-            Website Signal
+
+        <!-- 7 DAYS -->
+
+        <div class="mc-period-card">
+
+          <div class="mc-period-title">
+            Last 7 Days
           </div>
 
-          <p>
-            Early visitors are not only viewing artwork.
-            The Prince archive produced
-            <strong>8 outbound social clicks from 2 users</strong>,
-            showing that visitors are using the deeper story links.
-          </p>
+          <div class="mc-period-row">
+            <span>Users</span>
+            <strong id="seven-users">...</strong>
+          </div>
+
+          <div class="mc-period-row">
+            <span>Sessions</span>
+            <strong id="seven-sessions">...</strong>
+          </div>
+
+          <div class="mc-period-row">
+            <span>Views</span>
+            <strong id="seven-views">...</strong>
+          </div>
+
+          <div class="mc-period-row">
+            <span>Engagement</span>
+            <strong id="seven-engagement">...</strong>
+          </div>
+
+          <div class="mc-period-row">
+            <span>Avg. Session</span>
+            <strong id="seven-duration">...</strong>
+          </div>
+
+          <div class="mc-period-row">
+            <span>Events</span>
+            <strong id="seven-events">...</strong>
+          </div>
+
+        </div>
+
+
+
+        <!-- 28 DAYS -->
+
+        <div class="mc-period-card">
+
+          <div class="mc-period-title">
+            Last 28 Days
+          </div>
+
+          <div class="mc-period-row">
+            <span>Users</span>
+            <strong id="twenty-eight-users">...</strong>
+          </div>
+
+          <div class="mc-period-row">
+            <span>Sessions</span>
+            <strong id="twenty-eight-sessions">...</strong>
+          </div>
+
+          <div class="mc-period-row">
+            <span>Views</span>
+            <strong id="twenty-eight-views">...</strong>
+          </div>
+
+          <div class="mc-period-row">
+            <span>Engagement</span>
+            <strong id="twenty-eight-engagement">...</strong>
+          </div>
+
+          <div class="mc-period-row">
+            <span>Avg. Session</span>
+            <strong id="twenty-eight-duration">...</strong>
+          </div>
+
+          <div class="mc-period-row">
+            <span>Events</span>
+            <strong id="twenty-eight-events">...</strong>
+          </div>
 
         </div>
 
@@ -522,54 +993,1084 @@
     </section>
 
 
-    <!-- GEOGRAPHY -->
+
+    <!-- ======================================================
+         ARTWORK ACTIVITY
+         ====================================================== -->
 
     <section class="mc-section">
 
       <div class="mc-section-heading">
-        <h2>Signals From the World</h2>
-        <span>Early website audience</span>
+
+        <h2>
+          Artwork Activity
+        </h2>
+
+        <span>
+          Last 28 days
+        </span>
+
       </div>
 
-      <div class="mc-grid">
 
-        <div class="mc-card">
-          <div class="mc-label">United States</div>
-          <div class="mc-number">6</div>
-          <div class="mc-change">Active users</div>
+      <div class="mc-art-grid"
+           id="artwork-grid">
+
+        <div class="mc-art-card">
+
+          <div class="mc-art-title">
+            Frida Frida y Frida
+          </div>
+
+          <div class="mc-number"
+               id="art-frida-views">
+            ...
+          </div>
+
+          <div class="mc-change">
+            Page views
+          </div>
+
+          <div class="mc-art-stats"
+               id="art-frida-stats">
+            Loading...
+          </div>
+
         </div>
 
-        <div class="mc-card">
-          <div class="mc-label">Germany</div>
-          <div class="mc-number">2</div>
-          <div class="mc-change">Active users</div>
+
+        <div class="mc-art-card">
+
+          <div class="mc-art-title">
+            Gratitude and Joy, Buddha
+          </div>
+
+          <div class="mc-number"
+               id="art-buddha-views">
+            ...
+          </div>
+
+          <div class="mc-change">
+            Page views
+          </div>
+
+          <div class="mc-art-stats"
+               id="art-buddha-stats">
+            Loading...
+          </div>
+
         </div>
 
-        <div class="mc-card">
-          <div class="mc-label">Canada</div>
-          <div class="mc-number">1</div>
-          <div class="mc-change">Active user</div>
+
+        <div class="mc-art-card">
+
+          <div class="mc-art-title">
+            Prince
+          </div>
+
+          <div class="mc-number"
+               id="art-prince-views">
+            ...
+          </div>
+
+          <div class="mc-change">
+            Page views
+          </div>
+
+          <div class="mc-art-stats"
+               id="art-prince-stats">
+            Loading...
+          </div>
+
         </div>
 
-        <div class="mc-card">
-          <div class="mc-label">St. Lucia</div>
-          <div class="mc-number">1</div>
-          <div class="mc-change">Engaged user</div>
+
+        <div class="mc-art-card">
+
+          <div class="mc-art-title">
+            It's Her Life
+          </div>
+
+          <div class="mc-number"
+               id="art-its-her-life-views">
+            ...
+          </div>
+
+          <div class="mc-change">
+            Page views
+          </div>
+
+          <div class="mc-art-stats"
+               id="art-its-her-life-stats">
+            Loading...
+          </div>
+
         </div>
 
       </div>
 
     </section>
 
+
+
+    <!-- ======================================================
+         LIVE PAGES + EVENTS
+         ====================================================== -->
+
+    <section class="mc-section">
+
+      <div class="mc-section-heading">
+
+        <h2>
+          What's Happening Right Now?
+        </h2>
+
+        <span>
+          Last 30 minutes
+        </span>
+
+      </div>
+
+
+      <div class="mc-two-column">
+
+
+        <div class="mc-list-card">
+
+          <div class="mc-list-header">
+            Live Pages
+          </div>
+
+          <ul class="mc-list"
+              id="live-pages">
+
+            <li>
+              <span class="mc-list-name">
+                Connecting...
+              </span>
+            </li>
+
+          </ul>
+
+        </div>
+
+
+
+        <div class="mc-list-card">
+
+          <div class="mc-list-header">
+            Live Events
+          </div>
+
+          <ul class="mc-list"
+              id="live-event-list">
+
+            <li>
+              <span class="mc-list-name">
+                Connecting...
+              </span>
+            </li>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ======================================================
+         GEOGRAPHY
+         ====================================================== -->
+
+    <section class="mc-section">
+
+      <div class="mc-section-heading">
+
+        <h2>
+          Signals From the World
+        </h2>
+
+        <span>
+          Live audience · Last 30 minutes
+        </span>
+
+      </div>
+
+
+      <div class="mc-list-card">
+
+        <div class="mc-list-header">
+          Active Countries
+        </div>
+
+        <ul class="mc-list"
+            id="live-countries">
+
+          <li>
+            <span class="mc-list-name">
+              Connecting...
+            </span>
+          </li>
+
+        </ul>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ======================================================
+         TOP PAGES
+         ====================================================== -->
+
+    <section class="mc-section">
+
+      <div class="mc-section-heading">
+
+        <h2>
+          Site Activity
+        </h2>
+
+        <span>
+          Top pages · Last 28 days
+        </span>
+
+      </div>
+
+
+      <div class="mc-list-card">
+
+        <div class="mc-list-header">
+          Pages
+        </div>
+
+        <ul class="mc-list"
+            id="history-pages">
+
+          <li>
+            <span class="mc-list-name">
+              Loading...
+            </span>
+          </li>
+
+        </ul>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ======================================================
+         INSTAGRAM
+         ====================================================== -->
+
+    <section class="mc-section">
+
+      <div class="mc-section-heading">
+
+        <h2>
+          Instagram
+        </h2>
+
+        <span>
+          Snapshot · Aug 21 to Sep 17, 2026
+        </span>
+
+      </div>
+
+
+      <div class="mc-grid">
+
+
+        <div class="mc-card">
+
+          <div class="mc-label">
+            Views
+          </div>
+
+          <div class="mc-number">
+            3.9M
+          </div>
+
+          <div class="mc-change mc-up">
+            ↑ 6.1%
+          </div>
+
+        </div>
+
+
+        <div class="mc-card">
+
+          <div class="mc-label">
+            Reach
+          </div>
+
+          <div class="mc-number">
+            1.6M
+          </div>
+
+          <div class="mc-change mc-up">
+            ↑ 7.9%
+          </div>
+
+        </div>
+
+
+        <div class="mc-card">
+
+          <div class="mc-label">
+            Interactions
+          </div>
+
+          <div class="mc-number">
+            587.4K
+          </div>
+
+          <div class="mc-change mc-up">
+            ↑ 2%
+          </div>
+
+        </div>
+
+
+        <div class="mc-card">
+
+          <div class="mc-label">
+            Follows
+          </div>
+
+          <div class="mc-number">
+            30.5K
+          </div>
+
+          <div class="mc-change mc-up">
+            ↑ 143.1%
+          </div>
+
+        </div>
+
+
+        <div class="mc-card">
+
+          <div class="mc-label">
+            Profile Visits
+          </div>
+
+          <div class="mc-number">
+            53.7K
+          </div>
+
+          <div class="mc-change mc-down">
+            ↓ 6.5%
+          </div>
+
+        </div>
+
+
+        <div class="mc-card">
+
+          <div class="mc-label">
+            Link Clicks
+          </div>
+
+          <div class="mc-number">
+            55
+          </div>
+
+          <div class="mc-change mc-up">
+            ↑ 100%
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="mc-snapshot-note">
+        Instagram remains a saved snapshot for now.
+        Website analytics above update automatically from Google Analytics.
+      </div>
+
+    </section>
+
+
+
+    <!-- ======================================================
+         FOOTER
+         ====================================================== -->
 
     <div class="mc-footer-note">
-      Mission Control V1 · AlexReynosoArt<br>
-      Manual data now. Automatic intelligence later.
+
+      Mission Control V2 · AlexReynosoArt
+      <br>
+
+      Live website intelligence powered by Google Analytics.
+
     </div>
+
 
   </main>
 
+
+
+  <!-- ========================================================
+       MISSION CONTROL LIVE DATA
+       ======================================================== -->
+
+  <script>
+
+    const MISSION_CONTROL_API =
+      "https://alexreynosoart-mission-control.alexreynosoart333.workers.dev/";
+
+
+    const REFRESH_INTERVAL =
+      30000;
+
+
+    function setText(
+      id,
+      value
+    ) {
+
+      const element =
+        document.getElementById(id);
+
+      if (element) {
+        element.textContent =
+          value;
+      }
+
+    }
+
+
+    function formatNumber(
+      value
+    ) {
+
+      const number =
+        Number(value || 0);
+
+      return new Intl.NumberFormat(
+        "en-US"
+      ).format(number);
+
+    }
+
+
+    function formatPercent(
+      value
+    ) {
+
+      const number =
+        Number(value || 0) * 100;
+
+      return (
+        number.toFixed(1) +
+        "%"
+      );
+
+    }
+
+
+    function formatDuration(
+      value
+    ) {
+
+      const totalSeconds =
+        Math.round(
+          Number(value || 0)
+        );
+
+      const minutes =
+        Math.floor(
+          totalSeconds / 60
+        );
+
+      const seconds =
+        totalSeconds % 60;
+
+      if (minutes <= 0) {
+
+        return (
+          seconds +
+          "s"
+        );
+
+      }
+
+      return (
+        minutes +
+        "m " +
+        seconds +
+        "s"
+      );
+
+    }
+
+
+    function formatUpdatedTime(
+      isoDate
+    ) {
+
+      if (!isoDate) {
+        return "Updated just now";
+      }
+
+      const date =
+        new Date(isoDate);
+
+      return (
+        "Last updated " +
+        date.toLocaleTimeString(
+          [],
+          {
+            hour: "numeric",
+            minute: "2-digit",
+            second: "2-digit"
+          }
+        )
+      );
+
+    }
+
+
+    function renderPeriod(
+      prefix,
+      period
+    ) {
+
+      if (!period) {
+        return;
+      }
+
+      setText(
+        prefix + "-users",
+        formatNumber(
+          period.users
+        )
+      );
+
+      setText(
+        prefix + "-sessions",
+        formatNumber(
+          period.sessions
+        )
+      );
+
+      setText(
+        prefix + "-views",
+        formatNumber(
+          period.views
+        )
+      );
+
+      setText(
+        prefix + "-engagement",
+        formatPercent(
+          period.engagementRate
+        )
+      );
+
+      setText(
+        prefix + "-duration",
+        formatDuration(
+          period.averageSessionDuration
+        )
+      );
+
+      setText(
+        prefix + "-events",
+        formatNumber(
+          period.events
+        )
+      );
+
+    }
+
+
+    function renderArtwork(
+      artwork
+    ) {
+
+      const knownArtwork = {
+        "frida":
+          "frida",
+
+        "buddha":
+          "buddha",
+
+        "prince":
+          "prince",
+
+        "its-her-life":
+          "its-her-life"
+      };
+
+
+      (artwork || []).forEach(
+        (item) => {
+
+          const slug =
+            knownArtwork[
+              item.id
+            ];
+
+          if (!slug) {
+            return;
+          }
+
+          setText(
+            "art-" +
+            slug +
+            "-views",
+
+            formatNumber(
+              item.views
+            )
+          );
+
+          setText(
+            "art-" +
+            slug +
+            "-stats",
+
+            formatNumber(
+              item.users
+            ) +
+            " users · " +
+            formatNumber(
+              item.events
+            ) +
+            " events"
+          );
+
+        }
+      );
+
+    }
+
+
+    function renderList(
+      elementId,
+      items,
+      nameGetter,
+      valueGetter,
+      emptyMessage
+    ) {
+
+      const list =
+        document.getElementById(
+          elementId
+        );
+
+      if (!list) {
+        return;
+      }
+
+      list.innerHTML = "";
+
+
+      if (
+        !items ||
+        items.length === 0
+      ) {
+
+        const empty =
+          document.createElement(
+            "li"
+          );
+
+        empty.innerHTML =
+          '<span class="mc-list-name">' +
+          emptyMessage +
+          "</span>";
+
+        list.appendChild(
+          empty
+        );
+
+        return;
+      }
+
+
+      items.forEach(
+        (item) => {
+
+          const li =
+            document.createElement(
+              "li"
+            );
+
+          const name =
+            document.createElement(
+              "span"
+            );
+
+          name.className =
+            "mc-list-name";
+
+          name.textContent =
+            nameGetter(item);
+
+
+          const value =
+            document.createElement(
+              "span"
+            );
+
+          value.className =
+            "mc-list-value";
+
+          value.textContent =
+            valueGetter(item);
+
+
+          li.appendChild(
+            name
+          );
+
+          li.appendChild(
+            value
+          );
+
+          list.appendChild(
+            li
+          );
+
+        }
+      );
+
+    }
+
+
+    function renderMissionControl(
+      data
+    ) {
+
+      if (
+        !data ||
+        data.ok !== true
+      ) {
+
+        throw new Error(
+          "Mission Control returned an invalid response."
+        );
+
+      }
+
+
+      /* LIVE TOTALS */
+
+      setText(
+        "live-users",
+        formatNumber(
+          data.realtime?.activeUsers
+        )
+      );
+
+      setText(
+        "live-views",
+        formatNumber(
+          data.realtime?.views
+        )
+      );
+
+      setText(
+        "live-events",
+        formatNumber(
+          data.realtime?.events
+        )
+      );
+
+
+      /* PERIODS */
+
+      renderPeriod(
+        "today",
+        data.periods?.today
+      );
+
+      renderPeriod(
+        "seven",
+        data.periods?.sevenDays
+      );
+
+      renderPeriod(
+        "twenty-eight",
+        data.periods?.twentyEightDays
+      );
+
+
+      /* ARTWORK */
+
+      renderArtwork(
+        data.artwork?.pages
+      );
+
+
+      /* LIVE PAGES */
+
+      renderList(
+        "live-pages",
+
+        data.pages,
+
+        (item) =>
+          item.page,
+
+        (item) =>
+          formatNumber(
+            item.views
+          ) +
+          " views",
+
+        "No page activity in the last 30 minutes."
+      );
+
+
+      /* LIVE EVENTS */
+
+      renderList(
+        "live-event-list",
+
+        data.eventBreakdown,
+
+        (item) =>
+          item.event,
+
+        (item) =>
+          formatNumber(
+            item.count
+          ),
+
+        "No events in the last 30 minutes."
+      );
+
+
+      /* LIVE COUNTRIES */
+
+      renderList(
+        "live-countries",
+
+        data.countries,
+
+        (item) =>
+          item.country,
+
+        (item) =>
+          formatNumber(
+            item.activeUsers
+          ) +
+          (
+            Number(
+              item.activeUsers
+            ) === 1
+              ? " user"
+              : " users"
+          ),
+
+        "No active countries in the last 30 minutes."
+      );
+
+
+      /* 28 DAY SITE PAGES */
+
+      const historyPages =
+        (
+          data.pageHistory?.pages ||
+          []
+        ).slice(
+          0,
+          20
+        );
+
+
+      renderList(
+        "history-pages",
+
+        historyPages,
+
+        (item) =>
+          item.path,
+
+        (item) =>
+          formatNumber(
+            item.views
+          ) +
+          " views",
+
+        "No page history yet."
+      );
+
+
+      /* STATUS */
+
+      const status =
+        document.getElementById(
+          "mc-status"
+        );
+
+      if (status) {
+
+        status.classList.remove(
+          "is-error"
+        );
+
+        status.classList.add(
+          "is-live"
+        );
+
+      }
+
+
+      setText(
+        "mc-status-text",
+        "Live Feed Online"
+      );
+
+
+      setText(
+        "mc-updated",
+        formatUpdatedTime(
+          data.updatedAt
+        ) +
+        " · Auto refresh every 30 seconds"
+      );
+
+
+      const errorBox =
+        document.getElementById(
+          "mc-error"
+        );
+
+      if (errorBox) {
+
+        errorBox.classList.remove(
+          "is-visible"
+        );
+
+      }
+
+    }
+
+
+    async function loadMissionControl() {
+
+      try {
+
+        const response =
+          await fetch(
+            MISSION_CONTROL_API,
+            {
+              method: "GET",
+
+              cache:
+                "no-store"
+            }
+          );
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            "Mission Control API returned " +
+            response.status
+          );
+
+        }
+
+
+        const data =
+          await response.json();
+
+
+        renderMissionControl(
+          data
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Mission Control:",
+          error
+        );
+
+
+        const status =
+          document.getElementById(
+            "mc-status"
+          );
+
+        if (status) {
+
+          status.classList.remove(
+            "is-live"
+          );
+
+          status.classList.add(
+            "is-error"
+          );
+
+        }
+
+
+        setText(
+          "mc-status-text",
+          "Feed Connection Error"
+        );
+
+
+        setText(
+          "mc-updated",
+          "Live data temporarily unavailable"
+        );
+
+
+        const errorBox =
+          document.getElementById(
+            "mc-error"
+          );
+
+        if (errorBox) {
+
+          errorBox.textContent =
+            "Mission Control could not reach the live analytics feed. " +
+            "The dashboard will automatically try again.";
+
+          errorBox.classList.add(
+            "is-visible"
+          );
+
+        }
+
+      }
+
+    }
+
+
+    /* FIRST LOAD */
+
+    loadMissionControl();
+
+
+    /* AUTOMATIC REFRESH */
+
+    setInterval(
+      loadMissionControl,
+      REFRESH_INTERVAL
+    );
+
+  </script>
+
+
   <script src="js/script.js"></script>
-  
+
+
 </body>
+
 </html>
