@@ -1515,3 +1515,121 @@ body:has(.hero) .hello-main::after {
         padding-left: 0;
     }
 }
+
+
+
+/* ========================================
+   ARTWORK NAVIGATION
+   Automatic Previous / Back / Next
+   ======================================== */
+
+.artwork-navigation {
+    width: min(1000px, 100%);
+    margin: 90px auto 10px;
+    padding: 30px 0;
+
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 30px;
+
+    border-top: 1px solid #3a3a3a;
+    border-bottom: 1px solid #3a3a3a;
+
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.artwork-navigation.is-ready {
+    opacity: 1;
+}
+
+.artwork-navigation-slot {
+    min-width: 0;
+}
+
+.artwork-navigation a {
+    color: #bbb;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    transition: color 0.2s ease;
+}
+
+.artwork-navigation a:hover,
+.artwork-navigation a:focus {
+    color: var(--alex-yellow, #f4c430);
+}
+
+.artwork-navigation-previous {
+    text-align: left;
+}
+
+.artwork-navigation-center {
+    text-align: center;
+}
+
+.artwork-navigation-next {
+    text-align: right;
+}
+
+/* Back to Art is the permanent Alex Reynoso Art color */
+.artwork-navigation-center a {
+    color: var(--alex-yellow, #f4c430);
+    font-size: 14px;
+    letter-spacing: 0.12em;
+}
+
+/* It's Her Life theme */
+.its-her-life-page .artwork-navigation {
+    border-top-color: rgba(143, 38, 61, 0.75);
+    border-bottom-color: rgba(143, 38, 61, 0.45);
+}
+
+.its-her-life-page .artwork-navigation-previous a,
+.its-her-life-page .artwork-navigation-next a {
+    color: #c34b5f;
+}
+
+.its-her-life-page .artwork-navigation-previous a:hover,
+.its-her-life-page .artwork-navigation-next a:hover,
+.its-her-life-page .artwork-navigation-previous a:focus,
+.its-her-life-page .artwork-navigation-next a:focus {
+    color: var(--alex-yellow, #f4c430);
+}
+
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 750px) {
+
+    .artwork-navigation {
+        margin-top: 70px;
+        padding: 25px 0;
+        grid-template-columns: 1fr 1fr;
+        gap: 22px 15px;
+    }
+
+    .artwork-navigation-previous {
+        text-align: left;
+    }
+
+    .artwork-navigation-next {
+        text-align: right;
+    }
+
+    .artwork-navigation-center {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        text-align: center;
+    }
+
+    .artwork-navigation a {
+        font-size: 14px;
+    }
+
+    .artwork-navigation-center a {
+        font-size: 13px;
+    }
+}
