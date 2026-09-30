@@ -4,6 +4,11 @@
    ======================================== */
 
 document.addEventListener("DOMContentLoaded", function () {
+
+    /* ========================================
+       BACK TO TOP
+       ======================================== */
+
     const button = document.createElement("button");
 
     button.type = "button";
@@ -36,4 +41,182 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     updateBackToTop();
+
+
+    /* ========================================
+       AUTOMATIC ARTWORK NAVIGATION
+       art.html controls the artwork order.
+       ======================================== */
+
+    const artworkNavigation = document.querySelector(
+        ".artwork-navigation"
+    );
+
+    if (artworkNavigation) {
+
+        fetch("art.html")
+            .then(function (response) {
+                if (!response.ok) {
+                    throw new Error("Could not load art.html");
+                }
+
+                return response.text();
+            })
+            .then(function (html) {
+
+                const parser = new DOMParser();
+                const artDocument = parser.parseFromString(
+                    html,
+                    "text/html"
+                );
+
+                /*
+                 * Only linked featured artwork cards count.
+                 * Mia's Kids Corner and unlinked placeholders
+                 * are automatically ignored.
+                 */
+                const artworkCards = Array.from(
+                    artDocument.querySelectorAll(
+                        ".art-gallery .artwork-featured > a[href]"
+                    )
+                );
+
+                const artworks = artworkCards.map(function (link) {
+
+                    const titleElement = link.querySelector("h2");
+
+                    return {
+                        href: link.getAttribute("href"),
+                        title: titleElement
+                            ? titleElement.textContent.trim()
+                            : "Artwork"
+                    };
+                });
+
+                /*
+                 * Compare filenames only, so the system still works
+                 * regardless of the site's full domain.
+                 */
+                const currentPage =
+                    window.location.pathname.split("/").pop() ||
+                    "index.html";
+
+                const currentIndex = artworks.findIndex(
+                    function (artwork) {
+                        return artwork.href.split("/").pop() === currentPage;
+                    }
+                );
+
+                /*
+                 * If this page isn't represented in art.html,
+                 * don't create navigation.
+                 */
+                if (currentIndex === -1) {
+                    return;
+                }
+
+                const previousArtwork =
+                    currentIndex > 0
+                        ? artworks[currentIndex - 1]
+                        : null;
+
+                const nextArtwork =
+                    currentIndex < artworks.length - 1
+                        ? artworks[currentIndex + 1]
+                        : null;
+
+
+                /* PREVIOUS */
+
+                const previousSlot = document.createElement("div");
+                previousSlot.className =
+                    "artwork-navigation-slot artwork-navigation-previous";
+
+                if (previousArtwork) {
+                    const previousLink = document.createElement("a");
+
+                    previousLink.href = previousArtwork.href;
+                    previousLink.innerHTML =
+                        '<span aria-hidden="true">←</span> ' +
+                        escapeArtworkTitle(previousArtwork.title);
+
+                    previousLink.setAttribute(
+                        "aria-label",
+                        "Previous artwork: " + previousArtwork.title
+                    );
+
+                    previousSlot.appendChild(previousLink);
+                }
+
+
+                /* BACK TO ART */
+
+                const centerSlot = document.createElement("div");
+                centerSlot.className =
+                    "artwork-navigation-slot artwork-navigation-center";
+
+                const backLink = document.createElement("a");
+
+                backLink.href = "art.html";
+                backLink.textContent = "BACK TO ART";
+
+                centerSlot.appendChild(backLink);
+
+
+                /* NEXT */
+
+                const nextSlot = document.createElement("div");
+                nextSlot.className =
+                    "artwork-navigation-slot artwork-navigation-next";
+
+                if (nextArtwork) {
+                    const nextLink = document.createElement("a");
+
+                    nextLink.href = nextArtwork.href;
+                    nextLink.innerHTML =
+                        escapeArtworkTitle(nextArtwork.title) +
+                        ' <span aria-hidden="true">→</span>';
+
+                    nextLink.setAttribute(
+                        "aria-label",
+                        "Next artwork: " + nextArtwork.title
+                    );
+
+                    nextSlot.appendChild(nextLink);
+                }
+
+
+                artworkNavigation.replaceChildren(
+                    previousSlot,
+                    centerSlot,
+                    nextSlot
+                );
+
+                artworkNavigation.classList.add("is-ready");
+            })
+            .catch(function (error) {
+
+                /*
+                 * The artwork page remains completely usable
+                 * if art.html cannot be loaded.
+                 */
+                console.warn(
+                    "Artwork navigation unavailable:",
+                    error
+                );
+            });
+    }
+
+
+    /* ========================================
+       SMALL SAFETY HELPER
+       Prevent artwork titles from becoming HTML.
+       ======================================== */
+
+    function escapeArtworkTitle(text) {
+        const element = document.createElement("span");
+        element.textContent = text;
+        return element.innerHTML;
+    }
+
 });
