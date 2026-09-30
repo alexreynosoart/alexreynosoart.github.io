@@ -1849,3 +1849,120 @@ body:has(.hero) .hello-main::after {
         padding-left: 0;
     }
 }
+
+
+
+
+/* ========================================
+   ARTWORK NAVIGATION | COMPACT TOP
+   ======================================== */
+
+.artwork-navigation-top {
+    width: 100%;
+    margin: 0 0 34px;
+    padding: 0 0 14px;
+
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+
+    border-bottom: 1px solid #555;
+
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.artwork-navigation-top.is-ready {
+    opacity: 1;
+}
+
+.artwork-navigation-top a {
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.artwork-navigation-top-previous {
+    text-align: left;
+}
+
+.artwork-navigation-top-center {
+    text-align: center;
+}
+
+.artwork-navigation-top-next {
+    text-align: right;
+}
+
+.artwork-navigation-top-previous a,
+.artwork-navigation-top-next a {
+    font-size: 24px;
+    line-height: 1;
+}
+
+.artwork-navigation-top-center a {
+    color: var(--alex-yellow, #f4c430);
+    font-size: 13px;
+    letter-spacing: 0.12em;
+}
+
+
+/* Artwork-specific top navigation colors */
+
+.frida-page .artwork-navigation-top {
+    border-bottom-color: rgba(47, 159, 145, 0.65);
+}
+
+.frida-page .artwork-navigation-top-previous a,
+.frida-page .artwork-navigation-top-next a {
+    color: #63c7bd;
+}
+
+
+.buddha-page .artwork-navigation-top {
+    border-bottom-color: rgba(63, 134, 179, 0.65);
+}
+
+.buddha-page .artwork-navigation-top-previous a,
+.buddha-page .artwork-navigation-top-next a {
+    color: #78b9df;
+}
+
+
+.prince-page .artwork-navigation-top {
+    border-bottom-color: rgba(111, 85, 168, 0.65);
+}
+
+.prince-page .artwork-navigation-top-previous a,
+.prince-page .artwork-navigation-top-next a {
+    color: #a58ad8;
+}
+
+
+.its-her-life-page .artwork-navigation-top {
+    border-bottom-color: rgba(143, 38, 61, 0.65);
+}
+
+.its-her-life-page .artwork-navigation-top-previous a,
+.its-her-life-page .artwork-navigation-top-next a {
+    color: #c34b5f;
+}
+
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 750px) {
+
+    .artwork-navigation-top {
+        margin-bottom: 26px;
+        padding-bottom: 12px;
+    }
+
+    .artwork-navigation-top-previous a,
+    .artwork-navigation-top-next a {
+        font-size: 22px;
+    }
+
+    .artwork-navigation-top-center a {
+        font-size: 12px;
+    }
+}
