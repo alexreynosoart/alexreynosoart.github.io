@@ -52,7 +52,15 @@ document.addEventListener("DOMContentLoaded", function () {
         ".artwork-navigation"
     );
 
-    if (artworkNavigation) {
+    const artworkNavigationTop = document.querySelector(
+        ".artwork-navigation-top"
+    );
+
+    /*
+     * Run the artwork system if either navigation
+     * exists on the current page.
+     */
+    if (artworkNavigation || artworkNavigationTop) {
 
         fetch("art.html")
             .then(function (response) {
@@ -65,6 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(function (html) {
 
                 const parser = new DOMParser();
+
                 const artDocument = parser.parseFromString(
                     html,
                     "text/html"
@@ -93,9 +102,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     };
                 });
 
+
                 /*
-                 * Compare filenames only, so the system still works
-                 * regardless of the site's full domain.
+                 * Compare filenames only.
                  */
                 const currentPage =
                     window.location.pathname.split("/").pop() ||
@@ -107,13 +116,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                 );
 
-                /*
-                 * If this page isn't represented in art.html,
-                 * don't create navigation.
-                 */
                 if (currentIndex === -1) {
                     return;
                 }
+
 
                 const previousArtwork =
                     currentIndex > 0
@@ -126,80 +132,195 @@ document.addEventListener("DOMContentLoaded", function () {
                         : null;
 
 
-                /* PREVIOUS */
+                /* ========================================
+                   TOP ARTWORK NAVIGATION
+                   Arrows only + Back to Art
+                   ======================================== */
 
-                const previousSlot = document.createElement("div");
-                previousSlot.className =
-                    "artwork-navigation-slot artwork-navigation-previous";
+                if (artworkNavigationTop) {
 
-                if (previousArtwork) {
-                    const previousLink = document.createElement("a");
+                    const topPrevious = document.createElement("div");
+                    topPrevious.className =
+                        "artwork-navigation-top-previous";
 
-                    previousLink.href = previousArtwork.href;
-                    previousLink.innerHTML =
-                        '<span aria-hidden="true">←</span> ' +
-                        escapeArtworkTitle(previousArtwork.title);
+                    if (previousArtwork) {
 
-                    previousLink.setAttribute(
-                        "aria-label",
-                        "Previous artwork: " + previousArtwork.title
+                        const previousLink =
+                            document.createElement("a");
+
+                        previousLink.href =
+                            previousArtwork.href;
+
+                        previousLink.innerHTML =
+                            '<span aria-hidden="true">←</span>';
+
+                        previousLink.setAttribute(
+                            "aria-label",
+                            "Previous artwork: " +
+                            previousArtwork.title
+                        );
+
+                        topPrevious.appendChild(previousLink);
+                    }
+
+
+                    const topCenter = document.createElement("div");
+                    topCenter.className =
+                        "artwork-navigation-top-center";
+
+                    const topBackLink =
+                        document.createElement("a");
+
+                    topBackLink.href = "art.html";
+                    topBackLink.textContent = "BACK TO ART";
+
+                    topCenter.appendChild(topBackLink);
+
+
+                    const topNext = document.createElement("div");
+                    topNext.className =
+                        "artwork-navigation-top-next";
+
+                    if (nextArtwork) {
+
+                        const nextLink =
+                            document.createElement("a");
+
+                        nextLink.href =
+                            nextArtwork.href;
+
+                        nextLink.innerHTML =
+                            '<span aria-hidden="true">→</span>';
+
+                        nextLink.setAttribute(
+                            "aria-label",
+                            "Next artwork: " +
+                            nextArtwork.title
+                        );
+
+                        topNext.appendChild(nextLink);
+                    }
+
+
+                    artworkNavigationTop.replaceChildren(
+                        topPrevious,
+                        topCenter,
+                        topNext
                     );
 
-                    previousSlot.appendChild(previousLink);
+                    artworkNavigationTop.classList.add(
+                        "is-ready"
+                    );
                 }
 
 
-                /* BACK TO ART */
+                /* ========================================
+                   BOTTOM ARTWORK NAVIGATION
+                   Artwork names + Back to Art
+                   ======================================== */
 
-                const centerSlot = document.createElement("div");
-                centerSlot.className =
-                    "artwork-navigation-slot artwork-navigation-center";
+                if (artworkNavigation) {
 
-                const backLink = document.createElement("a");
+                    /* PREVIOUS */
 
-                backLink.href = "art.html";
-                backLink.textContent = "BACK TO ART";
+                    const previousSlot =
+                        document.createElement("div");
 
-                centerSlot.appendChild(backLink);
+                    previousSlot.className =
+                        "artwork-navigation-slot " +
+                        "artwork-navigation-previous";
+
+                    if (previousArtwork) {
+
+                        const previousLink =
+                            document.createElement("a");
+
+                        previousLink.href =
+                            previousArtwork.href;
+
+                        previousLink.innerHTML =
+                            '<span aria-hidden="true">←</span> ' +
+                            escapeArtworkTitle(
+                                previousArtwork.title
+                            );
+
+                        previousLink.setAttribute(
+                            "aria-label",
+                            "Previous artwork: " +
+                            previousArtwork.title
+                        );
+
+                        previousSlot.appendChild(
+                            previousLink
+                        );
+                    }
 
 
-                /* NEXT */
+                    /* BACK TO ART */
 
-                const nextSlot = document.createElement("div");
-                nextSlot.className =
-                    "artwork-navigation-slot artwork-navigation-next";
+                    const centerSlot =
+                        document.createElement("div");
 
-                if (nextArtwork) {
-                    const nextLink = document.createElement("a");
+                    centerSlot.className =
+                        "artwork-navigation-slot " +
+                        "artwork-navigation-center";
 
-                    nextLink.href = nextArtwork.href;
-                    nextLink.innerHTML =
-                        escapeArtworkTitle(nextArtwork.title) +
-                        ' <span aria-hidden="true">→</span>';
+                    const backLink =
+                        document.createElement("a");
 
-                    nextLink.setAttribute(
-                        "aria-label",
-                        "Next artwork: " + nextArtwork.title
+                    backLink.href = "art.html";
+                    backLink.textContent = "BACK TO ART";
+
+                    centerSlot.appendChild(backLink);
+
+
+                    /* NEXT */
+
+                    const nextSlot =
+                        document.createElement("div");
+
+                    nextSlot.className =
+                        "artwork-navigation-slot " +
+                        "artwork-navigation-next";
+
+                    if (nextArtwork) {
+
+                        const nextLink =
+                            document.createElement("a");
+
+                        nextLink.href =
+                            nextArtwork.href;
+
+                        nextLink.innerHTML =
+                            escapeArtworkTitle(
+                                nextArtwork.title
+                            ) +
+                            ' <span aria-hidden="true">→</span>';
+
+                        nextLink.setAttribute(
+                            "aria-label",
+                            "Next artwork: " +
+                            nextArtwork.title
+                        );
+
+                        nextSlot.appendChild(nextLink);
+                    }
+
+
+                    artworkNavigation.replaceChildren(
+                        previousSlot,
+                        centerSlot,
+                        nextSlot
                     );
 
-                    nextSlot.appendChild(nextLink);
+                    artworkNavigation.classList.add(
+                        "is-ready"
+                    );
                 }
 
-
-                artworkNavigation.replaceChildren(
-                    previousSlot,
-                    centerSlot,
-                    nextSlot
-                );
-
-                artworkNavigation.classList.add("is-ready");
             })
             .catch(function (error) {
 
-                /*
-                 * The artwork page remains completely usable
-                 * if art.html cannot be loaded.
-                 */
                 console.warn(
                     "Artwork navigation unavailable:",
                     error
