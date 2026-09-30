@@ -1633,3 +1633,73 @@ body:has(.hero) .hello-main::after {
         font-size: 13px;
     }
 }
+
+
+
+/* ========================================
+   FRIDA FRIDA Y FRIDA | ARTWORK ACCENTS
+   ======================================== */
+
+/* Alex Reynoso Art signature yellow line */
+.frida-page .art-detail-header h1::after {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 3px;
+    margin: 20px auto 0;
+    background: var(--alex-yellow, #f4c430);
+}
+
+/* Frida-specific warm floral accents */
+.frida-page .art-detail-year,
+.frida-page .art-archive-label,
+.frida-page .art-archive-date {
+    color: #e06a76;
+}
+
+.frida-page .art-detail-meta {
+    border-left: 3px solid #b63f52;
+    padding-left: 22px;
+}
+
+.frida-page .art-archive {
+    border-top-color: rgba(182, 63, 82, 0.55);
+}
+
+.frida-page .art-archive-media img,
+.frida-page .art-archive-media video {
+    border-color: rgba(182, 63, 82, 0.48);
+}
+
+
+/* ---------- FRIDA | GALLERY NAVIGATION ---------- */
+
+.frida-page .artwork-navigation {
+    border-top-color: rgba(182, 63, 82, 0.75);
+    border-bottom-color: rgba(182, 63, 82, 0.45);
+}
+
+.frida-page .artwork-navigation-previous a,
+.frida-page .artwork-navigation-next a {
+    color: #e06a76;
+}
+
+.frida-page .artwork-navigation-previous a:hover,
+.frida-page .artwork-navigation-next a:hover,
+.frida-page .artwork-navigation-previous a:focus,
+.frida-page .artwork-navigation-next a:focus {
+    color: var(--alex-yellow, #f4c430);
+}
+
+
+@media (max-width: 750px) {
+
+    .frida-page .art-detail-header h1::after {
+        margin-top: 16px;
+    }
+
+    .frida-page .art-detail-meta {
+        border-left: 0;
+        padding-left: 0;
+    }
+}
