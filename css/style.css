@@ -1650,38 +1650,38 @@ body:has(.hero) .hello-main::after {
     background: var(--alex-yellow, #f4c430);
 }
 
-/* Frida-specific warm floral accents */
+/* Frida-specific teal / turquoise accents */
 .frida-page .art-detail-year,
 .frida-page .art-archive-label,
 .frida-page .art-archive-date {
-    color: #e06a76;
+    color: #63c7bd;
 }
 
 .frida-page .art-detail-meta {
-    border-left: 3px solid #b63f52;
+    border-left: 3px solid #2f9f91;
     padding-left: 22px;
 }
 
 .frida-page .art-archive {
-    border-top-color: rgba(182, 63, 82, 0.55);
+    border-top-color: rgba(47, 159, 145, 0.55);
 }
 
 .frida-page .art-archive-media img,
 .frida-page .art-archive-media video {
-    border-color: rgba(182, 63, 82, 0.48);
+    border-color: rgba(47, 159, 145, 0.48);
 }
 
 
 /* ---------- FRIDA | GALLERY NAVIGATION ---------- */
 
 .frida-page .artwork-navigation {
-    border-top-color: rgba(182, 63, 82, 0.75);
-    border-bottom-color: rgba(182, 63, 82, 0.45);
+    border-top-color: rgba(47, 159, 145, 0.75);
+    border-bottom-color: rgba(47, 159, 145, 0.45);
 }
 
 .frida-page .artwork-navigation-previous a,
 .frida-page .artwork-navigation-next a {
-    color: #e06a76;
+    color: #63c7bd;
 }
 
 .frida-page .artwork-navigation-previous a:hover,
@@ -1691,6 +1691,8 @@ body:has(.hero) .hello-main::after {
     color: var(--alex-yellow, #f4c430);
 }
 
+
+/* ---------- MOBILE ---------- */
 
 @media (max-width: 750px) {
 
