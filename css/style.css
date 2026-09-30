@@ -1703,3 +1703,75 @@ body:has(.hero) .hello-main::after {
         padding-left: 0;
     }
 }
+
+
+
+/* ========================================
+   GRATITUDE AND JOY, BUDDHA | ARTWORK ACCENTS
+   ======================================== */
+
+/* Alex Reynoso Art signature yellow line */
+.buddha-page .art-detail-header h1::after {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 3px;
+    margin: 20px auto 0;
+    background: var(--alex-yellow, #f4c430);
+}
+
+/* Buddha-specific cool blue accents */
+.buddha-page .art-detail-year,
+.buddha-page .art-archive-label,
+.buddha-page .art-archive-date {
+    color: #78b9df;
+}
+
+.buddha-page .art-detail-meta {
+    border-left: 3px solid #3f86b3;
+    padding-left: 22px;
+}
+
+.buddha-page .art-archive {
+    border-top-color: rgba(63, 134, 179, 0.55);
+}
+
+.buddha-page .art-archive-media img,
+.buddha-page .art-archive-media video {
+    border-color: rgba(63, 134, 179, 0.48);
+}
+
+
+/* ---------- BUDDHA | GALLERY NAVIGATION ---------- */
+
+.buddha-page .artwork-navigation {
+    border-top-color: rgba(63, 134, 179, 0.75);
+    border-bottom-color: rgba(63, 134, 179, 0.45);
+}
+
+.buddha-page .artwork-navigation-previous a,
+.buddha-page .artwork-navigation-next a {
+    color: #78b9df;
+}
+
+.buddha-page .artwork-navigation-previous a:hover,
+.buddha-page .artwork-navigation-next a:hover,
+.buddha-page .artwork-navigation-previous a:focus,
+.buddha-page .artwork-navigation-next a:focus {
+    color: var(--alex-yellow, #f4c430);
+}
+
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 750px) {
+
+    .buddha-page .art-detail-header h1::after {
+        margin-top: 16px;
+    }
+
+    .buddha-page .art-detail-meta {
+        border-left: 0;
+        padding-left: 0;
+    }
+}
