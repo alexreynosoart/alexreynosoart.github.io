@@ -4664,10 +4664,9 @@ body.everything-art-theme .ea-color-strokes > span {
 
 /* =========================================================
    EVERYTHING ART | SECTION NAVIGATION
-   One clean navigation system
+   Dedicated 3-button row + Facebook row
    ========================================================= */
 
-/* Shared sticky navigation */
 body.everything-art-theme,
 body.everything-art-events-theme,
 body.everything-art-opportunities-theme {
@@ -4689,14 +4688,18 @@ body.everything-art-opportunities-theme .ea-mini-nav {
     -webkit-backdrop-filter: none;
 }
 
-/* Align the navigation with the framed Everything Art content. */
 .ea-mini-nav-inner {
     width: min(1180px, calc(100% - 40px));
     margin: 0 auto;
     display: flex;
     align-items: center;
     gap: 7px;
-    overflow: visible;
+}
+
+.ea-mini-primary {
+    display: flex;
+    align-items: center;
+    gap: 7px;
 }
 
 .ea-mini-link {
@@ -4746,7 +4749,6 @@ a.ea-mini-facebook:hover {
     color: #08111b;
 }
 
-/* Events and Opportunities filter boxes remain below the sticky navigation. */
 body.everything-art-events-theme .op-toolbox,
 body.everything-art-opportunities-theme .op-toolbox {
     top: calc(var(--ea-sticky-nav-height) + 6px);
@@ -4755,8 +4757,8 @@ body.everything-art-opportunities-theme .op-toolbox {
 
 /* ---------------------------------------------------------
    PHONE + IPAD MINI
-   Row 1: Everything Art | Opportunities | Art Events
-   Row 2:                                  Facebook
+   The first three buttons live in their own 100%-wide box.
+   Facebook is a separate second row aligned right.
    --------------------------------------------------------- */
 
 @media (max-width: 768px) {
@@ -4764,41 +4766,40 @@ body.everything-art-opportunities-theme .op-toolbox {
     body.everything-art-theme,
     body.everything-art-events-theme,
     body.everything-art-opportunities-theme {
-        --ea-sticky-nav-height: 76px;
-    }
-
-    body.everything-art-theme .ea-mini-nav,
-    body.everything-art-events-theme .ea-mini-nav,
-    body.everything-art-opportunities-theme .ea-mini-nav {
-        padding: 5px 0;
+        --ea-sticky-nav-height: 80px;
     }
 
     .ea-mini-nav-inner {
         width: 100%;
         max-width: none;
         margin: 0;
+        padding: 0 12px;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 32px 34px;
+        row-gap: 6px;
+        box-sizing: border-box;
+    }
+
+    .ea-mini-primary {
+        width: 100%;
+        min-width: 0;
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        grid-template-rows: 32px 34px;
-        justify-content: stretch;
         align-items: center;
-        column-gap: 4px;
-        row-gap: 5px;
-        overflow: visible;
+        gap: 0;
     }
 
-    .ea-mini-nav-inner > :nth-child(1) {
+    .ea-mini-primary > :nth-child(1) {
         justify-self: start;
-        margin-left: 12px;
     }
 
-    .ea-mini-nav-inner > :nth-child(2) {
+    .ea-mini-primary > :nth-child(2) {
         justify-self: center;
     }
 
-    .ea-mini-nav-inner > :nth-child(3) {
+    .ea-mini-primary > :nth-child(3) {
         justify-self: end;
-        margin-right: 12px;
     }
 
     .ea-mini-link {
@@ -4813,10 +4814,9 @@ body.everything-art-opportunities-theme .op-toolbox {
     }
 
     .ea-mini-facebook {
-        grid-column: 3;
-        grid-row: 2;
         justify-self: end;
-        margin: 0 12px 0 0;
+        align-self: center;
+        margin: 0;
         padding-left: 10px;
         padding-right: 10px;
         background: #4da3ff;
