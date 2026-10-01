@@ -5201,7 +5201,8 @@ header nav a:not(:last-child)::after {
         align-items: center;
         width: 100%;
         max-width: none;
-        gap: 8px 0;
+        row-gap: 8px;
+        column-gap: 4px;
     }
 
     header nav a:nth-child(1) { grid-column: 1 / span 3; }
@@ -5221,8 +5222,9 @@ header nav a:not(:last-child)::after {
     }
 
     header nav a:not(:last-child)::after {
-        left: calc(100% + 8px);
+        left: calc(100% + 6px);
         margin-left: 0;
+        color: #777;
     }
 
     /* No separator hanging at the end of row one */
