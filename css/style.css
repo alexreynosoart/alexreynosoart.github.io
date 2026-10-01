@@ -4775,6 +4775,8 @@ body.everything-art-opportunities-theme .op-toolbox {
         width: 100%;
         max-width: none;
         margin: 0;
+        padding-top: 3px;
+        padding-bottom: 3px;
     }
 
     .ea-mini-nav-inner {
@@ -4785,7 +4787,7 @@ body.everything-art-opportunities-theme .op-toolbox {
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: auto auto;
-        row-gap: 6px;
+        row-gap: 2px;
     }
 
     .ea-mini-primary {
