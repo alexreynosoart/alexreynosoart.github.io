@@ -2,14 +2,11 @@
 <html lang="en">
 
 <head>
+    <link rel="icon"
+          type="image/png"
+          sizes="48x48"
+          href="images/favicon.png">
 
-
-        <link rel="icon" 
-        type="image/png" 
-        sizes="48x48"
-        href="images/favicon.png">
-
-    
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ"></script>
     <script>
@@ -32,6 +29,7 @@
             min-height: 100vh;
             background: #111;
         }
+
         body::before {
             content: "";
             position: fixed;
@@ -44,16 +42,46 @@
             pointer-events: none;
             z-index: 0;
         }
-        header, main, footer {
+
+        header,
+        main,
+        footer {
             position: relative;
             z-index: 1;
         }
+
+        /* Seven-item home navigation: 4 on top, 3 on bottom */
+        header nav {
+            display: grid;
+            grid-template-columns: repeat(4, max-content);
+            justify-content: center;
+            gap: 10px 18px;
+        }
+
+        header nav a:nth-child(5) {
+            grid-column: 1 / 2;
+        }
+
+        @media (max-width: 600px) {
+            header nav {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                width: 100%;
+                gap: 8px 4px;
+            }
+
+            header nav a {
+                min-width: 0;
+                text-align: center;
+            }
+        }
+
         /* Home door image backgrounds */
         .home-door {
             position: relative;
             overflow: hidden;
             isolation: isolate;
         }
+
         .home-door::before {
             content: "";
             position: absolute;
@@ -67,6 +95,7 @@
             transform: scale(1.02);
             transition: opacity 300ms ease, transform 500ms ease;
         }
+
         .home-door::after {
             content: "";
             position: absolute;
@@ -75,51 +104,122 @@
             background: linear-gradient(to bottom, rgba(17, 17, 17, 0.56), rgba(17, 17, 17, 0.84));
             transition: background 300ms ease;
         }
+
         .home-door-art {
             --door-image: url("images/home-see-the-art-frida.webp");
         }
+
         .home-door-videos {
             --door-image: url("images/home-watch-the-chaos-dj-cowabunga.webp");
         }
+
         .home-door-shop {
             --door-image: url("images/home-shop-the-stuff.webp");
         }
-        .home-door-number, .home-door-title, .home-door-text {
+
+        /* These fall back cleanly to the dark card if the optional images
+           have not been added yet. */
+        .home-door-mia {
+            --door-image: url("images/home-mia-creative-studio.webp");
+        }
+
+        .home-door-everything-art {
+            --door-image: url("images/everything-art/everything-art-background.png");
+        }
+
+        .home-door-number,
+        .home-door-title,
+        .home-door-text,
+        .home-door-links {
             position: relative;
             z-index: 1;
         }
+
+        .home-door-title {
+            display: inline-block;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .home-door-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 7px 12px;
+            margin-top: 16px;
+        }
+
+        .home-door-links a {
+            color: inherit;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-decoration: none;
+            text-transform: uppercase;
+            opacity: 0.86;
+        }
+
+        .home-door-links a:hover,
+        .home-door-links a:focus-visible,
+        .home-door-title:hover,
+        .home-door-title:focus-visible {
+            opacity: 1;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
         @media (hover: hover) and (pointer: fine) {
             .home-door:hover::before {
                 opacity: 0.48;
                 transform: scale(1.07);
             }
+
             .home-door:hover::after {
                 background: linear-gradient(to bottom, rgba(17, 17, 17, 0.46), rgba(17, 17, 17, 0.76));
             }
         }
+
         @media (prefers-reduced-motion: reduce) {
-            .home-door::before, .home-door::after { transition: none; }
+            .home-door::before,
+            .home-door::after {
+                transition: none;
+            }
         }
+
         @media (max-width: 600px) {
-            body::before { background-position: center center; }
-            .home-door::before { opacity: 0.34; }
+            body::before {
+                background-position: center center;
+            }
+
+            .home-door::before {
+                opacity: 0.34;
+            }
+
+            .home-door-links {
+                gap: 8px 10px;
+                margin-top: 14px;
+            }
         }
     </style>
 </head>
+
 <body>
     <header>
         <a class="site-logo" href="index.html">
             <img src="images/AlexReynosoArt-Logo_transparent.png" alt="Alex Reynoso Art">
         </a>
+
         <nav>
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
             <a href="art.html">Art</a>
+            <a href="everything-art.html">Everything Art</a>
             <a href="videos.html">Videos</a>
             <a href="shop.html">Shop</a>
             <a href="commissions.html">Commissions</a>
         </nav>
     </header>
+
     <main>
         <section class="hero">
             <div class="hello">
@@ -128,24 +228,67 @@
             </div>
             <p class="hero-tagline">Art. Animation. Characters. Controlled chaos.</p>
         </section>
+
         <section class="home-doors" aria-label="Explore Alex Reynoso Art">
-            <a class="home-door home-door-art" href="art.html">
+
+            <article class="home-door home-door-art">
                 <span class="home-door-number">01</span>
-                <span class="home-door-title">SEE THE ART</span>
+                <a class="home-door-title" href="art.html">SEE THE ART</a>
                 <span class="home-door-text">Paintings, artwork and the stories behind them.</span>
-            </a>
-            <a class="home-door home-door-videos" href="videos.html">
+                <div class="home-door-links" aria-label="Featured art">
+                    <a href="art.html">Frida</a>
+                    <a href="art.html">It's Her Life</a>
+                    <a href="art.html">Prince</a>
+                </div>
+            </article>
+
+            <article class="home-door home-door-videos">
                 <span class="home-door-number">02</span>
-                <span class="home-door-title">WATCH THE CHAOS</span>
+                <a class="home-door-title" href="videos.html">WATCH THE CHAOS</a>
                 <span class="home-door-text">Animation, characters, dancing animals and other questionable decisions.</span>
-            </a>
-            <a class="home-door home-door-shop" href="shop.html">
+                <div class="home-door-links" aria-label="Featured videos">
+                    <a href="videos.html">Latest</a>
+                    <a href="videos.html">Popular</a>
+                    <a href="videos.html">More Chaos</a>
+                </div>
+            </article>
+
+            <article class="home-door home-door-shop">
                 <span class="home-door-number">03</span>
-                <span class="home-door-title">SHOP THE STUFF</span>
+                <a class="home-door-title" href="shop.html">SHOP THE STUFF</a>
                 <span class="home-door-text">Wearable art, objects and things that escaped the studio.</span>
-            </a>
+                <div class="home-door-links" aria-label="Featured shop items">
+                    <a href="shop.html">Featured</a>
+                    <a href="shop.html">Tired.</a>
+                    <a href="shop.html">Shop All</a>
+                </div>
+            </article>
+
+            <article class="home-door home-door-mia">
+                <span class="home-door-number">04</span>
+                <a class="home-door-title" href="mia.html">MIA: CREATIVE STUDIO</a>
+                <span class="home-door-text">Draw, color, explore and make something of your own.</span>
+                <div class="home-door-links" aria-label="Explore MIA">
+                    <a href="mia-color.html">Creative Studio</a>
+                    <a href="mia-originals.html">Original Art</a>
+                    <a href="mia.html">Mia's World</a>
+                </div>
+            </article>
+
+            <article class="home-door home-door-everything-art">
+                <span class="home-door-number">05</span>
+                <a class="home-door-title" href="everything-art.html">EVERYTHING ART</a>
+                <span class="home-door-text">Artists inspiring artists. Community, opportunities and things happening now.</span>
+                <div class="home-door-links" aria-label="Explore Everything Art">
+                    <a href="everything-art.html">Featured Artist</a>
+                    <a href="everything-art-opportunities.html">Opportunities</a>
+                    <a href="everything-art-events.html">Art Events</a>
+                </div>
+            </article>
+
         </section>
     </main>
+
     <footer>
         <div class="footer-social" aria-label="Alex Reynoso Art on social media">
             <a href="https://www.instagram.com/alexreynosoart/" target="_blank" rel="noopener noreferrer">Instagram</a>
@@ -156,8 +299,10 @@
             <span aria-hidden="true">·</span>
             <a href="https://www.youtube.com/@AlexReynosoArt" target="_blank" rel="noopener noreferrer">YouTube</a>
         </div>
+
         <div class="footer-copyright">&copy; 2026 Alex Reynoso Art</div>
     </footer>
+
     <script>
         const greetings = [
             "Hola", "Bonjour", "Ciao", "Hallo", "Olá", "Hej", "Hei", "Halló",
@@ -166,23 +311,30 @@
             "שלום", "สวัสดี", "Xin chào", "Halo", "Kumusta", "Jambo",
             "Sawubona", "Tere", "Labas", "Sveiki", "Dia dhuit", "Helo"
         ];
+
         const helloTranslation = document.getElementById("helloTranslation");
         let lastGreeting = -1;
+
         function changeGreeting() {
             let newGreeting;
+
             do {
                 newGreeting = Math.floor(Math.random() * greetings.length);
             } while (newGreeting === lastGreeting);
+
             helloTranslation.style.opacity = 0;
+
             setTimeout(function() {
                 helloTranslation.textContent = greetings[newGreeting];
                 helloTranslation.style.opacity = 1;
                 lastGreeting = newGreeting;
             }, 500);
         }
+
         changeGreeting();
         setInterval(changeGreeting, 5000);
     </script>
+
     <script src="js/script.js"></script>
 </body>
 </html>
