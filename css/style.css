@@ -4917,3 +4917,79 @@ body.everything-art-opportunities-theme .op-toolbox {
     }
 }
 
+/* =========================================================
+   EVERYTHING ART | NAV ALIGNMENT + MOBILE VISIBILITY
+   ========================================================= */
+
+/* Align the nav edges with the framed content below. */
+.ea-mini-nav-inner {
+    width: min(1180px, calc(100% - 40px));
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Individual pills stay opaque even though the nav bar itself is transparent. */
+.ea-mini-link {
+    background: #111;
+}
+
+.ea-mini-link.is-current {
+    background: #111;
+}
+
+.ea-mini-facebook {
+    margin-left: auto;
+    background: #4da3ff;
+}
+
+/* PHONE: show all four controls instead of hiding them off-screen. */
+@media (max-width: 760px) {
+
+    body.everything-art-theme .ea-mini-nav,
+    body.everything-art-events-theme .ea-mini-nav,
+    body.everything-art-opportunities-theme .ea-mini-nav {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .ea-mini-nav-inner {
+        width: 100%;
+        margin: 0;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 5px;
+        overflow: visible;
+    }
+
+    .ea-mini-link {
+        min-width: 0;
+        min-height: 32px;
+        padding: 0 5px;
+        font-size: .52rem;
+        letter-spacing: 0;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .ea-mini-facebook {
+        grid-column: 1 / -1;
+        width: max-content;
+        min-width: 0;
+        margin: 1px 0 0 auto;
+        padding-left: 10px;
+        padding-right: 10px;
+        background: #4da3ff;
+    }
+
+    body.everything-art-theme,
+    body.everything-art-events-theme,
+    body.everything-art-opportunities-theme {
+        --ea-sticky-nav-height: 72px;
+    }
+
+    body.everything-art-events-theme .op-toolbox,
+    body.everything-art-opportunities-theme .op-toolbox {
+        top: calc(var(--ea-sticky-nav-height) + 5px);
+    }
+}
+
