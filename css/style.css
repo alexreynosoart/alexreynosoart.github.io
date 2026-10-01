@@ -5148,3 +5148,22 @@ body.everything-art-opportunities-theme .op-toolbox {
         padding-top: 28px;
     }
 }
+
+
+/* =========================================================
+   EVERYTHING ART | EVENTS + OPPORTUNITIES MOBILE GAP
+   Final tightening to bring the toolbox closer to the hero line.
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    body.everything-art-events-theme .op-hero,
+    body.everything-art-opportunities-theme .op-hero {
+        padding-bottom: 0;
+    }
+
+    body.everything-art-events-theme .op-toolbox,
+    body.everything-art-opportunities-theme .op-toolbox {
+        margin-top: 0;
+    }
+}
