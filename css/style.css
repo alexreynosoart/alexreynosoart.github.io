@@ -4993,3 +4993,90 @@ body.everything-art-opportunities-theme .op-toolbox {
     }
 }
 
+/* =========================================================
+   EVERYTHING ART | MOBILE NAV FINAL LAYOUT
+   Three natural-width pills across, Facebook below right
+   ========================================================= */
+
+@media (max-width: 760px) {
+
+    body.everything-art-theme .ea-mini-nav,
+    body.everything-art-events-theme .ea-mini-nav,
+    body.everything-art-opportunities-theme .ea-mini-nav {
+        padding: 5px 12px;
+        background: transparent;
+        border: 0;
+        overflow: visible;
+    }
+
+    .ea-mini-nav-inner {
+        width: 100%;
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 5px;
+        overflow: visible;
+    }
+
+    .ea-mini-link {
+        flex: 0 0 auto;
+        width: auto;
+        min-width: 0;
+        min-height: 32px;
+        padding: 0 7px;
+        background: #111;
+        font-size: clamp(.48rem, 2.35vw, .60rem);
+        letter-spacing: 0;
+        text-align: center;
+        overflow: visible;
+        white-space: nowrap;
+    }
+
+    .ea-mini-facebook {
+        flex-basis: auto;
+        margin-left: auto;
+        margin-right: 0;
+        padding-left: 11px;
+        padding-right: 11px;
+        background: #4da3ff;
+    }
+
+    /* Force Facebook onto its own second line and keep it under Art Events. */
+    .ea-mini-facebook::before {
+        content: "";
+    }
+
+    .ea-mini-facebook {
+        break-before: always;
+    }
+
+    .ea-mini-nav-inner::before {
+        content: "";
+        flex-basis: 100%;
+        width: 0;
+        height: 0;
+        order: 3;
+    }
+
+    .ea-mini-facebook {
+        order: 4;
+    }
+
+    .ea-mini-nav-inner > :not(.ea-mini-facebook) {
+        order: 1;
+    }
+
+    body.everything-art-theme,
+    body.everything-art-events-theme,
+    body.everything-art-opportunities-theme {
+        --ea-sticky-nav-height: 75px;
+    }
+
+    body.everything-art-events-theme .op-toolbox,
+    body.everything-art-opportunities-theme .op-toolbox {
+        top: calc(var(--ea-sticky-nav-height) + 5px);
+    }
+}
+
