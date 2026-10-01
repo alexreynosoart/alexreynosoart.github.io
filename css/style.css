@@ -3754,3 +3754,31 @@ body.everything-art-events-theme .back-ea a:hover {
 body.everything-art-events-theme .back-to-top:hover {
     border-color: var(--ea-blue);
 }
+
+/* =========================================================
+   EVERYTHING ART | ART EVENTS
+   Unified event card color
+   Blue = all event cards
+   Yellow = controls
+   Purple = resources
+   ========================================================= */
+
+body.everything-art-events-theme .op-card,
+body.everything-art-events-theme .op-card:nth-of-type(3n + 1),
+body.everything-art-events-theme .op-card:nth-of-type(3n + 2),
+body.everything-art-events-theme .op-card:nth-of-type(3n) {
+    border-top-color: rgba(77,163,255,.76);
+}
+
+body.everything-art-events-theme .op-card .op-link,
+body.everything-art-events-theme .op-card:nth-of-type(3n + 1) .op-link,
+body.everything-art-events-theme .op-card:nth-of-type(3n + 2) .op-link,
+body.everything-art-events-theme .op-card:nth-of-type(3n) .op-link {
+    background: var(--ea-blue);
+    color: #08111b;
+}
+
+body.everything-art-events-theme .op-card:hover {
+    border-color: rgba(77,163,255,.76);
+}
+
