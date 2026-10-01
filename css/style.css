@@ -4777,7 +4777,7 @@ body.everything-art-opportunities-theme .op-toolbox {
         width: 100%;
         margin: 0;
         display: grid;
-        grid-template-columns: max-content max-content max-content;
+        grid-template-columns: repeat(3, max-content);
         grid-template-rows: 32px 34px;
         justify-content: space-between;
         align-items: center;
