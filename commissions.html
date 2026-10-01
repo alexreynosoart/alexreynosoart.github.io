@@ -288,6 +288,11 @@
         scroll-margin-top: 40px;
     }
 
+    #art-design,
+    #video {
+        scroll-margin-top: 110px;
+    }
+
     .project-studio-shell {
         padding: clamp(24px, 5vw, 52px);
         background: rgba(17, 17, 17, 0.96);
@@ -902,6 +907,7 @@
 
 
                     <button class="project-choice"
+                            id="art-design"
                             type="button"
                             data-project="illustration">
 
@@ -917,6 +923,7 @@
 
 
                     <button class="project-choice"
+                            id="video"
                             type="button"
                             data-project="video">
 
@@ -1658,6 +1665,37 @@
             }, 80);
 
         }
+
+
+        /* Open project type from homepage/deep links */
+
+        function openProjectFromHash() {
+
+            const hash =
+                window.location.hash.replace('#', '');
+
+            const projectByHash = {
+                'art-design': 'illustration',
+                'video': 'video'
+            };
+
+            const key =
+                projectByHash[hash];
+
+            if (!key) return;
+
+            chooseProject(key);
+
+        }
+
+
+        openProjectFromHash();
+
+
+        window.addEventListener(
+            'hashchange',
+            openProjectFromHash
+        );
 
 
         choices.forEach(button => {
