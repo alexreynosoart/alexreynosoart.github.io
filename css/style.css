@@ -4770,11 +4770,12 @@ body.everything-art-opportunities-theme .op-toolbox {
     body.everything-art-theme .ea-mini-nav,
     body.everything-art-events-theme .ea-mini-nav,
     body.everything-art-opportunities-theme .ea-mini-nav {
-        padding: 5px 12px;
+        padding: 5px 0;
     }
 
     .ea-mini-nav-inner {
         width: 100%;
+        max-width: none;
         margin: 0;
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -4788,6 +4789,7 @@ body.everything-art-opportunities-theme .op-toolbox {
 
     .ea-mini-nav-inner > :nth-child(1) {
         justify-self: start;
+        margin-left: 12px;
     }
 
     .ea-mini-nav-inner > :nth-child(2) {
@@ -4796,6 +4798,7 @@ body.everything-art-opportunities-theme .op-toolbox {
 
     .ea-mini-nav-inner > :nth-child(3) {
         justify-self: end;
+        margin-right: 12px;
     }
 
     .ea-mini-link {
@@ -4813,7 +4816,7 @@ body.everything-art-opportunities-theme .op-toolbox {
         grid-column: 3;
         grid-row: 2;
         justify-self: end;
-        margin: 0;
+        margin: 0 12px 0 0;
         padding-left: 10px;
         padding-right: 10px;
         background: #4da3ff;
