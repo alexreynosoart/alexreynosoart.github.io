@@ -4603,3 +4603,25 @@ body.everything-art-opportunities-theme .back-ea a:hover {
 body.everything-art-opportunities-theme .back-to-top:hover {
     border-color: var(--ea-blue);
 }
+
+/* =========================================================
+   EVERYTHING ART | MAIN HERO COLOR LINE
+   Tight three-color strokes so they read as one line
+   ========================================================= */
+
+body.everything-art-theme .ea-strokes {
+    gap: 0;
+}
+
+body.everything-art-theme .ea-stroke {
+    border-radius: 0;
+}
+
+body.everything-art-theme .ea-stroke:first-child {
+    border-radius: 999px 0 0 999px;
+}
+
+body.everything-art-theme .ea-stroke:last-child {
+    border-radius: 0 999px 999px 0;
+}
+
