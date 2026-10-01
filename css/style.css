@@ -5167,3 +5167,17 @@ body.everything-art-opportunities-theme .op-toolbox {
         margin-top: 0;
     }
 }
+
+
+/* =========================================================
+   EVERYTHING ART | MOBILE CARD BREATHING ROOM
+   Small separation between filter toolbox and first card.
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    body.everything-art-events-theme .op-grid,
+    body.everything-art-opportunities-theme .op-grid {
+        margin-top: 18px;
+    }
+}
