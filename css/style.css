@@ -5120,31 +5120,32 @@ body.everything-art-opportunities-theme .op-toolbox {
 
 
 /* =========================================================
-   EVERYTHING ART | FINAL STATUS + SECTION SPACING
-   Updated from Alex's current uploaded stylesheet.
+   EVERYTHING ART | EVENTS + OPPORTUNITIES
+   CLEAN MOBILE LAYER
+   Desktop remains the control. Navigation untouched.
    ========================================================= */
 
-/* Art Events: protect the breathing room before KEEP EXPLORING
-   on desktop, tablet, and phone without changing the section itself. */
-body.everything-art-events-theme .resource-desk {
-    margin-top: 82px;
-}
-
-/* Phones: keep the useful results status visible between the
-   filter toolbox and the first card. The status row owns the gap. */
 @media (max-width: 700px) {
 
+    /* Phone behavior: toolbox scrolls normally instead of staying sticky. */
+    body.everything-art-events-theme .op-toolbox,
+    body.everything-art-opportunities-theme .op-toolbox {
+        position: relative;
+        top: auto;
+        margin-bottom: 18px;
+    }
+
+    /* Mirror desktop status layout on phone:
+       result count left, reset control right. */
     body.everything-art-events-theme .op-statusbar,
     body.everything-art-opportunities-theme .op-statusbar {
-        display: flex !important;
-        flex-direction: row !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        gap: 12px !important;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
         width: 100%;
-        margin: 0 2px 24px !important;
-        color: #7e7e7e;
-        font-size: .72rem;
+        margin: 0 0 30px;
     }
 
     body.everything-art-events-theme .op-statusbar > *,
@@ -5157,7 +5158,7 @@ body.everything-art-events-theme .resource-desk {
         white-space: nowrap;
     }
 
-    /* Preserve comfortable Keep Exploring separation on phones too. */
+    /* Art Events: preserve a clear break before KEEP EXPLORING. */
     body.everything-art-events-theme .resource-desk {
         margin-top: 64px;
     }
