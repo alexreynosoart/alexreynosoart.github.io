@@ -4828,3 +4828,293 @@ body.everything-art-opportunities-theme .op-toolbox {
     }
 }
 
+/* =========================================================
+   EVERYTHING ART | FEATURED ARTIST AWARD
+   Web-native award treatment. Navigation intentionally untouched.
+   ========================================================= */
+
+.ea-featured-award {
+    position: relative;
+    isolation: isolate;
+    gap: 28px;
+    padding: 30px;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 82% 16%, rgba(143, 99, 217, 0.13), transparent 31%),
+        radial-gradient(circle at 18% 84%, rgba(244, 196, 48, 0.055), transparent 30%),
+        linear-gradient(135deg, rgba(255,255,255,0.035), rgba(255,255,255,0.012)),
+        #151515;
+    border: 1px solid rgba(196, 158, 62, 0.72);
+    border-top: 1px solid rgba(196, 158, 62, 0.72);
+    border-radius: 28px;
+    box-shadow:
+        inset 0 0 0 5px #151515,
+        inset 0 0 0 6px rgba(143, 99, 217, 0.68),
+        inset 0 0 0 10px #151515,
+        inset 0 0 0 11px rgba(196, 158, 62, 0.28),
+        0 24px 70px rgba(0, 0, 0, 0.24);
+}
+
+.ea-featured-award::before {
+    content: "";
+    position: absolute;
+    inset: 15px;
+    z-index: -1;
+    border: 1px solid rgba(244, 196, 48, 0.15);
+    border-radius: 18px;
+    pointer-events: none;
+}
+
+.ea-featured-award::after {
+    content: "EVERYTHING ART  •  FEATURED ARTIST";
+    position: absolute;
+    right: 38px;
+    bottom: 15px;
+    z-index: 0;
+    color: rgba(244, 196, 48, 0.09);
+    font-size: 0.58rem;
+    font-weight: 900;
+    letter-spacing: 0.28em;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.ea-award-corner {
+    position: absolute;
+    z-index: 3;
+    width: 34px;
+    height: 34px;
+    pointer-events: none;
+}
+
+.ea-award-corner::before,
+.ea-award-corner::after {
+    content: "";
+    position: absolute;
+    background: linear-gradient(90deg, #8f63d9, #d2aa45, #f4c430);
+    border-radius: 999px;
+}
+
+.ea-award-corner::before {
+    width: 28px;
+    height: 2px;
+}
+
+.ea-award-corner::after {
+    width: 2px;
+    height: 28px;
+}
+
+.ea-award-corner-tl { top: 15px; left: 15px; }
+.ea-award-corner-tr { top: 15px; right: 15px; transform: rotate(90deg); }
+.ea-award-corner-br { right: 15px; bottom: 15px; transform: rotate(180deg); }
+.ea-award-corner-bl { left: 15px; bottom: 15px; transform: rotate(270deg); }
+
+.ea-featured-award .ea-featured-preview {
+    position: relative;
+    min-height: 360px;
+    overflow: visible;
+    padding: 9px;
+    background:
+        linear-gradient(#121212, #121212) padding-box,
+        linear-gradient(145deg, #f4c430, #8f63d9 48%, #d2aa45) border-box;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.28),
+        inset 0 0 0 1px rgba(255,255,255,0.04);
+}
+
+.ea-featured-award .ea-featured-image {
+    min-height: 342px;
+    border-radius: 13px;
+    box-shadow: none;
+}
+
+.ea-award-seal {
+    position: absolute;
+    right: -18px;
+    bottom: -22px;
+    z-index: 5;
+    width: 118px;
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 10px 12px;
+    border: 2px solid #f4c430;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 34% 28%, rgba(255,255,255,0.34), transparent 17%),
+        radial-gradient(circle at center, #e3bd54 0 45%, #b98520 46% 62%, #f4c430 63% 68%, #8f631a 69% 100%);
+    color: #211604;
+    text-align: center;
+    box-shadow:
+        0 9px 22px rgba(0,0,0,0.42),
+        inset 0 0 0 3px rgba(67, 42, 4, 0.42),
+        inset 0 0 0 6px rgba(255, 231, 144, 0.5);
+    transform: rotate(-7deg);
+}
+
+.ea-award-seal::before,
+.ea-award-seal::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    bottom: -27px;
+    width: 31px;
+    height: 48px;
+    background: linear-gradient(180deg, #8f63d9, #5e3c9b);
+    border: 1px solid rgba(244,196,48,0.52);
+}
+
+.ea-award-seal::before {
+    left: 22px;
+    transform: rotate(12deg);
+    clip-path: polygon(0 0, 100% 0, 82% 100%, 50% 76%, 18% 100%);
+}
+
+.ea-award-seal::after {
+    right: 22px;
+    transform: rotate(-12deg);
+    clip-path: polygon(0 0, 100% 0, 82% 100%, 50% 76%, 18% 100%);
+}
+
+.ea-award-seal-star {
+    margin-bottom: 2px;
+    font-size: 1.05rem;
+    line-height: 1;
+}
+
+.ea-award-seal-title,
+.ea-award-seal-year {
+    display: block;
+    font-size: 0.43rem;
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: 0.08em;
+}
+
+.ea-award-seal-center {
+    display: block;
+    margin: 3px 0;
+    font-size: 0.68rem;
+    font-weight: 1000;
+    line-height: 1;
+    letter-spacing: 0.03em;
+}
+
+.ea-featured-award .ea-featured-copy {
+    position: relative;
+    z-index: 2;
+    padding: 38px 34px 34px 24px;
+}
+
+.ea-award-eyebrow {
+    width: fit-content;
+    margin-bottom: 18px;
+    padding: 7px 11px;
+    border: 1px solid rgba(244, 196, 48, 0.38);
+    border-radius: 999px;
+    color: #d9b95d;
+    background: rgba(244, 196, 48, 0.055);
+    font-size: 0.61rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.ea-featured-award .ea-section-kicker {
+    color: #a985dc;
+}
+
+.ea-featured-award .ea-featured-copy h3 {
+    position: relative;
+    margin-bottom: 22px;
+    color: #d0b9f0;
+}
+
+.ea-featured-award .ea-featured-copy h3::after {
+    content: "";
+    display: block;
+    width: 74px;
+    height: 2px;
+    margin-top: 16px;
+    background: linear-gradient(90deg, #f4c430, #8f63d9);
+    border-radius: 999px;
+}
+
+.ea-featured-award .ea-featured-note {
+    border-top-color: rgba(210, 170, 69, 0.28);
+}
+
+.ea-award-motto {
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 12px;
+    align-items: center;
+    color: rgba(217, 185, 93, 0.82);
+    font-size: 0.59rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.ea-award-motto span {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(244,196,48,0.48));
+}
+
+.ea-award-motto span:last-child {
+    background: linear-gradient(90deg, rgba(244,196,48,0.48), transparent);
+}
+
+
+/* Featured Artist Award | responsive */
+
+@media (max-width: 760px) {
+
+    .ea-featured-award {
+        gap: 20px;
+        padding: 24px;
+        border-radius: 24px;
+    }
+
+    .ea-featured-award::after {
+        display: none;
+    }
+
+    .ea-featured-award .ea-featured-preview {
+        min-height: 250px;
+        margin-bottom: 24px;
+    }
+
+    .ea-featured-award .ea-featured-image {
+        min-height: 232px;
+        max-height: 430px;
+    }
+
+    .ea-award-seal {
+        right: 14px;
+        bottom: -38px;
+        width: 98px;
+    }
+
+    .ea-featured-award .ea-featured-copy {
+        padding: 24px 6px 10px;
+    }
+
+    .ea-award-eyebrow {
+        margin-bottom: 15px;
+    }
+
+    .ea-award-motto {
+        gap: 8px;
+        font-size: 0.52rem;
+        letter-spacing: 0.1em;
+    }
+}
+
