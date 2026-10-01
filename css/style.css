@@ -4777,13 +4777,25 @@ body.everything-art-opportunities-theme .op-toolbox {
         width: 100%;
         margin: 0;
         display: grid;
-        grid-template-columns: repeat(3, max-content);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         grid-template-rows: 32px 34px;
-        justify-content: space-between;
+        justify-content: stretch;
         align-items: center;
         column-gap: 4px;
         row-gap: 5px;
         overflow: visible;
+    }
+
+    .ea-mini-nav-inner > :nth-child(1) {
+        justify-self: start;
+    }
+
+    .ea-mini-nav-inner > :nth-child(2) {
+        justify-self: center;
+    }
+
+    .ea-mini-nav-inner > :nth-child(3) {
+        justify-self: end;
     }
 
     .ea-mini-link {
