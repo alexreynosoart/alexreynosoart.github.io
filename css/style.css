@@ -4625,3 +4625,15 @@ body.everything-art-theme .ea-stroke:last-child {
     border-radius: 0 999px 999px 0;
 }
 
+/* =========================================================
+   EVERYTHING ART | SHARED 5% SEASONAL BACKGROUND
+   Main + Events + Opportunities
+   ========================================================= */
+
+body.everything-art-events-theme::before,
+body.everything-art-opportunities-theme::before {
+    background:
+        linear-gradient(rgba(16,16,16,.95), rgba(16,16,16,.95)),
+        url("../images/everything-art/everything-art-background.png") center top / cover fixed no-repeat;
+}
+
