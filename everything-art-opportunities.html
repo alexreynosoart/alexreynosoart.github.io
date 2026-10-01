@@ -25,6 +25,32 @@
     <meta name="description" content="Current grants, residencies, fellowships, open calls, exhibitions and artist resources from Everything Art.">
 
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .op-kicker-brand {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .op-kicker-brand .ea-kicker-logo {
+            display: block;
+            width: 150px;
+            max-width: 42vw;
+            height: auto;
+        }
+
+        .op-kicker-brand span {
+            display: block;
+        }
+
+        @media (max-width: 700px) {
+            .op-kicker-brand .ea-kicker-logo {
+                width: 125px;
+                max-width: 38vw;
+            }
+        }
+    </style>
 </head>
 
 <body class="everything-art-opportunities-theme">
@@ -67,7 +93,12 @@
 <main class="opportunities-page">
 
     <section class="op-hero">
-        <div class="op-kicker">Everything Art · Resources for Artists</div>
+        <div class="op-kicker op-kicker-brand">
+            <img class="ea-kicker-logo"
+                 src="images/everything-art/EverythingART-logo-small.png"
+                 alt="Everything Art">
+            <span>Resources for Artists</span>
+        </div>
         <h1>ARTIST OPPORTUNITIES</h1>
         <p>
             Grants, residencies, fellowships, exhibitions, open calls and useful resources
