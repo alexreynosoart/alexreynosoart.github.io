@@ -4739,13 +4739,13 @@ a.ea-mini-link:hover {
 .ea-mini-facebook {
     margin-left: auto;
     border-color: #4da3ff;
-    background: #4da3ff;
-    color: #08111b;
+    background: #111;
+    color: #4da3ff;
 }
 
 a.ea-mini-facebook:hover {
     border-color: #62afff;
-    background: #62afff;
+    background: #4da3ff;
     color: #08111b;
 }
 
