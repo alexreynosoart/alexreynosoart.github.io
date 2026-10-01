@@ -50,33 +50,6 @@
             z-index: 1;
         }
 
-        /* Home-page navigation only */
-        header nav {
-            display: flex;
-            flex-wrap: nowrap;
-            justify-content: center;
-            align-items: center;
-            gap: clamp(22px, 3.4vw, 58px);
-        }
-
-        @media (max-width: 600px) {
-            header nav {
-                display: grid;
-                grid-template-columns: repeat(4, minmax(0, 1fr));
-                width: 100%;
-                gap: 8px 4px;
-            }
-
-            header nav a {
-                min-width: 0;
-                text-align: center;
-            }
-
-            header nav a:nth-child(5) {
-                grid-column: 1 / 2;
-            }
-        }
-
         /* Home door image backgrounds */
         .home-door {
             position: relative;
