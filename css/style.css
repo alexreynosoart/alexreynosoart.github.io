@@ -4637,3 +4637,28 @@ body.everything-art-opportunities-theme::before {
         url("../images/everything-art/everything-art-background.png") center top / cover fixed no-repeat;
 }
 
+/* =========================================================
+   EVERYTHING ART | MAIN HERO CONTINUOUS 3-COLOR LINE
+   Matches the Art Events hero treatment
+   ========================================================= */
+
+body.everything-art-theme .ea-color-strokes {
+    display: block;
+    width: min(240px, 58vw);
+    height: 4px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 999px;
+    overflow: hidden;
+    background: linear-gradient(
+        90deg,
+        #f4c430 0 33.333%,
+        #8f63d9 33.333% 66.666%,
+        #4da3ff 66.666% 100%
+    );
+}
+
+body.everything-art-theme .ea-color-strokes > span {
+    display: none;
+}
+
