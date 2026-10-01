@@ -5181,3 +5181,22 @@ body.everything-art-opportunities-theme .op-toolbox {
         margin-top: 18px;
     }
 }
+
+
+/* =========================================================
+   EVERYTHING ART | MOBILE TOOLBOX → FIRST CARD GAP
+   Put the separation on the toolbox, not the card grid.
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    body.everything-art-events-theme .op-grid,
+    body.everything-art-opportunities-theme .op-grid {
+        margin-top: 0;
+    }
+
+    body.everything-art-events-theme .op-toolbox,
+    body.everything-art-opportunities-theme .op-toolbox {
+        margin-bottom: 30px;
+    }
+}
