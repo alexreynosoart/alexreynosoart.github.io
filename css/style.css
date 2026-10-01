@@ -5118,3 +5118,33 @@ body.everything-art-opportunities-theme .op-toolbox {
     }
 }
 
+
+
+/* =========================================================
+   EVERYTHING ART | EVENTS + OPPORTUNITIES MOBILE SPACING
+   Tighten the oversized hero-to-toolbox gap on mobile only.
+   Add breathing room before the Events "KEEP EXPLORING" block.
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    body.everything-art-events-theme .op-hero,
+    body.everything-art-opportunities-theme .op-hero {
+        padding-bottom: 8px;
+    }
+
+    body.everything-art-events-theme .op-hero::after,
+    body.everything-art-opportunities-theme .op-hero::after {
+        margin-top: 20px;
+    }
+
+    body.everything-art-events-theme .op-toolbox,
+    body.everything-art-opportunities-theme .op-toolbox {
+        margin-top: 8px;
+    }
+
+    body.everything-art-events-theme .resource-desk {
+        margin-top: 34px;
+        padding-top: 28px;
+    }
+}
