@@ -50,20 +50,18 @@
             z-index: 1;
         }
 
-        /* Seven-item home navigation: 4 on top, 3 on bottom */
+        /* Home-page navigation only */
         header nav {
-            display: grid;
-            grid-template-columns: repeat(4, max-content);
+            display: flex;
+            flex-wrap: nowrap;
             justify-content: center;
-            gap: 10px 18px;
-        }
-
-        header nav a:nth-child(5) {
-            grid-column: 1 / 2;
+            align-items: center;
+            gap: clamp(22px, 3.4vw, 58px);
         }
 
         @media (max-width: 600px) {
             header nav {
+                display: grid;
                 grid-template-columns: repeat(4, minmax(0, 1fr));
                 width: 100%;
                 gap: 8px 4px;
@@ -72,6 +70,10 @@
             header nav a {
                 min-width: 0;
                 text-align: center;
+            }
+
+            header nav a:nth-child(5) {
+                grid-column: 1 / 2;
             }
         }
 
@@ -127,10 +129,52 @@
             --door-image: url("images/everything-art/everything-art-background.png");
         }
 
+        .home-door-commissions {
+            --door-image: url("images/home-background-alex-reynoso-art.jpg");
+        }
+
+        .home-door-everything-art .home-door-brand {
+            position: relative;
+            z-index: 1;
+            display: block;
+            width: min(270px, 78%);
+            height: auto;
+            margin: 0 0 12px;
+        }
+
+        .home-door-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .home-door-link::before {
+            content: "";
+            width: 0;
+            height: 0;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 8px solid #f4c430;
+            flex: 0 0 auto;
+        }
+
+        .home-door-link.frida::before {
+            border-left-color: #35bfc2;
+        }
+
+        .home-door-link.her-life::before {
+            border-left-color: #9f3548;
+        }
+
+        .home-door-link.prince::before {
+            border-left-color: #8f63d9;
+        }
+
         .home-door-number,
         .home-door-title,
         .home-door-text,
-        .home-door-links {
+        .home-door-links,
+        .home-door-brand {
             position: relative;
             z-index: 1;
         }
@@ -236,9 +280,9 @@
                 <a class="home-door-title" href="art.html">SEE THE ART</a>
                 <span class="home-door-text">Paintings, artwork and the stories behind them.</span>
                 <div class="home-door-links" aria-label="Featured art">
-                    <a href="art.html">Frida</a>
-                    <a href="art.html">It's Her Life</a>
-                    <a href="art.html">Prince</a>
+                    <a class="home-door-link frida" href="art.html">Frida</a>
+                    <a class="home-door-link her-life" href="art.html">It's Her Life</a>
+                    <a class="home-door-link prince" href="art.html">Prince</a>
                 </div>
             </article>
 
@@ -246,10 +290,8 @@
                 <span class="home-door-number">02</span>
                 <a class="home-door-title" href="videos.html">WATCH THE CHAOS</a>
                 <span class="home-door-text">Animation, characters, dancing animals and other questionable decisions.</span>
-                <div class="home-door-links" aria-label="Featured videos">
-                    <a href="videos.html">Latest</a>
-                    <a href="videos.html">Popular</a>
-                    <a href="videos.html">More Chaos</a>
+                <div class="home-door-links" aria-label="Featured video">
+                    <a class="home-door-link" href="videos.html">Hydroponics</a>
                 </div>
             </article>
 
@@ -257,10 +299,10 @@
                 <span class="home-door-number">03</span>
                 <a class="home-door-title" href="shop.html">SHOP THE STUFF</a>
                 <span class="home-door-text">Wearable art, objects and things that escaped the studio.</span>
-                <div class="home-door-links" aria-label="Featured shop items">
-                    <a href="shop.html">Featured</a>
-                    <a href="shop.html">Tired.</a>
-                    <a href="shop.html">Shop All</a>
+                <div class="home-door-links" aria-label="Shop">
+                    <a class="home-door-link" href="shop.html#featured">Featured</a>
+                    <a class="home-door-link" href="shop.html#tired">Tired.</a>
+                    <a class="home-door-link" href="https://alexreynosoart.printful.me/" target="_blank" rel="noopener noreferrer">Shop All</a>
                 </div>
             </article>
 
@@ -269,20 +311,35 @@
                 <a class="home-door-title" href="mia.html">MIA: CREATIVE STUDIO</a>
                 <span class="home-door-text">Draw, color, explore and make something of your own.</span>
                 <div class="home-door-links" aria-label="Explore MIA">
-                    <a href="mia-color.html">Creative Studio</a>
-                    <a href="mia-originals.html">Original Art</a>
-                    <a href="mia.html">Mia's World</a>
+                    <a class="home-door-link" href="mia-color.html">Creative Studio</a>
+                    <a class="home-door-link" href="mia-originals.html">Original Art</a>
+                    <a class="home-door-link" href="mia.html">Mia's World</a>
                 </div>
             </article>
 
             <article class="home-door home-door-everything-art">
                 <span class="home-door-number">05</span>
-                <a class="home-door-title" href="everything-art.html">EVERYTHING ART</a>
+                <a href="everything-art.html" aria-label="Everything Art">
+                    <img class="home-door-brand"
+                         src="images/everything-art/EverythingART-logo.png"
+                         alt="Everything Art">
+                </a>
                 <span class="home-door-text">Artists inspiring artists. Community, opportunities and things happening now.</span>
                 <div class="home-door-links" aria-label="Explore Everything Art">
-                    <a href="everything-art.html">Featured Artist</a>
-                    <a href="everything-art-opportunities.html">Opportunities</a>
-                    <a href="everything-art-events.html">Art Events</a>
+                    <a class="home-door-link" href="everything-art.html">Featured Artist</a>
+                    <a class="home-door-link" href="everything-art-opportunities.html">Opportunities</a>
+                    <a class="home-door-link" href="everything-art-events.html">Art Events</a>
+                </div>
+            </article>
+
+            <article class="home-door home-door-commissions">
+                <span class="home-door-number">06</span>
+                <a class="home-door-title" href="commissions.html">WORK WITH ME</a>
+                <span class="home-door-text">Got an idea, a song or a project that needs a little controlled chaos?</span>
+                <div class="home-door-links" aria-label="Work with Alex Reynoso Art">
+                    <a class="home-door-link" href="commissions.html">Music + Video</a>
+                    <a class="home-door-link" href="commissions.html">Art + Design</a>
+                    <a class="home-door-link" href="commissions.html">Start a Project</a>
                 </div>
             </article>
 
