@@ -5200,3 +5200,46 @@ body.everything-art-opportunities-theme .op-toolbox {
         margin-bottom: 30px;
     }
 }
+
+
+/* =========================================================
+   EVERYTHING ART | MOBILE STATUS BAR + CARD GAP
+   Final cleanup: spacing belongs to the status row between
+   the toolbox and the cards.
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    /* Undo the two earlier spacing experiments. */
+    body.everything-art-events-theme .op-grid,
+    body.everything-art-opportunities-theme .op-grid {
+        margin-top: 0;
+    }
+
+    body.everything-art-events-theme .op-toolbox,
+    body.everything-art-opportunities-theme .op-toolbox {
+        margin-bottom: 18px;
+    }
+
+    /* Keep the result count/reset feature visible and compact on phones. */
+    body.everything-art-events-theme .op-statusbar,
+    body.everything-art-opportunities-theme .op-statusbar {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin: 0 2px 26px;
+        font-size: .72rem;
+    }
+
+    body.everything-art-events-theme .op-statusbar > *,
+    body.everything-art-opportunities-theme .op-statusbar > * {
+        min-width: 0;
+    }
+
+    body.everything-art-events-theme .op-reset,
+    body.everything-art-opportunities-theme .op-reset {
+        white-space: nowrap;
+    }
+}
