@@ -5167,25 +5167,18 @@ header nav {
 }
 
 header nav a {
-    display: inline-block;
-    position: relative;
+    display: inline-flex;
+    align-items: center;
     color: #fff;
     text-decoration: none;
     white-space: nowrap;
 }
 
-/* Space belongs to the link layout. The dot sits in that space,
-   outside the clickable text area. */
-header nav a:not(:last-child) {
-    margin-right: 36px;
-}
-
+/* Desktop/tablet separators */
 header nav a:not(:last-child)::after {
     content: "•";
-    position: absolute;
-    left: calc(100% + 15px);
-    top: 50%;
-    transform: translateY(-50%);
+    display: inline-block;
+    margin: 0 18px;
     color: #777;
     font-size: 0.72em;
     line-height: 1;
@@ -5193,41 +5186,49 @@ header nav a:not(:last-child)::after {
     text-decoration: none;
 }
 
+/* Phone + iPad Mini: exact centered 4 + 3 layout */
 @media (max-width: 750px) {
     header nav {
         display: grid;
-        grid-template-columns: repeat(12, auto);
+        grid-template-columns: repeat(4, max-content);
         justify-content: center;
         align-items: center;
         width: 100%;
         max-width: none;
-        row-gap: 8px;
-        column-gap: 4px;
+        column-gap: 0;
+        row-gap: 12px;
     }
 
-    header nav a:nth-child(1) { grid-column: 1 / span 3; }
-    header nav a:nth-child(2) { grid-column: 4 / span 3; }
-    header nav a:nth-child(3) { grid-column: 7 / span 3; }
-    header nav a:nth-child(4) { grid-column: 10 / span 3; }
-
-    header nav a:nth-child(5) { grid-column: 2 / span 3; }
-    header nav a:nth-child(6) { grid-column: 5 / span 3; }
-    header nav a:nth-child(7) { grid-column: 8 / span 4; }
-
     header nav a {
-        margin-right: 0 !important;
+        display: inline-flex;
+        align-items: center;
         justify-content: center;
-        justify-self: center;
+        margin: 0;
         text-align: center;
     }
 
     header nav a:not(:last-child)::after {
-        left: calc(100% + 12px);
-        margin-left: 0;
+        position: static;
+        transform: none;
+        display: inline-block;
+        margin: 0 10px;
         color: #777;
+        font-size: 0.72em;
+        line-height: 1;
     }
 
-    /* No separator hanging at the end of row one */
+    /* Row 1 */
+    header nav a:nth-child(1) { grid-column: 1; grid-row: 1; }
+    header nav a:nth-child(2) { grid-column: 2; grid-row: 1; }
+    header nav a:nth-child(3) { grid-column: 3; grid-row: 1; }
+    header nav a:nth-child(4) { grid-column: 4; grid-row: 1; }
+
+    /* Row 2 centered as one group */
+    header nav a:nth-child(5) { grid-column: 1 / span 2; grid-row: 2; justify-self: end; }
+    header nav a:nth-child(6) { grid-column: 2 / span 2; grid-row: 2; justify-self: center; }
+    header nav a:nth-child(7) { grid-column: 3 / span 2; grid-row: 2; justify-self: start; }
+
+    /* No separator at the end of row 1 */
     header nav a:nth-child(4)::after {
         content: none;
     }
