@@ -2971,7 +2971,7 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
     </div>
    </section>
    <div aria-hidden="true" class="desktop-build-version">
-    v2.7.1
+    v2.7.2
    </div>
   </aside>
   <div class="studio">
@@ -5050,19 +5050,10 @@ body.v242-touch-active .tool-indicator.move::after  {
     #desktopTabletShapeMenu .shape-circle-glyph  {
         font-size:34px !important;
     }
-    /* The fixed sidebar owns 330px. The topbar/workspace should use the        remaining viewport width, rather than being centered under the sidebar. */     .studio-topbar,     .studio-main  {
-        margin-left:330px !important;
-        width:calc(100% - 330px) !important;
-        max-width:none !important;
-        box-sizing:border-box !important;
-    }
-    .studio  {
-        padding-left:0 !important;
-    }
-    .canvas-frame  {
-        margin-left:auto !important;
-        margin-right:auto !important;
-    }
+    /* v2.7.2 — keep the live MIA responsive workspace geometry.
+       .studio already reserves the fixed sidebar width, so do not offset
+       .studio-main/topbar a second time. This lets FIT respond as the
+       browser window narrows, matching the live Creative Studio. */
 }
   </style>
   <script>
@@ -5082,35 +5073,8 @@ body.v242-touch-active .tool-indicator.move::after  {
         font-weight:400 !important;
         line-height:30px !important;
     }
-    /* Close the artwork/workspace AFTER the fixed sidebar.        Nothing from the canvas may visually sit underneath the panel. */     .studio-main  {
-        position:relative !important;
-        margin-left:330px !important;
-        width:calc(100vw - 330px) !important;
-        max-width:calc(100vw - 330px) !important;
-        overflow:hidden !important;
-        box-sizing:border-box !important;
     }
-    .studio-main::before  {
-        content:"";
-        position:fixed;
-        left:330px;
-        top:0;
-        bottom:0;
-        width:1px;
-        background:#e6e6e6;
-        z-index:149;
-        pointer-events:none;
-    }
-    .canvas-frame  {
-        max-width:100% !important;
-        margin-left:auto !important;
-        margin-right:auto !important;
-        overflow:hidden !important;
-    }
-}
   </style>
-  <script>
-   /* TEST #43 — keep the canvas/workspace clipped to the right of the sidebar. */ (() => {     'use strict';     if(window.innerWidth<1001) return;      function lockWorkspaceEdge(){         const main=document.querySelector('.studio-main');         const frame=document.querySelector('.canvas-frame');         if(main){             main.style.marginLeft='330px';             main.style.width='calc(100vw - 330px)';             main.style.maxWidth='calc(100vw - 330px)';             main.style.overflow='hidden';         }         if(frame){             frame.style.maxWidth='100%';             frame.style.marginLeft='auto';             frame.style.marginRight='auto';         }     }     requestAnimationFrame(lockWorkspaceEdge);     window.addEventListener('resize',lockWorkspaceEdge,{passive:true}); })();
-  </script>
+  
  </body>
 </html>
