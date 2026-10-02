@@ -2947,7 +2947,7 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
     </div>
    </section>
    <div aria-hidden="true" class="desktop-build-version">
-    v2.7.5
+    v2.7.6
    </div>
   </aside>
   <div class="studio">
@@ -4919,129 +4919,9 @@ body.v242-touch-active .tool-indicator.move::after  {
   <script>
    /* TEST #40 — stable popover lifecycle + desktop hover tips for the new tools only. */ (() => {     'use strict';     const root=document.querySelector('.desktop-tablet-tools');     if(!root) return;      const menus={         brush:document.getElementById('desktopTabletBrushMenu'),         eraser:document.getElementById('desktopTabletEraserMenu'),         shape:document.getElementById('desktopTabletShapeMenu'),         select:document.getElementById('desktopTabletSelectMenu')     };      function showOnly(name){         Object.entries(menus).forEach(([key,menu])=>{             if(menu) menu.classList.toggle('open', key===name);         });     }      /* Run after Test #39's relay. This only controls visibility, so Fill closes        the popover while the reserved slot keeps Colors perfectly still. */     root.addEventListener('click', e => {         const main=e.target.closest('[data-desktop-tablet-tool]');         if(main){             const name=main.dataset.desktopTabletTool;             if(name==='fill') showOnly(null);             else showOnly(name);             return;         }         if(e.target.closest('[data-desktop-tablet-brush]')) showOnly('brush');         if(e.target.closest('[data-desktop-tablet-eraser]')) showOnly('eraser');         if(e.target.closest('[data-desktop-tablet-shape]')) showOnly('shape');         if(e.target.closest('[data-desktop-tablet-select],[data-desktop-tablet-select-op]')) showOnly('select');         if(e.target.closest('[data-desktop-tablet-select-done]')) showOnly(null);     });      /* Desktop hover tips only. No new phone/tablet hover behavior. */     const status=document.getElementById('studioStatus');     const wrap=status?.closest('.studio-tip-wrap');     if(status && wrap){         function tip(target){             if(!target?.closest) return null;             if(target.closest('[data-desktop-tablet-tool="brush"]')) return 'Brush: choose Pen, Marker, Soft, or Texture, then draw.';             if(target.closest('[data-desktop-tablet-tool="eraser"]')) return 'Eraser: choose Hard, Soft, or Texture, then drag over your artwork.';             if(target.closest('[data-desktop-tablet-tool="fill"]')) return 'Fill: click an area to fill it with the selected color.';             if(target.closest('[data-desktop-tablet-tool="shape"]')) return 'Line / Shape: choose Line, Square, or Circle, then drag to draw it.';             if(target.closest('[data-desktop-tablet-tool="select"]')) return 'Select: choose a selection shape, then add, subtract, clear, or finish with Done.';             if(target.closest('[data-desktop-tablet-brush="pen"]')) return 'Pen: draw clean freehand lines.';             if(target.closest('[data-desktop-tablet-brush="marker"]')) return 'Marker: build broad strokes and layered color.';             if(target.closest('[data-desktop-tablet-brush="soft"]')) return 'Soft brush: paint gentle edges and shading.';             if(target.closest('[data-desktop-tablet-brush="texture"]')) return 'Texture brush: add grain and character.';             if(target.closest('[data-desktop-tablet-eraser="hard"]')) return 'Hard eraser: erase with a clean edge.';             if(target.closest('[data-desktop-tablet-eraser="soft"]')) return 'Soft eraser: erase with a softer feathered edge.';             if(target.closest('[data-desktop-tablet-eraser="texture"]')) return 'Texture eraser: erase with a textured edge.';             if(target.closest('[data-desktop-tablet-shape="line"]')) return 'Line: drag to create a straight line.';             if(target.closest('[data-desktop-tablet-shape="rect"]')) return 'Square: drag to create a square or rectangle.';             if(target.closest('[data-desktop-tablet-shape="ellipse"]')) return 'Circle: drag to create a circle or oval.';             return null;         }         root.addEventListener('pointerover', e => {             if(window.innerWidth<=1000 || e.pointerType!=='mouse') return;             const t=tip(e.target);             if(!t) return;             wrap.classList.remove('tip-hidden');             wrap.style.display='flex';             status.textContent=t;         }, true);     }      /* Start exactly like tablet: Brush active with its submenu visible. */     showOnly('brush'); })();
   </script>
-  <style>
-   /* =====================================================    TEST #41 — DESKTOP TOOL SPACE + SHAPE SIZE + CENTERING    ===================================================== */ @media (min-width:1001px)  {
-    /* Reserve enough room for the tallest Select menu now, and for the        future Size/Opacity row later. Colors never gets touched by a submenu. */     .desktop-tablet-tools  {
-        padding-bottom:12px !important;
-    }
-    /* Select: first row = Free / Square / Circle.        Second row = Subtract / Add / Clear / Done. */     #desktopTabletSelectMenu  {
-        grid-template-columns:repeat(4,minmax(0,1fr)) !important;
-        grid-template-areas:             "free square circle circle"             "subtract add clear done";
-        row-gap:7px !important;
-        overflow:visible !important;
-    }
-    #desktopTabletSelectMenu [data-desktop-tablet-select="free"]  {
-        grid-area:free;
-    }
-    #desktopTabletSelectMenu [data-desktop-tablet-select="rect"]  {
-        grid-area:square;
-    }
-    #desktopTabletSelectMenu [data-desktop-tablet-select="ellipse"]  {
-        grid-area:circle;
-    }
-    #desktopTabletSelectMenu [data-desktop-tablet-select-op="subtract"]  {
-        grid-area:subtract;
-    }
-    #desktopTabletSelectMenu [data-desktop-tablet-select-op="add"]  {
-        grid-area:add;
-    }
-    #desktopTabletSelectMenu [data-desktop-tablet-select-clear]  {
-        grid-area:clear;
-    }
-    #desktopTabletSelectMenu [data-desktop-tablet-select-done]  {
-        grid-area:done;
-    }
-    /* Desktop shape submenu has more room, so make the shape marks readable. */     #desktopTabletShapeMenu .bold-shape  {
-        display:inline-flex !important;
-        width:25px !important;
-        height:25px !important;
-        align-items:center !important;
-        justify-content:center !important;
-        margin-right:5px !important;
-        font:900 28px/1 Arial,Helvetica,sans-serif !important;
-        vertical-align:middle !important;
-    }
-    #desktopTabletShapeMenu .straight-line-icon  {
-        width:27px !important;
-        height:4px !important;
-        margin-right:7px !important;
-    }
-    /* v2.7.5 — restored the original responsive Studio/canvas geometry.
-       TEST #41 had added a second 330px left reserve even though the Studio
-       layout already accounts for the fixed sidebar. That extra reserve was
-       the earlier break that stopped the canvas from condensing like live MIA. */
-}
-  </style>
-  <style>
-   /* =====================================================    TEST #42 — DESKTOP TOOL LAYOUT REFINEMENT    UI only. Gradient + extra shapes are staged, not wired to new engines yet.    ===================================================== */ @media (min-width:1001px)  {
-    /* Pull the reserved future Size/Opacity area back by about 25%. */     .desktop-tablet-tools  {
-        padding-bottom:12px !important;
-    }
-    /* Fill now behaves like the other tools and owns a two-choice submenu. */     #desktopTabletFillMenu  {
-        grid-template-columns:repeat(2,minmax(0,1fr)) !important;
-    }
-    #desktopTabletFillMenu button  {
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        gap:8px;
-    }
-    .bucket-mini-icon  {
-        width:15px;
-        height:12px;
-        border:2px solid currentColor;
-        border-radius:2px 2px 4px 4px;
-        transform:rotate(-35deg);
-        display:inline-block;
-    }
-    .gradient-mini-icon  {
-        width:25px;
-        height:15px;
-        display:inline-block;
-        border:1px solid currentColor;
-        border-radius:4px;
-        background:linear-gradient(90deg,currentColor 0%,transparent 100%);
-    }
-    /* Shape menu expands naturally. Existing Line/Square remain, Circle gets        the same icon-over-label treatment as Square. */     #desktopTabletShapeMenu  {
-        grid-template-columns:repeat(3,minmax(0,1fr)) !important;
-    }
-    #desktopTabletShapeMenu .shape-glyph,     #desktopTabletShapeMenu .bold-shape  {
-        display:inline-flex !important;
-        width:30px !important;
-        height:30px !important;
-        align-items:center !important;
-        justify-content:center !important;
-        margin:0 !important;
-        font:900 31px/1 Arial,Helvetica,sans-serif !important;
-    }
-    #desktopTabletShapeMenu .shape-circle-glyph  {
-        font-size:34px !important;
-    }
-    /* v2.7.5 — keep the live MIA responsive workspace geometry.
-       .studio already reserves the fixed sidebar width, so do not offset
-       .studio-main/topbar a second time. This lets FIT respond as the
-       browser window narrows, matching the live Creative Studio. */
-}
-  </style>
   <script>
    (() => {     'use strict';     const root=document.querySelector('.desktop-tablet-tools');     if(!root) return;      const fillMenu=document.getElementById('desktopTabletFillMenu');     const brushMenu=document.getElementById('desktopTabletBrushMenu');     const eraserMenu=document.getElementById('desktopTabletEraserMenu');     const shapeMenu=document.getElementById('desktopTabletShapeMenu');     const selectMenu=document.getElementById('desktopTabletSelectMenu');     const allMenus=[brushMenu,eraserMenu,fillMenu,shapeMenu,selectMenu];      function showMenu(menu){         allMenus.forEach(m=>m?.classList.toggle('open',m===menu));     }      /* Override only submenu visibility from the earlier desktop relay. */     root.addEventListener('click',e=>{         const main=e.target.closest('[data-desktop-tablet-tool]');         if(main){             const n=main.dataset.desktopTabletTool;             if(n==='brush') showMenu(brushMenu);             if(n==='eraser') showMenu(eraserMenu);             if(n==='fill') showMenu(fillMenu);             if(n==='shape') showMenu(shapeMenu);             if(n==='select') showMenu(selectMenu);         }          const fill=e.target.closest('[data-desktop-tablet-fill]');         if(fill){             root.querySelectorAll('[data-desktop-tablet-fill]').forEach(b=>b.classList.toggle('active',b===fill));             /* Bucket remains the working Fill engine. Gradient is intentionally                staged as UI until its controls/behavior are designed. */             if(fill.dataset.desktopTabletFill==='bucket'){                 document.querySelector('[data-v2-tool="fill"]')?.click();             }             showMenu(fillMenu);         }     },true); })();
   </script>
-  <style>
-   /* =====================================================    TEST #43 — SHAPE TRAY + WORKSPACE EDGE CLEANUP    UI/layout only. Shape engines remain untouched.    ===================================================== */ @media (min-width:1001px)  {
-    /* Match the shape tray to the same compact footprint as the Select tray.        It scrolls vertically inside the tray so future shapes do not grow it. */     /* One clean divider only. */     #desktopTabletShapeMenu button  {
-        box-shadow:none !important;
-    }
-    /* Shape glyphs use one visual line/weight. */     #desktopTabletShapeMenu .shape-glyph,     #desktopTabletShapeMenu .bold-shape  {
-        width:30px !important;
-        height:30px !important;
-        flex:0 0 30px !important;
-        font-family:"Noto Sans Symbols 2","Noto Sans Symbols","Arial Unicode MS",Arial,sans-serif !important;
-        font-size:30px !important;
-        font-weight:400 !important;
-        line-height:30px !important;
-    }
-    }
-  </style>
   
  </body>
 </html>
