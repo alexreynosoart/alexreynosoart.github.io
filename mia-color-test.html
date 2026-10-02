@@ -2719,9 +2719,7 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
     </div>
     <div aria-label="Creative tools" class="desktop-tablet-tool-row">
      <button aria-label="Brush" class="mobile-icon-tool brush-menu-tool active" data-desktop-tablet-tool="brush" title="Brush" type="button">
-      <span aria-hidden="true" class="brush-menu-icon">
-       ✎
-      </span>
+      <span aria-hidden="true" class="brush-menu-icon"><img src="images/mia/ui/mia-tool-pen.png" alt="" draggable="false"></span>
      </button>
      <button aria-label="Eraser" class="mobile-icon-tool eraser-menu-tool" data-desktop-tablet-tool="eraser" title="Eraser" type="button">
       <span aria-hidden="true" class="eraser-menu-icon">
@@ -2946,7 +2944,7 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
     </div>
    </section>
    <div aria-hidden="true" class="desktop-build-version">
-    v2.8.7
+    v2.8.8
    </div>
   </aside>
   <div class="studio">
@@ -3038,9 +3036,7 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
     </div>
     <div aria-label="Creative tools" class="mobile-creative-tools">
      <button aria-label="Brush" class="mobile-icon-tool brush-menu-tool active" data-mobile-submenu="brush" data-v2-tool="brush" title="Brush" type="button">
-      <span aria-hidden="true" class="brush-menu-icon">
-       ✎
-      </span>
+      <span aria-hidden="true" class="brush-menu-icon"><img src="images/mia/ui/mia-tool-pen.png" alt="" draggable="false"></span>
      </button>
      <button aria-label="Eraser" class="mobile-icon-tool eraser-menu-tool" data-mobile-submenu="eraser" data-v2-tool="eraser" title="Eraser" type="button">
       <span aria-hidden="true" class="eraser-menu-icon">
@@ -3922,9 +3918,21 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
         min-width:42px;
     }
     .brush-menu-icon  {
-        font-size:1.25rem;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        width:100%;
+        height:100%;
         line-height:1;
-        font-weight:900;
+    }
+    .brush-menu-icon img  {
+        display:block;
+        width:88%;
+        height:88%;
+        object-fit:contain;
+        pointer-events:none;
+        user-select:none;
+        -webkit-user-drag:none;
     }
     .shape-menu-icon  {
         display:inline-flex;
@@ -4962,9 +4970,21 @@ body.v242-touch-active .tool-indicator.move::after  {
         color:#fff !important;
     }
     .desktop-tablet-tool-row .brush-menu-icon  {
-        font-size:1.25rem;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        width:100%;
+        height:100%;
         line-height:1;
-        font-weight:900;
+    }
+    .brush-menu-icon img  {
+        display:block;
+        width:88%;
+        height:88%;
+        object-fit:contain;
+        pointer-events:none;
+        user-select:none;
+        -webkit-user-drag:none;
     }
     .desktop-tablet-tool-row .shape-menu-icon  {
         display:inline-flex;
