@@ -2971,7 +2971,7 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
     </div>
    </section>
    <div aria-hidden="true" class="desktop-build-version">
-    v2.7.2
+    v2.7.3
    </div>
   </aside>
   <div class="studio">
@@ -4990,21 +4990,12 @@ body.v242-touch-active .tool-indicator.move::after  {
         height:4px !important;
         margin-right:7px !important;
     }
-    /* The sidebar is fixed and 330px wide. Center the working canvas in the        viewport area that remains to its right, rather than in the full window. */     .studio-shell,     .studio-main,     .studio-workspace,     .canvas-workspace  {
-        box-sizing:border-box;
-    }
-    .studio  {
-        padding-left:330px !important;
-    }
-    .canvas-frame  {
-        margin-left:auto !important;
-        margin-right:auto !important;
-    }
+    /* v2.7.3 — restored the original responsive Studio/canvas geometry.
+       TEST #41 had added a second 330px left reserve even though the Studio
+       layout already accounts for the fixed sidebar. That extra reserve was
+       the earlier break that stopped the canvas from condensing like live MIA. */
 }
   </style>
-  <script>
-   /* TEST #41 — keep desktop canvas centered inside the usable area after    sidebar/layout changes. No zoom or drawing geometry changes. */ (() => {     'use strict';     if(window.innerWidth<1001) return;      function recenterDesktopCanvas(){         const frame=document.querySelector('.canvas-frame');         if(!frame) return;         frame.style.marginLeft='auto';         frame.style.marginRight='auto';     }     requestAnimationFrame(recenterDesktopCanvas);     window.addEventListener('resize', recenterDesktopCanvas, {passive:true}); })();
-  </script>
   <style>
    /* =====================================================    TEST #42 — DESKTOP TOOL LAYOUT REFINEMENT    UI only. Gradient + extra shapes are staged, not wired to new engines yet.    ===================================================== */ @media (min-width:1001px)  {
     /* Pull the reserved future Size/Opacity area back by about 25%. */     .desktop-tablet-tools  {
@@ -5050,7 +5041,7 @@ body.v242-touch-active .tool-indicator.move::after  {
     #desktopTabletShapeMenu .shape-circle-glyph  {
         font-size:34px !important;
     }
-    /* v2.7.2 — keep the live MIA responsive workspace geometry.
+    /* v2.7.3 — keep the live MIA responsive workspace geometry.
        .studio already reserves the fixed sidebar width, so do not offset
        .studio-main/topbar a second time. This lets FIT respond as the
        browser window narrows, matching the live Creative Studio. */
