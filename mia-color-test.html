@@ -325,64 +325,140 @@ button,         input  {
         border-top:                     1px solid #ddd;
         backdrop-filter:                     blur(12px);
     }
-    /* MOBILE COLOR ROW */              .mobile-color-row  {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        margin-bottom: 7px;
+    /* PHONE / TABLET COLOR STUDIO */
+    .mobile-color-studio {
+        margin-bottom:7px;
     }
-    .mobile-palette  {
-        flex: 1;
-        display: flex;
-        gap: 7px;
-        overflow-x: auto;
-        padding:                     4px 2px;
-        scrollbar-width: thin;
-        scrollbar-color: #999 transparent;
+    .mobile-palette-tabs {
+        display:flex;
+        gap:5px;
+        overflow-x:auto;
+        padding:1px 1px 5px;
+        scrollbar-width:none;
     }
-    .mobile-palette::-webkit-scrollbar  {
-        height: 5px;
+    .mobile-palette-tabs::-webkit-scrollbar {
+        display:none;
     }
-    .mobile-palette::-webkit-scrollbar-thumb  {
-        background: #999;
-        border-radius: 999px;
+    .mobile-palette-tabs button {
+        flex:0 0 auto;
+        min-height:30px;
+        padding:5px 10px;
+        border:1px solid #d5d5d5;
+        border-radius:999px;
+        background:#fff;
+        color:#222;
+        font-size:.66rem;
+        font-weight:900;
+        white-space:nowrap;
     }
-    .mobile-palette::-webkit-scrollbar-track  {
-        background: transparent;
+    .mobile-palette-tabs button.active {
+        background:#111;
+        color:#fff;
+        border-color:#111;
     }
-    .mobile-palette .swatch  {
-        flex:                     0 0 34px;
-        width: 34px;
-        height: 34px;
+    .mobile-palette {
+        display:flex;
+        gap:7px;
+        overflow-x:auto;
+        padding:4px 2px 6px;
+        scrollbar-width:thin;
+        scrollbar-color:#999 transparent;
     }
-    /* MOBILE CUSTOM COLOR SLOTS */
-    .mobile-custom-slot {
-        flex: 0 0 34px;
-        width: 34px;
-        height: 34px;
-        padding: 0;
-        border: 2px dashed #aaa;
-        border-radius: 50%;
-        background: #fff;
-        cursor: pointer;
-        position: relative;
+    .mobile-palette::-webkit-scrollbar {
+        height:5px;
     }
-    .mobile-custom-slot.filled {
-        border-style: solid;
-        border-color: #ccc;
+    .mobile-palette::-webkit-scrollbar-thumb {
+        background:#999;
+        border-radius:999px;
     }
-    .mobile-custom-slot.selected {
-        outline: 3px solid #111;
-        outline-offset: 2px;
+    .mobile-palette::-webkit-scrollbar-track {
+        background:transparent;
     }
-    .mobile-custom-slot input {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        opacity: 0;
-        pointer-events: none;
+    .mobile-palette .swatch {
+        flex:0 0 34px;
+        width:34px;
+        height:34px;
     }
-    /* MOBILE TOOL ROW */              .mobile-tools  {
+    .mobile-swatch-head {
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        margin-top:2px;
+        color:#666;
+        font-size:.62rem;
+        font-weight:900;
+    }
+    .mobile-swatch-head button {
+        border:0;
+        background:transparent;
+        color:#777;
+        padding:3px 2px;
+        font-size:.58rem;
+        font-weight:900;
+    }
+    .mobile-current-color-row {
+        display:flex;
+        align-items:center;
+        gap:8px;
+        width:100%;
+        margin-top:3px;
+    }
+    .mobile-current-color {
+        flex:0 0 42px;
+        width:42px;
+        height:42px;
+        padding:0;
+        border:2px solid #d1d1d1;
+        border-radius:9px;
+        background:#e88eaa;
+        box-shadow:inset 0 0 0 2px #fff;
+    }
+    #mobileCustomColor {
+        position:absolute;
+        width:1px;
+        height:1px;
+        opacity:0;
+        pointer-events:none;
+    }
+    .mobile-saved-swatches {
+        flex:1 1 auto;
+        display:flex;
+        gap:7px;
+        overflow-x:auto;
+        padding:3px 2px 5px;
+        scrollbar-width:thin;
+        scrollbar-color:#aaa transparent;
+    }
+    .mobile-saved-swatches::-webkit-scrollbar {
+        height:4px;
+    }
+    .mobile-saved-swatches::-webkit-scrollbar-thumb {
+        background:#aaa;
+        border-radius:999px;
+    }
+    .mobile-saved-slot {
+        flex:0 0 34px;
+        width:34px;
+        height:34px;
+        padding:0;
+        border:2px dashed #aaa;
+        border-radius:50%;
+        background:transparent;
+    }
+    .mobile-saved-slot.filled {
+        border-style:solid;
+        border-color:#d1d1d1;
+        box-shadow:inset 0 0 0 2px #fff;
+    }
+    .mobile-saved-slot.active {
+        outline:2px solid #111;
+        outline-offset:2px;
+    }
+    .mobile-saved-slot.dragging {
+        opacity:.55;
+        transform:scale(.92);
+    }
+    .mobile-tools  {
         display: grid;
         grid-template-columns:                     repeat(4, 1fr);
         gap: 6px;
@@ -2946,7 +3022,7 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
     </div>
    </section>
    <div aria-hidden="true" class="desktop-build-version">
-    v2.8.8
+    v2.8.9
    </div>
   </aside>
   <div class="studio">
@@ -3481,9 +3557,26 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
   </div>
   <!-- =========================      MOBILE TOOL DOCK      ========================= -->
   <div class="mobile-dock">
-   <!-- QUICK COLORS: BUILT-IN + SAVED MY SWATCHES -->
-   <div class="mobile-color-row">
-    <div aria-label="Quick colors and saved swatches" class="mobile-palette" id="mobileColorPalette">
+   <!-- PHONE / TABLET COLOR STUDIO -->
+   <div class="mobile-color-studio" id="mobileColorStudio">
+    <div aria-label="Color palettes" class="mobile-palette-tabs">
+     <button class="active" data-mobile-palette="basic" type="button">BASIC</button>
+     <button data-mobile-palette="warm" type="button">WARM</button>
+     <button data-mobile-palette="cool" type="button">COOL</button>
+     <button data-mobile-palette="skin" type="button">SKIN</button>
+     <button data-mobile-palette="sky" type="button">SKY / WATER</button>
+    </div>
+    <div class="mobile-palette mobile-modern-colors" id="mobileColorPalette" aria-label="Palette colors"></div>
+    <div class="mobile-swatch-head">
+     <span>MY SWATCHES</span>
+     <button id="mobileClearSwatches" type="button">CLEAR</button>
+    </div>
+    <div class="mobile-current-color-row">
+     <button class="mobile-current-color" id="mobileCurrentColor" type="button"
+      title="Current color. Tap to choose a color."
+      aria-label="Current color. Tap to choose a color."></button>
+     <input id="mobileCustomColor" type="color" value="#e88eaa" aria-label="Choose a color"/>
+     <div class="mobile-saved-swatches" id="mobileSavedSwatches" aria-label="My saved color swatches"></div>
     </div>
    </div>
    <!-- TOOLS -->
@@ -4779,7 +4872,6 @@ body.v242-touch-active .tool-indicator.move::after  {
   <script>
    (() => {
     'use strict';
-    if (window.innerWidth < 1001) return;
 
     const palettes={
         basic:['#e88eaa','#f6b3c8','#ef5350','#ff9800','#ffd54f','#81c784','#4dd0e1','#64b5f6','#9575cd','#795548','#ffffff','#dddddd','#999999','#555555','#111111','#000000'],
@@ -4788,146 +4880,184 @@ body.v242-touch-active .tool-indicator.move::after  {
         skin:['#fff3e0','#ffe0b2','#ffccbc','#f8c9a4','#eab38d','#d99b73','#c6865d','#a86f4c','#8d5a3b','#6d4530','#523323','#3b2419','#f3c6b8','#dba08c','#b97866','#8d5145'],
         sky:['#f5fbff','#dff4ff','#bfe8ff','#90d5f7','#64b5f6','#42a5f5','#1e88e5','#1565c0','#e0f7fa','#b2ebf2','#80deea','#4dd0e1','#26c6da','#00acc1','#00838f','#006064']
     };
-    const colorBox=document.getElementById('desktopSideColors');
-    const paletteReadout=document.getElementById('desktopPaletteReadout');
-    const picker=document.getElementById('desktopSideCustomColor');
-    const currentBox=document.getElementById('desktopCurrentColor');
-    const savedBox=document.getElementById('desktopFavoriteSwatches');
-    const SKEY='miaDesktopSavedSwatchesV1'; // Single MIA swatch store shared with the quick palette.
+
+    const SKEY='miaDesktopSavedSwatchesV1';
     const SLOT_COUNT=12;
-    let selected='#e88eaa';
+    const desktopColors=document.getElementById('desktopSideColors');
+    const desktopReadout=document.getElementById('desktopPaletteReadout');
+    const desktopPicker=document.getElementById('desktopSideCustomColor');
+    const desktopCurrent=document.getElementById('desktopCurrentColor');
+    const desktopSaved=document.getElementById('desktopFavoriteSwatches');
+    const mobileColors=document.getElementById('mobileColorPalette');
+    const mobilePicker=document.getElementById('mobileCustomColor');
+    const mobileCurrent=document.getElementById('mobileCurrentColor');
+    const mobileSaved=document.getElementById('mobileSavedSwatches');
+
+    let selected=(typeof currentColor!=='undefined' ? currentColor : '#e88eaa').toLowerCase();
     let editingSlot=-1;
     let saved=[];
     try{ saved=JSON.parse(localStorage.getItem(SKEY)||'[]'); }catch(_){}
     saved=Array.isArray(saved)?saved.slice(0,SLOT_COUNT):[];
     while(saved.length<SLOT_COUNT) saved.push('');
 
-    function saveSlots(){
-        localStorage.setItem(SKEY,JSON.stringify(saved));
-        window.renderMiaQuickColors?.();
-        selectColor(selected);
-    }
-    function setCurrent(color){
+    function syncCurrent(color){
         selected=color.toLowerCase();
         selectColor(selected);
-        if(currentBox) currentBox.style.background=selected;
-        if(picker) picker.value=selected;
-        document.querySelectorAll('.desktop-saved-slot').forEach((slot,i)=>slot.classList.toggle('active',saved[i]===selected));
+        [desktopCurrent,mobileCurrent].forEach(el=>{ if(el) el.style.background=selected; });
+        [desktopPicker,mobilePicker].forEach(el=>{ if(el) el.value=selected; });
+        document.querySelectorAll('.desktop-saved-slot,.mobile-saved-slot').forEach((slot,i)=>{
+            slot.classList.toggle('active',saved[i%SLOT_COUNT]===selected);
+        });
     }
-    function openPicker(slotIndex=-1){
+
+    function saveSlots(){
+        localStorage.setItem(SKEY,JSON.stringify(saved));
+        renderSaved();
+    }
+
+    function openPicker(slotIndex=-1, picker=mobilePicker || desktopPicker){
+        if(!picker) return;
         editingSlot=slotIndex;
-        if(slotIndex>=0 && saved[slotIndex]) picker.value=saved[slotIndex];
-        else picker.value=selected;
+        picker.value=(slotIndex>=0 && saved[slotIndex]) ? saved[slotIndex] : selected;
         if(typeof picker.showPicker==='function') picker.showPicker();
         else picker.click();
     }
-    function swatch(color){
+
+    function paletteSwatch(color, className){
         const b=document.createElement('button');
-        b.type='button'; b.className='color-swatch'; b.style.background=color; b.title=color;
+        b.type='button';
+        b.className=className;
+        b.dataset.color=color;
+        b.style.background=color;
+        b.title=color;
+        b.setAttribute('aria-label','Choose color '+color);
+        b.classList.toggle('selected',color===selected);
         b.addEventListener('click',e=>{
-            e.preventDefault(); e.stopPropagation();
-            setCurrent(color);
+            e.preventDefault();
+            e.stopPropagation();
+            syncCurrent(color);
             document.querySelectorAll('.desktop-color-studio .color-swatch').forEach(x=>x.classList.toggle('active',x===b));
         });
         return b;
     }
-    function renderPalette(name){
-        colorBox.innerHTML='';
-        palettes[name].forEach(c=>colorBox.appendChild(swatch(c)));
-        document.querySelectorAll('[data-desktop-palette]').forEach(b=>b.classList.toggle('active',b.dataset.desktopPalette===name));
-        if(paletteReadout) paletteReadout.textContent=name==='sky'?'SKY / WATER':name.toUpperCase();
-    }
-    document.querySelectorAll('[data-desktop-palette]').forEach(b=>b.addEventListener('click',()=>renderPalette(b.dataset.desktopPalette)));
 
-    function renderSaved(){
-        savedBox.innerHTML='';
+    function renderPalette(name){
+        if(desktopColors){
+            desktopColors.innerHTML='';
+            palettes[name].forEach(c=>desktopColors.appendChild(paletteSwatch(c,'color-swatch')));
+        }
+        if(mobileColors){
+            mobileColors.innerHTML='';
+            palettes[name].forEach(c=>mobileColors.appendChild(paletteSwatch(c,'swatch')));
+        }
+        document.querySelectorAll('[data-desktop-palette]').forEach(b=>b.classList.toggle('active',b.dataset.desktopPalette===name));
+        document.querySelectorAll('[data-mobile-palette]').forEach(b=>b.classList.toggle('active',b.dataset.mobilePalette===name));
+        if(desktopReadout) desktopReadout.textContent=name==='sky'?'SKY / WATER':name.toUpperCase();
+    }
+
+    function buildSaved(container, mobile){
+        if(!container) return;
+        container.innerHTML='';
         saved.forEach((color,index)=>{
             const b=document.createElement('button');
             b.type='button';
-            b.className='desktop-saved-slot'+(color?' filled':'')+(color===selected?' active':'');
+            b.className=(mobile?'mobile-saved-slot':'desktop-saved-slot')+(color?' filled':'')+(color===selected?' active':'');
             if(color) b.style.background=color;
             b.title=color?'Tap to use. Hold to edit. Drag out to remove.':'Save current color';
 
-            let holdTimer=null;
-            let held=false;
-            let dragging=false;
-            let startX=0;
-            let startY=0;
+            let holdTimer=null, held=false, dragging=false, startX=0, startY=0;
 
             b.addEventListener('pointerdown',e=>{
                 if(!color) return;
                 if(e.pointerType==='mouse' && e.button!==0) return;
-                held=false;
-                dragging=false;
-                startX=e.clientX;
-                startY=e.clientY;
+                held=false; dragging=false;
+                startX=e.clientX; startY=e.clientY;
                 try{ b.setPointerCapture(e.pointerId); }catch(_){}
                 holdTimer=setTimeout(()=>{
-                    if(!dragging){ held=true; openPicker(index); }
+                    if(!dragging){
+                        held=true;
+                        openPicker(index,mobile ? mobilePicker : desktopPicker);
+                    }
                 },500);
             });
-
             b.addEventListener('pointermove',e=>{
                 if(!color || (!holdTimer && !dragging)) return;
                 if(Math.hypot(e.clientX-startX,e.clientY-startY)>8){
-                    dragging=true;
-                    held=false;
+                    dragging=true; held=false;
                     if(holdTimer){ clearTimeout(holdTimer); holdTimer=null; }
                     b.classList.add('dragging');
                 }
             });
-
             b.addEventListener('pointerup',e=>{
                 if(holdTimer){ clearTimeout(holdTimer); holdTimer=null; }
                 if(dragging){
-                    const r=savedBox.getBoundingClientRect();
+                    const r=container.getBoundingClientRect();
                     const outside=e.clientX<r.left || e.clientX>r.right || e.clientY<r.top || e.clientY>r.bottom;
                     b.classList.remove('dragging');
                     dragging=false;
-                    if(outside){
-                        saved[index]='';
-                        saveSlots();
-                        renderSaved();
-                    }
+                    if(outside){ saved[index]=''; saveSlots(); }
                     return;
                 }
             });
-
             b.addEventListener('pointercancel',()=>{
                 if(holdTimer){ clearTimeout(holdTimer); holdTimer=null; }
                 dragging=false;
                 b.classList.remove('dragging');
             });
-
             b.addEventListener('click',e=>{
                 e.preventDefault();
                 if(held){ held=false; return; }
-                if(color) setCurrent(color);
-                else { saved[index]=selected; saveSlots(); renderSaved(); }
+                if(color) syncCurrent(color);
+                else { saved[index]=selected; saveSlots(); }
             });
             b.addEventListener('contextmenu',e=>e.preventDefault());
-            savedBox.appendChild(b);
+            container.appendChild(b);
         });
-        window.renderMiaQuickColors?.();
     }
 
-    picker?.addEventListener('input',()=>{
-        setCurrent(picker.value);
-        if(editingSlot>=0){ saved[editingSlot]=picker.value.toLowerCase(); saveSlots(); renderSaved(); }
+    function renderSaved(){
+        buildSaved(desktopSaved,false);
+        buildSaved(mobileSaved,true);
+        syncCurrent(selected);
+    }
+
+    document.querySelectorAll('[data-desktop-palette]').forEach(b=>b.addEventListener('click',()=>renderPalette(b.dataset.desktopPalette)));
+    document.querySelectorAll('[data-mobile-palette]').forEach(b=>b.addEventListener('click',()=>renderPalette(b.dataset.mobilePalette)));
+
+    [desktopPicker,mobilePicker].forEach(picker=>{
+        picker?.addEventListener('input',()=>{
+            syncCurrent(picker.value);
+            if(editingSlot>=0){
+                saved[editingSlot]=picker.value.toLowerCase();
+                localStorage.setItem(SKEY,JSON.stringify(saved));
+                renderSaved();
+            }
+        });
+        picker?.addEventListener('change',()=>{ editingSlot=-1; });
     });
-    picker?.addEventListener('change',()=>{ editingSlot=-1; });
-    currentBox?.addEventListener('click',()=>{ editingSlot=-1; openPicker(); });
+
+    desktopCurrent?.addEventListener('click',()=>openPicker(-1,desktopPicker));
+    mobileCurrent?.addEventListener('click',()=>openPicker(-1,mobilePicker));
+
     document.getElementById('desktopClearFavorites')?.addEventListener('click',()=>{
         saved=Array(SLOT_COUNT).fill('');
         editingSlot=-1;
         localStorage.removeItem(SKEY);
         renderSaved();
     });
+    document.getElementById('mobileClearSwatches')?.addEventListener('click',()=>{
+        saved=Array(SLOT_COUNT).fill('');
+        editingSlot=-1;
+        localStorage.removeItem(SKEY);
+        renderSaved();
+    });
+
+    window.renderMiaQuickColors=()=>renderSaved();
 
     renderPalette('basic');
-    setCurrent(selected);
+    syncCurrent(selected);
     renderSaved();
-    chooseBrush('pen');
+    if(window.innerWidth>=1001) chooseBrush('pen');
 })();
   </script>
   <style>
