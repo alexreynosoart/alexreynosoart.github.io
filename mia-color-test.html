@@ -2946,7 +2946,7 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
     </div>
    </section>
    <div aria-hidden="true" class="desktop-build-version">
-    v2.8.6
+    v2.8.7
    </div>
   </aside>
   <div class="studio">
@@ -3549,7 +3549,7 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
 
      document.querySelectorAll('.desktop-palette').forEach(buildPalette);
 
-     const MIA_SAVED_SWATCHES_KEY = 'miaDesktopSavedSwatchesV1';
+     const MIA_SAVED_SWATCHES_KEY = 'miaDesktopSavedSwatchesV1'; // MIA-owned saved colors; native OS swatches are intentionally independent.
      const mobileColorPalette = document.getElementById('mobileColorPalette');
 
      function getSavedMiaSwatches() {
@@ -4793,7 +4793,7 @@ body.v242-touch-active .tool-indicator.move::after  {
     const picker=document.getElementById('desktopSideCustomColor');
     const currentBox=document.getElementById('desktopCurrentColor');
     const savedBox=document.getElementById('desktopFavoriteSwatches');
-    const SKEY='miaDesktopSavedSwatchesV1';
+    const SKEY='miaDesktopSavedSwatchesV1'; // Single MIA swatch store shared with the quick palette.
     const SLOT_COUNT=12;
     let selected='#e88eaa';
     let editingSlot=-1;
@@ -4802,7 +4802,11 @@ body.v242-touch-active .tool-indicator.move::after  {
     saved=Array.isArray(saved)?saved.slice(0,SLOT_COUNT):[];
     while(saved.length<SLOT_COUNT) saved.push('');
 
-    function saveSlots(){ localStorage.setItem(SKEY,JSON.stringify(saved)); window.renderMiaQuickColors?.(); }
+    function saveSlots(){
+        localStorage.setItem(SKEY,JSON.stringify(saved));
+        window.renderMiaQuickColors?.();
+        selectColor(selected);
+    }
     function setCurrent(color){
         selected=color.toLowerCase();
         selectColor(selected);
@@ -4912,9 +4916,10 @@ body.v242-touch-active .tool-indicator.move::after  {
         if(editingSlot>=0){ saved[editingSlot]=picker.value.toLowerCase(); saveSlots(); renderSaved(); }
     });
     picker?.addEventListener('change',()=>{ editingSlot=-1; });
-    currentBox?.addEventListener('click',()=>openPicker());
+    currentBox?.addEventListener('click',()=>{ editingSlot=-1; openPicker(); });
     document.getElementById('desktopClearFavorites')?.addEventListener('click',()=>{
         saved=Array(SLOT_COUNT).fill('');
+        editingSlot=-1;
         localStorage.removeItem(SKEY);
         renderSaved();
     });
