@@ -2947,7 +2947,7 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
     </div>
    </section>
    <div aria-hidden="true" class="desktop-build-version">
-    v2.7.8
+    v2.7.9
    </div>
   </aside>
   <div class="studio">
@@ -4351,16 +4351,60 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
 }
 @media (min-width:1001px)  {
     .floating-move-tool  {
-        display:none !important;
+        display:flex !important;
+        position:fixed;
+        z-index:1900;
+        width:48px;
+        height:48px;
+        align-items:center;
+        justify-content:center;
+        border:1px solid #cfcfcf;
+        border-radius:50%;
+        background:rgba(255,255,255,.96);
+        color:#222;
+        box-shadow:0 5px 16px rgba(0,0,0,.16);
+        touch-action:none;
+        user-select:none;
+        -webkit-user-select:none;
+        cursor:grab;
+    }
+    .floating-move-tool .move-cross {
+        width:25px !important;
+        height:23px !important;
+        position:relative !important;
+    }
+    .floating-move-tool .move-cross::before {
+        content:"" !important;
+        position:absolute !important;
+        left:6px !important;
+        top:9px !important;
+        width:13px !important;
+        height:11px !important;
+        border-radius:52% 52% 58% 58% !important;
+        background:currentColor !important;
+        transform:rotate(0deg) !important;
+    }
+    .floating-move-tool .move-cross::after {
+        content:"" !important;
+        position:absolute !important;
+        left:2px !important;
+        top:1px !important;
+        width:6px !important;
+        height:7px !important;
+        border-radius:50% !important;
+        background:currentColor !important;
+        box-shadow:7px -2px 0 -0.2px currentColor,14px 0 0 -0.2px currentColor,19px 5px 0 -0.5px currentColor !important;
+        transform:rotate(-8deg) !important;
     }
 }
+
   </style>
   <button aria-label="Move artwork" class="floating-move-tool" id="floatingMoveTool" title="Move artwork" type="button">
    <span aria-hidden="true" class="move-cross">
    </span>
   </button>
   <script>
-   (() => {     "use strict";     const body=document.body;     const eraserBar=document.getElementById('mobileEraserSubmenu');     const move=document.getElementById('floatingMoveTool');      /* Extend the existing peer-submenu behavior without changing Brush/Shape/Select engines. */     document.addEventListener('click', e => {         /* Eraser launcher is handled by the same peer-submenu router as Brush/Shape.            Keeping only one launcher handler prevents the old open-then-close double toggle. */         if (e.target.closest('[data-v2-tool="select"],[data-tool="select"],[data-desktop-tool="select"]')) {             body.classList.remove('mobile-eraser-submenu-open');         }          const choice=e.target.closest('[data-mobile-eraser-choice]');         if (choice) {             eraserMode=choice.dataset.mobileEraserChoice || 'hard';             eraserBar?.querySelectorAll('[data-mobile-eraser-choice]').forEach(b=>b.classList.toggle('active',b===choice));             const source=document.querySelector('[data-tool="eraser"], [data-desktop-tool="eraser"]');             if (source) source.click();             body.classList.add('mobile-eraser-submenu-open');             body.classList.remove('mobile-brush-submenu-open','mobile-shape-submenu-open');         }     }, true);      if (!move) return;     const KEY='miaFloatingMovePositionV25';     let startX=0,startY=0,startLeft=0,startTop=0,dragging=false,moved=false;      function clampPosition(left,top){         const pad=8;         const maxLeft=Math.max(pad,window.innerWidth-move.offsetWidth-pad);         const maxTop=Math.max(pad,window.innerHeight-move.offsetHeight-pad);         return {left:Math.min(maxLeft,Math.max(pad,left)),top:Math.min(maxTop,Math.max(pad,top))};     }     function setPosition(left,top,save){         const p=clampPosition(left,top);         move.style.left=p.left+'px';         move.style.top=p.top+'px';         move.style.right='auto';         if(save){ try{localStorage.setItem(KEY,JSON.stringify(p));}catch(_){} }     }     function restore(){         try{             const p=JSON.parse(localStorage.getItem(KEY)||'null');             if(p && Number.isFinite(p.left) && Number.isFinite(p.top)) setPosition(p.left,p.top,false);         }catch(_){}     }     restore();      move.addEventListener('pointerdown',e=>{         if(e.pointerType==='mouse' && e.button!==0) return;         const r=move.getBoundingClientRect();         startX=e.clientX; startY=e.clientY; startLeft=r.left; startTop=r.top;         dragging=true; moved=false;         move.setPointerCapture?.(e.pointerId);         e.preventDefault();     });     move.addEventListener('pointermove',e=>{         if(!dragging) return;         const dx=e.clientX-startX,dy=e.clientY-startY;         if(Math.hypot(dx,dy)>5) moved=true;         if(moved) setPosition(startLeft+dx,startTop+dy,false);         e.preventDefault();     });     move.addEventListener('pointerup',e=>{         if(!dragging) return;         dragging=false;         if(moved){             const r=move.getBoundingClientRect();             setPosition(r.left,r.top,true);         } else {             const source=document.querySelector('.mobile-direct-tools [data-tool="move"], [data-tool="move"]');             source?.click();         }         try{move.releasePointerCapture?.(e.pointerId);}catch(_){}         e.preventDefault();     });     move.addEventListener('pointercancel',()=>{dragging=false;});     window.addEventListener('resize',()=>{         if(move.style.left){             const r=move.getBoundingClientRect();             setPosition(r.left,r.top,false);         }     },{passive:true}); })();
+   (() => {     "use strict";     const body=document.body;     const eraserBar=document.getElementById('mobileEraserSubmenu');     const move=document.getElementById('floatingMoveTool');      /* Extend the existing peer-submenu behavior without changing Brush/Shape/Select engines. */     document.addEventListener('click', e => {         /* Eraser launcher is handled by the same peer-submenu router as Brush/Shape.            Keeping only one launcher handler prevents the old open-then-close double toggle. */         if (e.target.closest('[data-v2-tool="select"],[data-tool="select"],[data-desktop-tool="select"]')) {             body.classList.remove('mobile-eraser-submenu-open');         }          const choice=e.target.closest('[data-mobile-eraser-choice]');         if (choice) {             eraserMode=choice.dataset.mobileEraserChoice || 'hard';             eraserBar?.querySelectorAll('[data-mobile-eraser-choice]').forEach(b=>b.classList.toggle('active',b===choice));             const source=document.querySelector('[data-tool="eraser"], [data-desktop-tool="eraser"]');             if (source) source.click();             body.classList.add('mobile-eraser-submenu-open');             body.classList.remove('mobile-brush-submenu-open','mobile-shape-submenu-open');         }     }, true);      if (!move) return;     const KEY='miaFloatingMovePositionV25';     let startX=0,startY=0,startLeft=0,startTop=0,dragging=false,moved=false;      function clampPosition(left,top){         const pad=8;         const maxLeft=Math.max(pad,window.innerWidth-move.offsetWidth-pad);         const maxTop=Math.max(pad,window.innerHeight-move.offsetHeight-pad);         return {left:Math.min(maxLeft,Math.max(pad,left)),top:Math.min(maxTop,Math.max(pad,top))};     }     function setPosition(left,top,save){         const p=clampPosition(left,top);         move.style.left=p.left+'px';         move.style.top=p.top+'px';         move.style.right='auto';         if(save){ try{localStorage.setItem(KEY,JSON.stringify(p));}catch(_){} }     }     function placeDesktopPaw(){         if(window.innerWidth<=1000) return false;         const stage=document.getElementById('canvasStage');         if(!stage) return true;         const r=stage.getBoundingClientRect();         setPosition(r.right-move.offsetWidth*.72,r.bottom-move.offsetHeight*.72,false);         return true;     }     function restore(){         if(placeDesktopPaw()) return;         try{             const p=JSON.parse(localStorage.getItem(KEY)||'null');             if(p && Number.isFinite(p.left) && Number.isFinite(p.top)) setPosition(p.left,p.top,false);         }catch(_){}     }     restore();      move.addEventListener('pointerdown',e=>{         if(e.pointerType==='mouse' && e.button!==0) return;         const r=move.getBoundingClientRect();         startX=e.clientX; startY=e.clientY; startLeft=r.left; startTop=r.top;         dragging=true; moved=false;         move.setPointerCapture?.(e.pointerId);         e.preventDefault();     });     move.addEventListener('pointermove',e=>{         if(!dragging) return;         const dx=e.clientX-startX,dy=e.clientY-startY;         if(Math.hypot(dx,dy)>5) moved=true;         if(moved) setPosition(startLeft+dx,startTop+dy,false);         e.preventDefault();     });     move.addEventListener('pointerup',e=>{         if(!dragging) return;         dragging=false;         if(moved){             const r=move.getBoundingClientRect();             setPosition(r.left,r.top,true);         } else {             const source=document.querySelector('.mobile-direct-tools [data-tool="move"], [data-tool="move"]');             source?.click();         }         try{move.releasePointerCapture?.(e.pointerId);}catch(_){}         e.preventDefault();     });     move.addEventListener('pointercancel',()=>{dragging=false;});     window.addEventListener('resize',()=>{         if(placeDesktopPaw()) return;         if(move.style.left){             const r=move.getBoundingClientRect();             setPosition(r.left,r.top,false);         }     },{passive:true});     document.addEventListener('click',e=>{         if(window.innerWidth<=1000) return;         if(e.target.closest('#fitButton,#fitTop,#desktopFitPage,#zoomIn,#zoomOut')) requestAnimationFrame(placeDesktopPaw);     }); })();
   </script>
   <!-- =====================================================      TEST #27 — WEB-MATCH SIZE PREVIEW + PAW MOVE + TABLET FULLSCREEN CLEANUP      Brush / eraser paint mechanics intentionally unchanged.      ===================================================== -->
   <style>
