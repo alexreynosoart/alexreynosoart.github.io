@@ -5222,7 +5222,7 @@ header nav a:not(:last-child)::after {
     }
 
     header nav a:not(:last-child)::after {
-        left: calc(100% + 6px);
+        left: calc(100% + 12px);
         margin-left: 0;
         color: #777;
     }
