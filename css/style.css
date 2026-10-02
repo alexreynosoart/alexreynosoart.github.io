@@ -5153,15 +5153,15 @@ body.everything-art-opportunities-theme .op-toolbox {
 
 /* ========================================
    UNIVERSAL MAIN NAV | CENTERED + DOTS
-   One system for desktop, tablet and phone.
    ======================================== */
 
 header nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: nowrap;
-    gap: 0;
+    flex-wrap: wrap;
+    column-gap: 0;
+    row-gap: 8px;
     max-width: 1100px;
     margin: 0 auto;
 }
@@ -5169,66 +5169,48 @@ header nav {
 header nav a {
     display: inline-flex;
     align-items: center;
-    color: #fff;
-    text-decoration: none;
     white-space: nowrap;
 }
 
-/* Desktop/tablet separators */
 header nav a:not(:last-child)::after {
     content: "•";
-    display: inline-block;
-    margin: 0 18px;
+    margin: 0 14px;
     color: #777;
     font-size: 0.72em;
     line-height: 1;
     pointer-events: none;
-    text-decoration: none;
 }
 
-/* Phone + iPad Mini: exact centered 4 + 3 layout */
+/* Phone: force the clean 4 + 3 centered layout */
 @media (max-width: 750px) {
     header nav {
         display: grid;
-        grid-template-columns: repeat(4, max-content);
+        grid-template-columns: repeat(12, auto);
         justify-content: center;
         align-items: center;
         width: 100%;
         max-width: none;
-        column-gap: 0;
-        row-gap: 12px;
+        gap: 8px 0;
     }
 
+    header nav a:nth-child(1) { grid-column: 1 / span 3; }
+    header nav a:nth-child(2) { grid-column: 4 / span 3; }
+    header nav a:nth-child(3) { grid-column: 7 / span 3; }
+    header nav a:nth-child(4) { grid-column: 10 / span 3; }
+
+    header nav a:nth-child(5) { grid-column: 2 / span 3; }
+    header nav a:nth-child(6) { grid-column: 5 / span 3; }
+    header nav a:nth-child(7) { grid-column: 8 / span 4; }
+
     header nav a {
-        display: inline-flex;
-        align-items: center;
         justify-content: center;
-        margin: 0;
         text-align: center;
     }
 
     header nav a:not(:last-child)::after {
-        position: static;
-        transform: none;
-        display: inline-block;
-        margin: 0 10px;
-        color: #777;
-        font-size: 0.72em;
-        line-height: 1;
+        margin: 0 8px;
     }
 
-    /* Row 1 */
-    header nav a:nth-child(1) { grid-column: 1; grid-row: 1; }
-    header nav a:nth-child(2) { grid-column: 2; grid-row: 1; }
-    header nav a:nth-child(3) { grid-column: 3; grid-row: 1; }
-    header nav a:nth-child(4) { grid-column: 4; grid-row: 1; }
-
-    /* Row 2: three clean centered cells */
-    header nav a:nth-child(5) { grid-column: 1 / span 1; grid-row: 2; justify-self: end; }
-    header nav a:nth-child(6) { grid-column: 2 / span 2; grid-row: 2; justify-self: center; }
-    header nav a:nth-child(7) { grid-column: 3 / span 1; grid-row: 2; justify-self: start; }
-
-    /* No separator at the end of row 1 */
     header nav a:nth-child(4)::after {
         content: none;
     }
