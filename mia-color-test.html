@@ -2846,22 +2846,7 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
       SKY / WATER
      </button>
     </div>
-    <button aria-expanded="false" class="desktop-hues-toggle" id="desktopHuesToggle" type="button">
-     <span>
-      HUES + SHADES
-     </span>
-     <span aria-hidden="true">
-      ⌄
-     </span>
-    </button>
-    <div class="desktop-hues-panel" id="desktopHuesPanel">
-    </div>
     <div class="desktop-side-colors desktop-modern-colors" id="desktopSideColors">
-    </div>
-    <div class="desktop-current-color-row">
-     <button class="desktop-current-color" id="desktopCurrentColor" type="button" title="Current color. Click to choose a color." aria-label="Current color. Click to choose a color."></button>
-     <button class="desktop-color-picker-button" id="desktopColorPickerButton" type="button" title="Choose a color" aria-label="Choose a color">⌾</button>
-     <input id="desktopSideCustomColor" type="color" value="#e88eaa" aria-label="Choose a color"/>
     </div>
     <div class="desktop-favorites-head">
      <span>
@@ -2871,7 +2856,11 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
       CLEAR
      </button>
     </div>
-    <div class="desktop-favorites" id="desktopFavoriteSwatches" aria-label="My saved color swatches">
+    <div class="desktop-current-color-row">
+     <button class="desktop-current-color" id="desktopCurrentColor" type="button" title="Current color. Click to choose a color." aria-label="Current color. Click to choose a color."></button>
+     <input id="desktopSideCustomColor" type="color" value="#e88eaa" aria-label="Choose a color"/>
+     <div class="desktop-favorites" id="desktopFavoriteSwatches" aria-label="My saved color swatches">
+     </div>
     </div>
    </section>
    <section class="desktop-side-section">
@@ -2949,7 +2938,7 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
     </div>
    </section>
    <div aria-hidden="true" class="desktop-build-version">
-    v2.8.4
+    v2.8.5
    </div>
   </aside>
   <div class="studio">
@@ -4761,7 +4750,7 @@ body.v242-touch-active .tool-indicator.move::after  {
         grid-template-columns:repeat(8,1fr) !important;
         gap:5px !important;
     }
-    .desktop-modern-colors .color-swatch,     .desktop-hues-panel .color-swatch,     .desktop-favorites .color-swatch  {
+    .desktop-modern-colors .color-swatch  {
         width:100% !important;
         aspect-ratio:1 !important;
         height:auto !important;
@@ -4771,15 +4760,16 @@ body.v242-touch-active .tool-indicator.move::after  {
         box-shadow:inset 0 0 0 2px #fff;
         padding:0 !important;
     }
-    .desktop-modern-colors .color-swatch.active,     .desktop-hues-panel .color-swatch.active,     .desktop-favorites .color-swatch.active  {
+    .desktop-modern-colors .color-swatch.active  {
         outline:2px solid #111;
         outline-offset:2px;
     }
     .desktop-current-color-row  {
         display:flex;
         align-items:center;
-        gap:10px;
-        margin-top:10px;
+        gap:12px;
+        margin-top:7px;
+        width:100%;
     }
     .desktop-current-color  {
         width:54px;
@@ -4790,16 +4780,6 @@ body.v242-touch-active .tool-indicator.move::after  {
         background:#e88eaa;
         box-shadow:inset 0 0 0 2px #fff;
         cursor:pointer;
-    }
-    .desktop-color-picker-button  {
-        width:36px;
-        height:36px;
-        border:0;
-        background:transparent;
-        color:#666;
-        font-size:1.45rem;
-        cursor:pointer;
-        padding:0;
     }
     #desktopSideCustomColor  {
         position:absolute;
@@ -4826,23 +4806,28 @@ body.v242-touch-active .tool-indicator.move::after  {
         padding:3px;
     }
     .desktop-favorites  {
+        flex:1 1 auto;
         display:grid;
-        grid-template-columns:repeat(6,1fr);
-        gap:5px;
-        margin-top:6px;
+        grid-template-columns:repeat(6,minmax(28px,1fr));
+        gap:7px;
+        margin:0;
     }
     .desktop-favorites .desktop-saved-slot  {
         width:100%;
+        max-width:42px;
         aspect-ratio:1;
         min-width:0;
-        border:1.5px solid #777;
-        border-radius:4px;
+        justify-self:center;
+        border:2px dashed #aaa;
+        border-radius:50%;
         background:transparent;
         padding:0;
         cursor:pointer;
     }
     .desktop-favorites .desktop-saved-slot.filled  {
-        box-shadow:inset 0 0 0 1px rgba(255,255,255,.35);
+        border-style:solid;
+        border-color:#d1d1d1;
+        box-shadow:inset 0 0 0 2px #fff;
     }
     .desktop-favorites .desktop-saved-slot.active  {
         outline:2px solid #111;
@@ -4882,7 +4867,6 @@ body.v242-touch-active .tool-indicator.move::after  {
         selectColor(selected);
         if(currentBox) currentBox.style.background=selected;
         if(picker) picker.value=selected;
-        if(document.getElementById('desktopHuesPanel')?.classList.contains('open')) renderHues();
         document.querySelectorAll('.desktop-saved-slot').forEach((slot,i)=>slot.classList.toggle('active',saved[i]===selected));
     }
     function openPicker(slotIndex=-1){
@@ -4909,24 +4893,6 @@ body.v242-touch-active .tool-indicator.move::after  {
         if(paletteReadout) paletteReadout.textContent=name==='sky'?'SKY / WATER':name.toUpperCase();
     }
     document.querySelectorAll('[data-desktop-palette]').forEach(b=>b.addEventListener('click',()=>renderPalette(b.dataset.desktopPalette)));
-
-    const huesToggle=document.getElementById('desktopHuesToggle');
-    const huesPanel=document.getElementById('desktopHuesPanel');
-    function hexToRgb(hex){hex=hex.replace('#','');return [parseInt(hex.slice(0,2),16),parseInt(hex.slice(2,4),16)];}
-    function rgbToHex(r,g,b){return '#'+[r,g,b].map(v=>Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,'0')).join('');}
-    function mix(a,b,t){return a.map((v,i)=>v+(b[i]-v)*t);}
-    function renderHues(){
-        huesPanel.innerHTML='';
-        const rgb=hexToRgb(selected);
-        [0.75,0.55,0.35,0.18].forEach(t=>huesPanel.appendChild(swatch(rgbToHex(...mix(rgb,[255,255,255],t)))));
-        [0.15,0.3,0.45,0.6].forEach(t=>huesPanel.appendChild(swatch(rgbToHex(...mix(rgb,[0,0,0],t)))));
-    }
-    huesToggle?.addEventListener('click',()=>{
-        const open=!huesPanel.classList.contains('open');
-        huesPanel.classList.toggle('open',open);
-        huesToggle.setAttribute('aria-expanded',String(open));
-        if(open) renderHues();
-    });
 
     function renderSaved(){
         savedBox.innerHTML='';
@@ -4960,7 +4926,6 @@ body.v242-touch-active .tool-indicator.move::after  {
     });
     picker?.addEventListener('change',()=>{ editingSlot=-1; });
     currentBox?.addEventListener('click',()=>openPicker());
-    document.getElementById('desktopColorPickerButton')?.addEventListener('click',()=>openPicker());
     document.getElementById('desktopClearFavorites')?.addEventListener('click',()=>{
         saved=Array(SLOT_COUNT).fill('');
         localStorage.removeItem(SKEY);
