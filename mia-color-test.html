@@ -2835,6 +2835,12 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
      <button data-desktop-tablet-brush="texture" type="button">
       TEXTURE
      </button>
+     <div class="mia-compact-size-row" data-mia-size-row>
+      <span class="mia-compact-size-label">SIZE</span>
+      <button aria-label="Decrease size" data-mia-size-minus type="button">−</button>
+      <span class="mia-compact-size-value" data-mia-size-value>75</span>
+      <button aria-label="Increase size" data-mia-size-plus type="button">+</button>
+     </div>
     </div>
     <div aria-label="Fill choices" class="desktop-tablet-submenu" id="desktopTabletFillMenu">
      <button class="active" data-desktop-tablet-fill="bucket" type="button">
@@ -2858,6 +2864,12 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
      <button data-desktop-tablet-eraser="texture" type="button">
       TEXTURE
      </button>
+     <div class="mia-compact-size-row" data-mia-size-row>
+      <span class="mia-compact-size-label">SIZE</span>
+      <button aria-label="Decrease size" data-mia-size-minus type="button">−</button>
+      <span class="mia-compact-size-value" data-mia-size-value>75</span>
+      <button aria-label="Increase size" data-mia-size-plus type="button">+</button>
+     </div>
     </div>
     <div aria-label="Line and shape choices" class="desktop-tablet-submenu" id="desktopTabletShapeMenu">
      <button class="active" data-desktop-tablet-shape="line" type="button">
@@ -3022,7 +3034,7 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
     </div>
    </section>
    <div aria-hidden="true" class="desktop-build-version">
-    v2.8.16
+    v2.8.17
    </div>
   </aside>
   <div class="studio">
@@ -3188,6 +3200,12 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
      <button data-mobile-brush-choice="texture" type="button">
       TEXTURE
      </button>
+     <div class="mia-compact-size-row" data-mia-size-row>
+      <span class="mia-compact-size-label">SIZE</span>
+      <button aria-label="Decrease size" data-mia-size-minus type="button">−</button>
+      <span class="mia-compact-size-value" data-mia-size-value>75</span>
+      <button aria-label="Increase size" data-mia-size-plus type="button">+</button>
+     </div>
     </div>
     <div aria-label="Eraser choices" class="mobile-tool-submenu mobile-eraser-submenu" id="mobileEraserSubmenu">
      <button class="active" data-mobile-eraser-choice="hard" type="button">
@@ -3199,6 +3217,12 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
      <button data-mobile-eraser-choice="texture" type="button">
       TEXTURE
      </button>
+     <div class="mia-compact-size-row" data-mia-size-row>
+      <span class="mia-compact-size-label">SIZE</span>
+      <button aria-label="Decrease size" data-mia-size-minus type="button">−</button>
+      <span class="mia-compact-size-value" data-mia-size-value>75</span>
+      <button aria-label="Increase size" data-mia-size-plus type="button">+</button>
+     </div>
     </div>
     <div aria-label="Line and shape choices" class="mobile-tool-submenu mobile-shape-submenu" id="mobileShapeSubmenu">
      <button class="active" data-mobile-shape-choice="line" type="button">
@@ -3675,7 +3699,7 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
                 paintCtx.shadowColor = currentColor;
                 paintCtx.shadowBlur = brushSize * 1.45;
                 paintCtx.lineWidth = brushSize * 1.55;
-            } else if (brushType === 'texture') {                 paintCtx.globalAlpha = 0.62;                 paintCtx.lineWidth = brushSize * 0.55;             }         }           if (             currentTool ===             'eraser'         ) {              paintCtx.globalCompositeOperation =                 'destination-out';              paintCtx.strokeStyle =                 '#000';              paintCtx.fillStyle =                 '#000';              /* V2.8.16: Hard stays clean. Soft stays feathered. Texture now uses
+            } else if (brushType === 'texture') {                 paintCtx.globalAlpha = 0.62;                 paintCtx.lineWidth = brushSize * 0.55;             }         }           if (             currentTool ===             'eraser'         ) {              paintCtx.globalCompositeOperation =                 'destination-out';              paintCtx.strokeStyle =                 '#000';              paintCtx.fillStyle =                 '#000';              /* V2.8.17: Hard stays clean. Soft stays feathered. Texture now uses
                a grain-based destination-out footprint. */
             paintCtx.globalAlpha = 1;
             paintCtx.shadowColor = 'transparent';
@@ -5338,7 +5362,44 @@ body.v242-touch-active .tool-indicator.move::after  {
         display:none !important;
     }
 }
-  </style>
+  
+  /* V2.8.17 compact Brush/Eraser size controls */
+  .mia-compact-size-row{
+    flex:0 0 100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:8px 4px 2px;
+    margin-top:6px;
+    border-top:1px solid #d7d7d7;
+  }
+  .mia-compact-size-label{
+    font-weight:800;
+    font-size:13px;
+    letter-spacing:.02em;
+    margin-right:4px;
+  }
+  .mia-compact-size-row button{
+    width:38px;
+    height:34px;
+    min-width:38px;
+    padding:0;
+    border:1px solid #cfcfcf;
+    border-radius:10px;
+    background:#fff;
+    color:#222;
+    font-size:22px;
+    font-weight:800;
+    line-height:1;
+  }
+  .mia-compact-size-value{
+    min-width:42px;
+    text-align:center;
+    font-weight:800;
+    font-size:15px;
+  }
+</style>
   <script>
    /* TEST #40 — stable popover lifecycle + desktop hover tips for the new tools only. */ (() => {     'use strict';     const root=document.querySelector('.desktop-tablet-tools');     if(!root) return;      const menus={         brush:document.getElementById('desktopTabletBrushMenu'),         eraser:document.getElementById('desktopTabletEraserMenu'),         shape:document.getElementById('desktopTabletShapeMenu'),         select:document.getElementById('desktopTabletSelectMenu')     };      function showOnly(name){         Object.entries(menus).forEach(([key,menu])=>{             if(menu) menu.classList.toggle('open', key===name);         });     }      /* Run after Test #39's relay. This only controls visibility, so Fill closes        the popover while the reserved slot keeps Colors perfectly still. */     root.addEventListener('click', e => {         const main=e.target.closest('[data-desktop-tablet-tool]');         if(main){             const name=main.dataset.desktopTabletTool;             if(name==='fill') showOnly(null);             else showOnly(name);             return;         }         if(e.target.closest('[data-desktop-tablet-brush]')) showOnly('brush');         if(e.target.closest('[data-desktop-tablet-eraser]')) showOnly('eraser');         if(e.target.closest('[data-desktop-tablet-shape]')) showOnly('shape');         if(e.target.closest('[data-desktop-tablet-select],[data-desktop-tablet-select-op]')) showOnly('select');         if(e.target.closest('[data-desktop-tablet-select-done]')) showOnly(null);     });      /* Desktop hover tips only. No new phone/tablet hover behavior. */     const status=document.getElementById('studioStatus');     const wrap=status?.closest('.studio-tip-wrap');     if(status && wrap){         function tip(target){             if(!target?.closest) return null;             if(target.closest('[data-desktop-tablet-tool="brush"]')) return 'Brush: choose Pen, Marker, Soft, or Texture, then draw.';             if(target.closest('[data-desktop-tablet-tool="eraser"]')) return 'Eraser: choose Hard, Soft, or Texture, then drag over your artwork.';             if(target.closest('[data-desktop-tablet-tool="fill"]')) return 'Fill: click an area to fill it with the selected color.';             if(target.closest('[data-desktop-tablet-tool="shape"]')) return 'Line / Shape: choose Line, Square, or Circle, then drag to draw it.';             if(target.closest('[data-desktop-tablet-tool="select"]')) return 'Select: choose a selection shape, then add, subtract, clear, or finish with Done.';             if(target.closest('[data-desktop-tablet-brush="pen"]')) return 'Pen: draw clean freehand lines.';             if(target.closest('[data-desktop-tablet-brush="marker"]')) return 'Marker: build broad strokes and layered color.';             if(target.closest('[data-desktop-tablet-brush="soft"]')) return 'Soft brush: paint gentle edges and shading.';             if(target.closest('[data-desktop-tablet-brush="texture"]')) return 'Texture brush: add grain and character.';             if(target.closest('[data-desktop-tablet-eraser="hard"]')) return 'Hard eraser: erase with a clean edge.';             if(target.closest('[data-desktop-tablet-eraser="soft"]')) return 'Soft eraser: erase with a softer feathered edge.';             if(target.closest('[data-desktop-tablet-eraser="texture"]')) return 'Texture eraser: erase with a textured edge.';             if(target.closest('[data-desktop-tablet-shape="line"]')) return 'Line: drag to create a straight line.';             if(target.closest('[data-desktop-tablet-shape="rect"]')) return 'Square: drag to create a square or rectangle.';             if(target.closest('[data-desktop-tablet-shape="ellipse"]')) return 'Circle: drag to create a circle or oval.';             return null;         }         root.addEventListener('pointerover', e => {             if(window.innerWidth<=1000 || e.pointerType!=='mouse') return;             const t=tip(e.target);             if(!t) return;             wrap.classList.remove('tip-hidden');             wrap.style.display='flex';             status.textContent=t;         }, true);     }      /* Start exactly like tablet: Brush active with its submenu visible. */     showOnly('brush'); })();
   </script>
@@ -5346,5 +5407,48 @@ body.v242-touch-active .tool-indicator.move::after  {
    (() => {     'use strict';     const root=document.querySelector('.desktop-tablet-tools');     if(!root) return;      const fillMenu=document.getElementById('desktopTabletFillMenu');     const brushMenu=document.getElementById('desktopTabletBrushMenu');     const eraserMenu=document.getElementById('desktopTabletEraserMenu');     const shapeMenu=document.getElementById('desktopTabletShapeMenu');     const selectMenu=document.getElementById('desktopTabletSelectMenu');     const allMenus=[brushMenu,eraserMenu,fillMenu,shapeMenu,selectMenu];      function showMenu(menu){         allMenus.forEach(m=>m?.classList.toggle('open',m===menu));     }      /* Override only submenu visibility from the earlier desktop relay. */     root.addEventListener('click',e=>{         const main=e.target.closest('[data-desktop-tablet-tool]');         if(main){             const n=main.dataset.desktopTabletTool;             if(n==='brush') showMenu(brushMenu);             if(n==='eraser') showMenu(eraserMenu);             if(n==='fill') showMenu(fillMenu);             if(n==='shape') showMenu(shapeMenu);             if(n==='select') showMenu(selectMenu);         }          const fill=e.target.closest('[data-desktop-tablet-fill]');         if(fill){             root.querySelectorAll('[data-desktop-tablet-fill]').forEach(b=>b.classList.toggle('active',b===fill));             /* Bucket remains the working Fill engine. Gradient is intentionally                staged as UI until its controls/behavior are designed. */             if(fill.dataset.desktopTabletFill==='bucket'){                 document.querySelector('[data-v2-tool="fill"]')?.click();             }             showMenu(fillMenu);         }     },true); })();
   </script>
   
- </body>
+ 
+  <script>
+  /* V2.8.17 shared Brush/Eraser SIZE control. Uses existing brushSize only. */
+  (() => {
+    'use strict';
+    const steps = [5, 10, 25, 50, 75, 100];
+    const rows = () => Array.from(document.querySelectorAll('[data-mia-size-row]'));
+
+    function nearestIndex(value){
+      let best = 0;
+      let dist = Infinity;
+      steps.forEach((n,i) => {
+        const d = Math.abs(n - value);
+        if(d < dist){ dist = d; best = i; }
+      });
+      return best;
+    }
+
+    function render(){
+      document.querySelectorAll('[data-mia-size-value]').forEach(el => {
+        el.textContent = String(brushSize);
+      });
+    }
+
+    document.addEventListener('click', e => {
+      const minus = e.target.closest('[data-mia-size-minus]');
+      const plus = e.target.closest('[data-mia-size-plus]');
+      if(!minus && !plus) return;
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      let i = nearestIndex(brushSize);
+      if(minus) i = Math.max(0, i - 1);
+      if(plus) i = Math.min(steps.length - 1, i + 1);
+      brushSize = steps[i];
+      render();
+    }, true);
+
+    render();
+  })();
+  </script>
+
+</body>
 </html>
