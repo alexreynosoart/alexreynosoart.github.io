@@ -3050,7 +3050,7 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
     </div>
    </section>
    <div aria-hidden="true" class="desktop-build-version">
-    v2.8.22
+    v2.8.23
    </div>
   </aside>
   <div class="studio">
@@ -3732,7 +3732,7 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
                 paintCtx.shadowColor = currentColor;
                 paintCtx.shadowBlur = brushSize * 1.45;
                 paintCtx.lineWidth = brushSize * 1.55;
-            } else if (brushType === 'texture') {                 paintCtx.globalAlpha = Math.min(brushOpacity, 0.62);                 paintCtx.lineWidth = brushSize * 0.55;             }         }           if (             currentTool ===             'eraser'         ) {              paintCtx.globalCompositeOperation =                 'destination-out';              paintCtx.strokeStyle =                 '#000';              paintCtx.fillStyle =                 '#000';              /* V2.8.22: Hard stays clean. Soft stays feathered. Texture now uses
+            } else if (brushType === 'texture') {                 paintCtx.globalAlpha = Math.min(brushOpacity, 0.62);                 paintCtx.lineWidth = brushSize * 0.55;             }         }           if (             currentTool ===             'eraser'         ) {              paintCtx.globalCompositeOperation =                 'destination-out';              paintCtx.strokeStyle =                 '#000';              paintCtx.fillStyle =                 '#000';              /* V2.8.23: Hard stays clean. Soft stays feathered. Texture now uses
                a grain-based destination-out footprint. */
             paintCtx.globalAlpha = brushOpacity;
             paintCtx.shadowColor = 'transparent';
@@ -5411,7 +5411,7 @@ body.v242-touch-active .tool-indicator.move::after  {
     width:100% !important;
     clear:both;
   }
-/* V2.8.22 Brush/Eraser control row.
+/* V2.8.23 Brush/Eraser control row.
      Real two-column structure: SIZE left, OPACITY space right. */
   .mia-compact-size-row{
     box-sizing:border-box;
@@ -5485,6 +5485,36 @@ body.v242-touch-active .tool-indicator.move::after  {
     font-size:13px;
     white-space:nowrap;
   }
+
+  /* V2.8.23 WEB ONLY: stack SIZE and OPACITY inside the narrow left sidebar.
+     Phone and tablet retain the existing side-by-side control row. */
+  @media (min-width: 1025px){
+    #desktopTabletBrushMenu .mia-compact-size-row,
+    #desktopTabletEraserMenu .mia-compact-size-row{
+      display:flex;
+      flex-direction:column;
+      align-items:stretch;
+      gap:8px;
+    }
+    #desktopTabletBrushMenu .mia-size-half,
+    #desktopTabletBrushMenu .mia-opacity-half,
+    #desktopTabletEraserMenu .mia-size-half,
+    #desktopTabletEraserMenu .mia-opacity-half{
+      width:100%;
+      display:grid;
+      grid-template-columns:72px 30px 44px 30px;
+      justify-content:start;
+      align-items:center;
+      column-gap:6px;
+    }
+    #desktopTabletBrushMenu .mia-compact-size-label,
+    #desktopTabletBrushMenu .mia-compact-opacity-label,
+    #desktopTabletEraserMenu .mia-compact-size-label,
+    #desktopTabletEraserMenu .mia-compact-opacity-label{
+      justify-self:start;
+      margin:0;
+    }
+  }
 </style>
   <script>
    /* TEST #40 — stable popover lifecycle + desktop hover tips for the new tools only. */ (() => {     'use strict';     const root=document.querySelector('.desktop-tablet-tools');     if(!root) return;      const menus={         brush:document.getElementById('desktopTabletBrushMenu'),         eraser:document.getElementById('desktopTabletEraserMenu'),         shape:document.getElementById('desktopTabletShapeMenu'),         select:document.getElementById('desktopTabletSelectMenu')     };      function showOnly(name){         Object.entries(menus).forEach(([key,menu])=>{             if(menu) menu.classList.toggle('open', key===name);         });     }      /* Run after Test #39's relay. This only controls visibility, so Fill closes        the popover while the reserved slot keeps Colors perfectly still. */     root.addEventListener('click', e => {         const main=e.target.closest('[data-desktop-tablet-tool]');         if(main){             const name=main.dataset.desktopTabletTool;             if(name==='fill') showOnly(null);             else showOnly(name);             return;         }         if(e.target.closest('[data-desktop-tablet-brush]')) showOnly('brush');         if(e.target.closest('[data-desktop-tablet-eraser]')) showOnly('eraser');         if(e.target.closest('[data-desktop-tablet-shape]')) showOnly('shape');         if(e.target.closest('[data-desktop-tablet-select],[data-desktop-tablet-select-op]')) showOnly('select');         if(e.target.closest('[data-desktop-tablet-select-done]')) showOnly(null);     });      /* Desktop hover tips only. No new phone/tablet hover behavior. */     const status=document.getElementById('studioStatus');     const wrap=status?.closest('.studio-tip-wrap');     if(status && wrap){         function tip(target){             if(!target?.closest) return null;             if(target.closest('[data-desktop-tablet-tool="brush"]')) return 'Brush: choose Pen, Marker, Soft, or Texture, then draw.';             if(target.closest('[data-desktop-tablet-tool="eraser"]')) return 'Eraser: choose Hard, Soft, or Texture, then drag over your artwork.';             if(target.closest('[data-desktop-tablet-tool="fill"]')) return 'Fill: click an area to fill it with the selected color.';             if(target.closest('[data-desktop-tablet-tool="shape"]')) return 'Line / Shape: choose Line, Square, or Circle, then drag to draw it.';             if(target.closest('[data-desktop-tablet-tool="select"]')) return 'Select: choose a selection shape, then add, subtract, clear, or finish with Done.';             if(target.closest('[data-desktop-tablet-brush="pen"]')) return 'Pen: draw clean freehand lines.';             if(target.closest('[data-desktop-tablet-brush="marker"]')) return 'Marker: build broad strokes and layered color.';             if(target.closest('[data-desktop-tablet-brush="soft"]')) return 'Soft brush: paint gentle edges and shading.';             if(target.closest('[data-desktop-tablet-brush="texture"]')) return 'Texture brush: add grain and character.';             if(target.closest('[data-desktop-tablet-eraser="hard"]')) return 'Hard eraser: erase with a clean edge.';             if(target.closest('[data-desktop-tablet-eraser="soft"]')) return 'Soft eraser: erase with a softer feathered edge.';             if(target.closest('[data-desktop-tablet-eraser="texture"]')) return 'Texture eraser: erase with a textured edge.';             if(target.closest('[data-desktop-tablet-shape="line"]')) return 'Line: drag to create a straight line.';             if(target.closest('[data-desktop-tablet-shape="rect"]')) return 'Square: drag to create a square or rectangle.';             if(target.closest('[data-desktop-tablet-shape="ellipse"]')) return 'Circle: drag to create a circle or oval.';             return null;         }         root.addEventListener('pointerover', e => {             if(window.innerWidth<=1000 || e.pointerType!=='mouse') return;             const t=tip(e.target);             if(!t) return;             wrap.classList.remove('tip-hidden');             wrap.style.display='flex';             status.textContent=t;         }, true);     }      /* Start exactly like tablet: Brush active with its submenu visible. */     showOnly('brush'); })();
@@ -5495,7 +5525,7 @@ body.v242-touch-active .tool-indicator.move::after  {
   
  
   <script>
-  /* V2.8.22 shared Brush/Eraser SIZE control. Uses existing brushSize only. */
+  /* V2.8.23 shared Brush/Eraser SIZE control. Uses existing brushSize only. */
   (() => {
     'use strict';
 
