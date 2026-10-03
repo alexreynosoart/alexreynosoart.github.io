@@ -3034,7 +3034,7 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
     </div>
    </section>
    <div aria-hidden="true" class="desktop-build-version">
-    v2.8.18
+    v2.8.19
    </div>
   </aside>
   <div class="studio">
@@ -3699,7 +3699,7 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
                 paintCtx.shadowColor = currentColor;
                 paintCtx.shadowBlur = brushSize * 1.45;
                 paintCtx.lineWidth = brushSize * 1.55;
-            } else if (brushType === 'texture') {                 paintCtx.globalAlpha = 0.62;                 paintCtx.lineWidth = brushSize * 0.55;             }         }           if (             currentTool ===             'eraser'         ) {              paintCtx.globalCompositeOperation =                 'destination-out';              paintCtx.strokeStyle =                 '#000';              paintCtx.fillStyle =                 '#000';              /* V2.8.18: Hard stays clean. Soft stays feathered. Texture now uses
+            } else if (brushType === 'texture') {                 paintCtx.globalAlpha = 0.62;                 paintCtx.lineWidth = brushSize * 0.55;             }         }           if (             currentTool ===             'eraser'         ) {              paintCtx.globalCompositeOperation =                 'destination-out';              paintCtx.strokeStyle =                 '#000';              paintCtx.fillStyle =                 '#000';              /* V2.8.19: Hard stays clean. Soft stays feathered. Texture now uses
                a grain-based destination-out footprint. */
             paintCtx.globalAlpha = 1;
             paintCtx.shadowColor = 'transparent';
@@ -5363,46 +5363,72 @@ body.v242-touch-active .tool-indicator.move::after  {
     }
 }
   
-  /* V2.8.18 compact Brush/Eraser size controls.
-     SIZE is its own full-width row beneath the tool choices. */
+  /* V2.8.19 Brush/Eraser control row.
+     Left half = SIZE. Right half intentionally reserved for OPACITY. */
   .mia-compact-size-row{
     box-sizing:border-box;
     width:100%;
     flex:0 0 100%;
     display:grid;
-    grid-template-columns:1fr 34px 46px 34px;
+    grid-template-columns:50% 50%;
     align-items:center;
-    column-gap:7px;
     padding:7px 8px 2px;
     margin-top:6px;
     border-top:1px solid #d7d7d7;
   }
+  .mia-compact-size-row::after{
+    content:"";
+    display:block;
+    min-width:0;
+  }
+  .mia-compact-size-row{
+    --mia-control-gap:5px;
+  }
+  .mia-compact-size-label,
+  .mia-compact-size-row > button,
+  .mia-compact-size-value{
+    grid-row:1;
+  }
   .mia-compact-size-label{
+    grid-column:1;
     justify-self:start;
+    align-self:center;
     font-weight:800;
     font-size:13px;
     letter-spacing:.02em;
     margin:0;
   }
-  .mia-compact-size-row button{
-    width:34px;
-    height:30px;
-    min-width:34px;
-    padding:0;
-    border:1px solid #cfcfcf;
-    border-radius:9px;
-    background:#fff;
-    color:#222;
-    font-size:20px;
-    font-weight:800;
-    line-height:1;
+  .mia-compact-size-row > [data-mia-size-minus]{
+    grid-column:1;
+    justify-self:center;
+    transform:translateX(8px);
   }
   .mia-compact-size-value{
-    width:46px;
-    min-width:46px;
+    grid-column:1;
+    justify-self:end;
+    transform:translateX(-37px);
+    width:34px;
+    min-width:34px;
     text-align:center;
     font-weight:800;
-    font-size:15px;
+    font-size:14px;
+  }
+  .mia-compact-size-row > [data-mia-size-plus]{
+    grid-column:1;
+    justify-self:end;
+  }
+  .mia-compact-size-row button{
+    width:30px;
+    height:28px;
+    min-width:30px;
+    padding:0;
+    border:1px solid #cfcfcf;
+    border-radius:8px;
+    background:#fff;
+    color:#222;
+    font-size:19px;
+    font-weight:800;
+    line-height:1;
   }
 </style>
   <script>
@@ -5414,7 +5440,7 @@ body.v242-touch-active .tool-indicator.move::after  {
   
  
   <script>
-  /* V2.8.18 shared Brush/Eraser SIZE control. Uses existing brushSize only. */
+  /* V2.8.19 shared Brush/Eraser SIZE control. Uses existing brushSize only. */
   (() => {
     'use strict';
     const steps = [5, 10, 25, 50, 75, 100];
