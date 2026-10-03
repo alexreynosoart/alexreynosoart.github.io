@@ -3064,7 +3064,7 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
     </div>
    </section>
    <div aria-hidden="true" class="desktop-build-version">
-    v2.8.35
+    v2.8.36
    </div>
   </aside>
   <div class="studio">
@@ -3751,7 +3751,7 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
      renderMobileColorPalette();
 
      function selectColor(         color     ) {          currentColor =             color;          document             .querySelectorAll(                 '.swatch'             )             .forEach(                 function(swatch) {                      swatch.classList.toggle(                         'selected',                         swatch.dataset.color ===                         color                     );                  }             );          document             .getElementById(                 'customColor'             )             .value =                 color;      }       document         .getElementById(             'customColor'         )         .addEventListener(             'input',             function() {                  selectColor(                     this.value                 );              }         );       /* =========================        PAGE CHOOSER        ========================= */      function markSaved() {         hasUnsavedChanges = false;     }      function markChanged() {         hasUnsavedChanges = true;     }      function updateArtworkTray() {         document             .querySelectorAll('[data-art]')             .forEach(function(button) {                 button.classList.toggle(                     'active',                     button.dataset.art === currentArtworkKey                 );             });          const uploadButton =             document.getElementById('uploadArtworkButton');          if (uploadButton) {             uploadButton.classList.toggle(                 'active',                 currentArtworkKey === 'upload'             );         }     }      function loadArtwork(key) {         if (!ARTWORKS[key]) return;          currentArtworkKey = key;         ARTWORK = ARTWORKS[key];         updateArtworkTray();         closePagesDrawer();
-        sourceImage.src = ARTWORK.source;     }      function requestArtworkChange(key) {         if (key === currentArtworkKey) return;          if (             hasUnsavedChanges &&             !skipLeaveWarning         ) {             pendingNavigation = function() {                 loadArtwork(key);             };             openLeaveModal();             return;         }          loadArtwork(key);     }      const pagesLauncher =         document.getElementById('pagesLauncher');      const pagesClose =         document.getElementById('pagesClose');      const pagesBackdrop =         document.getElementById('pagesBackdrop');      const artworkTray =         document.getElementById('artworkTray');      const artworkUpload =         document.getElementById('artworkUpload');      const uploadArtworkButton =         document.getElementById('uploadArtworkButton');      function openPagesDrawer() {         artworkTray.classList.add('open');         pagesBackdrop.classList.add('open');         artworkTray.setAttribute('aria-hidden', 'false');         pagesLauncher.setAttribute('aria-expanded', 'true');     }      function closePagesDrawer() {         artworkTray.classList.remove('open');         pagesBackdrop.classList.remove('open');         artworkTray.setAttribute('aria-hidden', 'true');         pagesLauncher.setAttribute('aria-expanded', 'false');     }      pagesLauncher.addEventListener('click', function() {         if (artworkTray.classList.contains('open')) {             closePagesDrawer();         } else {             openPagesDrawer();         }     });      pagesClose.addEventListener('click', closePagesDrawer);     pagesBackdrop.addEventListener('click', closePagesDrawer);      document.addEventListener('keydown', function(event) {         if (event.key === 'Escape' && artworkTray.classList.contains('open')) {             closePagesDrawer();         }     });      document         .querySelectorAll('[data-art]')         .forEach(function(button) {             button.addEventListener('click', function() {                 requestArtworkChange(this.dataset.art);             });         });      /*        Local image upload. The selected file never needs        to leave the browser. We turn it into a simplified        black-and-white coloring page before loading it into        the same protected-line coloring engine.     */      function imageToColoringPage(image) {         const maxDimension = 1400;         const ratio = Math.min(             1,             maxDimension / Math.max(image.naturalWidth, image.naturalHeight)         );          const width = Math.max(1, Math.round(image.naturalWidth * ratio));         const height = Math.max(1, Math.round(image.naturalHeight * ratio));          const work = document.createElement('canvas');         work.width = width;         work.height = height;         const ctx = work.getContext('2d', { willReadFrequently: true });         ctx.fillStyle = '#ffffff';         ctx.fillRect(0, 0, width, height);         ctx.drawImage(image, 0, 0, width, height);          const source = ctx.getImageData(0, 0, width, height);         const data = source.data;         const gray = new Uint8ClampedArray(width * height);          for (let i = 0, p = 0; i < data.length; i += 4, p++) {             gray[p] = Math.round(                 data[i] * 0.299 +                 data[i + 1] * 0.587 +                 data[i + 2] * 0.114             );         }          /* Small blur calms photo noise before edge detection. */         const blurred = new Uint8ClampedArray(gray.length);         for (let y = 1; y < height - 1; y++) {             for (let x = 1; x < width - 1; x++) {                 let sum = 0;                 for (let yy = -1; yy <= 1; yy++) {                     for (let xx = -1; xx <= 1; xx++) {                         sum += gray[(y + yy) * width + (x + xx)];                     }                 }                 blurred[y * width + x] = Math.round(sum / 9);             }         }          const output = ctx.createImageData(width, height);         const out = output.data;          for (let p = 0; p < width * height; p++) {             out[p * 4] = 255;             out[p * 4 + 1] = 255;             out[p * 4 + 2] = 255;             out[p * 4 + 3] = 255;         }          const threshold = 42;          for (let y = 1; y < height - 1; y++) {             for (let x = 1; x < width - 1; x++) {                 const a = blurred[(y - 1) * width + (x - 1)];                 const b = blurred[(y - 1) * width + x];                 const c = blurred[(y - 1) * width + (x + 1)];                 const d = blurred[y * width + (x - 1)];                 const f = blurred[y * width + (x + 1)];                 const g = blurred[(y + 1) * width + (x - 1)];                 const h = blurred[(y + 1) * width + x];                 const i = blurred[(y + 1) * width + (x + 1)];                  const gx = -a + c - (2 * d) + (2 * f) - g + i;                 const gy = -a - (2 * b) - c + g + (2 * h) + i;                 const magnitude = Math.sqrt(gx * gx + gy * gy);                 const value = magnitude > threshold ? 0 : 255;                 const index = (y * width + x) * 4;                  out[index] = value;                 out[index + 1] = value;                 out[index + 2] = value;                 out[index + 3] = 255;             }         }          ctx.putImageData(output, 0, 0);         return work.toDataURL('image/png');     }      function loadUploadedFile(file) {         if (!file || !file.type.startsWith('image/')) return;          const reader = new FileReader();          reader.onload = function() {             const image = new Image();              image.onload = function() {                 try {                     const coloringSource = imageToColoringPage(image);                      ARTWORKS.upload = {                         id: 'uploaded-image',                         title: file.name || 'Uploaded Image',                         source: coloringSource,                         creator: 'Local upload',                         blank: false,                         uploaded: true                     };                      currentArtworkKey = 'upload';                     ARTWORK = ARTWORKS.upload;                     updateArtworkTray();                     closePagesDrawer();                     sourceImage.src = coloringSource;                      studioStatus.textContent =                         'Image ready. Pick a tool and create.';                 } catch (error) {                     studioStatus.textContent =                         'That image could not be prepared. Try another PNG, JPG or WebP.';                 }             };              image.onerror = function() {                 studioStatus.textContent =                     'That image could not be opened. Try another image file.';             };              image.src = reader.result;         };          reader.readAsDataURL(file);     }      function chooseUpload() {         artworkUpload.value = '';         artworkUpload.click();     }      uploadArtworkButton.addEventListener('click', function() {         if (hasUnsavedChanges && !skipLeaveWarning) {             pendingNavigation = chooseUpload;             openLeaveModal();             return;         }          chooseUpload();     });      artworkUpload.addEventListener('change', function() {         const file = this.files && this.files[0];         if (file) loadUploadedFile(file);     });      /* =========================        INITIALIZE ART        ========================= */      sourceImage.onload =         function() {              const width =                 sourceImage.naturalWidth;              const height =                 sourceImage.naturalHeight;              paintCanvas.width =                 width;              paintCanvas.height =                 height;              lineCanvas.width =                 width;              lineCanvas.height =                 height;         selectionCanvas.width = width;         selectionCanvas.height = height;         layerDisplayCanvas.width = width;         layerDisplayCanvas.height = height;              canvasStage.style.width =                 width + 'px';              canvasStage.style.height =                 height + 'px';               lineCtx.drawImage(                 sourceImage,                 0,                 0,                 width,                 height             );               /*             Original source remains available             for fill-boundary detection.             */              boundaryData =                 lineCtx.getImageData(                     0,                     0,                     width,                     height                 );               /*             Convert white/light source pixels             to transparency for the protected             line-art layer.             */              const lineImage =                 lineCtx.getImageData(                     0,                     0,                     width,                     height                 );              const pixels =                 lineImage.data;               for (                 let i = 0;                 i < pixels.length;                 i += 4             ) {                  const r =                     pixels[i];                  const g =                     pixels[i + 1];                  const b =                     pixels[i + 2];                  const darkness =                     255 -                     (                         r +                         g +                         b                     ) / 3;                   if (                     darkness < 15                 ) {                      pixels[                         i + 3                     ] = 0;                  } else {                      pixels[i] = 0;                      pixels[                         i + 1                     ] = 0;                      pixels[                         i + 2                     ] = 0;                      pixels[                         i + 3                     ] =                         Math.min(                             255,                             darkness * 2.5                         );                  }              }               lineCtx.clearRect(                 0,                 0,                 width,                 height             );              lineCtx.putImageData(                 lineImage,                 0,                 0             );              paintCtx.clearRect(                 0,                 0,                 width,                 height             );              history = [];             historyIndex = -1;             saveHistory(false);             resetLayersFromCurrent();             markSaved();             /* TEST #22: Pen is the true startup tool after artwork initialization. */             brushType = 'pen';             selectTool('brush');              requestAnimationFrame(                 fitArtwork             );          };       /* V2.8.35: Blank now enters the exact same image-load, canvas-size
+        sourceImage.src = ARTWORK.source;     }      function requestArtworkChange(key) {         if (key === currentArtworkKey) return;          if (             hasUnsavedChanges &&             !skipLeaveWarning         ) {             pendingNavigation = function() {                 loadArtwork(key);             };             openLeaveModal();             return;         }          loadArtwork(key);     }      const pagesLauncher =         document.getElementById('pagesLauncher');      const pagesClose =         document.getElementById('pagesClose');      const pagesBackdrop =         document.getElementById('pagesBackdrop');      const artworkTray =         document.getElementById('artworkTray');      const artworkUpload =         document.getElementById('artworkUpload');      const uploadArtworkButton =         document.getElementById('uploadArtworkButton');      function openPagesDrawer() {         artworkTray.classList.add('open');         pagesBackdrop.classList.add('open');         artworkTray.setAttribute('aria-hidden', 'false');         pagesLauncher.setAttribute('aria-expanded', 'true');     }      function closePagesDrawer() {         artworkTray.classList.remove('open');         pagesBackdrop.classList.remove('open');         artworkTray.setAttribute('aria-hidden', 'true');         pagesLauncher.setAttribute('aria-expanded', 'false');     }      pagesLauncher.addEventListener('click', function() {         if (artworkTray.classList.contains('open')) {             closePagesDrawer();         } else {             openPagesDrawer();         }     });      pagesClose.addEventListener('click', closePagesDrawer);     pagesBackdrop.addEventListener('click', closePagesDrawer);      document.addEventListener('keydown', function(event) {         if (event.key === 'Escape' && artworkTray.classList.contains('open')) {             closePagesDrawer();         }     });      document         .querySelectorAll('[data-art]')         .forEach(function(button) {             button.addEventListener('click', function() {                 requestArtworkChange(this.dataset.art);             });         });      /*        Local image upload. The selected file never needs        to leave the browser. We turn it into a simplified        black-and-white coloring page before loading it into        the same protected-line coloring engine.     */      function imageToColoringPage(image) {         const maxDimension = 1400;         const ratio = Math.min(             1,             maxDimension / Math.max(image.naturalWidth, image.naturalHeight)         );          const width = Math.max(1, Math.round(image.naturalWidth * ratio));         const height = Math.max(1, Math.round(image.naturalHeight * ratio));          const work = document.createElement('canvas');         work.width = width;         work.height = height;         const ctx = work.getContext('2d', { willReadFrequently: true });         ctx.fillStyle = '#ffffff';         ctx.fillRect(0, 0, width, height);         ctx.drawImage(image, 0, 0, width, height);          const source = ctx.getImageData(0, 0, width, height);         const data = source.data;         const gray = new Uint8ClampedArray(width * height);          for (let i = 0, p = 0; i < data.length; i += 4, p++) {             gray[p] = Math.round(                 data[i] * 0.299 +                 data[i + 1] * 0.587 +                 data[i + 2] * 0.114             );         }          /* Small blur calms photo noise before edge detection. */         const blurred = new Uint8ClampedArray(gray.length);         for (let y = 1; y < height - 1; y++) {             for (let x = 1; x < width - 1; x++) {                 let sum = 0;                 for (let yy = -1; yy <= 1; yy++) {                     for (let xx = -1; xx <= 1; xx++) {                         sum += gray[(y + yy) * width + (x + xx)];                     }                 }                 blurred[y * width + x] = Math.round(sum / 9);             }         }          const output = ctx.createImageData(width, height);         const out = output.data;          for (let p = 0; p < width * height; p++) {             out[p * 4] = 255;             out[p * 4 + 1] = 255;             out[p * 4 + 2] = 255;             out[p * 4 + 3] = 255;         }          const threshold = 42;          for (let y = 1; y < height - 1; y++) {             for (let x = 1; x < width - 1; x++) {                 const a = blurred[(y - 1) * width + (x - 1)];                 const b = blurred[(y - 1) * width + x];                 const c = blurred[(y - 1) * width + (x + 1)];                 const d = blurred[y * width + (x - 1)];                 const f = blurred[y * width + (x + 1)];                 const g = blurred[(y + 1) * width + (x - 1)];                 const h = blurred[(y + 1) * width + x];                 const i = blurred[(y + 1) * width + (x + 1)];                  const gx = -a + c - (2 * d) + (2 * f) - g + i;                 const gy = -a - (2 * b) - c + g + (2 * h) + i;                 const magnitude = Math.sqrt(gx * gx + gy * gy);                 const value = magnitude > threshold ? 0 : 255;                 const index = (y * width + x) * 4;                  out[index] = value;                 out[index + 1] = value;                 out[index + 2] = value;                 out[index + 3] = 255;             }         }          ctx.putImageData(output, 0, 0);         return work.toDataURL('image/png');     }      function loadUploadedFile(file) {         if (!file || !file.type.startsWith('image/')) return;          const reader = new FileReader();          reader.onload = function() {             const image = new Image();              image.onload = function() {                 try {                     const coloringSource = imageToColoringPage(image);                      ARTWORKS.upload = {                         id: 'uploaded-image',                         title: file.name || 'Uploaded Image',                         source: coloringSource,                         creator: 'Local upload',                         blank: false,                         uploaded: true                     };                      currentArtworkKey = 'upload';                     ARTWORK = ARTWORKS.upload;                     updateArtworkTray();                     closePagesDrawer();                     sourceImage.src = coloringSource;                      studioStatus.textContent =                         'Image ready. Pick a tool and create.';                 } catch (error) {                     studioStatus.textContent =                         'That image could not be prepared. Try another PNG, JPG or WebP.';                 }             };              image.onerror = function() {                 studioStatus.textContent =                     'That image could not be opened. Try another image file.';             };              image.src = reader.result;         };          reader.readAsDataURL(file);     }      function chooseUpload() {         artworkUpload.value = '';         artworkUpload.click();     }      uploadArtworkButton.addEventListener('click', function() {         if (hasUnsavedChanges && !skipLeaveWarning) {             pendingNavigation = chooseUpload;             openLeaveModal();             return;         }          chooseUpload();     });      artworkUpload.addEventListener('change', function() {         const file = this.files && this.files[0];         if (file) loadUploadedFile(file);     });      /* =========================        INITIALIZE ART        ========================= */      sourceImage.onload =         function() {              const width =                 sourceImage.naturalWidth;              const height =                 sourceImage.naturalHeight;              paintCanvas.width =                 width;              paintCanvas.height =                 height;              lineCanvas.width =                 width;              lineCanvas.height =                 height;         selectionCanvas.width = width;         selectionCanvas.height = height;         layerDisplayCanvas.width = width;         layerDisplayCanvas.height = height;              canvasStage.style.width =                 width + 'px';              canvasStage.style.height =                 height + 'px';               lineCtx.drawImage(                 sourceImage,                 0,                 0,                 width,                 height             );               /*             Original source remains available             for fill-boundary detection.             */              boundaryData =                 lineCtx.getImageData(                     0,                     0,                     width,                     height                 );               /*             Convert white/light source pixels             to transparency for the protected             line-art layer.             */              const lineImage =                 lineCtx.getImageData(                     0,                     0,                     width,                     height                 );              const pixels =                 lineImage.data;               for (                 let i = 0;                 i < pixels.length;                 i += 4             ) {                  const r =                     pixels[i];                  const g =                     pixels[i + 1];                  const b =                     pixels[i + 2];                  const darkness =                     255 -                     (                         r +                         g +                         b                     ) / 3;                   if (                     darkness < 15                 ) {                      pixels[                         i + 3                     ] = 0;                  } else {                      pixels[i] = 0;                      pixels[                         i + 1                     ] = 0;                      pixels[                         i + 2                     ] = 0;                      pixels[                         i + 3                     ] =                         Math.min(                             255,                             darkness * 2.5                         );                  }              }               lineCtx.clearRect(                 0,                 0,                 width,                 height             );              lineCtx.putImageData(                 lineImage,                 0,                 0             );              paintCtx.clearRect(                 0,                 0,                 width,                 height             );              history = [];             historyIndex = -1;             saveHistory(false);             resetLayersFromCurrent();             markSaved();             /* TEST #22: Pen is the true startup tool after artwork initialization. */             brushType = 'pen';             selectTool('brush');              requestAnimationFrame(                 fitArtwork             );          };       /* V2.8.36: Blank now enters the exact same image-load, canvas-size
        and FIT pipeline as every coloring page. */
     sourceImage.src = ARTWORK.source;
 
@@ -3792,6 +3792,19 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
         renderLayersUI();
     }
 
+    function reorderLayerById(draggedId, targetId) {
+        if (!draggedId || !targetId || draggedId === targetId) return;
+        snapshotActiveLayer();
+        const from = studioLayers.findIndex(function(item) { return item.id === draggedId; });
+        const to = studioLayers.findIndex(function(item) { return item.id === targetId; });
+        if (from < 0 || to < 0) return;
+        const moved = studioLayers.splice(from, 1)[0];
+        studioLayers.splice(to, 0, moved);
+        renderLayerDisplay();
+        renderLayersUI();
+        markChanged();
+    }
+
     function renderLayersUI() {
         const list = document.getElementById('layersList');
         if (!list) return;
@@ -3800,6 +3813,8 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
         [...studioLayers].reverse().forEach(function(layer) {
             const row = document.createElement('div');
             row.className = 'layer-row' + (layer.id === activeLayerId ? ' active' : '');
+            row.draggable = true;
+            row.dataset.layerId = layer.id;
 
             const eye = document.createElement('button');
             eye.type = 'button';
@@ -3817,33 +3832,43 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
             const name = document.createElement('span');
             name.className = 'layer-name';
             name.textContent = layer.name;
-            name.title = 'Double-click to rename';
-            name.addEventListener('dblclick', function(event) {
+            name.title = layer.id === activeLayerId ? 'Tap again to rename' : 'Select layer';
+            name.addEventListener('click', function(event) {
                 event.stopPropagation();
+                if (layer.id !== activeLayerId) {
+                    loadActiveLayer(layer.id);
+                    return;
+                }
                 const input = document.createElement('input');
                 input.className = 'layer-name layer-name-edit';
                 input.value = layer.name;
                 name.replaceWith(input);
                 input.focus();
                 input.select();
-
-                const finish = function() {
-                    layer.name = input.value.trim() || 'Layer';
-                    markChanged();
+                let done = false;
+                const finish = function(save) {
+                    if (done) return;
+                    done = true;
+                    if (save) {
+                        layer.name = input.value.trim() || 'Layer';
+                        markChanged();
+                    }
                     renderLayersUI();
                 };
+                input.addEventListener('click', function(e) { e.stopPropagation(); });
                 input.addEventListener('keydown', function(e) {
-                    if (e.key === 'Enter') { e.preventDefault(); finish(); }
-                    if (e.key === 'Escape') { e.preventDefault(); renderLayersUI(); }
+                    if (e.key === 'Enter') { e.preventDefault(); finish(true); }
+                    if (e.key === 'Escape') { e.preventDefault(); finish(false); }
                 });
-                input.addEventListener('blur', finish, { once:true });
+                input.addEventListener('blur', function() { finish(true); }, { once:true });
             });
 
             const lock = document.createElement('button');
             lock.type = 'button';
             lock.className = 'layer-lock';
-            lock.textContent = layer.locked ? '🔒' : '🔓';
             lock.title = layer.locked ? 'Unlock layer' : 'Lock layer';
+            lock.setAttribute('aria-label', lock.title);
+            lock.innerHTML = '<span class="mia-lock-icon ' + (layer.locked ? 'locked' : 'unlocked') + '" aria-hidden="true"></span>';
             lock.addEventListener('click', function(event) {
                 event.stopPropagation();
                 snapshotActiveLayer();
@@ -3857,8 +3882,32 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
             pick.textContent = layer.id === activeLayerId ? '✓' : '';
 
             row.addEventListener('click', function(event) {
-                if (event.target === eye || event.target === lock) return;
+                if (event.target === eye || event.target === lock || lock.contains(event.target)) return;
                 loadActiveLayer(layer.id);
+            });
+
+            row.addEventListener('dragstart', function(event) {
+                snapshotActiveLayer();
+                event.dataTransfer.effectAllowed = 'move';
+                event.dataTransfer.setData('text/plain', layer.id);
+                row.classList.add('dragging');
+            });
+            row.addEventListener('dragend', function() {
+                row.classList.remove('dragging');
+            });
+            row.addEventListener('dragover', function(event) {
+                event.preventDefault();
+                event.dataTransfer.dropEffect = 'move';
+                row.classList.add('drag-over');
+            });
+            row.addEventListener('dragleave', function() {
+                row.classList.remove('drag-over');
+            });
+            row.addEventListener('drop', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                row.classList.remove('drag-over');
+                reorderLayerById(event.dataTransfer.getData('text/plain'), layer.id);
             });
 
             row.append(eye, name, lock, pick);
@@ -3881,7 +3930,7 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
                 paintCtx.shadowColor = currentColor;
                 paintCtx.shadowBlur = brushSize * 1.45;
                 paintCtx.lineWidth = brushSize * 1.55;
-            } else if (brushType === 'texture') {                 paintCtx.globalAlpha = Math.min(brushOpacity, 0.62);                 paintCtx.lineWidth = brushSize * 0.55;             }         }           if (             currentTool ===             'eraser'         ) {              paintCtx.globalCompositeOperation =                 'destination-out';              paintCtx.strokeStyle =                 '#000';              paintCtx.fillStyle =                 '#000';              /* V2.8.35: Hard stays clean. Soft stays feathered. Texture now uses
+            } else if (brushType === 'texture') {                 paintCtx.globalAlpha = Math.min(brushOpacity, 0.62);                 paintCtx.lineWidth = brushSize * 0.55;             }         }           if (             currentTool ===             'eraser'         ) {              paintCtx.globalCompositeOperation =                 'destination-out';              paintCtx.strokeStyle =                 '#000';              paintCtx.fillStyle =                 '#000';              /* V2.8.36: Hard stays clean. Soft stays feathered. Texture now uses
                a grain-based destination-out footprint. */
             paintCtx.globalAlpha = brushOpacity;
             paintCtx.shadowColor = 'transparent';
@@ -3932,6 +3981,8 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
     [...studioLayers].reverse().forEach(function(layer) {
         const row=document.createElement('div');
         row.className='desktop-side-layer'+(layer.id===activeLayerId?' active':'');
+        row.draggable=true;
+        row.dataset.layerId=layer.id;
 
         const eye=document.createElement('button');
         eye.type='button';
@@ -3948,32 +3999,43 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
         const name=document.createElement('span');
         name.className='desktop-layer-name';
         name.textContent=layer.name;
-        name.title='Double-click to rename';
-        name.addEventListener('dblclick',function(e){
+        name.title=layer.id===activeLayerId?'Click again to rename':'Select layer';
+        name.addEventListener('click',function(e){
             e.stopPropagation();
+            if(layer.id!==activeLayerId){
+                loadActiveLayer(layer.id);
+                return;
+            }
             const input=document.createElement('input');
             input.className='desktop-layer-name-edit';
             input.value=layer.name;
             name.replaceWith(input);
             input.focus();
             input.select();
-            const finish=function(){
-                layer.name=input.value.trim()||'Layer';
-                markChanged();
+            let done=false;
+            const finish=function(save){
+                if(done) return;
+                done=true;
+                if(save){
+                    layer.name=input.value.trim()||'Layer';
+                    markChanged();
+                }
                 renderLayersUI();
             };
+            input.addEventListener('click',function(ev){ev.stopPropagation();});
             input.addEventListener('keydown',function(ev){
-                if(ev.key==='Enter'){ev.preventDefault();finish();}
-                if(ev.key==='Escape'){ev.preventDefault();renderLayersUI();}
+                if(ev.key==='Enter'){ev.preventDefault();finish(true);}
+                if(ev.key==='Escape'){ev.preventDefault();finish(false);}
             });
-            input.addEventListener('blur',finish,{once:true});
+            input.addEventListener('blur',function(){finish(true);},{once:true});
         });
 
         const lock=document.createElement('button');
         lock.type='button';
         lock.className='desktop-layer-lock';
-        lock.textContent=layer.locked?'🔒':'🔓';
         lock.title=layer.locked?'Unlock layer':'Lock layer';
+        lock.setAttribute('aria-label',lock.title);
+        lock.innerHTML='<span class="mia-lock-icon '+(layer.locked?'locked':'unlocked')+'" aria-hidden="true"></span>';
         lock.addEventListener('click',function(e){
             e.stopPropagation();
             snapshotActiveLayer();
@@ -3987,8 +4049,28 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
         pick.textContent=layer.id===activeLayerId?'✓':'';
 
         row.addEventListener('click',function(e){
-            if(e.target===eye||e.target===lock) return;
+            if(e.target===eye||e.target===lock||lock.contains(e.target)) return;
             loadActiveLayer(layer.id);
+        });
+
+        row.addEventListener('dragstart',function(e){
+            snapshotActiveLayer();
+            e.dataTransfer.effectAllowed='move';
+            e.dataTransfer.setData('text/plain',layer.id);
+            row.classList.add('dragging');
+        });
+        row.addEventListener('dragend',function(){row.classList.remove('dragging');});
+        row.addEventListener('dragover',function(e){
+            e.preventDefault();
+            e.dataTransfer.dropEffect='move';
+            row.classList.add('drag-over');
+        });
+        row.addEventListener('dragleave',function(){row.classList.remove('drag-over');});
+        row.addEventListener('drop',function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            row.classList.remove('drag-over');
+            reorderLayerById(e.dataTransfer.getData('text/plain'),layer.id);
         });
 
         row.append(eye,name,lock,pick);
@@ -5632,7 +5714,7 @@ body.v242-touch-active .tool-indicator.move::after  {
     width:100% !important;
     clear:both;
   }
-/* V2.8.35 Brush/Eraser control row.
+/* V2.8.36 Brush/Eraser control row.
      Real two-column structure: SIZE left, OPACITY space right. */
   .mia-compact-size-row{
     box-sizing:border-box;
@@ -5707,7 +5789,7 @@ body.v242-touch-active .tool-indicator.move::after  {
     white-space:nowrap;
   }
 
-  /* V2.8.35 WEB ONLY: compact stacked SIZE / OPACITY controls.
+  /* V2.8.36 WEB ONLY: compact stacked SIZE / OPACITY controls.
      Phone and tablet retain the existing side-by-side control row. */
   @media (min-width: 1025px){
     #desktopTabletBrushMenu .mia-compact-size-row,
@@ -5747,7 +5829,8 @@ body.v242-touch-active .tool-indicator.move::after  {
     }
   }
 
-/* V2.8.35 layer controls */
+/* V2.8.36 layer controls */
+/* V2.8.36 layer controls */
 .layer-row .layer-name,
 .desktop-side-layer .desktop-layer-name {
     flex:1 1 auto;
@@ -5762,18 +5845,57 @@ body.v242-touch-active .tool-indicator.move::after  {
 .desktop-layer-name-edit {
     flex:1 1 auto;
     min-width:90px;
-    max-width:260px;
+    max-width:220px;
     width:auto;
 }
 .layer-lock,
 .desktop-layer-lock {
-    flex:0 0 auto;
+    flex:0 0 34px;
+    width:34px;
+    height:34px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:0;
 }
 .layer-selected,
 .desktop-layer-selected {
     flex:0 0 28px;
     text-align:center;
     font-weight:800;
+}
+.mia-lock-icon {
+    position:relative;
+    display:inline-block;
+    width:15px;
+    height:12px;
+    border:2px solid currentColor;
+    border-radius:2px;
+    box-sizing:border-box;
+}
+.mia-lock-icon::before {
+    content:'';
+    position:absolute;
+    width:9px;
+    height:8px;
+    border:2px solid currentColor;
+    border-bottom:0;
+    border-radius:7px 7px 0 0;
+    box-sizing:border-box;
+    left:1px;
+    top:-9px;
+}
+.mia-lock-icon.unlocked::before {
+    left:6px;
+    transform:rotate(28deg);
+    transform-origin:left bottom;
+}
+.layer-row.dragging,
+.desktop-side-layer.dragging { opacity:.45; }
+.layer-row.drag-over,
+.desktop-side-layer.drag-over {
+    outline:2px dashed currentColor;
+    outline-offset:-4px;
 }
 </style>
   <script>
@@ -5785,7 +5907,7 @@ body.v242-touch-active .tool-indicator.move::after  {
   
  
   <script>
-  /* V2.8.35 shared Brush/Eraser SIZE control. Uses existing brushSize only. */
+  /* V2.8.36 shared Brush/Eraser SIZE control. Uses existing brushSize only. */
   (() => {
     'use strict';
 
@@ -5857,7 +5979,7 @@ body.v242-touch-active .tool-indicator.move::after  {
 
 
 <script>
-/* V2.8.35 PHONE + TABLET ONLY:
+/* V2.8.36 PHONE + TABLET ONLY:
    Close the REAL submenu state when the drawing canvas is touched.
    Do not consume the pointer event, so the same touch still draws/erases.
    Move and paw behavior are untouched. */
