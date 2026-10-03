@@ -3040,7 +3040,7 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
     </div>
    </section>
    <div aria-hidden="true" class="desktop-build-version">
-    v2.8.20
+    v2.8.21
    </div>
   </aside>
   <div class="studio">
@@ -3711,7 +3711,7 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
                 paintCtx.shadowColor = currentColor;
                 paintCtx.shadowBlur = brushSize * 1.45;
                 paintCtx.lineWidth = brushSize * 1.55;
-            } else if (brushType === 'texture') {                 paintCtx.globalAlpha = 0.62;                 paintCtx.lineWidth = brushSize * 0.55;             }         }           if (             currentTool ===             'eraser'         ) {              paintCtx.globalCompositeOperation =                 'destination-out';              paintCtx.strokeStyle =                 '#000';              paintCtx.fillStyle =                 '#000';              /* V2.8.20: Hard stays clean. Soft stays feathered. Texture now uses
+            } else if (brushType === 'texture') {                 paintCtx.globalAlpha = 0.62;                 paintCtx.lineWidth = brushSize * 0.55;             }         }           if (             currentTool ===             'eraser'         ) {              paintCtx.globalCompositeOperation =                 'destination-out';              paintCtx.strokeStyle =                 '#000';              paintCtx.fillStyle =                 '#000';              /* V2.8.21: Hard stays clean. Soft stays feathered. Texture now uses
                a grain-based destination-out footprint. */
             paintCtx.globalAlpha = 1;
             paintCtx.shadowColor = 'transparent';
@@ -5375,7 +5375,22 @@ body.v242-touch-active .tool-indicator.move::after  {
     }
 }
   
-  /* V2.8.20 Brush/Eraser control row.
+  
+  #mobileBrushSubmenu,
+  #mobileEraserSubmenu,
+  #desktopTabletBrushMenu,
+  #desktopTabletEraserMenu{
+    flex-wrap:wrap !important;
+  }
+  #mobileBrushSubmenu > .mia-compact-size-row,
+  #mobileEraserSubmenu > .mia-compact-size-row,
+  #desktopTabletBrushMenu > .mia-compact-size-row,
+  #desktopTabletEraserMenu > .mia-compact-size-row{
+    flex-basis:100% !important;
+    width:100% !important;
+    clear:both;
+  }
+/* V2.8.21 Brush/Eraser control row.
      Real two-column structure: SIZE left, OPACITY space right. */
   .mia-compact-size-row{
     box-sizing:border-box;
@@ -5440,11 +5455,11 @@ body.v242-touch-active .tool-indicator.move::after  {
   
  
   <script>
-  /* V2.8.20 shared Brush/Eraser SIZE control. Uses existing brushSize only. */
+  /* V2.8.21 shared Brush/Eraser SIZE control. Uses existing brushSize only. */
   (() => {
     'use strict';
+
     const steps = [5, 10, 25, 50, 75, 100];
-    const rows = () => Array.from(document.querySelectorAll('[data-mia-size-row]'));
 
     function nearestIndex(value){
       let best = 0;
@@ -5462,19 +5477,36 @@ body.v242-touch-active .tool-indicator.move::after  {
       });
     }
 
-    document.addEventListener('click', e => {
-      const minus = e.target.closest('[data-mia-size-minus]');
-      const plus = e.target.closest('[data-mia-size-plus]');
-      if(!minus && !plus) return;
+    function sizeButtonFromEvent(e){
+      const path = typeof e.composedPath === 'function' ? e.composedPath() : [];
+      return path.find(node =>
+        node &&
+        node.matches &&
+        node.matches('[data-mia-size-minus],[data-mia-size-plus]')
+      ) || e.target.closest?.('[data-mia-size-minus],[data-mia-size-plus]');
+    }
+
+    document.addEventListener('pointerdown', e => {
+      const button = sizeButtonFromEvent(e);
+      if(!button) return;
 
       e.preventDefault();
-      e.stopPropagation();
+      e.stopImmediatePropagation();
 
       let i = nearestIndex(brushSize);
-      if(minus) i = Math.max(0, i - 1);
-      if(plus) i = Math.min(steps.length - 1, i + 1);
+      if(button.matches('[data-mia-size-minus]')) i = Math.max(0, i - 1);
+      if(button.matches('[data-mia-size-plus]')) i = Math.min(steps.length - 1, i + 1);
+
       brushSize = steps[i];
       render();
+    }, true);
+
+    /* Suppress the follow-up click so submenu routers cannot reinterpret it. */
+    document.addEventListener('click', e => {
+      const button = sizeButtonFromEvent(e);
+      if(!button) return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
     }, true);
 
     render();
