@@ -3050,7 +3050,7 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
     </div>
    </section>
    <div aria-hidden="true" class="desktop-build-version">
-    v2.8.24
+    v2.8.25
    </div>
   </aside>
   <div class="studio">
@@ -3732,7 +3732,7 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
                 paintCtx.shadowColor = currentColor;
                 paintCtx.shadowBlur = brushSize * 1.45;
                 paintCtx.lineWidth = brushSize * 1.55;
-            } else if (brushType === 'texture') {                 paintCtx.globalAlpha = Math.min(brushOpacity, 0.62);                 paintCtx.lineWidth = brushSize * 0.55;             }         }           if (             currentTool ===             'eraser'         ) {              paintCtx.globalCompositeOperation =                 'destination-out';              paintCtx.strokeStyle =                 '#000';              paintCtx.fillStyle =                 '#000';              /* V2.8.24: Hard stays clean. Soft stays feathered. Texture now uses
+            } else if (brushType === 'texture') {                 paintCtx.globalAlpha = Math.min(brushOpacity, 0.62);                 paintCtx.lineWidth = brushSize * 0.55;             }         }           if (             currentTool ===             'eraser'         ) {              paintCtx.globalCompositeOperation =                 'destination-out';              paintCtx.strokeStyle =                 '#000';              paintCtx.fillStyle =                 '#000';              /* V2.8.25: Hard stays clean. Soft stays feathered. Texture now uses
                a grain-based destination-out footprint. */
             paintCtx.globalAlpha = brushOpacity;
             paintCtx.shadowColor = 'transparent';
@@ -5411,7 +5411,7 @@ body.v242-touch-active .tool-indicator.move::after  {
     width:100% !important;
     clear:both;
   }
-/* V2.8.24 Brush/Eraser control row.
+/* V2.8.25 Brush/Eraser control row.
      Real two-column structure: SIZE left, OPACITY space right. */
   .mia-compact-size-row{
     box-sizing:border-box;
@@ -5486,7 +5486,7 @@ body.v242-touch-active .tool-indicator.move::after  {
     white-space:nowrap;
   }
 
-  /* V2.8.24 WEB ONLY: compact stacked SIZE / OPACITY controls.
+  /* V2.8.25 WEB ONLY: compact stacked SIZE / OPACITY controls.
      Phone and tablet retain the existing side-by-side control row. */
   @media (min-width: 1025px){
     #desktopTabletBrushMenu .mia-compact-size-row,
@@ -5535,7 +5535,7 @@ body.v242-touch-active .tool-indicator.move::after  {
   
  
   <script>
-  /* V2.8.24 shared Brush/Eraser SIZE control. Uses existing brushSize only. */
+  /* V2.8.25 shared Brush/Eraser SIZE control. Uses existing brushSize only. */
   (() => {
     'use strict';
 
@@ -5604,6 +5604,32 @@ body.v242-touch-active .tool-indicator.move::after  {
     render();
   })();
   </script>
+
+
+<script>
+/* V2.8.25 PHONE + TABLET ONLY:
+   Canvas touch closes Brush/Eraser submenu without consuming the drawing touch.
+   Move and paw behavior are untouched. */
+(function () {
+  document.addEventListener("pointerdown", function (event) {
+    if (!window.matchMedia("(max-width: 1024px)").matches) return;
+    var target = event.target;
+    if (!target || !target.closest || !target.closest(".canvas-stage")) return;
+
+    [
+      document.getElementById("mobileBrushSubmenu"),
+      document.getElementById("mobileEraserSubmenu"),
+      document.getElementById("desktopTabletBrushMenu"),
+      document.getElementById("desktopTabletEraserMenu")
+    ].forEach(function (menu) {
+      if (!menu) return;
+      menu.classList.remove("open", "is-open", "active", "show");
+      menu.hidden = true;
+      menu.setAttribute("aria-hidden", "true");
+    });
+  }, true);
+})();
+</script>
 
 </body>
 </html>
