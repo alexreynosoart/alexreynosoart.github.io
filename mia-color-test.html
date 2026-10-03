@@ -2239,6 +2239,8 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
     width: 120px;
     height: 40px;
     object-fit: contain;
+    object-position: left center;
+    pointer-events: none;
 }
 .studio-mia-menu > summary::-webkit-details-marker  {
     display: none;
@@ -2293,13 +2295,21 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
     .studio-mia-menu > summary  {
         display: inline-flex;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
+        width: fit-content;
+        min-width: 0;
+        max-width: 100%;
         min-height: 0;
         padding: 0;
         border: 0;
         border-radius: 0;
         background: transparent;
         box-shadow: none;
+    }
+    .studio-mia-menu  {
+        justify-self: start;
+        width: fit-content;
+        min-width: 0;
     }
     .studio-name  {
         grid-column: 2;
@@ -3054,7 +3064,7 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
     </div>
    </section>
    <div aria-hidden="true" class="desktop-build-version">
-    v2.8.28
+    v2.8.29
    </div>
   </aside>
   <div class="studio">
@@ -3736,7 +3746,7 @@ body.has-selection #clearSelectionV24, body.has-selection #clearSelectionTouch  
                 paintCtx.shadowColor = currentColor;
                 paintCtx.shadowBlur = brushSize * 1.45;
                 paintCtx.lineWidth = brushSize * 1.55;
-            } else if (brushType === 'texture') {                 paintCtx.globalAlpha = Math.min(brushOpacity, 0.62);                 paintCtx.lineWidth = brushSize * 0.55;             }         }           if (             currentTool ===             'eraser'         ) {              paintCtx.globalCompositeOperation =                 'destination-out';              paintCtx.strokeStyle =                 '#000';              paintCtx.fillStyle =                 '#000';              /* V2.8.28: Hard stays clean. Soft stays feathered. Texture now uses
+            } else if (brushType === 'texture') {                 paintCtx.globalAlpha = Math.min(brushOpacity, 0.62);                 paintCtx.lineWidth = brushSize * 0.55;             }         }           if (             currentTool ===             'eraser'         ) {              paintCtx.globalCompositeOperation =                 'destination-out';              paintCtx.strokeStyle =                 '#000';              paintCtx.fillStyle =                 '#000';              /* V2.8.29: Hard stays clean. Soft stays feathered. Texture now uses
                a grain-based destination-out footprint. */
             paintCtx.globalAlpha = brushOpacity;
             paintCtx.shadowColor = 'transparent';
@@ -5415,7 +5425,7 @@ body.v242-touch-active .tool-indicator.move::after  {
     width:100% !important;
     clear:both;
   }
-/* V2.8.28 Brush/Eraser control row.
+/* V2.8.29 Brush/Eraser control row.
      Real two-column structure: SIZE left, OPACITY space right. */
   .mia-compact-size-row{
     box-sizing:border-box;
@@ -5490,7 +5500,7 @@ body.v242-touch-active .tool-indicator.move::after  {
     white-space:nowrap;
   }
 
-  /* V2.8.28 WEB ONLY: compact stacked SIZE / OPACITY controls.
+  /* V2.8.29 WEB ONLY: compact stacked SIZE / OPACITY controls.
      Phone and tablet retain the existing side-by-side control row. */
   @media (min-width: 1025px){
     #desktopTabletBrushMenu .mia-compact-size-row,
@@ -5539,7 +5549,7 @@ body.v242-touch-active .tool-indicator.move::after  {
   
  
   <script>
-  /* V2.8.28 shared Brush/Eraser SIZE control. Uses existing brushSize only. */
+  /* V2.8.29 shared Brush/Eraser SIZE control. Uses existing brushSize only. */
   (() => {
     'use strict';
 
@@ -5611,7 +5621,7 @@ body.v242-touch-active .tool-indicator.move::after  {
 
 
 <script>
-/* V2.8.28 PHONE + TABLET ONLY:
+/* V2.8.29 PHONE + TABLET ONLY:
    Close the REAL submenu state when the drawing canvas is touched.
    Do not consume the pointer event, so the same touch still draws/erases.
    Move and paw behavior are untouched. */
