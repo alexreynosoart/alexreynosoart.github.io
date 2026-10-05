@@ -95,26 +95,32 @@
     }
 
     .support-hero-art {
+      overflow: hidden;
       min-height: 280px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px dashed rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.14);
       border-radius: 20px;
-      background: rgba(0,0,0,.22);
-      text-align: center;
-      color: rgba(255,255,255,.45);
-      padding: 30px;
+      background: #0b0b0b;
     }
 
-    .support-hero-art strong {
+    .support-hero-art img {
+      width: 100%;
+      height: 100%;
+      min-height: 280px;
       display: block;
-      margin-bottom: 8px;
-      color: rgba(255,255,255,.75);
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .support-yellow-divider {
+      width: min(920px, 88%);
+      height: 2px;
+      margin: 58px auto 0;
+      border-radius: 999px;
+      background: #ffd400;
     }
 
     .support-divider {
-      margin: 70px auto 36px;
+      margin: 34px auto 36px;
       text-align: center;
     }
 
@@ -326,7 +332,8 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .support-hero-art {
+      .support-hero-art,
+      .support-hero-art img {
         min-height: 220px;
       }
     }
@@ -393,23 +400,19 @@
           <button class="support-button" type="button" id="openSupportModal">
             SUPPORT DIRECTLY ❤️
           </button>
-          <p class="support-note">Secure payment through PayPal will be connected here.</p>
         </div>
       </div>
 
-      <!--
-        HERO IMAGE:
-        We will add the final Support the Art image URL here later.
-        Replace this placeholder div with an <img> when the image is ready.
-      -->
       <div class="support-hero-art">
-        <div>
-          <strong>Support the Art image goes here.</strong>
-          We’ll add the image URL after the page structure is finished.
-        </div>
+        <img
+          src="images/support/support-the-art-live-painting.jpg"
+          alt="Alex Reynoso painting live in front of an audience at a 2012 art event"
+        >
       </div>
     </section>
 
+
+    <div class="support-yellow-divider" aria-hidden="true"></div>
 
     <section class="support-divider">
       <h2>OR TAKE SOME ART WITH YOU.</h2>
