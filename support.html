@@ -139,9 +139,23 @@
 
     .support-card {
       overflow: hidden;
+      display: block;
+      color: inherit;
+      text-decoration: none;
+      transition: transform .18s ease, border-color .18s ease;
       border: 1px solid rgba(255,255,255,.11);
       border-radius: 20px;
       background: rgba(255,255,255,.035);
+    }
+
+    .support-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255,212,0,.45);
+    }
+
+    .support-card:focus-visible {
+      outline: 2px solid #ffd400;
+      outline-offset: 3px;
     }
 
     .support-card-image {
@@ -369,9 +383,10 @@
         <h1>Support the Art ❤️</h1>
 
         <p class="support-intro">
-          Want to support the work directly? No shirt. No mug. No shipping.
-          Just support for the art, the experiments and whatever comes out of
-          the studio next.
+          Want to support the work directly? Your support gives me the opportunity
+          to keep creating, take on bigger ideas and see where this can grow.
+          And as it grows, I hope to find more ways for the art to give
+          something back. ❤️
         </p>
 
         <div class="support-direct">
@@ -407,70 +422,60 @@
 
     <section class="support-grid" aria-label="Support the Art collection">
 
-      <article class="support-card">
+      <a class="support-card" href="https://alexreynosoart.printful.me/product/support-the-art-painted-heart-t-shirt" target="_blank" rel="noopener noreferrer">
         <div class="support-card-image">
-          <!-- Add selected mockup image URL later -->
-          Painted Heart
+          <img src="images/shop/support-painted-heart.webp" alt="Painted Heart" loading="lazy">
         </div>
         <div class="support-card-copy">
-          <h3>Painted Heart T-Shirt</h3>
+          <h3>Support the Art | Painted Heart T-Shirt</h3>
           <p class="support-price">$29.99</p>
           <p>Raw brushwork, rough edges and signature drips. The heart where the collection started.</p>
-          <span class="support-coming">Product Link Next</span>
         </div>
-      </article>
+      </a>
 
-      <article class="support-card">
+      <a class="support-card" href="https://alexreynosoart.printful.me/product/support-the-art-remix-heart-t-shirt" target="_blank" rel="noopener noreferrer">
         <div class="support-card-image">
-          <!-- Add selected mockup image URL later -->
-          Remix Heart
+          <img src="images/shop/support-remix-heart.webp" alt="Remix Heart" loading="lazy">
         </div>
         <div class="support-card-copy">
-          <h3>Remix Heart T-Shirt</h3>
+          <h3>Support the Art | Remix Heart T-Shirt</h3>
           <p class="support-price">$44.99</p>
           <p>A more colorful remix of the original heart, with artwork extending onto the sleeve.</p>
-          <span class="support-coming">Product Link Next</span>
         </div>
-      </article>
+      </a>
 
-      <article class="support-card">
+      <a class="support-card" href="https://alexreynosoart.printful.me/product/support-the-art-modern-heart-t-shirt" target="_blank" rel="noopener noreferrer">
         <div class="support-card-image">
-          <!-- Add selected mockup image URL later -->
-          Modern Heart
+          <img src="images/shop/support-modern-heart.webp" alt="Modern Heart" loading="lazy">
         </div>
         <div class="support-card-copy">
-          <h3>Modern Heart T-Shirt</h3>
+          <h3>Support the Art | Modern Heart T-Shirt</h3>
           <p class="support-price">$49.99</p>
           <p>Front heart, sleeve artwork and wings across the back. A fuller version of the collection.</p>
-          <span class="support-coming">Product Link Next</span>
         </div>
-      </article>
+      </a>
 
-      <article class="support-card">
+      <a class="support-card" href="https://alexreynosoart.printful.me/product/support-the-art-royal-heart-t-shirt" target="_blank" rel="noopener noreferrer">
         <div class="support-card-image">
-          <!-- Add selected mockup image URL later -->
-          Royal Heart
+          <img src="images/shop/support-royal-heart.webp" alt="Royal Heart" loading="lazy">
         </div>
         <div class="support-card-copy">
-          <h3>Royal Heart T-Shirt</h3>
+          <h3>Support the Art | Royal Heart T-Shirt</h3>
           <p class="support-price">$59.99</p>
           <p>Ornate gold details, jewel-inspired elements and artwork across the garment. The premium heart.</p>
-          <span class="support-coming">Product Link Next</span>
         </div>
-      </article>
+      </a>
 
-      <article class="support-card">
+      <a class="support-card" href="https://alexreynosoart.printful.me/product/support-the-art-hold-the-heart" target="_blank" rel="noopener noreferrer">
         <div class="support-card-image">
-          <!-- Add selected mockup image URL later -->
-          Heart Mug
+          <img src="images/shop/support-heart-mug.webp" alt="Heart Mug" loading="lazy">
         </div>
         <div class="support-card-copy">
-          <h3>Support the Art Mug</h3>
+          <h3>Support the Art | Hold the Heart</h3>
           <p class="support-price">From $19.99</p>
           <p>Support the art. Hold the heart. ❤️</p>
-          <span class="support-coming">Product Link Next</span>
         </div>
-      </article>
+      </a>
 
     </section>
 
@@ -478,7 +483,7 @@
     <section class="support-all">
       <h2>There’s more in the shop.</h2>
       <p>
-        Tired., Hydroponics, Frida and whatever else has escaped the studio.
+        From Tired. and Hydroponics to Frida and whatever else has escaped the studio.
       </p>
       <a class="support-shop-button" href="shop.html">SHOP ALL</a>
     </section>
