@@ -1,1 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>Support the Art | Alex Reynoso Art</title>
+  <meta name="description" content="Support Alex Reynoso Art directly or take some art with you from the Support the Art collection.">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    body {
+      background: #111;
+      color: #fff;
+    }
+
+    .support-page {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 34px 0 70px;
+    }
+
+    .support-hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 360px;
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      align-items: center;
+      gap: 34px;
+      padding: 42px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255,215,0,.10), transparent 32%),
+        rgba(255,255,255,.035);
+    }
+
+    .support-kicker {
+      margin: 0 0 10px;
+      color: #ffd400;
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .support-hero h1 {
+      margin: 0;
+      font-size: clamp(2.5rem, 7vw, 5.4rem);
+      line-height: .95;
+      letter-spacing: -.04em;
+    }
+
+    .support-intro {
+      max-width: 650px;
+      margin: 22px 0 0;
+      color: rgba(255,255,255,.78);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .support-direct {
+      margin-top: 28px;
+    }
+
+    .support-button,
+    .support-shop-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 24px;
+      border: 0;
+      border-radius: 999px;
+      background: #ffd400;
+      color: #111;
+      font: inherit;
+      font-weight: 900;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform .18s ease, opacity .18s ease;
+    }
+
+    .support-button:hover,
+    .support-shop-button:hover {
+      transform: translateY(-2px);
+    }
+
+    .support-note {
+      margin: 12px 0 0;
+      color: rgba(255,255,255,.55);
+      font-size: .9rem;
+    }
+
+    .support-hero-art {
+      min-height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px dashed rgba(255,255,255,.18);
+      border-radius: 20px;
+      background: rgba(0,0,0,.22);
+      text-align: center;
+      color: rgba(255,255,255,.45);
+      padding: 30px;
+    }
+
+    .support-hero-art strong {
+      display: block;
+      margin-bottom: 8px;
+      color: rgba(255,255,255,.75);
+    }
+
+    .support-divider {
+      margin: 70px auto 36px;
+      text-align: center;
+    }
+
+    .support-divider h2 {
+      margin: 0;
+      font-size: clamp(1.55rem, 4vw, 2.5rem);
+      letter-spacing: .03em;
+    }
+
+    .support-divider p {
+      max-width: 650px;
+      margin: 12px auto 0;
+      color: rgba(255,255,255,.65);
+      line-height: 1.65;
+    }
+
+    .support-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .support-card {
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.11);
+      border-radius: 20px;
+      background: rgba(255,255,255,.035);
+    }
+
+    .support-card-image {
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+      background: #f4f4f4;
+      color: #333;
+      text-align: center;
+    }
+
+    .support-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .support-card-copy {
+      padding: 20px;
+    }
+
+    .support-card h3 {
+      margin: 0 0 8px;
+      font-size: 1.12rem;
+    }
+
+    .support-price {
+      margin: 0 0 15px;
+      color: #ffd400;
+      font-weight: 900;
+    }
+
+    .support-card p:not(.support-price) {
+      margin: 0;
+      color: rgba(255,255,255,.62);
+      line-height: 1.55;
+      font-size: .93rem;
+    }
+
+    .support-coming {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 7px 12px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      color: rgba(255,255,255,.62);
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .support-all {
+      margin-top: 55px;
+      padding: 34px;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 22px;
+      background: rgba(255,255,255,.025);
+      text-align: center;
+    }
+
+    .support-all h2 {
+      margin: 0 0 10px;
+    }
+
+    .support-all p {
+      margin: 0 auto 20px;
+      max-width: 620px;
+      color: rgba(255,255,255,.62);
+      line-height: 1.6;
+    }
+
+    /* PAYPAL MODAL SHELL
+       The real PayPal checkout will be connected later.
+    */
+    .support-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(0,0,0,.78);
+      backdrop-filter: blur(6px);
+    }
+
+    .support-modal.is-open {
+      display: flex;
+    }
+
+    .support-modal-card {
+      position: relative;
+      width: min(520px, 100%);
+      padding: 34px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 24px;
+      background: #171717;
+      box-shadow: 0 24px 80px rgba(0,0,0,.5);
+      text-align: center;
+    }
+
+    .support-modal-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 50%;
+      background: rgba(255,255,255,.05);
+      color: #fff;
+      font-size: 1.35rem;
+      cursor: pointer;
+    }
+
+    .support-modal-card h2 {
+      margin: 4px 30px 10px;
+    }
+
+    .support-modal-card p {
+      color: rgba(255,255,255,.65);
+      line-height: 1.6;
+    }
+
+    .support-amounts {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 24px 0;
+    }
+
+    .support-amount {
+      padding: 12px 8px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 12px;
+      background: rgba(255,255,255,.04);
+      color: #fff;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .support-amount:hover,
+    .support-amount:focus {
+      border-color: #ffd400;
+      outline: none;
+    }
+
+    .paypal-placeholder {
+      margin-top: 18px;
+      padding: 18px;
+      border: 1px dashed rgba(255,212,0,.38);
+      border-radius: 14px;
+      color: rgba(255,255,255,.6);
+      font-size: .9rem;
+    }
+
+    @media (max-width: 900px) {
+      .support-hero {
+        grid-template-columns: 1fr;
+      }
+
+      .support-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .support-hero-art {
+        min-height: 220px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .support-page {
+        width: min(100% - 24px, 1180px);
+        padding-top: 20px;
+      }
+
+      .support-hero {
+        padding: 28px 22px;
+        border-radius: 20px;
+      }
+
+      .support-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .support-amounts {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .support-modal-card {
+        padding: 30px 20px 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <a class="site-logo" href="index.html">
+      <img src="images/AlexReynosoArt-Logo_transparent.png" alt="Alex Reynoso Art">
+    </a>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="art.html">Art</a>
+      <a href="everything-art.html">Everything Art</a>
+      <a href="videos.html">Videos</a>
+      <a href="shop.html">Shop</a>
+      <a href="commissions.html">Commissions</a>
+    </nav>
+  </header>
+
+  <main class="support-page">
+
+    <section class="support-hero">
+      <div>
+        <p class="support-kicker">Alex Reynoso Art</p>
+        <h1>Support the Art ❤️</h1>
+
+        <p class="support-intro">
+          Want to support the work directly? No shirt. No mug. No shipping.
+          Just support for the art, the experiments and whatever comes out of
+          the studio next.
+        </p>
+
+        <div class="support-direct">
+          <button class="support-button" type="button" id="openSupportModal">
+            SUPPORT DIRECTLY ❤️
+          </button>
+          <p class="support-note">Secure payment through PayPal will be connected here.</p>
+        </div>
+      </div>
+
+      <!--
+        HERO IMAGE:
+        We will add the final Support the Art image URL here later.
+        Replace this placeholder div with an <img> when the image is ready.
+      -->
+      <div class="support-hero-art">
+        <div>
+          <strong>Support the Art image goes here.</strong>
+          We’ll add the image URL after the page structure is finished.
+        </div>
+      </div>
+    </section>
+
+
+    <section class="support-divider">
+      <h2>OR TAKE SOME ART WITH YOU.</h2>
+      <p>
+        Support the work and get something in return. The heart started as a
+        painted idea and kept evolving.
+      </p>
+    </section>
+
+
+    <section class="support-grid" aria-label="Support the Art collection">
+
+      <article class="support-card">
+        <div class="support-card-image">
+          <!-- Add selected mockup image URL later -->
+          Painted Heart
+        </div>
+        <div class="support-card-copy">
+          <h3>Painted Heart T-Shirt</h3>
+          <p class="support-price">$29.99</p>
+          <p>Raw brushwork, rough edges and signature drips. The heart where the collection started.</p>
+          <span class="support-coming">Product Link Next</span>
+        </div>
+      </article>
+
+      <article class="support-card">
+        <div class="support-card-image">
+          <!-- Add selected mockup image URL later -->
+          Remix Heart
+        </div>
+        <div class="support-card-copy">
+          <h3>Remix Heart T-Shirt</h3>
+          <p class="support-price">$44.99</p>
+          <p>A more colorful remix of the original heart, with artwork extending onto the sleeve.</p>
+          <span class="support-coming">Product Link Next</span>
+        </div>
+      </article>
+
+      <article class="support-card">
+        <div class="support-card-image">
+          <!-- Add selected mockup image URL later -->
+          Modern Heart
+        </div>
+        <div class="support-card-copy">
+          <h3>Modern Heart T-Shirt</h3>
+          <p class="support-price">$49.99</p>
+          <p>Front heart, sleeve artwork and wings across the back. A fuller version of the collection.</p>
+          <span class="support-coming">Product Link Next</span>
+        </div>
+      </article>
+
+      <article class="support-card">
+        <div class="support-card-image">
+          <!-- Add selected mockup image URL later -->
+          Royal Heart
+        </div>
+        <div class="support-card-copy">
+          <h3>Royal Heart T-Shirt</h3>
+          <p class="support-price">$59.99</p>
+          <p>Ornate gold details, jewel-inspired elements and artwork across the garment. The premium heart.</p>
+          <span class="support-coming">Product Link Next</span>
+        </div>
+      </article>
+
+      <article class="support-card">
+        <div class="support-card-image">
+          <!-- Add selected mockup image URL later -->
+          Heart Mug
+        </div>
+        <div class="support-card-copy">
+          <h3>Support the Art Mug</h3>
+          <p class="support-price">From $19.99</p>
+          <p>Support the art. Hold the heart. ❤️</p>
+          <span class="support-coming">Product Link Next</span>
+        </div>
+      </article>
+
+    </section>
+
+
+    <section class="support-all">
+      <h2>There’s more in the shop.</h2>
+      <p>
+        Tired., Hydroponics, Frida and whatever else has escaped the studio.
+      </p>
+      <a class="support-shop-button" href="shop.html">SHOP ALL</a>
+    </section>
+
+  </main>
+
+
+  <!-- PayPal modal shell. Actual PayPal checkout code gets inserted later. -->
+  <div class="support-modal" id="supportModal" aria-hidden="true">
+    <div class="support-modal-card" role="dialog" aria-modal="true" aria-labelledby="supportModalTitle">
+
+      <button class="support-modal-close" type="button" id="closeSupportModal" aria-label="Close">
+        ×
+      </button>
+
+      <h2 id="supportModalTitle">Support the Art ❤️</h2>
+
+      <p>
+        Choose an amount. PayPal checkout will appear here once we connect
+        your PayPal account.
+      </p>
+
+      <div class="support-amounts">
+        <button class="support-amount" type="button" data-amount="5">$5</button>
+        <button class="support-amount" type="button" data-amount="10">$10</button>
+        <button class="support-amount" type="button" data-amount="25">$25</button>
+        <button class="support-amount" type="button" data-amount="50">$50</button>
+      </div>
+
+      <div class="paypal-placeholder" id="paypalButtonContainer">
+        PayPal checkout goes here.
+      </div>
+
+    </div>
+  </div>
+
+
+  <footer>
+    <div class="footer-social" aria-label="Alex Reynoso Art on social media">
+
+      <a href="https://www.instagram.com/alexreynosoart/" target="_blank" rel="noopener noreferrer">
+        Instagram
+      </a>
+
+      <span aria-hidden="true">·</span>
+
+      <a href="https://www.tiktok.com/@alexreynosoart" target="_blank" rel="noopener noreferrer">
+        TikTok
+      </a>
+
+      <span aria-hidden="true">·</span>
+
+      <a href="https://www.facebook.com/alexreynosoart" target="_blank" rel="noopener noreferrer">
+        Facebook
+      </a>
+
+      <span aria-hidden="true">·</span>
+
+      <a href="https://www.youtube.com/@AlexReynosoArt" target="_blank" rel="noopener noreferrer">
+        YouTube
+      </a>
+
+    </div>
+
+    <p>© 2026 Alex Reynoso Art</p>
+  </footer>
+
+
+  <script src="js/script.js"></script>
+
+  <script>
+    (() => {
+      const modal = document.getElementById('supportModal');
+      const openButton = document.getElementById('openSupportModal');
+      const closeButton = document.getElementById('closeSupportModal');
+
+      function openModal() {
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        closeButton.focus();
+      }
+
+      function closeModal() {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        openButton.focus();
+      }
+
+      openButton.addEventListener('click', openModal);
+      closeButton.addEventListener('click', closeModal);
+
+      modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+          closeModal();
+        }
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+          closeModal();
+        }
+      });
+
+      /*
+        PAYPAL NEXT STEP:
+        The amount buttons and PayPal container are intentionally ready,
+        but no payment URL, account ID or checkout credentials are invented here.
+      */
+    })();
+  </script>
+
+</body>
+</html>
