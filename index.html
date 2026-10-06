@@ -121,6 +121,28 @@
             --door-image: url("images/home-background-alex-reynoso-art.jpg");
         }
 
+        .home-door-hydroponics {
+            --door-image: url("images/hydroponics/hydroponics-bronx-hero.webp");
+        }
+
+        .home-door-coming-soon {
+            --door-image: none;
+        }
+
+        .home-door-coming-soon::before {
+            background-image: none;
+            background: radial-gradient(circle at 50% 35%, rgba(198, 216, 58, 0.10), transparent 55%);
+            opacity: 1;
+        }
+
+        .home-door-coming-soon .home-door-title {
+            color: #c6d83a;
+        }
+
+        .home-door-coming-soon .home-door-text {
+            opacity: 0.72;
+        }
+
         .home-door-everything-art .home-door-brand {
             position: relative;
             z-index: 1;
@@ -330,6 +352,29 @@
                     <a class="home-door-link" href="commissions.html#art-design">Art + Design</a>
                     <a class="home-door-link" href="commissions.html#project-studio">Start a Project</a>
                 </div>
+            </article>
+
+            <article class="home-door home-door-hydroponics">
+                <span class="home-door-number">07</span>
+                <a class="home-door-title" href="hydroponics.html">HYDROPONICS</a>
+                <span class="home-door-text">A hands-on growing experiment from the Bronx, from seed to harvest.</span>
+                <div class="home-door-links" aria-label="Explore Hydroponics">
+                    <a class="home-door-link" href="hydroponics.html">Explore the Project</a>
+                    <a class="home-door-link" href="hydroponics.html#original-video">Watch the Walkthrough</a>
+                    <a class="home-door-link" href="shop.html#hydroponics">Hydroponics Collection</a>
+                </div>
+            </article>
+
+            <article class="home-door home-door-coming-soon">
+                <span class="home-door-number">08</span>
+                <span class="home-door-title">COMING SOON</span>
+                <span class="home-door-text">Another rabbit hole is waiting for its turn.</span>
+            </article>
+
+            <article class="home-door home-door-coming-soon">
+                <span class="home-door-number">09</span>
+                <span class="home-door-title">TO BE CONTINUED...</span>
+                <span class="home-door-text">There’s always something else taking shape.</span>
             </article>
 
         </section>
