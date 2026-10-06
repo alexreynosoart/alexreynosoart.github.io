@@ -45,22 +45,22 @@
         @media (max-width: 600px) { .hydro-merch { padding: 18px; } .hydro-merch-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } .hydro-merch-card span { font-size: .88rem; } }
 
         /* Featured chapter navigation */
-        .hydro-explore { margin: 30px 0 42px; }
+        .hydro-explore { margin: 26px 0 36px; }
         #original-system, #seed-to-harvest, #balcony-project, #original-video, #how-it-works { scroll-margin-top: 24px; }
-        .hydro-explore-head { margin-bottom: 16px; }
+        .hydro-explore-head { margin-bottom: 12px; }
         .hydro-explore-head .hydro-kicker { color: #c6d83a; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; font-size: .78rem; margin-bottom: 5px; }
-        .hydro-explore-head h2 { margin: 0 0 7px; }
+        .hydro-explore-head h2 { margin: 0; font-size: clamp(1.35rem, 2.4vw, 1.7rem); }
         .hydro-explore-head p { margin: 0; opacity: .82; }
-        .hydro-explore-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
-        .hydro-explore-card { display: block; overflow: hidden; border: 1px solid rgba(198,216,58,.28); border-radius: 16px; background: rgba(15,20,14,.72); color: inherit; text-decoration: none; transition: transform .18s, border-color .18s, background .18s; }
+        .hydro-explore-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+        .hydro-explore-card { display: block; overflow: hidden; border: 1px solid rgba(198,216,58,.28); border-radius: 13px; background: rgba(15,20,14,.72); color: inherit; text-decoration: none; transition: transform .18s, border-color .18s, background .18s; }
         .hydro-explore-card:hover, .hydro-explore-card:focus-visible { transform: translateY(-3px); border-color: #c6d83a; background: rgba(28,35,22,.92); }
-        .hydro-explore-card img { display: block; width: 100%; aspect-ratio: 16 / 8; object-fit: cover; }
-        .hydro-explore-copy { padding: 13px 14px 15px; }
-        .hydro-explore-copy strong { display: block; margin-bottom: 4px; line-height: 1.25; }
-        .hydro-explore-copy span { display: block; font-size: .9rem; line-height: 1.45; opacity: .76; }
-        .hydro-explore-arrow { color: #c6d83a; font-weight: 800; }
+        .hydro-explore-card img { display: block; width: 100%; aspect-ratio: 16 / 5; object-fit: cover; }
+        .hydro-explore-copy { padding: 9px 11px 10px; }
+        .hydro-explore-copy strong { display: block; margin-bottom: 3px; line-height: 1.2; font-size: .96rem; }
+        .hydro-explore-copy > span { display: block; font-size: .8rem; line-height: 1.35; opacity: .76; }
+        .hydro-explore-arrow { display: inline !important; color: #c6d83a; font-weight: 800; opacity: 1; }
         @media (max-width: 760px) { .hydro-explore-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-        @media (max-width: 430px) { .hydro-explore-grid { grid-template-columns: 1fr; } .hydro-explore-card img { aspect-ratio: 16 / 7; } }
+        @media (max-width: 430px) { .hydro-explore-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; } .hydro-explore-card img { aspect-ratio: 16 / 6; } .hydro-explore-copy { padding: 8px 9px 9px; } .hydro-explore-copy strong { font-size: .86rem; } .hydro-explore-copy > span { font-size: .72rem; } }
     </style>
 <link href="css/hydroponics-gallery.css" rel="stylesheet"/></link></head>
 <body>
@@ -78,7 +78,7 @@
 <main class="hydro-page">
 <h1>Hydroponics in the Bronx 🌱</h1>
 <p class="hydro-intro">Two hands-on growing experiments in the Bronx, from a backyard hydroponic system to a separate 2013 balcony project. Explore the photos, the process and what grew along the way.</p><figure class="hydro-hero"><img alt="Alex standing beside his original hydroponic growing system in the Bronx" fetchpriority="high" src="images/hydroponics/hydroponics-bronx-hero.webp"/><figcaption>The original growing experiment in the Bronx.</figcaption></figure><section class="hydro-explore" aria-labelledby="hydro-explore-title">
-<div class="hydro-explore-head"><p class="hydro-kicker">Explore the project</p><h2 id="hydro-explore-title">Jump into the archive</h2><p>Start at the beginning or head straight to the part that catches your interest.</p></div>
+<div class="hydro-explore-head"><p class="hydro-kicker">Explore the project</p><h2 id="hydro-explore-title">Jump into the archive</h2></div>
 <div class="hydro-explore-grid">
 <a class="hydro-explore-card" href="#original-system"><img src="images/hydroponics/hydroponics-original-12.webp" alt="PVC pipes from the original Bronx hydroponic system" loading="lazy"><span class="hydro-explore-copy"><strong>Original System <span class="hydro-explore-arrow">↓</span></strong><span>Building the backyard hydroponic setup.</span></span></a>
 <a class="hydro-explore-card" href="#seed-to-harvest"><img src="images/hydroponics/hydroponics-original-03.webp" alt="Seedlings in the hydroponics germination station" loading="lazy"><span class="hydro-explore-copy"><strong>From Seed to Harvest <span class="hydro-explore-arrow">↓</span></strong><span>Follow the plants from germination to harvest.</span></span></a>
