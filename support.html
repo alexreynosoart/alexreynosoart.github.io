@@ -221,19 +221,17 @@
     }
 
     .support-direct-card-visual {
-      aspect-ratio: 1 / 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      aspect-ratio: 1200 / 630;
+      overflow: hidden;
       border-bottom: 1px solid rgba(255,255,255,.09);
-      background: rgba(0,0,0,.12);
+      background: #0b0b0b;
     }
 
-    .support-direct-heart {
-      color: #ffd400;
-      font-size: clamp(5rem, 10vw, 8rem);
-      line-height: 1;
-      text-shadow: 0 0 38px rgba(255,212,0,.16);
+    .support-direct-card-visual img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
     }
 
     .support-direct-card-action {
@@ -668,8 +666,11 @@
       </a>
 
       <button class="support-card support-direct-card" type="button" data-open-support-modal>
-        <div class="support-direct-card-visual" aria-hidden="true">
-          <span class="support-direct-heart">♥</span>
+        <div class="support-direct-card-visual">
+          <img
+            src="images/social/support-the-art.webp"
+            alt="Support the Art by Alex Reynoso Art"
+          >
         </div>
         <div class="support-card-copy">
           <h3>Just Want to Support?</h3>
