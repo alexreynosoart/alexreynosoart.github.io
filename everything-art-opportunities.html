@@ -46,6 +46,30 @@
         .op-filter-block{margin-top:18px}
         .op-filter-label{display:block;margin-bottom:8px;color:rgba(255,255,255,.58);font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
         @media(max-width:700px){.filter-row{flex-wrap:nowrap;overflow-x:auto;padding-bottom:7px;scrollbar-width:thin}.filter-row .filter-button{flex:0 0 auto}}
+        .filter-more-button {
+            cursor: pointer;
+        }
+
+        @media (min-width: 901px) {
+            .filter-button.desktop-extra {
+                display: none;
+            }
+
+            .filter-row.is-expanded .filter-button.desktop-extra {
+                display: inline-flex;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .filter-more-button {
+                display: none;
+            }
+
+            .filter-button.desktop-extra {
+                display: inline-flex;
+            }
+        }
+
     </style>
 </head>
 
@@ -120,18 +144,19 @@
             <div class="filter-row" aria-label="Creative discipline">
                 <button class="filter-button active" data-filter-group="discipline" data-filter="all">ALL ARTS</button>
                 <button class="filter-button" data-filter-group="discipline" data-filter="visual">VISUAL ART</button>
-                <button class="filter-button" data-filter-group="discipline" data-filter="photo">PHOTOGRAPHY</button>
-                <button class="filter-button" data-filter-group="discipline" data-filter="film">FILM + VIDEO</button>
-                <button class="filter-button" data-filter-group="discipline" data-filter="music">MUSIC + SOUND</button>
-                <button class="filter-button" data-filter-group="discipline" data-filter="dance">DANCE + MOVEMENT</button>
-                <button class="filter-button" data-filter-group="discipline" data-filter="performance">THEATER + PERFORMANCE</button>
-                <button class="filter-button" data-filter-group="discipline" data-filter="writing">WRITING + POETRY</button>
-                <button class="filter-button" data-filter-group="discipline" data-filter="design">DESIGN + FASHION</button>
-                <button class="filter-button" data-filter-group="discipline" data-filter="digital">DIGITAL + NEW MEDIA</button>
-                <button class="filter-button" data-filter-group="discipline" data-filter="craft">CRAFT + MATERIAL</button>
-                <button class="filter-button" data-filter-group="discipline" data-filter="traditional">FOLK + TRADITIONAL</button>
-                <button class="filter-button" data-filter-group="discipline" data-filter="culinary">CULINARY</button>
-                <button class="filter-button" data-filter-group="discipline" data-filter="interdisciplinary">INTERDISCIPLINARY</button>
+                <button class="filter-button" data-filter-group="discipline" data-filter="photo">PHOTO</button>
+                <button class="filter-button" data-filter-group="discipline" data-filter="film">FILM</button>
+                <button class="filter-button" data-filter-group="discipline" data-filter="music">MUSIC</button>
+                <button class="filter-button" data-filter-group="discipline" data-filter="dance">DANCE</button>
+                <button class="filter-button" data-filter-group="discipline" data-filter="performance">PERFORMANCE</button>
+                <button class="filter-button" data-filter-group="discipline" data-filter="writing">WRITING</button>
+                <button class="filter-button filter-more-button" type="button" data-more-target="discipline" aria-expanded="false">MORE ↓</button>
+                <button class="filter-button desktop-extra" data-filter-group="discipline" data-filter="design">DESIGN + FASHION</button>
+                <button class="filter-button desktop-extra" data-filter-group="discipline" data-filter="digital">DIGITAL + NEW MEDIA</button>
+                <button class="filter-button desktop-extra" data-filter-group="discipline" data-filter="craft">CRAFT + MATERIAL</button>
+                <button class="filter-button desktop-extra" data-filter-group="discipline" data-filter="traditional">FOLK + TRADITIONAL</button>
+                <button class="filter-button desktop-extra" data-filter-group="discipline" data-filter="culinary">CULINARY</button>
+                <button class="filter-button desktop-extra" data-filter-group="discipline" data-filter="interdisciplinary">INTERDISCIPLINARY</button>
             </div>
         </div>
 
@@ -144,11 +169,12 @@
                 <button class="filter-button" data-filter-group="type" data-filter="open-call">OPEN CALLS</button>
                 <button class="filter-button" data-filter-group="type" data-filter="fellowship">FELLOWSHIPS</button>
                 <button class="filter-button" data-filter-group="type" data-filter="exhibition">EXHIBITIONS</button>
-                <button class="filter-button" data-filter-group="type" data-filter="audition">AUDITIONS</button>
-                <button class="filter-button" data-filter-group="type" data-filter="job">JOBS + GIGS</button>
-                <button class="filter-button" data-filter-group="type" data-filter="competition">AWARDS + COMPETITIONS</button>
-                <button class="filter-button" data-filter-group="type" data-filter="training">TRAINING</button>
-                <button class="filter-button" data-filter-group="type" data-filter="resource">RESOURCES</button>
+                <button class="filter-button filter-more-button" type="button" data-more-target="type" aria-expanded="false">MORE ↓</button>
+                <button class="filter-button desktop-extra" data-filter-group="type" data-filter="audition">AUDITIONS</button>
+                <button class="filter-button desktop-extra" data-filter-group="type" data-filter="job">JOBS + GIGS</button>
+                <button class="filter-button desktop-extra" data-filter-group="type" data-filter="competition">AWARDS + COMPETITIONS</button>
+                <button class="filter-button desktop-extra" data-filter-group="type" data-filter="training">TRAINING</button>
+                <button class="filter-button desktop-extra" data-filter-group="type" data-filter="resource">RESOURCES</button>
             </div>
         </div>
 
@@ -159,11 +185,12 @@
                 <button class="filter-button" data-filter-group="feature" data-filter="worldwide">🌎 WORLDWIDE</button>
                 <button class="filter-button" data-filter-group="feature" data-filter="nyc">🗽 NYC</button>
                 <button class="filter-button" data-filter-group="feature" data-filter="us">🇺🇸 U.S.</button>
-                <button class="filter-button" data-filter-group="feature" data-filter="germany">🇩🇪 GERMANY</button>
-                <button class="filter-button" data-filter-group="feature" data-filter="france">🇫🇷 FRANCE</button>
-                <button class="filter-button" data-filter-group="feature" data-filter="uk">🇬🇧 UK</button>
-                <button class="filter-button" data-filter-group="feature" data-filter="canada">🇨🇦 CANADA</button>
-                <button class="filter-button" data-filter-group="feature" data-filter="japan">🇯🇵 JAPAN</button>
+                <button class="filter-button filter-more-button" type="button" data-more-target="feature" aria-expanded="false">MORE ↓</button>
+                <button class="filter-button desktop-extra" data-filter-group="feature" data-filter="germany">🇩🇪 GERMANY</button>
+                <button class="filter-button desktop-extra" data-filter-group="feature" data-filter="france">🇫🇷 FRANCE</button>
+                <button class="filter-button desktop-extra" data-filter-group="feature" data-filter="uk">🇬🇧 UK</button>
+                <button class="filter-button desktop-extra" data-filter-group="feature" data-filter="canada">🇨🇦 CANADA</button>
+                <button class="filter-button desktop-extra" data-filter-group="feature" data-filter="japan">🇯🇵 JAPAN</button>
                 <button class="filter-button" data-filter-group="feature" data-filter="free">FREE TO APPLY</button>
                 <button class="filter-button" data-filter-group="feature" data-filter="funded">💰 FUNDED / PAID</button>
                 <button class="filter-button" data-filter-group="feature" data-filter="rolling">♾ ROLLING</button>
@@ -1244,7 +1271,17 @@
         if (viewMoreWrap) viewMoreWrap.style.display = matched.length > visibleLimit ? 'flex' : 'none';
     }
 
-    buttons.forEach(button => {
+    document.querySelectorAll('.filter-more-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const group = button.dataset.moreTarget;
+            const row = button.closest('.filter-row');
+            const expanded = row.classList.toggle('is-expanded');
+            button.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+            button.textContent = expanded ? 'LESS ↑' : 'MORE ↓';
+        });
+    });
+
+    buttons.filter(button => !button.classList.contains('filter-more-button')).forEach(button => {
         button.addEventListener('click', () => {
             const group = button.dataset.filterGroup;
             const value = button.dataset.filter;
