@@ -22,12 +22,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Artist Opportunities | Everything Art</title>
-    <meta name="description" content="Current grants, residencies, fellowships, open calls, exhibitions and artist resources from Everything Art.">
+    <meta name="description" content="Creative opportunities for artists of every kind: visual art, photography, film, music, dance, performance, writing, design, digital art, craft and more.">
 
     <!-- Social sharing -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Artist Opportunities | Everything Art">
-    <meta property="og:description" content="Current grants, residencies, fellowships, open calls, exhibitions and artist resources from Everything Art.">
+    <meta property="og:description" content="Creative opportunities for artists of every kind: visual art, photography, film, music, dance, performance, writing, design, digital art, craft and more.">
     <meta property="og:url" content="https://alexreynosoart.com/everything-art-opportunities.html">
     <meta property="og:image" content="https://alexreynosoart.com/images/social/everything-art-opportunities-share.webp">
     <meta property="og:image:width" content="1733">
@@ -35,16 +35,17 @@
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Artist Opportunities | Everything Art">
-    <meta name="twitter:description" content="Current grants, residencies, fellowships, open calls, exhibitions and artist resources from Everything Art.">
+    <meta name="twitter:description" content="Creative opportunities for artists of every kind: visual art, photography, film, music, dance, performance, writing, design, digital art, craft and more.">
     <meta name="twitter:image" content="https://alexreynosoart.com/images/social/everything-art-opportunities-share.webp">
 
     <link rel="stylesheet" href="css/style.css">
 
     <style>
         /* Give KEEP DIGGING / resource section breathing room from the card above */
-        .op-section-resources {
-            margin-top: 64px;
-        }
+        .op-section-resources { margin-top:64px; }
+        .op-filter-block{margin-top:18px}
+        .op-filter-label{display:block;margin-bottom:8px;color:rgba(255,255,255,.58);font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+        @media(max-width:700px){.filter-row{flex-wrap:nowrap;overflow-x:auto;padding-bottom:7px;scrollbar-width:thin}.filter-row .filter-button{flex:0 0 auto}}
     </style>
 </head>
 
@@ -97,8 +98,9 @@
         </div>
         <h1>ARTIST OPPORTUNITIES</h1>
         <p>
-            Grants, residencies, fellowships, exhibitions, open calls and useful resources
-            for artists. Local to global. One place to find the next door worth opening.
+            Opportunities for artists of every kind. Visual art, photography, film, music,
+            dance, performance, writing, design, digital art, craft and more. Local to global.
+            One place to find the next door worth opening.
         </p>
         <div class="op-updated">
             <span class="op-live-dot" aria-hidden="true"></span>
@@ -113,30 +115,60 @@
                placeholder="Search opportunity, organization, location or keyword..."
                aria-label="Search artist opportunities">
 
-        <div class="filter-row" aria-label="Opportunity type">
-            <button class="filter-button active" data-filter-group="type" data-filter="all">ALL</button>
-            <button class="filter-button" data-filter-group="type" data-filter="grant">GRANTS</button>
-            <button class="filter-button" data-filter-group="type" data-filter="residency">RESIDENCIES</button>
-            <button class="filter-button" data-filter-group="type" data-filter="open-call">OPEN CALLS</button>
-            <button class="filter-button" data-filter-group="type" data-filter="fellowship">FELLOWSHIPS</button>
-            <button class="filter-button" data-filter-group="type" data-filter="exhibition">EXHIBITIONS</button>
-            <button class="filter-button" data-filter-group="type" data-filter="resource">RESOURCES</button>
+        <div class="op-filter-block">
+            <span class="op-filter-label">Discipline</span>
+            <div class="filter-row" aria-label="Creative discipline">
+                <button class="filter-button active" data-filter-group="discipline" data-filter="all">ALL ARTS</button>
+                <button class="filter-button" data-filter-group="discipline" data-filter="visual">VISUAL ART</button>
+                <button class="filter-button" data-filter-group="discipline" data-filter="photo">PHOTOGRAPHY</button>
+                <button class="filter-button" data-filter-group="discipline" data-filter="film">FILM + VIDEO</button>
+                <button class="filter-button" data-filter-group="discipline" data-filter="music">MUSIC + SOUND</button>
+                <button class="filter-button" data-filter-group="discipline" data-filter="dance">DANCE + MOVEMENT</button>
+                <button class="filter-button" data-filter-group="discipline" data-filter="performance">THEATER + PERFORMANCE</button>
+                <button class="filter-button" data-filter-group="discipline" data-filter="writing">WRITING + POETRY</button>
+                <button class="filter-button" data-filter-group="discipline" data-filter="design">DESIGN + FASHION</button>
+                <button class="filter-button" data-filter-group="discipline" data-filter="digital">DIGITAL + NEW MEDIA</button>
+                <button class="filter-button" data-filter-group="discipline" data-filter="craft">CRAFT + MATERIAL</button>
+                <button class="filter-button" data-filter-group="discipline" data-filter="traditional">FOLK + TRADITIONAL</button>
+                <button class="filter-button" data-filter-group="discipline" data-filter="culinary">CULINARY</button>
+                <button class="filter-button" data-filter-group="discipline" data-filter="interdisciplinary">INTERDISCIPLINARY</button>
+            </div>
         </div>
 
-        <div class="filter-row" aria-label="Location and features">
-            <button class="filter-button active" data-filter-group="feature" data-filter="all">ANYWHERE</button>
-            <button class="filter-button" data-filter-group="feature" data-filter="worldwide">🌎 WORLDWIDE</button>
-            <button class="filter-button" data-filter-group="feature" data-filter="nyc">🗽 NYC</button>
-            <button class="filter-button" data-filter-group="feature" data-filter="us">🇺🇸 U.S.</button>
-            <button class="filter-button" data-filter-group="feature" data-filter="germany">🇩🇪 GERMANY</button>
-            <button class="filter-button" data-filter-group="feature" data-filter="france">🇫🇷 FRANCE</button>
-            <button class="filter-button" data-filter-group="feature" data-filter="uk">🇬🇧 UK</button>
-            <button class="filter-button" data-filter-group="feature" data-filter="canada">🇨🇦 CANADA</button>
-            <button class="filter-button" data-filter-group="feature" data-filter="japan">🇯🇵 JAPAN</button>
-            <button class="filter-button" data-filter-group="feature" data-filter="free">FREE TO APPLY</button>
-            <button class="filter-button" data-filter-group="feature" data-filter="funded">💰 FUNDED</button>
-            <button class="filter-button" data-filter-group="feature" data-filter="rolling">♾ ROLLING</button>
-            <button class="filter-button" data-filter-group="feature" data-filter="closing">⏰ CLOSING SOON</button>
+        <div class="op-filter-block">
+            <span class="op-filter-label">Opportunity</span>
+            <div class="filter-row" aria-label="Opportunity type">
+                <button class="filter-button active" data-filter-group="type" data-filter="all">ALL</button>
+                <button class="filter-button" data-filter-group="type" data-filter="grant">GRANTS</button>
+                <button class="filter-button" data-filter-group="type" data-filter="residency">RESIDENCIES</button>
+                <button class="filter-button" data-filter-group="type" data-filter="open-call">OPEN CALLS</button>
+                <button class="filter-button" data-filter-group="type" data-filter="fellowship">FELLOWSHIPS</button>
+                <button class="filter-button" data-filter-group="type" data-filter="exhibition">EXHIBITIONS</button>
+                <button class="filter-button" data-filter-group="type" data-filter="audition">AUDITIONS</button>
+                <button class="filter-button" data-filter-group="type" data-filter="job">JOBS + GIGS</button>
+                <button class="filter-button" data-filter-group="type" data-filter="competition">AWARDS + COMPETITIONS</button>
+                <button class="filter-button" data-filter-group="type" data-filter="training">TRAINING</button>
+                <button class="filter-button" data-filter-group="type" data-filter="resource">RESOURCES</button>
+            </div>
+        </div>
+
+        <div class="op-filter-block">
+            <span class="op-filter-label">Where + Features</span>
+            <div class="filter-row" aria-label="Location and features">
+                <button class="filter-button active" data-filter-group="feature" data-filter="all">ANYWHERE</button>
+                <button class="filter-button" data-filter-group="feature" data-filter="worldwide">🌎 WORLDWIDE</button>
+                <button class="filter-button" data-filter-group="feature" data-filter="nyc">🗽 NYC</button>
+                <button class="filter-button" data-filter-group="feature" data-filter="us">🇺🇸 U.S.</button>
+                <button class="filter-button" data-filter-group="feature" data-filter="germany">🇩🇪 GERMANY</button>
+                <button class="filter-button" data-filter-group="feature" data-filter="france">🇫🇷 FRANCE</button>
+                <button class="filter-button" data-filter-group="feature" data-filter="uk">🇬🇧 UK</button>
+                <button class="filter-button" data-filter-group="feature" data-filter="canada">🇨🇦 CANADA</button>
+                <button class="filter-button" data-filter-group="feature" data-filter="japan">🇯🇵 JAPAN</button>
+                <button class="filter-button" data-filter-group="feature" data-filter="free">FREE TO APPLY</button>
+                <button class="filter-button" data-filter-group="feature" data-filter="funded">💰 FUNDED / PAID</button>
+                <button class="filter-button" data-filter-group="feature" data-filter="rolling">♾ ROLLING</button>
+                <button class="filter-button" data-filter-group="feature" data-filter="closing">⏰ CLOSING SOON</button>
+            </div>
         </div>
     </section>
 
@@ -147,10 +179,60 @@
 
     <section class="op-grid" id="opGrid">
 
+        <!-- EVERYTHING ART: current cross-discipline starters -->
+
+        <article class="op-card" data-discipline="dance performance" data-type="audition job" data-features="nyc us funded closing" data-deadline="2026-10-12">
+            <div class="op-badges"><span class="op-badge">🗽 NYC</span><span class="op-badge">Dance</span><span class="op-badge">Paid</span></div>
+            <h2>Seeking African Contemporary Dancers</h2><div class="op-org">Threads of Truth · New York City</div>
+            <p class="op-description">Paid performance opportunity for experienced African Contemporary dancers, with a rehearsal stipend.</p>
+            <div class="op-meta"><div><strong>Audition:</strong> October 12, 2026</div><div><strong>Discipline:</strong> African Contemporary Dance</div></div>
+            <a class="op-link" href="https://www.dance.nyc/for-artists/listings/Category-Auditions%7CJobs-Internships/Search-dancer" target="_blank" rel="noopener noreferrer">VIEW DANCE/NYC →</a>
+        </article>
+
+        <article class="op-card" data-discipline="dance performance" data-type="open-call competition" data-features="worldwide funded closing" data-deadline="2026-10-20">
+            <div class="op-badges"><span class="op-badge">🇮🇹 Italy</span><span class="op-badge">Dance</span><span class="op-badge">Choreography</span></div>
+            <h2>Biennale Danza 2027: Choreographic Creations</h2><div class="op-org">La Biennale di Venezia · Venice, Italy</div>
+            <p class="op-description">International call for original choreographic creations to premiere during the 2027 International Festival of Contemporary Dance.</p>
+            <div class="op-meta"><div><strong>Deadline:</strong> October 20, 2026</div><div><strong>Discipline:</strong> Dance / Choreography</div></div>
+            <a class="op-link" href="https://on-the-move.org/news/deadlines" target="_blank" rel="noopener noreferrer">VIEW CURRENT CALL →</a>
+        </article>
+
+        <article class="op-card" data-discipline="writing" data-type="fellowship grant" data-features="us free funded closing" data-deadline="2026-10-13">
+            <div class="op-badges"><span class="op-badge">Writing</span><span class="op-badge">Fellowship</span><span class="op-badge">No Fee</span></div>
+            <h2>Adina Talve-Goodman Fellowship</h2><div class="op-org">One Story · Poets &amp; Writers listing</div>
+            <p class="op-description">Yearlong fiction fellowship with a $2,000 award, online classes and admission to One Story's summer writers' conference.</p>
+            <div class="op-meta"><div><strong>Deadline:</strong> October 13, 2026</div><div><strong>Genre:</strong> Fiction</div></div>
+            <a class="op-link" href="https://www.pw.org/grants" target="_blank" rel="noopener noreferrer">VIEW WRITING OPPORTUNITIES →</a>
+        </article>
+
+        <article class="op-card" data-discipline="writing" data-type="competition open-call" data-features="us funded closing" data-deadline="2026-10-15">
+            <div class="op-badges"><span class="op-badge">Poetry</span><span class="op-badge">Book Award</span><span class="op-badge">$1,000 Prize</span></div>
+            <h2>Gerald Cable Book Award</h2><div class="op-org">Silverfish Review Press · Poets &amp; Writers listing</div>
+            <p class="op-description">Annual award for a debut poetry collection, including a cash prize, publication and author copies.</p>
+            <div class="op-meta"><div><strong>Deadline:</strong> October 15, 2026</div><div><strong>Discipline:</strong> Poetry</div></div>
+            <a class="op-link" href="https://www.pw.org/grants" target="_blank" rel="noopener noreferrer">VIEW WRITING OPPORTUNITIES →</a>
+        </article>
+
+        <article class="op-card" data-discipline="music film digital interdisciplinary" data-type="grant resource" data-features="us funded rolling" data-deadline="">
+            <div class="op-badges"><span class="op-badge">Music</span><span class="op-badge">Funding</span><span class="op-badge">Current Resource</span></div>
+            <h2>New Music USA Funding</h2><div class="op-org">New Music USA</div>
+            <p class="op-description">Funding and development opportunities for composers, performers and creators undertaking imaginative new music projects.</p>
+            <div class="op-meta"><div><strong>For:</strong> Music creators and organizations</div><div><strong>Status:</strong> Check current open programs</div></div>
+            <a class="op-link" href="https://newmusicusa.org/get-funding/" target="_blank" rel="noopener noreferrer">EXPLORE MUSIC FUNDING →</a>
+        </article>
+
+        <article class="op-card" data-discipline="visual photo film music dance performance writing design traditional interdisciplinary" data-type="residency grant" data-features="worldwide funded rolling" data-deadline="2026-10-31">
+            <div class="op-badges"><span class="op-badge">🌎 International</span><span class="op-badge">All Creative Sectors</span><span class="op-badge">Mobility Funding</span></div>
+            <h2>Culture Moves Europe: Individual Mobility 2026–2027</h2><div class="op-org">Creative Europe + Goethe-Institut</div>
+            <p class="op-description">Mobility support across architecture, cultural heritage, design and fashion, literature, music, performing arts and visual arts.</p>
+            <div class="op-meta"><div><strong>Next deadline:</strong> October 31, 2026</div><div><strong>Support:</strong> Daily allowance, travel and eligible top-ups</div></div>
+            <a class="op-link" href="https://on-the-move.org/news/culture-moves-europe-call-individual-mobility-2026-2027" target="_blank" rel="noopener noreferrer">VIEW MOBILITY CALL →</a>
+        </article>
+
         <!-- INTERNATIONAL FEED STARTERS: verified from current On the Move country listings -->
 
         <article class="op-card"
-                 data-type="open-call"
+                 data-discipline="visual interdisciplinary" data-type="open-call"
                  data-features="japan worldwide closing"
                  data-deadline="2026-09-30"
                  data-country="Japan">
@@ -174,7 +256,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="fellowship residency"
+                 data-discipline="visual interdisciplinary" data-type="fellowship residency"
                  data-features="france worldwide closing funded"
                  data-deadline="2026-09-30"
                  data-country="France">
@@ -199,7 +281,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="open-call resource"
+                 data-discipline="visual interdisciplinary" data-type="open-call resource"
                  data-features="germany closing"
                  data-deadline="2026-09-30"
                  data-country="Germany">
@@ -223,7 +305,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="fellowship residency"
+                 data-discipline="visual interdisciplinary" data-type="fellowship residency"
                  data-features="france worldwide funded"
                  data-deadline="2026-10-01"
                  data-country="France">
@@ -247,7 +329,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="residency fellowship"
+                 data-discipline="visual interdisciplinary" data-type="residency fellowship"
                  data-features="germany funded"
                  data-deadline="2026-10-04"
                  data-country="Germany">
@@ -271,7 +353,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="residency"
+                 data-discipline="visual interdisciplinary" data-type="residency"
                  data-features="france worldwide funded"
                  data-deadline="2026-10-08"
                  data-country="France">
@@ -294,7 +376,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="residency"
+                 data-discipline="visual interdisciplinary" data-type="residency"
                  data-features="uk worldwide funded"
                  data-deadline=""
                  data-country="United Kingdom">
@@ -318,7 +400,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="fellowship"
+                 data-discipline="visual interdisciplinary" data-type="fellowship"
                  data-features="uk worldwide"
                  data-deadline=""
                  data-country="United Kingdom">
@@ -341,7 +423,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="exhibition open-call"
+                 data-discipline="visual interdisciplinary" data-type="exhibition open-call"
                  data-features="japan worldwide"
                  data-deadline=""
                  data-country="Japan">
@@ -365,7 +447,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="resource grant"
+                 data-discipline="visual interdisciplinary" data-type="resource grant"
                  data-features="canada funded rolling"
                  data-deadline=""
                  data-country="Canada">
@@ -390,7 +472,7 @@
 
 
         <article class="op-card"
-                 data-type="residency"
+                 data-discipline="visual interdisciplinary" data-type="residency"
                  data-features="nyc us funded closing"
                  data-deadline="2026-09-30">
             <div class="op-badges">
@@ -418,7 +500,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="residency"
+                 data-discipline="visual interdisciplinary" data-type="residency"
                  data-features="worldwide funded closing"
                  data-deadline="2026-09-30">
             <div class="op-badges">
@@ -444,7 +526,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="grant"
+                 data-discipline="visual interdisciplinary" data-type="grant"
                  data-features="us closing"
                  data-deadline="2026-09-29">
             <div class="op-badges">
@@ -471,7 +553,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="fellowship residency"
+                 data-discipline="visual interdisciplinary" data-type="fellowship residency"
                  data-features="us funded closing"
                  data-deadline="2026-10-01">
             <div class="op-badges">
@@ -498,7 +580,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="residency fellowship"
+                 data-discipline="visual interdisciplinary" data-type="residency fellowship"
                  data-features="us funded closing"
                  data-deadline="2026-10-01">
             <div class="op-badges">
@@ -525,7 +607,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="grant fellowship"
+                 data-discipline="visual interdisciplinary" data-type="grant fellowship"
                  data-features="us closing"
                  data-deadline="2026-10-01">
             <div class="op-badges">
@@ -551,7 +633,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="residency"
+                 data-discipline="visual interdisciplinary" data-type="residency"
                  data-features="nyc us funded"
                  data-deadline="2026-10-04">
             <div class="op-badges">
@@ -578,7 +660,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="residency fellowship"
+                 data-discipline="visual interdisciplinary" data-type="residency fellowship"
                  data-features="us funded"
                  data-deadline="2026-10-09">
             <div class="op-badges">
@@ -604,7 +686,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="grant fellowship"
+                 data-discipline="visual interdisciplinary" data-type="grant fellowship"
                  data-features="worldwide funded"
                  data-deadline="2026-10-15">
             <div class="op-badges">
@@ -630,7 +712,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="open-call exhibition"
+                 data-discipline="visual interdisciplinary" data-type="open-call exhibition"
                  data-features="nyc us"
                  data-deadline="2026-10-18">
             <div class="op-badges">
@@ -656,7 +738,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="open-call exhibition"
+                 data-discipline="visual interdisciplinary" data-type="open-call exhibition"
                  data-features="nyc us"
                  data-deadline="2026-10-20">
             <div class="op-badges">
@@ -682,7 +764,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="fellowship resource"
+                 data-discipline="visual interdisciplinary" data-type="fellowship resource"
                  data-features="nyc us free"
                  data-deadline="2026-10-25">
             <div class="op-badges">
@@ -708,7 +790,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="fellowship resource"
+                 data-discipline="visual interdisciplinary" data-type="fellowship resource"
                  data-features="nyc us"
                  data-deadline="2026-10-30">
             <div class="op-badges">
@@ -734,7 +816,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="residency fellowship"
+                 data-discipline="visual interdisciplinary" data-type="residency fellowship"
                  data-features="worldwide funded"
                  data-deadline="2026-10-30">
             <div class="op-badges">
@@ -760,7 +842,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="grant"
+                 data-discipline="visual interdisciplinary" data-type="grant"
                  data-features="nyc us funded"
                  data-deadline="2026-11-02">
             <div class="op-badges">
@@ -787,7 +869,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="grant"
+                 data-discipline="visual interdisciplinary" data-type="grant"
                  data-features="us funded"
                  data-deadline="2026-11-05">
             <div class="op-badges">
@@ -813,7 +895,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="grant"
+                 data-discipline="visual interdisciplinary" data-type="grant"
                  data-features="worldwide funded"
                  data-deadline="2026-11-15">
             <div class="op-badges">
@@ -839,7 +921,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="grant"
+                 data-discipline="visual interdisciplinary" data-type="grant"
                  data-features="worldwide funded"
                  data-deadline="2026-11-17">
             <div class="op-badges">
@@ -865,7 +947,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="grant resource"
+                 data-discipline="visual interdisciplinary" data-type="grant resource"
                  data-features="worldwide funded rolling"
                  data-deadline="">
             <div class="op-badges">
@@ -892,7 +974,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="grant resource"
+                 data-discipline="visual interdisciplinary" data-type="grant resource"
                  data-features="us funded rolling"
                  data-deadline="">
             <div class="op-badges">
@@ -918,7 +1000,7 @@
         </article>
 
         <article class="op-card"
-                 data-type="resource open-call"
+                 data-discipline="visual interdisciplinary" data-type="resource open-call"
                  data-features="nyc us free rolling"
                  data-deadline="">
             <div class="op-badges">
@@ -1009,6 +1091,10 @@
                 <p>Artist awards in selected U.S. cities with application cycles throughout the year.</p>
                 <span class="resource-source">Artist Awards</span>
             </a>
+            <a class="resource-card" href="https://www.dance.nyc/for-artists/listings/" target="_blank" rel="noopener noreferrer"><h3>Dance/NYC Listings</h3><p>Auditions, choreography, funding, jobs, training and movement opportunities across dance styles.</p><span class="resource-source">Dance + Movement</span></a>
+            <a class="resource-card" href="https://newmusicusa.org/get-funding/" target="_blank" rel="noopener noreferrer"><h3>New Music USA</h3><p>Funding and development resources for composers, performers, ensembles and new-music creators.</p><span class="resource-source">Music + Sound</span></a>
+            <a class="resource-card" href="https://www.pw.org/grants" target="_blank" rel="noopener noreferrer"><h3>Poets &amp; Writers</h3><p>Current contests, grants, awards and fellowships for poetry, fiction, nonfiction and literary creators.</p><span class="resource-source">Writing + Poetry</span></a>
+            <a class="resource-card" href="https://on-the-move.org/" target="_blank" rel="noopener noreferrer"><h3>On the Move</h3><p>International mobility calls and funding guides spanning performing arts, music, literature, design, visual art and more.</p><span class="resource-source">International + Multidisciplinary</span></a>
         </div>
     </section>
 
@@ -1053,6 +1139,7 @@
     const backToTop = document.getElementById('backToTop');
 
     const PAGE_SIZE = 12;
+    let disciplineFilter = 'all';
     let typeFilter = 'all';
     let featureFilter = 'all';
     let visibleLimit = PAGE_SIZE;
@@ -1112,11 +1199,13 @@
 
     function matches(card) {
         const q = search.value.trim().toLowerCase();
+        const disciplines = (card.dataset.discipline || 'interdisciplinary').split(/\s+/);
         const types = (card.dataset.type || '').split(/\s+/);
         const features = (card.dataset.features || '').split(/\s+/);
         const deadline = card.dataset.deadline || '';
         const text = card.innerText.toLowerCase();
 
+        let disciplineMatch = disciplineFilter === 'all' || disciplines.includes(disciplineFilter);
         let typeMatch = typeFilter === 'all' || types.includes(typeFilter);
         let featureMatch = featureFilter === 'all' || features.includes(featureFilter);
 
@@ -1125,7 +1214,7 @@
             featureMatch = days !== null && days >= 0 && days <= 14;
         }
 
-        return typeMatch && featureMatch && (!q || text.includes(q));
+        return disciplineMatch && typeMatch && featureMatch && (!q || text.includes(q));
     }
 
     function applyFilters(resetLimit = false) {
@@ -1152,7 +1241,7 @@
             : 'Showing ' + shown + ' of ' + matched.length + ' opportunities';
 
         noResults.style.display = matched.length === 0 ? 'block' : 'none';
-        viewMoreWrap.style.display = matched.length > visibleLimit ? 'flex' : 'none';
+        if (viewMoreWrap) viewMoreWrap.style.display = matched.length > visibleLimit ? 'flex' : 'none';
     }
 
     buttons.forEach(button => {
@@ -1165,6 +1254,7 @@
 
             button.classList.add('active');
 
+            if (group === 'discipline') disciplineFilter = value;
             if (group === 'type') typeFilter = value;
             if (group === 'feature') featureFilter = value;
 
@@ -1174,16 +1264,21 @@
 
     search.addEventListener('input', () => applyFilters(true));
 
-    viewMoreButton.addEventListener('click', () => {
-        visibleLimit += PAGE_SIZE;
-        applyFilters(false);
-    });
+    if (viewMoreButton) {
+        viewMoreButton.addEventListener('click', () => {
+            visibleLimit += PAGE_SIZE;
+            applyFilters(false);
+        });
+    }
 
     reset.addEventListener('click', () => {
+        disciplineFilter = 'all';
         typeFilter = 'all';
         featureFilter = 'all';
         search.value = '';
 
+        document.querySelectorAll('[data-filter-group="discipline"]')
+            .forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
         document.querySelectorAll('[data-filter-group="type"]')
             .forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
 
