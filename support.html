@@ -536,16 +536,83 @@
       }
     }
   
+    
+
+    .paypal-bottom-wrap #donate-button-container {
+      display: inline-block;
+    }
+  
+    .support-hero {
+      width: 100%;
+      max-width: 1180px;
+      margin-left: auto;
+      margin-right: auto;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    .support-hero-grid {
+      width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+
+    .support-hero-copy,
+    .support-hero-photo {
+      min-width: 0;
+    }
+
+    .support-hero-photo img {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .support-direct-card {
+      overflow: hidden;
+    }
+
+    .support-direct-card-copy {
+      padding: 22px 24px 28px;
+      box-sizing: border-box;
+    }
+
+    .support-direct-card-copy h3 {
+      margin: 0 0 12px;
+    }
+
+    .support-direct-card-copy p {
+      margin: 0 0 20px;
+    }
+
     .paypal-bottom-wrap {
-      margin-top: 16px;
+      margin-top: 18px;
+      width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    .paypal-bottom-wrap #donate-button-container {
-      display: inline-block;
+    @media (max-width: 700px) {
+      .support-hero {
+        overflow: hidden;
+      }
+
+      .support-hero-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .support-hero-copy,
+      .support-hero-photo {
+        width: 100%;
+      }
+
+      .support-direct-card-copy {
+        padding: 20px;
+      }
     }
+
   </style>
 </head>
 
