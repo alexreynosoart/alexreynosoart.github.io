@@ -55,13 +55,13 @@
         .hydro-explore-card { display: block; overflow: hidden; border: 1px solid rgba(198,216,58,.42); border-radius: 13px; background: #142313; color: #f2f3ed; text-decoration: none; transition: transform .18s, border-color .18s, background .18s; }
         .hydro-explore-card:hover, .hydro-explore-card:focus-visible { transform: translateY(-3px); border-color: #c6d83a; background: #1b3019; }
         .hydro-explore-card img { display: block; width: 100%; aspect-ratio: 16 / 5; object-fit: cover; }
-        .hydro-explore-copy { display: grid; grid-template-columns: 42px minmax(0,1fr); align-items: center; padding: 14px 15px; }
-        .hydro-explore-arrow { display: flex !important; align-items: center; justify-content: center; align-self: stretch; padding-right: 12px; margin-right: 13px; border-right: 1px solid rgba(198,216,58,.28); color: #c6d83a; font-size: 2rem; line-height: 1; font-weight: 800; opacity: 1; }
-        .hydro-explore-info { display: block; min-width: 0; }
+        .hydro-explore-copy { display: grid; grid-template-columns: 56px minmax(0,1fr); align-items: stretch; padding: 0; }
+        .hydro-explore-arrow { display: flex !important; align-items: center; justify-content: center; align-self: stretch; min-height: 100%; border-right: 1px solid rgba(198,216,58,.28); color: #c6d83a; font-size: 2rem; line-height: 1; font-weight: 800; opacity: 1; }
+        .hydro-explore-info { display: flex; min-width: 0; flex-direction: column; justify-content: center; padding: 14px 15px; }
         .hydro-explore-info strong { display: block; margin-bottom: 5px; line-height: 1.2; font-size: .96rem; color: #c6d83a; }
         .hydro-explore-info > span { display: block; font-size: .8rem; line-height: 1.4; color: #eef1e9; opacity: .9; }
         @media (max-width: 760px) { .hydro-explore-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-        @media (max-width: 430px) { .hydro-explore-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; } .hydro-explore-card img { aspect-ratio: 16 / 6; } .hydro-explore-copy { grid-template-columns: 34px minmax(0,1fr); padding: 12px 12px; } .hydro-explore-arrow { font-size: 1.7rem; padding-right: 9px; margin-right: 10px; } .hydro-explore-info strong { font-size: .86rem; } .hydro-explore-info > span { font-size: .72rem; } }
+        @media (max-width: 430px) { .hydro-explore-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; } .hydro-explore-card img { aspect-ratio: 16 / 6; } .hydro-explore-copy { grid-template-columns: 42px minmax(0,1fr); padding: 0; } .hydro-explore-arrow { font-size: 1.7rem; } .hydro-explore-info { padding: 12px 11px; } .hydro-explore-info strong { font-size: .86rem; } .hydro-explore-info > span { font-size: .72rem; } }
 
         /* Hydroponics science section */
         .hydro-article { margin-top: 34px; }
