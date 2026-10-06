@@ -536,13 +536,34 @@
       }
     }
   
-    #paypalButtonContainer {
-      position: fixed !important;
-      left: -10000px !important;
-      top: -10000px !important;
-      width: 1px !important;
-      height: 1px !important;
-      overflow: hidden !important;
+    .paypal-overlay-host {
+      position: relative;
+    }
+
+    .paypal-click-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 20;
+      opacity: 0;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .paypal-click-overlay form,
+    .paypal-click-overlay input,
+    .paypal-click-overlay img,
+    .paypal-click-overlay button,
+    .paypal-click-overlay a {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: none !important;
+      min-width: 100% !important;
+      min-height: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      display: block !important;
+      cursor: pointer !important;
     }
   </style>
 </head>
@@ -580,9 +601,10 @@
         </p>
 
         <div class="support-direct">
-          <button class="support-button" type="button" id="openSupportModal">
-            SUPPORT DIRECTLY ❤️
-          </button>
+          <div class="support-button paypal-overlay-host">
+            <span>SUPPORT DIRECTLY ❤️</span>
+            <div id="paypal-donate-top" class="paypal-click-overlay" aria-label="Support directly with PayPal"></div>
+          </div>
         </div>
       </div>
 
@@ -674,7 +696,7 @@
         </div>
       </a>
 
-      <button class="support-card support-direct-card" type="button" data-open-support-modal>
+      <div class="support-card support-direct-card paypal-overlay-host">
         <div class="support-direct-card-visual">
           <img
             src="images/social/support-the-art.webp"
@@ -686,7 +708,8 @@
           <p>Every bit helps me keep creating, experimenting and taking on bigger ideas.</p>
           <span class="support-direct-card-action">SUPPORT DIRECTLY</span>
         </div>
-      </button>
+        <div id="paypal-donate-bottom" class="paypal-click-overlay" aria-label="Support directly with PayPal"></div>
+      </div>
 
     </section>
 
@@ -784,11 +807,7 @@
 
   <script>
     (() => {
-      const paypalMount = document.getElementById('paypalButtonContainer');
-
-      if (paypalMount) {
-        paypalMount.innerHTML = '<div id="paypal-donate-button"></div>';
-
+      function renderDonateButton(selector) {
         PayPal.Donation.Button({
           env: 'production',
           hosted_button_id: 'NBBG4WJEUFXTL',
@@ -797,24 +816,11 @@
             alt: 'Donate with PayPal button',
             title: 'PayPal - The safer, easier way to pay online!'
           }
-        }).render('#paypal-donate-button');
+        }).render(selector);
       }
 
-      const paypalButton = document.querySelector('#paypal-donate-button input, #paypal-donate-button img, #paypal-donate-button button, #paypal-donate-button a');
-
-      function openPayPalDonation(event) {
-        event.preventDefault();
-
-        const target = document.querySelector('#paypal-donate-button input, #paypal-donate-button img, #paypal-donate-button button, #paypal-donate-button a');
-
-        if (target) {
-          target.click();
-        }
-      }
-
-      document.querySelectorAll('#openSupportModal, [data-open-support-modal]').forEach((button) => {
-        button.addEventListener('click', openPayPalDonation);
-      });
+      renderDonateButton('#paypal-donate-top');
+      renderDonateButton('#paypal-donate-bottom');
     })();
   </script>
 
