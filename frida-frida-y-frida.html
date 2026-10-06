@@ -88,25 +88,60 @@
             opacity: .72;
         }
 
-        .frida-video-wrap {
-            max-width: 760px;
+        .frida-video-story {
+            display: grid;
+            grid-template-columns: minmax(280px, 460px) minmax(0, 1fr);
+            gap: 70px;
+            align-items: center;
+        }
+
+        .frida-video-column {
+            min-width: 0;
         }
 
         .frida-video {
             display: block;
             width: 100%;
+            max-width: 460px;
             height: auto;
-            border-radius: 14px;
+            border: 1px solid rgba(85, 189, 178, .32);
+            border-radius: 0;
             background: #000;
         }
 
         .frida-sound-link {
-            margin-top: 14px;
+            margin: 14px 0 0;
+            padding-left: 24px;
             font-size: .95rem;
         }
 
         .frida-sound-link a {
+            color: #55bdb2;
             font-weight: 700;
+        }
+
+        .frida-video-copy {
+            max-width: 560px;
+        }
+
+        .frida-video-date {
+            margin: 0 0 14px;
+            color: #73cfc5;
+            font-size: .82rem;
+            font-weight: 800;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+        }
+
+        .frida-video-copy h2 {
+            margin: 0 0 22px;
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            line-height: 1.05;
+        }
+
+        .frida-video-copy p:last-child {
+            margin-bottom: 0;
+            line-height: 1.75;
         }
 
         .frida-print-story {
@@ -193,6 +228,27 @@
             .frida-process-grid,
             .frida-merch-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .frida-video-story {
+                grid-template-columns: 1fr;
+                gap: 34px;
+            }
+
+            .frida-video {
+                max-width: 460px;
+                margin: 0 auto;
+            }
+
+            .frida-sound-link {
+                max-width: 460px;
+                margin: 14px auto 0;
+                padding-left: 0;
+            }
+
+            .frida-video-copy {
+                max-width: 460px;
+                margin: 0 auto;
             }
 
             .frida-merch-image {
@@ -333,34 +389,46 @@
 
             <section class="frida-archive-section">
 
-                <h2 class="frida-archive-heading">The Painting in Motion</h2>
+                <div class="frida-video-story">
 
-                <p class="frida-archive-intro">
-                    In 2022, the painting became part of a short video shared across
-                    social media. This archived version is presented without music.
-                </p>
+                    <div class="frida-video-column">
 
-                <div class="frida-video-wrap">
+                        <video class="frida-video"
+                               controls
+                               muted
+                               playsinline
+                               preload="metadata"
+                               poster="images/frida-frida-y-frida-finished-painting-alex-reynoso-art.webp">
+                            <source src="images/frida-painting-video-2022-alex-reynoso-art.mp4"
+                                    type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
 
-                    <video class="frida-video"
-                           controls
-                           muted
-                           playsinline
-                           preload="metadata"
-                           poster="images/frida-frida-y-frida-finished-painting-alex-reynoso-art.webp">
-                        <source src="images/frida-painting-video-2022-alex-reynoso-art.mp4"
-                                type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+                        <p class="frida-sound-link">
+                            Watch with sound:
+                            <a href="https://www.instagram.com/p/Ca2r0mfDV7t/"
+                               target="_blank"
+                               rel="noopener noreferrer">
+                                Instagram
+                            </a>
+                        </p>
 
-                    <p class="frida-sound-link">
-                        Watch with sound:
-                        <a href="https://www.instagram.com/p/Ca2r0mfDV7t/"
-                           target="_blank"
-                           rel="noopener noreferrer">
-                            Instagram
-                        </a>
-                    </p>
+                    </div>
+
+                    <div class="frida-video-copy">
+
+                        <p class="frida-video-date">March 8, 2022</p>
+
+                        <h2>Painting Frida</h2>
+
+                        <p>
+                            Created for International Women's Day, this short video
+                            documents the painting as the repeated portrait develops
+                            through layers of color, flowers and paint. The archived
+                            version here is presented without music.
+                        </p>
+
+                    </div>
 
                 </div>
 
