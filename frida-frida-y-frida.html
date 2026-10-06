@@ -144,6 +144,36 @@
             line-height: 1.75;
         }
 
+        .frida-widescreen-story {
+            display: grid;
+            grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr);
+            gap: 54px;
+            align-items: center;
+        }
+
+        .frida-widescreen-video {
+            display: block;
+            width: 100%;
+            height: auto;
+            border: 1px solid rgba(85, 189, 178, .32);
+            background: #000;
+        }
+
+        .frida-widescreen-copy {
+            max-width: 480px;
+        }
+
+        .frida-widescreen-copy h2 {
+            margin: 0 0 18px;
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            line-height: 1.05;
+        }
+
+        .frida-widescreen-copy p {
+            margin-bottom: 0;
+            line-height: 1.75;
+        }
+
         .frida-print-story {
             max-width: 760px;
             margin-bottom: 30px;
@@ -249,6 +279,15 @@
             .frida-video-copy {
                 max-width: 460px;
                 margin: 0 auto;
+            }
+
+            .frida-widescreen-story {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .frida-widescreen-copy {
+                max-width: 100%;
             }
 
             .frida-merch-image {
@@ -433,6 +472,42 @@
                 </div>
 
             </section>
+
+            <section class="frida-archive-section">
+
+                <div class="frida-widescreen-story">
+
+                    <div>
+                        <video class="frida-widescreen-video"
+                               controls
+                               muted
+                               playsinline
+                               preload="metadata"
+                               poster="images/frida-frida-y-frida-finished-painting-alex-reynoso-art.webp"
+                               controlsList="nodownload"
+                               oncontextmenu="return false;">
+                            <source src="images/frida-painting-video-widescreen-2022-alex-reynoso-art.mp4"
+                                    type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+
+                    <div class="frida-widescreen-copy">
+
+                        <h2>A Wider Look</h2>
+
+                        <p>
+                            A widescreen view keeps the focus on the painting itself,
+                            giving the composition, overlapping portraits and painted
+                            surface more room to be seen.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
 
             <section class="frida-archive-section">
 
