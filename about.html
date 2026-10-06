@@ -90,10 +90,36 @@
             margin-top: auto; color: #f4c430; font-size: 12px;
             font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
         }
+        .about-support {
+            margin-top: 38px;
+            padding-top: 28px;
+            border-top: 1px solid #373326;
+        }
+        .about-support h3 {
+            margin: 0 0 8px;
+            font-size: 20px;
+        }
+        .about-support p {
+            max-width: 650px;
+            margin: 0 0 14px;
+            color: #aaa;
+            line-height: 1.65;
+        }
+        .about-support a {
+            color: #f4c430;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 1px solid currentColor;
+            padding-bottom: 4px;
+        }
+        .about-support a:hover,
+        .about-support a:focus-visible { color: #fff; }
         @media (max-width: 700px) {
             .about-feature-grid { grid-template-columns: 1fr; }
             .about-explore { width: min(100% - 40px, 1000px); margin-bottom: 75px; }
             .about-feature { min-height: 190px; padding: 23px; }
+            .about-support { margin-top: 30px; padding-top: 24px; }
         }
     </style>
 </head>
@@ -152,6 +178,12 @@
                        is in the works.</p>
                     <span class="about-feature-note">Coming soon</span>
                 </article>
+            </div>
+
+            <div class="about-support">
+                <h3>Enjoying the work?</h3>
+                <p>If you'd like to help me keep creating, experimenting and seeing where this can grow.</p>
+                <a href="support.html">Support the Art ❤️ &rarr;</a>
             </div>
         </section>
     </main>
