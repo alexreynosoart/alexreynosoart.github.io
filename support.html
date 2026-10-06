@@ -536,16 +536,15 @@
       }
     }
   
-    .paypal-diagnostic {
-      margin-top: 18px;
+    .paypal-bottom-wrap {
+      margin-top: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    .paypal-diagnostic-label {
-      margin-bottom: 8px;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: .12em;
-      color: #9ca3af;
+    .paypal-bottom-wrap #donate-button-container {
+      display: inline-block;
     }
   </style>
 </head>
@@ -583,16 +582,6 @@
         </p>
 
         <div class="support-direct">
-          <button class="support-button" type="button" id="openSupportModal">
-            SUPPORT DIRECTLY ❤️
-          </button>
-
-          <!-- TEMPORARY PAYPAL DIAGNOSTIC BUTTON -->
-          <div class="paypal-diagnostic">
-            <div class="paypal-diagnostic-label">PAYPAL TEST BUTTON</div>
-            <div id="donate-button-container">
-              <div id="donate-button"></div>
-            </div>
           </div>
         </div>
       </div>
@@ -685,19 +674,22 @@
         </div>
       </a>
 
-      <button class="support-card support-direct-card" type="button" data-open-support-modal>
+      <div class="support-card support-direct-card">
         <div class="support-direct-card-visual">
-          <img
-            src="images/social/support-the-art.webp"
-            alt="Support the Art by Alex Reynoso Art"
-          >
+          <img src="images/social/support-the-art.webp"
+               alt="Support the Art by Alex Reynoso Art">
         </div>
-        <div class="support-card-copy">
+        <div class="support-direct-card-copy">
           <h3>Just Want to Support?</h3>
           <p>Every bit helps me keep creating, experimenting and taking on bigger ideas.</p>
-          <span class="support-direct-card-action">SUPPORT DIRECTLY</span>
+
+          <div class="paypal-bottom-wrap">
+            <div id="donate-button-container">
+              <div id="donate-button"></div>
+            </div>
+          </div>
         </div>
-      </button>
+      </div>
 
     </section>
 
@@ -714,50 +706,6 @@
 
 
   <!-- PayPal modal shell. Actual PayPal checkout code gets inserted later. -->
-  <div class="support-modal" id="supportModal" aria-hidden="true">
-    <div class="support-modal-card" role="dialog" aria-modal="true" aria-labelledby="supportModalTitle">
-
-      <button class="support-modal-close" type="button" id="closeSupportModal" aria-label="Close">
-        ×
-      </button>
-
-      <h2 id="supportModalTitle">Support the Art ❤️</h2>
-
-      <p>
-        Choose an amount. PayPal checkout will appear here once we connect
-        your PayPal account.
-      </p>
-
-      <div class="support-amounts" aria-label="Choose a support amount">
-        <button class="support-amount" type="button" data-amount="5">$5</button>
-        <button class="support-amount" type="button" data-amount="10">$10</button>
-        <button class="support-amount" type="button" data-amount="25">$25</button>
-        <button class="support-amount" type="button" data-amount="50">$50</button>
-      </div>
-
-      <button class="support-other-toggle" type="button" id="supportOtherToggle">
-        OTHER AMOUNT
-      </button>
-
-      <div class="support-custom-amount" id="supportCustomAmount" hidden>
-        <label for="supportAmountInput">Enter amount</label>
-        <div class="support-custom-field">
-          <span aria-hidden="true">$</span>
-          <input id="supportAmountInput" type="number" inputmode="decimal"
-                 min="1" step="0.01" placeholder="100" autocomplete="off">
-        </div>
-      </div>
-
-      <button class="support-paypal-continue" type="button" id="supportPayPalContinue" disabled>
-        CONTINUE WITH PAYPAL
-      </button>
-
-      <div class="paypal-placeholder" id="paypalButtonContainer">
-        PayPal checkout will be connected here next.
-      </div>
-
-    </div>
-  </div>
 
 
   <footer>
@@ -793,96 +741,8 @@
 
   <script src="js/script.js"></script>
 
-  <script>
-    (() => {
-      const modal = document.getElementById('supportModal');
-      const openButtons = document.querySelectorAll('#openSupportModal, [data-open-support-modal]');
-      const closeButton = document.getElementById('closeSupportModal');
-      const amountButtons = document.querySelectorAll('.support-amount');
-      const otherToggle = document.getElementById('supportOtherToggle');
-      const customWrap = document.getElementById('supportCustomAmount');
-      const customInput = document.getElementById('supportAmountInput');
-      const continueButton = document.getElementById('supportPayPalContinue');
 
-      let lastTrigger = null;
-      let selectedAmount = null;
-
-      function openModal(event) {
-        lastTrigger = event.currentTarget;
-        modal.classList.add('is-open');
-        modal.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-        closeButton.focus();
-      }
-
-      function closeModal() {
-        modal.classList.remove('is-open');
-        modal.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-        if (lastTrigger) lastTrigger.focus();
-      }
-
-      function clearPresets() {
-        amountButtons.forEach((button) => button.classList.remove('is-selected'));
-      }
-
-      function updateContinue() {
-        continueButton.disabled = !(selectedAmount && Number(selectedAmount) > 0);
-      }
-
-      openButtons.forEach((button) => button.addEventListener('click', openModal));
-      closeButton.addEventListener('click', closeModal);
-
-      amountButtons.forEach((button) => {
-        button.addEventListener('click', () => {
-          clearPresets();
-          button.classList.add('is-selected');
-          otherToggle.classList.remove('is-selected');
-          customWrap.hidden = true;
-          customInput.value = '';
-          selectedAmount = button.dataset.amount;
-          updateContinue();
-        });
-      });
-
-      otherToggle.addEventListener('click', () => {
-        clearPresets();
-        otherToggle.classList.add('is-selected');
-        customWrap.hidden = false;
-        selectedAmount = customInput.value;
-        updateContinue();
-        customInput.focus();
-      });
-
-      customInput.addEventListener('input', () => {
-        selectedAmount = customInput.value;
-        updateContinue();
-      });
-
-      continueButton.addEventListener('click', () => {
-        if (!selectedAmount || Number(selectedAmount) <= 0) return;
-
-        /*
-          PAYPAL NEXT STEP:
-          selectedAmount now contains the visitor's chosen amount.
-          We will pass it into PayPal when the real checkout is connected.
-        */
-      });
-
-      modal.addEventListener('click', (event) => {
-        if (event.target === modal) closeModal();
-      });
-
-      document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && modal.classList.contains('is-open')) {
-          closeModal();
-        }
-      });
-    })();
-  </script>
-
-
-  <!-- TEMPORARY: PayPal's exact generated Donate SDK code -->
+  <!-- PayPal Donate button -->
   <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
   <script>
     PayPal.Donation.Button({
