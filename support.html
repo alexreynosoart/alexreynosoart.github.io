@@ -535,6 +535,15 @@
         padding: 30px 20px 24px;
       }
     }
+  
+    #paypalButtonContainer {
+      position: fixed !important;
+      left: -10000px !important;
+      top: -10000px !important;
+      width: 1px !important;
+      height: 1px !important;
+      overflow: hidden !important;
+    }
   </style>
 </head>
 
@@ -694,7 +703,7 @@
 
 
   <!-- PayPal modal shell. Actual PayPal checkout code gets inserted later. -->
-  <div class="support-modal" id="supportModal" aria-hidden="true">
+  <div class="support-modal" id="supportModal" aria-hidden="true" hidden>
     <div class="support-modal-card" role="dialog" aria-modal="true" aria-labelledby="supportModalTitle">
 
       <button class="support-modal-close" type="button" id="closeSupportModal" aria-label="Close">
@@ -775,91 +784,40 @@
 
   <script>
     (() => {
-      const modal = document.getElementById('supportModal');
-      const openButtons = document.querySelectorAll('#openSupportModal, [data-open-support-modal]');
-      const closeButton = document.getElementById('closeSupportModal');
-      const amountButtons = document.querySelectorAll('.support-amount');
-      const otherToggle = document.getElementById('supportOtherToggle');
-      const customWrap = document.getElementById('supportCustomAmount');
-      const customInput = document.getElementById('supportAmountInput');
-      const continueButton = document.getElementById('supportPayPalContinue');
+      const paypalMount = document.getElementById('paypalButtonContainer');
 
-      let lastTrigger = null;
-      let selectedAmount = null;
+      if (paypalMount) {
+        paypalMount.innerHTML = '<div id="paypal-donate-button"></div>';
 
-      function openModal(event) {
-        lastTrigger = event.currentTarget;
-        modal.classList.add('is-open');
-        modal.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-        closeButton.focus();
+        PayPal.Donation.Button({
+          env: 'production',
+          hosted_button_id: 'NBBG4WJEUFXTL',
+          image: {
+            src: 'https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif',
+            alt: 'Donate with PayPal button',
+            title: 'PayPal - The safer, easier way to pay online!'
+          }
+        }).render('#paypal-donate-button');
       }
 
-      function closeModal() {
-        modal.classList.remove('is-open');
-        modal.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-        if (lastTrigger) lastTrigger.focus();
-      }
+      const paypalButton = document.querySelector('#paypal-donate-button input, #paypal-donate-button img, #paypal-donate-button button, #paypal-donate-button a');
 
-      function clearPresets() {
-        amountButtons.forEach((button) => button.classList.remove('is-selected'));
-      }
+      function openPayPalDonation(event) {
+        event.preventDefault();
 
-      function updateContinue() {
-        continueButton.disabled = !(selectedAmount && Number(selectedAmount) > 0);
-      }
+        const target = document.querySelector('#paypal-donate-button input, #paypal-donate-button img, #paypal-donate-button button, #paypal-donate-button a');
 
-      openButtons.forEach((button) => button.addEventListener('click', openModal));
-      closeButton.addEventListener('click', closeModal);
-
-      amountButtons.forEach((button) => {
-        button.addEventListener('click', () => {
-          clearPresets();
-          button.classList.add('is-selected');
-          otherToggle.classList.remove('is-selected');
-          customWrap.hidden = true;
-          customInput.value = '';
-          selectedAmount = button.dataset.amount;
-          updateContinue();
-        });
-      });
-
-      otherToggle.addEventListener('click', () => {
-        clearPresets();
-        otherToggle.classList.add('is-selected');
-        customWrap.hidden = false;
-        selectedAmount = customInput.value;
-        updateContinue();
-        customInput.focus();
-      });
-
-      customInput.addEventListener('input', () => {
-        selectedAmount = customInput.value;
-        updateContinue();
-      });
-
-      continueButton.addEventListener('click', () => {
-        if (!selectedAmount || Number(selectedAmount) <= 0) return;
-
-        /*
-          PAYPAL NEXT STEP:
-          selectedAmount now contains the visitor's chosen amount.
-          We will pass it into PayPal when the real checkout is connected.
-        */
-      });
-
-      modal.addEventListener('click', (event) => {
-        if (event.target === modal) closeModal();
-      });
-
-      document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && modal.classList.contains('is-open')) {
-          closeModal();
+        if (target) {
+          target.click();
         }
+      }
+
+      document.querySelectorAll('#openSupportModal, [data-open-support-modal]').forEach((button) => {
+        button.addEventListener('click', openPayPalDonation);
       });
     })();
   </script>
 
+  <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
 </body>
 </html>
