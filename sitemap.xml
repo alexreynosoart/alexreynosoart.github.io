@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
+    <!-- MAIN -->
     <url>
         <loc>https://alexreynosoart.com/</loc>
     </url>
@@ -13,6 +14,24 @@
         <loc>https://alexreynosoart.com/art.html</loc>
     </url>
 
+    <url>
+        <loc>https://alexreynosoart.com/videos.html</loc>
+    </url>
+
+    <url>
+        <loc>https://alexreynosoart.com/shop.html</loc>
+    </url>
+
+    <url>
+        <loc>https://alexreynosoart.com/commissions.html</loc>
+    </url>
+
+    <url>
+        <loc>https://alexreynosoart.com/support.html</loc>
+    </url>
+
+
+    <!-- ARTWORK -->
     <url>
         <loc>https://alexreynosoart.com/frida-frida-y-frida.html</loc>
     </url>
@@ -29,22 +48,28 @@
         <loc>https://alexreynosoart.com/its-her-life.html</loc>
     </url>
 
-    <url>
-        <loc>https://alexreynosoart.com/videos.html</loc>
-    </url>
 
-    <url>
-        <loc>https://alexreynosoart.com/shop.html</loc>
-    </url>
-
+    <!-- SHOP -->
     <url>
         <loc>https://alexreynosoart.com/tired-black-tee.html</loc>
     </url>
 
+
+    <!-- COMMISSION PROJECTS -->
     <url>
-        <loc>https://alexreynosoart.com/commissions.html</loc>
+        <loc>https://alexreynosoart.com/commission-melanie-abc-career-day.html</loc>
     </url>
 
+    <url>
+        <loc>https://alexreynosoart.com/commission-shelita-hola.html</loc>
+    </url>
+
+    <url>
+        <loc>https://alexreynosoart.com/commission-walyo-like-this-like-that.html</loc>
+    </url>
+
+
+    <!-- EVERYTHING ART -->
     <url>
         <loc>https://alexreynosoart.com/everything-art.html</loc>
     </url>
@@ -57,12 +82,18 @@
         <loc>https://alexreynosoart.com/everything-art-events.html</loc>
     </url>
 
+
+    <!-- MIA -->
     <url>
         <loc>https://alexreynosoart.com/mia.html</loc>
     </url>
 
     <url>
         <loc>https://alexreynosoart.com/mia-originals.html</loc>
+    </url>
+
+    <url>
+        <loc>https://alexreynosoart.com/mia-coloring.html</loc>
     </url>
 
     <url>
