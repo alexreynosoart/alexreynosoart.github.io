@@ -208,6 +208,48 @@
       outline-offset: 3px;
     }
 
+    .support-direct-card {
+      width: 100%;
+      padding: 0;
+      border: 1px solid rgba(255,255,255,.11);
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+      background:
+        radial-gradient(circle at 50% 28%, rgba(255,212,0,.13), transparent 36%),
+        linear-gradient(145deg, rgba(255,212,0,.055), rgba(255,255,255,.025));
+    }
+
+    .support-direct-card-visual {
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid rgba(255,255,255,.09);
+      background: rgba(0,0,0,.12);
+    }
+
+    .support-direct-heart {
+      color: #ffd400;
+      font-size: clamp(5rem, 10vw, 8rem);
+      line-height: 1;
+      text-shadow: 0 0 38px rgba(255,212,0,.16);
+    }
+
+    .support-direct-card-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      margin-top: 18px;
+      padding: 0 18px;
+      border-radius: 999px;
+      background: #ffd400;
+      color: #111;
+      font-size: .82rem;
+      font-weight: 900;
+    }
+
     .support-card-image {
       aspect-ratio: 1 / 1;
       display: flex;
@@ -356,6 +398,88 @@
     .support-amount:focus {
       border-color: #ffd400;
       outline: none;
+    }
+
+    .support-amount.is-selected {
+      border-color: #ffd400;
+      background: rgba(255,212,0,.12);
+      color: #ffd400;
+    }
+
+    .support-other-toggle {
+      width: 100%;
+      min-height: 44px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 12px;
+      background: rgba(255,255,255,.04);
+      color: #fff;
+      font: inherit;
+      font-size: .86rem;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .support-other-toggle.is-selected {
+      border-color: #ffd400;
+      color: #ffd400;
+      background: rgba(255,212,0,.08);
+    }
+
+    .support-custom-amount {
+      margin-top: 14px;
+      text-align: left;
+    }
+
+    .support-custom-amount label {
+      display: block;
+      margin-bottom: 7px;
+      color: rgba(255,255,255,.62);
+      font-size: .78rem;
+      font-weight: 700;
+    }
+
+    .support-custom-field {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 14px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 12px;
+      background: rgba(0,0,0,.24);
+    }
+
+    .support-custom-field span {
+      color: #ffd400;
+      font-weight: 900;
+    }
+
+    .support-custom-field input {
+      width: 100%;
+      min-height: 46px;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: #fff;
+      font: inherit;
+      font-weight: 800;
+    }
+
+    .support-paypal-continue {
+      width: 100%;
+      min-height: 48px;
+      margin-top: 18px;
+      border: 0;
+      border-radius: 999px;
+      background: #ffd400;
+      color: #111;
+      font: inherit;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .support-paypal-continue:disabled {
+      opacity: .35;
+      cursor: not-allowed;
     }
 
     .paypal-placeholder {
@@ -543,6 +667,17 @@
         </div>
       </a>
 
+      <button class="support-card support-direct-card" type="button" data-open-support-modal>
+        <div class="support-direct-card-visual" aria-hidden="true">
+          <span class="support-direct-heart">♥</span>
+        </div>
+        <div class="support-card-copy">
+          <h3>Just Want to Support?</h3>
+          <p>Every bit helps me keep creating, experimenting and taking on bigger ideas.</p>
+          <span class="support-direct-card-action">SUPPORT DIRECTLY</span>
+        </div>
+      </button>
+
     </section>
 
 
@@ -572,15 +707,32 @@
         your PayPal account.
       </p>
 
-      <div class="support-amounts">
+      <div class="support-amounts" aria-label="Choose a support amount">
         <button class="support-amount" type="button" data-amount="5">$5</button>
         <button class="support-amount" type="button" data-amount="10">$10</button>
         <button class="support-amount" type="button" data-amount="25">$25</button>
         <button class="support-amount" type="button" data-amount="50">$50</button>
       </div>
 
+      <button class="support-other-toggle" type="button" id="supportOtherToggle">
+        OTHER AMOUNT
+      </button>
+
+      <div class="support-custom-amount" id="supportCustomAmount" hidden>
+        <label for="supportAmountInput">Enter amount</label>
+        <div class="support-custom-field">
+          <span aria-hidden="true">$</span>
+          <input id="supportAmountInput" type="number" inputmode="decimal"
+                 min="1" step="0.01" placeholder="100" autocomplete="off">
+        </div>
+      </div>
+
+      <button class="support-paypal-continue" type="button" id="supportPayPalContinue" disabled>
+        CONTINUE WITH PAYPAL
+      </button>
+
       <div class="paypal-placeholder" id="paypalButtonContainer">
-        PayPal checkout goes here.
+        PayPal checkout will be connected here next.
       </div>
 
     </div>
@@ -623,10 +775,19 @@
   <script>
     (() => {
       const modal = document.getElementById('supportModal');
-      const openButton = document.getElementById('openSupportModal');
+      const openButtons = document.querySelectorAll('#openSupportModal, [data-open-support-modal]');
       const closeButton = document.getElementById('closeSupportModal');
+      const amountButtons = document.querySelectorAll('.support-amount');
+      const otherToggle = document.getElementById('supportOtherToggle');
+      const customWrap = document.getElementById('supportCustomAmount');
+      const customInput = document.getElementById('supportAmountInput');
+      const continueButton = document.getElementById('supportPayPalContinue');
 
-      function openModal() {
+      let lastTrigger = null;
+      let selectedAmount = null;
+
+      function openModal(event) {
+        lastTrigger = event.currentTarget;
         modal.classList.add('is-open');
         modal.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
@@ -637,16 +798,58 @@
         modal.classList.remove('is-open');
         modal.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
-        openButton.focus();
+        if (lastTrigger) lastTrigger.focus();
       }
 
-      openButton.addEventListener('click', openModal);
+      function clearPresets() {
+        amountButtons.forEach((button) => button.classList.remove('is-selected'));
+      }
+
+      function updateContinue() {
+        continueButton.disabled = !(selectedAmount && Number(selectedAmount) > 0);
+      }
+
+      openButtons.forEach((button) => button.addEventListener('click', openModal));
       closeButton.addEventListener('click', closeModal);
 
+      amountButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          clearPresets();
+          button.classList.add('is-selected');
+          otherToggle.classList.remove('is-selected');
+          customWrap.hidden = true;
+          customInput.value = '';
+          selectedAmount = button.dataset.amount;
+          updateContinue();
+        });
+      });
+
+      otherToggle.addEventListener('click', () => {
+        clearPresets();
+        otherToggle.classList.add('is-selected');
+        customWrap.hidden = false;
+        selectedAmount = customInput.value;
+        updateContinue();
+        customInput.focus();
+      });
+
+      customInput.addEventListener('input', () => {
+        selectedAmount = customInput.value;
+        updateContinue();
+      });
+
+      continueButton.addEventListener('click', () => {
+        if (!selectedAmount || Number(selectedAmount) <= 0) return;
+
+        /*
+          PAYPAL NEXT STEP:
+          selectedAmount now contains the visitor's chosen amount.
+          We will pass it into PayPal when the real checkout is connected.
+        */
+      });
+
       modal.addEventListener('click', (event) => {
-        if (event.target === modal) {
-          closeModal();
-        }
+        if (event.target === modal) closeModal();
       });
 
       document.addEventListener('keydown', (event) => {
@@ -654,12 +857,6 @@
           closeModal();
         }
       });
-
-      /*
-        PAYPAL NEXT STEP:
-        The amount buttons and PayPal container are intentionally ready,
-        but no payment URL, account ID or checkout credentials are invented here.
-      */
     })();
   </script>
 
