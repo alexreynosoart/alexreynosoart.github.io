@@ -52,15 +52,32 @@
         .hydro-explore-head h2 { margin: 0; font-size: clamp(1.35rem, 2.4vw, 1.7rem); }
         .hydro-explore-head p { margin: 0; opacity: .82; }
         .hydro-explore-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-        .hydro-explore-card { display: block; overflow: hidden; border: 1px solid rgba(198,216,58,.28); border-radius: 13px; background: rgba(15,20,14,.72); color: inherit; text-decoration: none; transition: transform .18s, border-color .18s, background .18s; }
-        .hydro-explore-card:hover, .hydro-explore-card:focus-visible { transform: translateY(-3px); border-color: #c6d83a; background: rgba(28,35,22,.92); }
+        .hydro-explore-card { display: block; overflow: hidden; border: 1px solid rgba(198,216,58,.42); border-radius: 13px; background: #142313; color: #f2f3ed; text-decoration: none; transition: transform .18s, border-color .18s, background .18s; }
+        .hydro-explore-card:hover, .hydro-explore-card:focus-visible { transform: translateY(-3px); border-color: #c6d83a; background: #1b3019; }
         .hydro-explore-card img { display: block; width: 100%; aspect-ratio: 16 / 5; object-fit: cover; }
-        .hydro-explore-copy { padding: 9px 11px 10px; }
-        .hydro-explore-copy strong { display: block; margin-bottom: 3px; line-height: 1.2; font-size: .96rem; }
-        .hydro-explore-copy > span { display: block; font-size: .8rem; line-height: 1.35; opacity: .76; }
+        .hydro-explore-copy { padding: 13px 14px 14px; }
+        .hydro-explore-copy strong { display: block; margin-bottom: 5px; line-height: 1.2; font-size: .96rem; color: #c6d83a; }
+        .hydro-explore-copy > span { display: block; font-size: .8rem; line-height: 1.4; color: #eef1e9; opacity: .9; }
         .hydro-explore-arrow { display: inline !important; color: #c6d83a; font-weight: 800; opacity: 1; }
         @media (max-width: 760px) { .hydro-explore-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-        @media (max-width: 430px) { .hydro-explore-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; } .hydro-explore-card img { aspect-ratio: 16 / 6; } .hydro-explore-copy { padding: 8px 9px 9px; } .hydro-explore-copy strong { font-size: .86rem; } .hydro-explore-copy > span { font-size: .72rem; } }
+        @media (max-width: 430px) { .hydro-explore-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; } .hydro-explore-card img { aspect-ratio: 16 / 6; } .hydro-explore-copy { padding: 11px 12px 12px; } .hydro-explore-copy strong { font-size: .86rem; } .hydro-explore-copy > span { font-size: .72rem; } }
+
+        /* Hydroponics science section */
+        .hydro-article { margin-top: 34px; }
+        .hydro-education-heading { margin: 0 0 22px; padding: 20px 22px; border: 1px solid rgba(198,216,58,.38); border-radius: 16px; background: linear-gradient(135deg, #142313, #1d3219); }
+        .hydro-education-heading .hydro-kicker { margin: 0 0 4px; color: #c6d83a; font-size: .76rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+        .hydro-education-heading h2 { margin: 0; color: #fff; }
+        .hydro-science-block { margin: 16px 0 18px; padding: 18px 20px; border-radius: 14px; background: rgba(20,35,19,.62); border: 1px solid rgba(120,170,108,.22); }
+        .hydro-science-block h2 { margin: 0 0 9px; color: #c6d83a; font-size: clamp(1.18rem, 2.4vw, 1.45rem); }
+        .hydro-science-block p:last-child { margin-bottom: 0; }
+        .hydro-system-compare { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; margin: 14px 0 4px; }
+        .hydro-system-card { padding: 16px 17px; border-radius: 13px; background: #172817; border: 1px solid rgba(198,216,58,.26); }
+        .hydro-system-card strong { display: block; margin-bottom: 6px; color: #c6d83a; }
+        .hydro-system-card p { margin: 0; font-size: .94rem; line-height: 1.6; }
+        .hydro-callout { border-left: 0; border: 1px solid rgba(198,216,58,.42); padding: 17px 19px; background: #202d17; border-radius: 13px; }
+        .hydro-callout strong { color: #c6d83a; }
+        @media (max-width: 600px) { .hydro-education-heading { padding: 17px 18px; } .hydro-science-block { padding: 15px 16px; } .hydro-system-compare { grid-template-columns: 1fr; } }
+
     </style>
 <link href="css/hydroponics-gallery.css" rel="stylesheet"/></link></head>
 <body>
@@ -103,21 +120,18 @@
 </div>
 <p class="hydro-caption">Original hydroponics walkthrough, first shared around 14 years ago.</p>
 <article class="hydro-article" id="how-it-works"><div class="hydro-education-heading"><p class="hydro-kicker">The science behind the project</p><h2>How hydroponics works</h2></div>
-<h2>What is hydroponics?</h2>
+<section class="hydro-science-block"><h2>What is hydroponics?</h2>
 <p>Hydroponics is a way to grow plants without traditional soil. Instead, water carries dissolved mineral nutrients to the roots. Depending on the setup, roots may grow directly in nutrient solution or in a growing medium that supports the plant.</p>
-<p>Common growing media include perlite, gravel, mineral wool and coconut husk. This project uses <strong>Hydroton</strong>, lightweight expanded clay pebbles that support the roots while leaving space for water and air to move through.</p>
-<h2>How a drip system works</h2>
+<p>Common growing media include perlite, gravel, mineral wool and coconut husk. This project uses <strong>Hydroton</strong>, lightweight expanded clay pebbles that support the roots while leaving space for water and air to move through.</p></section>
+<section class="hydro-science-block"><h2>How a drip system works</h2>
 <p>Drip systems deliver nutrient solution to the base of each plant through small drip lines. A timer controls a submersible pump, sending solution from a reservoir to the growing medium at scheduled intervals.</p>
-<p>Water and nutrients reach the root zone without the plants needing to grow in soil. What happens to the excess solution depends on the type of drip system.</p>
-<h2>Recovery vs. non-recovery systems</h2>
+<p>Water and nutrients reach the root zone without the plants needing to grow in soil. What happens to the excess solution depends on the type of drip system.</p></section>
+<section class="hydro-science-block"><h2>Recovery vs. non-recovery systems</h2>
 <p>Two common approaches handle excess nutrient solution differently:</p>
-<ul>
-<li><strong>Recovery drip systems</strong> collect runoff and return it to the reservoir for reuse. This can make more efficient use of nutrient solution, but the reservoir's pH and nutrient concentration need regular monitoring and adjustment as the solution recirculates.</li>
-<li><strong>Non-recovery drip systems</strong> do not collect the runoff. Because used solution does not return to the reservoir, its composition is more predictable. Watering schedules need closer control to provide enough solution without creating unnecessary waste.</li>
-</ul>
+<div class="hydro-system-compare"><div class="hydro-system-card"><strong>Recovery drip systems</strong><p>Runoff returns to the reservoir for reuse. This can make efficient use of the nutrient solution, while pH and nutrient concentration need regular monitoring as the water recirculates.</p></div><div class="hydro-system-card"><strong>Non-recovery drip systems</strong><p>Runoff does not return to the reservoir, making the solution more predictable. Watering schedules need closer control to provide enough solution without unnecessary waste.</p></div></div></section>
 <div class="hydro-callout"><strong>The growing medium:</strong> Hydroton expanded clay pebbles. Lightweight, reusable when properly cleaned, and well suited to drip-fed hydroponic setups.</div>
-<h2>A little water, a little science</h2>
-<p>From the reservoir and pump to the drip lines and clay pebbles, hydroponics brings together a few simple ideas: support the roots, supply the nutrients and pay attention to the water. The video above offers a look at this growing experiment in action.</p>
+<section class="hydro-science-block"><h2>A little water, a little science</h2>
+<p>From the reservoir and pump to the drip lines and clay pebbles, hydroponics brings together a few simple ideas: support the roots, supply the nutrients and pay attention to the water. The video above offers a look at this growing experiment in action.</p></section>
 <div class="hydro-links">
 <a href="videos.html">← Back to the Theater</a>
 <a href="https://www.youtube.com/watch?v=Y9GLrpanUY4" rel="noopener noreferrer" target="_blank">Watch on YouTube ↗</a>
