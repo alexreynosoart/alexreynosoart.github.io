@@ -3,12 +3,10 @@
 
 <head>
 
-
-        <link rel="icon" 
-        type="image/png" 
-        sizes="48x48"
-        href="images/favicon.png">
-
+    <link rel="icon"
+          type="image/png"
+          sizes="48x48"
+          href="images/favicon.png">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ"></script>
@@ -26,25 +24,182 @@
     <title>Frida Frida y Frida | Alex Reynoso Art</title>
 
     <meta name="description"
-          content="Frida Frida y Frida, a 2022 acrylic painting by Alex Reynoso.">
+          content="Frida Frida y Frida, a 2022 acrylic painting by Alex Reynoso. Explore the original drawing, painting process, video archive and the artwork beyond the canvas.">
 
-            <!-- Social share preview -->
+    <!-- Social share preview -->
     <meta property="og:type" content="website">
-            <meta property="og:url" content="https://alexreynosoart.com/frida-frida-y-frida.html">
-    <meta property="og:title" content="Alex Reynoso Art">
-    <meta property="og:description" content="Art. Music. Motion. Whatever happens next.">
+    <meta property="og:url" content="https://alexreynosoart.com/frida-frida-y-frida.html">
+    <meta property="og:title" content="Frida Frida y Frida | Alex Reynoso Art">
+    <meta property="og:description" content="From the original drawing to the finished painting, video archive and life beyond the canvas.">
     <meta property="og:image" content="https://alexreynosoart.com/images/social/alex-reynoso-art-share.webp">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Alex Reynoso Art">
+    <meta property="og:image:alt" content="Frida Frida y Frida by Alex Reynoso">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Alex Reynoso Art">
-    <meta name="twitter:description" content="Art. Music. Motion. Whatever happens next.">
+    <meta name="twitter:title" content="Frida Frida y Frida | Alex Reynoso Art">
+    <meta name="twitter:description" content="From the original drawing to the finished painting, video archive and life beyond the canvas.">
     <meta name="twitter:image" content="https://alexreynosoart.com/images/social/alex-reynoso-art-share.webp">
 
-        
     <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .frida-archive {
+            max-width: 1100px;
+            margin: 70px auto 0;
+        }
+
+        .frida-archive-section {
+            margin: 0 0 80px;
+        }
+
+        .frida-archive-heading {
+            margin-bottom: 12px;
+        }
+
+        .frida-archive-intro {
+            max-width: 760px;
+            margin-bottom: 28px;
+            line-height: 1.7;
+        }
+
+        .frida-process-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+            align-items: start;
+        }
+
+        .frida-process-card {
+            margin: 0;
+        }
+
+        .frida-process-card img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 14px;
+        }
+
+        .frida-process-card figcaption {
+            margin-top: 10px;
+            font-size: .9rem;
+            line-height: 1.5;
+            opacity: .72;
+        }
+
+        .frida-video-wrap {
+            max-width: 760px;
+        }
+
+        .frida-video {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 14px;
+            background: #000;
+        }
+
+        .frida-sound-link {
+            margin-top: 14px;
+            font-size: .95rem;
+        }
+
+        .frida-sound-link a {
+            font-weight: 700;
+        }
+
+        .frida-print-story {
+            max-width: 760px;
+            margin-bottom: 30px;
+        }
+
+        .frida-merch-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 24px;
+        }
+
+        .frida-merch-card {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 18px;
+            background: rgba(255,255,255,.035);
+        }
+
+        .frida-merch-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 360px;
+            padding: 24px;
+            background: rgba(255,255,255,.96);
+        }
+
+        .frida-merch-image img {
+            display: block;
+            width: 100%;
+            max-width: 430px;
+            max-height: 430px;
+            object-fit: contain;
+        }
+
+        .frida-merch-copy {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            padding: 24px;
+        }
+
+        .frida-merch-copy h3 {
+            margin: 0 0 8px;
+        }
+
+        .frida-merch-price {
+            margin: 0 0 18px;
+            font-weight: 700;
+            opacity: .8;
+        }
+
+        .frida-merch-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            align-self: flex-start;
+            margin-top: auto;
+            padding: 11px 18px;
+            border: 1px solid rgba(255,255,255,.22);
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .frida-merch-button:hover,
+        .frida-merch-button:focus-visible {
+            border-color: #55bdb2;
+        }
+
+        @media (max-width: 760px) {
+            .frida-archive {
+                margin-top: 50px;
+            }
+
+            .frida-archive-section {
+                margin-bottom: 58px;
+            }
+
+            .frida-process-grid,
+            .frida-merch-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .frida-merch-image {
+                min-height: 280px;
+            }
+        }
+    </style>
 </head>
 
 <body class="frida-page">
@@ -73,8 +228,8 @@
         <section class="art-detail-header">
 
             <nav class="artwork-navigation-top"
-     aria-label="Browse artwork">
-</nav>
+                 aria-label="Browse artwork">
+            </nav>
 
             <h1>Frida Frida y Frida</h1>
 
@@ -135,59 +290,199 @@
 
         </section>
 
+        <div class="frida-archive">
 
+            <section class="frida-archive-section">
 
-       <!-- Artwork Navigation -->
+                <h2 class="frida-archive-heading">From Drawing to Painting</h2>
+
+                <p class="frida-archive-intro">
+                    Before the color, flowers and layers of paint, the composition
+                    began as a black-and-white drawing. The repeated portrait was
+                    already there, establishing the overlapping rhythm that carried
+                    into the finished work.
+                </p>
+
+                <div class="frida-process-grid">
+
+                    <figure class="frida-process-card">
+                        <img src="images/frida-frida-y-frida-original-sketch-alex-reynoso-art.webp"
+                             alt="Original drawing for Frida Frida y Frida by Alex Reynoso"
+                             loading="lazy"
+                             draggable="false"
+                             oncontextmenu="return false;">
+                        <figcaption>
+                            Original drawing for <em>Frida Frida y Frida</em>, 2022.
+                        </figcaption>
+                    </figure>
+
+                    <figure class="frida-process-card">
+                        <img src="images/frida-frida-y-frida-sketch-closeup-alex-reynoso-art.webp"
+                             alt="Close-up of the original Frida Frida y Frida drawing"
+                             loading="lazy"
+                             draggable="false"
+                             oncontextmenu="return false;">
+                        <figcaption>
+                            A closer look at the three overlapping portraits before paint.
+                        </figcaption>
+                    </figure>
+
+                </div>
+
+            </section>
+
+            <section class="frida-archive-section">
+
+                <h2 class="frida-archive-heading">The Painting in Motion</h2>
+
+                <p class="frida-archive-intro">
+                    In 2022, the painting became part of a short video shared across
+                    social media. This archived version is presented without music.
+                </p>
+
+                <div class="frida-video-wrap">
+
+                    <video class="frida-video"
+                           controls
+                           muted
+                           playsinline
+                           preload="metadata"
+                           poster="images/frida-frida-y-frida-finished-painting-alex-reynoso-art.webp">
+                        <source src="images/frida-painting-video-2022-alex-reynoso-art.mp4"
+                                type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+
+                    <p class="frida-sound-link">
+                        Watch with sound:
+                        <a href="https://www.instagram.com/p/Ca2r0mfDV7t/"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            Instagram
+                        </a>
+                    </p>
+
+                </div>
+
+            </section>
+
+            <section class="frida-archive-section">
+
+                <h2 class="frida-archive-heading">From the Painting</h2>
+
+                <div class="frida-print-story">
+
+                    <p>
+                        The image eventually moved beyond the original painting and
+                        became something people could wear and carry. The same
+                        three overlapping portraits now appear on a T-shirt and an
+                        all-over-print tote bag.
+                    </p>
+
+                </div>
+
+                <div class="frida-merch-grid">
+
+                    <article class="frida-merch-card">
+
+                        <div class="frida-merch-image">
+                            <img src="images/shop/unisex-basic-softstyle-t-shirt-black-front-6ab5b29c36579.png"
+                                 alt="Frida Frida y Frida short-sleeve T-shirt"
+                                 loading="lazy">
+                        </div>
+
+                        <div class="frida-merch-copy">
+                            <h3>FRIDA Short-Sleeve Unisex T-Shirt</h3>
+                            <p class="frida-merch-price">$29.99</p>
+
+                            <a class="frida-merch-button"
+                               href="https://alexreynosoart.printful.me/product/frida-short-sleeve-unisex-t-shirt"
+                               target="_blank"
+                               rel="noopener noreferrer">
+                                View T-Shirt
+                            </a>
+                        </div>
+
+                    </article>
+
+                    <article class="frida-merch-card">
+
+                        <div class="frida-merch-image">
+                            <img src="images/shop/all-over-print-large-tote-bag-w-pocket-black-front-6aaca3773eb61.png"
+                                 alt="Frida Frida y Frida all-over-print large tote bag"
+                                 loading="lazy">
+                        </div>
+
+                        <div class="frida-merch-copy">
+                            <h3>Frida All-Over Print Large Tote Bag</h3>
+                            <p class="frida-merch-price">$31.50</p>
+
+                            <a class="frida-merch-button"
+                               href="https://alexreynosoart.printful.me/product/frida-all-over-print-large-tote-bag"
+                               target="_blank"
+                               rel="noopener noreferrer">
+                                View Tote Bag
+                            </a>
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+        </div>
+
+        <!-- Artwork Navigation -->
 
         <nav class="artwork-navigation"
              aria-label="Browse artwork">
         </nav>
 
-
     </main>
 
     <footer>
 
-    <div class="footer-social"
-         aria-label="Alex Reynoso Art on social media">
+        <div class="footer-social"
+             aria-label="Alex Reynoso Art on social media">
 
-        <a href="https://www.instagram.com/alexreynosoart/"
-           target="_blank"
-           rel="noopener noreferrer">
-            Instagram
-        </a>
+            <a href="https://www.instagram.com/alexreynosoart/"
+               target="_blank"
+               rel="noopener noreferrer">
+                Instagram
+            </a>
 
-        <span aria-hidden="true">·</span>
+            <span aria-hidden="true">·</span>
 
-        <a href="https://www.tiktok.com/@alexreynosoart"
-           target="_blank"
-           rel="noopener noreferrer">
-            TikTok
-        </a>
+            <a href="https://www.tiktok.com/@alexreynosoart"
+               target="_blank"
+               rel="noopener noreferrer">
+                TikTok
+            </a>
 
-        <span aria-hidden="true">·</span>
+            <span aria-hidden="true">·</span>
 
-        <a href="https://www.facebook.com/AlexReynosoArt/"
-           target="_blank"
-           rel="noopener noreferrer">
-            Facebook
-        </a>
+            <a href="https://www.facebook.com/AlexReynosoArt/"
+               target="_blank"
+               rel="noopener noreferrer">
+                Facebook
+            </a>
 
-        <span aria-hidden="true">·</span>
+            <span aria-hidden="true">·</span>
 
-        <a href="https://www.youtube.com/@AlexReynosoArt"
-           target="_blank"
-           rel="noopener noreferrer">
-            YouTube
-        </a>
+            <a href="https://www.youtube.com/@AlexReynosoArt"
+               target="_blank"
+               rel="noopener noreferrer">
+                YouTube
+            </a>
 
-    </div>
+        </div>
 
-    <div class="footer-copyright">
-        &copy; 2026 Alex Reynoso Art
-    </div>
+        <div class="footer-copyright">
+            &copy; 2026 Alex Reynoso Art
+        </div>
 
-</footer>
+    </footer>
 
     <script src="js/script.js"></script>
 
