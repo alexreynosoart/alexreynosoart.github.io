@@ -48,6 +48,17 @@
         @media(max-width:700px){.filter-row{flex-wrap:nowrap;overflow-x:auto;padding-bottom:7px;scrollbar-width:thin}.filter-row .filter-button{flex:0 0 auto}}
         .filter-more-button {
             cursor: pointer;
+            color: #d4b72c !important;
+            border-color: rgba(212, 183, 44, .62) !important;
+            background: rgba(212, 183, 44, .10) !important;
+            font-weight: 800;
+        }
+
+        .filter-more-button:hover,
+        .filter-more-button:focus-visible {
+            color: #f0cf35 !important;
+            border-color: #d4b72c !important;
+            background: rgba(212, 183, 44, .16) !important;
         }
 
         @media (min-width: 901px) {
@@ -151,10 +162,10 @@
                 <button class="filter-button" data-filter-group="discipline" data-filter="performance">PERFORMANCE</button>
                 <button class="filter-button" data-filter-group="discipline" data-filter="writing">WRITING</button>
                 <button class="filter-button filter-more-button" type="button" data-more-target="discipline" aria-expanded="false">MORE ↓</button>
-                <button class="filter-button desktop-extra" data-filter-group="discipline" data-filter="design">DESIGN + FASHION</button>
-                <button class="filter-button desktop-extra" data-filter-group="discipline" data-filter="digital">DIGITAL + NEW MEDIA</button>
-                <button class="filter-button desktop-extra" data-filter-group="discipline" data-filter="craft">CRAFT + MATERIAL</button>
-                <button class="filter-button desktop-extra" data-filter-group="discipline" data-filter="traditional">FOLK + TRADITIONAL</button>
+                <button class="filter-button desktop-extra" data-filter-group="discipline" data-filter="design">DESIGN</button>
+                <button class="filter-button desktop-extra" data-filter-group="discipline" data-filter="digital">DIGITAL</button>
+                <button class="filter-button desktop-extra" data-filter-group="discipline" data-filter="craft">CRAFT</button>
+                <button class="filter-button desktop-extra" data-filter-group="discipline" data-filter="traditional">TRADITIONAL</button>
                 <button class="filter-button desktop-extra" data-filter-group="discipline" data-filter="culinary">CULINARY</button>
                 <button class="filter-button desktop-extra" data-filter-group="discipline" data-filter="interdisciplinary">INTERDISCIPLINARY</button>
             </div>
@@ -171,8 +182,8 @@
                 <button class="filter-button" data-filter-group="type" data-filter="exhibition">EXHIBITIONS</button>
                 <button class="filter-button filter-more-button" type="button" data-more-target="type" aria-expanded="false">MORE ↓</button>
                 <button class="filter-button desktop-extra" data-filter-group="type" data-filter="audition">AUDITIONS</button>
-                <button class="filter-button desktop-extra" data-filter-group="type" data-filter="job">JOBS + GIGS</button>
-                <button class="filter-button desktop-extra" data-filter-group="type" data-filter="competition">AWARDS + COMPETITIONS</button>
+                <button class="filter-button desktop-extra" data-filter-group="type" data-filter="job">JOBS</button>
+                <button class="filter-button desktop-extra" data-filter-group="type" data-filter="competition">AWARDS</button>
                 <button class="filter-button desktop-extra" data-filter-group="type" data-filter="training">TRAINING</button>
                 <button class="filter-button desktop-extra" data-filter-group="type" data-filter="resource">RESOURCES</button>
             </div>
