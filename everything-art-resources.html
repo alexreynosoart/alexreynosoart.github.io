@@ -792,10 +792,190 @@ body.ea-utilities-active .empty-state{
   }
 }
 
+
+/* =========================================================
+   BUILD 1.0.43 — CANONICAL EVERYTHING ART HEADER + FOOTER
+   Match the shared Everything Art family navigation exactly.
+   ========================================================= */
+
+/* HEADER TYPOGRAPHY / SHAPE */
+body.everything-art-theme .ea-mini-nav .ea-mini-link{
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-weight: 800 !important;
+    letter-spacing: .035em !important;
+}
+
+/* PHONE: 3 buttons on row 1, Resources + FB + AR on row 2 */
+@media (max-width:700px){
+    body.everything-art-theme .ea-mini-nav-inner{
+        display:grid !important;
+        grid-template-columns:1fr auto !important;
+        grid-template-rows:auto auto !important;
+        gap:7px 8px !important;
+        padding:10px 12px !important;
+        align-items:center !important;
+    }
+
+    body.everything-art-theme .ea-mini-primary{
+        grid-column:1 / -1 !important;
+        grid-row:1 / 3 !important;
+        width:100% !important;
+        display:grid !important;
+        grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+        grid-template-rows:auto auto !important;
+        gap:7px !important;
+    }
+
+    body.everything-art-theme .ea-mini-primary .ea-mini-link{
+        width:100% !important;
+        min-width:0 !important;
+        min-height:38px !important;
+        height:38px !important;
+        padding:0 8px !important;
+        font-family:Arial,Helvetica,sans-serif !important;
+        font-size:.62rem !important;
+        font-weight:800 !important;
+        letter-spacing:.035em !important;
+    }
+
+    body.everything-art-theme .ea-mini-primary .ea-mini-link:nth-child(1){
+        grid-column:1 !important; grid-row:1 !important;
+    }
+    body.everything-art-theme .ea-mini-primary .ea-mini-link:nth-child(2){
+        grid-column:2 !important; grid-row:1 !important;
+    }
+    body.everything-art-theme .ea-mini-primary .ea-mini-link:nth-child(3){
+        grid-column:3 !important; grid-row:1 !important;
+    }
+    body.everything-art-theme .ea-mini-primary .ea-mini-link:nth-child(4){
+        grid-column:1 !important; grid-row:2 !important;
+    }
+
+    body.everything-art-theme .ea-mini-actions{
+        grid-column:2 !important;
+        grid-row:2 !important;
+        width:auto !important;
+        margin:0 !important;
+        padding:0 !important;
+        display:flex !important;
+        align-items:center !important;
+        justify-content:flex-end !important;
+        gap:7px !important;
+        z-index:2 !important;
+    }
+
+    body.everything-art-theme .ea-mini-actions .ea-mini-facebook{
+        width:auto !important;
+        min-width:0 !important;
+        min-height:38px !important;
+        height:38px !important;
+        padding:0 13px !important;
+        font-family:Arial,Helvetica,sans-serif !important;
+        font-size:.62rem !important;
+        font-weight:800 !important;
+        letter-spacing:.035em !important;
+    }
+
+    body.everything-art-theme .ea-mini-ar{
+        flex:0 0 38px !important;
+        width:38px !important;
+        min-width:38px !important;
+        max-width:38px !important;
+        height:38px !important;
+        min-height:38px !important;
+        max-height:38px !important;
+        padding:0 !important;
+        border-radius:50% !important;
+    }
+
+    body.everything-art-theme .ea-mini-ar img{
+        width:26px !important;
+        height:26px !important;
+        max-width:26px !important;
+        max-height:26px !important;
+        border-radius:50% !important;
+    }
+
+    /* FOOTER: exact same 3-over-3 family layout */
+    body.everything-art-theme .ea-site-footer{
+        padding:0 14px !important;
+    }
+
+    body.everything-art-theme .ea-site-footer .ea-family-footer{
+        width:100% !important;
+        max-width:100% !important;
+        padding:18px 0 22px !important;
+        display:grid !important;
+        grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+        gap:7px !important;
+        align-items:center !important;
+        justify-content:stretch !important;
+    }
+
+    body.everything-art-theme .ea-site-footer .ea-family-footer > a:not(.ea-family-ar){
+        width:100% !important;
+        min-width:0 !important;
+        height:38px !important;
+        min-height:38px !important;
+        padding:0 8px !important;
+        font-family:Arial,Helvetica,sans-serif !important;
+        font-size:.62rem !important;
+        font-weight:700 !important;
+        letter-spacing:0 !important;
+    }
+
+    body.everything-art-theme .ea-site-footer .ea-family-footer > a:nth-child(1){
+        grid-column:1 !important; grid-row:1 !important;
+    }
+    body.everything-art-theme .ea-site-footer .ea-family-footer > a:nth-child(2){
+        grid-column:2 !important; grid-row:1 !important;
+    }
+    body.everything-art-theme .ea-site-footer .ea-family-footer > a:nth-child(3){
+        grid-column:3 !important; grid-row:1 !important;
+    }
+    body.everything-art-theme .ea-site-footer .ea-family-footer > a:nth-child(4){
+        grid-column:1 !important; grid-row:2 !important;
+    }
+
+    body.everything-art-theme .ea-site-footer .ea-family-fb{
+        grid-column:2 !important;
+        grid-row:2 !important;
+        color:#fff !important;
+        background:#1877f2 !important;
+        border-color:#1877f2 !important;
+    }
+
+    body.everything-art-theme .ea-site-footer .ea-family-divider{
+        display:none !important;
+    }
+
+    body.everything-art-theme .ea-site-footer .ea-family-ar{
+        grid-column:3 !important;
+        grid-row:2 !important;
+        justify-self:center !important;
+        width:38px !important;
+        min-width:38px !important;
+        max-width:38px !important;
+        height:38px !important;
+        min-height:38px !important;
+        max-height:38px !important;
+        padding:0 !important;
+        border-radius:50% !important;
+    }
+
+    body.everything-art-theme .ea-site-footer .ea-family-ar img{
+        width:26px !important;
+        height:26px !important;
+        max-width:26px !important;
+        max-height:26px !important;
+        border-radius:50% !important;
+    }
+}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
 </head>
-<body>
+<body class="everything-art-theme">
 
 <nav class="ea-mini-nav" aria-label="Everything Art navigation">
     <div class="ea-mini-nav-inner">
@@ -807,7 +987,7 @@ body.ea-utilities-active .empty-state{
             <span class="ea-mini-link is-current" aria-current="page">RESOURCES</span>
         </div>
 
-        <div class="ea-mini-secondary">
+        <div class="ea-mini-actions">
             <a class="ea-mini-link ea-mini-facebook"
                href="https://www.facebook.com/groups/GreatArt"
                target="_blank"
@@ -841,7 +1021,7 @@ body.ea-utilities-active .empty-state{
 <button class="ea-filter" data-filter="learn">Learn</button>
 <button type="button" data-filter="utilities" class="ea-utilities-filter">Utilities</button>
 </div></div>
-<div class="ea-note">Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>BUILD · 1.0.42</strong></div>
+<div class="ea-note">Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>BUILD · 1.0.43</strong></div>
 </aside>
 
 <main class="ea-main"><section class="ea-workspace">
