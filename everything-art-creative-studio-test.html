@@ -646,10 +646,92 @@ body.ea-utilities-active .empty-state{
 }
 
 
-/* TEST BUILD 1.0.28 — real controls belong under the intro on phone/tablet */
+/* TEST BUILD 1.0.29 — real controls belong under the intro on phone/tablet */
 @media(max-width:1000px){
   .ea-topbar{
     margin:28px 0 34px !important;
+  }
+}
+
+
+/* =========================================================
+   TEST BUILD 1.0.29
+   Universal filter color + steadier phone/tablet scrolling
+   ========================================================= */
+
+/* Universal treatment on desktop, tablet and phone. */
+.ea-chip,
+.ea-mobile .ea-chip,
+.ea-mobile .ea-filter,
+.ea-filter-chip {
+  background:#242424 !important;
+  border-color:#4a4a4a !important;
+  color:#f4f4f4 !important;
+}
+
+.ea-chip:hover,
+.ea-mobile .ea-chip:hover,
+.ea-mobile .ea-filter:hover,
+.ea-filter-chip:hover {
+  background:#303030 !important;
+  border-color:#5a5a5a !important;
+}
+
+/* Selected filter stays Everything Art yellow everywhere. */
+.ea-chip.active,
+.ea-chip.is-active,
+.ea-mobile .ea-chip.active,
+.ea-mobile .ea-chip.is-active,
+.ea-mobile .ea-filter.active,
+.ea-mobile .ea-filter.is-active,
+.ea-filter-chip.active,
+.ea-filter-chip.is-active,
+[aria-pressed="true"].ea-chip {
+  background:#ffd633 !important;
+  border-color:#ffd633 !important;
+  color:#111 !important;
+}
+
+.ea-chip.active svg,
+.ea-chip.is-active svg,
+.ea-mobile .ea-chip.active svg,
+.ea-mobile .ea-chip.is-active svg,
+.ea-mobile .ea-filter.active svg,
+.ea-mobile .ea-filter.is-active svg {
+  color:#111 !important;
+  stroke:#111 !important;
+}
+
+/* Keep the filter rail visibly swipeable and prevent vertical gesture fighting. */
+@media(max-width:1000px){
+  .ea-mobile{
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior-x:contain;
+    touch-action:pan-x;
+    scrollbar-width:none;
+    scroll-snap-type:x proximity;
+  }
+
+  .ea-mobile::-webkit-scrollbar{
+    display:none;
+  }
+
+  .ea-mobile > *{
+    flex:0 0 auto !important;
+    scroll-snap-align:start;
+  }
+
+  /* The page itself owns vertical scrolling. */
+  html, body{
+    overscroll-behavior-x:none;
+    touch-action:pan-y;
+  }
+
+  .ea-workspace,
+  .ea-results{
+    overflow-x:hidden !important;
   }
 }
 
@@ -702,7 +784,7 @@ body.ea-utilities-active .empty-state{
 <button class="ea-filter" data-filter="learn">Learn</button>
 <button type="button" data-filter="utilities" class="ea-utilities-filter">Utilities</button>
 </div></div>
-<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.28</strong></div>
+<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.29</strong></div>
 </aside>
 
 <main class="ea-main"><section class="ea-workspace">
@@ -1345,7 +1427,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 <script>
-/* TEST BUILD 1.0.28
+/* TEST BUILD 1.0.29
    Phone + tablet only:
    move the REAL filter rail (.ea-mobile) and search bar (.ea-toolbar)
    directly below the welcome/hero and above Explore Resources.
