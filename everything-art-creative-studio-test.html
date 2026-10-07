@@ -84,7 +84,7 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
 <article class="ea-card" data-category="image create" data-search="photopea image photo graphics psd edit browser free">
 <span class="ea-type">IMAGE · CREATE / EDIT</span><h3>Photopea</h3>
 <p>Browser-based image editor with PSD support. Open it directly inside the Everything Art workspace.</p>
-<button class="ea-resource-action ea-open-studio" type="button" data-studio="photopea">OPEN IN STUDIO</button>
+<a id="eaPhotopeaAction" class="ea-resource-action ea-open-studio" href="https://www.photopea.com/" data-studio="photopea">OPEN IN STUDIO</a>
 </article>
 
 <article class="ea-card" data-category="3d create" data-search="blender 3d modeling animation rendering free open source desktop">
@@ -160,16 +160,33 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
  s.addEventListener('input',draw);
  c.addEventListener('click',()=>{s.value='';filter='all';draw();s.focus()});
 
- document.querySelectorAll('.ea-open-studio').forEach(btn=>btn.addEventListener('click',()=>{
+ const photopeaAction=document.getElementById('eaPhotopeaAction');
+ const PHOTOPEA_EMBED_MIN=780;
+
+ function setPhotopeaMode(){
+   const canEmbed=window.innerWidth>=PHOTOPEA_EMBED_MIN;
+   photopeaAction.textContent=canEmbed?'OPEN IN STUDIO':'OPEN PHOTOPEA ↗';
+   photopeaAction.target=canEmbed?'':'_blank';
+   photopeaAction.rel=canEmbed?'':'noopener noreferrer';
+ }
+
+ photopeaAction.addEventListener('click',(event)=>{
+   // Narrow screens never load the embedded Photopea iframe.
+   if(window.innerWidth<PHOTOPEA_EMBED_MIN) return;
+
+   event.preventDefault();
    welcome.hidden=true;results.hidden=true;resultsHead.hidden=true;empty.style.display='none';
    tool.hidden=false;
    if(!frame.src) frame.src='https://www.photopea.com/';
-   requestAnimationFrame(() => {
-     requestAnimationFrame(() => {
-       tool.scrollIntoView({behavior:'smooth', block:'start'});
+   requestAnimationFrame(()=>{
+     requestAnimationFrame(()=>{
+       tool.scrollIntoView({behavior:'smooth',block:'start'});
      });
    });
- }));
+ });
+
+ window.addEventListener('resize',setPhotopeaMode);
+ setPhotopeaMode();
 
  closeTool.addEventListener('click',()=>{
    tool.hidden=true;welcome.hidden=false;results.hidden=false;resultsHead.hidden=false;draw();
