@@ -202,10 +202,91 @@ body.ea-utilities-active .empty-state{
 }
 .ea-output-estimate strong{color:#eee}
 
+
+/* =========================================================
+   1.0.18 — EVERYTHING ART PROJECT NAV
+   Everything Art owns this space. AR is only the quiet exit home.
+   ========================================================= */
+.ea-project-nav{
+  position:relative;
+  z-index:50;
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:8px;
+  min-height:42px;
+  padding:8px 18px;
+  background:#090909;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.ea-project-nav a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:30px;
+  padding:6px 11px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:999px;
+  color:#aaa;
+  text-decoration:none;
+  font-size:.67rem;
+  font-weight:850;
+  letter-spacing:.045em;
+  line-height:1;
+  white-space:nowrap;
+}
+.ea-project-nav a:hover,
+.ea-project-nav a:focus-visible{
+  color:#fff;
+  border-color:rgba(246,210,50,.55);
+}
+.ea-project-nav a.is-current{
+  color:#111;
+  background:#f6d232;
+  border-color:#f6d232;
+}
+.ea-project-nav .ea-ar-home{
+  width:32px;
+  height:32px;
+  min-height:32px;
+  padding:0;
+  border-color:rgba(246,210,50,.38);
+}
+.ea-project-nav .ea-ar-home img{
+  display:block;
+  width:22px;
+  height:22px;
+  object-fit:contain;
+  border-radius:5px;
+}
+@media(max-width:700px){
+  .ea-project-nav{
+    justify-content:flex-start;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    padding:8px 10px;
+  }
+  .ea-project-nav::-webkit-scrollbar{display:none}
+  .ea-project-nav a{font-size:.62rem;padding:6px 9px}
+  .ea-project-nav .ea-ar-home{flex:0 0 32px;padding:0}
+}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
 </head>
 <body>
+
+<nav class="ea-project-nav" aria-label="Everything Art">
+  <a href="everything-art-opportunities.html">OPPORTUNITIES</a>
+  <a href="everything-art-events.html">ART EVENTS</a>
+  <a href="everything-art-creative-studio-test.html" class="is-current" aria-current="page">RESOURCES</a>
+  <a href="https://www.facebook.com/groups/GreatArt" target="_blank" rel="noopener noreferrer">FB GROUP</a>
+  <a href="index.html" class="ea-ar-home" title="Alex Reynoso Art" aria-label="Alex Reynoso Art">
+    <img src="images/favicon.png" alt="">
+  </a>
+</nav>
+
 <div class="ea-studio">
 <aside class="ea-sidebar">
 <div class="ea-sidebar-head"><div class="ea-kicker">Everything Art</div><h1>Creative Studio</h1><p>A workspace for finding, making, learning and eventually playing with creative things.</p></div>
@@ -223,13 +304,9 @@ body.ea-utilities-active .empty-state{
 <button class="ea-filter" data-filter="learn">Learn</button>
 <button type="button" data-filter="utilities" class="ea-utilities-filter">Utilities</button>
 </div></div>
-<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.17</strong></div>
+<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.18</strong></div>
 </aside>
-<header class="ea-topbar">
-<a class="ea-exit" href="everything-art.html">← EVERYTHING ART</a>
-<div class="ea-brand"><strong>Everything Art • Creative Studio</strong><span>Resources</span></div>
-<div class="ea-status">STUDIO TEST · 1.0.17</div>
-</header>
+
 <main class="ea-main"><section class="ea-workspace">
 <div class="ea-mobile">
 <button class="active" data-filter="all">All</button>
