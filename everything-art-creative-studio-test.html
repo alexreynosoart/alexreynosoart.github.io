@@ -90,6 +90,85 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
 .ea-utilities-panel{box-sizing:border-box;width:100%;max-width:none;margin:18px 0 0}
 .ea-build-version{margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08);font-size:.62rem;line-height:1.45;letter-spacing:.04em;color:#666}
 .ea-build-version strong{color:#888}
+
+/* =========================================================
+   TEST BUILD 1.0.15 — UTILITIES WORKSPACE FIXERUPPER
+   Utilities is a workspace, not a resource card/grid item.
+   ========================================================= */
+
+.ea-utilities-panel{
+  grid-column:1 / -1 !important;
+  width:100% !important;
+  max-width:none !important;
+  margin:0 !important;
+  align-self:start;
+}
+
+.ea-utilities-panel .ea-utility-tabs{
+  display:grid !important;
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:14px !important;
+  width:100% !important;
+}
+
+.ea-utilities-panel .ea-utility-tab{
+  width:100% !important;
+  min-width:0 !important;
+  min-height:56px;
+  padding:14px 18px !important;
+  border-radius:999px !important;
+  white-space:nowrap;
+}
+
+/* Some earlier builds used generic button wrappers. Normalize those too. */
+.ea-utilities-panel .utility-tabs,
+.ea-utilities-panel .utilities-tabs{
+  display:grid !important;
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:14px !important;
+  width:100% !important;
+}
+.ea-utilities-panel .utility-tabs > button,
+.ea-utilities-panel .utilities-tabs > button{
+  width:100% !important;
+  min-width:0 !important;
+  min-height:56px;
+  padding:14px 18px !important;
+  border-radius:999px !important;
+  white-space:nowrap;
+}
+
+/* The active tool itself owns the canvas width. */
+.ea-utilities-panel .ea-utility-body,
+.ea-utilities-panel .utility-body,
+.ea-utilities-panel .ea-utility-workspace{
+  width:100% !important;
+  max-width:none !important;
+}
+
+/* Utility mode should not visually look like an empty resource search. */
+body.ea-utilities-active .ea-resource-heading,
+body.ea-utilities-active .resource-heading,
+body.ea-utilities-active .ea-resource-count,
+body.ea-utilities-active .resource-count,
+body.ea-utilities-active .ea-empty-state,
+body.ea-utilities-active .empty-state{
+  display:none !important;
+}
+
+@media (max-width:760px){
+  .ea-utilities-panel .ea-utility-tabs,
+  .ea-utilities-panel .utility-tabs,
+  .ea-utilities-panel .utilities-tabs{
+    grid-template-columns:1fr !important;
+  }
+  .ea-utilities-panel .ea-utility-tab,
+  .ea-utilities-panel .utility-tabs > button,
+  .ea-utilities-panel .utilities-tabs > button{
+    white-space:normal;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -110,12 +189,12 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
 <button class="ea-filter" data-filter="learn">Learn</button>
 <button type="button" data-filter="utilities" class="ea-utilities-filter">Utilities</button>
 </div></div>
-<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · v14</strong></div>
+<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.15</strong></div>
 </aside>
 <header class="ea-topbar">
 <a class="ea-exit" href="everything-art.html">← EVERYTHING ART</a>
 <div class="ea-brand"><strong>Everything Art • Creative Studio</strong><span>Resources</span></div>
-<div class="ea-status">STUDIO TEST · V14</div>
+<div class="ea-status">STUDIO TEST · 1.0.15</div>
 </header>
 <main class="ea-main"><section class="ea-workspace">
 <div class="ea-mobile">
@@ -145,10 +224,10 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
     </div>
   </div>
 
-  <div class="ea-utility-tabs" role="tablist">
-    <button class="ea-utility-tab is-active" type="button" data-util="compress">COMPRESS IMAGE</button>
-    <button class="ea-utility-tab" type="button" data-util="resize">RESIZE IMAGE</button>
-    <button class="ea-utility-tab" type="button" data-util="convert">CONVERT IMAGE</button>
+  <div class="ea-utility-tabs ea-utility-tabs" role="tablist">
+    <button class="ea-utility-tab ea-utility-tab is-active" type="button" data-util="compress">COMPRESS IMAGE</button>
+    <button class="ea-utility-tab ea-utility-tab" type="button" data-util="resize">RESIZE IMAGE</button>
+    <button class="ea-utility-tab ea-utility-tab" type="button" data-util="convert">CONVERT IMAGE</button>
   </div>
 
   <div class="ea-utility-tool is-active" data-util-panel="compress">
@@ -521,6 +600,27 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
     panel.querySelector('[data-result="convert"]').innerHTML=`Converted file: <strong>${size}</strong> · ${extFor(type).toUpperCase()}`;
   });
 })();
+</script>
+
+
+<script>
+/* 1.0.15 utility-mode presentation */
+document.addEventListener('DOMContentLoaded', function () {
+  function syncUtilityMode() {
+    const active = document.querySelector('[data-filter="utilities"].active, [data-filter="utilities"][aria-pressed="true"], [data-filter="utilities"].is-active');
+    const panel = document.querySelector('.ea-utilities-panel');
+    const visible = panel && getComputedStyle(panel).display !== 'none';
+    document.body.classList.toggle('ea-utilities-active', !!active || !!visible);
+  }
+
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('[data-filter]')) {
+      requestAnimationFrame(syncUtilityMode);
+      setTimeout(syncUtilityMode, 30);
+    }
+  });
+  syncUtilityMode();
+});
 </script>
 
 </body>
