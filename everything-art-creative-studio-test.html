@@ -646,7 +646,7 @@ body.ea-utilities-active .empty-state{
 }
 
 
-/* TEST BUILD 1.0.27 — controls belong under the intro on phone/tablet */
+/* TEST BUILD 1.0.28 — real controls belong under the intro on phone/tablet */
 @media(max-width:1000px){
   .ea-topbar{
     margin:28px 0 34px !important;
@@ -702,7 +702,7 @@ body.ea-utilities-active .empty-state{
 <button class="ea-filter" data-filter="learn">Learn</button>
 <button type="button" data-filter="utilities" class="ea-utilities-filter">Utilities</button>
 </div></div>
-<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.27</strong></div>
+<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.28</strong></div>
 </aside>
 
 <main class="ea-main"><section class="ea-workspace">
@@ -1345,38 +1345,51 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 <script>
+/* TEST BUILD 1.0.28
+   Phone + tablet only:
+   move the REAL filter rail (.ea-mobile) and search bar (.ea-toolbar)
+   directly below the welcome/hero and above Explore Resources.
+   Desktop remains in its original layout. */
 (function () {
   const mq = window.matchMedia('(max-width: 1000px)');
-  let placeholder = null;
+  let mobileHome = null;
+  let toolbarHome = null;
 
   function moveStudioControls() {
-    const controls = document.querySelector('.ea-topbar');
-    if (!controls) return;
+    const mobileFilters = document.querySelector('.ea-mobile');
+    const toolbar = document.querySelector('.ea-toolbar');
+    const welcome = document.querySelector('.ea-welcome');
+    const resultsHead = document.querySelector('.ea-results-head');
 
-    if (!placeholder) {
-      placeholder = document.createComment('ea-topbar-desktop-home');
-      controls.parentNode.insertBefore(placeholder, controls);
+    if (!mobileFilters || !toolbar || !welcome || !resultsHead) return;
+
+    if (!mobileHome) {
+      mobileHome = document.createComment('ea-mobile-desktop-home');
+      mobileFilters.parentNode.insertBefore(mobileHome, mobileFilters);
+    }
+
+    if (!toolbarHome) {
+      toolbarHome = document.createComment('ea-toolbar-desktop-home');
+      toolbar.parentNode.insertBefore(toolbarHome, toolbar);
     }
 
     if (mq.matches) {
-      const explore = Array.from(document.querySelectorAll('*')).find(el =>
-        el.children.length === 0 &&
-        el.textContent.trim().toUpperCase() === 'EXPLORE RESOURCES'
-      );
-
-      if (explore) {
-        let block = explore;
-        while (
-          block.parentElement &&
-          block.parentElement !== document.body &&
-          !block.parentElement.classList.contains('ea-results')
-        ) {
-          block = block.parentElement;
-        }
-        block.parentNode.insertBefore(controls, block);
+      /* Exact requested order:
+         logo / Resources label / heading / description
+         -> filters
+         -> search
+         -> Explore Resources
+         -> listings */
+      welcome.insertAdjacentElement('afterend', mobileFilters);
+      mobileFilters.insertAdjacentElement('afterend', toolbar);
+    } else {
+      /* Put both controls back exactly where desktop had them. */
+      if (mobileHome.parentNode) {
+        mobileHome.parentNode.insertBefore(mobileFilters, mobileHome.nextSibling);
       }
-    } else if (placeholder.parentNode) {
-      placeholder.parentNode.insertBefore(controls, placeholder.nextSibling);
+      if (toolbarHome.parentNode) {
+        toolbarHome.parentNode.insertBefore(toolbar, toolbarHome.nextSibling);
+      }
     }
   }
 
