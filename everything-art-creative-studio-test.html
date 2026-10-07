@@ -164,7 +164,11 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
    welcome.hidden=true;results.hidden=true;resultsHead.hidden=true;empty.style.display='none';
    tool.hidden=false;
    if(!frame.src) frame.src='https://www.photopea.com/';
-   window.scrollTo({top:0,behavior:'smooth'});
+   requestAnimationFrame(() => {
+     requestAnimationFrame(() => {
+       tool.scrollIntoView({behavior:'smooth', block:'start'});
+     });
+   });
  }));
 
  closeTool.addEventListener('click',()=>{
