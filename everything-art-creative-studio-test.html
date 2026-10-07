@@ -646,7 +646,7 @@ body.ea-utilities-active .empty-state{
 }
 
 
-/* TEST BUILD 1.0.33 — real controls belong under the intro on phone/tablet */
+/* TEST BUILD 1.0.34 — real controls belong under the intro on phone/tablet */
 @media(max-width:1000px){
   .ea-topbar{
     margin:28px 0 34px !important;
@@ -655,7 +655,7 @@ body.ea-utilities-active .empty-state{
 
 
 /* =========================================================
-   TEST BUILD 1.0.33
+   TEST BUILD 1.0.34
    Universal filter color + steadier phone/tablet scrolling
    ========================================================= */
 
@@ -737,7 +737,7 @@ body.ea-utilities-active .empty-state{
 
 
 /* =========================================================
-   TEST BUILD 1.0.33
+   TEST BUILD 1.0.34
    Correct universal filter-pill styling.
    Resource cards are intentionally NOT changed.
    ========================================================= */
@@ -788,7 +788,7 @@ body.ea-utilities-active .empty-state{
 
 
 /* =========================================================
-   TEST BUILD 1.0.33
+   TEST BUILD 1.0.34
    Phone/tablet filter groups + Explore Resources breathing room
    ========================================================= */
 @media(max-width:1000px){
@@ -839,7 +839,7 @@ body.ea-utilities-active .empty-state{
 }
 
 
-/* TEST BUILD 1.0.33 — compact mobile/tablet filter rails */
+/* TEST BUILD 1.0.34 — compact mobile/tablet filter rails */
 @media(max-width:1000px){
   html,body{
     width:100%;
@@ -916,7 +916,113 @@ body.ea-utilities-active .empty-state{
     max-width:100%;
     overflow-x:hidden;
   }
-}</style>
+}
+/* =========================================================
+   TEST BUILD 1.0.34
+   One mobile/tablet control system only.
+   Uses the original top-row pill dimensions.
+   ========================================================= */
+@media(max-width:1000px){
+  html,body{
+    max-width:100%;
+    overflow-x:hidden !important;
+    overscroll-behavior-x:none;
+  }
+
+  .ea-mobile{
+    display:block !important;
+    width:100%;
+    max-width:100%;
+    overflow:hidden !important;
+    padding:10px 10px 0 !important;
+  }
+
+  .ea-mobile-filter-group{
+    width:100%;
+    margin:0 0 16px;
+  }
+
+  .ea-mobile-filter-label{
+    display:block;
+    margin:0 0 9px;
+    color:#bdbdbd;
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:.10em;
+    text-transform:uppercase;
+  }
+
+  .ea-mobile-filter-rail{
+    display:flex !important;
+    flex-wrap:nowrap !important;
+    gap:7px !important;
+    width:100%;
+    max-width:100%;
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior-x:contain;
+    touch-action:pan-x;
+    scrollbar-width:none;
+    padding:0 0 4px;
+  }
+
+  .ea-mobile-filter-rail::-webkit-scrollbar{
+    display:none;
+  }
+
+  /* EXACTLY the original top-row mobile button sizing. */
+  .ea-mobile-filter-rail button{
+    display:inline-flex !important;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    flex:0 0 auto !important;
+    width:auto !important;
+    min-width:0 !important;
+    min-height:38px !important;
+    padding:0 14px !important;
+    border:1px solid var(--line) !important;
+    border-radius:999px !important;
+    background:#292929 !important;
+    color:#eee !important;
+    font-size:.68rem !important;
+    font-weight:800 !important;
+    white-space:nowrap;
+    box-sizing:border-box;
+  }
+
+  .ea-mobile-filter-rail button.active{
+    background:var(--yellow) !important;
+    border-color:var(--yellow) !important;
+    color:#111 !important;
+  }
+
+  /* Keep All as the compact circular control from the original row. */
+  .ea-mobile-filter-rail button[data-filter="all"]{
+    width:52px !important;
+    min-width:52px !important;
+    height:52px !important;
+    min-height:52px !important;
+    padding:0 !important;
+    border-radius:50% !important;
+  }
+
+  /* Utilities keeps its special treatment and sits first. */
+  .ea-mobile-filter-rail button[data-filter="utilities"]{
+    background:#f1f1f3 !important;
+    border-color:#a9a9b3 !important;
+    color:#111 !important;
+  }
+
+  .ea-mobile-filter-rail .ea-filter-icon{
+    width:14px !important;
+    height:14px !important;
+    flex:0 0 14px !important;
+  }
+}
+
+</style>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
 </head>
 <body>
@@ -965,7 +1071,7 @@ body.ea-utilities-active .empty-state{
 <button class="ea-filter" data-filter="learn">Learn</button>
 <button type="button" data-filter="utilities" class="ea-utilities-filter">Utilities</button>
 </div></div>
-<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.33</strong></div>
+<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.34</strong></div>
 </aside>
 
 <main class="ea-main"><section class="ea-workspace">
@@ -1607,164 +1713,85 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
+
 <script>
-/* TEST BUILD 1.0.33 */
+/* TEST BUILD 1.0.34 */
 (function(){
   const mq = window.matchMedia('(max-width:1000px)');
   const norm = s => (s || '').replace(/\s+/g,' ').trim().toLowerCase();
 
-  function candidates(){
-    return Array.from(document.querySelectorAll('button, .ea-filter, .ea-utilities-filter'));
+  function findDesktopFilter(value){
+    return document.querySelector('.ea-sidebar [data-filter="' + value + '"]');
   }
 
-  function findControl(name){
-    const wanted = norm(name);
-    const aliases = wanted === 'create / edit'
-      ? ['create / edit','create/edit','create /edit','create/ edit']
-      : [wanted];
-    return candidates().find(el => aliases.includes(norm(el.textContent)));
-  }
+  function makeNeedButton(value, label){
+    const source = findDesktopFilter(value);
+    const b = source ? source.cloneNode(true) : document.createElement('button');
 
-  function makeButton(name){
-    const source = findControl(name);
-    if(!source) return null;
-
-    const b = source.cloneNode(true);
     b.removeAttribute('id');
-    b.classList.add('ea-filter','ea-mobile-clone');
-    b.style.display = '';
+    b.className = '';
+    b.type = 'button';
+    b.dataset.filter = value;
+    b.textContent = label;
 
     b.addEventListener('click', function(e){
       e.preventDefault();
-      const original = findControl(name);
-      if(original && original !== b) original.click();
+      const original = findDesktopFilter(value);
+      if(original) original.click();
 
-      const group = b.closest('.ea-mobile-filter-group');
-      if(group){
-        group.querySelectorAll('.ea-mobile-clone').forEach(x => x.classList.remove('active'));
+      const rail = b.closest('.ea-mobile-filter-rail');
+      if(rail){
+        rail.querySelectorAll('button').forEach(x => x.classList.remove('active'));
         b.classList.add('active');
       }
     });
     return b;
   }
 
-  function makeGroup(title, names){
-    const group = document.createElement('div');
-    group.className = 'ea-mobile-filter-group';
-
-    const label = document.createElement('div');
-    label.className = 'ea-mobile-filter-label';
-    label.textContent = title;
-
-    const rail = document.createElement('div');
-    rail.className = 'ea-mobile-filter-grid';
-
-    names.forEach(name => {
-      const b = makeButton(name);
-      if(b) rail.appendChild(b);
-    });
-
-    group.append(label, rail);
-    return group;
-  }
-
   function build(){
     const mobile = document.querySelector('.ea-mobile');
-    if(!mobile) return;
+    if(!mobile || !mq.matches || mobile.dataset.grouped === 'true') return;
 
-    mobile.querySelectorAll('.ea-mobile-filter-group').forEach(x => x.remove());
+    /* These are the six ORIGINAL top-row buttons with the proportions Alex liked. */
+    const originals = Array.from(mobile.children).filter(el => el.tagName === 'BUTTON');
 
-    if(!mq.matches) return;
+    const workGroup = document.createElement('div');
+    workGroup.className = 'ea-mobile-filter-group';
+    workGroup.innerHTML = '<div class="ea-mobile-filter-label">WORK WITH</div>';
 
-    mobile.appendChild(makeGroup('WORK WITH',
-      ['All','Image','Video','Audio','3D']
-    ));
+    const workRail = document.createElement('div');
+    workRail.className = 'ea-mobile-filter-rail';
 
-    /* Utilities is intentionally first/top-left. */
-    mobile.appendChild(makeGroup('WHAT DO YOU NEED?',
-      ['Utilities','Create / Edit','Free Assets','Learn']
-    ));
+    originals.forEach(btn => {
+      /* Free Assets belongs in the second group, not WORK WITH. */
+      if(btn.dataset.filter !== 'assets') workRail.appendChild(btn);
+    });
+
+    workGroup.appendChild(workRail);
+
+    const needGroup = document.createElement('div');
+    needGroup.className = 'ea-mobile-filter-group';
+    needGroup.innerHTML = '<div class="ea-mobile-filter-label">WHAT DO YOU NEED?</div>';
+
+    const needRail = document.createElement('div');
+    needRail.className = 'ea-mobile-filter-rail';
+
+    needRail.appendChild(makeNeedButton('utilities','Utilities'));
+    needRail.appendChild(makeNeedButton('create','Create / Edit'));
+
+    /* Reuse the ORIGINAL Free Assets button, preserving its exact top-row dimensions. */
+    const assets = originals.find(btn => btn.dataset.filter === 'assets');
+    if(assets) needRail.appendChild(assets);
+
+    needRail.appendChild(makeNeedButton('learn','Learn'));
+    needGroup.appendChild(needRail);
+
+    mobile.innerHTML = '';
+    mobile.append(workGroup, needGroup);
+    mobile.dataset.grouped = 'true';
   }
 
   window.addEventListener('DOMContentLoaded', build);
-  window.addEventListener('resize', build);
-  if(mq.addEventListener) mq.addEventListener('change', build);
-})();
-</script>
-
-
-<script>
-/* TEST BUILD 1.0.33
-   Rebuild the existing mobile/tablet filters into their proper taxonomy.
-   No duplicate Free Assets button is created. */
-(function(){
-  const mq = window.matchMedia('(max-width:1000px)');
-
-  function norm(s){
-    return (s || '').replace(/\s+/g,' ').trim().toLowerCase();
-  }
-
-  function setupMobileFilterGroups(){
-    const mobile = document.querySelector('.ea-mobile');
-    if(!mobile) return;
-
-    /* Restore original flat structure on desktop if we previously grouped it. */
-    if(!mq.matches){
-      const groups = mobile.querySelectorAll('.ea-mobile-filter-group');
-      groups.forEach(group => {
-        const rail = group.querySelector('.ea-mobile-filter-rail');
-        if(rail){
-          while(rail.firstChild) mobile.insertBefore(rail.firstChild, group);
-        }
-        group.remove();
-      });
-      return;
-    }
-
-    if(mobile.querySelector('.ea-mobile-filter-group')) return;
-
-    const buttons = Array.from(mobile.querySelectorAll('.ea-filter, button')).filter(btn => {
-      const t = norm(btn.textContent);
-      return ['all','image','video','audio','3d','create / edit','create/edit','free assets','learn','utilities'].includes(t);
-    });
-
-    if(!buttons.length) return;
-
-    const workNames = new Set(['all','image','video','audio','3d']);
-    const needNames = new Set(['create / edit','create/edit','free assets','learn','utilities']);
-
-    function makeGroup(label){
-      const group = document.createElement('div');
-      group.className = 'ea-mobile-filter-group';
-
-      const title = document.createElement('div');
-      title.className = 'ea-mobile-filter-label';
-      title.textContent = label;
-
-      const rail = document.createElement('div');
-      rail.className = 'ea-mobile-filter-rail';
-
-      group.appendChild(title);
-      group.appendChild(rail);
-      return {group, rail};
-    }
-
-    const work = makeGroup('WORK WITH');
-    const need = makeGroup('WHAT DO YOU NEED?');
-
-    buttons.forEach(btn => {
-      const t = norm(btn.textContent);
-      if(workNames.has(t)) work.rail.appendChild(btn);
-      else if(needNames.has(t)) need.rail.appendChild(btn);
-    });
-
-    mobile.appendChild(work.group);
-    mobile.appendChild(need.group);
-  }
-
-  window.addEventListener('DOMContentLoaded', setupMobileFilterGroups);
-  window.addEventListener('resize', setupMobileFilterGroups);
-  if(mq.addEventListener) mq.addEventListener('change', setupMobileFilterGroups);
 })();
 </script>
 
