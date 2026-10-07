@@ -82,6 +82,154 @@
         }
 
     </style>
+
+    <style>
+        /* Shared Everything Art navigation: Opportunities compatibility fix */
+        body.everything-art-opportunities-theme .ea-mini-nav {
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 1000 !important;
+            width: 100% !important;
+            background: #090909 !important;
+            border-bottom: 1px solid rgba(255,255,255,.08) !important;
+        }
+
+        body.everything-art-opportunities-theme .ea-mini-nav-inner {
+            width: 100% !important;
+            max-width: none !important;
+            min-height: 92px !important;
+            margin: 0 !important;
+            padding: 16px 38px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            gap: 24px !important;
+            box-sizing: border-box !important;
+        }
+
+        body.everything-art-opportunities-theme .ea-mini-primary,
+        body.everything-art-opportunities-theme .ea-mini-actions {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+        }
+
+        body.everything-art-opportunities-theme .ea-mini-actions {
+            margin-left: auto !important;
+            flex: 0 0 auto !important;
+        }
+
+        body.everything-art-opportunities-theme .ea-mini-link {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            min-height: 54px !important;
+            padding: 0 22px !important;
+            border: 2px solid rgba(255,255,255,.20) !important;
+            border-radius: 999px !important;
+            background: #0b0b0b !important;
+            color: rgba(255,255,255,.78) !important;
+            text-decoration: none !important;
+            font-weight: 800 !important;
+            white-space: nowrap !important;
+            box-sizing: border-box !important;
+        }
+
+        body.everything-art-opportunities-theme .ea-mini-link.is-current {
+            color: #ffd51f !important;
+            border-color: #ffd51f !important;
+        }
+
+        body.everything-art-opportunities-theme .ea-mini-facebook {
+            color: #58a8ff !important;
+            border-color: #268cff !important;
+        }
+
+        body.everything-art-opportunities-theme .ea-mini-ar {
+            width: 50px !important;
+            height: 50px !important;
+            min-width: 50px !important;
+            flex: 0 0 50px !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            border: 2px solid rgba(255,255,255,.18) !important;
+            border-radius: 50% !important;
+            background: #0b0b0b !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            overflow: hidden !important;
+            box-sizing: border-box !important;
+        }
+
+        body.everything-art-opportunities-theme .ea-mini-ar img {
+            display: block !important;
+            width: 36px !important;
+            height: 36px !important;
+            max-width: 36px !important;
+            object-fit: contain !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        @media (max-width: 1000px) {
+            body.everything-art-opportunities-theme .ea-mini-nav-inner {
+                min-height: 0 !important;
+                padding: 14px 20px !important;
+                flex-wrap: wrap !important;
+                gap: 10px 14px !important;
+            }
+
+            body.everything-art-opportunities-theme .ea-mini-primary {
+                flex-wrap: wrap !important;
+                gap: 10px !important;
+            }
+
+            body.everything-art-opportunities-theme .ea-mini-link {
+                min-height: 48px !important;
+                padding: 0 18px !important;
+            }
+
+            body.everything-art-opportunities-theme .ea-mini-ar {
+                width: 46px !important;
+                height: 46px !important;
+                min-width: 46px !important;
+                flex-basis: 46px !important;
+            }
+
+            body.everything-art-opportunities-theme .ea-mini-ar img {
+                width: 32px !important;
+                height: 32px !important;
+            }
+        }
+
+        @media (max-width: 700px) {
+            body.everything-art-opportunities-theme .ea-mini-nav-inner {
+                padding: 12px 14px !important;
+            }
+
+            body.everything-art-opportunities-theme .ea-mini-primary {
+                width: 100% !important;
+                display: grid !important;
+                grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+            }
+
+            body.everything-art-opportunities-theme .ea-mini-primary .ea-mini-link {
+                min-width: 0 !important;
+                padding: 0 9px !important;
+                font-size: .72rem !important;
+            }
+
+            body.everything-art-opportunities-theme .ea-mini-primary .ea-mini-link:nth-child(4) {
+                grid-column: 1 / 2 !important;
+            }
+
+            body.everything-art-opportunities-theme .ea-mini-actions {
+                margin-left: auto !important;
+            }
+        }
+    </style>
+
 </head>
 
 <body class="everything-art-opportunities-theme">
