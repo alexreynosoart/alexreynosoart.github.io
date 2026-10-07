@@ -5316,3 +5316,145 @@ header nav a:not(:last-child)::after {
         min-height:34px;
     }
 }
+
+
+/* ========================================
+   EVERYTHING ART | FOOTER FIX v1.0.39
+   Footer lives outside the Creative Studio shell.
+   ======================================== */
+
+body .ea-site-footer {
+    position: relative !important;
+    z-index: 20 !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 20px !important;
+    clear: both !important;
+    background: #0d0d0d !important;
+    text-align: center !important;
+}
+
+body .ea-site-footer .ea-family-footer {
+    width: min(1180px, 100%) !important;
+    max-width: 1180px !important;
+    margin: 0 auto !important;
+    padding: 22px 0 26px !important;
+    border-top: 1px solid rgba(255,255,255,.10) !important;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+}
+
+body .ea-site-footer .ea-family-footer > a {
+    width: auto !important;
+    height: 32px !important;
+    min-width: 0 !important;
+    min-height: 32px !important;
+    margin: 0 !important;
+    padding: 0 11px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: 1px solid rgba(255,255,255,.18) !important;
+    border-radius: 999px !important;
+    background: transparent !important;
+    color: #bdbdbd !important;
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    letter-spacing: .055em !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+}
+
+body .ea-site-footer .ea-family-footer > a:hover,
+body .ea-site-footer .ea-family-footer > a:focus-visible {
+    color: #fff !important;
+    border-color: rgba(255,255,255,.48) !important;
+}
+
+body .ea-site-footer .ea-family-footer > a[aria-current="page"] {
+    color: #f4c430 !important;
+    border-color: #f4c430 !important;
+}
+
+body .ea-site-footer .ea-family-footer > .ea-family-fb {
+    color: #fff !important;
+    background: #1877f2 !important;
+    border-color: #1877f2 !important;
+}
+
+body .ea-site-footer .ea-family-divider {
+    display: block !important;
+    flex: 0 0 1px !important;
+    width: 1px !important;
+    height: 20px !important;
+    margin: 0 2px !important;
+    background: rgba(255,255,255,.22) !important;
+}
+
+/* Tiny AR exit. Intentionally smaller than the top AR control. */
+body .ea-site-footer .ea-family-footer > .ea-family-ar {
+    flex: 0 0 26px !important;
+    width: 26px !important;
+    min-width: 26px !important;
+    max-width: 26px !important;
+    height: 26px !important;
+    min-height: 26px !important;
+    max-height: 26px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 50% !important;
+    background: transparent !important;
+    overflow: hidden !important;
+}
+
+body .ea-site-footer .ea-family-ar img {
+    display: block !important;
+    width: 26px !important;
+    height: 26px !important;
+    max-width: 26px !important;
+    max-height: 26px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+}
+
+@media (max-width: 750px) {
+    body .ea-site-footer {
+        padding: 0 14px !important;
+    }
+
+    body .ea-site-footer .ea-family-footer {
+        width: 100% !important;
+        padding: 18px 0 22px !important;
+        gap: 7px !important;
+    }
+
+    body .ea-site-footer .ea-family-footer > a {
+        height: 30px !important;
+        min-height: 30px !important;
+        padding: 0 9px !important;
+        font-size: 9px !important;
+    }
+
+    body .ea-site-footer .ea-family-divider {
+        display: none !important;
+    }
+
+    body .ea-site-footer .ea-family-footer > .ea-family-ar,
+    body .ea-site-footer .ea-family-ar img {
+        width: 24px !important;
+        min-width: 24px !important;
+        max-width: 24px !important;
+        height: 24px !important;
+        min-height: 24px !important;
+        max-height: 24px !important;
+        flex-basis: 24px !important;
+    }
+}
