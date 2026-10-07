@@ -102,13 +102,14 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
 <button class="ea-filter" data-filter="create">Create / Edit</button>
 <button class="ea-filter" data-filter="assets">Free Assets</button>
 <button class="ea-filter" data-filter="learn">Learn</button>
+<button type="button" data-filter="utilities" class="ea-utilities-filter">Utilities</button>
 </div></div>
 <div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div>
 </aside>
 <header class="ea-topbar">
 <a class="ea-exit" href="everything-art.html">← EVERYTHING ART</a>
 <div class="ea-brand"><strong>Everything Art • Creative Studio</strong><span>Resources</span></div>
-<div class="ea-status">STUDIO TEST · V11</div>
+<div class="ea-status">STUDIO TEST · V12</div>
 </header>
 <main class="ea-main"><section class="ea-workspace">
 <div class="ea-mobile">
@@ -235,7 +236,6 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
     </div>
   </div>
 </section>
-
 <script>
 (()=> {
  const s=document.getElementById('eaSearch'),c=document.getElementById('eaClear'),
@@ -410,11 +410,25 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
 
   function showUtilities() {
     panel.classList.add('is-open');
+    document.querySelectorAll('.ea-resource-grid,.ea-resource-section,.ea-resources-grid').forEach(el => el.dataset.eaWasDisplay = el.style.display || '');
+    document.querySelectorAll('.ea-resource-grid,.ea-resource-section,.ea-resources-grid').forEach(el => el.style.display = 'none');
     panel.scrollIntoView({behavior:'smooth', block:'start'});
   }
 
   // Hook all Utilities need-filter buttons without disturbing existing filters.
-  document.querySelectorAll('[data-need="utilities"]').forEach(btn => btn.addEventListener('click', showUtilities));
+  document.querySelectorAll('[data-filter="utilities"]').forEach(btn => btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active','is-active'));
+    btn.classList.add('active','is-active');
+    showUtilities();
+  }));
+
+  
+  document.querySelectorAll('[data-filter]:not([data-filter="utilities"])').forEach(btn => btn.addEventListener('click', () => {
+    panel.classList.remove('is-open');
+    document.querySelectorAll('.ea-resource-grid,.ea-resource-section,.ea-resources-grid').forEach(el => {
+      el.style.display = el.dataset.eaWasDisplay || '';
+    });
+  }));
 
   document.querySelectorAll('.ea-utility-tab').forEach(btn => {
     btn.addEventListener('click', () => {
