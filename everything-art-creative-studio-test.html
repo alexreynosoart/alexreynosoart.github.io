@@ -39,6 +39,9 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
 .ea-iframe-wrap{height:calc(100vh - 185px);min-height:600px;overflow:hidden;border:1px solid var(--line);border-radius:14px;background:#222}.ea-iframe-wrap iframe{display:block;width:100%;height:100%;border:0;background:#222}
 @media(max-width:1000px){.ea-iframe-wrap{height:calc(100vh - 170px);min-height:520px}.ea-tool-head{align-items:center}.ea-tool-head button{font-size:.6rem}}
 @media(max-width:600px){.ea-iframe-wrap{height:calc(100vh - 160px);min-height:480px;border-radius:10px}.ea-tool-head h3{font-size:1rem}.ea-tool-head button{padding:0 9px}}
+.ea-sound-search{display:flex;gap:10px;margin:16px 0 18px}.ea-sound-search input{flex:1;min-width:0;min-height:46px;padding:0 14px;border:1px solid var(--line);border-radius:12px;outline:0;background:#0e0e0e;color:#fff;font-size:16px}.ea-sound-search input:focus{border-color:var(--yellow)}.ea-sound-search button{min-height:46px;padding:0 18px;border:1px solid var(--yellow);border-radius:12px;background:var(--yellow);color:#111;font-weight:900;cursor:pointer}
+.ea-sound-status{min-height:22px;margin-bottom:12px;color:var(--muted);font-size:.72rem}.ea-sound-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.ea-sound-card{padding:16px;border:1px solid var(--line);border-radius:15px;background:var(--card)}.ea-sound-card h4{margin:0 0 7px;font-size:.95rem;overflow-wrap:anywhere}.ea-sound-meta{margin-bottom:11px;color:var(--muted);font-size:.68rem;line-height:1.5}.ea-sound-card audio{width:100%;height:38px;margin:3px 0 9px}.ea-sound-link{display:inline-block;color:var(--yellow);font-size:.65rem;font-weight:800;text-decoration:none}.ea-sound-link:hover{text-decoration:underline}.ea-sound-license{margin-left:8px;color:#888;font-size:.62rem;overflow-wrap:anywhere}
+@media(max-width:700px){.ea-sound-results{grid-template-columns:1fr}.ea-sound-search{flex-direction:column}.ea-sound-search button{width:100%}}
 </style>
 </head>
 <body>
@@ -114,7 +117,7 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
 <article class="ea-card" data-category="audio assets" data-search="freesound free sound effects audio creative commons samples">
 <span class="ea-type">AUDIO · FREE ASSETS</span><h3>Freesound</h3>
 <p>A huge community sound library. Individual sounds use different Creative Commons licenses, so check each one.</p>
-<a class="ea-resource-action" href="https://freesound.org/" target="_blank" rel="noopener noreferrer">VISIT RESOURCE ↗</a>
+<a id="eaFreesoundAction" class="ea-resource-action ea-open-studio" href="https://freesound.org/" data-studio="freesound">OPEN IN STUDIO</a>
 </article>
 </div>
 
@@ -126,6 +129,12 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
   <div class="ea-iframe-wrap">
     <iframe id="eaPhotopea" title="Photopea image editor" loading="lazy" allow="clipboard-read; clipboard-write" referrerpolicy="strict-origin-when-cross-origin"></iframe>
   </div>
+</section>
+<section id="eaFreesoundTool" class="ea-tool-view" hidden>
+<div class="ea-tool-head"><div><span class="ea-type">AUDIO · FREE ASSETS</span><h3>Freesound Search</h3></div><button id="eaCloseFreesound" type="button">← BACK TO RESOURCES</button></div>
+<p style="margin:0;color:var(--muted);font-size:.76rem;line-height:1.5">Search Freesound without leaving the Studio. Preview sounds here, then check the creator and license before using one.</p>
+<form id="eaSoundForm" class="ea-sound-search"><input id="eaSoundQuery" type="search" placeholder="Try rain, city, footsteps, birds..." aria-label="Search Freesound"><button type="submit">SEARCH SOUNDS</button></form>
+<div id="eaSoundStatus" class="ea-sound-status">Search for a sound to begin.</div><div id="eaSoundResults" class="ea-sound-results"></div>
 </section>
 <div id="eaEmpty" class="ea-empty">Nothing in the starter set matches that yet. As we build the resource library, this workspace will become the results area.</div>
 </div></section></main>
@@ -141,7 +150,14 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
  resultsHead=document.querySelector('.ea-results-head'),
  tool=document.getElementById('eaStudioTool'),
  frame=document.getElementById('eaPhotopea'),
- closeTool=document.getElementById('eaCloseTool');
+ closeTool=document.getElementById('eaCloseTool'),
+ freesoundTool=document.getElementById('eaFreesoundTool'),
+ freesoundAction=document.getElementById('eaFreesoundAction'),
+ closeFreesound=document.getElementById('eaCloseFreesound'),
+ soundForm=document.getElementById('eaSoundForm'),
+ soundQuery=document.getElementById('eaSoundQuery'),
+ soundStatus=document.getElementById('eaSoundStatus'),
+ soundResults=document.getElementById('eaSoundResults');
  let filter='all';
 
  function draw(){
@@ -190,6 +206,47 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
 
  closeTool.addEventListener('click',()=>{
    tool.hidden=true;welcome.hidden=false;results.hidden=false;resultsHead.hidden=false;draw();
+ });
+
+
+ const FREESOUND_WORKER='https://everything-art-freesound.alexreynosoart333.workers.dev';
+
+ freesoundAction.addEventListener('click',(event)=>{
+   event.preventDefault();
+   welcome.hidden=true;results.hidden=true;resultsHead.hidden=true;empty.style.display='none';
+   tool.hidden=true;freesoundTool.hidden=false;
+   requestAnimationFrame(()=>requestAnimationFrame(()=>{freesoundTool.scrollIntoView({behavior:'smooth',block:'start'});soundQuery.focus()}));
+ });
+
+ closeFreesound.addEventListener('click',()=>{
+   freesoundTool.hidden=true;welcome.hidden=false;results.hidden=false;resultsHead.hidden=false;draw();
+ });
+
+ function esc(value){return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
+ function licenseName(url){
+   if(!url)return 'License not listed';
+   if(url.includes('/publicdomain/zero/'))return 'CC0';
+   if(url.includes('/by-nc/'))return 'CC BY-NC';
+   if(url.includes('/by/'))return 'CC BY';
+   return url;
+ }
+
+ soundForm.addEventListener('submit',async(event)=>{
+   event.preventDefault();
+   const q=soundQuery.value.trim(); if(!q)return soundQuery.focus();
+   soundStatus.textContent='Searching Freesound…'; soundResults.innerHTML='';
+   try{
+     const response=await fetch(FREESOUND_WORKER+'/search?q='+encodeURIComponent(q));
+     const data=await response.json();
+     if(!response.ok)throw new Error(data.error||'Search failed');
+     const items=Array.isArray(data.results)?data.results:[];
+     soundStatus.textContent=items.length?`${Number(data.count||0).toLocaleString()} sounds found · showing ${items.length}`:'No sounds found. Try another search.';
+     soundResults.innerHTML=items.map(sound=>{
+       const preview=sound.previews?.['preview-hq-mp3']||sound.previews?.['preview-lq-mp3']||'';
+       const seconds=Number.isFinite(sound.duration)?`${sound.duration.toFixed(1)} sec`:'';
+       return `<article class="ea-sound-card"><span class="ea-type">FREESOUND</span><h4>${esc(sound.name)}</h4><div class="ea-sound-meta">by ${esc(sound.username)}${seconds?' · '+esc(seconds):''}</div>${preview?`<audio controls preload="none" src="${esc(preview)}"></audio>`:'<div class="ea-sound-meta">Preview unavailable</div>'}<div><a class="ea-sound-link" href="${esc(sound.url)}" target="_blank" rel="noopener noreferrer">VIEW ON FREESOUND ↗</a><span class="ea-sound-license">${esc(licenseName(sound.license))}</span></div></article>`;
+     }).join('');
+   }catch(error){soundStatus.textContent='Could not load sounds right now. Please try again.';soundResults.innerHTML=''}
  });
 
  draw();
