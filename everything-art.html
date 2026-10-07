@@ -1,730 +1,1610 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Everything Art | Resources</title>
+<meta content="Everything Art Creative Studio. Explore creative resources for making, learning and experimenting." name="description"/>
+<link href="images/favicon.png" rel="icon" type="image/png"/>
+<link href="css/style.css" rel="stylesheet"/>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap");
+*{box-sizing:border-box} :root{--yellow:#f3cf39;--bg:#0d0d0d;--panel:#171717;--card:#202020;--line:rgba(255,255,255,.12);--text:#f5f5f5;--muted:#a6a6a6}
+html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",Arial,Helvetica,sans-serif} button,input{font:inherit}
+.ea-studio{min-height:100vh;padding:12px}
+.ea-sidebar{position:fixed;left:12px;top:12px;bottom:12px;width:300px;z-index:20;display:flex;flex-direction:column;overflow-y:auto;padding:18px;border:1px solid var(--line);border-radius:20px;background:rgba(23,23,23,.97)}
+.ea-sidebar-head{padding-bottom:17px;border-bottom:1px solid var(--line)} .ea-kicker{color:var(--yellow);font-size:.62rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase}
+.ea-sidebar h1{margin:7px 0 5px;font-size:1.35rem}.ea-sidebar p{margin:0;color:var(--muted);font-size:.73rem;line-height:1.45}
+.ea-section{padding:17px 0;border-bottom:1px solid var(--line)}.ea-label{display:block;margin-bottom:9px;color:#c6c6c6;font-size:.62rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase}
+.ea-module,.ea-filter{width:100%;min-height:42px;border:1px solid var(--line);border-radius:11px;background:#111;color:var(--text);font-size:.72rem;font-weight:800;cursor:pointer}
+.ea-module.active,.ea-filter.active{border-color:var(--yellow);background:var(--yellow);color:#111}.ea-filter-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.ea-filter{display:flex;align-items:center;justify-content:center;gap:7px}.ea-filter-icon{width:15px;height:15px;flex:0 0 15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.ea-filter-icon path[d*="M10 9"]{fill:currentColor;stroke:none}
+.ea-note{margin-top:auto;padding-top:18px;color:#777;font-size:.62rem;line-height:1.45}
+.ea-topbar{min-height:62px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px;margin:0 0 12px 312px;padding:0 8px}
+.ea-exit{justify-self:start;color:var(--muted);text-decoration:none;font-size:.78rem;font-weight:800}.ea-exit:hover{color:var(--yellow)}
+.ea-brand{text-align:center}.ea-brand strong{display:block;font-size:.95rem;letter-spacing:.09em;text-transform:uppercase}.ea-brand span{display:block;margin-top:3px;color:var(--yellow);font-size:.64rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.ea-status{justify-self:end;color:var(--muted);font-size:.7rem;font-weight:700}.ea-main{margin-left:312px;min-width:0}
+.ea-workspace{min-height:calc(100vh - 98px);overflow:hidden;border:1px solid var(--line);border-radius:22px;background:#131313}
+.ea-toolbar{display:flex;align-items:center;gap:10px;padding:13px;border-bottom:1px solid var(--line);background:#181818}
+.ea-search-wrap{flex:1;min-width:0;position:relative}.ea-search{width:100%;min-height:46px;padding:0 16px 0 42px;border:1px solid var(--line);border-radius:13px;outline:0;background:#0e0e0e;color:#fff;font-size:16px}.ea-search:focus{border-color:var(--yellow)}
+.ea-search-icon{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:#888}.ea-clear{min-height:46px;padding:0 15px;border:1px solid var(--line);border-radius:13px;background:#0e0e0e;color:#ddd;font-weight:800;cursor:pointer}
+.ea-stage{padding:clamp(20px,4vw,54px)}.ea-welcome{max-width:850px;margin:0 auto 34px;text-align:center}.ea-welcome h2{margin:10px 0 12px;font-size:clamp(2rem,4vw,4.1rem);line-height:.98;letter-spacing:-.04em}.ea-welcome p{max-width:680px;margin:auto;color:var(--muted);font-size:.95rem;line-height:1.65}
+.ea-results-head{max-width:1100px;margin:0 auto 13px;display:flex;align-items:end;justify-content:space-between;gap:15px}.ea-results-head strong{font-size:.75rem;letter-spacing:.09em;text-transform:uppercase}.ea-count{color:var(--muted);font-size:.7rem}
+.ea-results{max-width:1100px;margin:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.ea-card{padding:18px;border:1px solid var(--line);border-radius:17px;background:var(--card)}.ea-type{display:inline-flex;align-items:center;gap:7px;margin-bottom:12px;color:var(--yellow);font-size:.58rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase}.ea-card h3{margin:0 0 7px;font-size:1rem}.ea-card p{margin:0;color:var(--muted);font-size:.76rem;line-height:1.5}.ea-empty{display:none;max-width:600px;margin:50px auto;color:var(--muted);text-align:center;line-height:1.55}.ea-mobile{display:none}
+@media(max-width:1000px){.ea-studio{padding:8px}.ea-sidebar{display:none}.ea-topbar{margin-left:0;min-height:52px;grid-template-columns:auto 1fr auto;margin-bottom:7px}.ea-brand strong{font-size:.78rem}.ea-brand span{font-size:.55rem}.ea-status{display:none}.ea-main{margin-left:0}.ea-workspace{min-height:calc(100vh - 68px);border-radius:16px}.ea-mobile{display:flex;gap:7px;overflow-x:auto;padding:10px 10px 0;scrollbar-width:none}.ea-mobile button{flex:0 0 auto;min-height:38px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:#111;color:#eee;font-size:.68rem;font-weight:800}.ea-mobile button{display:inline-flex;align-items:center;justify-content:center;gap:6px}.ea-mobile .ea-filter-icon{width:14px;height:14px;flex-basis:14px}.ea-mobile button.active{background:var(--yellow);border-color:var(--yellow);color:#111}.ea-toolbar{padding:10px}.ea-stage{padding:28px 14px 35px}.ea-results{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.ea-exit{font-size:.66rem}.ea-brand strong{font-size:.7rem}.ea-brand span{display:none}.ea-clear{min-width:44px;padding:0 11px;font-size:0}.ea-clear:after{content:"×";font-size:1.15rem}.ea-results{grid-template-columns:1fr}.ea-welcome h2{font-size:2.25rem}}
 
-        <link rel="icon" 
-        type="image/png" 
-        sizes="48x48"
-        href="images/favicon.png">
-
-    
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MK5FXXVXNJ"></script>
-
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-
-        gtag('js', new Date());
-        gtag('config', 'G-MK5FXXVXNJ');
-    </script>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Everything Art | Alex Reynoso Art</title>
-
-    <meta name="description"
-          content="Everything Art is an international community of artists and art lovers created to inspire, encourage and celebrate creativity in all its forms.">
-
-    <!-- Social sharing -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Everything Art | Artists Inspiring Artists">
-    <meta property="og:description" content="An international community of artists and art lovers inspiring, encouraging and celebrating creativity in all its forms.">
-    <meta property="og:url" content="https://alexreynosoart.com/everything-art.html">
-    <meta property="og:image" content="https://alexreynosoart.com/images/social/everything-art-share.webp">
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Everything Art | Artists Inspiring Artists">
-    <meta name="twitter:description" content="An international community of artists and art lovers inspiring, encouraging and celebrating creativity in all its forms.">
-    <meta name="twitter:image" content="https://alexreynosoart.com/images/social/everything-art-share.webp">
-
-    <link rel="stylesheet"
-          href="css/style.css">
-
-
-
-
-    <style>
-        #featured-artist {
-            scroll-margin-top: 120px;
-        }
-    </style>
+.ea-resource-action{display:inline-flex;align-items:center;justify-content:center;margin-top:16px;min-height:38px;padding:0 13px;border:1px solid rgba(243,207,57,.55);border-radius:10px;background:transparent;color:var(--yellow);text-decoration:none;font-size:.65rem;font-weight:800;letter-spacing:.04em;cursor:pointer}
+.ea-resource-action:hover{background:var(--yellow);color:#111}
+.ea-integrated{border-color:#3a351b;background:#17170f}.ea-integrated .ea-resource-action{background:#292711;border-color:#6d6120;color:var(--yellow)}.ea-integrated .ea-resource-action:hover{background:var(--yellow);color:#111}.ea-group-label{grid-column:1/-1;margin-top:8px;padding:0 2px 8px;border-bottom:1px solid var(--line);color:#777;font-size:.6rem;font-weight:900;letter-spacing:.14em}.ea-group-studio{margin-top:0;color:var(--yellow)}.ea-group-more{margin-top:12px}
+.ea-tool-view{max-width:1400px;margin:0 auto}.ea-tool-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:12px}.ea-tool-head h3{margin:3px 0 0;font-size:1.25rem}.ea-tool-head button{min-height:40px;padding:0 13px;border:1px solid var(--line);border-radius:10px;background:#111;color:#eee;font-size:.68rem;font-weight:800;cursor:pointer}.ea-tool-head button:hover{border-color:var(--yellow);color:var(--yellow)}
+.ea-iframe-wrap{height:calc(100vh - 185px);min-height:600px;overflow:hidden;border:1px solid var(--line);border-radius:14px;background:#222}.ea-iframe-wrap iframe{display:block;width:100%;height:100%;border:0;background:#222}
+@media(max-width:1000px){.ea-iframe-wrap{height:calc(100vh - 170px);min-height:520px}.ea-tool-head{align-items:center}.ea-tool-head button{font-size:.6rem}}
+@media(max-width:600px){.ea-iframe-wrap{height:calc(100vh - 160px);min-height:480px;border-radius:10px}.ea-tool-head h3{font-size:1rem}.ea-tool-head button{padding:0 9px}}
+.ea-sound-search{display:flex;gap:10px;margin:16px 0 18px}.ea-sound-search input{flex:1;min-width:0;min-height:46px;padding:0 14px;border:1px solid var(--line);border-radius:12px;outline:0;background:#0e0e0e;color:#fff;font-size:16px}.ea-sound-search input:focus{border-color:var(--yellow)}.ea-sound-search button{min-height:46px;padding:0 18px;border:1px solid var(--yellow);border-radius:12px;background:var(--yellow);color:#111;font-weight:900;cursor:pointer}
+.ea-sound-status{min-height:22px;margin-bottom:12px;color:var(--muted);font-size:.72rem}.ea-sound-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.ea-sound-card{padding:16px;border:1px solid var(--line);border-radius:15px;background:var(--card)}.ea-sound-card h4{margin:0 0 7px;font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ea-sound-meta{margin-bottom:11px;color:var(--muted);font-size:.68rem;line-height:1.5}.ea-sound-card audio{width:100%;height:38px;margin:3px 0 9px}.ea-sound-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px}.ea-sound-link,.ea-sound-button{display:inline-flex;align-items:center;min-height:30px;padding:0 9px;border:1px solid rgba(243,207,57,.35);border-radius:8px;background:transparent;color:var(--yellow);font-size:.62rem;font-weight:800;text-decoration:none;cursor:pointer}.ea-sound-link:hover,.ea-sound-button:hover{background:var(--yellow);color:#111}.ea-more-sound[aria-expanded="true"]{background:var(--yellow);border-color:var(--yellow);color:#111;box-shadow:0 0 0 2px rgba(243,207,57,.12)}.ea-sound-license{margin-left:auto;color:#aaa;font-size:.62rem}.ea-sound-details{margin-top:11px;padding-top:11px;border-top:1px solid var(--line);color:var(--muted);font-size:.66rem;line-height:1.55}.ea-sound-details[hidden]{display:none}.ea-sound-details strong{color:#ddd}.ea-sound-more-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px 22px}.ea-sound-more-col>div+div{margin-top:4px}.ea-sound-more-description{grid-column:1/-1;padding-top:2px}.ea-sound-more-footer{grid-column:1/-1;margin-top:0}.ea-sound-tags{margin-top:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.ea-sound-description{margin-top:6px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+@media(max-width:700px){.ea-sound-more-grid{grid-template-columns:1fr}.ea-sound-more-description,.ea-sound-more-footer{grid-column:auto}.ea-sound-results{grid-template-columns:1fr}.ea-sound-search{flex-direction:column}.ea-sound-search button{width:100%}}
+.ea-card-type-icon{width:15px;height:15px;flex:0 0 15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.ea-card-video-play{fill:currentColor;stroke:none}
+.ea-utilities-panel{scroll-margin-top:24px;display:none;margin-top:18px;border:1px solid rgba(255,255,255,.13);border-radius:18px;background:#111;padding:20px}
+.ea-utilities-panel.is-open{display:block}
+.ea-utilities-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:18px}
+.ea-utilities-head h2{margin:0 0 6px;font-size:1.35rem}
+.ea-utilities-head p{margin:0;color:#aaa;font-size:.9rem;line-height:1.45}
+.ea-utility-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:18px}
+.ea-utility-tab{border:1px solid rgba(255,255,255,.16);background:#181818;color:#fff;border-radius:999px;padding:11px 12px;font:inherit;font-weight:800;cursor:pointer}
+.ea-utility-tab.is-active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+.ea-utility-tool{display:none}
+.ea-utility-tool.is-active{display:block}
+.ea-dropzone{border:1.5px dashed rgba(255,255,255,.28);border-radius:16px;padding:28px 18px;text-align:center;background:#0b0b0b;cursor:pointer}
+.ea-dropzone.is-drag{border-color:var(--yellow);background:#17150b}
+.ea-dropzone strong{display:block;font-size:1rem;margin-bottom:5px}
+.ea-dropzone span{font-size:.82rem;color:#999}
+.ea-utility-preview{display:none;margin-top:16px}
+.ea-utility-preview.is-ready{display:block}
+.ea-preview-grid{display:grid;grid-template-columns:minmax(180px,1fr) minmax(220px,1.25fr);gap:16px;align-items:start}
+.ea-preview-box{background:#090909;border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:12px}
+.ea-preview-box img{display:block;width:100%;max-height:320px;object-fit:contain;border-radius:9px;background:#161616}
+.ea-file-meta{font-size:.78rem;color:#aaa;margin-top:9px;overflow-wrap:anywhere}
+.ea-control-box{background:#151515;border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:16px}
+.ea-control-box label{display:block;font-size:.75rem;font-weight:800;letter-spacing:.04em;margin:0 0 7px;color:#ddd}
+.ea-control-box select,.ea-control-box input[type="number"],.ea-control-box input[type="range"]{width:100%;box-sizing:border-box}
+.ea-control-box select,.ea-control-box input[type="number"]{background:#0a0a0a;color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:10px}
+.ea-control-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:13px}
+.ea-control-stack{margin-bottom:14px}
+.ea-lock-row{display:flex;align-items:center;gap:8px;font-size:.82rem;color:#bbb;margin:-2px 0 14px}
+.ea-lock-row input{accent-color:#f4d20b}
+.ea-preset-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.ea-preset{border:1px solid rgba(255,255,255,.16);background:#222;color:#fff;border-radius:999px;padding:7px 10px;font-size:.72rem;font-weight:800;cursor:pointer}
+.ea-action-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
+.ea-util-btn{border:0;border-radius:999px;padding:10px 14px;font:inherit;font-size:.78rem;font-weight:900;cursor:pointer;background:var(--yellow);color:#111;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+.ea-util-btn.secondary{background:#292929;color:#fff;border:1px solid rgba(255,255,255,.14)}
+.ea-util-btn[disabled]{opacity:.45;cursor:not-allowed}
+.ea-output-note{font-size:.76rem;color:#999;margin-top:10px;line-height:1.4}
+.ea-size-result{font-size:.84rem;margin-top:10px;color:#ddd}
+.ea-size-result strong{color:var(--yellow)}
+@media(max-width:700px){.ea-utility-tabs{grid-template-columns:1fr}.ea-preview-grid{grid-template-columns:1fr}.ea-utilities-panel{padding:14px}.ea-control-row{grid-template-columns:1fr 1fr}}
 
 
-    <style>
-        /* Everything Art phone header: canonical two-row layout */
-        @media (max-width: 700px) {
-            body.everything-art-theme .ea-mini-nav-inner {
-                display: grid !important;
-                grid-template-columns: 1fr auto !important;
-                grid-template-rows: auto auto !important;
-                gap: 7px 8px !important;
-                padding: 10px 12px !important;
-                align-items: center !important;
-            }
 
-            body.everything-art-theme .ea-mini-primary {
-                grid-column: 1 / -1 !important;
-                grid-row: 1 / 3 !important;
-                width: 100% !important;
-                display: grid !important;
-                grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-                grid-template-rows: auto auto !important;
-                gap: 7px !important;
-            }
+/* v14 */
+.ea-utilities-panel{box-sizing:border-box;width:100%;max-width:none;margin:18px 0 0}
+.ea-build-version{margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08);font-size:.62rem;line-height:1.45;letter-spacing:.04em;color:#666}
+.ea-build-version strong{color:#888}
 
-            body.everything-art-theme .ea-mini-primary .ea-mini-link:nth-child(1) {
-                grid-column: 1 !important;
-                grid-row: 1 !important;
-            }
+/* =========================================================
+   TEST BUILD 1.0.15 — UTILITIES WORKSPACE FIXERUPPER
+   Utilities is a workspace, not a resource card/grid item.
+   ========================================================= */
 
-            body.everything-art-theme .ea-mini-primary .ea-mini-link:nth-child(2) {
-                grid-column: 2 !important;
-                grid-row: 1 !important;
-            }
+.ea-utilities-panel{
+  grid-column:1 / -1 !important;
+  width:100% !important;
+  max-width:none !important;
+  margin:0 !important;
+  align-self:start;
+}
 
-            body.everything-art-theme .ea-mini-primary .ea-mini-link:nth-child(3) {
-                grid-column: 3 !important;
-                grid-row: 1 !important;
-            }
+.ea-utilities-panel .ea-utility-tabs{
+  display:grid !important;
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:14px !important;
+  width:100% !important;
+}
 
-            body.everything-art-theme .ea-mini-primary .ea-mini-link:nth-child(4) {
-                grid-column: 1 !important;
-                grid-row: 2 !important;
-            }
+.ea-utilities-panel .ea-utility-tab{
+  width:100% !important;
+  min-width:0 !important;
+  min-height:56px;
+  padding:14px 18px !important;
+  border-radius:999px !important;
+  white-space:nowrap;
+}
 
-            body.everything-art-theme .ea-mini-actions {
-                grid-column: 2 !important;
-                grid-row: 2 !important;
-                width: auto !important;
-                margin: 0 !important;
-                padding: 0 !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: flex-end !important;
-                gap: 7px !important;
-                z-index: 2 !important;
-            }
+/* Some earlier builds used generic button wrappers. Normalize those too. */
+.ea-utilities-panel .utility-tabs,
+.ea-utilities-panel .utilities-tabs{
+  display:grid !important;
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:14px !important;
+  width:100% !important;
+}
+.ea-utilities-panel .utility-tabs > button,
+.ea-utilities-panel .utilities-tabs > button{
+  width:100% !important;
+  min-width:0 !important;
+  min-height:56px;
+  padding:14px 18px !important;
+  border-radius:999px !important;
+  white-space:nowrap;
+}
 
-            body.everything-art-theme .ea-mini-actions .ea-mini-facebook {
-                min-height: 38px !important;
-                height: 38px !important;
-                padding: 0 13px !important;
-                font-size: .62rem !important;
-            }
+/* The active tool itself owns the canvas width. */
+.ea-utilities-panel .ea-utility-body,
+.ea-utilities-panel .utility-body,
+.ea-utilities-panel .ea-utility-workspace{
+  width:100% !important;
+  max-width:none !important;
+}
 
-            body.everything-art-theme .ea-mini-ar {
-                flex: 0 0 38px !important;
-                width: 38px !important;
-                min-width: 38px !important;
-                max-width: 38px !important;
-                height: 38px !important;
-                min-height: 38px !important;
-                max-height: 38px !important;
-            }
-        }
-    </style>
+/* Utility mode should not visually look like an empty resource search. */
+body.ea-utilities-active .ea-resource-heading,
+body.ea-utilities-active .resource-heading,
+body.ea-utilities-active .ea-resource-count,
+body.ea-utilities-active .resource-count,
+body.ea-utilities-active .ea-empty-state,
+body.ea-utilities-active .empty-state{
+  display:none !important;
+}
 
+@media (max-width:760px){
+  .ea-utilities-panel .ea-utility-tabs,
+  .ea-utilities-panel .utility-tabs,
+  .ea-utilities-panel .utilities-tabs{
+    grid-template-columns:1fr !important;
+  }
+  .ea-utilities-panel .ea-utility-tab,
+  .ea-utilities-panel .utility-tabs > button,
+  .ea-utilities-panel .utilities-tabs > button{
+    white-space:normal;
+  }
+}
+
+
+/* 1.0.16 format expansion roadmap */
+.ea-format-roadmap{
+  margin-top:18px;
+  padding:16px 18px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+  color:#aaa;
+  font-size:.88rem;
+  line-height:1.5;
+}
+.ea-format-roadmap-title{
+  margin-bottom:8px;
+  color:#f6d232;
+  font-weight:900;
+  letter-spacing:.06em;
+  font-size:.75rem;
+}
+.ea-format-roadmap p{margin:5px 0}
+.ea-format-roadmap strong{color:#eee}
+.ea-format-roadmap-small{font-size:.78rem;color:#777}
+
+
+/* 1.0.17 shared output estimate */
+.ea-output-estimate{
+  margin-top:10px;
+  color:#aaa;
+  font-size:.86rem;
+  line-height:1.45;
+}
+.ea-output-estimate strong{color:#eee}
+
+
+/* =========================================================
+   1.0.18 — EVERYTHING ART PROJECT NAV
+   Everything Art owns this space. AR is only the quiet exit home.
+   ========================================================= */
+.ea-project-nav{
+  position:relative;
+  z-index:50;
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:8px;
+  min-height:42px;
+  padding:8px 18px;
+  background:#090909;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.ea-project-nav a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:30px;
+  padding:6px 11px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:999px;
+  color:#aaa;
+  text-decoration:none;
+  font-size:.67rem;
+  font-weight:850;
+  letter-spacing:.045em;
+  line-height:1;
+  white-space:nowrap;
+}
+.ea-project-nav a:hover,
+.ea-project-nav a:focus-visible{
+  color:#fff;
+  border-color:rgba(246,210,50,.55);
+}
+.ea-project-nav a.is-current{
+  color:#111;
+  background:#f6d232;
+  border-color:#f6d232;
+}
+.ea-project-nav .ea-ar-home{
+  width:32px;
+  height:32px;
+  min-height:32px;
+  padding:0;
+  border-color:rgba(246,210,50,.38);
+}
+.ea-project-nav .ea-ar-home img{
+  display:block;
+  width:22px;
+  height:22px;
+  object-fit:contain;
+  border-radius:5px;
+}
+@media(max-width:700px){
+  .ea-project-nav{
+    justify-content:flex-start;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    padding:8px 10px;
+  }
+  .ea-project-nav::-webkit-scrollbar{display:none}
+  .ea-project-nav a{font-size:.62rem;padding:6px 9px}
+  .ea-project-nav .ea-ar-home{flex:0 0 32px;padding:0}
+}
+
+
+/* 1.0.19 — match the existing Everything Art navigation */
+.ea-project-nav{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:18px !important;
+  min-height:82px !important;
+  padding:18px 34px !important;
+  background:rgba(7,7,7,.82) !important;
+  border-bottom:0 !important;
+}
+.ea-project-nav-left,
+.ea-project-nav-right{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.ea-project-nav a{
+  min-height:42px !important;
+  padding:0 20px !important;
+  border:1px solid rgba(255,255,255,.25) !important;
+  border-radius:999px !important;
+  color:#f1f1f1 !important;
+  background:rgba(10,10,10,.58) !important;
+  font-size:.78rem !important;
+  font-weight:900 !important;
+  letter-spacing:.02em !important;
+}
+.ea-project-nav a.is-current{
+  color:#f6d232 !important;
+  border-color:#f6d232 !important;
+  background:rgba(10,10,10,.72) !important;
+}
+.ea-project-nav .ea-fb-link{
+  color:#4aa3ff !important;
+  border-color:#4aa3ff !important;
+}
+.ea-project-nav .ea-ar-home{
+  width:42px !important;
+  height:42px !important;
+  min-height:42px !important;
+  padding:0 !important;
+  border-color:rgba(255,255,255,.25) !important;
+}
+.ea-project-nav .ea-ar-home img{
+  width:24px !important;
+  height:24px !important;
+}
+@media(max-width:700px){
+  .ea-project-nav{
+    display:grid !important;
+    grid-template-columns:1fr auto !important;
+    align-items:start !important;
+    gap:10px 12px !important;
+    min-height:0 !important;
+    padding:14px 12px !important;
+    overflow:visible !important;
+  }
+  .ea-project-nav-left{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .ea-project-nav-right{
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:8px;
+  }
+  .ea-project-nav a{
+    min-height:36px !important;
+    padding:0 12px !important;
+    font-size:.66rem !important;
+  }
+  .ea-project-nav .ea-ar-home{
+    width:36px !important;
+    height:36px !important;
+    min-height:36px !important;
+    padding:0 !important;
+  }
+}
+
+
+/* =========================================================
+   TEST BUILD 1.0.23
+   CLEAN EVERYTHING ART NAV + DESKTOP SIDEBAR OFFSET
+   ========================================================= */
+
+:root{
+  --ea-nav-desktop-h:79px;
+}
+
+/* Sticky Everything Art navigation */
+.ea-mini-nav{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  width:100%;
+  background:rgba(7,7,7,.96);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.ea-mini-nav-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  min-height:var(--ea-nav-desktop-h);
+  padding:18px 34px;
+}
+.ea-mini-primary,
+.ea-mini-secondary{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.ea-mini-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:42px;
+  padding:0 20px;
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:999px;
+  background:rgba(10,10,10,.58);
+  color:#f1f1f1;
+  text-decoration:none;
+  font-size:.78rem;
+  font-weight:900;
+  letter-spacing:.02em;
+  white-space:nowrap;
+}
+.ea-mini-link.is-current{
+  color:#f6d232;
+  border-color:#f6d232;
+}
+.ea-mini-facebook{
+  color:#4aa3ff;
+  border-color:#4aa3ff;
+}
+.ea-mini-ar{
+  width:42px;
+  min-width:42px;
+  height:42px;
+  min-height:42px;
+  padding:0;
+  border-radius:50%;
+}
+.ea-mini-ar img{
+  display:block;
+  width:28px;
+  height:28px;
+  object-fit:contain;
+  border-radius:50%;
+}
+
+/* Desktop: the sidebar begins BELOW the sticky EA navigation. */
+@media(min-width:1001px){
+  .ea-sidebar{
+    top:calc(var(--ea-nav-desktop-h) + 12px) !important;
+    bottom:12px !important;
+  }
+}
+
+/* Phone: real two-row layout. Nothing is absolutely positioned.
+   Row 1: EA / Opportunities / Art Events
+   Row 2: Resources ........ FB Group / AR */
+@media(max-width:700px){
+  .ea-mini-nav-inner{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    grid-template-areas:
+      "primary primary"
+      "resource secondary";
+    gap:10px 8px;
+    min-height:0;
+    padding:12px;
+  }
+
+  .ea-mini-primary{
+    grid-area:primary;
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:8px;
+    min-width:0;
+  }
+
+  .ea-mini-primary > :nth-child(1){grid-column:1}
+  .ea-mini-primary > :nth-child(2){grid-column:2}
+  .ea-mini-primary > :nth-child(3){grid-column:3}
+
+  /* Resources becomes the left cell of row 2. */
+  .ea-mini-primary > :nth-child(4){
+    grid-area:auto;
+    position:absolute;
+    visibility:hidden;
+    pointer-events:none;
+  }
+
+  .ea-mini-nav-inner::after{
+    content:"RESOURCES";
+    grid-area:resource;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:36px;
+    padding:0 8px;
+    border:1px solid #f6d232;
+    border-radius:999px;
+    color:#f6d232;
+    background:rgba(10,10,10,.58);
+    font-size:.66rem;
+    font-weight:900;
+    letter-spacing:.02em;
+  }
+
+  .ea-mini-secondary{
+    grid-area:secondary;
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:8px;
+  }
+
+  .ea-mini-link{
+    box-sizing:border-box;
+    width:100%;
+    min-width:0;
+    min-height:36px;
+    padding:0 8px;
+    font-size:.66rem;
+    text-align:center;
+  }
+
+  .ea-mini-facebook{
+    width:auto;
+    min-width:112px;
+    padding:0 14px;
+  }
+
+  .ea-mini-ar{
+    width:36px;
+    min-width:36px;
+    height:36px;
+    min-height:36px;
+    padding:0;
+    border-radius:50%;
+    flex:0 0 36px;
+  }
+  .ea-mini-ar img{
+    width:24px;
+    height:24px;
+    border-radius:50%;
+  }
+}
+
+/* On wider phones/tablets, keep the same clean navigation behavior. */
+@media(min-width:701px) and (max-width:1000px){
+  .ea-mini-nav-inner{
+    padding:12px 16px;
+  }
+  .ea-mini-link{
+    min-height:38px;
+    padding:0 14px;
+    font-size:.7rem;
+  }
+  .ea-mini-ar{
+    width:38px;
+    min-width:38px;
+    height:38px;
+    min-height:38px;
+  }
+}
+
+
+
+/* =========================================================
+   TEST BUILD 1.0.24
+   Tablet/mobile workspace hierarchy
+   ========================================================= */
+
+/* Small EA identity inside the Studio, not another site header. */
+.ea-studio-mark{
+  display:block;
+  width:132px;
+  max-width:34vw;
+  height:auto;
+  margin:0 auto 10px;
+}
+
+/* Keep AR legible on tablet. */
+@media(min-width:701px) and (max-width:1000px){
+  .ea-mini-ar{
+    width:46px !important;
+    min-width:46px !important;
+    height:46px !important;
+    min-height:46px !important;
+    flex:0 0 46px !important;
+    padding:0 !important;
+    border-radius:50% !important;
+  }
+  .ea-mini-ar img{
+    width:32px !important;
+    height:32px !important;
+    max-width:none !important;
+    max-height:none !important;
+    object-fit:contain !important;
+    border-radius:50% !important;
+  }
+}
+
+/* Phone + tablet:
+   Put the Work With rail AFTER "What will you make?"
+   so changing Image/Video/Audio keeps the matching listings directly below. */
+@media(max-width:1000px){
+  .ea-workspace{
+    display:flex !important;
+    flex-direction:column !important;
+  }
+
+  /* The large intro/results body comes first. */
+  .ea-results{
+    order:1 !important;
+  }
+
+  /* Existing top filter/search area follows the intro. */
+  .ea-topbar{
+    order:2 !important;
+  }
+
+  /* Keep the cards/results after their controls when these are separate siblings. */
+  .ea-resource-content,
+  .ea-resource-sections{
+    order:3 !important;
+  }
+
+  .ea-studio-mark{
+    width:118px;
+    margin-bottom:8px;
+  }
+}
+
+
+/* =========================================================
+   TEST BUILD 1.0.26
+   Visible EA mark + tablet/phone control placement
+   ========================================================= */
+.ea-studio-mark{
+  display:block !important;
+  width:150px !important;
+  height:auto !important;
+  max-width:42vw !important;
+  margin:0 auto 12px !important;
+  opacity:1 !important;
+  visibility:visible !important;
+}
+
+@media(max-width:1000px){
+  .ea-studio-mark{
+    width:130px !important;
+    margin-bottom:9px !important;
+  }
+
+  /* Once JS moves the actual topbar into the hero, make it read as part
+     of "What will you make?" rather than a separate top toolbar. */
+  .ea-results .ea-topbar,
+  .ea-hero .ea-topbar{
+    margin:26px 0 30px !important;
+    border-top:1px solid rgba(255,255,255,.10);
+    border-bottom:1px solid rgba(255,255,255,.10);
+  }
+}
+
+
+
+
+
+/* =========================================================
+   BUILD 1.0.40 — MOBILE/TABLET CONTROLS UNDER HERO
+   Compact original-size pills. No oversized "pregnant" buttons.
+   ========================================================= */
+@media(max-width:1000px){
+  html,body{
+    max-width:100%;
+    overflow-x:hidden;
+    overscroll-behavior-x:none;
+  }
+
+  .ea-mobile{
+    display:block;
+    width:100%;
+    max-width:100%;
+    margin:22px 0 4px;
+    padding:0;
+    overflow:hidden;
+  }
+
+  .ea-mobile-filter-group{
+    width:100%;
+    margin:0 0 13px;
+  }
+
+  .ea-mobile-filter-label{
+    display:block;
+    margin:0 0 7px;
+    color:#bdbdbd;
+    font-size:.62rem;
+    font-weight:900;
+    letter-spacing:.11em;
+    text-transform:uppercase;
+  }
+
+  .ea-mobile-filter-rail{
+    display:flex;
+    flex-wrap:nowrap;
+    align-items:center;
+    gap:7px;
+    width:100%;
+    max-width:100%;
+    padding:0 0 3px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior-x:contain;
+    touch-action:pan-x;
+    scrollbar-width:none;
+  }
+
+  .ea-mobile-filter-rail::-webkit-scrollbar{display:none}
+
+  .ea-mobile-filter-rail button,
+  .ea-mobile-filter-rail .ea-mobile-all,
+  .ea-mobile-filter-rail .ea-mobile-utilities{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    flex:0 0 auto;
+    width:auto;
+    min-width:0;
+    height:38px;
+    min-height:38px;
+    padding:0 14px;
+    border:1px solid #555;
+    border-radius:999px;
+    background:#292929;
+    color:#f5f5f5;
+    font-size:.68rem;
+    font-weight:800;
+    line-height:1;
+    white-space:nowrap;
+    cursor:pointer;
+  }
+
+  .ea-mobile-filter-rail button.active{
+    background:#ffd633;
+    border-color:#ffd633;
+    color:#111;
+  }
+
+  .ea-mobile-filter-rail .ea-mobile-utilities{
+    background:#f1f1f3;
+    border-color:#a9a9b3;
+    color:#111;
+  }
+
+  .ea-mobile-filter-rail .ea-filter-icon{
+    width:14px;
+    height:14px;
+    flex:0 0 14px;
+  }
+
+  .ea-toolbar{
+    margin:0 0 20px !important;
+    padding:10px !important;
+    border-top:1px solid rgba(255,255,255,.10);
+    border-bottom:1px solid rgba(255,255,255,.10);
+  }
+
+  .ea-results-head{
+    margin-top:20px;
+  }
+}
+
+
+/* 1.0.41 — Shared Everything Art navigation typography */
+.ea-mini-nav .ea-mini-link,
+.ea-mini-nav .ea-mini-ar {
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+</style>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
 </head>
-
-
-<body class="everything-art-theme">
-
-    <!-- EVERYTHING ART STICKY NAV -->
-    <nav class="ea-mini-nav" aria-label="Everything Art navigation">
-        <div class="ea-mini-nav-inner">
-
-            <div class="ea-mini-primary">
-                <span class="ea-mini-link is-current" aria-current="page">EVERYTHING ART</span>
-                <a class="ea-mini-link" href="everything-art-opportunities.html">OPPORTUNITIES</a>
-                <a class="ea-mini-link" href="everything-art-events.html">ART EVENTS</a>
-                <a class="ea-mini-link" href="everything-art-creative-studio-test.html">RESOURCES</a>
-            </div>
-
-            <div class="ea-mini-actions">
-                <a class="ea-mini-link ea-mini-facebook"
-                   href="https://www.facebook.com/groups/GreatArt"
-                   target="_blank"
-                   rel="noopener noreferrer">FB GROUP ↗</a>
-
-                <a class="ea-mini-ar"
-                   href="index.html"
-                   aria-label="Alex Reynoso Art home"
-                   title="Alex Reynoso Art">
-                    <img src="images/favicon.png" alt="">
-                </a>
-            </div>
-
-        </div>
-    </nav>
-
-
-
-
-    <main class="everything-art-page">
-
-
-        <!-- HERO -->
-
-        <section class="ea-hero ea-hero-main">
-
-    <img class="everything-art-logo"
-         src="images/everything-art/EverythingART-logo.png"
-         alt="Everything Art">
-
-    <div class="everything-art-caption">
-        THE INSPIRATIONAL ART GROUP
-    </div>
-
-    <div class="ea-color-strokes" aria-hidden="true">
-        <span class="ea-stroke-yellow"></span>
-        <span class="ea-stroke-purple"></span>
-        <span class="ea-stroke-blue"></span>
-    </div>
-
-    <p class="ea-tagline">
-        Artists inspiring artists.
-    </p>
-
-    <p class="ea-established">
-        Established 2010 · 14,000+ members worldwide
-    </p>
-
-</section>
-
-
-
-        <!-- COMMUNITY COVER -->
-
-        <section class="ea-cover">
-
-            <!--
-                Replace the image filename below with the
-                Everything Art monthly cover image after
-                uploading it to the images folder.
-            -->
-
-            <img src="images/everything-art-community-cover.jpg"
-                 alt="Everything Art community artwork">
-
-        </section>
-
-
-
-        <!-- INTRO -->
-
-        <section class="ea-intro ea-section-intro">
-
-            <h2>
-                Art belongs to everybody.
-            </h2>
-
-            <p>
-                Everything Art is an international community
-                of artists and art lovers created to inspire,
-                encourage and celebrate creativity in all
-                its forms.
-            </p>
-
-            <p>
-                Painting, drawing, photography, sculpture,
-                illustration, design, fashion, poetry,
-                animation, pottery and everything in between
-                have a place here.
-            </p>
-
-            <p>
-                <strong>
-                    Beginners are welcome.
-                    Professionals are welcome.
-                    Works in progress are welcome.
-                </strong>
-            </p>
-
-        </section>
-
-
-
-        <!-- COMMUNITY STATS -->
-
-        <section class="ea-stats"
-                 aria-label="Everything Art community">
-
-            <div class="ea-stat">
-
-                <span class="ea-stat-number">
-                    14K+
-                </span>
-
-                <span class="ea-stat-label">
-                    Community Members
-                </span>
-
-            </div>
-
-
-            <div class="ea-stat">
-
-                <span class="ea-stat-number">
-                    2010
-                </span>
-
-                <span class="ea-stat-label">
-                    Established
-                </span>
-
-            </div>
-
-
-            <div class="ea-stat">
-
-                <span class="ea-stat-number">
-                    Worldwide
-                </span>
-
-                <span class="ea-stat-label">
-                    Creative Community
-                </span>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- PHILOSOPHY -->
-
-        <section class="ea-philosophy ea-section-philosophy">
-
-            <div class="ea-philosophy-kicker">
-                Why Everything Art Exists
-            </div>
-
-            <h2>
-                We are here to motivate and encourage
-                one another in EVERYTHING ART.
-            </h2>
-
-            <p>
-                Creativity should not be intimidating.
-                Everything Art is a place to discover work,
-                share ideas, find inspiration and encourage
-                people to keep creating.
-            </p>
-
-        </section>
-
-
-
-        <!-- FACEBOOK COMMUNITY -->
-
-        <section class="ea-facebook ea-section-facebook">
-
-            <div class="ea-facebook-info">
-
-                <div class="ea-section-kicker">
-                    The Community
-                </div>
-
-                <h2>
-                    See what everyone is creating.
-                </h2>
-
-                <p>
-                    Thousands of artists and art lovers
-                    from around the world share work,
-                    discoveries and inspiration through
-                    the Everything Art community.
-                </p>
-
-            </div>
-
-
-            <div class="ea-facebook-action">
-
-                <div class="ea-section-kicker">
-                    Everything Art on Facebook
-                </div>
-
-                <p>
-                    Visit the public group to explore
-                    artwork being shared by the community.
-                </p>
-
-                <a class="ea-button"
-                   href="https://www.facebook.com/groups/GreatArt"
-                   target="_blank"
-                   rel="noopener noreferrer">
-                    VISIT EVERYTHING ART →
-                </a>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- FEATURED ARTIST OF THE MONTH -->
-
-        <section class="ea-featured ea-section-featured" id="featured-artist">
-
-            <div class="ea-section-heading">
-
-                <div class="ea-section-kicker">
-                    Everything Art Community
-                </div>
-
-                <h2>
-                    Featured Artist of the Month
-                </h2>
-
-                <p>
-                    Each month, Everything Art recognizes an active member
-                    of the community for sharing their work, participating
-                    and helping keep artists inspiring artists.
-                </p>
-
-            </div>
-
-
-            <div class="ea-featured-artist ea-featured-award">
-
-                <span class="ea-award-corner ea-award-corner-tl" aria-hidden="true"></span>
-                <span class="ea-award-corner ea-award-corner-tr" aria-hidden="true"></span>
-                <span class="ea-award-corner ea-award-corner-bl" aria-hidden="true"></span>
-                <span class="ea-award-corner ea-award-corner-br" aria-hidden="true"></span>
-
-                <div class="ea-featured-preview">
-                    <img class="ea-featured-image"
-                         src="images/everything-art/everything-art-featured-2026-10-ink-designs-shorts.jpg"
-                         alt="Ink.Designs Shorts creating artwork in a drawing process video">
-
-                    <div class="ea-award-seal" aria-label="Everything Art Featured Artist Award">
-                        <span class="ea-award-seal-star" aria-hidden="true">★</span>
-                        <span class="ea-award-seal-title">EVERYTHING ART</span>
-                        <span class="ea-award-seal-center">FEATURED</span>
-                        <span class="ea-award-seal-year">ARTIST · 2026</span>
-                    </div>
-                </div>
-
-                <div class="ea-featured-copy">
-
-                    <div class="ea-award-eyebrow">
-                        Official Community Recognition
-                    </div>
-
-                    <div class="ea-section-kicker">
-                        Featured Artist · October 2026
-                    </div>
-
-                    <h3>Ink.Designs Shorts</h3>
-
-                    <p>
-                        Recognized for active participation and creative contributions
-                        to the Everything Art community. Ink.Designs Shorts shares
-                        drawing process videos that let the community watch the artwork
-                        take shape from line to finished piece.
-                    </p>
-
-                    <div class="ea-featured-actions">
-                        <a class="ea-button"
-                           href="https://www.facebook.com/profile.php?id=61584907662872"
-                           target="_blank"
-                           rel="noopener noreferrer">
-                            VIEW THEIR EVERYTHING ART SHOWCASE →
-                        </a>
-                    </div>
-
-                    <div class="ea-featured-note">
-                        Featured artists are selected from active community contributors.
-                        Once featured, artists step out of the monthly rotation so another
-                        member can have the spotlight.
-                    </div>
-
-                    <div class="ea-award-motto" aria-label="Everything Art motto">
-                        <span></span>
-                        ARTISTS INSPIRING ARTISTS
-                        <span></span>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- ART CHALLENGES -->
-
-        <section class="ea-challenges ea-section-challenges">
-
-            <div class="ea-section-heading">
-
-                <div class="ea-section-kicker">
-                    Make Something
-                </div>
-
-                <h2>
-                    Art Challenges &amp; Exercises
-                </h2>
-
-                <p>
-                    Sometimes the best way to make art is to stop thinking
-                    about making it perfect. Try an Everything Art exercise,
-                    then explore creative challenges happening around the art community.
-                </p>
-
-            </div>
-
-
-            <!-- EVERYTHING ART EXERCISE #001 -->
-
-            <div class="ea-exercise">
-
-                <div class="ea-exercise-content">
-
-                    <div class="ea-section-kicker">
-                        Everything Art Exercise #001
-                    </div>
-
-                    <h2>
-                        DON'T STOP. JUST DRAW. ✍️
-                    </h2>
-
-                    <p class="ea-exercise-lead">
-                        Put your pen or pencil down and start drawing without
-                        deciding what you're going to make. Keep the line moving.
-                        Let your hand, wrist and arm loosen up and follow the line
-                        wherever it wants to go. Don't worry about making a picture.
-                        Don't erase. Don't restart. If something begins to appear,
-                        follow it. If it doesn't, keep moving.
-                    </p>
-
-                    <div class="ea-exercise-rules"
-                         aria-label="Exercise rules">
-
-                        <div class="ea-exercise-rule">KEEP MOVING</div>
-                        <div class="ea-exercise-rule">NO PLANNING</div>
-                        <div class="ea-exercise-rule">NO ERASING</div>
-                        <div class="ea-exercise-rule">NO RESTARTING</div>
-                        <div class="ea-exercise-rule">DETAILS CAN WAIT</div>
-                        <div class="ea-exercise-rule">UGLY IS ALLOWED</div>
-
-                    </div>
-
-                    <p class="ea-exercise-callout">
-                        Loosen the hand. Free the arm. Find the flow.
-                    </p>
-
-                    <p class="ea-exercise-small">
-                        The point isn't to make something good.
-                        The point is to stop thinking long enough to start creating.
-                        Paper version and digital Creative Studio version are coming next.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <!-- OCTOBER CHALLENGES -->
-
-            <div class="ea-october">
-
-                <div class="ea-section-kicker">
-                    Get Your Pens Ready
-                </div>
-
-                <h2>
-                    October Art Challenges 🎃
-                </h2>
-
-                <p>
-                    October is packed with reasons to draw. Pick one challenge,
-                    mix a few together or simply use the prompts when you need
-                    an idea. Always check the official challenge page for its
-                    current rules and participation details.
-                </p>
-
-
-                <div class="ea-challenge-grid">
-
-                    <article class="ea-challenge-card">
-
-                        <div class="ea-challenge-tag">
-                            October 1–31 · Daily Prompts
-                        </div>
-
-                        <h3>Inktober 2026</h3>
-
-                        <p>
-                            A month-long drawing challenge focused on building
-                            drawing habits through daily ink-inspired prompts.
-                        </p>
-
-                        <a class="ea-challenge-link"
-                           href="https://inktober.com/rules"
-                           target="_blank"
-                           rel="noopener noreferrer">
-                            OFFICIAL RULES &amp; PROMPTS →
-                        </a>
-
-                    </article>
-
-
-                    <article class="ea-challenge-card">
-
-                        <div class="ea-challenge-tag">
-                            October 1–31 · Horror &amp; Folklore
-                        </div>
-
-                        <h3>Monstober 2026</h3>
-
-                        <p>
-                            Thirty-one prompts inspired by horror, folklore,
-                            mythology and dark fiction. Work daily or at your own pace.
-                        </p>
-
-                        <a class="ea-challenge-link"
-                           href="https://www.monstober.com/"
-                           target="_blank"
-                           rel="noopener noreferrer">
-                            VISIT MONSTOBER →
-                        </a>
-
-                    </article>
-
-
-                    <article class="ea-challenge-card">
-
-                        <div class="ea-challenge-tag">
-                            October · Spooky Drawing
-                        </div>
-
-                        <h3>Fright-Fall 2026</h3>
-
-                        <p>
-                            A free October drawing challenge with 31 spooky
-                            prompts. Artists can participate on their own schedule.
-                        </p>
-
-                        <a class="ea-challenge-link"
-                           href="https://www.retrosupply.co/pages/fright-fall"
-                           target="_blank"
-                           rel="noopener noreferrer">
-                            VISIT FRIGHT-FALL →
-                        </a>
-
-                    </article>
-
-
-                    <article class="ea-challenge-card">
-
-                        <div class="ea-challenge-tag">
-                            October 1–31 · Illustration
-                        </div>
-
-                        <h3>SCBWI Artober 2026</h3>
-
-                        <p>
-                            Thirty-one illustration prompts designed to encourage
-                            a daily creative practice using your favorite medium.
-                        </p>
-
-                        <a class="ea-challenge-link"
-                           href="https://www.scbwi.org/artober"
-                           target="_blank"
-                           rel="noopener noreferrer">
-                            VISIT ARTOBER →
-                        </a>
-
-                    </article>
-
-                </div>
-
-
-                <p class="ea-challenge-footer">
-                    Outside challenges are shared as artist resources and remain
-                    the projects of their respective organizers. Everything Art
-                    exercises are created by Everything Art.
-                </p>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- FUTURE VISION -->
-
-        <section class="ea-future ea-section-future">
-
-            <div class="ea-future-content">
-
-                <div class="ea-section-kicker">
-                    The Future
-                </div>
-
-                <h2>
-                    Something Bigger Is Growing. 🌱
-                </h2>
-
-                <p>
-                    Everything Art began as an online
-                    community with a simple belief:
-                    artists should encourage artists.
-                    The long-term dream is to take that
-                    spirit beyond the screen and create
-                    new opportunities for artists to
-                    <strong>
-                        create, learn, teach, exhibit
-                        and build community together.
-                    </strong>
-                </p>
-
-            </div>
-
-        </section>
-
-
-
-        <div class="ea-founder">
-            Everything Art · Founded by Alexander Reynoso · 2010
+<body>
+
+<nav class="ea-mini-nav" aria-label="Everything Art navigation">
+    <div class="ea-mini-nav-inner">
+
+        <div class="ea-mini-primary">
+            <a class="ea-mini-link" href="everything-art.html">EVERYTHING ART</a>
+            <a class="ea-mini-link" href="everything-art-opportunities.html">OPPORTUNITIES</a>
+            <a class="ea-mini-link" href="everything-art-events.html">ART EVENTS</a>
+            <span class="ea-mini-link is-current" aria-current="page">RESOURCES</span>
         </div>
 
-
-    </main>
-
-    <footer class="ea-site-footer">
-        <nav class="ea-family-footer" aria-label="Everything Art footer navigation">
-            <span aria-current="page">EVERYTHING ART</span>
-            <a href="everything-art-opportunities.html">OPPORTUNITIES</a>
-            <a href="everything-art-events.html">ART EVENTS</a>
-            <a href="everything-art-creative-studio-test.html">RESOURCES</a>
-            <a class="ea-family-fb"
+        <div class="ea-mini-secondary">
+            <a class="ea-mini-link ea-mini-facebook"
                href="https://www.facebook.com/groups/GreatArt"
                target="_blank"
                rel="noopener noreferrer">FB GROUP ↗</a>
-            <span class="ea-family-divider" aria-hidden="true"></span>
-            <a class="ea-family-ar"
+
+            <a class="ea-mini-link ea-mini-ar"
                href="index.html"
-               aria-label="Alex Reynoso Art home"
-               title="Alex Reynoso Art">
+               title="Alex Reynoso Art"
+               aria-label="Alex Reynoso Art">
                 <img src="images/favicon.png" alt="">
             </a>
-        </nav>
-    </footer>
+        </div>
 
-    <script src="js/script.js"></script>
+    </div>
+</nav>
+
+<div class="ea-studio">
+<aside class="ea-sidebar">
+<div class="ea-sidebar-head"><div class="ea-kicker">Everything Art</div><h1>Creative Studio</h1><p>Make. Learn. Explore. Play.</p></div>
+<div class="ea-section"><span class="ea-label">Studio</span><button class="ea-module active" type="button">Resources</button></div>
+<div class="ea-section"><span class="ea-label">Work With</span><div class="ea-filter-grid">
+<button class="ea-filter active" data-filter="all">All</button>
+<button class="ea-filter" data-filter="image"><svg class="ea-filter-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="M5.5 17l4.2-4.2 3.1 3 2.4-2.4 3.3 3.6"/></svg><span>Image</span></button>
+<button class="ea-filter" data-filter="video"><svg class="ea-filter-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/></svg><span>Video</span></button>
+<button class="ea-filter" data-filter="audio"><svg class="ea-filter-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5a2.5 2.5 0 1 1-2-2.45V7l10-2v10.5a2.5 2.5 0 1 1-2-2.45V8L9 9.2z"/></svg><span>Audio</span></button>
+<button class="ea-filter" data-filter="3d"><svg class="ea-filter-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l7 4v9l-7 4-7-4v-9z"/><path d="M5 7.5l7 4 7-4M12 11.5v9"/></svg><span>3D</span></button>
+</div></div>
+<div class="ea-section"><span class="ea-label">What Do You Need?</span><div class="ea-filter-grid">
+<button class="ea-filter" data-filter="create">Create / Edit</button>
+<button class="ea-filter" data-filter="assets">Free Assets</button>
+<button class="ea-filter" data-filter="learn">Learn</button>
+<button type="button" data-filter="utilities" class="ea-utilities-filter">Utilities</button>
+</div></div>
+<div class="ea-note">Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>BUILD · 1.0.41</strong></div>
+</aside>
+
+<main class="ea-main"><section class="ea-workspace">
+<div class="ea-mobile">
+  <div class="ea-mobile-filter-group">
+    <div class="ea-mobile-filter-label">WORK WITH</div>
+    <div class="ea-mobile-filter-rail">
+      <button class="active ea-mobile-all" data-filter="all">All</button>
+      <button data-filter="image"><svg class="ea-filter-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="M5.5 17l4.2-4.2 3.1 3 2.4-2.4 3.3 3.6"/></svg><span>Image</span></button>
+      <button data-filter="video"><svg class="ea-filter-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/></svg><span>Video</span></button>
+      <button data-filter="audio"><svg class="ea-filter-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5a2.5 2.5 0 1 1-2-2.45V7l10-2v10.5a2.5 2.5 0 1 1-2-2.45V8L9 9.2z"/></svg><span>Audio</span></button>
+      <button data-filter="3d"><svg class="ea-filter-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l7 4v9l-7 4-7-4v-9z"/><path d="M5 7.5l7 4 7-4M12 11.5v9"/></svg><span>3D</span></button>
+    </div>
+  </div>
+
+  <div class="ea-mobile-filter-group">
+    <div class="ea-mobile-filter-label">WHAT DO YOU NEED?</div>
+    <div class="ea-mobile-filter-rail">
+      <button class="ea-mobile-utilities" data-filter="utilities">Utilities</button>
+      <button data-filter="create">Create / Edit</button>
+      <button data-filter="assets">Free Assets</button>
+      <button data-filter="learn">Learn</button>
+    </div>
+  </div>
+</div>
+<div class="ea-toolbar"><div class="ea-search-wrap"><span class="ea-search-icon">⌕</span><input aria-label="Search creative resources" class="ea-search" id="eaSearch" placeholder="Search creative resources..." type="search"/></div><button class="ea-clear" id="eaClear" type="button">Clear</button></div>
+<div class="ea-stage">
+<div class="ea-welcome"><img class="ea-studio-mark" src="images/everything-art/EverythingART-logo-small.png" alt="Everything Art">
+<div class="ea-kicker">Resources • First Studio Module</div><h2>What will you make?</h2><p>Explore tools, resources and ideas.</p></div>
+<div class="ea-results-head"><strong>Explore Resources</strong><span class="ea-count" id="eaCount"></span></div>
+<div class="ea-results">
+
+
+
+
+
+
+<div class="ea-group-label ea-group-studio">USE IN STUDIO</div><section class="ea-utilities-panel" id="eaUtilitiesPanel" aria-label="Everything Art utilities">
+  <div class="ea-utilities-head">
+    <div>
+      <h2>Utilities</h2>
+      <p>Quick file jobs without leaving the Studio. Your image is processed in this browser.</p>
+    </div>
+  </div>
+
+  <div class="ea-utility-tabs ea-utility-tabs" role="tablist">
+    <button class="ea-utility-tab ea-utility-tab is-active" type="button" data-util="compress">COMPRESS IMAGE</button>
+    <button class="ea-utility-tab ea-utility-tab" type="button" data-util="resize">RESIZE IMAGE</button>
+    <button class="ea-utility-tab ea-utility-tab" type="button" data-util="convert">CONVERT IMAGE</button>
+  </div>
+
+  <div class="ea-utility-tool is-active" data-util-panel="compress">
+    <div class="ea-dropzone" data-drop="compress"><strong>Drop an image here</strong><span>or click to choose JPG, PNG or WebP</span><input hidden type="file" accept="image/jpeg,image/png,image/webp"></div>
+    <div class="ea-utility-preview" data-preview="compress">
+      <div class="ea-preview-grid">
+        <div class="ea-preview-box"><img alt="Selected image preview" data-img="compress"><div class="ea-file-meta" data-meta="compress"></div></div>
+        <div class="ea-control-box">
+          <div class="ea-control-stack"><label>COMPRESSION</label><select data-quality="compress"><option value=".55">Smaller file</option><option value=".78" selected>Balanced</option><option value=".92">Best quality</option>
+<option value="pdf">PDF</option></select></div>
+          <div class="ea-size-result" data-result="compress"></div>
+          <div class="ea-action-row"><button class="ea-util-btn" type="button" data-process="compress">COMPRESS</button><a class="ea-util-btn secondary" data-download="compress" hidden>DOWNLOAD</a></div>
+<div class="ea-format-roadmap" aria-label="Format support">
+  <div class="ea-format-roadmap-title">FORMAT SUPPORT</div>
+  <p><strong>Available now:</strong> JPG/JPEG, PNG and WebP.</p>
+  <p><strong>Building toward:</strong> AVIF, GIF, BMP, TIFF, HEIC/HEIF, PDF and camera RAW including DNG, CR2/CR3, NEF, ARW, RAF, ORF and RW2.</p>
+  <p class="ea-format-roadmap-small">Formats only appear as conversion choices when the Studio can process them reliably in your browser.</p>
+</div>
+
+          <div class="ea-output-note">Transparent PNGs are kept as PNG so transparency is not lost. JPG/WebP images are recompressed as WebP.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ea-utility-tool" data-util-panel="resize">
+    <div class="ea-dropzone" data-drop="resize"><strong>Drop an image here</strong><span>or click to choose JPG, PNG or WebP</span><input hidden type="file" accept="image/jpeg,image/png,image/webp"></div>
+    <div class="ea-utility-preview" data-preview="resize">
+      <div class="ea-preview-grid">
+        <div class="ea-preview-box"><img alt="Selected image preview" data-img="resize"><div class="ea-file-meta" data-meta="resize"></div></div>
+        <div class="ea-control-box">
+          <div class="ea-control-row"><div><label>WIDTH</label><input type="number" min="1" data-width="resize"></div><div><label>HEIGHT</label><input type="number" min="1" data-height="resize"></div></div>
+          <label class="ea-lock-row"><input type="checkbox" data-lock="resize" checked> Lock proportions</label>
+          <div class="ea-preset-row"><button class="ea-preset" type="button" data-preset=".5">50%</button><button class="ea-preset" type="button" data-preset=".75">75%</button><button class="ea-preset" type="button" data-preset="1">ORIGINAL</button></div>
+          <div class="ea-action-row"><button class="ea-util-btn" type="button" data-process="resize">RESIZE</button><a class="ea-util-btn secondary" data-download="resize" hidden>DOWNLOAD</a></div>
+          <div class="ea-size-result" data-result="resize"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ea-utility-tool" data-util-panel="convert">
+    <div class="ea-dropzone" data-drop="convert"><strong>Drop an image here</strong><span>or click to choose JPG, PNG or WebP</span><input hidden type="file" accept="image/jpeg,image/png,image/webp"></div>
+    <div class="ea-utility-preview" data-preview="convert">
+      <div class="ea-preview-grid">
+        <div class="ea-preview-box"><img alt="Selected image preview" data-img="convert"><div class="ea-file-meta" data-meta="convert"></div></div>
+        <div class="ea-control-box">
+          <div class="ea-control-stack"><label>CONVERT TO</label><select data-format="convert"><option value="image/jpeg">JPG</option><option value="image/png">PNG</option><option value="image/webp" selected>WebP</option></select></div>
+          <div class="ea-control-stack"><label>QUALITY <span data-quality-label="convert">90%</span></label><input type="range" min="40" max="100" value="90" data-quality-range="convert"></div>
+          <div class="ea-action-row"><button class="ea-util-btn" type="button" data-process="convert">CONVERT</button><a class="ea-util-btn secondary" data-download="convert" hidden>DOWNLOAD</a></div>
+          <div class="ea-size-result" data-result="convert"></div>
+          <div class="ea-output-note">Converting a transparent image to JPG replaces transparency with white.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<article class="ea-card ea-integrated" data-category="image create" data-search="photopea image photo graphics psd edit browser free">
+<span class="ea-type"><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="M5.5 17l4.2-4.2 3.1 3 2.4-2.4 3.3 3.6"/></svg><span>IMAGE · CREATE / EDIT</span></span><h3>Photopea</h3>
+<p>Browser-based image editor with PSD support. Open it directly inside the Everything Art workspace.</p>
+<a class="ea-resource-action ea-open-studio" data-studio="photopea" href="https://www.photopea.com/" id="eaPhotopeaAction">OPEN IN STUDIO</a>
+</article><article class="ea-card ea-integrated" data-category="audio assets" data-search="freesound free sound effects audio creative commons samples">
+<span class="ea-type"><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5a2.5 2.5 0 1 1-2-2.45V7l10-2v10.5a2.5 2.5 0 1 1-2-2.45V8L9 9.2z"/></svg><span>AUDIO · FREE ASSETS</span></span><h3>Freesound</h3>
+<p>A huge community sound library. Individual sounds use different Creative Commons licenses, so check each one.</p>
+<a class="ea-resource-action ea-open-studio" data-studio="freesound" href="https://freesound.org/" id="eaFreesoundAction">OPEN IN STUDIO</a>
+</article><div class="ea-group-label ea-group-more">MORE RESOURCES</div><article class="ea-card" data-category="3d create" data-search="blender 3d modeling animation rendering free open source desktop">
+<span class="ea-type"><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l7 4v9l-7 4-7-4v-9z"/><path d="M5 7.5l7 4 7-4M12 11.5v9"/></svg><span>3D · CREATE</span></span><h3>Blender</h3>
+<p>Free, open-source 3D creation suite for modeling, animation, rendering and more.</p>
+<a class="ea-resource-action" href="https://www.blender.org/" rel="noopener noreferrer" target="_blank">GET APP ↗</a>
+</article><article class="ea-card" data-category="audio create" data-search="audacity audio sound recording edit free open source desktop">
+<span class="ea-type"><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5a2.5 2.5 0 1 1-2-2.45V7l10-2v10.5a2.5 2.5 0 1 1-2-2.45V8L9 9.2z"/></svg><span>AUDIO · CREATE / EDIT</span></span><h3>Audacity</h3>
+<p>Free desktop audio editor and recorder for Windows, macOS and Linux.</p>
+<a class="ea-resource-action" href="https://www.audacityteam.org/" rel="noopener noreferrer" target="_blank">GET APP ↗</a>
+</article><article class="ea-card" data-category="image video assets" data-search="pexels free photos video stock assets photography footage">
+<span class="ea-type"><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="M5.5 17l4.2-4.2 3.1 3 2.4-2.4 3.3 3.6"/></svg><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path class="ea-card-video-play" d="M10 9l5 3-5 3z"/></svg><span>IMAGE + VIDEO · FREE ASSETS</span></span><h3>Pexels</h3>
+<p>Free stock photography and video for creative projects, with a straightforward usage license.</p>
+<a class="ea-resource-action" href="https://www.pexels.com/" rel="noopener noreferrer" target="_blank">VISIT RESOURCE ↗</a>
+</article><article class="ea-card" data-category="video audio assets" data-search="mixkit free video music sound effects templates assets">
+<span class="ea-type"><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path class="ea-card-video-play" d="M10 9l5 3-5 3z"/></svg><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5a2.5 2.5 0 1 1-2-2.45V7l10-2v10.5a2.5 2.5 0 1 1-2-2.45V8L9 9.2z"/></svg><span>VIDEO + AUDIO · FREE ASSETS</span></span><h3>Mixkit</h3>
+<p>Free stock video, music, sound effects and templates. Check the license for the asset type you use.</p>
+<a class="ea-resource-action" href="https://mixkit.co/" rel="noopener noreferrer" target="_blank">VISIT RESOURCE ↗</a>
+</article></div>
+<section class="ea-tool-view" hidden="" id="eaStudioTool">
+<div class="ea-tool-head">
+<div><span class="ea-type">OPEN IN STUDIO</span><h3>Photopea</h3></div>
+<button id="eaCloseTool" type="button">← BACK TO RESOURCES</button>
+</div>
+<div class="ea-iframe-wrap">
+<iframe allow="clipboard-read; clipboard-write" id="eaPhotopea" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="Photopea image editor"></iframe>
+</div>
+</section>
+<section class="ea-tool-view" hidden="" id="eaFreesoundTool">
+<div class="ea-tool-head"><div><span class="ea-type">AUDIO · FREE ASSETS</span><h3>Freesound Search</h3></div><button id="eaCloseFreesound" type="button">← BACK TO RESOURCES</button></div>
+<p style="margin:0;color:var(--muted);font-size:.76rem;line-height:1.5">Search Freesound without leaving the Studio. Preview sounds here, then check the creator and license before using one.</p>
+<form class="ea-sound-search" id="eaSoundForm"><input aria-label="Search Freesound" id="eaSoundQuery" placeholder="Try rain, city, footsteps, birds..." type="search"/><button type="submit">SEARCH SOUNDS</button></form>
+<div class="ea-sound-status" id="eaSoundStatus">Search for a sound to begin.</div><div class="ea-sound-results" id="eaSoundResults"></div>
+</section>
+<div class="ea-empty" id="eaEmpty">Nothing in the starter set matches that yet. As we build the resource library, this workspace will become the results area.</div>
+</div></section></main>
+</div>
+
+
+<script>
+(()=> {
+ const s=document.getElementById('eaSearch'),c=document.getElementById('eaClear'),
+ cards=[...document.querySelectorAll('.ea-card')],
+ buttons=[...document.querySelectorAll('[data-filter]')],
+ count=document.getElementById('eaCount'),empty=document.getElementById('eaEmpty'),
+ welcome=document.querySelector('.ea-welcome'),
+ results=document.querySelector('.ea-results'),
+ resultsHead=document.querySelector('.ea-results-head'),
+ tool=document.getElementById('eaStudioTool'),
+ frame=document.getElementById('eaPhotopea'),
+ closeTool=document.getElementById('eaCloseTool'),
+ freesoundTool=document.getElementById('eaFreesoundTool'),
+ freesoundAction=document.getElementById('eaFreesoundAction'),
+ closeFreesound=document.getElementById('eaCloseFreesound'),
+ soundForm=document.getElementById('eaSoundForm'),
+ soundQuery=document.getElementById('eaSoundQuery'),
+ soundStatus=document.getElementById('eaSoundStatus'),
+ soundResults=document.getElementById('eaSoundResults');
+ let filter='all';
+
+ function draw(){
+   const q=s.value.trim().toLowerCase(); let n=0;
+   buttons.forEach(b=>b.classList.toggle('active',b.dataset.filter===filter));
+   cards.forEach(card=>{
+     const cats=(card.dataset.category||'').split(' ');
+     const ok=(filter==='all'||cats.includes(filter))&&(!q||(card.dataset.search+' '+card.textContent).toLowerCase().includes(q));
+     card.hidden=!ok;if(ok)n++;
+   });
+   count.textContent=n+(n===1?' resource':' resources');
+   const studioVisible=cards.some(card=>card.classList.contains('ea-integrated')&&!card.hidden);
+   const moreVisible=cards.some(card=>!card.classList.contains('ea-integrated')&&!card.hidden);
+   const studioLabel=document.querySelector('.ea-group-studio'),moreLabel=document.querySelector('.ea-group-more');
+   if(studioLabel)studioLabel.hidden=!studioVisible;
+   if(moreLabel)moreLabel.hidden=!moreVisible;
+   empty.style.display=n?'none':'block';
+ }
+
+ buttons.forEach(b=>b.addEventListener('click',()=>{filter=b.dataset.filter;draw()}));
+ s.addEventListener('input',draw);
+ c.addEventListener('click',()=>{s.value='';filter='all';draw();s.focus()});
+
+ const photopeaAction=document.getElementById('eaPhotopeaAction');
+ const PHOTOPEA_EMBED_MIN=780;
+
+ function setPhotopeaMode(){
+   const canEmbed=window.innerWidth>=PHOTOPEA_EMBED_MIN;
+   photopeaAction.textContent=canEmbed?'OPEN IN STUDIO':'OPEN PHOTOPEA ↗';
+   photopeaAction.target=canEmbed?'':'_blank';
+   photopeaAction.rel=canEmbed?'':'noopener noreferrer';
+ }
+
+ photopeaAction.addEventListener('click',(event)=>{
+   // Narrow screens never load the embedded Photopea iframe.
+   if(window.innerWidth<PHOTOPEA_EMBED_MIN) return;
+
+   event.preventDefault();
+   welcome.hidden=true;results.hidden=true;resultsHead.hidden=true;empty.style.display='none';
+   freesoundTool.hidden=true;tool.hidden=false;
+   if(!frame.src) frame.src='https://www.photopea.com/';
+   requestAnimationFrame(()=>{
+     requestAnimationFrame(()=>{
+       tool.scrollIntoView({behavior:'smooth',block:'start'});
+     });
+   });
+ });
+
+ window.addEventListener('resize',setPhotopeaMode);
+ setPhotopeaMode();
+
+ closeTool.addEventListener('click',()=>{
+   tool.hidden=true;freesoundTool.hidden=true;tool.hidden=true;welcome.hidden=false;results.hidden=false;resultsHead.hidden=false;draw();
+ });
+
+
+ const FREESOUND_WORKER='https://everything-art-freesound.alexreynosoart333.workers.dev';
+
+ freesoundAction.addEventListener('click',(event)=>{
+   event.preventDefault();
+   welcome.hidden=true;results.hidden=true;resultsHead.hidden=true;empty.style.display='none';
+   tool.hidden=true;freesoundTool.hidden=false;
+   requestAnimationFrame(()=>requestAnimationFrame(()=>{freesoundTool.scrollIntoView({behavior:'smooth',block:'start'});soundQuery.focus()}));
+ });
+
+ closeFreesound.addEventListener('click',()=>{
+   freesoundTool.hidden=true;tool.hidden=true;welcome.hidden=false;results.hidden=false;resultsHead.hidden=false;draw();
+ });
+
+ function esc(value){return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
+ function licenseName(url){
+   if(!url)return 'License not listed';
+   if(url.includes('/publicdomain/zero/'))return 'CC0';
+   if(url.includes('/by-nc/'))return 'CC BY-NC';
+   if(url.includes('/by/'))return 'CC BY';
+   return url;
+ }
+ function formatTime(value){
+   const total=Math.max(0,Math.round(Number(value)||0));
+   const minutes=Math.floor(total/60),seconds=String(total%60).padStart(2,'0');
+   return `${minutes}:${seconds}`;
+ }
+ function fileSize(bytes){
+   const n=Number(bytes); if(!Number.isFinite(n)||n<=0)return '';
+   if(n<1024*1024)return `${(n/1024).toFixed(0)} KB`;
+   return `${(n/1024/1024).toFixed(1)} MB`;
+ }
+ function channelName(channels){return Number(channels)===1?'Mono':Number(channels)===2?'Stereo':channels?`${channels} channels`:''}
+ function licenseHelp(url){
+   if(!url)return '';
+   if(url.includes('/publicdomain/zero/'))return 'Commercial use · remixing allowed · attribution not required';
+   if(url.includes('/by-nc/'))return 'Attribution required · noncommercial use only';
+   if(url.includes('/by/'))return 'Commercial use allowed · attribution required';
+   return 'Check the license before using this sound';
+ }
+
+ soundForm.addEventListener('submit',async(event)=>{
+   event.preventDefault();
+   const q=soundQuery.value.trim(); if(!q)return soundQuery.focus();
+   soundStatus.textContent='Searching Freesound…'; soundResults.innerHTML='';
+   try{
+     const response=await fetch(FREESOUND_WORKER+'/search?q='+encodeURIComponent(q));
+     const data=await response.json();
+     if(!response.ok)throw new Error(data.error||'Search failed');
+     const items=Array.isArray(data.results)?data.results:[];
+     soundStatus.textContent=items.length?`${Number(data.count||0).toLocaleString()} sounds found · showing ${items.length}`:'No sounds found. Try another search.';
+     soundResults.innerHTML=items.map(sound=>{
+       const preview=sound.previews?.['preview-hq-mp3']||sound.previews?.['preview-lq-mp3']||'';
+       const seconds=Number.isFinite(sound.duration)?formatTime(sound.duration):'';
+       const original=[sound.type?String(sound.type).toUpperCase():'',channelName(sound.channels),sound.samplerate?`${Math.round(Number(sound.samplerate)/1000*10)/10} kHz`:'',fileSize(sound.filesize)].filter(Boolean).join(' · ');
+       const tags=Array.isArray(sound.tags)?sound.tags.slice(0,12).join(' · '):'';
+       const detailId=`eaSoundDetails-${sound.id}`;
+       return `<article class="ea-sound-card"><span class="ea-type">FREESOUND</span><h4 title="${esc(sound.name)}">${esc(sound.name)}</h4><div class="ea-sound-meta">by ${esc(sound.username)}${seconds?' · '+esc(seconds):''}</div>${preview?`<audio controls preload="metadata" src="${esc(preview)}"></audio>`:'<div class="ea-sound-meta">Preview unavailable</div>'}<div class="ea-sound-actions">${preview?`<button class="ea-sound-button ea-download-sound" type="button" data-preview="${esc(preview)}" data-name="${esc(sound.name)}">DOWNLOAD MP3</button>`:''}<button class="ea-sound-button ea-more-sound" type="button" aria-expanded="false" aria-controls="${detailId}">MORE INFO ↓</button><span class="ea-sound-license">${esc(licenseName(sound.license))}</span></div><div id="${detailId}" class="ea-sound-details" hidden><div class="ea-sound-more-grid"><div class="ea-sound-more-col"><div><strong>Full title:</strong> ${esc(sound.name)}</div><div><strong>Creator:</strong> ${esc(sound.username)}</div>${seconds?`<div><strong>Duration:</strong> ${esc(seconds)}</div>`:''}${preview?`<div><strong>Preview:</strong> MP3</div>`:''}</div><div class="ea-sound-more-col">${original?`<div><strong>Original:</strong> ${esc(original)}</div>`:''}<div><strong>License:</strong> ${esc(licenseName(sound.license))}${licenseHelp(sound.license)?` · ${esc(licenseHelp(sound.license))}`:''}</div>${tags?`<div class="ea-sound-tags"><strong>Tags:</strong> ${esc(tags)}</div>`:''}</div>${sound.description?`<div class="ea-sound-more-description ea-sound-description"><strong>Description:</strong> ${esc(sound.description)}</div>`:''}<div class="ea-sound-more-footer"><a class="ea-sound-link" href="${esc(sound.url)}" target="_blank" rel="noopener noreferrer">VIEW ORIGINAL ↗</a></div></div></div></article>`;
+     }).join('');
+   }catch(error){soundStatus.textContent='Could not load sounds right now. Please try again.';soundResults.innerHTML=''}
+ });
+
+ soundResults.addEventListener('click',async(event)=>{
+   const more=event.target.closest('.ea-more-sound');
+   if(more){
+     const details=document.getElementById(more.getAttribute('aria-controls'));
+     const opening=details.hidden;
+     details.hidden=!opening;more.setAttribute('aria-expanded',String(opening));more.textContent=opening?'LESS INFO ↑':'MORE INFO ↓';
+     return;
+   }
+   const download=event.target.closest('.ea-download-sound');
+   if(download){
+     const original=download.textContent; download.disabled=true; download.textContent='PREPARING…';
+     try{
+       const response=await fetch(download.dataset.preview);
+       if(!response.ok)throw new Error('Download failed');
+       const blob=await response.blob(),url=URL.createObjectURL(blob),a=document.createElement('a');
+       const safe=(download.dataset.name||'freesound-preview').replace(/[^a-z0-9._-]+/gi,'-').replace(/-+/g,'-').replace(/^-|-$/g,'');
+       a.href=url;a.download=(safe||'freesound-preview')+'.mp3';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+     }catch(error){window.open(download.dataset.preview,'_blank','noopener,noreferrer')}
+     finally{download.disabled=false;download.textContent=original}
+   }
+ });
+
+ draw();
+})();
+</script>
+
+<script>
+(() => {
+  const panel = document.getElementById('eaUtilitiesPanel');
+  if (!panel) return;
+  const state = {};
+
+  const human = n => n < 1024 ? n + ' B' : n < 1048576 ? (n/1024).toFixed(1)+' KB' : (n/1048576).toFixed(2)+' MB';
+  const baseName = n => n.replace(/\.[^.]+$/, '');
+  const extFor = t => t === 'image/png' ? 'png' : t === 'image/jpeg' ? 'jpg' : 'webp';
+
+  function showUtilities() {
+    panel.classList.add('is-open');
+    document.querySelectorAll('.ea-resource-grid,.ea-resource-section,.ea-resources-grid').forEach(el => el.dataset.eaWasDisplay = el.style.display || '');
+    document.querySelectorAll('.ea-resource-grid,.ea-resource-section,.ea-resources-grid').forEach(el => el.style.display = 'none');
+    panel.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  // Hook all Utilities need-filter buttons without disturbing existing filters.
+  document.querySelectorAll('[data-filter="utilities"]').forEach(btn => btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active','is-active'));
+    btn.classList.add('active','is-active');
+    showUtilities();
+  }));
+
+  
+  document.querySelectorAll('[data-filter]:not([data-filter="utilities"])').forEach(btn => btn.addEventListener('click', () => {
+    panel.classList.remove('is-open');
+    document.querySelectorAll('.ea-resource-grid,.ea-resource-section,.ea-resources-grid').forEach(el => {
+      el.style.display = el.dataset.eaWasDisplay || '';
+    });
+  }));
+
+  document.querySelectorAll('.ea-utility-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.ea-utility-tab').forEach(b => b.classList.toggle('is-active', b === btn));
+      document.querySelectorAll('.ea-utility-tool').forEach(p => p.classList.toggle('is-active', p.dataset.utilPanel === btn.dataset.util));
+    });
+  });
+
+  async function loadFile(tool, file) {
+    if (!file || !file.type.startsWith('image/')) return;
+    if (state[tool]?.url) URL.revokeObjectURL(state[tool].url);
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    await new Promise((ok, bad) => { img.onload=ok; img.onerror=bad; img.src=url; });
+    state[tool] = {file, url, img, width:img.naturalWidth, height:img.naturalHeight};
+    const preview = panel.querySelector(`[data-preview="${tool}"]`);
+    preview.classList.add('is-ready');
+    panel.querySelector(`[data-img="${tool}"]`).src = url;
+    panel.querySelector(`[data-meta="${tool}"]`).textContent = `${file.name} · ${img.naturalWidth} × ${img.naturalHeight}px · ${human(file.size)}`;
+    const dl = panel.querySelector(`[data-download="${tool}"]`);
+    dl.hidden = true;
+    if (tool === 'resize') {
+      panel.querySelector('[data-width="resize"]').value = img.naturalWidth;
+      panel.querySelector('[data-height="resize"]').value = img.naturalHeight;
+    }
+    panel.querySelector(`[data-result="${tool}"]`).textContent = '';
+  }
+
+  panel.querySelectorAll('.ea-dropzone').forEach(zone => {
+    const tool = zone.dataset.drop, input = zone.querySelector('input');
+    zone.addEventListener('click', () => input.click());
+    input.addEventListener('change', () => loadFile(tool, input.files[0]));
+    ['dragenter','dragover'].forEach(e => zone.addEventListener(e, ev => {ev.preventDefault(); zone.classList.add('is-drag')}));
+    ['dragleave','drop'].forEach(e => zone.addEventListener(e, ev => {ev.preventDefault(); zone.classList.remove('is-drag')}));
+    zone.addEventListener('drop', e => loadFile(tool, e.dataTransfer.files[0]));
+  });
+
+  function canvasFor(s, w=s.width, h=s.height, white=false) {
+    const c=document.createElement('canvas'); c.width=w; c.height=h;
+    const x=c.getContext('2d');
+    if (white) {x.fillStyle='#fff'; x.fillRect(0,0,w,h);}
+    x.drawImage(s.img,0,0,w,h); return c;
+  }
+  const blobFrom = (canvas,type,quality) => new Promise(ok => canvas.toBlob(ok,type,quality));
+  function offer(tool, blob, filename) {
+    const dl=panel.querySelector(`[data-download="${tool}"]`);
+    if (state[tool].outUrl) URL.revokeObjectURL(state[tool].outUrl);
+    state[tool].outUrl=URL.createObjectURL(blob);
+    dl.href=state[tool].outUrl; dl.download=filename; dl.hidden=false;
+    return human(blob.size);
+  }
+
+  panel.querySelector('[data-process="compress"]').addEventListener('click', async () => {
+    const s=state.compress; if(!s) return;
+    const q=Number(panel.querySelector('[data-quality="compress"]').value);
+    const preservePng=s.file.type==='image/png';
+    const type=preservePng?'image/png':'image/webp';
+    const blob=await blobFrom(canvasFor(s),type,q);
+    const size=offer('compress',blob,`${baseName(s.file.name)}-compressed.${extFor(type)}`);
+    const delta=Math.round((1-blob.size/s.file.size)*100);
+    panel.querySelector('[data-result="compress"]').innerHTML=`Original: ${human(s.file.size)}<br>New: <strong>${size}</strong>${delta>0?` · ${delta}% smaller`:''}`;
+  });
+
+  const w=panel.querySelector('[data-width="resize"]'), h=panel.querySelector('[data-height="resize"]'), lock=panel.querySelector('[data-lock="resize"]');
+  w.addEventListener('input',()=>{const s=state.resize;if(s&&lock.checked)h.value=Math.max(1,Math.round(Number(w.value)*s.height/s.width))});
+  h.addEventListener('input',()=>{const s=state.resize;if(s&&lock.checked)w.value=Math.max(1,Math.round(Number(h.value)*s.width/s.height))});
+  panel.querySelectorAll('[data-preset]').forEach(b=>b.addEventListener('click',()=>{const s=state.resize;if(!s)return;const p=Number(b.dataset.preset);w.value=Math.round(s.width*p);h.value=Math.round(s.height*p)}));
+  panel.querySelector('[data-process="resize"]').addEventListener('click',async()=>{
+    const s=state.resize;if(!s)return;
+    const nw=Math.max(1,Number(w.value)|0), nh=Math.max(1,Number(h.value)|0), type=s.file.type==='image/png'?'image/png':'image/webp';
+    const blob=await blobFrom(canvasFor(s,nw,nh),type,.9);
+    const size=offer('resize',blob,`${baseName(s.file.name)}-${nw}x${nh}.${extFor(type)}`);
+    panel.querySelector('[data-result="resize"]').innerHTML=`New image: <strong>${nw} × ${nh}px</strong> · ${size}`;
+  });
+
+  const range=panel.querySelector('[data-quality-range="convert"]'), qLabel=panel.querySelector('[data-quality-label="convert"]');
+  range.addEventListener('input',()=>qLabel.textContent=range.value+'%');
+  panel.querySelector('[data-process="convert"]').addEventListener('click',async()=>{
+    const s=state.convert;if(!s)return;
+    const type=panel.querySelector('[data-format="convert"]').value, q=Number(range.value)/100;
+    const blob=await blobFrom(canvasFor(s,s.width,s.height,type==='image/jpeg'),type,q);
+    const size=offer('convert',blob,`${baseName(s.file.name)}-converted.${extFor(type)}`);
+    panel.querySelector('[data-result="convert"]').innerHTML=`Converted file: <strong>${size}</strong> · ${extFor(type).toUpperCase()}`;
+  });
+})();
+</script>
+
+
+<script>
+/* 1.0.15 utility-mode presentation */
+document.addEventListener('DOMContentLoaded', function () {
+  function syncUtilityMode() {
+    const active = document.querySelector('[data-filter="utilities"].active, [data-filter="utilities"][aria-pressed="true"], [data-filter="utilities"].is-active');
+    const panel = document.querySelector('.ea-utilities-panel');
+    const visible = panel && getComputedStyle(panel).display !== 'none';
+    document.body.classList.toggle('ea-utilities-active', !!active || !!visible);
+  }
+
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('[data-filter]')) {
+      requestAnimationFrame(syncUtilityMode);
+      setTimeout(syncUtilityMode, 30);
+    }
+  });
+  syncUtilityMode();
+});
+</script>
+
+
+<script>
+/* 1.0.16 — live compression estimate */
+document.addEventListener('DOMContentLoaded', function(){
+  const panel = document.querySelector('.ea-utilities-panel');
+  if(!panel) return;
+
+  const selects = Array.from(panel.querySelectorAll('select'));
+  const compressionSelect = selects.find(s =>
+    /smaller|balanced|best quality/i.test(s.textContent || '') ||
+    /compress|quality/i.test((s.name||'') + ' ' + (s.id||''))
+  );
+  if(!compressionSelect) return;
+
+  const box = document.createElement('div');
+  box.className = 'ea-live-size';
+  box.style.cssText = 'margin-top:10px;color:#aaa;font-size:.86rem;line-height:1.45;';
+  compressionSelect.insertAdjacentElement('afterend', box);
+
+  function qualityFromLabel(){
+    const label = compressionSelect.options[compressionSelect.selectedIndex]?.text || '';
+    if(/smaller/i.test(label)) return .55;
+    if(/balanced/i.test(label)) return .75;
+    return .9;
+  }
+
+  async function updateEstimate(){
+    const img = panel.querySelector('img');
+    if(!img || !img.complete || !img.naturalWidth){
+      box.textContent = 'Choose an image to preview the estimated compressed size.';
+      return;
+    }
+    const canvas = document.createElement('canvas');
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img,0,0);
+    const q = qualityFromLabel();
+
+    canvas.toBlob(blob => {
+      if(!blob){ box.textContent = 'Size preview unavailable for this image.'; return; }
+      const kb = blob.size/1024;
+      box.innerHTML = '<strong style="color:#eee">Estimated result:</strong> ' +
+        kb.toFixed(kb < 100 ? 1 : 0) + ' KB';
+    }, 'image/webp', q);
+  }
+
+  compressionSelect.addEventListener('change', updateEstimate);
+  panel.addEventListener('change', e => {
+    if(e.target && e.target.type === 'file') setTimeout(updateEstimate,120);
+  });
+  setTimeout(updateEstimate,100);
+});
+</script>
+
+
+<script>
+/* 1.0.17 — estimates belong to every file-changing utility */
+document.addEventListener('DOMContentLoaded', function(){
+  const panel = document.querySelector('.ea-utilities-panel');
+  if(!panel) return;
+
+  function fmt(bytes){
+    if(bytes >= 1024*1024) return (bytes/(1024*1024)).toFixed(2)+' MB';
+    return (bytes/1024).toFixed(bytes < 102400 ? 1 : 0)+' KB';
+  }
+
+  function currentImage(){
+    return Array.from(panel.querySelectorAll('img')).find(i => i.complete && i.naturalWidth);
+  }
+
+  function addEstimateBox(anchor){
+    if(!anchor) return null;
+    let box = anchor.parentElement.querySelector(':scope > .ea-output-estimate');
+    if(!box){
+      box=document.createElement('div');
+      box.className='ea-output-estimate';
+      anchor.insertAdjacentElement('afterend',box);
+    }
+    return box;
+  }
+
+  function canvasFor(img,w,h){
+    const c=document.createElement('canvas');
+    c.width=Math.max(1,Math.round(w));
+    c.height=Math.max(1,Math.round(h));
+    const x=c.getContext('2d');
+    x.drawImage(img,0,0,c.width,c.height);
+    return c;
+  }
+
+  function estimateBlob(canvas,type,quality,cb){
+    canvas.toBlob(b => cb(b), type, quality);
+  }
+
+  // RESIZE: estimate from the target width/height currently entered.
+  const numberInputs=Array.from(panel.querySelectorAll('input[type="number"]'));
+  const widthInput=numberInputs.find(i => /width/i.test((i.name||'')+' '+(i.id||'')+' '+(i.getAttribute('aria-label')||''))) || numberInputs[0];
+  const heightInput=numberInputs.find(i => /height/i.test((i.name||'')+' '+(i.id||'')+' '+(i.getAttribute('aria-label')||''))) || numberInputs[1];
+
+  if(widthInput && heightInput){
+    const resizeBox=addEstimateBox(heightInput.closest('div') || heightInput);
+    function estimateResize(){
+      const img=currentImage();
+      const w=parseInt(widthInput.value,10), h=parseInt(heightInput.value,10);
+      if(!img || !w || !h){
+        resizeBox.textContent='Estimated result size will appear here.';
+        return;
+      }
+      const c=canvasFor(img,w,h);
+      estimateBlob(c,'image/webp',.9,b=>{
+        resizeBox.innerHTML=b
+          ? '<strong>Estimated result:</strong> '+w+' × '+h+'px · '+fmt(b.size)
+          : 'Size estimate unavailable.';
+      });
+    }
+    ['input','change'].forEach(ev=>{
+      widthInput.addEventListener(ev,estimateResize);
+      heightInput.addEventListener(ev,estimateResize);
+    });
+    panel.addEventListener('click',e=>{
+      if(e.target.closest('button')) setTimeout(estimateResize,20);
+    });
+    setTimeout(estimateResize,150);
+  }
+
+  // CONVERT: find the format selector and estimate the actual selected output.
+  const selects=Array.from(panel.querySelectorAll('select'));
+  const convertSelect=selects.find(s => /jpg|jpeg/i.test(s.textContent||'') && /png/i.test(s.textContent||'') && /webp/i.test(s.textContent||''));
+  if(convertSelect){
+    // Ensure PDF is present even if markup insertion missed the right selector.
+    if(!Array.from(convertSelect.options).some(o => o.value.toLowerCase()==='pdf' || o.text.toLowerCase()==='pdf')){
+      convertSelect.add(new Option('PDF','pdf'));
+    }
+    const convertBox=addEstimateBox(convertSelect);
+
+    async function makePdfBytes(img){
+      if(!window.jspdf || !window.jspdf.jsPDF) return null;
+      const {jsPDF}=window.jspdf;
+      const landscape=img.naturalWidth>img.naturalHeight;
+      const pdf=new jsPDF({orientation:landscape?'landscape':'portrait',unit:'px',
+        format:[img.naturalWidth,img.naturalHeight],hotfixes:['px_scaling']});
+      const c=canvasFor(img,img.naturalWidth,img.naturalHeight);
+      const data=c.toDataURL('image/jpeg',.92);
+      pdf.addImage(data,'JPEG',0,0,img.naturalWidth,img.naturalHeight);
+      return pdf.output('arraybuffer');
+    }
+
+    async function estimateConvert(){
+      const img=currentImage();
+      if(!img){
+        convertBox.textContent='Estimated converted size will appear here.';
+        return;
+      }
+      const fmtValue=(convertSelect.value || convertSelect.options[convertSelect.selectedIndex]?.text || '').toLowerCase();
+      const c=canvasFor(img,img.naturalWidth,img.naturalHeight);
+
+      if(fmtValue.includes('pdf')){
+        const bytes=await makePdfBytes(img);
+        convertBox.innerHTML=bytes
+          ? '<strong>Estimated PDF:</strong> '+fmt(bytes.byteLength)
+          : 'PDF estimate unavailable.';
+        return;
+      }
+
+      let mime='image/webp', q=.92;
+      if(fmtValue.includes('png')) mime='image/png';
+      else if(fmtValue.includes('jpg') || fmtValue.includes('jpeg')) mime='image/jpeg';
+      estimateBlob(c,mime,q,b=>{
+        convertBox.innerHTML=b
+          ? '<strong>Estimated '+fmtValue.toUpperCase()+':</strong> '+fmt(b.size)
+          : 'Size estimate unavailable for this format.';
+      });
+    }
+
+    convertSelect.addEventListener('change',estimateConvert);
+    setTimeout(estimateConvert,150);
+
+    // Intercept the Convert action only for PDF; existing JPG/PNG/WebP behavior remains untouched.
+    panel.addEventListener('click',async function(e){
+      const btn=e.target.closest('button');
+      if(!btn || !/convert/i.test(btn.textContent||'')) return;
+      const val=(convertSelect.value||'').toLowerCase();
+      if(val!=='pdf') return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      const img=currentImage();
+      if(!img) return;
+      const bytes=await makePdfBytes(img);
+      if(!bytes) return;
+      const blob=new Blob([bytes],{type:'application/pdf'});
+      const a=document.createElement('a');
+      a.href=URL.createObjectURL(blob);
+      a.download='converted-image.pdf';
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+      convertBox.innerHTML='<strong>PDF result:</strong> '+fmt(blob.size);
+    },true);
+  }
+});
+</script>
+
+
+<script>
+/* TEST BUILD 1.0.33
+   Rebuild the existing mobile/tablet filters into their proper taxonomy.
+   No duplicate Free Assets button is created. */
+(function(){
+  const mq = window.matchMedia('(max-width:1000px)');
+
+  function norm(s){
+    return (s || '').replace(/\s+/g,' ').trim().toLowerCase();
+  }
+
+  function setupMobileFilterGroups(){
+    const mobile = document.querySelector('.ea-mobile');
+    if(!mobile) return;
+
+    /* Restore original flat structure on desktop if we previously grouped it. */
+    if(!mq.matches){
+      const groups = mobile.querySelectorAll('.ea-mobile-filter-group');
+      groups.forEach(group => {
+        const rail = group.querySelector('.ea-mobile-filter-rail');
+        if(rail){
+          while(rail.firstChild) mobile.insertBefore(rail.firstChild, group);
+        }
+        group.remove();
+      });
+      return;
+    }
+
+    if(mobile.querySelector('.ea-mobile-filter-group')) return;
+
+    const buttons = Array.from(mobile.querySelectorAll('.ea-filter, button')).filter(btn => {
+      const t = norm(btn.textContent);
+      return ['all','image','video','audio','3d','create / edit','create/edit','free assets','learn','utilities'].includes(t);
+    });
+
+    if(!buttons.length) return;
+
+    const workNames = new Set(['all','image','video','audio','3d']);
+    const needNames = new Set(['create / edit','create/edit','free assets','learn','utilities']);
+
+    function makeGroup(label){
+      const group = document.createElement('div');
+      group.className = 'ea-mobile-filter-group';
+
+      const title = document.createElement('div');
+      title.className = 'ea-mobile-filter-label';
+      title.textContent = label;
+
+      const rail = document.createElement('div');
+      rail.className = 'ea-mobile-filter-rail';
+
+      group.appendChild(title);
+      group.appendChild(rail);
+      return {group, rail};
+    }
+
+    const work = makeGroup('WORK WITH');
+    const need = makeGroup('WHAT DO YOU NEED?');
+
+    buttons.forEach(btn => {
+      const t = norm(btn.textContent);
+      if(workNames.has(t)) work.rail.appendChild(btn);
+      else if(needNames.has(t)) need.rail.appendChild(btn);
+    });
+
+    mobile.appendChild(work.group);
+    mobile.appendChild(need.group);
+  }
+
+  window.addEventListener('DOMContentLoaded', setupMobileFilterGroups);
+  window.addEventListener('resize', setupMobileFilterGroups);
+  if(mq.addEventListener) mq.addEventListener('change', setupMobileFilterGroups);
+})();
+</script>
+<script src="js/script.js"></script>
+
+<script>
+/* BUILD 1.0.40 — FINAL RESPONSIVE PLACEMENT
+   Phone/tablet order:
+   HERO -> WORK WITH -> WHAT DO YOU NEED -> SEARCH -> EXPLORE RESOURCES
+*/
+(function(){
+  function placeStudioControls(){
+    const mq = window.matchMedia('(max-width:1000px)');
+    const mobile = document.querySelector('.ea-mobile');
+    const toolbar = document.querySelector('.ea-toolbar');
+    const welcome = document.querySelector('.ea-welcome');
+
+    if(!mobile || !toolbar || !welcome) return;
+
+    if(!mobile.__eaHomeMarker){
+      mobile.__eaHomeMarker = document.createComment('ea-mobile-original-position');
+      mobile.parentNode.insertBefore(mobile.__eaHomeMarker, mobile);
+    }
+    if(!toolbar.__eaHomeMarker){
+      toolbar.__eaHomeMarker = document.createComment('ea-toolbar-original-position');
+      toolbar.parentNode.insertBefore(toolbar.__eaHomeMarker, toolbar);
+    }
+
+    if(mq.matches){
+      /* These are inserted INSIDE .ea-stage, immediately after the hero. */
+      welcome.insertAdjacentElement('afterend', mobile);
+      mobile.insertAdjacentElement('afterend', toolbar);
+    }else{
+      const mm = mobile.__eaHomeMarker;
+      const tm = toolbar.__eaHomeMarker;
+      if(mm && mm.parentNode) mm.parentNode.insertBefore(mobile, mm.nextSibling);
+      if(tm && tm.parentNode) tm.parentNode.insertBefore(toolbar, tm.nextSibling);
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', function(){
+    placeStudioControls();
+    requestAnimationFrame(placeStudioControls);
+    setTimeout(placeStudioControls, 50);
+  });
+
+  window.addEventListener('load', placeStudioControls);
+  window.addEventListener('resize', placeStudioControls);
+})();
+</script>
+
+
+
+<footer class="ea-site-footer">
+  <nav class="ea-family-footer" aria-label="Everything Art footer navigation">
+    <a href="everything-art.html">EVERYTHING ART</a>
+    <a href="everything-art-opportunities.html">OPPORTUNITIES</a>
+    <a href="everything-art-events.html">ART EVENTS</a>
+    <a href="everything-art-resources.html" aria-current="page">RESOURCES</a>
+    <a class="ea-family-fb" href="https://www.facebook.com/groups/GreatArt" target="_blank" rel="noopener noreferrer">FB GROUP ↗</a>
+    <span class="ea-family-divider" aria-hidden="true"></span>
+    <a class="ea-family-ar" href="index.html" aria-label="Alex Reynoso Art home" title="Alex Reynoso Art">
+      <img src="images/favicon.png" alt="">
+    </a>
+  </nav>
+</footer>
 
 </body>
-
 </html>
