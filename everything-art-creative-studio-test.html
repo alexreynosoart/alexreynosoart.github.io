@@ -8,8 +8,9 @@
 <link rel="icon" type="image/png" href="images/favicon.png">
 <link rel="stylesheet" href="css/style.css">
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap");
 *{box-sizing:border-box} :root{--yellow:#f3cf39;--bg:#0d0d0d;--panel:#171717;--card:#202020;--line:rgba(255,255,255,.12);--text:#f5f5f5;--muted:#a6a6a6}
-html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif} button,input{font:inherit}
+html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",Arial,Helvetica,sans-serif} button,input{font:inherit}
 .ea-studio{min-height:100vh;padding:12px}
 .ea-sidebar{position:fixed;left:12px;top:12px;bottom:12px;width:300px;z-index:20;display:flex;flex-direction:column;overflow-y:auto;padding:18px;border:1px solid var(--line);border-radius:20px;background:rgba(23,23,23,.97)}
 .ea-sidebar-head{padding-bottom:17px;border-bottom:1px solid var(--line)} .ea-kicker{color:var(--yellow);font-size:.62rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase}
@@ -31,6 +32,13 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
 .ea-results{max-width:1100px;margin:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.ea-card{padding:18px;border:1px solid var(--line);border-radius:17px;background:var(--card)}.ea-type{display:inline-block;margin-bottom:12px;color:var(--yellow);font-size:.58rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase}.ea-card h3{margin:0 0 7px;font-size:1rem}.ea-card p{margin:0;color:var(--muted);font-size:.76rem;line-height:1.5}.ea-empty{display:none;max-width:600px;margin:50px auto;color:var(--muted);text-align:center;line-height:1.55}.ea-mobile{display:none}
 @media(max-width:1000px){.ea-studio{padding:8px}.ea-sidebar{display:none}.ea-topbar{margin-left:0;min-height:52px;grid-template-columns:auto 1fr auto;margin-bottom:7px}.ea-brand strong{font-size:.78rem}.ea-brand span{font-size:.55rem}.ea-status{display:none}.ea-main{margin-left:0}.ea-workspace{min-height:calc(100vh - 68px);border-radius:16px}.ea-mobile{display:flex;gap:7px;overflow-x:auto;padding:10px 10px 0;scrollbar-width:none}.ea-mobile button{flex:0 0 auto;min-height:38px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:#111;color:#eee;font-size:.68rem;font-weight:800}.ea-mobile button.active{background:var(--yellow);border-color:var(--yellow);color:#111}.ea-toolbar{padding:10px}.ea-stage{padding:28px 14px 35px}.ea-results{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.ea-exit{font-size:.66rem}.ea-brand strong{font-size:.7rem}.ea-brand span{display:none}.ea-clear{min-width:44px;padding:0 11px;font-size:0}.ea-clear:after{content:"×";font-size:1.15rem}.ea-results{grid-template-columns:1fr}.ea-welcome h2{font-size:2.25rem}}
+
+.ea-resource-action{display:inline-flex;align-items:center;justify-content:center;margin-top:16px;min-height:38px;padding:0 13px;border:1px solid rgba(243,207,57,.55);border-radius:10px;background:transparent;color:var(--yellow);text-decoration:none;font-size:.65rem;font-weight:800;letter-spacing:.04em;cursor:pointer}
+.ea-resource-action:hover{background:var(--yellow);color:#111}
+.ea-tool-view{max-width:1400px;margin:0 auto}.ea-tool-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:12px}.ea-tool-head h3{margin:3px 0 0;font-size:1.25rem}.ea-tool-head button{min-height:40px;padding:0 13px;border:1px solid var(--line);border-radius:10px;background:#111;color:#eee;font-size:.68rem;font-weight:800;cursor:pointer}.ea-tool-head button:hover{border-color:var(--yellow);color:var(--yellow)}
+.ea-iframe-wrap{height:calc(100vh - 185px);min-height:600px;overflow:hidden;border:1px solid var(--line);border-radius:14px;background:#222}.ea-iframe-wrap iframe{display:block;width:100%;height:100%;border:0;background:#222}
+@media(max-width:1000px){.ea-iframe-wrap{height:calc(100vh - 170px);min-height:520px}.ea-tool-head{align-items:center}.ea-tool-head button{font-size:.6rem}}
+@media(max-width:600px){.ea-iframe-wrap{height:calc(100vh - 160px);min-height:480px;border-radius:10px}.ea-tool-head h3{font-size:1rem}.ea-tool-head button{padding:0 9px}}
 </style>
 </head>
 <body>
@@ -38,8 +46,17 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
 <aside class="ea-sidebar">
   <div class="ea-sidebar-head"><div class="ea-kicker">Everything Art</div><h1>Creative Studio</h1><p>A workspace for finding, making, learning and eventually playing with creative things.</p></div>
   <div class="ea-section"><span class="ea-label">Studio</span><button class="ea-module active" type="button">Resources</button></div>
-  <div class="ea-section"><span class="ea-label">Resource Type</span><div class="ea-filter-grid">
-    <button class="ea-filter active" data-filter="all">All</button><button class="ea-filter" data-filter="create">Create</button><button class="ea-filter" data-filter="image">Image</button><button class="ea-filter" data-filter="video">Video</button><button class="ea-filter" data-filter="audio">Audio</button><button class="ea-filter" data-filter="learn">Learn</button><button class="ea-filter" data-filter="free">Free Stuff</button>
+  <div class="ea-section"><span class="ea-label">Work With</span><div class="ea-filter-grid">
+    <button class="ea-filter active" data-filter="all">All</button>
+    <button class="ea-filter" data-filter="image">Image</button>
+    <button class="ea-filter" data-filter="video">Video</button>
+    <button class="ea-filter" data-filter="audio">Audio</button>
+    <button class="ea-filter" data-filter="3d">3D</button>
+  </div></div>
+  <div class="ea-section"><span class="ea-label">What Do You Need?</span><div class="ea-filter-grid">
+    <button class="ea-filter" data-filter="create">Create / Edit</button>
+    <button class="ea-filter" data-filter="assets">Free Assets</button>
+    <button class="ea-filter" data-filter="learn">Learn</button>
   </div></div>
   <div class="ea-note">TEST SHELL<br>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div>
 </aside>
@@ -52,27 +69,110 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
 
 <main class="ea-main"><section class="ea-workspace">
 <div class="ea-mobile">
-<button class="active" data-filter="all">All</button><button data-filter="create">Create</button><button data-filter="image">Image</button><button data-filter="video">Video</button><button data-filter="audio">Audio</button><button data-filter="learn">Learn</button><button data-filter="free">Free Stuff</button>
+<button class="active" data-filter="all">All</button>
+<button data-filter="image">Image</button>
+<button data-filter="video">Video</button>
+<button data-filter="audio">Audio</button>
+<button data-filter="3d">3D</button>
+<button data-filter="assets">Free Assets</button>
 </div>
 <div class="ea-toolbar"><div class="ea-search-wrap"><span class="ea-search-icon">⌕</span><input id="eaSearch" class="ea-search" type="search" placeholder="Search creative resources..." aria-label="Search creative resources"></div><button id="eaClear" class="ea-clear" type="button">Clear</button></div>
 <div class="ea-stage">
 <div class="ea-welcome"><div class="ea-kicker">Resources • First Studio Module</div><h2>What do you want to make?</h2><p>Find useful places to create, edit, learn, experiment and get unstuck. This is the first piece of a larger Everything Art creative workspace.</p></div>
 <div class="ea-results-head"><strong>Explore Resources</strong><span id="eaCount" class="ea-count"></span></div>
 <div class="ea-results">
-<article class="ea-card" data-category="create" data-search="create make tools creative experiment"><span class="ea-type">Create</span><h3>Make Something</h3><p>Creative tools for starting an idea, experimenting and turning a thought into something you can see or hear.</p></article>
-<article class="ea-card" data-category="image" data-search="image photo drawing graphics background edit resize"><span class="ea-type">Image</span><h3>Image & Graphics</h3><p>Resources for images, photography, drawing, graphics, backgrounds, resizing and visual experiments.</p></article>
-<article class="ea-card" data-category="video" data-search="video animation edit motion movie film convert"><span class="ea-type">Video</span><h3>Video & Motion</h3><p>Tools and references for editing, animation, motion, video conversion and moving-image work.</p></article>
-<article class="ea-card" data-category="audio" data-search="audio sound music record edit effects voice"><span class="ea-type">Audio</span><h3>Sound & Audio</h3><p>Places to work with sound, music, recording, effects and audio for future creative projects.</p></article>
-<article class="ea-card" data-category="learn" data-search="learn tutorial guide education how to skills"><span class="ea-type">Learn</span><h3>Learn & Explore</h3><p>Useful guides, references and learning resources without turning the studio into a giant instruction manual.</p></article>
-<article class="ea-card" data-category="free" data-search="free stuff assets fonts textures downloads public domain"><span class="ea-type">Free Stuff</span><h3>Free Creative Stuff</h3><p>Assets, references and useful materials that can help someone make something without immediately reaching for a credit card.</p></article>
+<article class="ea-card" data-category="image create" data-search="photopea image photo graphics psd edit browser free">
+<span class="ea-type">IMAGE · CREATE / EDIT</span><h3>Photopea</h3>
+<p>Browser-based image editor with PSD support. Open it directly inside the Everything Art workspace.</p>
+<button class="ea-resource-action ea-open-studio" type="button" data-studio="photopea">OPEN IN STUDIO</button>
+</article>
+
+<article class="ea-card" data-category="3d create" data-search="blender 3d modeling animation rendering free open source desktop">
+<span class="ea-type">3D · CREATE</span><h3>Blender</h3>
+<p>Free, open-source 3D creation suite for modeling, animation, rendering and more.</p>
+<a class="ea-resource-action" href="https://www.blender.org/" target="_blank" rel="noopener noreferrer">GET APP ↗</a>
+</article>
+
+<article class="ea-card" data-category="audio create" data-search="audacity audio sound recording edit free open source desktop">
+<span class="ea-type">AUDIO · CREATE / EDIT</span><h3>Audacity</h3>
+<p>Free desktop audio editor and recorder for Windows, macOS and Linux.</p>
+<a class="ea-resource-action" href="https://www.audacityteam.org/" target="_blank" rel="noopener noreferrer">GET APP ↗</a>
+</article>
+
+<article class="ea-card" data-category="image video assets" data-search="pexels free photos video stock assets photography footage">
+<span class="ea-type">IMAGE + VIDEO · FREE ASSETS</span><h3>Pexels</h3>
+<p>Free stock photography and video for creative projects, with a straightforward usage license.</p>
+<a class="ea-resource-action" href="https://www.pexels.com/" target="_blank" rel="noopener noreferrer">VISIT RESOURCE ↗</a>
+</article>
+
+<article class="ea-card" data-category="video audio assets" data-search="mixkit free video music sound effects templates assets">
+<span class="ea-type">VIDEO + AUDIO · FREE ASSETS</span><h3>Mixkit</h3>
+<p>Free stock video, music, sound effects and templates. Check the license for the asset type you use.</p>
+<a class="ea-resource-action" href="https://mixkit.co/" target="_blank" rel="noopener noreferrer">VISIT RESOURCE ↗</a>
+</article>
+
+<article class="ea-card" data-category="audio assets" data-search="freesound free sound effects audio creative commons samples">
+<span class="ea-type">AUDIO · FREE ASSETS</span><h3>Freesound</h3>
+<p>A huge community sound library. Individual sounds use different Creative Commons licenses, so check each one.</p>
+<a class="ea-resource-action" href="https://freesound.org/" target="_blank" rel="noopener noreferrer">VISIT RESOURCE ↗</a>
+</article>
 </div>
+
+<section id="eaStudioTool" class="ea-tool-view" hidden>
+  <div class="ea-tool-head">
+    <div><span class="ea-type">OPEN IN STUDIO</span><h3>Photopea</h3></div>
+    <button id="eaCloseTool" type="button">← BACK TO RESOURCES</button>
+  </div>
+  <div class="ea-iframe-wrap">
+    <iframe id="eaPhotopea" title="Photopea image editor" loading="lazy" allow="clipboard-read; clipboard-write" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+  </div>
+</section>
 <div id="eaEmpty" class="ea-empty">Nothing in the starter set matches that yet. As we build the resource library, this workspace will become the results area.</div>
 </div></section></main>
 </div>
 <script>
-(()=>{const s=document.getElementById('eaSearch'),c=document.getElementById('eaClear'),cards=[...document.querySelectorAll('.ea-card')],buttons=[...document.querySelectorAll('[data-filter]')],count=document.getElementById('eaCount'),empty=document.getElementById('eaEmpty');let filter='all';
-function draw(){const q=s.value.trim().toLowerCase();let n=0;buttons.forEach(b=>b.classList.toggle('active',b.dataset.filter===filter));cards.forEach(card=>{const ok=(filter==='all'||card.dataset.category===filter)&&(!q||(card.dataset.search+' '+card.textContent).toLowerCase().includes(q));card.hidden=!ok;if(ok)n++});count.textContent=n+(n===1?' result':' results');empty.style.display=n?'none':'block'}
-buttons.forEach(b=>b.addEventListener('click',()=>{filter=b.dataset.filter;draw()}));s.addEventListener('input',draw);c.addEventListener('click',()=>{s.value='';filter='all';draw();s.focus()});draw()})();
+(()=> {
+ const s=document.getElementById('eaSearch'),c=document.getElementById('eaClear'),
+ cards=[...document.querySelectorAll('.ea-card')],
+ buttons=[...document.querySelectorAll('[data-filter]')],
+ count=document.getElementById('eaCount'),empty=document.getElementById('eaEmpty'),
+ welcome=document.querySelector('.ea-welcome'),
+ results=document.querySelector('.ea-results'),
+ resultsHead=document.querySelector('.ea-results-head'),
+ tool=document.getElementById('eaStudioTool'),
+ frame=document.getElementById('eaPhotopea'),
+ closeTool=document.getElementById('eaCloseTool');
+ let filter='all';
+
+ function draw(){
+   const q=s.value.trim().toLowerCase(); let n=0;
+   buttons.forEach(b=>b.classList.toggle('active',b.dataset.filter===filter));
+   cards.forEach(card=>{
+     const cats=(card.dataset.category||'').split(' ');
+     const ok=(filter==='all'||cats.includes(filter))&&(!q||(card.dataset.search+' '+card.textContent).toLowerCase().includes(q));
+     card.hidden=!ok;if(ok)n++;
+   });
+   count.textContent=n+(n===1?' resource':' resources');
+   empty.style.display=n?'none':'block';
+ }
+
+ buttons.forEach(b=>b.addEventListener('click',()=>{filter=b.dataset.filter;draw()}));
+ s.addEventListener('input',draw);
+ c.addEventListener('click',()=>{s.value='';filter='all';draw();s.focus()});
+
+ document.querySelectorAll('.ea-open-studio').forEach(btn=>btn.addEventListener('click',()=>{
+   welcome.hidden=true;results.hidden=true;resultsHead.hidden=true;empty.style.display='none';
+   tool.hidden=false;
+   if(!frame.src) frame.src='https://www.photopea.com/';
+   window.scrollTo({top:0,behavior:'smooth'});
+ }));
+
+ closeTool.addEventListener('click',()=>{
+   tool.hidden=true;welcome.hidden=false;results.hidden=false;resultsHead.hidden=false;draw();
+ });
+
+ draw();
+})();
 </script>
 </body>
 </html>
