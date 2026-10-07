@@ -447,6 +447,92 @@ body.ea-utilities-active .empty-state{
   }
 }
 
+
+/* =========================================================
+   TEST BUILD 1.0.21
+   EA nav: sticky, clear of Studio sidebar, mobile 3+1 layout.
+   ========================================================= */
+
+/* Keep the Everything Art navigation attached to the viewport. */
+.ea-mini-nav{
+  position:sticky !important;
+  top:0 !important;
+  z-index:1000 !important;
+}
+
+/* Desktop: the Studio has a fixed/left rail. Start the nav after that rail
+   so EVERYTHING ART is never hidden underneath it. */
+@media(min-width:1001px){
+  .ea-mini-nav-inner{
+    box-sizing:border-box;
+    padding-left:calc(300px + 34px) !important;
+  }
+}
+
+/* Mobile/tablet: match the established EA behavior.
+   First row = Everything Art / Opportunities / Art Events
+   Second row = Resources on the left, FB + AR on the right. */
+@media(max-width:700px){
+  .ea-mini-nav-inner{
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) auto !important;
+    grid-template-areas:
+      "primary primary"
+      "resource secondary" !important;
+    gap:8px 10px !important;
+    padding:12px !important;
+  }
+
+  .ea-mini-primary{
+    display:grid !important;
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    grid-template-areas:
+      "ea opp events"
+      "resources resources resources" !important;
+    gap:8px !important;
+    min-width:0 !important;
+  }
+
+  .ea-mini-primary > :nth-child(1){grid-area:ea}
+  .ea-mini-primary > :nth-child(2){grid-area:opp}
+  .ea-mini-primary > :nth-child(3){grid-area:events}
+  .ea-mini-primary > :nth-child(4){
+    grid-area:resources;
+    justify-self:start;
+    width:auto !important;
+  }
+
+  /* Let the fourth item and right controls share the second visual row. */
+  .ea-mini-primary{grid-area:primary}
+  .ea-mini-secondary{
+    grid-area:secondary !important;
+    align-self:end !important;
+    justify-self:end !important;
+    margin-top:44px;
+  }
+
+  .ea-mini-link{
+    box-sizing:border-box;
+    width:100%;
+    min-width:0;
+    padding:0 8px !important;
+    text-align:center;
+  }
+
+  .ea-mini-primary > :nth-child(4){
+    position:absolute;
+    left:12px;
+    top:60px;
+    width:auto !important;
+    min-width:112px;
+  }
+
+  .ea-mini-nav-inner{
+    position:relative;
+    padding-bottom:58px !important;
+  }
+}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
 </head>
@@ -496,7 +582,7 @@ body.ea-utilities-active .empty-state{
 <button class="ea-filter" data-filter="learn">Learn</button>
 <button type="button" data-filter="utilities" class="ea-utilities-filter">Utilities</button>
 </div></div>
-<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.20</strong></div>
+<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.21</strong></div>
 </aside>
 
 <main class="ea-main"><section class="ea-workspace">
