@@ -45,7 +45,7 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
 .ea-sound-status{min-height:22px;margin-bottom:12px;color:var(--muted);font-size:.72rem}.ea-sound-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.ea-sound-card{padding:16px;border:1px solid var(--line);border-radius:15px;background:var(--card)}.ea-sound-card h4{margin:0 0 7px;font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ea-sound-meta{margin-bottom:11px;color:var(--muted);font-size:.68rem;line-height:1.5}.ea-sound-card audio{width:100%;height:38px;margin:3px 0 9px}.ea-sound-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px}.ea-sound-link,.ea-sound-button{display:inline-flex;align-items:center;min-height:30px;padding:0 9px;border:1px solid rgba(243,207,57,.35);border-radius:8px;background:transparent;color:var(--yellow);font-size:.62rem;font-weight:800;text-decoration:none;cursor:pointer}.ea-sound-link:hover,.ea-sound-button:hover{background:var(--yellow);color:#111}.ea-more-sound[aria-expanded="true"]{background:var(--yellow);border-color:var(--yellow);color:#111;box-shadow:0 0 0 2px rgba(243,207,57,.12)}.ea-sound-license{margin-left:auto;color:#aaa;font-size:.62rem}.ea-sound-details{margin-top:11px;padding-top:11px;border-top:1px solid var(--line);color:var(--muted);font-size:.66rem;line-height:1.55}.ea-sound-details[hidden]{display:none}.ea-sound-details strong{color:#ddd}.ea-sound-more-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px 22px}.ea-sound-more-col>div+div{margin-top:4px}.ea-sound-more-description{grid-column:1/-1;padding-top:2px}.ea-sound-more-footer{grid-column:1/-1;margin-top:0}.ea-sound-tags{margin-top:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.ea-sound-description{margin-top:6px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 @media(max-width:700px){.ea-sound-more-grid{grid-template-columns:1fr}.ea-sound-more-description,.ea-sound-more-footer{grid-column:auto}.ea-sound-results{grid-template-columns:1fr}.ea-sound-search{flex-direction:column}.ea-sound-search button{width:100%}}
 .ea-card-type-icon{width:15px;height:15px;flex:0 0 15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.ea-card-video-play{fill:currentColor;stroke:none}
-.ea-utilities-panel{display:none;margin-top:18px;border:1px solid rgba(255,255,255,.13);border-radius:18px;background:#111;padding:20px}
+.ea-utilities-panel{scroll-margin-top:24px;display:none;margin-top:18px;border:1px solid rgba(255,255,255,.13);border-radius:18px;background:#111;padding:20px}
 .ea-utilities-panel.is-open{display:block}
 .ea-utilities-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:18px}
 .ea-utilities-head h2{margin:0 0 6px;font-size:1.35rem}
@@ -84,6 +84,22 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
 .ea-size-result strong{color:var(--yellow)}
 @media(max-width:700px){.ea-utility-tabs{grid-template-columns:1fr}.ea-preview-grid{grid-template-columns:1fr}.ea-utilities-panel{padding:14px}.ea-control-row{grid-template-columns:1fr 1fr}}
 
+
+/* v13: keep Utilities inside the visible Studio workspace */
+.ea-utilities-panel{
+  box-sizing:border-box;
+  width:auto;
+  max-width:none;
+  margin-left:calc(344px + 18px);
+  margin-right:18px;
+}
+@media(max-width:1000px){
+  .ea-utilities-panel{
+    margin-left:14px;
+    margin-right:14px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -109,7 +125,7 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
 <header class="ea-topbar">
 <a class="ea-exit" href="everything-art.html">← EVERYTHING ART</a>
 <div class="ea-brand"><strong>Everything Art • Creative Studio</strong><span>Resources</span></div>
-<div class="ea-status">STUDIO TEST · V12</div>
+<div class="ea-status">STUDIO TEST · V13</div>
 </header>
 <main class="ea-main"><section class="ea-workspace">
 <div class="ea-mobile">
