@@ -44,7 +44,47 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
 .ea-sound-search{display:flex;gap:10px;margin:16px 0 18px}.ea-sound-search input{flex:1;min-width:0;min-height:46px;padding:0 14px;border:1px solid var(--line);border-radius:12px;outline:0;background:#0e0e0e;color:#fff;font-size:16px}.ea-sound-search input:focus{border-color:var(--yellow)}.ea-sound-search button{min-height:46px;padding:0 18px;border:1px solid var(--yellow);border-radius:12px;background:var(--yellow);color:#111;font-weight:900;cursor:pointer}
 .ea-sound-status{min-height:22px;margin-bottom:12px;color:var(--muted);font-size:.72rem}.ea-sound-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.ea-sound-card{padding:16px;border:1px solid var(--line);border-radius:15px;background:var(--card)}.ea-sound-card h4{margin:0 0 7px;font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ea-sound-meta{margin-bottom:11px;color:var(--muted);font-size:.68rem;line-height:1.5}.ea-sound-card audio{width:100%;height:38px;margin:3px 0 9px}.ea-sound-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px}.ea-sound-link,.ea-sound-button{display:inline-flex;align-items:center;min-height:30px;padding:0 9px;border:1px solid rgba(243,207,57,.35);border-radius:8px;background:transparent;color:var(--yellow);font-size:.62rem;font-weight:800;text-decoration:none;cursor:pointer}.ea-sound-link:hover,.ea-sound-button:hover{background:var(--yellow);color:#111}.ea-more-sound[aria-expanded="true"]{background:var(--yellow);border-color:var(--yellow);color:#111;box-shadow:0 0 0 2px rgba(243,207,57,.12)}.ea-sound-license{margin-left:auto;color:#aaa;font-size:.62rem}.ea-sound-details{margin-top:11px;padding-top:11px;border-top:1px solid var(--line);color:var(--muted);font-size:.66rem;line-height:1.55}.ea-sound-details[hidden]{display:none}.ea-sound-details strong{color:#ddd}.ea-sound-more-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px 22px}.ea-sound-more-col>div+div{margin-top:4px}.ea-sound-more-description{grid-column:1/-1;padding-top:2px}.ea-sound-more-footer{grid-column:1/-1;margin-top:0}.ea-sound-tags{margin-top:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.ea-sound-description{margin-top:6px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 @media(max-width:700px){.ea-sound-more-grid{grid-template-columns:1fr}.ea-sound-more-description,.ea-sound-more-footer{grid-column:auto}.ea-sound-results{grid-template-columns:1fr}.ea-sound-search{flex-direction:column}.ea-sound-search button{width:100%}}
-.ea-card-type-icon{width:15px;height:15px;flex:0 0 15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.ea-card-video-play{fill:currentColor;stroke:none}</style>
+.ea-card-type-icon{width:15px;height:15px;flex:0 0 15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.ea-card-video-play{fill:currentColor;stroke:none}
+.ea-utilities-panel{display:none;margin-top:18px;border:1px solid rgba(255,255,255,.13);border-radius:18px;background:#111;padding:20px}
+.ea-utilities-panel.is-open{display:block}
+.ea-utilities-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:18px}
+.ea-utilities-head h2{margin:0 0 6px;font-size:1.35rem}
+.ea-utilities-head p{margin:0;color:#aaa;font-size:.9rem;line-height:1.45}
+.ea-utility-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:18px}
+.ea-utility-tab{border:1px solid rgba(255,255,255,.16);background:#181818;color:#fff;border-radius:999px;padding:11px 12px;font:inherit;font-weight:800;cursor:pointer}
+.ea-utility-tab.is-active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+.ea-utility-tool{display:none}
+.ea-utility-tool.is-active{display:block}
+.ea-dropzone{border:1.5px dashed rgba(255,255,255,.28);border-radius:16px;padding:28px 18px;text-align:center;background:#0b0b0b;cursor:pointer}
+.ea-dropzone.is-drag{border-color:var(--yellow);background:#17150b}
+.ea-dropzone strong{display:block;font-size:1rem;margin-bottom:5px}
+.ea-dropzone span{font-size:.82rem;color:#999}
+.ea-utility-preview{display:none;margin-top:16px}
+.ea-utility-preview.is-ready{display:block}
+.ea-preview-grid{display:grid;grid-template-columns:minmax(180px,1fr) minmax(220px,1.25fr);gap:16px;align-items:start}
+.ea-preview-box{background:#090909;border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:12px}
+.ea-preview-box img{display:block;width:100%;max-height:320px;object-fit:contain;border-radius:9px;background:#161616}
+.ea-file-meta{font-size:.78rem;color:#aaa;margin-top:9px;overflow-wrap:anywhere}
+.ea-control-box{background:#151515;border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:16px}
+.ea-control-box label{display:block;font-size:.75rem;font-weight:800;letter-spacing:.04em;margin:0 0 7px;color:#ddd}
+.ea-control-box select,.ea-control-box input[type="number"],.ea-control-box input[type="range"]{width:100%;box-sizing:border-box}
+.ea-control-box select,.ea-control-box input[type="number"]{background:#0a0a0a;color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:10px}
+.ea-control-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:13px}
+.ea-control-stack{margin-bottom:14px}
+.ea-lock-row{display:flex;align-items:center;gap:8px;font-size:.82rem;color:#bbb;margin:-2px 0 14px}
+.ea-lock-row input{accent-color:#f4d20b}
+.ea-preset-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.ea-preset{border:1px solid rgba(255,255,255,.16);background:#222;color:#fff;border-radius:999px;padding:7px 10px;font-size:.72rem;font-weight:800;cursor:pointer}
+.ea-action-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
+.ea-util-btn{border:0;border-radius:999px;padding:10px 14px;font:inherit;font-size:.78rem;font-weight:900;cursor:pointer;background:var(--yellow);color:#111;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+.ea-util-btn.secondary{background:#292929;color:#fff;border:1px solid rgba(255,255,255,.14)}
+.ea-util-btn[disabled]{opacity:.45;cursor:not-allowed}
+.ea-output-note{font-size:.76rem;color:#999;margin-top:10px;line-height:1.4}
+.ea-size-result{font-size:.84rem;margin-top:10px;color:#ddd}
+.ea-size-result strong{color:var(--yellow)}
+@media(max-width:700px){.ea-utility-tabs{grid-template-columns:1fr}.ea-preview-grid{grid-template-columns:1fr}.ea-utilities-panel{padding:14px}.ea-control-row{grid-template-columns:1fr 1fr}}
+
+</style>
 </head>
 <body>
 <div class="ea-studio">
@@ -68,7 +108,7 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
 <header class="ea-topbar">
 <a class="ea-exit" href="everything-art.html">← EVERYTHING ART</a>
 <div class="ea-brand"><strong>Everything Art • Creative Studio</strong><span>Resources</span></div>
-<div class="ea-status">STUDIO TEST · V10</div>
+<div class="ea-status">STUDIO TEST · V11</div>
 </header>
 <main class="ea-main"><section class="ea-workspace">
 <div class="ea-mobile">
@@ -133,6 +173,69 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
 <div class="ea-empty" id="eaEmpty">Nothing in the starter set matches that yet. As we build the resource library, this workspace will become the results area.</div>
 </div></section></main>
 </div>
+
+<section class="ea-utilities-panel" id="eaUtilitiesPanel" aria-label="Everything Art utilities">
+  <div class="ea-utilities-head">
+    <div>
+      <h2>Utilities</h2>
+      <p>Quick file jobs without leaving the Studio. Your image is processed in this browser.</p>
+    </div>
+  </div>
+
+  <div class="ea-utility-tabs" role="tablist">
+    <button class="ea-utility-tab is-active" type="button" data-util="compress">COMPRESS IMAGE</button>
+    <button class="ea-utility-tab" type="button" data-util="resize">RESIZE IMAGE</button>
+    <button class="ea-utility-tab" type="button" data-util="convert">CONVERT IMAGE</button>
+  </div>
+
+  <div class="ea-utility-tool is-active" data-util-panel="compress">
+    <div class="ea-dropzone" data-drop="compress"><strong>Drop an image here</strong><span>or click to choose JPG, PNG or WebP</span><input hidden type="file" accept="image/jpeg,image/png,image/webp"></div>
+    <div class="ea-utility-preview" data-preview="compress">
+      <div class="ea-preview-grid">
+        <div class="ea-preview-box"><img alt="Selected image preview" data-img="compress"><div class="ea-file-meta" data-meta="compress"></div></div>
+        <div class="ea-control-box">
+          <div class="ea-control-stack"><label>COMPRESSION</label><select data-quality="compress"><option value=".55">Smaller file</option><option value=".78" selected>Balanced</option><option value=".92">Best quality</option></select></div>
+          <div class="ea-size-result" data-result="compress"></div>
+          <div class="ea-action-row"><button class="ea-util-btn" type="button" data-process="compress">COMPRESS</button><a class="ea-util-btn secondary" data-download="compress" hidden>DOWNLOAD</a></div>
+          <div class="ea-output-note">Transparent PNGs are kept as PNG so transparency is not lost. JPG/WebP images are recompressed as WebP.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ea-utility-tool" data-util-panel="resize">
+    <div class="ea-dropzone" data-drop="resize"><strong>Drop an image here</strong><span>or click to choose JPG, PNG or WebP</span><input hidden type="file" accept="image/jpeg,image/png,image/webp"></div>
+    <div class="ea-utility-preview" data-preview="resize">
+      <div class="ea-preview-grid">
+        <div class="ea-preview-box"><img alt="Selected image preview" data-img="resize"><div class="ea-file-meta" data-meta="resize"></div></div>
+        <div class="ea-control-box">
+          <div class="ea-control-row"><div><label>WIDTH</label><input type="number" min="1" data-width="resize"></div><div><label>HEIGHT</label><input type="number" min="1" data-height="resize"></div></div>
+          <label class="ea-lock-row"><input type="checkbox" data-lock="resize" checked> Lock proportions</label>
+          <div class="ea-preset-row"><button class="ea-preset" type="button" data-preset=".5">50%</button><button class="ea-preset" type="button" data-preset=".75">75%</button><button class="ea-preset" type="button" data-preset="1">ORIGINAL</button></div>
+          <div class="ea-action-row"><button class="ea-util-btn" type="button" data-process="resize">RESIZE</button><a class="ea-util-btn secondary" data-download="resize" hidden>DOWNLOAD</a></div>
+          <div class="ea-size-result" data-result="resize"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ea-utility-tool" data-util-panel="convert">
+    <div class="ea-dropzone" data-drop="convert"><strong>Drop an image here</strong><span>or click to choose JPG, PNG or WebP</span><input hidden type="file" accept="image/jpeg,image/png,image/webp"></div>
+    <div class="ea-utility-preview" data-preview="convert">
+      <div class="ea-preview-grid">
+        <div class="ea-preview-box"><img alt="Selected image preview" data-img="convert"><div class="ea-file-meta" data-meta="convert"></div></div>
+        <div class="ea-control-box">
+          <div class="ea-control-stack"><label>CONVERT TO</label><select data-format="convert"><option value="image/jpeg">JPG</option><option value="image/png">PNG</option><option value="image/webp" selected>WebP</option></select></div>
+          <div class="ea-control-stack"><label>QUALITY <span data-quality-label="convert">90%</span></label><input type="range" min="40" max="100" value="90" data-quality-range="convert"></div>
+          <div class="ea-action-row"><button class="ea-util-btn" type="button" data-process="convert">CONVERT</button><a class="ea-util-btn secondary" data-download="convert" hidden>DOWNLOAD</a></div>
+          <div class="ea-size-result" data-result="convert"></div>
+          <div class="ea-output-note">Converting a transparent image to JPG replaces transparency with white.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <script>
 (()=> {
  const s=document.getElementById('eaSearch'),c=document.getElementById('eaClear'),
@@ -294,5 +397,110 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
  draw();
 })();
 </script>
+
+<script>
+(() => {
+  const panel = document.getElementById('eaUtilitiesPanel');
+  if (!panel) return;
+  const state = {};
+
+  const human = n => n < 1024 ? n + ' B' : n < 1048576 ? (n/1024).toFixed(1)+' KB' : (n/1048576).toFixed(2)+' MB';
+  const baseName = n => n.replace(/\.[^.]+$/, '');
+  const extFor = t => t === 'image/png' ? 'png' : t === 'image/jpeg' ? 'jpg' : 'webp';
+
+  function showUtilities() {
+    panel.classList.add('is-open');
+    panel.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  // Hook all Utilities need-filter buttons without disturbing existing filters.
+  document.querySelectorAll('[data-need="utilities"]').forEach(btn => btn.addEventListener('click', showUtilities));
+
+  document.querySelectorAll('.ea-utility-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.ea-utility-tab').forEach(b => b.classList.toggle('is-active', b === btn));
+      document.querySelectorAll('.ea-utility-tool').forEach(p => p.classList.toggle('is-active', p.dataset.utilPanel === btn.dataset.util));
+    });
+  });
+
+  async function loadFile(tool, file) {
+    if (!file || !file.type.startsWith('image/')) return;
+    if (state[tool]?.url) URL.revokeObjectURL(state[tool].url);
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    await new Promise((ok, bad) => { img.onload=ok; img.onerror=bad; img.src=url; });
+    state[tool] = {file, url, img, width:img.naturalWidth, height:img.naturalHeight};
+    const preview = panel.querySelector(`[data-preview="${tool}"]`);
+    preview.classList.add('is-ready');
+    panel.querySelector(`[data-img="${tool}"]`).src = url;
+    panel.querySelector(`[data-meta="${tool}"]`).textContent = `${file.name} · ${img.naturalWidth} × ${img.naturalHeight}px · ${human(file.size)}`;
+    const dl = panel.querySelector(`[data-download="${tool}"]`);
+    dl.hidden = true;
+    if (tool === 'resize') {
+      panel.querySelector('[data-width="resize"]').value = img.naturalWidth;
+      panel.querySelector('[data-height="resize"]').value = img.naturalHeight;
+    }
+    panel.querySelector(`[data-result="${tool}"]`).textContent = '';
+  }
+
+  panel.querySelectorAll('.ea-dropzone').forEach(zone => {
+    const tool = zone.dataset.drop, input = zone.querySelector('input');
+    zone.addEventListener('click', () => input.click());
+    input.addEventListener('change', () => loadFile(tool, input.files[0]));
+    ['dragenter','dragover'].forEach(e => zone.addEventListener(e, ev => {ev.preventDefault(); zone.classList.add('is-drag')}));
+    ['dragleave','drop'].forEach(e => zone.addEventListener(e, ev => {ev.preventDefault(); zone.classList.remove('is-drag')}));
+    zone.addEventListener('drop', e => loadFile(tool, e.dataTransfer.files[0]));
+  });
+
+  function canvasFor(s, w=s.width, h=s.height, white=false) {
+    const c=document.createElement('canvas'); c.width=w; c.height=h;
+    const x=c.getContext('2d');
+    if (white) {x.fillStyle='#fff'; x.fillRect(0,0,w,h);}
+    x.drawImage(s.img,0,0,w,h); return c;
+  }
+  const blobFrom = (canvas,type,quality) => new Promise(ok => canvas.toBlob(ok,type,quality));
+  function offer(tool, blob, filename) {
+    const dl=panel.querySelector(`[data-download="${tool}"]`);
+    if (state[tool].outUrl) URL.revokeObjectURL(state[tool].outUrl);
+    state[tool].outUrl=URL.createObjectURL(blob);
+    dl.href=state[tool].outUrl; dl.download=filename; dl.hidden=false;
+    return human(blob.size);
+  }
+
+  panel.querySelector('[data-process="compress"]').addEventListener('click', async () => {
+    const s=state.compress; if(!s) return;
+    const q=Number(panel.querySelector('[data-quality="compress"]').value);
+    const preservePng=s.file.type==='image/png';
+    const type=preservePng?'image/png':'image/webp';
+    const blob=await blobFrom(canvasFor(s),type,q);
+    const size=offer('compress',blob,`${baseName(s.file.name)}-compressed.${extFor(type)}`);
+    const delta=Math.round((1-blob.size/s.file.size)*100);
+    panel.querySelector('[data-result="compress"]').innerHTML=`Original: ${human(s.file.size)}<br>New: <strong>${size}</strong>${delta>0?` · ${delta}% smaller`:''}`;
+  });
+
+  const w=panel.querySelector('[data-width="resize"]'), h=panel.querySelector('[data-height="resize"]'), lock=panel.querySelector('[data-lock="resize"]');
+  w.addEventListener('input',()=>{const s=state.resize;if(s&&lock.checked)h.value=Math.max(1,Math.round(Number(w.value)*s.height/s.width))});
+  h.addEventListener('input',()=>{const s=state.resize;if(s&&lock.checked)w.value=Math.max(1,Math.round(Number(h.value)*s.width/s.height))});
+  panel.querySelectorAll('[data-preset]').forEach(b=>b.addEventListener('click',()=>{const s=state.resize;if(!s)return;const p=Number(b.dataset.preset);w.value=Math.round(s.width*p);h.value=Math.round(s.height*p)}));
+  panel.querySelector('[data-process="resize"]').addEventListener('click',async()=>{
+    const s=state.resize;if(!s)return;
+    const nw=Math.max(1,Number(w.value)|0), nh=Math.max(1,Number(h.value)|0), type=s.file.type==='image/png'?'image/png':'image/webp';
+    const blob=await blobFrom(canvasFor(s,nw,nh),type,.9);
+    const size=offer('resize',blob,`${baseName(s.file.name)}-${nw}x${nh}.${extFor(type)}`);
+    panel.querySelector('[data-result="resize"]').innerHTML=`New image: <strong>${nw} × ${nh}px</strong> · ${size}`;
+  });
+
+  const range=panel.querySelector('[data-quality-range="convert"]'), qLabel=panel.querySelector('[data-quality-label="convert"]');
+  range.addEventListener('input',()=>qLabel.textContent=range.value+'%');
+  panel.querySelector('[data-process="convert"]').addEventListener('click',async()=>{
+    const s=state.convert;if(!s)return;
+    const type=panel.querySelector('[data-format="convert"]').value, q=Number(range.value)/100;
+    const blob=await blobFrom(canvasFor(s,s.width,s.height,type==='image/jpeg'),type,q);
+    const size=offer('convert',blob,`${baseName(s.file.name)}-converted.${extFor(type)}`);
+    panel.querySelector('[data-result="convert"]').innerHTML=`Converted file: <strong>${size}</strong> · ${extFor(type).toUpperCase()}`;
+  });
+})();
+</script>
+
 </body>
 </html>
