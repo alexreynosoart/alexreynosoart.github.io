@@ -85,21 +85,11 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
 @media(max-width:700px){.ea-utility-tabs{grid-template-columns:1fr}.ea-preview-grid{grid-template-columns:1fr}.ea-utilities-panel{padding:14px}.ea-control-row{grid-template-columns:1fr 1fr}}
 
 
-/* v13: keep Utilities inside the visible Studio workspace */
-.ea-utilities-panel{
-  box-sizing:border-box;
-  width:auto;
-  max-width:none;
-  margin-left:calc(344px + 18px);
-  margin-right:18px;
-}
-@media(max-width:1000px){
-  .ea-utilities-panel{
-    margin-left:14px;
-    margin-right:14px;
-  }
-}
 
+/* v14 */
+.ea-utilities-panel{box-sizing:border-box;width:100%;max-width:none;margin:18px 0 0}
+.ea-build-version{margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08);font-size:.62rem;line-height:1.45;letter-spacing:.04em;color:#666}
+.ea-build-version strong{color:#888}
 </style>
 </head>
 <body>
@@ -120,12 +110,12 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
 <button class="ea-filter" data-filter="learn">Learn</button>
 <button type="button" data-filter="utilities" class="ea-utilities-filter">Utilities</button>
 </div></div>
-<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div>
+<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · v14</strong></div>
 </aside>
 <header class="ea-topbar">
 <a class="ea-exit" href="everything-art.html">← EVERYTHING ART</a>
 <div class="ea-brand"><strong>Everything Art • Creative Studio</strong><span>Resources</span></div>
-<div class="ea-status">STUDIO TEST · V13</div>
+<div class="ea-status">STUDIO TEST · V14</div>
 </header>
 <main class="ea-main"><section class="ea-workspace">
 <div class="ea-mobile">
@@ -147,51 +137,7 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
 
 
 
-<div class="ea-group-label ea-group-studio">USE IN STUDIO</div><article class="ea-card ea-integrated" data-category="image create" data-search="photopea image photo graphics psd edit browser free">
-<span class="ea-type"><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="M5.5 17l4.2-4.2 3.1 3 2.4-2.4 3.3 3.6"/></svg><span>IMAGE · CREATE / EDIT</span></span><h3>Photopea</h3>
-<p>Browser-based image editor with PSD support. Open it directly inside the Everything Art workspace.</p>
-<a class="ea-resource-action ea-open-studio" data-studio="photopea" href="https://www.photopea.com/" id="eaPhotopeaAction">OPEN IN STUDIO</a>
-</article><article class="ea-card ea-integrated" data-category="audio assets" data-search="freesound free sound effects audio creative commons samples">
-<span class="ea-type"><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5a2.5 2.5 0 1 1-2-2.45V7l10-2v10.5a2.5 2.5 0 1 1-2-2.45V8L9 9.2z"/></svg><span>AUDIO · FREE ASSETS</span></span><h3>Freesound</h3>
-<p>A huge community sound library. Individual sounds use different Creative Commons licenses, so check each one.</p>
-<a class="ea-resource-action ea-open-studio" data-studio="freesound" href="https://freesound.org/" id="eaFreesoundAction">OPEN IN STUDIO</a>
-</article><div class="ea-group-label ea-group-more">MORE RESOURCES</div><article class="ea-card" data-category="3d create" data-search="blender 3d modeling animation rendering free open source desktop">
-<span class="ea-type"><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l7 4v9l-7 4-7-4v-9z"/><path d="M5 7.5l7 4 7-4M12 11.5v9"/></svg><span>3D · CREATE</span></span><h3>Blender</h3>
-<p>Free, open-source 3D creation suite for modeling, animation, rendering and more.</p>
-<a class="ea-resource-action" href="https://www.blender.org/" rel="noopener noreferrer" target="_blank">GET APP ↗</a>
-</article><article class="ea-card" data-category="audio create" data-search="audacity audio sound recording edit free open source desktop">
-<span class="ea-type"><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5a2.5 2.5 0 1 1-2-2.45V7l10-2v10.5a2.5 2.5 0 1 1-2-2.45V8L9 9.2z"/></svg><span>AUDIO · CREATE / EDIT</span></span><h3>Audacity</h3>
-<p>Free desktop audio editor and recorder for Windows, macOS and Linux.</p>
-<a class="ea-resource-action" href="https://www.audacityteam.org/" rel="noopener noreferrer" target="_blank">GET APP ↗</a>
-</article><article class="ea-card" data-category="image video assets" data-search="pexels free photos video stock assets photography footage">
-<span class="ea-type"><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="M5.5 17l4.2-4.2 3.1 3 2.4-2.4 3.3 3.6"/></svg><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path class="ea-card-video-play" d="M10 9l5 3-5 3z"/></svg><span>IMAGE + VIDEO · FREE ASSETS</span></span><h3>Pexels</h3>
-<p>Free stock photography and video for creative projects, with a straightforward usage license.</p>
-<a class="ea-resource-action" href="https://www.pexels.com/" rel="noopener noreferrer" target="_blank">VISIT RESOURCE ↗</a>
-</article><article class="ea-card" data-category="video audio assets" data-search="mixkit free video music sound effects templates assets">
-<span class="ea-type"><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path class="ea-card-video-play" d="M10 9l5 3-5 3z"/></svg><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5a2.5 2.5 0 1 1-2-2.45V7l10-2v10.5a2.5 2.5 0 1 1-2-2.45V8L9 9.2z"/></svg><span>VIDEO + AUDIO · FREE ASSETS</span></span><h3>Mixkit</h3>
-<p>Free stock video, music, sound effects and templates. Check the license for the asset type you use.</p>
-<a class="ea-resource-action" href="https://mixkit.co/" rel="noopener noreferrer" target="_blank">VISIT RESOURCE ↗</a>
-</article></div>
-<section class="ea-tool-view" hidden="" id="eaStudioTool">
-<div class="ea-tool-head">
-<div><span class="ea-type">OPEN IN STUDIO</span><h3>Photopea</h3></div>
-<button id="eaCloseTool" type="button">← BACK TO RESOURCES</button>
-</div>
-<div class="ea-iframe-wrap">
-<iframe allow="clipboard-read; clipboard-write" id="eaPhotopea" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="Photopea image editor"></iframe>
-</div>
-</section>
-<section class="ea-tool-view" hidden="" id="eaFreesoundTool">
-<div class="ea-tool-head"><div><span class="ea-type">AUDIO · FREE ASSETS</span><h3>Freesound Search</h3></div><button id="eaCloseFreesound" type="button">← BACK TO RESOURCES</button></div>
-<p style="margin:0;color:var(--muted);font-size:.76rem;line-height:1.5">Search Freesound without leaving the Studio. Preview sounds here, then check the creator and license before using one.</p>
-<form class="ea-sound-search" id="eaSoundForm"><input aria-label="Search Freesound" id="eaSoundQuery" placeholder="Try rain, city, footsteps, birds..." type="search"/><button type="submit">SEARCH SOUNDS</button></form>
-<div class="ea-sound-status" id="eaSoundStatus">Search for a sound to begin.</div><div class="ea-sound-results" id="eaSoundResults"></div>
-</section>
-<div class="ea-empty" id="eaEmpty">Nothing in the starter set matches that yet. As we build the resource library, this workspace will become the results area.</div>
-</div></section></main>
-</div>
-
-<section class="ea-utilities-panel" id="eaUtilitiesPanel" aria-label="Everything Art utilities">
+<div class="ea-group-label ea-group-studio">USE IN STUDIO</div><section class="ea-utilities-panel" id="eaUtilitiesPanel" aria-label="Everything Art utilities">
   <div class="ea-utilities-head">
     <div>
       <h2>Utilities</h2>
@@ -252,6 +198,51 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
     </div>
   </div>
 </section>
+<article class="ea-card ea-integrated" data-category="image create" data-search="photopea image photo graphics psd edit browser free">
+<span class="ea-type"><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="M5.5 17l4.2-4.2 3.1 3 2.4-2.4 3.3 3.6"/></svg><span>IMAGE · CREATE / EDIT</span></span><h3>Photopea</h3>
+<p>Browser-based image editor with PSD support. Open it directly inside the Everything Art workspace.</p>
+<a class="ea-resource-action ea-open-studio" data-studio="photopea" href="https://www.photopea.com/" id="eaPhotopeaAction">OPEN IN STUDIO</a>
+</article><article class="ea-card ea-integrated" data-category="audio assets" data-search="freesound free sound effects audio creative commons samples">
+<span class="ea-type"><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5a2.5 2.5 0 1 1-2-2.45V7l10-2v10.5a2.5 2.5 0 1 1-2-2.45V8L9 9.2z"/></svg><span>AUDIO · FREE ASSETS</span></span><h3>Freesound</h3>
+<p>A huge community sound library. Individual sounds use different Creative Commons licenses, so check each one.</p>
+<a class="ea-resource-action ea-open-studio" data-studio="freesound" href="https://freesound.org/" id="eaFreesoundAction">OPEN IN STUDIO</a>
+</article><div class="ea-group-label ea-group-more">MORE RESOURCES</div><article class="ea-card" data-category="3d create" data-search="blender 3d modeling animation rendering free open source desktop">
+<span class="ea-type"><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l7 4v9l-7 4-7-4v-9z"/><path d="M5 7.5l7 4 7-4M12 11.5v9"/></svg><span>3D · CREATE</span></span><h3>Blender</h3>
+<p>Free, open-source 3D creation suite for modeling, animation, rendering and more.</p>
+<a class="ea-resource-action" href="https://www.blender.org/" rel="noopener noreferrer" target="_blank">GET APP ↗</a>
+</article><article class="ea-card" data-category="audio create" data-search="audacity audio sound recording edit free open source desktop">
+<span class="ea-type"><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5a2.5 2.5 0 1 1-2-2.45V7l10-2v10.5a2.5 2.5 0 1 1-2-2.45V8L9 9.2z"/></svg><span>AUDIO · CREATE / EDIT</span></span><h3>Audacity</h3>
+<p>Free desktop audio editor and recorder for Windows, macOS and Linux.</p>
+<a class="ea-resource-action" href="https://www.audacityteam.org/" rel="noopener noreferrer" target="_blank">GET APP ↗</a>
+</article><article class="ea-card" data-category="image video assets" data-search="pexels free photos video stock assets photography footage">
+<span class="ea-type"><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="M5.5 17l4.2-4.2 3.1 3 2.4-2.4 3.3 3.6"/></svg><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path class="ea-card-video-play" d="M10 9l5 3-5 3z"/></svg><span>IMAGE + VIDEO · FREE ASSETS</span></span><h3>Pexels</h3>
+<p>Free stock photography and video for creative projects, with a straightforward usage license.</p>
+<a class="ea-resource-action" href="https://www.pexels.com/" rel="noopener noreferrer" target="_blank">VISIT RESOURCE ↗</a>
+</article><article class="ea-card" data-category="video audio assets" data-search="mixkit free video music sound effects templates assets">
+<span class="ea-type"><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path class="ea-card-video-play" d="M10 9l5 3-5 3z"/></svg><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5a2.5 2.5 0 1 1-2-2.45V7l10-2v10.5a2.5 2.5 0 1 1-2-2.45V8L9 9.2z"/></svg><span>VIDEO + AUDIO · FREE ASSETS</span></span><h3>Mixkit</h3>
+<p>Free stock video, music, sound effects and templates. Check the license for the asset type you use.</p>
+<a class="ea-resource-action" href="https://mixkit.co/" rel="noopener noreferrer" target="_blank">VISIT RESOURCE ↗</a>
+</article></div>
+<section class="ea-tool-view" hidden="" id="eaStudioTool">
+<div class="ea-tool-head">
+<div><span class="ea-type">OPEN IN STUDIO</span><h3>Photopea</h3></div>
+<button id="eaCloseTool" type="button">← BACK TO RESOURCES</button>
+</div>
+<div class="ea-iframe-wrap">
+<iframe allow="clipboard-read; clipboard-write" id="eaPhotopea" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="Photopea image editor"></iframe>
+</div>
+</section>
+<section class="ea-tool-view" hidden="" id="eaFreesoundTool">
+<div class="ea-tool-head"><div><span class="ea-type">AUDIO · FREE ASSETS</span><h3>Freesound Search</h3></div><button id="eaCloseFreesound" type="button">← BACK TO RESOURCES</button></div>
+<p style="margin:0;color:var(--muted);font-size:.76rem;line-height:1.5">Search Freesound without leaving the Studio. Preview sounds here, then check the creator and license before using one.</p>
+<form class="ea-sound-search" id="eaSoundForm"><input aria-label="Search Freesound" id="eaSoundQuery" placeholder="Try rain, city, footsteps, birds..." type="search"/><button type="submit">SEARCH SOUNDS</button></form>
+<div class="ea-sound-status" id="eaSoundStatus">Search for a sound to begin.</div><div class="ea-sound-results" id="eaSoundResults"></div>
+</section>
+<div class="ea-empty" id="eaEmpty">Nothing in the starter set matches that yet. As we build the resource library, this workspace will become the results area.</div>
+</div></section></main>
+</div>
+
+
 <script>
 (()=> {
  const s=document.getElementById('eaSearch'),c=document.getElementById('eaClear'),
