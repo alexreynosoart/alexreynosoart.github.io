@@ -5215,3 +5215,104 @@ header nav a:not(:last-child)::after {
         content: none;
     }
 }
+
+
+/* ========================================
+   EVERYTHING ART | FAMILY FOOTER NAV
+   Creative Studio + shared Everything Art pages
+   ======================================== */
+
+.ea-family-footer{
+    width:min(1180px, calc(100% - 40px));
+    margin:0 auto;
+    padding:24px 0 30px;
+    border-top:1px solid rgba(255,255,255,.10);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.ea-family-footer a{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:34px;
+    padding:0 12px;
+    border:1px solid rgba(255,255,255,.16);
+    border-radius:999px;
+    color:#bdbdbd;
+    text-decoration:none;
+    font-size:.68rem;
+    font-weight:800;
+    letter-spacing:.04em;
+    white-space:nowrap;
+    transition:border-color .18s ease, color .18s ease, background .18s ease;
+}
+
+.ea-family-footer a:hover,
+.ea-family-footer a:focus-visible{
+    color:#fff;
+    border-color:rgba(255,255,255,.42);
+}
+
+.ea-family-footer a[aria-current="page"]{
+    color:#f4c430;
+    border-color:#f4c430;
+}
+
+.ea-family-footer .ea-family-fb{
+    color:#fff;
+    background:#1877f2;
+    border-color:#1877f2;
+}
+
+.ea-family-divider{
+    width:1px;
+    height:24px;
+    background:rgba(255,255,255,.18);
+    margin:0 2px;
+}
+
+.ea-family-footer .ea-family-ar{
+    width:36px;
+    min-width:36px;
+    height:36px;
+    min-height:36px;
+    padding:0;
+    border-radius:50%;
+    overflow:hidden;
+}
+
+.ea-family-ar img{
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+@media(max-width:750px){
+    .ea-family-footer{
+        width:min(100% - 28px, 1180px);
+        gap:8px;
+        padding:20px 0 26px;
+    }
+
+    .ea-family-footer a{
+        min-height:32px;
+        padding:0 10px;
+        font-size:.62rem;
+    }
+
+    .ea-family-divider{
+        display:none;
+    }
+
+    .ea-family-footer .ea-family-ar{
+        width:34px;
+        min-width:34px;
+        height:34px;
+        min-height:34px;
+    }
+}
