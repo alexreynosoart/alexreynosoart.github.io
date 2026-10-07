@@ -5361,3 +5361,220 @@ header nav a:not(:last-child)::after {
     }
 }
 
+/* ========================================
+   EVERYTHING ART | SHARED TOP NAV v1.0.41
+   Matches Creative Studio navigation.
+   ======================================== */
+
+body.everything-art-theme .ea-mini-nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: #0d0d0d;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+body.everything-art-theme .ea-mini-nav-inner {
+    width: 100%;
+    min-height: 86px;
+    margin: 0 auto;
+    padding: 14px 34px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background: #0d0d0d;
+}
+
+body.everything-art-theme .ea-mini-primary,
+body.everything-art-theme .ea-mini-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+body.everything-art-theme .ea-mini-primary {
+    min-width: 0;
+}
+
+body.everything-art-theme .ea-mini-actions {
+    flex: 0 0 auto;
+    margin-left: auto;
+}
+
+body.everything-art-theme .ea-mini-link {
+    width: auto;
+    min-width: 0;
+    min-height: 50px;
+    margin: 0;
+    padding: 0 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255,255,255,.26);
+    border-radius: 999px;
+    background: #0d0d0d;
+    color: #f1f1f1;
+    font-size: .78rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: .035em;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+body.everything-art-theme .ea-mini-link:hover,
+body.everything-art-theme .ea-mini-link:focus-visible {
+    border-color: rgba(255,255,255,.58);
+    color: #fff;
+}
+
+body.everything-art-theme .ea-mini-link.is-current,
+body.everything-art-theme .ea-mini-link[aria-current="page"] {
+    color: #f4c430;
+    border-color: #f4c430;
+}
+
+body.everything-art-theme .ea-mini-facebook {
+    color: #58a9ff;
+    border-color: #268dff;
+}
+
+body.everything-art-theme .ea-mini-facebook:hover,
+body.everything-art-theme .ea-mini-facebook:focus-visible {
+    color: #fff;
+    border-color: #58a9ff;
+}
+
+/* Same compact circular AR exit used by the Creative Studio top nav. */
+body.everything-art-theme .ea-mini-ar {
+    flex: 0 0 50px;
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+    height: 50px;
+    min-height: 50px;
+    max-height: 50px;
+    margin: 0;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 50%;
+    background: #0d0d0d;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+body.everything-art-theme .ea-mini-ar img {
+    display: block;
+    width: 36px;
+    height: 36px;
+    max-width: 36px;
+    max-height: 36px;
+    margin: 0;
+    padding: 0;
+    object-fit: contain;
+}
+
+@media (max-width: 1000px) {
+    body.everything-art-theme .ea-mini-nav-inner {
+        min-height: 0;
+        padding: 12px 18px;
+        flex-wrap: wrap;
+        gap: 10px 12px;
+    }
+
+    body.everything-art-theme .ea-mini-primary {
+        flex: 1 1 auto;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    body.everything-art-theme .ea-mini-actions {
+        gap: 8px;
+    }
+
+    body.everything-art-theme .ea-mini-link {
+        min-height: 44px;
+        padding: 0 18px;
+        font-size: .72rem;
+    }
+
+    body.everything-art-theme .ea-mini-ar {
+        flex-basis: 44px;
+        width: 44px;
+        min-width: 44px;
+        max-width: 44px;
+        height: 44px;
+        min-height: 44px;
+        max-height: 44px;
+    }
+
+    body.everything-art-theme .ea-mini-ar img {
+        width: 31px;
+        height: 31px;
+        max-width: 31px;
+        max-height: 31px;
+    }
+}
+
+@media (max-width: 700px) {
+    body.everything-art-theme .ea-mini-nav-inner {
+        padding: 10px 12px;
+        align-items: center;
+    }
+
+    body.everything-art-theme .ea-mini-primary {
+        flex: 1 1 100%;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 7px;
+    }
+
+    body.everything-art-theme .ea-mini-primary .ea-mini-link {
+        width: 100%;
+        min-width: 0;
+        min-height: 38px;
+        padding: 0 8px;
+        font-size: .60rem;
+    }
+
+    body.everything-art-theme .ea-mini-primary .ea-mini-link:nth-child(4) {
+        grid-column: 1 / 2;
+    }
+
+    body.everything-art-theme .ea-mini-actions {
+        width: 100%;
+        justify-content: flex-end;
+        margin-left: 0;
+    }
+
+    body.everything-art-theme .ea-mini-actions .ea-mini-facebook {
+        min-height: 38px;
+        padding: 0 13px;
+        font-size: .62rem;
+    }
+
+    body.everything-art-theme .ea-mini-ar {
+        flex-basis: 38px;
+        width: 38px;
+        min-width: 38px;
+        max-width: 38px;
+        height: 38px;
+        min-height: 38px;
+        max-height: 38px;
+    }
+
+    body.everything-art-theme .ea-mini-ar img {
+        width: 27px;
+        height: 27px;
+        max-width: 27px;
+        max-height: 27px;
+    }
+}
+
