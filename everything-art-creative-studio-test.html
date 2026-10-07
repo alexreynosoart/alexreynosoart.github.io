@@ -646,7 +646,7 @@ body.ea-utilities-active .empty-state{
 }
 
 
-/* TEST BUILD 1.0.31 — real controls belong under the intro on phone/tablet */
+/* TEST BUILD 1.0.32 — real controls belong under the intro on phone/tablet */
 @media(max-width:1000px){
   .ea-topbar{
     margin:28px 0 34px !important;
@@ -655,7 +655,7 @@ body.ea-utilities-active .empty-state{
 
 
 /* =========================================================
-   TEST BUILD 1.0.31
+   TEST BUILD 1.0.32
    Universal filter color + steadier phone/tablet scrolling
    ========================================================= */
 
@@ -737,7 +737,7 @@ body.ea-utilities-active .empty-state{
 
 
 /* =========================================================
-   TEST BUILD 1.0.31
+   TEST BUILD 1.0.32
    Correct universal filter-pill styling.
    Resource cards are intentionally NOT changed.
    ========================================================= */
@@ -788,7 +788,7 @@ body.ea-utilities-active .empty-state{
 
 
 /* =========================================================
-   TEST BUILD 1.0.31
+   TEST BUILD 1.0.32
    Phone/tablet filter groups + Explore Resources breathing room
    ========================================================= */
 @media(max-width:1000px){
@@ -835,6 +835,50 @@ body.ea-utilities-active .empty-state{
   /* A little air between Search/Clear and Explore Resources. */
   .ea-results-head{
     margin-top:20px !important;
+  }
+}
+
+
+/* TEST BUILD 1.0.32 — fixed mobile/tablet controls */
+@media(max-width:1000px){
+  html,body{
+    width:100%;
+    max-width:100%;
+    overflow-x:hidden !important;
+    overscroll-behavior-x:none !important;
+    touch-action:pan-y !important;
+  }
+  .ea-mobile{
+    width:100%;
+    max-width:100%;
+    overflow:hidden !important;
+    touch-action:pan-y !important;
+  }
+  .ea-mobile-filter-grid{
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+    width:100%;
+    overflow:visible !important;
+  }
+  .ea-mobile-filter-grid .ea-filter{
+    display:flex !important;
+    width:100%;
+    min-width:0 !important;
+    justify-content:center;
+    box-sizing:border-box;
+  }
+  .ea-mobile-filter-group:first-of-type .ea-mobile-filter-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+  .ea-workspace,.ea-results,.ea-toolbar,.ea-welcome{
+    max-width:100%;
+    overflow-x:hidden;
+  }
+}
+@media(max-width:520px){
+  .ea-mobile-filter-group:first-of-type .ea-mobile-filter-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
   }
 }
 
@@ -887,7 +931,7 @@ body.ea-utilities-active .empty-state{
 <button class="ea-filter" data-filter="learn">Learn</button>
 <button type="button" data-filter="utilities" class="ea-utilities-filter">Utilities</button>
 </div></div>
-<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.31</strong></div>
+<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.32</strong></div>
 </aside>
 
 <main class="ea-main"><section class="ea-workspace">
@@ -1530,63 +1574,73 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 <script>
-/* TEST BUILD 1.0.31
-   Phone + tablet only:
-   move the REAL filter rail (.ea-mobile) and search bar (.ea-toolbar)
-   directly below the welcome/hero and above Explore Resources.
-   Desktop remains in its original layout. */
-(function () {
-  const mq = window.matchMedia('(max-width: 1000px)');
-  let mobileHome = null;
-  let toolbarHome = null;
+/* TEST BUILD 1.0.32 */
+(function(){
+  const mq = window.matchMedia('(max-width:1000px)');
+  const norm = s => (s || '').replace(/\s+/g,' ').trim().toLowerCase();
+  const buttons = () => Array.from(document.querySelectorAll('.ea-filter'));
+  const find = name => buttons().find(b => norm(b.textContent) === norm(name));
 
-  function moveStudioControls() {
-    const mobileFilters = document.querySelector('.ea-mobile');
-    const toolbar = document.querySelector('.ea-toolbar');
-    const welcome = document.querySelector('.ea-welcome');
-    const resultsHead = document.querySelector('.ea-results-head');
-
-    if (!mobileFilters || !toolbar || !welcome || !resultsHead) return;
-
-    if (!mobileHome) {
-      mobileHome = document.createComment('ea-mobile-desktop-home');
-      mobileFilters.parentNode.insertBefore(mobileHome, mobileFilters);
-    }
-
-    if (!toolbarHome) {
-      toolbarHome = document.createComment('ea-toolbar-desktop-home');
-      toolbar.parentNode.insertBefore(toolbarHome, toolbar);
-    }
-
-    if (mq.matches) {
-      /* Exact requested order:
-         logo / Resources label / heading / description
-         -> filters
-         -> search
-         -> Explore Resources
-         -> listings */
-      welcome.insertAdjacentElement('afterend', mobileFilters);
-      mobileFilters.insertAdjacentElement('afterend', toolbar);
-    } else {
-      /* Put both controls back exactly where desktop had them. */
-      if (mobileHome.parentNode) {
-        mobileHome.parentNode.insertBefore(mobileFilters, mobileHome.nextSibling);
-      }
-      if (toolbarHome.parentNode) {
-        toolbarHome.parentNode.insertBefore(toolbar, toolbarHome.nextSibling);
-      }
-    }
+  function cloneFilter(name){
+    const source = find(name) || find(name.replace(' / ','/'));
+    if(!source) return null;
+    const b = source.cloneNode(true);
+    b.removeAttribute('id');
+    b.classList.add('ea-mobile-clone');
+    b.addEventListener('click', function(e){
+      e.preventDefault();
+      const original = find(name) || find(name.replace(' / ','/'));
+      if(original && original !== b) original.click();
+      document.querySelectorAll('.ea-mobile-clone').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+    });
+    return b;
   }
 
-  window.addEventListener('DOMContentLoaded', moveStudioControls);
-  window.addEventListener('resize', moveStudioControls);
-  if (mq.addEventListener) mq.addEventListener('change', moveStudioControls);
+  function group(title, names){
+    const wrap = document.createElement('div');
+    wrap.className = 'ea-mobile-filter-group';
+    const label = document.createElement('div');
+    label.className = 'ea-mobile-filter-label';
+    label.textContent = title;
+    const grid = document.createElement('div');
+    grid.className = 'ea-mobile-filter-grid';
+    names.forEach(name => {
+      const b = cloneFilter(name);
+      if(b) grid.appendChild(b);
+    });
+    wrap.append(label, grid);
+    return wrap;
+  }
+
+  function build(){
+    const mobile = document.querySelector('.ea-mobile');
+    if(!mobile) return;
+    mobile.querySelectorAll('.ea-mobile-filter-group').forEach(x => x.remove());
+
+    if(!mq.matches) return;
+
+    Array.from(mobile.children).forEach(el => {
+      if(el.classList && el.classList.contains('ea-filter')) el.style.display='none';
+    });
+
+    mobile.appendChild(group('WORK WITH',
+      ['All','Image','Video','Audio','3D']
+    ));
+    mobile.appendChild(group('WHAT DO YOU NEED?',
+      ['Utilities','Create / Edit','Free Assets','Learn']
+    ));
+  }
+
+  window.addEventListener('DOMContentLoaded', build);
+  window.addEventListener('resize', build);
+  if(mq.addEventListener) mq.addEventListener('change', build);
 })();
 </script>
 
 
 <script>
-/* TEST BUILD 1.0.31
+/* TEST BUILD 1.0.32
    Rebuild the existing mobile/tablet filters into their proper taxonomy.
    No duplicate Free Assets button is created. */
 (function(){
