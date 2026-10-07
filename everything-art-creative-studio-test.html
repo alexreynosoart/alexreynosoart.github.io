@@ -614,6 +614,37 @@ body.ea-utilities-active .empty-state{
   }
 }
 
+
+/* =========================================================
+   TEST BUILD 1.0.26
+   Visible EA mark + tablet/phone control placement
+   ========================================================= */
+.ea-studio-mark{
+  display:block !important;
+  width:150px !important;
+  height:auto !important;
+  max-width:42vw !important;
+  margin:0 auto 12px !important;
+  opacity:1 !important;
+  visibility:visible !important;
+}
+
+@media(max-width:1000px){
+  .ea-studio-mark{
+    width:130px !important;
+    margin-bottom:9px !important;
+  }
+
+  /* Once JS moves the actual topbar into the hero, make it read as part
+     of "What do you want to make?" rather than a separate top toolbar. */
+  .ea-results .ea-topbar,
+  .ea-hero .ea-topbar{
+    margin:26px 0 30px !important;
+    border-top:1px solid rgba(255,255,255,.10);
+    border-bottom:1px solid rgba(255,255,255,.10);
+  }
+}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
 </head>
@@ -663,7 +694,7 @@ body.ea-utilities-active .empty-state{
 <button class="ea-filter" data-filter="learn">Learn</button>
 <button type="button" data-filter="utilities" class="ea-utilities-filter">Utilities</button>
 </div></div>
-<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.25</strong></div>
+<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.26</strong></div>
 </aside>
 
 <main class="ea-main"><section class="ea-workspace">
@@ -677,7 +708,8 @@ body.ea-utilities-active .empty-state{
 </div>
 <div class="ea-toolbar"><div class="ea-search-wrap"><span class="ea-search-icon">⌕</span><input aria-label="Search creative resources" class="ea-search" id="eaSearch" placeholder="Search creative resources..." type="search"/></div><button class="ea-clear" id="eaClear" type="button">Clear</button></div>
 <div class="ea-stage">
-<div class="ea-welcome"><div class="ea-kicker">Resources • First Studio Module</div><h2>What do you want to make?</h2><p>Find useful places to create, edit, learn, experiment and get unstuck. This is the first piece of a larger Everything Art creative workspace.</p></div>
+<div class="ea-welcome"><img class="ea-studio-mark" src="images/everything-art/EverythingART-logo-small.png" alt="Everything Art">
+<div class="ea-kicker">Resources • First Studio Module</div><h2>What do you want to make?</h2><p>Find useful places to create, edit, learn, experiment and get unstuck. This is the first piece of a larger Everything Art creative workspace.</p></div>
 <div class="ea-results-head"><strong>Explore Resources</strong><span class="ea-count" id="eaCount"></span></div>
 <div class="ea-results">
 
@@ -1301,6 +1333,61 @@ document.addEventListener('DOMContentLoaded', function(){
     },true);
   }
 });
+</script>
+
+
+<script>
+(function () {
+  const mq = window.matchMedia('(max-width: 1000px)');
+  let placeholder = null;
+  let controls = null;
+  let hero = null;
+
+  function findParts() {
+    controls = document.querySelector('.ea-topbar');
+    const heading = Array.from(document.querySelectorAll('h1,h2'))
+      .find(el => el.textContent.trim().toLowerCase().includes('what do you want to make'));
+    hero = heading ? heading.closest('section, .ea-results, .ea-hero, .ea-main, div') : null;
+
+    if (!controls || !heading) return false;
+
+    // Prefer the hero/result container that actually contains the heading/kicker/description.
+    let p = heading.parentElement;
+    while (p && p !== document.body) {
+      if (p.querySelector && p.querySelector('.ea-kicker')) { hero = p; break; }
+      p = p.parentElement;
+    }
+    return !!hero;
+  }
+
+  function placeControls() {
+    if (!findParts()) return;
+
+    if (!placeholder) {
+      placeholder = document.createComment('ea-topbar-original-position');
+      controls.parentNode.insertBefore(placeholder, controls);
+    }
+
+    if (mq.matches) {
+      // Place filters + search immediately after the intro text, before listings.
+      const explore = Array.from(hero.querySelectorAll('h2,h3,h4,div'))
+        .find(el => el.textContent.trim().toUpperCase() === 'EXPLORE RESOURCES');
+      if (explore) {
+        let target = explore;
+        while (target.parentElement !== hero && target.parentElement) target = target.parentElement;
+        hero.insertBefore(controls, target);
+      } else {
+        hero.appendChild(controls);
+      }
+    } else if (placeholder && placeholder.parentNode) {
+      placeholder.parentNode.insertBefore(controls, placeholder.nextSibling);
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', placeControls);
+  window.addEventListener('resize', placeControls);
+  if (mq.addEventListener) mq.addEventListener('change', placeControls);
+})();
 </script>
 
 <script src="js/script.js"></script>
