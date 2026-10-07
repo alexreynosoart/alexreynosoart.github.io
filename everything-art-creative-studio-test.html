@@ -646,7 +646,7 @@ body.ea-utilities-active .empty-state{
 }
 
 
-/* TEST BUILD 1.0.30 — real controls belong under the intro on phone/tablet */
+/* TEST BUILD 1.0.31 — real controls belong under the intro on phone/tablet */
 @media(max-width:1000px){
   .ea-topbar{
     margin:28px 0 34px !important;
@@ -655,7 +655,7 @@ body.ea-utilities-active .empty-state{
 
 
 /* =========================================================
-   TEST BUILD 1.0.30
+   TEST BUILD 1.0.31
    Universal filter color + steadier phone/tablet scrolling
    ========================================================= */
 
@@ -737,7 +737,7 @@ body.ea-utilities-active .empty-state{
 
 
 /* =========================================================
-   TEST BUILD 1.0.30
+   TEST BUILD 1.0.31
    Correct universal filter-pill styling.
    Resource cards are intentionally NOT changed.
    ========================================================= */
@@ -785,6 +785,58 @@ body.ea-utilities-active .empty-state{
 }
 
 /* Do not alter resource-card backgrounds in this build. */
+
+
+/* =========================================================
+   TEST BUILD 1.0.31
+   Phone/tablet filter groups + Explore Resources breathing room
+   ========================================================= */
+@media(max-width:1000px){
+  .ea-mobile{
+    display:block !important;
+    overflow:visible !important;
+    touch-action:auto !important;
+  }
+
+  .ea-mobile-filter-group{
+    margin:0 0 14px;
+  }
+
+  .ea-mobile-filter-label{
+    display:block;
+    margin:0 0 9px;
+    color:#bdbdbd;
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:.10em;
+    text-transform:uppercase;
+  }
+
+  .ea-mobile-filter-rail{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior-x:contain;
+    touch-action:pan-x;
+    scrollbar-width:none;
+    padding:0 2px 3px;
+  }
+
+  .ea-mobile-filter-rail::-webkit-scrollbar{
+    display:none;
+  }
+
+  .ea-mobile-filter-rail > *{
+    flex:0 0 auto !important;
+  }
+
+  /* A little air between Search/Clear and Explore Resources. */
+  .ea-results-head{
+    margin-top:20px !important;
+  }
+}
 
 </style>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
@@ -835,7 +887,7 @@ body.ea-utilities-active .empty-state{
 <button class="ea-filter" data-filter="learn">Learn</button>
 <button type="button" data-filter="utilities" class="ea-utilities-filter">Utilities</button>
 </div></div>
-<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.30</strong></div>
+<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.31</strong></div>
 </aside>
 
 <main class="ea-main"><section class="ea-workspace">
@@ -1478,7 +1530,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 <script>
-/* TEST BUILD 1.0.30
+/* TEST BUILD 1.0.31
    Phone + tablet only:
    move the REAL filter rail (.ea-mobile) and search bar (.ea-toolbar)
    directly below the welcome/hero and above Explore Resources.
@@ -1529,6 +1581,82 @@ document.addEventListener('DOMContentLoaded', function(){
   window.addEventListener('DOMContentLoaded', moveStudioControls);
   window.addEventListener('resize', moveStudioControls);
   if (mq.addEventListener) mq.addEventListener('change', moveStudioControls);
+})();
+</script>
+
+
+<script>
+/* TEST BUILD 1.0.31
+   Rebuild the existing mobile/tablet filters into their proper taxonomy.
+   No duplicate Free Assets button is created. */
+(function(){
+  const mq = window.matchMedia('(max-width:1000px)');
+
+  function norm(s){
+    return (s || '').replace(/\s+/g,' ').trim().toLowerCase();
+  }
+
+  function setupMobileFilterGroups(){
+    const mobile = document.querySelector('.ea-mobile');
+    if(!mobile) return;
+
+    /* Restore original flat structure on desktop if we previously grouped it. */
+    if(!mq.matches){
+      const groups = mobile.querySelectorAll('.ea-mobile-filter-group');
+      groups.forEach(group => {
+        const rail = group.querySelector('.ea-mobile-filter-rail');
+        if(rail){
+          while(rail.firstChild) mobile.insertBefore(rail.firstChild, group);
+        }
+        group.remove();
+      });
+      return;
+    }
+
+    if(mobile.querySelector('.ea-mobile-filter-group')) return;
+
+    const buttons = Array.from(mobile.querySelectorAll('.ea-filter, button')).filter(btn => {
+      const t = norm(btn.textContent);
+      return ['all','image','video','audio','3d','create / edit','create/edit','free assets','learn','utilities'].includes(t);
+    });
+
+    if(!buttons.length) return;
+
+    const workNames = new Set(['all','image','video','audio','3d']);
+    const needNames = new Set(['create / edit','create/edit','free assets','learn','utilities']);
+
+    function makeGroup(label){
+      const group = document.createElement('div');
+      group.className = 'ea-mobile-filter-group';
+
+      const title = document.createElement('div');
+      title.className = 'ea-mobile-filter-label';
+      title.textContent = label;
+
+      const rail = document.createElement('div');
+      rail.className = 'ea-mobile-filter-rail';
+
+      group.appendChild(title);
+      group.appendChild(rail);
+      return {group, rail};
+    }
+
+    const work = makeGroup('WORK WITH');
+    const need = makeGroup('WHAT DO YOU NEED?');
+
+    buttons.forEach(btn => {
+      const t = norm(btn.textContent);
+      if(workNames.has(t)) work.rail.appendChild(btn);
+      else if(needNames.has(t)) need.rail.appendChild(btn);
+    });
+
+    mobile.appendChild(work.group);
+    mobile.appendChild(need.group);
+  }
+
+  window.addEventListener('DOMContentLoaded', setupMobileFilterGroups);
+  window.addEventListener('resize', setupMobileFilterGroups);
+  if(mq.addEventListener) mq.addEventListener('change', setupMobileFilterGroups);
 })();
 </script>
 
