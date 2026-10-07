@@ -645,6 +645,14 @@ body.ea-utilities-active .empty-state{
   }
 }
 
+
+/* TEST BUILD 1.0.27 — controls belong under the intro on phone/tablet */
+@media(max-width:1000px){
+  .ea-topbar{
+    margin:28px 0 34px !important;
+  }
+}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
 </head>
@@ -694,7 +702,7 @@ body.ea-utilities-active .empty-state{
 <button class="ea-filter" data-filter="learn">Learn</button>
 <button type="button" data-filter="utilities" class="ea-utilities-filter">Utilities</button>
 </div></div>
-<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.26</strong></div>
+<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.27</strong></div>
 </aside>
 
 <main class="ea-main"><section class="ea-workspace">
@@ -1340,53 +1348,41 @@ document.addEventListener('DOMContentLoaded', function(){
 (function () {
   const mq = window.matchMedia('(max-width: 1000px)');
   let placeholder = null;
-  let controls = null;
-  let hero = null;
 
-  function findParts() {
-    controls = document.querySelector('.ea-topbar');
-    const heading = Array.from(document.querySelectorAll('h1,h2'))
-      .find(el => el.textContent.trim().toLowerCase().includes('what do you want to make'));
-    hero = heading ? heading.closest('section, .ea-results, .ea-hero, .ea-main, div') : null;
-
-    if (!controls || !heading) return false;
-
-    // Prefer the hero/result container that actually contains the heading/kicker/description.
-    let p = heading.parentElement;
-    while (p && p !== document.body) {
-      if (p.querySelector && p.querySelector('.ea-kicker')) { hero = p; break; }
-      p = p.parentElement;
-    }
-    return !!hero;
-  }
-
-  function placeControls() {
-    if (!findParts()) return;
+  function moveStudioControls() {
+    const controls = document.querySelector('.ea-topbar');
+    if (!controls) return;
 
     if (!placeholder) {
-      placeholder = document.createComment('ea-topbar-original-position');
+      placeholder = document.createComment('ea-topbar-desktop-home');
       controls.parentNode.insertBefore(placeholder, controls);
     }
 
     if (mq.matches) {
-      // Place filters + search immediately after the intro text, before listings.
-      const explore = Array.from(hero.querySelectorAll('h2,h3,h4,div'))
-        .find(el => el.textContent.trim().toUpperCase() === 'EXPLORE RESOURCES');
+      const explore = Array.from(document.querySelectorAll('*')).find(el =>
+        el.children.length === 0 &&
+        el.textContent.trim().toUpperCase() === 'EXPLORE RESOURCES'
+      );
+
       if (explore) {
-        let target = explore;
-        while (target.parentElement !== hero && target.parentElement) target = target.parentElement;
-        hero.insertBefore(controls, target);
-      } else {
-        hero.appendChild(controls);
+        let block = explore;
+        while (
+          block.parentElement &&
+          block.parentElement !== document.body &&
+          !block.parentElement.classList.contains('ea-results')
+        ) {
+          block = block.parentElement;
+        }
+        block.parentNode.insertBefore(controls, block);
       }
-    } else if (placeholder && placeholder.parentNode) {
+    } else if (placeholder.parentNode) {
       placeholder.parentNode.insertBefore(controls, placeholder.nextSibling);
     }
   }
 
-  window.addEventListener('DOMContentLoaded', placeControls);
-  window.addEventListener('resize', placeControls);
-  if (mq.addEventListener) mq.addEventListener('change', placeControls);
+  window.addEventListener('DOMContentLoaded', moveStudioControls);
+  window.addEventListener('resize', moveStudioControls);
+  if (mq.addEventListener) mq.addEventListener('change', moveStudioControls);
 })();
 </script>
 
