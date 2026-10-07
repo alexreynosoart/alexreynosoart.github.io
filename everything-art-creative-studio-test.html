@@ -169,6 +169,29 @@ body.ea-utilities-active .empty-state{
   }
 }
 
+
+/* 1.0.16 format expansion roadmap */
+.ea-format-roadmap{
+  margin-top:18px;
+  padding:16px 18px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+  color:#aaa;
+  font-size:.88rem;
+  line-height:1.5;
+}
+.ea-format-roadmap-title{
+  margin-bottom:8px;
+  color:#f6d232;
+  font-weight:900;
+  letter-spacing:.06em;
+  font-size:.75rem;
+}
+.ea-format-roadmap p{margin:5px 0}
+.ea-format-roadmap strong{color:#eee}
+.ea-format-roadmap-small{font-size:.78rem;color:#777}
+
 </style>
 </head>
 <body>
@@ -189,12 +212,12 @@ body.ea-utilities-active .empty-state{
 <button class="ea-filter" data-filter="learn">Learn</button>
 <button type="button" data-filter="utilities" class="ea-utilities-filter">Utilities</button>
 </div></div>
-<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.15</strong></div>
+<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.16</strong></div>
 </aside>
 <header class="ea-topbar">
 <a class="ea-exit" href="everything-art.html">← EVERYTHING ART</a>
 <div class="ea-brand"><strong>Everything Art • Creative Studio</strong><span>Resources</span></div>
-<div class="ea-status">STUDIO TEST · 1.0.15</div>
+<div class="ea-status">STUDIO TEST · 1.0.16</div>
 </header>
 <main class="ea-main"><section class="ea-workspace">
 <div class="ea-mobile">
@@ -239,6 +262,13 @@ body.ea-utilities-active .empty-state{
           <div class="ea-control-stack"><label>COMPRESSION</label><select data-quality="compress"><option value=".55">Smaller file</option><option value=".78" selected>Balanced</option><option value=".92">Best quality</option></select></div>
           <div class="ea-size-result" data-result="compress"></div>
           <div class="ea-action-row"><button class="ea-util-btn" type="button" data-process="compress">COMPRESS</button><a class="ea-util-btn secondary" data-download="compress" hidden>DOWNLOAD</a></div>
+<div class="ea-format-roadmap" aria-label="Format support">
+  <div class="ea-format-roadmap-title">FORMAT SUPPORT</div>
+  <p><strong>Available now:</strong> JPG/JPEG, PNG and WebP.</p>
+  <p><strong>Building toward:</strong> AVIF, GIF, BMP, TIFF, HEIC/HEIF, PDF and camera RAW including DNG, CR2/CR3, NEF, ARW, RAF, ORF and RW2.</p>
+  <p class="ea-format-roadmap-small">Formats only appear as conversion choices when the Studio can process them reliably in your browser.</p>
+</div>
+
           <div class="ea-output-note">Transparent PNGs are kept as PNG so transparency is not lost. JPG/WebP images are recompressed as WebP.</div>
         </div>
       </div>
@@ -620,6 +650,61 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
   syncUtilityMode();
+});
+</script>
+
+
+<script>
+/* 1.0.16 — live compression estimate */
+document.addEventListener('DOMContentLoaded', function(){
+  const panel = document.querySelector('.ea-utilities-panel');
+  if(!panel) return;
+
+  const selects = Array.from(panel.querySelectorAll('select'));
+  const compressionSelect = selects.find(s =>
+    /smaller|balanced|best quality/i.test(s.textContent || '') ||
+    /compress|quality/i.test((s.name||'') + ' ' + (s.id||''))
+  );
+  if(!compressionSelect) return;
+
+  const box = document.createElement('div');
+  box.className = 'ea-live-size';
+  box.style.cssText = 'margin-top:10px;color:#aaa;font-size:.86rem;line-height:1.45;';
+  compressionSelect.insertAdjacentElement('afterend', box);
+
+  function qualityFromLabel(){
+    const label = compressionSelect.options[compressionSelect.selectedIndex]?.text || '';
+    if(/smaller/i.test(label)) return .55;
+    if(/balanced/i.test(label)) return .75;
+    return .9;
+  }
+
+  async function updateEstimate(){
+    const img = panel.querySelector('img');
+    if(!img || !img.complete || !img.naturalWidth){
+      box.textContent = 'Choose an image to preview the estimated compressed size.';
+      return;
+    }
+    const canvas = document.createElement('canvas');
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img,0,0);
+    const q = qualityFromLabel();
+
+    canvas.toBlob(blob => {
+      if(!blob){ box.textContent = 'Size preview unavailable for this image.'; return; }
+      const kb = blob.size/1024;
+      box.innerHTML = '<strong style="color:#eee">Estimated result:</strong> ' +
+        kb.toFixed(kb < 100 ? 1 : 0) + ' KB';
+    }, 'image/webp', q);
+  }
+
+  compressionSelect.addEventListener('change', updateEstimate);
+  panel.addEventListener('change', e => {
+    if(e.target && e.target.type === 'file') setTimeout(updateEstimate,120);
+  });
+  setTimeout(updateEstimate,100);
 });
 </script>
 
