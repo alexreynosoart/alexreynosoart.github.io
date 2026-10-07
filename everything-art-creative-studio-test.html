@@ -272,19 +272,211 @@ body.ea-utilities-active .empty-state{
   .ea-project-nav .ea-ar-home{flex:0 0 32px;padding:0}
 }
 
+
+/* 1.0.19 — match the existing Everything Art navigation */
+.ea-project-nav{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:18px !important;
+  min-height:82px !important;
+  padding:18px 34px !important;
+  background:rgba(7,7,7,.82) !important;
+  border-bottom:0 !important;
+}
+.ea-project-nav-left,
+.ea-project-nav-right{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.ea-project-nav a{
+  min-height:42px !important;
+  padding:0 20px !important;
+  border:1px solid rgba(255,255,255,.25) !important;
+  border-radius:999px !important;
+  color:#f1f1f1 !important;
+  background:rgba(10,10,10,.58) !important;
+  font-size:.78rem !important;
+  font-weight:900 !important;
+  letter-spacing:.02em !important;
+}
+.ea-project-nav a.is-current{
+  color:#f6d232 !important;
+  border-color:#f6d232 !important;
+  background:rgba(10,10,10,.72) !important;
+}
+.ea-project-nav .ea-fb-link{
+  color:#4aa3ff !important;
+  border-color:#4aa3ff !important;
+}
+.ea-project-nav .ea-ar-home{
+  width:42px !important;
+  height:42px !important;
+  min-height:42px !important;
+  padding:0 !important;
+  border-color:rgba(255,255,255,.25) !important;
+}
+.ea-project-nav .ea-ar-home img{
+  width:24px !important;
+  height:24px !important;
+}
+@media(max-width:700px){
+  .ea-project-nav{
+    display:grid !important;
+    grid-template-columns:1fr auto !important;
+    align-items:start !important;
+    gap:10px 12px !important;
+    min-height:0 !important;
+    padding:14px 12px !important;
+    overflow:visible !important;
+  }
+  .ea-project-nav-left{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .ea-project-nav-right{
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:8px;
+  }
+  .ea-project-nav a{
+    min-height:36px !important;
+    padding:0 12px !important;
+    font-size:.66rem !important;
+  }
+  .ea-project-nav .ea-ar-home{
+    width:36px !important;
+    height:36px !important;
+    min-height:36px !important;
+    padding:0 !important;
+  }
+}
+
+
+/* =========================================================
+   TEST BUILD 1.0.20
+   Exact Everything Art mini-nav structure from the live EA page.
+   ========================================================= */
+.ea-mini-nav{
+  position:relative;
+  z-index:50;
+  width:100%;
+  background:rgba(7,7,7,.86);
+}
+.ea-mini-nav-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:18px 34px;
+}
+.ea-mini-primary,
+.ea-mini-secondary{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.ea-mini-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:42px;
+  padding:0 20px;
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:999px;
+  background:rgba(10,10,10,.58);
+  color:#f1f1f1;
+  text-decoration:none;
+  font-size:.78rem;
+  font-weight:900;
+  letter-spacing:.02em;
+  white-space:nowrap;
+}
+.ea-mini-link.is-current{
+  color:#f6d232;
+  border-color:#f6d232;
+}
+.ea-mini-facebook{
+  color:#4aa3ff;
+  border-color:#4aa3ff;
+}
+.ea-mini-ar{
+  width:42px;
+  height:42px;
+  min-height:42px;
+  padding:0;
+}
+.ea-mini-ar img{
+  display:block;
+  width:24px;
+  height:24px;
+  object-fit:contain;
+  border-radius:5px;
+}
+@media(max-width:700px){
+  .ea-mini-nav-inner{
+    display:grid;
+    grid-template-columns:1fr auto;
+    align-items:start;
+    gap:10px 12px;
+    padding:14px 12px;
+  }
+  .ea-mini-primary{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .ea-mini-secondary{
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+  }
+  .ea-mini-link{
+    min-height:36px;
+    padding:0 12px;
+    font-size:.66rem;
+  }
+  .ea-mini-ar{
+    width:36px;
+    height:36px;
+    min-height:36px;
+    padding:0;
+  }
+}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
 </head>
 <body>
 
-<nav class="ea-project-nav" aria-label="Everything Art">
-  <a href="everything-art-opportunities.html">OPPORTUNITIES</a>
-  <a href="everything-art-events.html">ART EVENTS</a>
-  <a href="everything-art-creative-studio-test.html" class="is-current" aria-current="page">RESOURCES</a>
-  <a href="https://www.facebook.com/groups/GreatArt" target="_blank" rel="noopener noreferrer">FB GROUP</a>
-  <a href="index.html" class="ea-ar-home" title="Alex Reynoso Art" aria-label="Alex Reynoso Art">
-    <img src="images/favicon.png" alt="">
-  </a>
+<nav class="ea-mini-nav" aria-label="Everything Art navigation">
+    <div class="ea-mini-nav-inner">
+
+        <div class="ea-mini-primary">
+            <a class="ea-mini-link" href="everything-art.html">EVERYTHING ART</a>
+            <a class="ea-mini-link" href="everything-art-opportunities.html">OPPORTUNITIES</a>
+            <a class="ea-mini-link" href="everything-art-events.html">ART EVENTS</a>
+            <span class="ea-mini-link is-current" aria-current="page">RESOURCES</span>
+        </div>
+
+        <div class="ea-mini-secondary">
+            <a class="ea-mini-link ea-mini-facebook"
+               href="https://www.facebook.com/groups/GreatArt"
+               target="_blank"
+               rel="noopener noreferrer">FB GROUP ↗</a>
+
+            <a class="ea-mini-link ea-mini-ar"
+               href="index.html"
+               title="Alex Reynoso Art"
+               aria-label="Alex Reynoso Art">
+                <img src="images/favicon.png" alt="">
+            </a>
+        </div>
+
+    </div>
 </nav>
 
 <div class="ea-studio">
@@ -304,7 +496,7 @@ body.ea-utilities-active .empty-state{
 <button class="ea-filter" data-filter="learn">Learn</button>
 <button type="button" data-filter="utilities" class="ea-utilities-filter">Utilities</button>
 </div></div>
-<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.18</strong></div>
+<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.20</strong></div>
 </aside>
 
 <main class="ea-main"><section class="ea-workspace">
