@@ -1,1 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Everything Art | Creative Studio Test</title>
+<meta name="description" content="Everything Art Creative Studio. Explore creative resources for making, learning and experimenting.">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="stylesheet" href="css/style.css">
+<style>
+*{box-sizing:border-box} :root{--yellow:#f3cf39;--bg:#0d0d0d;--panel:#171717;--card:#202020;--line:rgba(255,255,255,.12);--text:#f5f5f5;--muted:#a6a6a6}
+html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif} button,input{font:inherit}
+.ea-studio{min-height:100vh;padding:12px}
+.ea-sidebar{position:fixed;left:12px;top:12px;bottom:12px;width:300px;z-index:20;display:flex;flex-direction:column;overflow-y:auto;padding:18px;border:1px solid var(--line);border-radius:20px;background:rgba(23,23,23,.97)}
+.ea-sidebar-head{padding-bottom:17px;border-bottom:1px solid var(--line)} .ea-kicker{color:var(--yellow);font-size:.62rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase}
+.ea-sidebar h1{margin:7px 0 5px;font-size:1.35rem}.ea-sidebar p{margin:0;color:var(--muted);font-size:.73rem;line-height:1.45}
+.ea-section{padding:17px 0;border-bottom:1px solid var(--line)}.ea-label{display:block;margin-bottom:9px;color:#c6c6c6;font-size:.62rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase}
+.ea-module,.ea-filter{width:100%;min-height:42px;border:1px solid var(--line);border-radius:11px;background:#111;color:var(--text);font-size:.72rem;font-weight:800;cursor:pointer}
+.ea-module.active,.ea-filter.active{border-color:var(--yellow);background:var(--yellow);color:#111}.ea-filter-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.ea-note{margin-top:auto;padding-top:18px;color:#777;font-size:.62rem;line-height:1.45}
+.ea-topbar{min-height:62px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px;margin:0 0 12px 312px;padding:0 8px}
+.ea-exit{justify-self:start;color:var(--muted);text-decoration:none;font-size:.78rem;font-weight:800}.ea-exit:hover{color:var(--yellow)}
+.ea-brand{text-align:center}.ea-brand strong{display:block;font-size:.95rem;letter-spacing:.09em;text-transform:uppercase}.ea-brand span{display:block;margin-top:3px;color:var(--yellow);font-size:.64rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.ea-status{justify-self:end;color:var(--muted);font-size:.7rem;font-weight:700}.ea-main{margin-left:312px;min-width:0}
+.ea-workspace{min-height:calc(100vh - 98px);overflow:hidden;border:1px solid var(--line);border-radius:22px;background:#131313}
+.ea-toolbar{display:flex;align-items:center;gap:10px;padding:13px;border-bottom:1px solid var(--line);background:#181818}
+.ea-search-wrap{flex:1;min-width:0;position:relative}.ea-search{width:100%;min-height:46px;padding:0 16px 0 42px;border:1px solid var(--line);border-radius:13px;outline:0;background:#0e0e0e;color:#fff;font-size:16px}.ea-search:focus{border-color:var(--yellow)}
+.ea-search-icon{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:#888}.ea-clear{min-height:46px;padding:0 15px;border:1px solid var(--line);border-radius:13px;background:#0e0e0e;color:#ddd;font-weight:800;cursor:pointer}
+.ea-stage{padding:clamp(20px,4vw,54px)}.ea-welcome{max-width:850px;margin:0 auto 34px;text-align:center}.ea-welcome h2{margin:10px 0 12px;font-size:clamp(2rem,4vw,4.1rem);line-height:.98;letter-spacing:-.04em}.ea-welcome p{max-width:680px;margin:auto;color:var(--muted);font-size:.95rem;line-height:1.65}
+.ea-results-head{max-width:1100px;margin:0 auto 13px;display:flex;align-items:end;justify-content:space-between;gap:15px}.ea-results-head strong{font-size:.75rem;letter-spacing:.09em;text-transform:uppercase}.ea-count{color:var(--muted);font-size:.7rem}
+.ea-results{max-width:1100px;margin:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.ea-card{padding:18px;border:1px solid var(--line);border-radius:17px;background:var(--card)}.ea-type{display:inline-block;margin-bottom:12px;color:var(--yellow);font-size:.58rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase}.ea-card h3{margin:0 0 7px;font-size:1rem}.ea-card p{margin:0;color:var(--muted);font-size:.76rem;line-height:1.5}.ea-empty{display:none;max-width:600px;margin:50px auto;color:var(--muted);text-align:center;line-height:1.55}.ea-mobile{display:none}
+@media(max-width:1000px){.ea-studio{padding:8px}.ea-sidebar{display:none}.ea-topbar{margin-left:0;min-height:52px;grid-template-columns:auto 1fr auto;margin-bottom:7px}.ea-brand strong{font-size:.78rem}.ea-brand span{font-size:.55rem}.ea-status{display:none}.ea-main{margin-left:0}.ea-workspace{min-height:calc(100vh - 68px);border-radius:16px}.ea-mobile{display:flex;gap:7px;overflow-x:auto;padding:10px 10px 0;scrollbar-width:none}.ea-mobile button{flex:0 0 auto;min-height:38px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:#111;color:#eee;font-size:.68rem;font-weight:800}.ea-mobile button.active{background:var(--yellow);border-color:var(--yellow);color:#111}.ea-toolbar{padding:10px}.ea-stage{padding:28px 14px 35px}.ea-results{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.ea-exit{font-size:.66rem}.ea-brand strong{font-size:.7rem}.ea-brand span{display:none}.ea-clear{min-width:44px;padding:0 11px;font-size:0}.ea-clear:after{content:"×";font-size:1.15rem}.ea-results{grid-template-columns:1fr}.ea-welcome h2{font-size:2.25rem}}
+</style>
+</head>
+<body>
+<div class="ea-studio">
+<aside class="ea-sidebar">
+  <div class="ea-sidebar-head"><div class="ea-kicker">Everything Art</div><h1>Creative Studio</h1><p>A workspace for finding, making, learning and eventually playing with creative things.</p></div>
+  <div class="ea-section"><span class="ea-label">Studio</span><button class="ea-module active" type="button">Resources</button></div>
+  <div class="ea-section"><span class="ea-label">Resource Type</span><div class="ea-filter-grid">
+    <button class="ea-filter active" data-filter="all">All</button><button class="ea-filter" data-filter="create">Create</button><button class="ea-filter" data-filter="image">Image</button><button class="ea-filter" data-filter="video">Video</button><button class="ea-filter" data-filter="audio">Audio</button><button class="ea-filter" data-filter="learn">Learn</button><button class="ea-filter" data-filter="free">Free Stuff</button>
+  </div></div>
+  <div class="ea-note">TEST SHELL<br>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div>
+</aside>
 
+<header class="ea-topbar">
+<a class="ea-exit" href="everything-art.html">← EVERYTHING ART</a>
+<div class="ea-brand"><strong>Everything Art • Creative Studio</strong><span>Resources</span></div>
+<div class="ea-status">STUDIO TEST</div>
+</header>
+
+<main class="ea-main"><section class="ea-workspace">
+<div class="ea-mobile">
+<button class="active" data-filter="all">All</button><button data-filter="create">Create</button><button data-filter="image">Image</button><button data-filter="video">Video</button><button data-filter="audio">Audio</button><button data-filter="learn">Learn</button><button data-filter="free">Free Stuff</button>
+</div>
+<div class="ea-toolbar"><div class="ea-search-wrap"><span class="ea-search-icon">⌕</span><input id="eaSearch" class="ea-search" type="search" placeholder="Search creative resources..." aria-label="Search creative resources"></div><button id="eaClear" class="ea-clear" type="button">Clear</button></div>
+<div class="ea-stage">
+<div class="ea-welcome"><div class="ea-kicker">Resources • First Studio Module</div><h2>What do you want to make?</h2><p>Find useful places to create, edit, learn, experiment and get unstuck. This is the first piece of a larger Everything Art creative workspace.</p></div>
+<div class="ea-results-head"><strong>Explore Resources</strong><span id="eaCount" class="ea-count"></span></div>
+<div class="ea-results">
+<article class="ea-card" data-category="create" data-search="create make tools creative experiment"><span class="ea-type">Create</span><h3>Make Something</h3><p>Creative tools for starting an idea, experimenting and turning a thought into something you can see or hear.</p></article>
+<article class="ea-card" data-category="image" data-search="image photo drawing graphics background edit resize"><span class="ea-type">Image</span><h3>Image & Graphics</h3><p>Resources for images, photography, drawing, graphics, backgrounds, resizing and visual experiments.</p></article>
+<article class="ea-card" data-category="video" data-search="video animation edit motion movie film convert"><span class="ea-type">Video</span><h3>Video & Motion</h3><p>Tools and references for editing, animation, motion, video conversion and moving-image work.</p></article>
+<article class="ea-card" data-category="audio" data-search="audio sound music record edit effects voice"><span class="ea-type">Audio</span><h3>Sound & Audio</h3><p>Places to work with sound, music, recording, effects and audio for future creative projects.</p></article>
+<article class="ea-card" data-category="learn" data-search="learn tutorial guide education how to skills"><span class="ea-type">Learn</span><h3>Learn & Explore</h3><p>Useful guides, references and learning resources without turning the studio into a giant instruction manual.</p></article>
+<article class="ea-card" data-category="free" data-search="free stuff assets fonts textures downloads public domain"><span class="ea-type">Free Stuff</span><h3>Free Creative Stuff</h3><p>Assets, references and useful materials that can help someone make something without immediately reaching for a credit card.</p></article>
+</div>
+<div id="eaEmpty" class="ea-empty">Nothing in the starter set matches that yet. As we build the resource library, this workspace will become the results area.</div>
+</div></section></main>
+</div>
+<script>
+(()=>{const s=document.getElementById('eaSearch'),c=document.getElementById('eaClear'),cards=[...document.querySelectorAll('.ea-card')],buttons=[...document.querySelectorAll('[data-filter]')],count=document.getElementById('eaCount'),empty=document.getElementById('eaEmpty');let filter='all';
+function draw(){const q=s.value.trim().toLowerCase();let n=0;buttons.forEach(b=>b.classList.toggle('active',b.dataset.filter===filter));cards.forEach(card=>{const ok=(filter==='all'||card.dataset.category===filter)&&(!q||(card.dataset.search+' '+card.textContent).toLowerCase().includes(q));card.hidden=!ok;if(ok)n++});count.textContent=n+(n===1?' result':' results');empty.style.display=n?'none':'block'}
+buttons.forEach(b=>b.addEventListener('click',()=>{filter=b.dataset.filter;draw()}));s.addEventListener('input',draw);c.addEventListener('click',()=>{s.value='';filter='all';draw();s.focus()});draw()})();
+</script>
+</body>
+</html>
