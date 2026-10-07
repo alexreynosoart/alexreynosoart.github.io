@@ -40,7 +40,7 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
 @media(max-width:1000px){.ea-iframe-wrap{height:calc(100vh - 170px);min-height:520px}.ea-tool-head{align-items:center}.ea-tool-head button{font-size:.6rem}}
 @media(max-width:600px){.ea-iframe-wrap{height:calc(100vh - 160px);min-height:480px;border-radius:10px}.ea-tool-head h3{font-size:1rem}.ea-tool-head button{padding:0 9px}}
 .ea-sound-search{display:flex;gap:10px;margin:16px 0 18px}.ea-sound-search input{flex:1;min-width:0;min-height:46px;padding:0 14px;border:1px solid var(--line);border-radius:12px;outline:0;background:#0e0e0e;color:#fff;font-size:16px}.ea-sound-search input:focus{border-color:var(--yellow)}.ea-sound-search button{min-height:46px;padding:0 18px;border:1px solid var(--yellow);border-radius:12px;background:var(--yellow);color:#111;font-weight:900;cursor:pointer}
-.ea-sound-status{min-height:22px;margin-bottom:12px;color:var(--muted);font-size:.72rem}.ea-sound-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.ea-sound-card{padding:16px;border:1px solid var(--line);border-radius:15px;background:var(--card)}.ea-sound-card h4{margin:0 0 7px;font-size:.95rem;overflow-wrap:anywhere}.ea-sound-meta{margin-bottom:11px;color:var(--muted);font-size:.68rem;line-height:1.5}.ea-sound-card audio{width:100%;height:38px;margin:3px 0 9px}.ea-sound-link{display:inline-block;color:var(--yellow);font-size:.65rem;font-weight:800;text-decoration:none}.ea-sound-link:hover{text-decoration:underline}.ea-sound-license{margin-left:8px;color:#888;font-size:.62rem;overflow-wrap:anywhere}
+.ea-sound-status{min-height:22px;margin-bottom:12px;color:var(--muted);font-size:.72rem}.ea-sound-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.ea-sound-card{padding:16px;border:1px solid var(--line);border-radius:15px;background:var(--card)}.ea-sound-card h4{margin:0 0 7px;font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ea-sound-meta{margin-bottom:11px;color:var(--muted);font-size:.68rem;line-height:1.5}.ea-sound-card audio{width:100%;height:38px;margin:3px 0 9px}.ea-sound-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px}.ea-sound-link,.ea-sound-button{display:inline-flex;align-items:center;min-height:30px;padding:0 9px;border:1px solid rgba(243,207,57,.35);border-radius:8px;background:transparent;color:var(--yellow);font-size:.62rem;font-weight:800;text-decoration:none;cursor:pointer}.ea-sound-link:hover,.ea-sound-button:hover{background:var(--yellow);color:#111}.ea-sound-license{margin-left:auto;color:#aaa;font-size:.62rem}.ea-sound-details{margin-top:11px;padding-top:11px;border-top:1px solid var(--line);color:var(--muted);font-size:.66rem;line-height:1.55}.ea-sound-details[hidden]{display:none}.ea-sound-details strong{color:#ddd}.ea-sound-tags{margin-top:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.ea-sound-description{margin-top:6px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 @media(max-width:700px){.ea-sound-results{grid-template-columns:1fr}.ea-sound-search{flex-direction:column}.ea-sound-search button{width:100%}}
 </style>
 </head>
@@ -230,6 +230,24 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
    if(url.includes('/by/'))return 'CC BY';
    return url;
  }
+ function formatTime(value){
+   const total=Math.max(0,Math.round(Number(value)||0));
+   const minutes=Math.floor(total/60),seconds=String(total%60).padStart(2,'0');
+   return `${minutes}:${seconds}`;
+ }
+ function fileSize(bytes){
+   const n=Number(bytes); if(!Number.isFinite(n)||n<=0)return '';
+   if(n<1024*1024)return `${(n/1024).toFixed(0)} KB`;
+   return `${(n/1024/1024).toFixed(1)} MB`;
+ }
+ function channelName(channels){return Number(channels)===1?'Mono':Number(channels)===2?'Stereo':channels?`${channels} channels`:''}
+ function licenseHelp(url){
+   if(!url)return '';
+   if(url.includes('/publicdomain/zero/'))return 'Commercial use · remixing allowed · attribution not required';
+   if(url.includes('/by-nc/'))return 'Attribution required · noncommercial use only';
+   if(url.includes('/by/'))return 'Commercial use allowed · attribution required';
+   return 'Check the license before using this sound';
+ }
 
  soundForm.addEventListener('submit',async(event)=>{
    event.preventDefault();
@@ -243,10 +261,35 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
      soundStatus.textContent=items.length?`${Number(data.count||0).toLocaleString()} sounds found · showing ${items.length}`:'No sounds found. Try another search.';
      soundResults.innerHTML=items.map(sound=>{
        const preview=sound.previews?.['preview-hq-mp3']||sound.previews?.['preview-lq-mp3']||'';
-       const seconds=Number.isFinite(sound.duration)?`${sound.duration.toFixed(1)} sec`:'';
-       return `<article class="ea-sound-card"><span class="ea-type">FREESOUND</span><h4>${esc(sound.name)}</h4><div class="ea-sound-meta">by ${esc(sound.username)}${seconds?' · '+esc(seconds):''}</div>${preview?`<audio controls preload="none" src="${esc(preview)}"></audio>`:'<div class="ea-sound-meta">Preview unavailable</div>'}<div><a class="ea-sound-link" href="${esc(sound.url)}" target="_blank" rel="noopener noreferrer">VIEW ON FREESOUND ↗</a><span class="ea-sound-license">${esc(licenseName(sound.license))}</span></div></article>`;
+       const seconds=Number.isFinite(sound.duration)?formatTime(sound.duration):'';
+       const original=[sound.type?String(sound.type).toUpperCase():'',channelName(sound.channels),sound.samplerate?`${Math.round(Number(sound.samplerate)/1000*10)/10} kHz`:'',fileSize(sound.filesize)].filter(Boolean).join(' · ');
+       const tags=Array.isArray(sound.tags)?sound.tags.slice(0,12).join(' · '):'';
+       const detailId=`eaSoundDetails-${sound.id}`;
+       return `<article class="ea-sound-card"><span class="ea-type">FREESOUND</span><h4 title="${esc(sound.name)}">${esc(sound.name)}</h4><div class="ea-sound-meta">by ${esc(sound.username)}${seconds?' · '+esc(seconds):''}</div>${preview?`<audio controls preload="metadata" src="${esc(preview)}"></audio>`:'<div class="ea-sound-meta">Preview unavailable</div>'}<div class="ea-sound-actions">${preview?`<button class="ea-sound-button ea-download-sound" type="button" data-preview="${esc(preview)}" data-name="${esc(sound.name)}">DOWNLOAD MP3</button>`:''}<button class="ea-sound-button ea-more-sound" type="button" aria-expanded="false" aria-controls="${detailId}">MORE INFO ↓</button><span class="ea-sound-license">${esc(licenseName(sound.license))}</span></div><div id="${detailId}" class="ea-sound-details" hidden>${original?`<div><strong>Original:</strong> ${esc(original)}</div>`:''}<div><strong>License:</strong> ${esc(licenseName(sound.license))}${licenseHelp(sound.license)?` · ${esc(licenseHelp(sound.license))}`:''}</div>${sound.description?`<div class="ea-sound-description"><strong>Description:</strong> ${esc(sound.description)}</div>`:''}${tags?`<div class="ea-sound-tags"><strong>Tags:</strong> ${esc(tags)}</div>`:''}<div style="margin-top:8px"><a class="ea-sound-link" href="${esc(sound.url)}" target="_blank" rel="noopener noreferrer">VIEW ORIGINAL ↗</a></div></div></article>`;
      }).join('');
    }catch(error){soundStatus.textContent='Could not load sounds right now. Please try again.';soundResults.innerHTML=''}
+ });
+
+ soundResults.addEventListener('click',async(event)=>{
+   const more=event.target.closest('.ea-more-sound');
+   if(more){
+     const details=document.getElementById(more.getAttribute('aria-controls'));
+     const opening=details.hidden;
+     details.hidden=!opening;more.setAttribute('aria-expanded',String(opening));more.textContent=opening?'LESS INFO ↑':'MORE INFO ↓';
+     return;
+   }
+   const download=event.target.closest('.ea-download-sound');
+   if(download){
+     const original=download.textContent; download.disabled=true; download.textContent='PREPARING…';
+     try{
+       const response=await fetch(download.dataset.preview);
+       if(!response.ok)throw new Error('Download failed');
+       const blob=await response.blob(),url=URL.createObjectURL(blob),a=document.createElement('a');
+       const safe=(download.dataset.name||'freesound-preview').replace(/[^a-z0-9._-]+/gi,'-').replace(/-+/g,'-').replace(/^-|-$/g,'');
+       a.href=url;a.download=(safe||'freesound-preview')+'.mp3';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+     }catch(error){window.open(download.dataset.preview,'_blank','noopener,noreferrer')}
+     finally{download.disabled=false;download.textContent=original}
+   }
  });
 
  draw();
