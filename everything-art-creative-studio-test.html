@@ -192,7 +192,18 @@ body.ea-utilities-active .empty-state{
 .ea-format-roadmap strong{color:#eee}
 .ea-format-roadmap-small{font-size:.78rem;color:#777}
 
+
+/* 1.0.17 shared output estimate */
+.ea-output-estimate{
+  margin-top:10px;
+  color:#aaa;
+  font-size:.86rem;
+  line-height:1.45;
+}
+.ea-output-estimate strong{color:#eee}
+
 </style>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
 </head>
 <body>
 <div class="ea-studio">
@@ -212,12 +223,12 @@ body.ea-utilities-active .empty-state{
 <button class="ea-filter" data-filter="learn">Learn</button>
 <button type="button" data-filter="utilities" class="ea-utilities-filter">Utilities</button>
 </div></div>
-<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.16</strong></div>
+<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.17</strong></div>
 </aside>
 <header class="ea-topbar">
 <a class="ea-exit" href="everything-art.html">← EVERYTHING ART</a>
 <div class="ea-brand"><strong>Everything Art • Creative Studio</strong><span>Resources</span></div>
-<div class="ea-status">STUDIO TEST · 1.0.16</div>
+<div class="ea-status">STUDIO TEST · 1.0.17</div>
 </header>
 <main class="ea-main"><section class="ea-workspace">
 <div class="ea-mobile">
@@ -259,7 +270,8 @@ body.ea-utilities-active .empty-state{
       <div class="ea-preview-grid">
         <div class="ea-preview-box"><img alt="Selected image preview" data-img="compress"><div class="ea-file-meta" data-meta="compress"></div></div>
         <div class="ea-control-box">
-          <div class="ea-control-stack"><label>COMPRESSION</label><select data-quality="compress"><option value=".55">Smaller file</option><option value=".78" selected>Balanced</option><option value=".92">Best quality</option></select></div>
+          <div class="ea-control-stack"><label>COMPRESSION</label><select data-quality="compress"><option value=".55">Smaller file</option><option value=".78" selected>Balanced</option><option value=".92">Best quality</option>
+<option value="pdf">PDF</option></select></div>
           <div class="ea-size-result" data-result="compress"></div>
           <div class="ea-action-row"><button class="ea-util-btn" type="button" data-process="compress">COMPRESS</button><a class="ea-util-btn secondary" data-download="compress" hidden>DOWNLOAD</a></div>
 <div class="ea-format-roadmap" aria-label="Format support">
@@ -705,6 +717,153 @@ document.addEventListener('DOMContentLoaded', function(){
     if(e.target && e.target.type === 'file') setTimeout(updateEstimate,120);
   });
   setTimeout(updateEstimate,100);
+});
+</script>
+
+
+<script>
+/* 1.0.17 — estimates belong to every file-changing utility */
+document.addEventListener('DOMContentLoaded', function(){
+  const panel = document.querySelector('.ea-utilities-panel');
+  if(!panel) return;
+
+  function fmt(bytes){
+    if(bytes >= 1024*1024) return (bytes/(1024*1024)).toFixed(2)+' MB';
+    return (bytes/1024).toFixed(bytes < 102400 ? 1 : 0)+' KB';
+  }
+
+  function currentImage(){
+    return Array.from(panel.querySelectorAll('img')).find(i => i.complete && i.naturalWidth);
+  }
+
+  function addEstimateBox(anchor){
+    if(!anchor) return null;
+    let box = anchor.parentElement.querySelector(':scope > .ea-output-estimate');
+    if(!box){
+      box=document.createElement('div');
+      box.className='ea-output-estimate';
+      anchor.insertAdjacentElement('afterend',box);
+    }
+    return box;
+  }
+
+  function canvasFor(img,w,h){
+    const c=document.createElement('canvas');
+    c.width=Math.max(1,Math.round(w));
+    c.height=Math.max(1,Math.round(h));
+    const x=c.getContext('2d');
+    x.drawImage(img,0,0,c.width,c.height);
+    return c;
+  }
+
+  function estimateBlob(canvas,type,quality,cb){
+    canvas.toBlob(b => cb(b), type, quality);
+  }
+
+  // RESIZE: estimate from the target width/height currently entered.
+  const numberInputs=Array.from(panel.querySelectorAll('input[type="number"]'));
+  const widthInput=numberInputs.find(i => /width/i.test((i.name||'')+' '+(i.id||'')+' '+(i.getAttribute('aria-label')||''))) || numberInputs[0];
+  const heightInput=numberInputs.find(i => /height/i.test((i.name||'')+' '+(i.id||'')+' '+(i.getAttribute('aria-label')||''))) || numberInputs[1];
+
+  if(widthInput && heightInput){
+    const resizeBox=addEstimateBox(heightInput.closest('div') || heightInput);
+    function estimateResize(){
+      const img=currentImage();
+      const w=parseInt(widthInput.value,10), h=parseInt(heightInput.value,10);
+      if(!img || !w || !h){
+        resizeBox.textContent='Estimated result size will appear here.';
+        return;
+      }
+      const c=canvasFor(img,w,h);
+      estimateBlob(c,'image/webp',.9,b=>{
+        resizeBox.innerHTML=b
+          ? '<strong>Estimated result:</strong> '+w+' × '+h+'px · '+fmt(b.size)
+          : 'Size estimate unavailable.';
+      });
+    }
+    ['input','change'].forEach(ev=>{
+      widthInput.addEventListener(ev,estimateResize);
+      heightInput.addEventListener(ev,estimateResize);
+    });
+    panel.addEventListener('click',e=>{
+      if(e.target.closest('button')) setTimeout(estimateResize,20);
+    });
+    setTimeout(estimateResize,150);
+  }
+
+  // CONVERT: find the format selector and estimate the actual selected output.
+  const selects=Array.from(panel.querySelectorAll('select'));
+  const convertSelect=selects.find(s => /jpg|jpeg/i.test(s.textContent||'') && /png/i.test(s.textContent||'') && /webp/i.test(s.textContent||''));
+  if(convertSelect){
+    // Ensure PDF is present even if markup insertion missed the right selector.
+    if(!Array.from(convertSelect.options).some(o => o.value.toLowerCase()==='pdf' || o.text.toLowerCase()==='pdf')){
+      convertSelect.add(new Option('PDF','pdf'));
+    }
+    const convertBox=addEstimateBox(convertSelect);
+
+    async function makePdfBytes(img){
+      if(!window.jspdf || !window.jspdf.jsPDF) return null;
+      const {jsPDF}=window.jspdf;
+      const landscape=img.naturalWidth>img.naturalHeight;
+      const pdf=new jsPDF({orientation:landscape?'landscape':'portrait',unit:'px',
+        format:[img.naturalWidth,img.naturalHeight],hotfixes:['px_scaling']});
+      const c=canvasFor(img,img.naturalWidth,img.naturalHeight);
+      const data=c.toDataURL('image/jpeg',.92);
+      pdf.addImage(data,'JPEG',0,0,img.naturalWidth,img.naturalHeight);
+      return pdf.output('arraybuffer');
+    }
+
+    async function estimateConvert(){
+      const img=currentImage();
+      if(!img){
+        convertBox.textContent='Estimated converted size will appear here.';
+        return;
+      }
+      const fmtValue=(convertSelect.value || convertSelect.options[convertSelect.selectedIndex]?.text || '').toLowerCase();
+      const c=canvasFor(img,img.naturalWidth,img.naturalHeight);
+
+      if(fmtValue.includes('pdf')){
+        const bytes=await makePdfBytes(img);
+        convertBox.innerHTML=bytes
+          ? '<strong>Estimated PDF:</strong> '+fmt(bytes.byteLength)
+          : 'PDF estimate unavailable.';
+        return;
+      }
+
+      let mime='image/webp', q=.92;
+      if(fmtValue.includes('png')) mime='image/png';
+      else if(fmtValue.includes('jpg') || fmtValue.includes('jpeg')) mime='image/jpeg';
+      estimateBlob(c,mime,q,b=>{
+        convertBox.innerHTML=b
+          ? '<strong>Estimated '+fmtValue.toUpperCase()+':</strong> '+fmt(b.size)
+          : 'Size estimate unavailable for this format.';
+      });
+    }
+
+    convertSelect.addEventListener('change',estimateConvert);
+    setTimeout(estimateConvert,150);
+
+    // Intercept the Convert action only for PDF; existing JPG/PNG/WebP behavior remains untouched.
+    panel.addEventListener('click',async function(e){
+      const btn=e.target.closest('button');
+      if(!btn || !/convert/i.test(btn.textContent||'')) return;
+      const val=(convertSelect.value||'').toLowerCase();
+      if(val!=='pdf') return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      const img=currentImage();
+      if(!img) return;
+      const bytes=await makePdfBytes(img);
+      if(!bytes) return;
+      const blob=new Blob([bytes],{type:'application/pdf'});
+      const a=document.createElement('a');
+      a.href=URL.createObjectURL(blob);
+      a.download='converted-image.pdf';
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+      convertBox.innerHTML='<strong>PDF result:</strong> '+fmt(blob.size);
+    },true);
+  }
 });
 </script>
 
