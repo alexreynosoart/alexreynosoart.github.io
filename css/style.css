@@ -5216,245 +5216,148 @@ header nav a:not(:last-child)::after {
     }
 }
 
-
 /* ========================================
-   EVERYTHING ART | FAMILY FOOTER NAV
-   Creative Studio + shared Everything Art pages
+   EVERYTHING ART | SHARED FAMILY FOOTER
+   Permanent shared navigation footer
    ======================================== */
 
-.ea-family-footer{
-    width:min(1180px, calc(100% - 40px));
-    margin:0 auto;
-    padding:24px 0 30px;
-    border-top:1px solid rgba(255,255,255,.10);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:10px;
+.ea-site-footer {
+    position: relative;
+    z-index: 20;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0 20px;
+    clear: both;
+    background: #0d0d0d;
+    text-align: center;
 }
 
-.ea-family-footer a{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    min-height:34px;
-    padding:0 12px;
-    border:1px solid rgba(255,255,255,.16);
-    border-radius:999px;
-    color:#bdbdbd;
-    text-decoration:none;
-    font-size:.68rem;
-    font-weight:800;
-    letter-spacing:.04em;
-    white-space:nowrap;
-    transition:border-color .18s ease, color .18s ease, background .18s ease;
+.ea-site-footer .ea-family-footer {
+    width: min(1180px, 100%);
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 22px 0 26px;
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
-.ea-family-footer a:hover,
-.ea-family-footer a:focus-visible{
-    color:#fff;
-    border-color:rgba(255,255,255,.42);
+.ea-site-footer .ea-family-footer > a {
+    width: auto;
+    height: 32px;
+    min-width: 0;
+    min-height: 32px;
+    margin: 0;
+    padding: 0 11px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+    background: transparent;
+    color: #bdbdbd;
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.055em;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+        color 0.18s ease,
+        border-color 0.18s ease,
+        background 0.18s ease;
 }
 
-.ea-family-footer a[aria-current="page"]{
-    color:#f4c430;
-    border-color:#f4c430;
+.ea-site-footer .ea-family-footer > a:hover,
+.ea-site-footer .ea-family-footer > a:focus-visible {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.48);
 }
 
-.ea-family-footer .ea-family-fb{
-    color:#fff;
-    background:#1877f2;
-    border-color:#1877f2;
+.ea-site-footer .ea-family-footer > a[aria-current="page"] {
+    color: #f4c430;
+    border-color: #f4c430;
 }
 
-.ea-family-divider{
-    width:1px;
-    height:24px;
-    background:rgba(255,255,255,.18);
-    margin:0 2px;
+.ea-site-footer .ea-family-footer > .ea-family-fb {
+    color: #fff;
+    background: #1877f2;
+    border-color: #1877f2;
 }
 
-.ea-family-footer .ea-family-ar{
-    width:36px;
-    min-width:36px;
-    height:36px;
-    min-height:36px;
-    padding:0;
-    border-radius:50%;
-    overflow:hidden;
+.ea-site-footer .ea-family-divider {
+    display: block;
+    flex: 0 0 1px;
+    width: 1px;
+    height: 20px;
+    margin: 0 2px;
+    background: rgba(255, 255, 255, 0.22);
 }
 
-.ea-family-ar img{
-    display:block;
-    width:100%;
-    height:100%;
-    object-fit:cover;
+/* Small AR exit back to Alex Reynoso Art. */
+.ea-site-footer .ea-family-footer > .ea-family-ar {
+    flex: 0 0 26px;
+    width: 26px;
+    min-width: 26px;
+    max-width: 26px;
+    height: 26px;
+    min-height: 26px;
+    max-height: 26px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    overflow: hidden;
 }
 
-@media(max-width:750px){
-    .ea-family-footer{
-        width:min(100% - 28px, 1180px);
-        gap:8px;
-        padding:20px 0 26px;
-    }
-
-    .ea-family-footer a{
-        min-height:32px;
-        padding:0 10px;
-        font-size:.62rem;
-    }
-
-    .ea-family-divider{
-        display:none;
-    }
-
-    .ea-family-footer .ea-family-ar{
-        width:34px;
-        min-width:34px;
-        height:34px;
-        min-height:34px;
-    }
-}
-
-
-/* ========================================
-   EVERYTHING ART | FOOTER FIX v1.0.39
-   Footer lives outside the Creative Studio shell.
-   ======================================== */
-
-body .ea-site-footer {
-    position: relative !important;
-    z-index: 20 !important;
-    width: 100% !important;
-    max-width: none !important;
-    margin: 0 !important;
-    padding: 0 20px !important;
-    clear: both !important;
-    background: #0d0d0d !important;
-    text-align: center !important;
-}
-
-body .ea-site-footer .ea-family-footer {
-    width: min(1180px, 100%) !important;
-    max-width: 1180px !important;
-    margin: 0 auto !important;
-    padding: 22px 0 26px !important;
-    border-top: 1px solid rgba(255,255,255,.10) !important;
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: center !important;
-    align-items: center !important;
-    flex-wrap: wrap !important;
-    gap: 8px !important;
-}
-
-body .ea-site-footer .ea-family-footer > a {
-    width: auto !important;
-    height: 32px !important;
-    min-width: 0 !important;
-    min-height: 32px !important;
-    margin: 0 !important;
-    padding: 0 11px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    border: 1px solid rgba(255,255,255,.18) !important;
-    border-radius: 999px !important;
-    background: transparent !important;
-    color: #bdbdbd !important;
-    font-size: 10px !important;
-    font-weight: 800 !important;
-    line-height: 1 !important;
-    letter-spacing: .055em !important;
-    text-decoration: none !important;
-    white-space: nowrap !important;
-}
-
-body .ea-site-footer .ea-family-footer > a:hover,
-body .ea-site-footer .ea-family-footer > a:focus-visible {
-    color: #fff !important;
-    border-color: rgba(255,255,255,.48) !important;
-}
-
-body .ea-site-footer .ea-family-footer > a[aria-current="page"] {
-    color: #f4c430 !important;
-    border-color: #f4c430 !important;
-}
-
-body .ea-site-footer .ea-family-footer > .ea-family-fb {
-    color: #fff !important;
-    background: #1877f2 !important;
-    border-color: #1877f2 !important;
-}
-
-body .ea-site-footer .ea-family-divider {
-    display: block !important;
-    flex: 0 0 1px !important;
-    width: 1px !important;
-    height: 20px !important;
-    margin: 0 2px !important;
-    background: rgba(255,255,255,.22) !important;
-}
-
-/* Tiny AR exit. Intentionally smaller than the top AR control. */
-body .ea-site-footer .ea-family-footer > .ea-family-ar {
-    flex: 0 0 26px !important;
-    width: 26px !important;
-    min-width: 26px !important;
-    max-width: 26px !important;
-    height: 26px !important;
-    min-height: 26px !important;
-    max-height: 26px !important;
-    padding: 0 !important;
-    border: 0 !important;
-    border-radius: 50% !important;
-    background: transparent !important;
-    overflow: hidden !important;
-}
-
-body .ea-site-footer .ea-family-ar img {
-    display: block !important;
-    width: 26px !important;
-    height: 26px !important;
-    max-width: 26px !important;
-    max-height: 26px !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    object-fit: cover !important;
-    border-radius: 50% !important;
+.ea-site-footer .ea-family-ar img {
+    display: block;
+    width: 26px;
+    height: 26px;
+    max-width: 26px;
+    max-height: 26px;
+    margin: 0;
+    padding: 0;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 @media (max-width: 750px) {
-    body .ea-site-footer {
-        padding: 0 14px !important;
+    .ea-site-footer {
+        padding: 0 14px;
     }
 
-    body .ea-site-footer .ea-family-footer {
-        width: 100% !important;
-        padding: 18px 0 22px !important;
-        gap: 7px !important;
+    .ea-site-footer .ea-family-footer {
+        width: 100%;
+        padding: 18px 0 22px;
+        gap: 7px;
     }
 
-    body .ea-site-footer .ea-family-footer > a {
-        height: 30px !important;
-        min-height: 30px !important;
-        padding: 0 9px !important;
-        font-size: 9px !important;
+    .ea-site-footer .ea-family-footer > a {
+        height: 30px;
+        min-height: 30px;
+        padding: 0 9px;
+        font-size: 9px;
     }
 
-    body .ea-site-footer .ea-family-divider {
-        display: none !important;
+    .ea-site-footer .ea-family-divider {
+        display: none;
     }
 
-    body .ea-site-footer .ea-family-footer > .ea-family-ar,
-    body .ea-site-footer .ea-family-ar img {
-        width: 24px !important;
-        min-width: 24px !important;
-        max-width: 24px !important;
-        height: 24px !important;
-        min-height: 24px !important;
-        max-height: 24px !important;
-        flex-basis: 24px !important;
+    .ea-site-footer .ea-family-footer > .ea-family-ar,
+    .ea-site-footer .ea-family-ar img {
+        flex-basis: 24px;
+        width: 24px;
+        min-width: 24px;
+        max-width: 24px;
+        height: 24px;
+        min-height: 24px;
+        max-height: 24px;
     }
 }
+
