@@ -49,150 +49,10 @@
 
 
 
-    <style>
-        /* Art Events: match approved Everything Art navigation configuration */
-        body.everything-art-events-theme .ea-mini-nav {
-            background: #0d0d0d !important;
-            border-bottom: 1px solid rgba(255,255,255,.08) !important;
-        }
-
-        body.everything-art-events-theme .ea-mini-nav-inner {
-            width: 100% !important;
-            min-height: 86px !important;
-            margin: 0 auto !important;
-            padding: 14px 34px !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: space-between !important;
-            gap: 20px !important;
-            background: #0d0d0d !important;
-            box-sizing: border-box !important;
-        }
-
-        body.everything-art-events-theme .ea-mini-primary,
-        body.everything-art-events-theme .ea-mini-actions {
-            display: flex !important;
-            align-items: center !important;
-            gap: 12px !important;
-        }
-
-        body.everything-art-events-theme .ea-mini-actions {
-            flex: 0 0 auto !important;
-            margin-left: auto !important;
-        }
-
-        body.everything-art-events-theme .ea-mini-link {
-            width: auto !important;
-            min-width: 0 !important;
-            min-height: 50px !important;
-            margin: 0 !important;
-            padding: 0 24px !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            border: 1px solid rgba(255,255,255,.26) !important;
-            border-radius: 999px !important;
-            background: #0d0d0d !important;
-            color: #f1f1f1 !important;
-            font-size: .78rem !important;
-            font-weight: 800 !important;
-            line-height: 1 !important;
-            letter-spacing: .035em !important;
-            text-decoration: none !important;
-            white-space: nowrap !important;
-            box-sizing: border-box !important;
-        }
-
-        body.everything-art-events-theme .ea-mini-link.is-current,
-        body.everything-art-events-theme .ea-mini-link[aria-current="page"] {
-            color: #f4c430 !important;
-            border-color: #f4c430 !important;
-        }
-
-        body.everything-art-events-theme .ea-mini-facebook {
-            color: #58a9ff !important;
-            border-color: #268dff !important;
-        }
-
-        body.everything-art-events-theme .ea-mini-ar {
-            flex: 0 0 50px !important;
-            width: 50px !important;
-            min-width: 50px !important;
-            max-width: 50px !important;
-            height: 50px !important;
-            min-height: 50px !important;
-            max-height: 50px !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            border: 1px solid rgba(255,255,255,.22) !important;
-            border-radius: 50% !important;
-            background: #0d0d0d !important;
-            overflow: hidden !important;
-            box-sizing: border-box !important;
-        }
-
-        body.everything-art-events-theme .ea-mini-ar img {
-            display: block !important;
-            width: 36px !important;
-            height: 36px !important;
-            max-width: 36px !important;
-            max-height: 36px !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            object-fit: contain !important;
-        }
-
-        @media (max-width: 1000px) {
-            body.everything-art-events-theme .ea-mini-nav-inner {
-                min-height: 0 !important;
-                padding: 12px 18px !important;
-                flex-wrap: wrap !important;
-                gap: 10px 12px !important;
-            }
-
-            body.everything-art-events-theme .ea-mini-primary {
-                flex: 1 1 auto !important;
-                flex-wrap: wrap !important;
-                gap: 8px !important;
-            }
-
-            body.everything-art-events-theme .ea-mini-actions {
-                gap: 8px !important;
-            }
-
-            body.everything-art-events-theme .ea-mini-link {
-                min-height: 44px !important;
-                padding: 0 18px !important;
-                font-size: .72rem !important;
-            }
-
-            body.everything-art-events-theme .ea-mini-ar {
-                flex-basis: 44px !important;
-                width: 44px !important;
-                min-width: 44px !important;
-                max-width: 44px !important;
-                height: 44px !important;
-                min-height: 44px !important;
-                max-height: 44px !important;
-            }
-
-            body.everything-art-events-theme .ea-mini-ar img {
-                width: 31px !important;
-                height: 31px !important;
-                max-width: 31px !important;
-                max-height: 31px !important;
-            }
-        }
-    </style>
-
-
 <style>
         /* Everything Art phone header: canonical two-row layout */
         @media (max-width: 700px) {
-            body.everything-art-events-theme .ea-mini-nav-inner {
+            body.everything-art-theme .ea-mini-nav-inner {
                 display: grid !important;
                 grid-template-columns: 1fr auto !important;
                 grid-template-rows: auto auto !important;
@@ -201,7 +61,7 @@
                 align-items: center !important;
             }
 
-            body.everything-art-events-theme .ea-mini-primary {
+            body.everything-art-theme .ea-mini-primary {
                 grid-column: 1 / -1 !important;
                 grid-row: 1 / 3 !important;
                 width: 100% !important;
@@ -211,27 +71,27 @@
                 gap: 7px !important;
             }
 
-            body.everything-art-events-theme .ea-mini-primary .ea-mini-link:nth-child(1) {
+            body.everything-art-theme .ea-mini-primary .ea-mini-link:nth-child(1) {
                 grid-column: 1 !important;
                 grid-row: 1 !important;
             }
 
-            body.everything-art-events-theme .ea-mini-primary .ea-mini-link:nth-child(2) {
+            body.everything-art-theme .ea-mini-primary .ea-mini-link:nth-child(2) {
                 grid-column: 2 !important;
                 grid-row: 1 !important;
             }
 
-            body.everything-art-events-theme .ea-mini-primary .ea-mini-link:nth-child(3) {
+            body.everything-art-theme .ea-mini-primary .ea-mini-link:nth-child(3) {
                 grid-column: 3 !important;
                 grid-row: 1 !important;
             }
 
-            body.everything-art-events-theme .ea-mini-primary .ea-mini-link:nth-child(4) {
+            body.everything-art-theme .ea-mini-primary .ea-mini-link:nth-child(4) {
                 grid-column: 1 !important;
                 grid-row: 2 !important;
             }
 
-            body.everything-art-events-theme .ea-mini-actions {
+            body.everything-art-theme .ea-mini-actions {
                 grid-column: 2 !important;
                 grid-row: 2 !important;
                 width: auto !important;
@@ -244,14 +104,14 @@
                 z-index: 2 !important;
             }
 
-            body.everything-art-events-theme .ea-mini-actions .ea-mini-facebook {
+            body.everything-art-theme .ea-mini-actions .ea-mini-facebook {
                 min-height: 38px !important;
                 height: 38px !important;
                 padding: 0 13px !important;
                 font-size: .62rem !important;
             }
 
-            body.everything-art-events-theme .ea-mini-ar {
+            body.everything-art-theme .ea-mini-ar {
                 flex: 0 0 38px !important;
                 width: 38px !important;
                 min-width: 38px !important;
@@ -265,7 +125,7 @@
 
 </head>
 
-<body class="everything-art-events-theme">
+<body class="everything-art-theme everything-art-events-theme">
 
 <!-- EVERYTHING ART STICKY NAV -->
 <nav class="ea-mini-nav" aria-label="Everything Art navigation">
