@@ -547,6 +547,73 @@ body.ea-utilities-active .empty-state{
 }
 
 
+
+/* =========================================================
+   TEST BUILD 1.0.24
+   Tablet/mobile workspace hierarchy
+   ========================================================= */
+
+/* Small EA identity inside the Studio, not another site header. */
+.ea-studio-mark{
+  display:block;
+  width:132px;
+  max-width:34vw;
+  height:auto;
+  margin:0 auto 10px;
+}
+
+/* Keep AR legible on tablet. */
+@media(min-width:701px) and (max-width:1000px){
+  .ea-mini-ar{
+    width:46px !important;
+    min-width:46px !important;
+    height:46px !important;
+    min-height:46px !important;
+    flex:0 0 46px !important;
+    padding:0 !important;
+    border-radius:50% !important;
+  }
+  .ea-mini-ar img{
+    width:32px !important;
+    height:32px !important;
+    max-width:none !important;
+    max-height:none !important;
+    object-fit:contain !important;
+    border-radius:50% !important;
+  }
+}
+
+/* Phone + tablet:
+   Put the Work With rail AFTER "What do you want to make?"
+   so changing Image/Video/Audio keeps the matching listings directly below. */
+@media(max-width:1000px){
+  .ea-workspace{
+    display:flex !important;
+    flex-direction:column !important;
+  }
+
+  /* The large intro/results body comes first. */
+  .ea-results{
+    order:1 !important;
+  }
+
+  /* Existing top filter/search area follows the intro. */
+  .ea-topbar{
+    order:2 !important;
+  }
+
+  /* Keep the cards/results after their controls when these are separate siblings. */
+  .ea-resource-content,
+  .ea-resource-sections{
+    order:3 !important;
+  }
+
+  .ea-studio-mark{
+    width:118px;
+    margin-bottom:8px;
+  }
+}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
 </head>
@@ -596,7 +663,7 @@ body.ea-utilities-active .empty-state{
 <button class="ea-filter" data-filter="learn">Learn</button>
 <button type="button" data-filter="utilities" class="ea-utilities-filter">Utilities</button>
 </div></div>
-<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.23</strong></div>
+<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.24</strong></div>
 </aside>
 
 <main class="ea-main"><section class="ea-workspace">
