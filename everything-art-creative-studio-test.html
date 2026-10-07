@@ -647,9 +647,11 @@ body.ea-utilities-active .empty-state{
 
 
 
+
+
 /* =========================================================
-   TEST BUILD 1.0.35 — CLEAN MOBILE/TABLET CONTROLS
-   One set only. Original top-row dimensions preserved.
+   TEST BUILD 1.0.36 — MOBILE/TABLET CONTROLS UNDER HERO
+   Compact original-size pills. No oversized "pregnant" buttons.
    ========================================================= */
 @media(max-width:1000px){
   html,body{
@@ -662,19 +664,20 @@ body.ea-utilities-active .empty-state{
     display:block;
     width:100%;
     max-width:100%;
+    margin:22px 0 4px;
     padding:0;
     overflow:hidden;
   }
 
   .ea-mobile-filter-group{
     width:100%;
-    margin:0 0 16px;
+    margin:0 0 13px;
   }
 
   .ea-mobile-filter-label{
     display:block;
-    margin:0 0 9px;
-    color:#c6c6c6;
+    margin:0 0 7px;
+    color:#bdbdbd;
     font-size:.62rem;
     font-weight:900;
     letter-spacing:.11em;
@@ -684,10 +687,11 @@ body.ea-utilities-active .empty-state{
   .ea-mobile-filter-rail{
     display:flex;
     flex-wrap:nowrap;
+    align-items:center;
     gap:7px;
     width:100%;
     max-width:100%;
-    padding:0 0 4px;
+    padding:0 0 3px;
     overflow-x:auto;
     overflow-y:hidden;
     -webkit-overflow-scrolling:touch;
@@ -698,7 +702,9 @@ body.ea-utilities-active .empty-state{
 
   .ea-mobile-filter-rail::-webkit-scrollbar{display:none}
 
-  .ea-mobile-filter-rail button{
+  .ea-mobile-filter-rail button,
+  .ea-mobile-filter-rail .ea-mobile-all,
+  .ea-mobile-filter-rail .ea-mobile-utilities{
     display:inline-flex;
     align-items:center;
     justify-content:center;
@@ -706,6 +712,7 @@ body.ea-utilities-active .empty-state{
     flex:0 0 auto;
     width:auto;
     min-width:0;
+    height:38px;
     min-height:38px;
     padding:0 14px;
     border:1px solid #555;
@@ -714,6 +721,7 @@ body.ea-utilities-active .empty-state{
     color:#f5f5f5;
     font-size:.68rem;
     font-weight:800;
+    line-height:1;
     white-space:nowrap;
     cursor:pointer;
   }
@@ -724,34 +732,21 @@ body.ea-utilities-active .empty-state{
     color:#111;
   }
 
-  .ea-mobile-filter-rail .ea-filter-icon{
-    width:14px;
-    height:14px;
-    flex:0 0 14px;
-  }
-
-  /* The original All button proportions, kept circular. */
-  .ea-mobile-filter-rail .ea-mobile-all{
-    width:52px;
-    min-width:52px;
-    height:52px;
-    min-height:52px;
-    padding:0;
-    border-radius:50%;
-  }
-
-  /* Native Studio utility gets the special light treatment. */
   .ea-mobile-filter-rail .ea-mobile-utilities{
     background:#f1f1f3;
     border-color:#a9a9b3;
     color:#111;
   }
 
-  /* Controls live beneath the hero, before Search. */
-  .ea-welcome{margin-bottom:24px}
-  .ea-mobile{margin:0 0 6px}
+  .ea-mobile-filter-rail .ea-filter-icon{
+    width:14px;
+    height:14px;
+    flex:0 0 14px;
+  }
+
   .ea-toolbar{
-    margin:0 0 20px;
+    margin:0 0 20px !important;
+    padding:10px !important;
     border-top:1px solid rgba(255,255,255,.10);
     border-bottom:1px solid rgba(255,255,255,.10);
   }
@@ -810,7 +805,7 @@ body.ea-utilities-active .empty-state{
 <button class="ea-filter" data-filter="learn">Learn</button>
 <button type="button" data-filter="utilities" class="ea-utilities-filter">Utilities</button>
 </div></div>
-<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.35</strong></div>
+<div class="ea-note">TEST SHELL<br/>Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>TEST BUILD · 1.0.36</strong></div>
 </aside>
 
 <main class="ea-main"><section class="ea-workspace">
@@ -1542,40 +1537,54 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
+<script src="js/script.js"></script>
+
 <script>
-/* TEST BUILD 1.0.35 — move the real controls, never clone them */
+/* TEST BUILD 1.0.36 — FINAL RESPONSIVE PLACEMENT
+   Phone/tablet order:
+   HERO -> WORK WITH -> WHAT DO YOU NEED -> SEARCH -> EXPLORE RESOURCES
+*/
 (function(){
-  const mq = window.matchMedia('(max-width:1000px)');
-  const mobile = document.querySelector('.ea-mobile');
-  const toolbar = document.querySelector('.ea-toolbar');
-  const workspace = document.querySelector('.ea-workspace');
-  const stage = document.querySelector('.ea-stage');
-  const welcome = document.querySelector('.ea-welcome');
+  function placeStudioControls(){
+    const mq = window.matchMedia('(max-width:1000px)');
+    const mobile = document.querySelector('.ea-mobile');
+    const toolbar = document.querySelector('.ea-toolbar');
+    const welcome = document.querySelector('.ea-welcome');
 
-  if(!mobile || !toolbar || !workspace || !stage || !welcome) return;
+    if(!mobile || !toolbar || !welcome) return;
 
-  const mobileMarker = document.createComment('ea-mobile-home');
-  const toolbarMarker = document.createComment('ea-toolbar-home');
-  mobile.parentNode.insertBefore(mobileMarker, mobile);
-  toolbar.parentNode.insertBefore(toolbarMarker, toolbar);
+    if(!mobile.__eaHomeMarker){
+      mobile.__eaHomeMarker = document.createComment('ea-mobile-original-position');
+      mobile.parentNode.insertBefore(mobile.__eaHomeMarker, mobile);
+    }
+    if(!toolbar.__eaHomeMarker){
+      toolbar.__eaHomeMarker = document.createComment('ea-toolbar-original-position');
+      toolbar.parentNode.insertBefore(toolbar.__eaHomeMarker, toolbar);
+    }
 
-  function place(){
     if(mq.matches){
+      /* These are inserted INSIDE .ea-stage, immediately after the hero. */
       welcome.insertAdjacentElement('afterend', mobile);
       mobile.insertAdjacentElement('afterend', toolbar);
     }else{
-      mobileMarker.parentNode.insertBefore(mobile, mobileMarker.nextSibling);
-      toolbarMarker.parentNode.insertBefore(toolbar, toolbarMarker.nextSibling);
+      const mm = mobile.__eaHomeMarker;
+      const tm = toolbar.__eaHomeMarker;
+      if(mm && mm.parentNode) mm.parentNode.insertBefore(mobile, mm.nextSibling);
+      if(tm && tm.parentNode) tm.parentNode.insertBefore(toolbar, tm.nextSibling);
     }
   }
 
-  place();
-  if(mq.addEventListener) mq.addEventListener('change', place);
-  else mq.addListener(place);
+  window.addEventListener('DOMContentLoaded', function(){
+    placeStudioControls();
+    requestAnimationFrame(placeStudioControls);
+    setTimeout(placeStudioControls, 50);
+  });
+
+  window.addEventListener('load', placeStudioControls);
+  window.addEventListener('resize', placeStudioControls);
 })();
 </script>
 
-<script src="js/script.js"></script>
 
 </body>
 </html>
