@@ -30,7 +30,7 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
 .ea-search-icon{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:#888}.ea-clear{min-height:46px;padding:0 15px;border:1px solid var(--line);border-radius:13px;background:#0e0e0e;color:#ddd;font-weight:800;cursor:pointer}
 .ea-stage{padding:clamp(20px,4vw,54px)}.ea-welcome{max-width:850px;margin:0 auto 34px;text-align:center}.ea-welcome h2{margin:10px 0 12px;font-size:clamp(2rem,4vw,4.1rem);line-height:.98;letter-spacing:-.04em}.ea-welcome p{max-width:680px;margin:auto;color:var(--muted);font-size:.95rem;line-height:1.65}
 .ea-results-head{max-width:1100px;margin:0 auto 13px;display:flex;align-items:end;justify-content:space-between;gap:15px}.ea-results-head strong{font-size:.75rem;letter-spacing:.09em;text-transform:uppercase}.ea-count{color:var(--muted);font-size:.7rem}
-.ea-results{max-width:1100px;margin:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.ea-card{padding:18px;border:1px solid var(--line);border-radius:17px;background:var(--card)}.ea-type{display:inline-block;margin-bottom:12px;color:var(--yellow);font-size:.58rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase}.ea-card h3{margin:0 0 7px;font-size:1rem}.ea-card p{margin:0;color:var(--muted);font-size:.76rem;line-height:1.5}.ea-empty{display:none;max-width:600px;margin:50px auto;color:var(--muted);text-align:center;line-height:1.55}.ea-mobile{display:none}
+.ea-results{max-width:1100px;margin:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.ea-card{padding:18px;border:1px solid var(--line);border-radius:17px;background:var(--card)}.ea-type{display:inline-flex;align-items:center;gap:7px;margin-bottom:12px;color:var(--yellow);font-size:.58rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase}.ea-card h3{margin:0 0 7px;font-size:1rem}.ea-card p{margin:0;color:var(--muted);font-size:.76rem;line-height:1.5}.ea-empty{display:none;max-width:600px;margin:50px auto;color:var(--muted);text-align:center;line-height:1.55}.ea-mobile{display:none}
 @media(max-width:1000px){.ea-studio{padding:8px}.ea-sidebar{display:none}.ea-topbar{margin-left:0;min-height:52px;grid-template-columns:auto 1fr auto;margin-bottom:7px}.ea-brand strong{font-size:.78rem}.ea-brand span{font-size:.55rem}.ea-status{display:none}.ea-main{margin-left:0}.ea-workspace{min-height:calc(100vh - 68px);border-radius:16px}.ea-mobile{display:flex;gap:7px;overflow-x:auto;padding:10px 10px 0;scrollbar-width:none}.ea-mobile button{flex:0 0 auto;min-height:38px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:#111;color:#eee;font-size:.68rem;font-weight:800}.ea-mobile button{display:inline-flex;align-items:center;justify-content:center;gap:6px}.ea-mobile .ea-filter-icon{width:14px;height:14px;flex-basis:14px}.ea-mobile button.active{background:var(--yellow);border-color:var(--yellow);color:#111}.ea-toolbar{padding:10px}.ea-stage{padding:28px 14px 35px}.ea-results{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.ea-exit{font-size:.66rem}.ea-brand strong{font-size:.7rem}.ea-brand span{display:none}.ea-clear{min-width:44px;padding:0 11px;font-size:0}.ea-clear:after{content:"×";font-size:1.15rem}.ea-results{grid-template-columns:1fr}.ea-welcome h2{font-size:2.25rem}}
 
@@ -44,7 +44,7 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
 .ea-sound-search{display:flex;gap:10px;margin:16px 0 18px}.ea-sound-search input{flex:1;min-width:0;min-height:46px;padding:0 14px;border:1px solid var(--line);border-radius:12px;outline:0;background:#0e0e0e;color:#fff;font-size:16px}.ea-sound-search input:focus{border-color:var(--yellow)}.ea-sound-search button{min-height:46px;padding:0 18px;border:1px solid var(--yellow);border-radius:12px;background:var(--yellow);color:#111;font-weight:900;cursor:pointer}
 .ea-sound-status{min-height:22px;margin-bottom:12px;color:var(--muted);font-size:.72rem}.ea-sound-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.ea-sound-card{padding:16px;border:1px solid var(--line);border-radius:15px;background:var(--card)}.ea-sound-card h4{margin:0 0 7px;font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ea-sound-meta{margin-bottom:11px;color:var(--muted);font-size:.68rem;line-height:1.5}.ea-sound-card audio{width:100%;height:38px;margin:3px 0 9px}.ea-sound-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px}.ea-sound-link,.ea-sound-button{display:inline-flex;align-items:center;min-height:30px;padding:0 9px;border:1px solid rgba(243,207,57,.35);border-radius:8px;background:transparent;color:var(--yellow);font-size:.62rem;font-weight:800;text-decoration:none;cursor:pointer}.ea-sound-link:hover,.ea-sound-button:hover{background:var(--yellow);color:#111}.ea-more-sound[aria-expanded="true"]{background:var(--yellow);border-color:var(--yellow);color:#111;box-shadow:0 0 0 2px rgba(243,207,57,.12)}.ea-sound-license{margin-left:auto;color:#aaa;font-size:.62rem}.ea-sound-details{margin-top:11px;padding-top:11px;border-top:1px solid var(--line);color:var(--muted);font-size:.66rem;line-height:1.55}.ea-sound-details[hidden]{display:none}.ea-sound-details strong{color:#ddd}.ea-sound-more-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px 22px}.ea-sound-more-col>div+div{margin-top:4px}.ea-sound-more-description{grid-column:1/-1;padding-top:2px}.ea-sound-more-footer{grid-column:1/-1;margin-top:0}.ea-sound-tags{margin-top:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.ea-sound-description{margin-top:6px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 @media(max-width:700px){.ea-sound-more-grid{grid-template-columns:1fr}.ea-sound-more-description,.ea-sound-more-footer{grid-column:auto}.ea-sound-results{grid-template-columns:1fr}.ea-sound-search{flex-direction:column}.ea-sound-search button{width:100%}}
-</style>
+.ea-card-type-icon{width:15px;height:15px;flex:0 0 15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.ea-card-video-play{fill:currentColor;stroke:none}</style>
 </head>
 <body>
 <div class="ea-studio">
@@ -68,7 +68,7 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
 <header class="ea-topbar">
 <a class="ea-exit" href="everything-art.html">← EVERYTHING ART</a>
 <div class="ea-brand"><strong>Everything Art • Creative Studio</strong><span>Resources</span></div>
-<div class="ea-status">STUDIO TEST · V9</div>
+<div class="ea-status">STUDIO TEST · V10</div>
 </header>
 <main class="ea-main"><section class="ea-workspace">
 <div class="ea-mobile">
@@ -91,27 +91,27 @@ html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);
 
 
 <div class="ea-group-label ea-group-studio">USE IN STUDIO</div><article class="ea-card ea-integrated" data-category="image create" data-search="photopea image photo graphics psd edit browser free">
-<span class="ea-type">IMAGE · CREATE / EDIT</span><h3>Photopea</h3>
+<span class="ea-type"><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="M5.5 17l4.2-4.2 3.1 3 2.4-2.4 3.3 3.6"/></svg><span>IMAGE · CREATE / EDIT</span></span><h3>Photopea</h3>
 <p>Browser-based image editor with PSD support. Open it directly inside the Everything Art workspace.</p>
 <a class="ea-resource-action ea-open-studio" data-studio="photopea" href="https://www.photopea.com/" id="eaPhotopeaAction">OPEN IN STUDIO</a>
 </article><article class="ea-card ea-integrated" data-category="audio assets" data-search="freesound free sound effects audio creative commons samples">
-<span class="ea-type">AUDIO · FREE ASSETS</span><h3>Freesound</h3>
+<span class="ea-type"><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5a2.5 2.5 0 1 1-2-2.45V7l10-2v10.5a2.5 2.5 0 1 1-2-2.45V8L9 9.2z"/></svg><span>AUDIO · FREE ASSETS</span></span><h3>Freesound</h3>
 <p>A huge community sound library. Individual sounds use different Creative Commons licenses, so check each one.</p>
 <a class="ea-resource-action ea-open-studio" data-studio="freesound" href="https://freesound.org/" id="eaFreesoundAction">OPEN IN STUDIO</a>
 </article><div class="ea-group-label ea-group-more">MORE RESOURCES</div><article class="ea-card" data-category="3d create" data-search="blender 3d modeling animation rendering free open source desktop">
-<span class="ea-type">3D · CREATE</span><h3>Blender</h3>
+<span class="ea-type"><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l7 4v9l-7 4-7-4v-9z"/><path d="M5 7.5l7 4 7-4M12 11.5v9"/></svg><span>3D · CREATE</span></span><h3>Blender</h3>
 <p>Free, open-source 3D creation suite for modeling, animation, rendering and more.</p>
 <a class="ea-resource-action" href="https://www.blender.org/" rel="noopener noreferrer" target="_blank">GET APP ↗</a>
 </article><article class="ea-card" data-category="audio create" data-search="audacity audio sound recording edit free open source desktop">
-<span class="ea-type">AUDIO · CREATE / EDIT</span><h3>Audacity</h3>
+<span class="ea-type"><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5a2.5 2.5 0 1 1-2-2.45V7l10-2v10.5a2.5 2.5 0 1 1-2-2.45V8L9 9.2z"/></svg><span>AUDIO · CREATE / EDIT</span></span><h3>Audacity</h3>
 <p>Free desktop audio editor and recorder for Windows, macOS and Linux.</p>
 <a class="ea-resource-action" href="https://www.audacityteam.org/" rel="noopener noreferrer" target="_blank">GET APP ↗</a>
 </article><article class="ea-card" data-category="image video assets" data-search="pexels free photos video stock assets photography footage">
-<span class="ea-type">IMAGE + VIDEO · FREE ASSETS</span><h3>Pexels</h3>
+<span class="ea-type"><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="M5.5 17l4.2-4.2 3.1 3 2.4-2.4 3.3 3.6"/></svg><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path class="ea-card-video-play" d="M10 9l5 3-5 3z"/></svg><span>IMAGE + VIDEO · FREE ASSETS</span></span><h3>Pexels</h3>
 <p>Free stock photography and video for creative projects, with a straightforward usage license.</p>
 <a class="ea-resource-action" href="https://www.pexels.com/" rel="noopener noreferrer" target="_blank">VISIT RESOURCE ↗</a>
 </article><article class="ea-card" data-category="video audio assets" data-search="mixkit free video music sound effects templates assets">
-<span class="ea-type">VIDEO + AUDIO · FREE ASSETS</span><h3>Mixkit</h3>
+<span class="ea-type"><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path class="ea-card-video-play" d="M10 9l5 3-5 3z"/></svg><svg class="ea-card-type-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17.5a2.5 2.5 0 1 1-2-2.45V7l10-2v10.5a2.5 2.5 0 1 1-2-2.45V8L9 9.2z"/></svg><span>VIDEO + AUDIO · FREE ASSETS</span></span><h3>Mixkit</h3>
 <p>Free stock video, music, sound effects and templates. Check the license for the asset type you use.</p>
 <a class="ea-resource-action" href="https://mixkit.co/" rel="noopener noreferrer" target="_blank">VISIT RESOURCE ↗</a>
 </article></div>
