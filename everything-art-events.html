@@ -625,7 +625,7 @@ function textValue(v){return typeof v==='string'?v:'';}
 function datePart(v){const m=textValue(v).match(/^(\d{4}-\d{2}-\d{2})/);return m?m[1]:'';}
 function safeLink(v){const raw=typeof v==='string'?v:(v&&typeof v.url==='string'?v.url:'');try{const u=new URL(raw);return u.protocol==='https:'||u.protocol==='http:'?u.href:'';}catch{return '';}}
 function makeNode(tag,cls,value){const el=document.createElement(tag);if(cls)el.className=cls;if(value!==undefined)el.textContent=value;return el;}
-function parkKind(title,description,categories){const combined=(title+' '+description+' '+categories).replace(irrelevant,'');if(/\b(exhibition|exhibit|gallery|sculpture display)\b/i.test(combined))return 'exhibition';if(/\b(opening|reception)\b/i.test(combined))return 'opening';if(/\b(talk|lecture|discussion)\b/i.test(combined))return 'talk';if(/\b(kids|children|family|families)\b/i.test(combined))return 'family workshop';return 'workshop';}
+function parkKind(title,description,categories){const combined=(title+' '+description+' '+categories).replace(falseArt,'');if(/\b(exhibition|exhibit|gallery|sculpture display)\b/i.test(combined))return 'exhibition';if(/\b(opening|reception)\b/i.test(combined))return 'opening';if(/\b(talk|lecture|discussion)\b/i.test(combined))return 'talk';if(/\b(kids|children|family|families)\b/i.test(combined))return 'family workshop';return 'workshop';}
 async function loadParksArt(){
  try{
   const response=await fetch(parksEndpoint,{headers:{Accept:'application/json'}});
