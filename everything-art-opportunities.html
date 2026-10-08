@@ -145,10 +145,17 @@
             border-color: #ffd633;
             color: #111;
         }
+        /* Reusable long-selection toggle treatment: stays before optional pills. */
         body.everything-art-opportunities-theme .op-toolbox .filter-row .filter-more-button:not(.active) {
-            background: #292929 !important;
-            border-color: #555 !important;
-            color: #f5f5f5 !important;
+            background: #3b3216 !important;
+            border-color: #aa8722 !important;
+            color: #ffe17a !important;
+        }
+        body.everything-art-opportunities-theme .op-toolbox .filter-row .filter-more-button:hover,
+        body.everything-art-opportunities-theme .op-toolbox .filter-row .filter-more-button:focus-visible {
+            background: #50411a !important;
+            border-color: #ffd633 !important;
+            color: #fff0ae !important;
         }
         /* Desktop visibility must come AFTER the general pill display rule. */
         @media (min-width: 901px) {
@@ -562,12 +569,12 @@
                 <button class="filter-button" data-filter-group="feature" data-filter="worldwide">🌎 Worldwide</button>
                 <button class="filter-button" data-filter-group="feature" data-filter="nyc">🗽 NYC</button>
                 <button class="filter-button" data-filter-group="feature" data-filter="us">🇺🇸 U.S.</button>
+                <button class="filter-button filter-more-button" type="button" data-more-target="feature" aria-expanded="false">More ↓</button>
                 <button class="filter-button desktop-extra" data-filter-group="feature" data-filter="germany">🇩🇪 Germany</button>
                 <button class="filter-button desktop-extra" data-filter-group="feature" data-filter="france">🇫🇷 France</button>
                 <button class="filter-button desktop-extra" data-filter-group="feature" data-filter="uk">🇬🇧 UK</button>
                 <button class="filter-button desktop-extra" data-filter-group="feature" data-filter="canada">🇨🇦 Canada</button>
                 <button class="filter-button desktop-extra" data-filter-group="feature" data-filter="japan">🇯🇵 Japan</button>
-                <button class="filter-button filter-more-button" type="button" data-more-target="feature" aria-expanded="false">More ↓</button>
                 <button class="filter-button desktop-extra" data-filter-group="feature" data-filter="free">Free to Apply</button>
                 <button class="filter-button desktop-extra" data-filter-group="feature" data-filter="funded">💰 Funded / Paid</button>
                 <button class="filter-button desktop-extra" data-filter-group="feature" data-filter="rolling">♾ Rolling</button>
