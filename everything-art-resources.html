@@ -11,7 +11,7 @@
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap");
 *{box-sizing:border-box} :root{--yellow:#f3cf39;--bg:#0d0d0d;--panel:#171717;--card:#202020;--line:rgba(255,255,255,.12);--text:#f5f5f5;--muted:#a6a6a6}
-html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);font-family:"Space Grotesk",Arial,Helvetica,sans-serif} button,input{font:inherit}
+html,body{margin:0;min-height:100%} body{background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}.ea-studio{font-family:"Space Grotesk",Arial,Helvetica,sans-serif} button,input{font:inherit}
 .ea-studio{min-height:100vh;padding:12px}
 .ea-sidebar{position:fixed;left:12px;top:12px;bottom:12px;width:300px;z-index:20;display:flex;flex-direction:column;overflow-y:auto;padding:18px;border:1px solid var(--line);border-radius:20px;background:rgba(23,23,23,.97)}
 .ea-sidebar-head{padding-bottom:17px;border-bottom:1px solid var(--line)} .ea-kicker{color:var(--yellow);font-size:.62rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase}
@@ -356,197 +356,9 @@ body.ea-utilities-active .empty-state{
 }
 
 
-/* =========================================================
-   TEST BUILD 1.0.23
-   CLEAN EVERYTHING ART NAV + DESKTOP SIDEBAR OFFSET
-   ========================================================= */
-
-:root{
-  --ea-nav-desktop-h:79px;
-}
-
-/* Sticky Everything Art navigation */
-.ea-mini-nav{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  width:100%;
-  background:rgba(7,7,7,.96);
-  border-bottom:1px solid rgba(255,255,255,.08);
-}
-.ea-mini-nav-inner{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:18px;
-  min-height:var(--ea-nav-desktop-h);
-  padding:18px 34px;
-}
-.ea-mini-primary,
-.ea-mini-secondary{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-.ea-mini-link{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:42px;
-  padding:0 20px;
-  border:1px solid rgba(255,255,255,.25);
-  border-radius:999px;
-  background:rgba(10,10,10,.58);
-  color:#f1f1f1;
-  text-decoration:none;
-  font-size:.78rem;
-  font-weight:900;
-  letter-spacing:.02em;
-  white-space:nowrap;
-}
-.ea-mini-link.is-current{
-  color:#f6d232;
-  border-color:#f6d232;
-}
-.ea-mini-facebook{
-  color:#4aa3ff;
-  border-color:#4aa3ff;
-}
-.ea-mini-ar{
-  width:42px;
-  min-width:42px;
-  height:42px;
-  min-height:42px;
-  padding:0;
-  border-radius:50%;
-}
-.ea-mini-ar img{
-  display:block;
-  width:28px;
-  height:28px;
-  object-fit:contain;
-  border-radius:50%;
-}
-
-/* Desktop: the sidebar begins BELOW the sticky EA navigation. */
-@media(min-width:1001px){
-  .ea-sidebar{
-    top:calc(var(--ea-nav-desktop-h) + 12px) !important;
-    bottom:12px !important;
-  }
-}
-
-/* Phone: real two-row layout. Nothing is absolutely positioned.
-   Row 1: EA / Opportunities / Art Events
-   Row 2: Resources ........ FB Group / AR */
-@media(max-width:700px){
-  .ea-mini-nav-inner{
-    display:grid;
-    grid-template-columns:minmax(0,1fr) auto;
-    grid-template-areas:
-      "primary primary"
-      "resource secondary";
-    gap:10px 8px;
-    min-height:0;
-    padding:12px;
-  }
-
-  .ea-mini-primary{
-    grid-area:primary;
-    display:grid;
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:8px;
-    min-width:0;
-  }
-
-  .ea-mini-primary > :nth-child(1){grid-column:1}
-  .ea-mini-primary > :nth-child(2){grid-column:2}
-  .ea-mini-primary > :nth-child(3){grid-column:3}
-
-  /* Resources becomes the left cell of row 2. */
-  .ea-mini-primary > :nth-child(4){
-    grid-area:auto;
-    position:absolute;
-    visibility:hidden;
-    pointer-events:none;
-  }
-
-  .ea-mini-nav-inner::after{
-    content:"RESOURCES";
-    grid-area:resource;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    min-height:36px;
-    padding:0 8px;
-    border:1px solid #f6d232;
-    border-radius:999px;
-    color:#f6d232;
-    background:rgba(10,10,10,.58);
-    font-size:.66rem;
-    font-weight:900;
-    letter-spacing:.02em;
-  }
-
-  .ea-mini-secondary{
-    grid-area:secondary;
-    display:flex;
-    align-items:center;
-    justify-content:flex-end;
-    gap:8px;
-  }
-
-  .ea-mini-link{
-    box-sizing:border-box;
-    width:100%;
-    min-width:0;
-    min-height:36px;
-    padding:0 8px;
-    font-size:.66rem;
-    text-align:center;
-  }
-
-  .ea-mini-facebook{
-    width:auto;
-    min-width:112px;
-    padding:0 14px;
-  }
-
-  .ea-mini-ar{
-    width:36px;
-    min-width:36px;
-    height:36px;
-    min-height:36px;
-    padding:0;
-    border-radius:50%;
-    flex:0 0 36px;
-  }
-  .ea-mini-ar img{
-    width:24px;
-    height:24px;
-    border-radius:50%;
-  }
-}
-
-/* On wider phones/tablets, keep the same clean navigation behavior. */
-@media(min-width:701px) and (max-width:1000px){
-  .ea-mini-nav-inner{
-    padding:12px 16px;
-  }
-  .ea-mini-link{
-    min-height:38px;
-    padding:0 14px;
-    font-size:.7rem;
-  }
-  .ea-mini-ar{
-    width:38px;
-    min-width:38px;
-    height:38px;
-    min-height:38px;
-  }
-}
-
-
+/* Keep the Studio sidebar below the shared sticky navigation. */
+:root{--ea-nav-desktop-h:79px}
+@media(min-width:1001px){.ea-sidebar{top:calc(var(--ea-nav-desktop-h) + 12px) !important;bottom:12px !important}}
 
 /* =========================================================
    TEST BUILD 1.0.24
@@ -757,110 +569,110 @@ body.ea-utilities-active .empty-state{
 }
 
 
-/* 1.0.41 — Shared Everything Art navigation typography */
-.ea-mini-nav .ea-mini-link,
-.ea-mini-nav .ea-mini-ar {
-  font-family: Arial, Helvetica, sans-serif !important;
-}
 
+/* Shared header copied verbatim from working everything-art.html */
+/* Everything Art phone header: canonical two-row layout */
+        @media (max-width: 700px) {
+            body.everything-art-theme .ea-mini-nav-inner {
+                display: grid !important;
+                grid-template-columns: 1fr auto !important;
+                grid-template-rows: auto auto !important;
+                gap: 7px 8px !important;
+                padding: 10px 12px !important;
+                align-items: center !important;
+            }
 
-/* =========================================================
-   BUILD 1.0.42 — MATCH EVERYTHING ART NAV TYPOGRAPHY
-   Typography only. Keep Resources page sizing/layout intact.
-   ========================================================= */
-.ea-mini-nav .ea-mini-link{
-  font-family: Arial, Helvetica, sans-serif !important;
-  font-size: .78rem !important;
-  font-weight: 700 !important;
-  letter-spacing: 0 !important;
-  line-height: 1 !important;
-}
+            body.everything-art-theme .ea-mini-primary {
+                grid-column: 1 / -1 !important;
+                grid-row: 1 / 3 !important;
+                width: 100% !important;
+                display: grid !important;
+                grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+                grid-template-rows: auto auto !important;
+                gap: 7px !important;
+            }
 
-@media(max-width:700px){
-  .ea-mini-nav .ea-mini-link{
-    font-size: .66rem !important;
-    font-weight: 700 !important;
-    letter-spacing: 0 !important;
-  }
-}
+            body.everything-art-theme .ea-mini-primary .ea-mini-link:nth-child(1) {
+                grid-column: 1 !important;
+                grid-row: 1 !important;
+            }
 
-@media(min-width:701px) and (max-width:1000px){
-  .ea-mini-nav .ea-mini-link{
-    font-size: .70rem !important;
-    font-weight: 700 !important;
-    letter-spacing: 0 !important;
-  }
-}
+            body.everything-art-theme .ea-mini-primary .ea-mini-link:nth-child(2) {
+                grid-column: 2 !important;
+                grid-row: 1 !important;
+            }
 
+            body.everything-art-theme .ea-mini-primary .ea-mini-link:nth-child(3) {
+                grid-column: 3 !important;
+                grid-row: 1 !important;
+            }
 
-/* Current Resources header behavior — preserved, not redesigned in 1.0.45 */
-@media (max-width:700px){
-    body.everything-art-theme .ea-mini-nav-inner::after{
-        content:none !important;
-        display:none !important;
-    }
-    body.everything-art-theme .ea-mini-primary > :nth-child(4){
-        position:static !important;
-        visibility:visible !important;
-        pointer-events:auto !important;
-        grid-column:1 !important;
-        grid-row:2 !important;
-    }
-    body.everything-art-theme .ea-mini-primary{
-        grid-column:1 / -1 !important;
-        grid-row:1 / 3 !important;
-        display:grid !important;
-        grid-template-columns:repeat(3,minmax(0,1fr)) !important;
-        grid-template-rows:auto auto !important;
-        gap:7px !important;
-    }
-    body.everything-art-theme .ea-mini-primary .ea-mini-link:nth-child(1){grid-column:1 !important;grid-row:1 !important;}
-    body.everything-art-theme .ea-mini-primary .ea-mini-link:nth-child(2){grid-column:2 !important;grid-row:1 !important;}
-    body.everything-art-theme .ea-mini-primary .ea-mini-link:nth-child(3){grid-column:3 !important;grid-row:1 !important;}
-    body.everything-art-theme .ea-mini-primary .ea-mini-link:nth-child(4){grid-column:1 !important;grid-row:2 !important;}
-    body.everything-art-theme .ea-mini-actions{
-        grid-column:2 !important;
-        grid-row:2 !important;
-        display:flex !important;
-        align-items:center !important;
-        justify-content:flex-end !important;
-        gap:7px !important;
-    }
-}
+            body.everything-art-theme .ea-mini-primary .ea-mini-link:nth-child(4) {
+                grid-column: 1 !important;
+                grid-row: 2 !important;
+            }
 
+            body.everything-art-theme .ea-mini-actions {
+                grid-column: 2 !important;
+                grid-row: 2 !important;
+                width: auto !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: flex-end !important;
+                gap: 7px !important;
+                z-index: 2 !important;
+            }
 
+            body.everything-art-theme .ea-mini-actions .ea-mini-facebook {
+                min-height: 38px !important;
+                height: 38px !important;
+                padding: 0 13px !important;
+                font-size: .62rem !important;
+            }
 
+            body.everything-art-theme .ea-mini-ar {
+                flex: 0 0 38px !important;
+                width: 38px !important;
+                min-width: 38px !important;
+                max-width: 38px !important;
+                height: 38px !important;
+                min-height: 38px !important;
+                max-height: 38px !important;
+            }
+        }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
 </head>
 <body class="everything-art-theme">
 
 <nav class="ea-mini-nav" aria-label="Everything Art navigation">
-    <div class="ea-mini-nav-inner">
+        <div class="ea-mini-nav-inner">
 
-        <div class="ea-mini-primary">
-            <a class="ea-mini-link" href="everything-art.html">EVERYTHING ART</a>
-            <a class="ea-mini-link" href="everything-art-opportunities.html">OPPORTUNITIES</a>
-            <a class="ea-mini-link" href="everything-art-events.html">ART EVENTS</a>
-            <span class="ea-mini-link is-current" aria-current="page">RESOURCES</span>
+            <div class="ea-mini-primary">
+                <a class="ea-mini-link" href="everything-art.html">EVERYTHING ART</a>
+                <a class="ea-mini-link" href="everything-art-opportunities.html">OPPORTUNITIES</a>
+                <a class="ea-mini-link" href="everything-art-events.html">ART EVENTS</a>
+                <span class="ea-mini-link is-current" aria-current="page">RESOURCES</span>
+            </div>
+
+            <div class="ea-mini-actions">
+                <a class="ea-mini-link ea-mini-facebook"
+                   href="https://www.facebook.com/groups/GreatArt"
+                   target="_blank"
+                   rel="noopener noreferrer">FB GROUP ↗</a>
+
+                <a class="ea-mini-ar"
+                   href="index.html"
+                   aria-label="Alex Reynoso Art home"
+                   title="Alex Reynoso Art">
+                    <img src="images/favicon.png" alt="">
+                </a>
+            </div>
+
         </div>
-
-        <div class="ea-mini-actions">
-            <a class="ea-mini-link ea-mini-facebook"
-               href="https://www.facebook.com/groups/GreatArt"
-               target="_blank"
-               rel="noopener noreferrer">FB GROUP ↗</a>
-
-            <a class="ea-mini-link ea-mini-ar"
-               href="index.html"
-               title="Alex Reynoso Art"
-               aria-label="Alex Reynoso Art">
-                <img src="images/favicon.png" alt="">
-            </a>
-        </div>
-
-    </div>
-</nav>
+    </nav>
 
 <div class="ea-studio">
 <aside class="ea-sidebar">
@@ -879,7 +691,7 @@ body.ea-utilities-active .empty-state{
 <button class="ea-filter" data-filter="learn">Learn</button>
 <button type="button" data-filter="utilities" class="ea-utilities-filter">Utilities</button>
 </div></div>
-<div class="ea-note">Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>BUILD · 1.0.50</strong></div>
+<div class="ea-note">Resources is the first module. The center is intentionally a reusable workspace for future Everything Art tools.</div><div class="ea-build-version">EVERYTHING ART CREATIVE STUDIO<br><strong>BUILD · 1.0.52</strong></div>
 </aside>
 
 <main class="ea-main"><section class="ea-workspace">
