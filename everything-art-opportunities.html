@@ -1540,6 +1540,10 @@
             featureMatch = days !== null && days >= 0 && days <= 14;
         }
 
+        // Expired dated opportunities are never shown, even under search.
+        const daysRemaining = daysUntil(deadline);
+        if (daysRemaining !== null && daysRemaining < 0) return false;
+
         return disciplineMatch && typeMatch && featureMatch && (!q || text.includes(q));
     }
 
@@ -1548,7 +1552,7 @@
 
         const matched = cards.filter(matches);
 
-        // Deadline first. Undated/rolling listings follow dated listings.
+        // Upcoming deadlines first. Undated/rolling listings follow dated listings.
         matched.sort((a, b) => {
             const ad = a.dataset.deadline || '9999-12-31';
             const bd = b.dataset.deadline || '9999-12-31';
