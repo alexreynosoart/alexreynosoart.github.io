@@ -277,7 +277,7 @@
 </div>
 <h1>ART EVENTS</h1>
 <p>Exhibitions, openings, art fairs, festivals, workshops, talks and online events. From New York City to the wider art world, find something worth seeing.</p>
-<div class="op-updated"><span class="op-live-dot" aria-hidden="true"></span>Art event hub · Live sources</div>
+<div class="op-updated"><span class="op-live-dot" aria-hidden="true"></span>Art event hub · NYC Parks live listings</div>
 </section>
 
 <section class="op-toolbox" aria-label="Filter art events">
@@ -428,14 +428,15 @@
 
 <script>
 (function(){
-const cards=[...document.querySelectorAll('.op-card')], buttons=[...document.querySelectorAll('.filter-button')];
+let cards=[...document.querySelectorAll('.op-card')]; const buttons=[...document.querySelectorAll('.filter-button')];
 const search=document.getElementById('opSearch'), count=document.getElementById('resultCount'), noResults=document.getElementById('noResults'), reset=document.getElementById('resetFilters'), top=document.getElementById('backToTop');
 let type='all', feature='all';
 function days(d){if(!d)return null;const a=new Date();a.setHours(0,0,0,0);const target=new Date(d+'T00:00:00');return Math.round((target-a)/86400000);}
 function info(c){const f=(c.dataset.features||'').split(/\s+/),t=(c.dataset.type||'').split(/\s+/);let flag='🎨',place='Art Event';
 if(f.includes('nyc')){flag='🗽';place='New York City';}else if(c.dataset.country==='France'){flag='🇫🇷';place='Paris';}else if(c.dataset.country==='United Kingdom'){flag='🇬🇧';place='London';}else if(f.includes('us')){flag='🇺🇸';place='United States';}else if(f.includes('worldwide')){flag='🌎';place='Worldwide';}
 let kind=t.includes('fair')?'Art Fair':t.includes('exhibition')?'Exhibition':t.includes('workshop')?'Workshop':t.includes('talk')?'Talk':t.includes('family')?'Family':'Event';return{flag,place,kind};}
-cards.forEach(c=>{const i=info(c),d=document.createElement('div');d.className='op-thumb';d.setAttribute('aria-hidden','true');d.innerHTML='<div class="op-thumb-inner"><span class="op-thumb-flag">'+i.flag+'</span><span class="op-thumb-type">'+i.kind+'</span><span class="op-thumb-country">'+i.place+'</span></div>';c.insertBefore(d,c.firstChild);});
+function addThumb(c){const i=info(c),d=document.createElement('div');d.className='op-thumb';d.setAttribute('aria-hidden','true');d.innerHTML='<div class="op-thumb-inner"><span class="op-thumb-flag">'+i.flag+'</span><span class="op-thumb-type">'+i.kind+'</span><span class="op-thumb-country">'+i.place+'</span></div>';c.insertBefore(d,c.firstChild);}
+cards.forEach(addThumb);
 function match(c){
   // A single-day event expires after its event day. Exhibitions/fairs expire after their last day.
   const finalDate=c.dataset.endDate||c.dataset.date;
@@ -447,10 +448,44 @@ function match(c){
   if(feature==='soon'){const x=days(c.dataset.date);b=x!==null&&x>=0&&x<=30;}
   return a&&b&&(!q||c.innerText.toLowerCase().includes(q));
 }
-function apply(){const m=cards.filter(match).sort((a,b)=>(a.dataset.date||'9999').localeCompare(b.dataset.date||'9999'));cards.forEach(c=>c.style.display='none');m.forEach(c=>c.style.display='flex');count.textContent=m.length===1?'Showing 1 art event':'Showing '+m.length+' art events';noResults.style.display=m.length?'none':'block';}
+function apply(){const m=cards.filter(match).sort((a,b)=>(a.dataset.date||'9999').localeCompare(b.dataset.date||'9999'));cards.forEach(c=>c.style.display='none');m.forEach(c=>{c.style.display='flex';document.getElementById('opGrid').append(c);});count.textContent=m.length===1?'Showing 1 art event':'Showing '+m.length+' art events';noResults.style.display=m.length?'none':'block';}
 buttons.forEach(b=>b.addEventListener('click',()=>{const g=b.dataset.filterGroup;document.querySelectorAll('[data-filter-group="'+g+'"]').forEach(x=>x.classList.remove('active'));b.classList.add('active');if(g==='type')type=b.dataset.filter;else feature=b.dataset.filter;apply();}));
 search.addEventListener('input',apply);
 reset.addEventListener('click',()=>{type=feature='all';search.value='';buttons.forEach(b=>b.classList.remove('active'));document.querySelector('[data-filter-group="type"][data-filter="all"]').classList.add('active');document.querySelector('[data-filter-group="feature"][data-filter="all"]').classList.add('active');apply();});
+/* NYC Parks official daily-updated, upcoming-14-days dataset. Public JSON API. */
+const parksEndpoint='https://data.cityofnewyork.us/resource/w3wp-dpdi.json?$limit=2000';
+const artWords=/\b(art|arts|artist|painting|paint|drawing|draw|sketch|sculpture|sculpting|ceramics|pottery|photography|photographic|printmaking|mural|craft|crafts|collage|watercolor|illustration|creative|gallery|exhibition|exhibit|weaving|textile|origami|puppet|puppetry)\b/i;
+const irrelevant=/\b(martial arts|artificial|heart|performing arts|culinary arts)\b/ig;
+function textValue(v){return typeof v==='string'?v:'';}
+function datePart(v){const m=textValue(v).match(/^(\d{4}-\d{2}-\d{2})/);return m?m[1]:'';}
+function safeLink(v){const raw=typeof v==='string'?v:(v&&typeof v.url==='string'?v.url:'');try{const u=new URL(raw);return u.protocol==='https:'||u.protocol==='http:'?u.href:'';}catch{return '';}}
+function makeNode(tag,cls,value){const el=document.createElement(tag);if(cls)el.className=cls;if(value!==undefined)el.textContent=value;return el;}
+function parkKind(title,description,categories){const combined=(title+' '+description+' '+categories).replace(irrelevant,'');if(/\b(exhibition|exhibit|gallery|sculpture display)\b/i.test(combined))return 'exhibition';if(/\b(opening|reception)\b/i.test(combined))return 'opening';if(/\b(talk|lecture|discussion)\b/i.test(combined))return 'talk';if(/\b(kids|children|family|families)\b/i.test(combined))return 'family workshop';return 'workshop';}
+async function loadParksArt(){
+ try{
+  const response=await fetch(parksEndpoint,{headers:{Accept:'application/json'}});
+  if(!response.ok)throw Error('NYC Parks API '+response.status);
+  const records=await response.json();if(!Array.isArray(records))throw Error('Unexpected NYC Parks response');
+  const seen=new Set();const grid=document.getElementById('opGrid');let added=0;
+  for(const item of records){
+   const title=textValue(item.title).trim(),desc=textValue(item.description).replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim(),cat=textValue(item.categories);
+   if(!title||!artWords.test((title+' '+desc+' '+cat).replace(irrelevant,'')))continue;
+   const start=datePart(item.starttime),end=datePart(item.endtime)||start;
+   if(!start||days(end)<0)continue;
+   const url=safeLink(item.link);if(!url)continue;
+   const id=String(item.guid||url+'|'+start);if(seen.has(id))continue;seen.add(id);
+   const park=textValue(item.parknames)||'NYC Parks',location=textValue(item.location);
+   const kind=parkKind(title,desc,cat);const isFree=/\bfree\b/i.test(title+' '+desc+' '+cat);
+   const card=makeNode('article','op-card');card.dataset.type=kind;card.dataset.features='nyc us'+(isFree?' free':'');card.dataset.date=start;card.dataset.endDate=end;card.dataset.country='United States';
+   const badges=makeNode('div','op-badges');badges.append(makeNode('span','op-badge','🗽 NYC Parks'),makeNode('span','op-badge',kind.includes('family')?'Family / Workshop':kind.charAt(0).toUpperCase()+kind.slice(1)));if(isFree)badges.append(makeNode('span','op-badge','Free'));card.append(badges);
+   card.append(makeNode('h2','',title),makeNode('div','op-org',park+(location?' · '+location:'')),makeNode('p','op-description',desc.slice(0,360)||'See the official NYC Parks listing for details.'));
+   const meta=makeNode('div','op-meta'),date=makeNode('div','');date.append(makeNode('strong','', 'Date(s): '),document.createTextNode(start+(end!==start?' – '+end:'')));meta.append(date);card.append(meta);
+   const link=makeNode('a','op-link','VIEW OFFICIAL EVENT →');link.href=url;link.target='_blank';link.rel='noopener noreferrer';card.append(link);addThumb(card);grid.append(card);cards.push(card);added++;
+  }
+  apply();console.info('Everything Art: loaded '+added+' NYC Parks art events');
+ }catch(error){console.warn('NYC Parks events unavailable; showing existing listings.',error);}
+}
+loadParksArt();
 window.addEventListener('scroll',()=>top.classList.toggle('show',window.scrollY>700));top.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));document.addEventListener('visibilitychange',()=>{if(!document.hidden)apply();});window.addEventListener('focus',apply);apply();
 })();
 </script>
