@@ -1,0 +1,29 @@
+name: Update Everything Art Events
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 */6 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: everything-art-events
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Collect and deduplicate art events
+        run: python scripts/collect_art_events.py
+      - name: Commit updated event cache
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/art-events.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update Everything Art event cache"
+            git push
+          fi
