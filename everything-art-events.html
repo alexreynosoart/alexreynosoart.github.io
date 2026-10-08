@@ -234,7 +234,11 @@
 
 /* Compact descriptions, expanded on demand */
 body.everything-art-events-theme .op-description.ea-clamped {display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:4; overflow:hidden;}
-body.everything-art-events-theme .ea-description-toggle {align-self:flex-start; background:none; border:0; color:#ffdb36; cursor:pointer; padding:2px 0 8px; font:inherit; font-size:.85rem; font-weight:700;}
+body.everything-art-events-theme .op-card .ea-description-toggle {display:block; align-self:flex-start; width:auto; flex:0 0 auto; margin:0 0 12px; background:none; border:0; color:#ffdb36; cursor:pointer; padding:2px 0; font:inherit; font-size:.85rem; font-weight:700; text-align:left; order:0;}
+body.everything-art-events-theme .op-card .op-description {order:0;}
+body.everything-art-events-theme .op-card .op-meta {order:1;}
+body.everything-art-events-theme .op-card .op-link {order:2;}
+body.everything-art-events-theme .op-card .ea-description-toggle[hidden] {display:none;}
 body.everything-art-events-theme .ea-description-toggle:hover {text-decoration:underline;}
 body.everything-art-events-theme .ea-description-toggle:focus-visible {outline:2px solid #ffdb36; outline-offset:3px;}
 body.everything-art-events-theme .ea-page-controls {display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; margin:16px 0 20px;}
@@ -317,6 +321,11 @@ body.everything-art-events-theme .ea-load-more[hidden],body.everything-art-event
 <button class="filter-button" data-filter-group="feature" data-filter="free">Free</button>
 <button class="filter-button" data-filter-group="feature" data-filter="soon">⏰ Coming Soon</button>
 <button class="filter-button filter-more-button" type="button" aria-expanded="false">More ↓</button>
+<button class="filter-button desktop-extra" data-filter-group="feature" data-filter="germany">🇩🇪 Germany</button>
+<button class="filter-button desktop-extra" data-filter-group="feature" data-filter="france">🇫🇷 France</button>
+<button class="filter-button desktop-extra" data-filter-group="feature" data-filter="uk">🇬🇧 UK</button>
+<button class="filter-button desktop-extra" data-filter-group="feature" data-filter="canada">🇨🇦 Canada</button>
+<button class="filter-button desktop-extra" data-filter-group="feature" data-filter="japan">🇯🇵 Japan</button>
 <button class="filter-button desktop-extra" data-filter-group="feature" data-filter="online">💻 Online</button>
 </div></div>
 </section>
@@ -468,7 +477,7 @@ pageSizeSelect.addEventListener('change',resetPage);
 loadMore.addEventListener('click',()=>{visibleLimit+=Number(pageSizeSelect.value);apply();});
 function days(d){if(!d)return null;const a=new Date();a.setHours(0,0,0,0);const target=new Date(d+'T00:00:00');return Math.round((target-a)/86400000);}
 function info(c){const f=(c.dataset.features||'').split(/\s+/),t=(c.dataset.type||'').split(/\s+/);let flag='🎨',place='Art Event';
-if(f.includes('nyc')){flag='🗽';place='New York City';}else if(c.dataset.country==='France'){flag='🇫🇷';place='Paris';}else if(c.dataset.country==='United Kingdom'){flag='🇬🇧';place='London';}else if(f.includes('us')){flag='🇺🇸';place='United States';}else if(f.includes('worldwide')){flag='🌎';place='Worldwide';}
+if(f.includes('nyc')){flag='🗽';place='New York City';}else if(c.dataset.country==='France'){flag='🇫🇷';place='Paris';}else if(c.dataset.country==='United Kingdom'){flag='🇬🇧';place='London';}else if(c.dataset.country==='Germany'){flag='🇩🇪';place='Germany';}else if(c.dataset.country==='Canada'){flag='🇨🇦';place='Canada';}else if(c.dataset.country==='Japan'){flag='🇯🇵';place='Japan';}else if(f.includes('us')){flag='🇺🇸';place='United States';}else if(f.includes('worldwide')){flag='🌎';place='Worldwide';}
 let kind=t.includes('fair')?'Art Fair':t.includes('exhibition')?'Exhibition':t.includes('workshop')?'Workshop':t.includes('talk')?'Talk':t.includes('family')?'Family':'Event';return{flag,place,kind};}
 function addThumb(c){const i=info(c),d=document.createElement('div');d.className='op-thumb';d.setAttribute('aria-hidden','true');d.innerHTML='<div class="op-thumb-inner"><span class="op-thumb-flag">'+i.flag+'</span><span class="op-thumb-type">'+i.kind+'</span><span class="op-thumb-country">'+i.place+'</span></div>';c.insertBefore(d,c.firstChild);}
 cards.forEach(addThumb);
@@ -478,7 +487,9 @@ function match(c){
   if(finalDate && days(finalDate)<0)return false;
   const q=search.value.trim().toLowerCase(),types=(c.dataset.type||'').split(/\s+/),features=(c.dataset.features||'').split(/\s+/);
   const a=type==='all'||types.includes(type);
-  let b=feature==='all'||features.includes(feature);
+  const country=(c.dataset.country||'').trim().toLowerCase();
+  const countryFilters={germany:'germany',france:'france',uk:'united kingdom',canada:'canada',japan:'japan'};
+  let b=feature==='all'||features.includes(feature)||(countryFilters[feature]&&country===countryFilters[feature]);
   // Coming Soon means starting within the next 30 days, not already underway.
   if(feature==='soon'){const x=days(c.dataset.date);b=x!==null&&x>=0&&x<=30;}
   return a&&b&&(!q||c.innerText.toLowerCase().includes(q));
