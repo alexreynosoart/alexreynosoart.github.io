@@ -462,6 +462,18 @@
         }
     </style>
 
+    <style>
+        /* Narrow screens: every filter is available by horizontal scrolling.
+           Desktop-only More/Less controls must not take up space in the rail. */
+        @media (max-width: 900px) {
+            body.everything-art-opportunities-theme .op-toolbox .filter-row .filter-button.filter-more-button {
+                display: none !important;
+            }
+            body.everything-art-opportunities-theme .op-toolbox .filter-row .filter-button.desktop-extra {
+                display: inline-flex !important;
+            }
+        }
+    </style>
 </head>
 
 <body class="everything-art-opportunities-theme">
