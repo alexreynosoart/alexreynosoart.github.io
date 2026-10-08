@@ -644,21 +644,14 @@ window.addEventListener('scroll',()=>top.classList.toggle('show',window.scrollY>
 </script>
 
 <script>
-/* Independent desktop More/Less controls. A group stays open after choosing
-   any filter; it closes only when its own Less button is clicked. */
+/* Match the proven Opportunities More/Less interaction exactly.
+   Expanded rows remain open until their own Less button is clicked. */
 document.querySelectorAll('.everything-art-events-theme .op-toolbox .filter-more-button').forEach(button => {
-    button.addEventListener('click', event => {
-        event.preventDefault();
-        event.stopPropagation();
+    button.addEventListener('click', () => {
         const row = button.closest('.filter-row');
-        const expanded = !row.classList.contains('is-expanded');
-        // Keep the toggle at the same viewport position as the extra pills appear.
-        const before = button.getBoundingClientRect().top;
-        row.classList.toggle('is-expanded', expanded);
+        const expanded = row.classList.toggle('is-expanded');
+        button.setAttribute('aria-expanded', expanded ? 'true' : 'false');
         button.textContent = expanded ? 'Less ↑' : 'More ↓';
-        button.setAttribute('aria-expanded', String(expanded));
-        const after = button.getBoundingClientRect().top;
-        if (Math.abs(after - before) > 1) window.scrollBy(0, after - before);
     });
 });
 </script>
