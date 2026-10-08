@@ -5281,9 +5281,9 @@ header nav a:not(:last-child)::after {
 }
 
 /* Current page is a label, not a navigation button. */
-.ea-site-footer .ea-family-footer > a[aria-current="page"],
+.ea-site-footer .ea-family-footer > [aria-current="page"],
 .ea-site-footer .ea-family-footer > .is-current {
-    color: #f4c430;
+    color: #999;
     background: transparent;
     border: 0;
     text-decoration: none;
