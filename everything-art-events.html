@@ -232,6 +232,19 @@
         /* Filters scroll with page; only the site navigation remains sticky. */
         body.everything-art-events-theme .op-toolbox { position: static !important; top: auto !important; }
 
+/* Compact descriptions, expanded on demand */
+body.everything-art-events-theme .op-description.ea-clamped {display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:4; overflow:hidden;}
+body.everything-art-events-theme .ea-description-toggle {align-self:flex-start; background:none; border:0; color:#ffdb36; cursor:pointer; padding:2px 0 8px; font:inherit; font-size:.85rem; font-weight:700;}
+body.everything-art-events-theme .ea-description-toggle:hover {text-decoration:underline;}
+body.everything-art-events-theme .ea-description-toggle:focus-visible {outline:2px solid #ffdb36; outline-offset:3px;}
+body.everything-art-events-theme .ea-page-controls {display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; margin:16px 0 20px;}
+body.everything-art-events-theme .ea-page-controls label {display:flex; align-items:center; gap:10px; color:#bbb; font-size:.9rem;}
+body.everything-art-events-theme .ea-page-controls select {background:#272727; color:#fff; border:1px solid #555; border-radius:24px; padding:9px 30px 9px 14px; font:inherit;}
+body.everything-art-events-theme .ea-load-more-wrap {text-align:center; padding:24px 0 10px;}
+body.everything-art-events-theme .ea-load-more {border:1px solid #c49c18; border-radius:28px; background:#3b3115; color:#ffdf66; padding:13px 30px; font:inherit; font-weight:700; cursor:pointer;}
+body.everything-art-events-theme .ea-load-more:hover {background:#55441a;}
+body.everything-art-events-theme .ea-load-more[hidden],body.everything-art-events-theme .ea-description-toggle[hidden] {display:none;}
+@media(max-width:600px){body.everything-art-events-theme .ea-page-controls {align-items:flex-start;}body.everything-art-events-theme .ea-page-controls label {margin-left:auto;}}
 </style>
 </head>
 
@@ -309,6 +322,7 @@
 </section>
 
 <div class="op-statusbar"><span id="resultCount">Showing upcoming art events</span><span class="op-reset" id="resetFilters">Reset filters</span></div>
+<div class="ea-page-controls"><span id="eaShowing" aria-live="polite">Loading live art events…</span><label for="eaPageSize">Show <select id="eaPageSize" aria-label="Events per batch"><option value="12">12</option><option value="24" selected>24</option><option value="48">48</option><option value="96">96</option></select> at a time</label></div>
 <section class="op-grid" id="opGrid">
         <article class="op-card" data-type="exhibition" data-features="nyc us soon" data-date="2026-09-27" data-country="United States" data-end-date="2027-06-13">
             <div class="op-badges"><span class="op-badge">🗽 NYC</span><span class="op-badge">Exhibition</span><span class="op-badge">Opens Sep 27</span></div>
@@ -382,6 +396,7 @@
             <div class="op-meta"><div><strong>Date(s):</strong> December 4–6, 2026</div><div><strong>Details:</strong> Miami Beach, Florida</div></div>
             <a class="op-link" href="https://www.artbasel.com/" target="_blank" rel="noopener noreferrer">VIEW OFFICIAL FAIR →</a>
         </article></section>
+<div class="ea-load-more-wrap"><button id="eaLoadMore" class="ea-load-more" type="button" hidden>Load more events ↓</button></div>
 <div class="no-results" id="noResults">No events match those filters yet. Try another category or location.</div>
 
 <section class="resource-desk events-resource-desk">
@@ -432,6 +447,25 @@ let cards=[...document.querySelectorAll('.op-card')]; const buttons=[...document
 const search=document.getElementById('opSearch'), count=document.getElementById('resultCount'), noResults=document.getElementById('noResults'), reset=document.getElementById('resetFilters'), top=document.getElementById('backToTop');
 let type='all', feature='all';
 let liveEventsLoading=true; // Wait for the NYC Parks response before displaying a final count.
+const pageSizeSelect=document.getElementById('eaPageSize'),loadMore=document.getElementById('eaLoadMore'),showing=document.getElementById('eaShowing');
+let visibleLimit=Number(pageSizeSelect.value);
+function prepareDescriptions(){
+ cards.forEach(card=>{
+  const description=card.querySelector('.op-description');
+  if(!description||description.dataset.eaPrepared)return;
+  description.dataset.eaPrepared='1';
+  description.classList.add('ea-clamped');
+  const toggle=document.createElement('button');toggle.type='button';toggle.className='ea-description-toggle';toggle.textContent='Read more ↓';toggle.setAttribute('aria-expanded','false');
+  description.insertAdjacentElement('afterend',toggle);
+  toggle.addEventListener('click',()=>{const expanded=description.classList.toggle('ea-expanded');description.classList.toggle('ea-clamped',!expanded);toggle.textContent=expanded?'Read less ↑':'Read more ↓';toggle.setAttribute('aria-expanded',String(expanded));});
+  const measure=()=>{if(description.classList.contains('ea-clamped')){toggle.hidden=description.scrollHeight<=description.clientHeight+2;}else{toggle.hidden=false;}};
+  if(typeof ResizeObserver!=='undefined'){const observer=new ResizeObserver(measure);observer.observe(description);}else{window.addEventListener('resize',measure);}
+  requestAnimationFrame(measure);
+ });
+}
+function resetPage(){visibleLimit=Number(pageSizeSelect.value);apply();}
+pageSizeSelect.addEventListener('change',resetPage);
+loadMore.addEventListener('click',()=>{visibleLimit+=Number(pageSizeSelect.value);apply();});
 function days(d){if(!d)return null;const a=new Date();a.setHours(0,0,0,0);const target=new Date(d+'T00:00:00');return Math.round((target-a)/86400000);}
 function info(c){const f=(c.dataset.features||'').split(/\s+/),t=(c.dataset.type||'').split(/\s+/);let flag='🎨',place='Art Event';
 if(f.includes('nyc')){flag='🗽';place='New York City';}else if(c.dataset.country==='France'){flag='🇫🇷';place='Paris';}else if(c.dataset.country==='United Kingdom'){flag='🇬🇧';place='London';}else if(f.includes('us')){flag='🇺🇸';place='United States';}else if(f.includes('worldwide')){flag='🌎';place='Worldwide';}
@@ -449,10 +483,20 @@ function match(c){
   if(feature==='soon'){const x=days(c.dataset.date);b=x!==null&&x>=0&&x<=30;}
   return a&&b&&(!q||c.innerText.toLowerCase().includes(q));
 }
-function apply(){const m=cards.filter(match).sort((a,b)=>(a.dataset.date||'9999').localeCompare(b.dataset.date||'9999'));cards.forEach(c=>c.style.display='none');m.forEach(c=>{c.style.display='flex';document.getElementById('opGrid').append(c);});count.textContent=liveEventsLoading?'Loading live art events…':(m.length===1?'Showing 1 art event':'Showing '+m.length+' art events');noResults.style.display=liveEventsLoading?'none':(m.length?'none':'block');}
-buttons.forEach(b=>b.addEventListener('click',()=>{const g=b.dataset.filterGroup;document.querySelectorAll('[data-filter-group="'+g+'"]').forEach(x=>x.classList.remove('active'));b.classList.add('active');if(g==='type')type=b.dataset.filter;else feature=b.dataset.filter;apply();}));
+function apply(){
+ const m=cards.filter(match).sort((a,b)=>(a.dataset.date||'9999').localeCompare(b.dataset.date||'9999'));
+ cards.forEach(c=>c.style.display='none');
+ m.forEach((c,i)=>{c.style.display=i<visibleLimit?'flex':'none';document.getElementById('opGrid').append(c);});
+ count.textContent=liveEventsLoading?'Loading live art events…':(m.length===1?'1 matching art event':m.length+' matching art events');
+ showing.textContent=liveEventsLoading?'Loading live art events…':'Showing '+Math.min(m.length,visibleLimit)+' of '+m.length+' events';
+ loadMore.hidden=liveEventsLoading||m.length<=visibleLimit;
+ noResults.style.display=liveEventsLoading?'none':(m.length?'none':'block');
+ prepareDescriptions();
+ requestAnimationFrame(()=>document.querySelectorAll('.op-card:not([style*="display: none"]) .ea-description-toggle').forEach(button=>{const d=button.previousElementSibling;if(d&&d.classList.contains('ea-clamped'))button.hidden=d.scrollHeight<=d.clientHeight+2;}));
+}
+buttons.forEach(b=>b.addEventListener('click',()=>{const g=b.dataset.filterGroup;document.querySelectorAll('[data-filter-group="'+g+'"]').forEach(x=>x.classList.remove('active'));b.classList.add('active');if(g==='type')type=b.dataset.filter;else feature=b.dataset.filter;resetPage();}));
 search.addEventListener('input',apply);
-reset.addEventListener('click',()=>{type=feature='all';search.value='';buttons.forEach(b=>b.classList.remove('active'));document.querySelector('[data-filter-group="type"][data-filter="all"]').classList.add('active');document.querySelector('[data-filter-group="feature"][data-filter="all"]').classList.add('active');apply();});
+reset.addEventListener('click',()=>{type=feature='all';search.value='';buttons.forEach(b=>b.classList.remove('active'));document.querySelector('[data-filter-group="type"][data-filter="all"]').classList.add('active');document.querySelector('[data-filter-group="feature"][data-filter="all"]').classList.add('active');resetPage();});
 /* NYC Parks official daily-updated, upcoming-14-days dataset. Public JSON API. */
 const parksEndpoint='https://data.cityofnewyork.us/resource/w3wp-dpdi.json?$limit=2000';
 const artWords=/\b(art|arts|artist|painting|paint|drawing|draw|sketch|sculpture|sculpting|ceramics|pottery|photography|photographic|printmaking|mural|craft|crafts|collage|watercolor|illustration|creative|gallery|exhibition|exhibit|weaving|textile|origami|puppet|puppetry)\b/i;
