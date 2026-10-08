@@ -238,6 +238,16 @@ body.everything-art-events-theme .op-card .ea-description-toggle {display:block;
 body.everything-art-events-theme .op-card .op-description {order:0;}
 body.everything-art-events-theme .op-card .op-meta {order:1;}
 body.everything-art-events-theme .op-card .op-link {order:2;}
+/* Keep Read more immediately after its description, ahead of date and CTA.
+   Explicit flex order also overrides the shared card layout rules. */
+body.everything-art-events-theme .op-card > .op-badges,
+body.everything-art-events-theme .op-card > .op-thumb,
+body.everything-art-events-theme .op-card > h2,
+body.everything-art-events-theme .op-card > .op-org {order:0 !important;}
+body.everything-art-events-theme .op-card > .op-description {order:1 !important;}
+body.everything-art-events-theme .op-card > .ea-description-toggle {order:2 !important; align-self:flex-start !important; margin:4px 0 14px !important;}
+body.everything-art-events-theme .op-card > .op-meta {order:3 !important;}
+body.everything-art-events-theme .op-card > .op-link {order:4 !important;}
 body.everything-art-events-theme .op-card .ea-description-toggle[hidden] {display:none;}
 body.everything-art-events-theme .ea-description-toggle:hover {text-decoration:underline;}
 body.everything-art-events-theme .ea-description-toggle:focus-visible {outline:2px solid #ffdb36; outline-offset:3px;}
