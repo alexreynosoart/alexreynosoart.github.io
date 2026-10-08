@@ -536,7 +536,7 @@ body.everything-art-events-theme .ea-load-more[hidden],body.everything-art-event
 
 <script>
 (function(){
-let cards=[...document.querySelectorAll('.op-card')]; const buttons=[...document.querySelectorAll('.filter-button')];
+let cards=[...document.querySelectorAll('.op-card')]; const buttons=[...document.querySelectorAll('.filter-button[data-filter-group]')];
 const search=document.getElementById('opSearch'), count=document.getElementById('resultCount'), noResults=document.getElementById('noResults'), reset=document.getElementById('resetFilters'), top=document.getElementById('backToTop');
 let type='all', feature='all';
 let liveEventsLoading=true; // Wait for the NYC Parks response before displaying a final count.
