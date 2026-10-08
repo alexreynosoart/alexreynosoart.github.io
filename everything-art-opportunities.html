@@ -81,6 +81,39 @@
             }
         }
 
+        /* Match Resources label typography and consistent leading space. */
+        body.everything-art-opportunities-theme .op-toolbox .op-filter-block {
+            margin-top: 18px;
+        }
+        body.everything-art-opportunities-theme .op-toolbox .op-filter-label {
+            display: block;
+            margin: 0 0 7px;
+            color: #bdbdbd;
+            font-size: .62rem;
+            font-weight: 900;
+            letter-spacing: .11em;
+            line-height: 1.4;
+            text-transform: uppercase;
+        }
+        body.everything-art-opportunities-theme .op-toolbox .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 7px;
+            margin: 0;
+            padding: 0;
+        }
+        /* Wide screens: collapsed extras are truly hidden, even though pill CSS
+           below explicitly sets display:inline-flex. Each row expands separately. */
+        @media (min-width: 901px) {
+            body.everything-art-opportunities-theme .op-toolbox .filter-row .filter-button.desktop-extra {
+                display: none;
+            }
+            body.everything-art-opportunities-theme .op-toolbox .filter-row.is-expanded .filter-button.desktop-extra {
+                display: inline-flex;
+            }
+        }
+
         /* Opportunities filter pills: exact Resources 1.0.55 visual treatment.
            Scoped to this toolbox so the shared navigation and cards stay untouched. */
         body.everything-art-opportunities-theme .op-toolbox .filter-row .filter-button {
@@ -116,6 +149,11 @@
             background: #292929 !important;
             border-color: #555 !important;
             color: #f5f5f5 !important;
+        }
+        /* Desktop visibility must come AFTER the general pill display rule. */
+        @media (min-width: 901px) {
+            body.everything-art-opportunities-theme .op-toolbox .filter-row:not(.is-expanded) .filter-button.desktop-extra { display: none; }
+            body.everything-art-opportunities-theme .op-toolbox .filter-row.is-expanded .filter-button.desktop-extra { display: inline-flex; }
         }
         @media (max-width: 900px) {
             body.everything-art-opportunities-theme .op-toolbox .filter-row {
@@ -530,10 +568,10 @@
                 <button class="filter-button desktop-extra" data-filter-group="feature" data-filter="canada">🇨🇦 Canada</button>
                 <button class="filter-button desktop-extra" data-filter-group="feature" data-filter="japan">🇯🇵 Japan</button>
                 <button class="filter-button filter-more-button" type="button" data-more-target="feature" aria-expanded="false">More ↓</button>
-                <button class="filter-button" data-filter-group="feature" data-filter="free">Free to Apply</button>
-                <button class="filter-button" data-filter-group="feature" data-filter="funded">💰 Funded / Paid</button>
-                <button class="filter-button" data-filter-group="feature" data-filter="rolling">♾ Rolling</button>
-                <button class="filter-button" data-filter-group="feature" data-filter="closing">⏰ Closing Soon</button>
+                <button class="filter-button desktop-extra" data-filter-group="feature" data-filter="free">Free to Apply</button>
+                <button class="filter-button desktop-extra" data-filter-group="feature" data-filter="funded">💰 Funded / Paid</button>
+                <button class="filter-button desktop-extra" data-filter-group="feature" data-filter="rolling">♾ Rolling</button>
+                <button class="filter-button desktop-extra" data-filter-group="feature" data-filter="closing">⏰ Closing Soon</button>
             </div>
         </div>
     </section>
@@ -1634,7 +1672,7 @@
             const row = button.closest('.filter-row');
             const expanded = row.classList.toggle('is-expanded');
             button.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-            button.textContent = expanded ? 'LESS ↑' : 'MORE ↓';
+            button.textContent = expanded ? 'Less ↑' : 'More ↓';
         });
     });
 
