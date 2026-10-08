@@ -606,21 +606,17 @@ search.addEventListener('input',apply);
 reset.addEventListener('click',()=>{type=feature='all';search.value='';buttons.forEach(b=>b.classList.remove('active'));document.querySelector('[data-filter-group="type"][data-filter="all"]').classList.add('active');document.querySelector('[data-filter-group="feature"][data-filter="all"]').classList.add('active');resetPage();});
 /* NYC Parks official daily-updated, upcoming-14-days dataset. Public JSON API. */
 const parksEndpoint='https://data.cityofnewyork.us/resource/w3wp-dpdi.json?$limit=2000';
-/* Keep genuinely creative events, not general recreation that happens to mention art. */
-const artTitle=/\b(art|arts|artist|artmaking|painting|paint|drawing|draw|sketch|sculpture|sculpting|ceramic|ceramics|pottery|photography|photo walk|printmaking|mural|craft|crafts|collage|watercolor|illustration|gallery|exhibition|exhibit|weaving|textile|origami|puppet|puppetry|creative writing|film screening|film festival)\b/i;
-const artDescription=/\b(painting|drawing|sketching|sculpture|sculpting|ceramics|pottery|photography|printmaking|mural|collage|watercolor|illustration|artmaking|arts and crafts|art workshop|art class|artist talk|gallery tour|exhibition|exhibit|weaving|textile art|origami|puppet making|film screening)\b/i;
-const excludeRecreation=/\b(kids in motion|fitness|yoga|zumba|pilates|boot camp|workout|exercise|basketball|soccer|football|baseball|tennis|pickleball|swimming|swim lessons|sports|playground games|board games|water games|nature walk|birdwatching|bird watching|community board meeting|volunteer cleanup|clean-up|gardening workshop)\b/i;
+/* Prefer clear art intent. Do not reject mixed festivals merely because they mention games. */
+const artTitle=/\b(art|arts|artist|artmaking|painting|paint|drawing|draw|sketch|sculpture|sculpting|ceramic|ceramics|pottery|photography|photo walk|printmaking|mural|craft|crafts|collage|watercolor|illustration|gallery|exhibition|exhibit|weaving|textile|origami|puppet|puppetry|creative writing|film screening|film festival|museum)\b/i;
+const artDescription=/\b(painting|drawing|sketching|sculpture|sculpting|ceramics|pottery|photography|printmaking|mural|collage|watercolor|illustration|artmaking|arts and crafts|art workshop|art class|artist talk|gallery tour|exhibition|exhibit|weaving|textile art|origami|puppet making|film screening|art installation|public art|art exhibit|face.painting|pumpkin decorating)\b/i;
+const recreationTitle=/\b(kids in motion|fitness|yoga|zumba|pilates|boot camp|workout|exercise|basketball|soccer|football|baseball|tennis|pickleball|swimming|swim lessons|sports|playground|nature walk|birdwatching|bird watching|community board meeting|volunteer cleanup|clean.up)\b/i;
 const falseArt=/\b(martial arts|artificial|heart|culinary arts)\b/gi;
 function isArtEvent(title,description){
- const cleanTitle=title.replace(falseArt,'');
- const cleanDescription=description.replace(falseArt,'');
- // A broad Parks category or an incidental mention of 'arts' is not sufficient.
- if(excludeRecreation.test(cleanTitle))return false;
- if(artTitle.test(cleanTitle))return true;
- // For generic titles, require a specific artistic activity in the description,
- // and reject recreational events that merely list crafts among many activities.
- if(excludeRecreation.test(cleanDescription))return false;
- return artDescription.test(cleanDescription);
+ const t=title.replace(falseArt,''),d=description.replace(falseArt,'');
+ if(recreationTitle.test(t) && !artTitle.test(t))return false;
+ if(artTitle.test(t))return true;
+ // Generic festival titles need a clear, explicit creative activity in the description.
+ return artDescription.test(d);
 }
 function recurringKey(title,park,location){
  return [title,park,location].map(v=>v.toLowerCase().replace(/\s+/g,' ').trim()).join('|');
@@ -635,7 +631,7 @@ async function loadParksArt(){
   const response=await fetch(parksEndpoint,{headers:{Accept:'application/json'}});
   if(!response.ok)throw Error('NYC Parks API '+response.status);
   const records=await response.json();if(!Array.isArray(records))throw Error('Unexpected NYC Parks response');
-  const seen=new Set();const grid=document.getElementById('opGrid');let added=0;
+  const seen=new Set();const grid=document.getElementById('opGrid');let added=0;console.info('Everything Art: NYC Parks records received',records.length);
   for(const item of records){
    const title=textValue(item.title).trim(),desc=textValue(item.description).replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim(),cat=textValue(item.categories);
    if(!title||!isArtEvent(title,desc))continue;
