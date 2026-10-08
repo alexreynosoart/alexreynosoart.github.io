@@ -271,6 +271,34 @@ body.everything-art-events-theme .op-card > .ea-description-group > .ea-descript
   display:block;
 }
 body.everything-art-events-theme .op-card > .ea-description-group > .ea-description-toggle[hidden] {display:none !important;}
+/* v9: Full-width, left-aligned compact description on every device. */
+body.everything-art-events-theme .op-card > .ea-description-group {
+  align-items:stretch !important;
+  text-align:left !important;
+}
+body.everything-art-events-theme .op-card > .ea-description-group > .op-description {
+  display:block;
+  box-sizing:border-box;
+  width:100% !important;
+  max-width:none !important;
+  align-self:stretch !important;
+  margin-left:0 !important;
+  margin-right:0 !important;
+  padding-left:0 !important;
+  padding-right:0 !important;
+  text-align:left !important;
+}
+body.everything-art-events-theme .op-card > .ea-description-group > .op-description.ea-clamped {
+  display:-webkit-box !important;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:3;
+  overflow:hidden;
+}
+body.everything-art-events-theme .op-card > .ea-description-group > .ea-description-toggle {
+  align-self:flex-start !important;
+  text-align:left !important;
+}
+
 body.everything-art-events-theme .op-card .ea-description-toggle[hidden] {display:none;}
 body.everything-art-events-theme .ea-description-toggle:hover {text-decoration:underline;}
 body.everything-art-events-theme .ea-description-toggle:focus-visible {outline:2px solid #ffdb36; outline-offset:3px;}
