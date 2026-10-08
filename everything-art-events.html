@@ -596,15 +596,11 @@ function apply(){
 buttons.forEach(b=>b.addEventListener('click',()=>{
   const g=b.dataset.filterGroup;
   // Choosing a filter must not close an expanded More/Less group.
-  const expandedRows=[...document.querySelectorAll('.op-toolbox .filter-row.is-expanded')];
-  const scrollBefore=window.scrollY;
+  // Expansion state belongs to the More/Less control, not the selected filter.
   document.querySelectorAll('[data-filter-group="'+g+'"]').forEach(x=>x.classList.remove('active'));
   b.classList.add('active');
   if(g==='type')type=b.dataset.filter;else feature=b.dataset.filter;
   resetPage();
-  expandedRows.forEach(row=>row.classList.add('is-expanded'));
-  // Avoid scroll anchoring jumping past the extra country buttons when cards update.
-  requestAnimationFrame(()=>window.scrollTo({top:scrollBefore,behavior:'instant'}));
 }));
 search.addEventListener('input',apply);
 reset.addEventListener('click',()=>{type=feature='all';search.value='';buttons.forEach(b=>b.classList.remove('active'));document.querySelector('[data-filter-group="type"][data-filter="all"]').classList.add('active');document.querySelector('[data-filter-group="feature"][data-filter="all"]').classList.add('active');resetPage();});
@@ -653,11 +649,16 @@ window.addEventListener('scroll',()=>top.classList.toggle('show',window.scrollY>
 document.querySelectorAll('.everything-art-events-theme .op-toolbox .filter-more-button').forEach(button => {
     button.addEventListener('click', event => {
         event.preventDefault();
+        event.stopPropagation();
         const row = button.closest('.filter-row');
         const expanded = !row.classList.contains('is-expanded');
+        // Keep the toggle at the same viewport position as the extra pills appear.
+        const before = button.getBoundingClientRect().top;
         row.classList.toggle('is-expanded', expanded);
         button.textContent = expanded ? 'Less ↑' : 'More ↓';
         button.setAttribute('aria-expanded', String(expanded));
+        const after = button.getBoundingClientRect().top;
+        if (Math.abs(after - before) > 1) window.scrollBy(0, after - before);
     });
 });
 </script>
