@@ -5247,7 +5247,8 @@ header nav a:not(:last-child)::after {
     gap: 8px;
 }
 
-.ea-site-footer .ea-family-footer > a {
+.ea-site-footer .ea-family-footer > a,
+.ea-site-footer .ea-family-footer > .is-current {
     width: auto;
     height: 32px;
     min-width: 0;
@@ -5279,9 +5280,15 @@ header nav a:not(:last-child)::after {
     border-color: rgba(255, 255, 255, 0.48);
 }
 
-.ea-site-footer .ea-family-footer > a[aria-current="page"] {
+/* Current page is a label, not a navigation button. */
+.ea-site-footer .ea-family-footer > a[aria-current="page"],
+.ea-site-footer .ea-family-footer > .is-current {
     color: #f4c430;
-    border-color: #f4c430;
+    background: transparent;
+    border: 0;
+    text-decoration: none;
+    pointer-events: none;
+    cursor: default;
 }
 
 .ea-site-footer .ea-family-footer > .ea-family-fb {
@@ -5338,7 +5345,8 @@ header nav a:not(:last-child)::after {
         gap: 7px;
     }
 
-    .ea-site-footer .ea-family-footer > a {
+    .ea-site-footer .ea-family-footer > a,
+    .ea-site-footer .ea-family-footer > .is-current {
         height: 30px;
         min-height: 30px;
         padding: 0 9px;
