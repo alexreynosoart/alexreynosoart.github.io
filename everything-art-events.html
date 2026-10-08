@@ -229,6 +229,9 @@
             body.everything-art-events-theme .op-toolbox .filter-row .filter-more-button { display: none !important; }
             body.everything-art-events-theme .op-toolbox .filter-row .filter-button.desktop-extra { display: inline-flex !important; }
         }
+        /* Prevent live results changing height from shifting expanded filter choices. */
+        body.everything-art-events-theme .op-toolbox,
+        body.everything-art-events-theme .op-toolbox .filter-row { overflow-anchor: none; }
         /* Filters scroll with page; only the site navigation remains sticky. */
         body.everything-art-events-theme .op-toolbox { position: static !important; top: auto !important; }
 
@@ -590,7 +593,19 @@ function apply(){
  prepareDescriptions();
  requestAnimationFrame(()=>document.querySelectorAll('.op-card:not([style*="display: none"]) .ea-description-toggle').forEach(button=>{const d=button.previousElementSibling;if(d&&d.classList.contains('ea-clamped'))button.hidden=d.scrollHeight<=d.clientHeight+2;}));
 }
-buttons.forEach(b=>b.addEventListener('click',()=>{const g=b.dataset.filterGroup;document.querySelectorAll('[data-filter-group="'+g+'"]').forEach(x=>x.classList.remove('active'));b.classList.add('active');if(g==='type')type=b.dataset.filter;else feature=b.dataset.filter;resetPage();}));
+buttons.forEach(b=>b.addEventListener('click',()=>{
+  const g=b.dataset.filterGroup;
+  // Choosing a filter must not close an expanded More/Less group.
+  const expandedRows=[...document.querySelectorAll('.op-toolbox .filter-row.is-expanded')];
+  const scrollBefore=window.scrollY;
+  document.querySelectorAll('[data-filter-group="'+g+'"]').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  if(g==='type')type=b.dataset.filter;else feature=b.dataset.filter;
+  resetPage();
+  expandedRows.forEach(row=>row.classList.add('is-expanded'));
+  // Avoid scroll anchoring jumping past the extra country buttons when cards update.
+  requestAnimationFrame(()=>window.scrollTo({top:scrollBefore,behavior:'instant'}));
+}));
 search.addEventListener('input',apply);
 reset.addEventListener('click',()=>{type=feature='all';search.value='';buttons.forEach(b=>b.classList.remove('active'));document.querySelector('[data-filter-group="type"][data-filter="all"]').classList.add('active');document.querySelector('[data-filter-group="feature"][data-filter="all"]').classList.add('active');resetPage();});
 /* NYC Parks official daily-updated, upcoming-14-days dataset. Public JSON API. */
@@ -633,11 +648,14 @@ window.addEventListener('scroll',()=>top.classList.toggle('show',window.scrollY>
 </script>
 
 <script>
-/* Independent desktop More/Less controls, positioned before optional pills. */
+/* Independent desktop More/Less controls. A group stays open after choosing
+   any filter; it closes only when its own Less button is clicked. */
 document.querySelectorAll('.everything-art-events-theme .op-toolbox .filter-more-button').forEach(button => {
-    button.addEventListener('click', () => {
+    button.addEventListener('click', event => {
+        event.preventDefault();
         const row = button.closest('.filter-row');
-        const expanded = row.classList.toggle('is-expanded');
+        const expanded = !row.classList.contains('is-expanded');
+        row.classList.toggle('is-expanded', expanded);
         button.textContent = expanded ? 'Less ↑' : 'More ↓';
         button.setAttribute('aria-expanded', String(expanded));
     });
