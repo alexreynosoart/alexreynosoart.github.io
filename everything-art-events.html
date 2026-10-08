@@ -271,6 +271,26 @@ body.everything-art-events-theme .op-card > .ea-description-group > .ea-descript
   display:block;
 }
 body.everything-art-events-theme .op-card > .ea-description-group > .ea-description-toggle[hidden] {display:none !important;}
+/* v10: The shared stylesheet uses a two-column CSS GRID, not flex.
+   Place the description GROUP across both columns in row 4. */
+body.everything-art-events-theme .op-card > .ea-description-group {
+  grid-column: 1 / -1 !important;
+  grid-row: 4 !important;
+  justify-self: stretch !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box;
+}
+body.everything-art-events-theme .op-card > .ea-description-group > .op-description {
+  grid-column: auto !important;
+  grid-row: auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+body.everything-art-events-theme .op-card > .ea-description-group > .ea-description-toggle {
+  grid-column: auto !important;
+  grid-row: auto !important;
+}
 /* v9: Full-width, left-aligned compact description on every device. */
 body.everything-art-events-theme .op-card > .ea-description-group {
   align-items:stretch !important;
