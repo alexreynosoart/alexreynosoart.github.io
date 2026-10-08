@@ -123,6 +123,116 @@
         }
     </style>
 
+<style>
+        /* Match Resources label typography and consistent leading space. */
+        body.everything-art-events-theme .op-toolbox .op-filter-block {
+            margin-top: 18px;
+        }
+        body.everything-art-events-theme .op-toolbox .op-filter-label {
+            display: block;
+            margin: 0 0 7px;
+            color: #bdbdbd;
+            font-size: .62rem;
+            font-weight: 900;
+            letter-spacing: .11em;
+            line-height: 1.4;
+            text-transform: uppercase;
+        }
+        body.everything-art-events-theme .op-toolbox .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 7px;
+            margin: 0;
+            padding: 0;
+        }
+        /* Wide screens: collapsed extras are truly hidden, even though pill CSS
+           below explicitly sets display:inline-flex. Each row expands separately. */
+        @media (min-width: 901px) {
+            body.everything-art-events-theme .op-toolbox .filter-row .filter-button.desktop-extra {
+                display: none;
+            }
+            body.everything-art-events-theme .op-toolbox .filter-row.is-expanded .filter-button.desktop-extra {
+                display: inline-flex;
+            }
+        }
+
+        /* Art Events filter pills: exact Resources 1.0.55 visual treatment.
+           Scoped to this toolbox so the shared navigation and cards stay untouched. */
+        body.everything-art-events-theme .op-toolbox .filter-row .filter-button {
+            display: inline-flex;
+            flex: 0 0 auto;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: auto;
+            min-width: 0;
+            height: 38px;
+            min-height: 38px;
+            padding: 0 14px;
+            border: 1px solid #555;
+            border-radius: 999px;
+            background: #292929;
+            color: #f5f5f5;
+            font-size: .68rem;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            white-space: nowrap;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+        body.everything-art-events-theme .op-toolbox .filter-row .filter-button.active {
+            background: #ffd633;
+            border-color: #ffd633;
+            color: #111;
+        }
+        /* Reusable long-selection toggle treatment: stays before optional pills. */
+        body.everything-art-events-theme .op-toolbox .filter-row .filter-more-button:not(.active) {
+            background: #3b3216 !important;
+            border-color: #aa8722 !important;
+            color: #ffe17a !important;
+        }
+        body.everything-art-events-theme .op-toolbox .filter-row .filter-more-button:hover,
+        body.everything-art-events-theme .op-toolbox .filter-row .filter-more-button:focus-visible {
+            background: #50411a !important;
+            border-color: #ffd633 !important;
+            color: #fff0ae !important;
+        }
+        /* Desktop visibility must come AFTER the general pill display rule. */
+        @media (min-width: 901px) {
+            body.everything-art-events-theme .op-toolbox .filter-row:not(.is-expanded) .filter-button.desktop-extra { display: none; }
+            body.everything-art-events-theme .op-toolbox .filter-row.is-expanded .filter-button.desktop-extra { display: inline-flex; }
+        }
+        @media (max-width: 900px) {
+            body.everything-art-events-theme .op-toolbox .filter-row {
+                display: flex;
+                flex-wrap: nowrap;
+                align-items: center;
+                gap: 7px;
+                width: 100%;
+                max-width: 100%;
+                overflow-x: auto;
+                overflow-y: hidden;
+                padding: 0 0 3px;
+                -webkit-overflow-scrolling: touch;
+                overscroll-behavior-x: contain;
+                touch-action: pan-x;
+                scrollbar-width: none;
+            }
+            body.everything-art-events-theme .op-toolbox .filter-row::-webkit-scrollbar { display: none; }
+        }
+
+        /* Mobile/narrow: show all pills in swipeable rows; never show More/Less. */
+        @media (max-width: 900px) {
+            body.everything-art-events-theme .op-toolbox .filter-row .filter-more-button { display: none !important; }
+            body.everything-art-events-theme .op-toolbox .filter-row .filter-button.desktop-extra { display: inline-flex !important; }
+        }
+        /* Filters scroll with page; only the site navigation remains sticky. */
+        body.everything-art-events-theme .op-toolbox { position: static !important; top: auto !important; }
+
+</style>
 </head>
 
 <body class="everything-art-theme everything-art-events-theme">
@@ -172,24 +282,30 @@
 
 <section class="op-toolbox" aria-label="Filter art events">
 <input id="opSearch" class="op-search" type="search" placeholder="Search event, museum, city, artist or keyword..." aria-label="Search art events">
+<div class="op-filter-block">
+<span class="op-filter-label">Event Type</span>
 <div class="filter-row" aria-label="Event type">
-<button class="filter-button active" data-filter-group="type" data-filter="all">ALL</button>
-<button class="filter-button" data-filter-group="type" data-filter="exhibition">EXHIBITIONS</button>
-<button class="filter-button" data-filter-group="type" data-filter="opening">OPENINGS</button>
-<button class="filter-button" data-filter-group="type" data-filter="fair">ART FAIRS</button>
-<button class="filter-button" data-filter-group="type" data-filter="workshop">WORKSHOPS</button>
-<button class="filter-button" data-filter-group="type" data-filter="talk">TALKS</button>
-<button class="filter-button" data-filter-group="type" data-filter="family">FAMILY</button>
-</div>
-<div class="filter-row" aria-label="Event location">
-<button class="filter-button active" data-filter-group="feature" data-filter="all">ANYWHERE</button>
+<button class="filter-button active" data-filter-group="type" data-filter="all">All</button>
+<button class="filter-button" data-filter-group="type" data-filter="exhibition">Exhibitions</button>
+<button class="filter-button" data-filter-group="type" data-filter="opening">Openings</button>
+<button class="filter-button" data-filter-group="type" data-filter="fair">Art Fairs</button>
+<button class="filter-button" data-filter-group="type" data-filter="workshop">Workshops</button>
+<button class="filter-button" data-filter-group="type" data-filter="talk">Talks</button>
+<button class="filter-button filter-more-button" type="button" aria-expanded="false">More ↓</button>
+<button class="filter-button desktop-extra" data-filter-group="type" data-filter="family">Family</button>
+</div></div>
+<div class="op-filter-block">
+<span class="op-filter-label">Where + Features</span>
+<div class="filter-row" aria-label="Event location and features">
+<button class="filter-button active" data-filter-group="feature" data-filter="all">Anywhere</button>
 <button class="filter-button" data-filter-group="feature" data-filter="nyc">🗽 NYC</button>
 <button class="filter-button" data-filter-group="feature" data-filter="us">🇺🇸 U.S.</button>
-<button class="filter-button" data-filter-group="feature" data-filter="worldwide">🌎 WORLDWIDE</button>
-<button class="filter-button" data-filter-group="feature" data-filter="online">💻 ONLINE</button>
-<button class="filter-button" data-filter-group="feature" data-filter="free">FREE</button>
-<button class="filter-button" data-filter-group="feature" data-filter="soon">⏰ COMING SOON</button>
-</div>
+<button class="filter-button" data-filter-group="feature" data-filter="worldwide">🌎 Worldwide</button>
+<button class="filter-button" data-filter-group="feature" data-filter="free">Free</button>
+<button class="filter-button" data-filter-group="feature" data-filter="soon">⏰ Coming Soon</button>
+<button class="filter-button filter-more-button" type="button" aria-expanded="false">More ↓</button>
+<button class="filter-button desktop-extra" data-filter-group="feature" data-filter="online">💻 Online</button>
+</div></div>
 </section>
 
 <div class="op-statusbar"><span id="resultCount">Showing upcoming art events</span><span class="op-reset" id="resetFilters">Reset filters</span></div>
@@ -329,6 +445,17 @@ window.addEventListener('scroll',()=>top.classList.toggle('show',window.scrollY>
 })();
 </script>
 
+<script>
+/* Independent desktop More/Less controls, positioned before optional pills. */
+document.querySelectorAll('.everything-art-events-theme .op-toolbox .filter-more-button').forEach(button => {
+    button.addEventListener('click', () => {
+        const row = button.closest('.filter-row');
+        const expanded = row.classList.toggle('is-expanded');
+        button.textContent = expanded ? 'Less ↑' : 'More ↓';
+        button.setAttribute('aria-expanded', String(expanded));
+    });
+});
+</script>
     <script src="js/script.js"></script>
     
 </body>
