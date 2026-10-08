@@ -538,7 +538,8 @@ body.everything-art-events-theme .ea-load-more[hidden],body.everything-art-event
 let cards=[...document.querySelectorAll('.op-card')]; const buttons=[...document.querySelectorAll('.filter-button[data-filter-group]')];
 const search=document.getElementById('opSearch'), count=document.getElementById('resultCount'), noResults=document.getElementById('noResults'), reset=document.getElementById('resetFilters'), top=document.getElementById('backToTop');
 let type='all', feature='all';
-let liveEventsLoading=true; // Wait for the NYC Parks response before displaying a final count.
+let pendingSources=2; // NYC Parks and Whitney load independently.
+ let liveEventsLoading=true;
 const pageSizeSelect=document.getElementById('eaPageSize'),loadMore=document.getElementById('eaLoadMore'),showing=document.getElementById('eaShowing');
 let visibleLimit=Number(pageSizeSelect.value);
 function prepareDescriptions(){
@@ -585,10 +586,10 @@ function apply(){
  const m=cards.filter(match).sort((a,b)=>(a.dataset.date||'9999').localeCompare(b.dataset.date||'9999'));
  cards.forEach(c=>c.style.display='none');
  m.forEach((c,i)=>{c.style.display=i<visibleLimit?'flex':'none';document.getElementById('opGrid').append(c);});
- count.textContent=liveEventsLoading?'Loading live art events…':(m.length===1?'1 matching art event':m.length+' matching art events');
- showing.textContent=liveEventsLoading?'Loading live art events…':'Showing '+Math.min(m.length,visibleLimit)+' of '+m.length+' events';
- loadMore.hidden=liveEventsLoading||m.length<=visibleLimit;
- noResults.style.display=liveEventsLoading?'none':(m.length?'none':'block');
+ count.textContent=(m.length===1?'1 matching art event':m.length+' matching art events')+(liveEventsLoading?' · Updating…':'');
+ showing.textContent='Showing '+Math.min(m.length,visibleLimit)+' of '+m.length+' events'+(liveEventsLoading?' · Updating art events…':'');
+ loadMore.hidden=m.length<=visibleLimit;
+ noResults.style.display=liveEventsLoading||m.length?'none':'block';
  prepareDescriptions();
  requestAnimationFrame(()=>document.querySelectorAll('.op-card:not([style*="display: none"]) .ea-description-toggle').forEach(button=>{const d=button.previousElementSibling;if(d&&d.classList.contains('ea-clamped'))button.hidden=d.scrollHeight<=d.clientHeight+2;}));
 }
@@ -650,6 +651,76 @@ async function loadParksArt(){
  }catch(error){console.warn('NYC Parks events unavailable; showing existing listings.',error);}
  finally{liveEventsLoading=false;apply();}
 }
+ // Each source finishes separately. The directory is always usable.
+ function sourceFinished(){pendingSources=Math.max(0,pendingSources-1);liveEventsLoading=pendingSources>0;apply();}
+ function cleanHtml(html){const node=document.createElement('div');node.innerHTML=String(html||'');return (node.textContent||'').replace(/\s+/g,' ').trim();}
+ function canonicalTitle(value){return String(value||'').toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim();}
+ function sameEvent(title,date,venue){
+   const key=canonicalTitle(title),v=canonicalTitle(venue);
+   return cards.some(card=>{
+     if(card.dataset.date!==date||canonicalTitle(card.querySelector('h2')?.textContent)!==key)return false;
+     const existing=canonicalTitle(card.querySelector('.op-org')?.textContent);
+     // A matching title/date at the same institution is a strong match.
+     return existing.includes(v)||v.includes(existing)||existing.includes('whitney')&&v.includes('whitney');
+   });
+ }
+ function whitneyType(title,description){
+   const t=(title+' '+description).toLowerCase();
+   if(/opening|reception/.test(title.toLowerCase()))return 'opening';
+   if(/workshop|artmaking|drawing|painting|craft|family|families|kids|children|teens/.test(t))return 'family workshop';
+   if(/lecture|talk|conversation|discussion|reading|panel/.test(title.toLowerCase()))return 'talk';
+   if(/exhibition/.test(title.toLowerCase()))return 'exhibition';
+   if(/tour|gallery|artist|art|museum|biennial|film|performance/.test(t))return 'exhibition';
+   return '';
+ }
+ async function loadWhitney(){
+   let added=0;
+   try{
+     // The Whitney publishes this documented public JSON API. Page count is capped
+     // to avoid excessive traffic; an inaccessible cross-origin response fails safely.
+     let next='https://whitney.org/api/events';
+     const visited=new Set();
+     for(let page=0;page<4&&next&&!visited.has(next);page++){
+       visited.add(next);
+       const response=await fetch(next,{headers:{Accept:'application/json'}});
+       if(!response.ok)throw Error('Whitney API '+response.status);
+       const payload=await response.json();
+       if(!Array.isArray(payload.data))throw Error('Unexpected Whitney API response');
+       for(const item of payload.data){
+         const a=item.attributes||{},title=cleanHtml(a.title),desc=cleanHtml(a.description);
+         const start=datePart(a.start_time),end=datePart(a.end_time)||start;
+         if(!title||!start||days(end)<0)continue;
+         const kind=whitneyType(title,desc);
+         if(!kind)continue;
+         const venue='Whitney Museum of American Art';
+         if(sameEvent(title,start,venue))continue;
+         const raw=String(a.url||'');
+         const url=safeLink(raw.startsWith('/')?'https://whitney.org'+raw:raw);
+         if(!url||!url.startsWith('https://whitney.org/'))continue;
+         const free=/\bfree\b/i.test(title+' '+desc);
+         const card=makeNode('article','op-card');
+         card.dataset.type=kind;card.dataset.features='nyc us'+(free?' free':'');
+         card.dataset.date=start;card.dataset.endDate=end;card.dataset.country='United States';
+         const badges=makeNode('div','op-badges');
+         badges.append(makeNode('span','op-badge','🗽 NYC'),makeNode('span','op-badge','Whitney'),makeNode('span','op-badge',kind.includes('family')?'Family / Workshop':kind.charAt(0).toUpperCase()+kind.slice(1)));
+         if(free)badges.append(makeNode('span','op-badge','Free'));
+         card.append(badges,makeNode('h2','',title),makeNode('div','op-org',venue+' · Manhattan, NY'),makeNode('p','op-description',desc.slice(0,360)||'See the official Whitney event page for details.'));
+         const meta=makeNode('div','op-meta'),date=makeNode('div','');
+         date.append(makeNode('strong','','Date(s): '),document.createTextNode(start+(end!==start?' – '+end:'')));
+         meta.append(date);card.append(meta);
+         const link=makeNode('a','op-link','VIEW OFFICIAL EVENT →');link.href=url;link.target='_blank';link.rel='noopener noreferrer';card.append(link);
+         addThumb(card);document.getElementById('opGrid').append(card);cards.push(card);added++;
+       }
+       apply();
+       const candidate=payload.links&&payload.links.next;
+       next=typeof candidate==='string'&&candidate?(candidate.startsWith('/')?'https://whitney.org'+candidate:candidate):null;
+       if(next&&!next.startsWith('https://whitney.org/'))next=null;
+     }
+     console.info('Everything Art: loaded '+added+' Whitney art events');
+   }catch(error){console.warn('Whitney events unavailable; existing events remain visible.',error);}
+   finally{sourceFinished();}
+ }
+ loadWhitney();
 loadParksArt();
 window.addEventListener('scroll',()=>top.classList.toggle('show',window.scrollY>700));top.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));document.addEventListener('visibilitychange',()=>{if(!document.hidden)apply();});window.addEventListener('focus',apply);apply();
 })();
