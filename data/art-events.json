@@ -1,8 +1,11 @@
 {
-  "updatedAt": "2026-10-08T23:07:26.520955+00:00",
+  "updatedAt": "2026-10-08T23:37:14.780585+00:00",
   "sources": {
     "NYC Parks": 43,
-    "Whitney": 9
+    "Whitney": 9,
+    "MoMA": 0,
+    "Guggenheim": 0,
+    "NYPL": 0
   },
   "events": [
     {
