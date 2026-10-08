@@ -538,7 +538,7 @@ body.everything-art-events-theme .ea-load-more[hidden],body.everything-art-event
 let cards=[...document.querySelectorAll('.op-card')]; const buttons=[...document.querySelectorAll('.filter-button[data-filter-group]')];
 const search=document.getElementById('opSearch'), count=document.getElementById('resultCount'), noResults=document.getElementById('noResults'), reset=document.getElementById('resetFilters'), top=document.getElementById('backToTop');
 let type='all', feature='all';
-let pendingSources=2; // NYC Parks and Whitney load independently.
+let pendingSources=1; // The prebuilt GitHub cache is loaded first; live APIs are fallback only.
  let liveEventsLoading=true;
 const pageSizeSelect=document.getElementById('eaPageSize'),loadMore=document.getElementById('eaLoadMore'),showing=document.getElementById('eaShowing');
 let visibleLimit=Number(pageSizeSelect.value);
@@ -649,7 +649,7 @@ async function loadParksArt(){
   }
   console.info('Everything Art: loaded '+added+' NYC Parks art events');
  }catch(error){console.warn('NYC Parks events unavailable; showing existing listings.',error);}
- finally{liveEventsLoading=false;apply();}
+ finally{sourceFinished();}
 }
  // Each source finishes separately. The directory is always usable.
  function sourceFinished(){pendingSources=Math.max(0,pendingSources-1);liveEventsLoading=pendingSources>0;apply();}
@@ -720,8 +720,43 @@ async function loadParksArt(){
    }catch(error){console.warn('Whitney events unavailable; existing events remain visible.',error);}
    finally{sourceFinished();}
  }
- loadWhitney();
-loadParksArt();
+// Prefer the prebuilt cache. If it is absent, retain both original live sources.
+ async function loadEventCache(){
+   try{
+     const response=await fetch('data/art-events.json',{cache:'no-cache'});
+     if(!response.ok)throw Error('Event cache unavailable: '+response.status);
+     const payload=await response.json();
+     if(!payload||!Array.isArray(payload.events)||!payload.updatedAt)throw Error('Invalid event cache');
+     // Reject stale cache so visitors still see up-to-date live listings.
+     if(Date.now()-Date.parse(payload.updatedAt)>36*60*60*1000)throw Error('Event cache is stale');
+     let added=0;
+     for(const event of payload.events){
+       const title=String(event.title||'').trim(),start=datePart(event.date),end=datePart(event.endDate)||start;
+       const venue=String(event.venue||'').trim(),link=safeLink(event.url);
+       if(!title||!start||days(end)<0||!link||sameEvent(title,start,venue))continue;
+       const kind=String(event.type||'workshop');
+       const card=makeNode('article','op-card');
+       card.dataset.type=kind;card.dataset.features=String(event.features||'nyc us');
+       card.dataset.date=start;card.dataset.endDate=end;card.dataset.country=String(event.country||'United States');
+       const badges=makeNode('div','op-badges');
+       badges.append(makeNode('span','op-badge',event.source==='NYC Parks'?'🗽 NYC Parks':'🗽 NYC'),makeNode('span','op-badge',kind.includes('family')?'Family / Workshop':kind.charAt(0).toUpperCase()+kind.slice(1)));
+       if(event.source==='Whitney')badges.append(makeNode('span','op-badge','Whitney'));
+       if(event.free)badges.append(makeNode('span','op-badge','Free'));
+       card.append(badges,makeNode('h2','',title),makeNode('div','op-org',venue+(event.location?' · '+event.location:'')),makeNode('p','op-description',String(event.description||'See official event listing for details.').slice(0,360)));
+       const meta=makeNode('div','op-meta'),date=makeNode('div');
+       date.append(makeNode('strong','','Date(s): '),document.createTextNode(start+(end!==start?' – '+end:'')));
+       meta.append(date);card.append(meta);
+       const a=makeNode('a','op-link','VIEW OFFICIAL EVENT →');a.href=link;a.target='_blank';a.rel='noopener noreferrer';card.append(a);
+       addThumb(card);document.getElementById('opGrid').append(card);cards.push(card);added++;
+     }
+     console.info('Everything Art: loaded '+added+' cached art events');
+   }catch(error){
+     console.info('Everything Art: using original live feeds as fallback.',error);
+     pendingSources+=2;
+     loadWhitney();loadParksArt();
+   }finally{sourceFinished();}
+ }
+ loadEventCache();
 window.addEventListener('scroll',()=>top.classList.toggle('show',window.scrollY>700));top.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));document.addEventListener('visibilitychange',()=>{if(!document.hidden)apply();});window.addEventListener('focus',apply);apply();
 })();
 </script>
