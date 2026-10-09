@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Everything Art opportunities collector. Standard-library only.
 
-Reads existing data/art-opportunities.json, checks configured RSS/Atom feeds,
+Reads existing data/art-opportunities.json, collects public deadline listings,
 retains current opportunities, and expires dated entries. Never fabricates
 application deadlines or assumes that an undated article is an open call.
 """
@@ -114,6 +114,115 @@ def collect_feed(source):
         found.append({'title':title[:180],'organization':source.get('name',''),'description':desc[:550],'url':link,'deadline':deadline,'discipline':' '.join(disciplines or ['interdisciplinary']),'type':' '.join(types or ['open-call']),'features':'','country':'','source':source.get('name','RSS source'),'status':'Automatically discovered; confirm with organizer'})
     return found
 
+
+# On the Move publishes a structured public deadline directory rather than an RSS feed.
+# Each deadline is taken from its listing row, not guessed from a detail page.
+class DeadlineDirectoryParser(HTMLParser):
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.heading = ''
+        self.in_heading = False
+        self.in_list_item = 0
+        self.item = None
+        self.items = []
+        self.in_link = False
+        self.in_main = False
+
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        if tag == 'h1':
+            self.in_main = True
+        if tag == 'h2' and self.in_main:
+            self.in_heading = True
+            self.heading = ''
+        if tag == 'li' and self.in_main:
+            if self.in_list_item == 0:
+                self.item = {'section': self.heading, 'text': '', 'title': '', 'url': ''}
+            self.in_list_item += 1
+        if tag == 'a' and self.item is not None and not self.item['url']:
+            href = a.get('href', '')
+            if href and ('/news/' in href or href.startswith('/news/')):
+                self.item['url'] = href
+                self.in_link = True
+
+    def handle_data(self, data):
+        if self.in_heading:
+            self.heading += data
+        if self.item is not None:
+            self.item['text'] += data + ' '
+            if self.in_link:
+                self.item['title'] += data
+
+    def handle_endtag(self, tag):
+        if tag == 'h2':
+            self.in_heading = False
+            self.heading = ' '.join(self.heading.split())
+        if tag == 'a':
+            self.in_link = False
+        if tag == 'li' and self.in_list_item:
+            self.in_list_item -= 1
+            if self.in_list_item == 0:
+                self.items.append(self.item)
+                self.item = None
+
+DIRECTORY_SECTIONS = {
+    'Project funding': 'grant',
+    'Commissions & tenders': 'open-call',
+    'Presenting work': 'open-call exhibition',
+    'Competitions & awards': 'competition',
+    'Training': 'training',
+    'Residencies': 'residency',
+    'Meeting & networking': 'resource',
+    'Fellowships': 'fellowship',
+    'Jobs': 'job',
+}
+
+def collect_on_the_move(source):
+    url = source.get('url', 'https://www.on-the-move.org/news/deadlines')
+    page = download(url).decode('utf-8', 'replace')
+    parser = DeadlineDirectoryParser()
+    parser.feed(page)
+    found = []
+    for item in parser.items:
+        section = item['section']
+        if section not in DIRECTORY_SECTIONS or not item['url']:
+            continue
+        title = ' '.join(item['title'].split())
+        content = ' '.join(item['text'].split())
+        if not title or len(title) < 10:
+            continue
+        # Multiple dates on a row are possible. Use the latest listed application
+        # deadline, never the date of an event or the year in its title.
+        dates = []
+        for raw in re.findall(r'Deadline\s*:\s*([^;|]+?)(?=\s+Deadline\s*:|$)', content, flags=re.I):
+            for date_match in re.finditer(r'(?:\d{1,2}\s+[A-Za-z]+\s+20\d{2}|[A-Za-z]+\s+\d{1,2},?\s+20\d{2}|20\d{2}-\d{1,2}-\d{1,2})', raw):
+                iso = deadline_from('Deadline: ' + date_match.group())
+                if iso:
+                    dates.append(iso)
+        dates = sorted(x for x in dates if x >= TODAY.isoformat())
+        if not dates:
+            continue
+        combined = title + ' ' + section
+        disciplines = [d for d, pattern in DISCIPLINES if re.search(pattern, combined, re.I)]
+        types = [t for t, pattern in TYPES if re.search(pattern, combined, re.I)]
+        base_type = DIRECTORY_SECTIONS[section].split()
+        types = list(dict.fromkeys(base_type + types))
+        found.append({
+            'title': title[:180],
+            'organization': title.split(':', 1)[0][:100] if ':' in title else 'On the Move',
+            'description': f'{section}. Application deadline: {dates[-1]}. Confirm eligibility, fees and details with the organizer.',
+            'url': urllib.parse.urljoin(url, item['url']),
+            'deadline': dates[-1],
+            'discipline': ' '.join(disciplines or ['interdisciplinary']),
+            'type': ' '.join(types),
+            'features': '',
+            'country': '',
+            'source': source.get('name', 'On the Move'),
+            'status': 'Directory listing; verify with organizer',
+        })
+    print(f"{source.get('name', 'On the Move')}: scanned {len(parser.items)} directory rows")
+    return found
+
 def main():
     old=load_json(OUT,{'opportunities':[]})
     items={}
@@ -128,8 +237,21 @@ def main():
     config=load_json(SOURCES,{'feeds':[]})
     for source in config.get('feeds',[]):
         try:
-            found=collect_feed(source)
-            for entry in found:items[key(entry)]=entry
+            found=collect_on_the_move(source) if source.get("kind") == "on-the-move-deadlines" else collect_feed(source)
+            for entry in found:
+                # Keep a single entry per URL even when a directory lists multiple
+                # application windows or the initial database used a shorter title.
+                existing_key = next((k for k, old_entry in items.items()
+                                     if old_entry.get('url', '').split('?')[0].rstrip('/') == entry['url'].split('?')[0].rstrip('/')), None)
+                if existing_key:
+                    old_entry = items[existing_key]
+                    if old_entry.get('source') == 'Existing Everything Art listing':
+                        # Preserve hand-written metadata but update a confirmed later deadline.
+                        if entry['deadline'] > (old_entry.get('deadline') or ''):
+                            old_entry['deadline'] = entry['deadline']
+                        continue
+                    del items[existing_key]
+                items[key(entry)] = entry
             print(f"{source.get('name','Feed')}: {len(found)} qualified opportunities")
         except Exception as exc:
             print(f"{source.get('name','Feed')}: unavailable ({exc})")
