@@ -1,0 +1,7 @@
+{
+  "feeds": [
+    {"name": "On the Move", "url": "https://www.on-the-move.org/languages/english", "discover": true, "inspect_links": true},
+    {"name": "Artquest", "url": "https://artquest.org.uk/", "discover": true, "inspect_links": true}
+  ],
+  "note": "Discover RSS/Atom links advertised by each source, then require a real future application deadline. No sources are guaranteed to publish machine-readable feeds. See GitHub Actions logs for source-by-source results."
+}
