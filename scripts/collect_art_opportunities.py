@@ -29,6 +29,31 @@ TYPES = [('residency',r'\bresiden'),('fellowship',r'\bfellowship'),('grant',r'\b
 DISCIPLINES = [('photo',r'photograph'),('film',r'film|cinema'),('music',r'music|compos'),('dance',r'dance|choreograph'),('writing',r'writer|poetry|literary'),('design',r'design'),('digital',r'digital|media art')]
 DATE = re.compile(r'\b(?:deadline|apply by|applications? (?:close|due)|closing date|closes?|submit by|apply before|due by)\s*(?:is|on|:|\-|–)?\s*((?:20\d{2}[-/]\d{1,2}[-/]\d{1,2})|(?:(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+\d{1,2}(?:st|nd|rd|th)?,?\s+20\d{2})|(?:\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+20\d{2}))',re.I)
 
+
+# Location is only assigned when the opportunity title explicitly names a
+# single country. It describes the listing's location, NOT applicant eligibility.
+COUNTRY_CODES = {"Cyprus": "CY", "Germany": "DE", "France": "FR", "Japan": "JP", "Canada": "CA", "United Kingdom": "GB", "United States": "US", "Italy": "IT", "Spain": "ES", "Portugal": "PT", "Netherlands": "NL", "Belgium": "BE", "Austria": "AT", "Switzerland": "CH", "Denmark": "DK", "Sweden": "SE", "Norway": "NO", "Finland": "FI", "Iceland": "IS", "Ireland": "IE", "Poland": "PL", "Czech Republic": "CZ", "Slovakia": "SK", "Hungary": "HU", "Romania": "RO", "Bulgaria": "BG", "Greece": "GR", "Türkiye": "TR", "Turkey": "TR", "Ukraine": "UA", "Croatia": "HR", "Serbia": "RS", "Slovenia": "SI", "Estonia": "EE", "Latvia": "LV", "Lithuania": "LT", "Luxembourg": "LU", "Malta": "MT", "Georgia": "GE", "Armenia": "AM", "Azerbaijan": "AZ", "Albania": "AL", "Montenegro": "ME", "North Macedonia": "MK", "Bosnia and Herzegovina": "BA", "Kosovo": "XK", "India": "IN", "China": "CN", "South Korea": "KR", "Taiwan": "TW", "Singapore": "SG", "Thailand": "TH", "Vietnam": "VN", "Indonesia": "ID", "Philippines": "PH", "Malaysia": "MY", "Pakistan": "PK", "Bangladesh": "BD", "Nepal": "NP", "Australia": "AU", "New Zealand": "NZ", "Mexico": "MX", "Brazil": "BR", "Argentina": "AR", "Chile": "CL", "Colombia": "CO", "Peru": "PE", "Costa Rica": "CR", "Ecuador": "EC", "Uruguay": "UY", "South Africa": "ZA", "Nigeria": "NG", "Kenya": "KE", "Ghana": "GH", "Ethiopia": "ET", "Uganda": "UG", "Rwanda": "RW", "Tanzania": "TZ", "Morocco": "MA", "Tunisia": "TN", "Egypt": "EG", "Senegal": "SN", "United Arab Emirates": "AE", "Qatar": "QA", "Saudi Arabia": "SA", "Israel": "IL", "Jordan": "JO", "Lebanon": "LB", "Palestine": "PS", "Kazakhstan": "KZ", "Uzbekistan": "UZ", "Kyrgyzstan": "KG"}
+COUNTRY_ALIASES = {"UK": "United Kingdom", "USA": "United States", "U.S.": "United States", "US": "United States", "UAE": "United Arab Emirates", "Korea": "South Korea", "Czechia": "Czech Republic", "Holland": "Netherlands"}
+COUNTRY_PATTERN = re.compile(
+    r"(?<![\\w])(" + "|".join(re.escape(x) for x in sorted(
+        list(COUNTRY_CODES) + list(COUNTRY_ALIASES), key=len, reverse=True
+    )) + r")(?![\\w])", re.I
+)
+
+def location_from_title(title):
+    matches = set()
+    for match in COUNTRY_PATTERN.finditer(title):
+        token = match.group(1)
+        name = next((name for name in COUNTRY_CODES if name.casefold() == token.casefold()), None)
+        if not name:
+            name = next((value for key, value in COUNTRY_ALIASES.items()
+                         if key.casefold() == token.casefold()), None)
+        if name:
+            matches.add(name)
+    # Multiple countries can refer to international collaboration, eligibility,
+    # or travel, so don't label the opportunity with one arbitrary flag.
+    return next(iter(matches)) if len(matches) == 1 else ''
+
 def text(node):
     if node is None: return ''
     return re.sub(r'\s+',' ',html.unescape(re.sub(r'<[^>]+>',' ',''.join(node.itertext())))).strip()
@@ -141,7 +166,7 @@ def collect_feed(source):
         combined=title+' '+desc
         types=[t for t,pattern in TYPES if re.search(pattern,combined,re.I)]
         disciplines=[d for d,pattern in DISCIPLINES if re.search(pattern,combined,re.I)]
-        found.append({'title':title[:180],'organization':source.get('name',''),'description':desc[:550],'url':link,'deadline':deadline,'discipline':' '.join(disciplines or ['interdisciplinary']),'type':' '.join(types or ['open-call']),'features':'','country':'','source':source.get('name','RSS source'),'status':'Automatically discovered; confirm with organizer'})
+        found.append({'title':title[:180],'organization':source.get('name',''),'description':desc[:550],'url':link,'deadline':deadline,'discipline':' '.join(disciplines or ['interdisciplinary']),'type':' '.join(types or ['open-call']),'features':'','country':location_from_title(title),'source':source.get('name','RSS source'),'status':'Automatically discovered; confirm with organizer'})
     return found
 
 
@@ -248,7 +273,7 @@ def collect_on_the_move(source):
             'discipline': ' '.join(disciplines or ['interdisciplinary']),
             'type': ' '.join(types),
             'features': '',
-            'country': '',
+            'country': location_from_title(title),
             'source': source.get('name', 'On the Move'),
             'status': 'Directory listing; verify with organizer',
         })
@@ -265,7 +290,10 @@ def main():
             try:
                 if dt.date.fromisoformat(deadline)<TODAY:continue
             except ValueError:continue
-        if entry.get('title') and entry.get('url'):items[key(entry)]=entry
+        if entry.get('title') and entry.get('url'):
+            if not entry.get('country'):
+                entry['country'] = location_from_title(entry['title'])
+            items[key(entry)]=entry
     config=load_json(SOURCES,{'feeds':[]})
     for source in config.get('feeds',[]):
         print(f"Checking {source.get('name','Source')}: {source.get('url','')}")
@@ -278,6 +306,8 @@ def main():
                                      if old_entry.get('url', '').split('?')[0].rstrip('/') == entry['url'].split('?')[0].rstrip('/')), None)
                 if existing_key:
                     old_entry = items[existing_key]
+                    if not old_entry.get('country') and entry.get('country'):
+                        old_entry['country'] = entry['country']
                     if old_entry.get('source') == 'Existing Everything Art listing':
                         # Preserve hand-written metadata but update a confirmed later deadline.
                         if entry['deadline'] > (old_entry.get('deadline') or ''):
