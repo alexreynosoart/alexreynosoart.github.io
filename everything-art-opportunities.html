@@ -1627,14 +1627,27 @@
         return Math.ceil((deadline - today) / 86400000);
     }
 
+    const opportunityCountryCodes = {"Cyprus": "CY", "Germany": "DE", "France": "FR", "Japan": "JP", "Canada": "CA", "United Kingdom": "GB", "United States": "US", "Italy": "IT", "Spain": "ES", "Portugal": "PT", "Netherlands": "NL", "Belgium": "BE", "Austria": "AT", "Switzerland": "CH", "Denmark": "DK", "Sweden": "SE", "Norway": "NO", "Finland": "FI", "Iceland": "IS", "Ireland": "IE", "Poland": "PL", "Czech Republic": "CZ", "Slovakia": "SK", "Hungary": "HU", "Romania": "RO", "Bulgaria": "BG", "Greece": "GR", "Türkiye": "TR", "Turkey": "TR", "Ukraine": "UA", "Croatia": "HR", "Serbia": "RS", "Slovenia": "SI", "Estonia": "EE", "Latvia": "LV", "Lithuania": "LT", "Luxembourg": "LU", "Malta": "MT", "Georgia": "GE", "Armenia": "AM", "Azerbaijan": "AZ", "Albania": "AL", "Montenegro": "ME", "North Macedonia": "MK", "Bosnia and Herzegovina": "BA", "Kosovo": "XK", "India": "IN", "China": "CN", "South Korea": "KR", "Taiwan": "TW", "Singapore": "SG", "Thailand": "TH", "Vietnam": "VN", "Indonesia": "ID", "Philippines": "PH", "Malaysia": "MY", "Pakistan": "PK", "Bangladesh": "BD", "Nepal": "NP", "Australia": "AU", "New Zealand": "NZ", "Mexico": "MX", "Brazil": "BR", "Argentina": "AR", "Chile": "CL", "Colombia": "CO", "Peru": "PE", "Costa Rica": "CR", "Ecuador": "EC", "Uruguay": "UY", "South Africa": "ZA", "Nigeria": "NG", "Kenya": "KE", "Ghana": "GH", "Ethiopia": "ET", "Uganda": "UG", "Rwanda": "RW", "Tanzania": "TZ", "Morocco": "MA", "Tunisia": "TN", "Egypt": "EG", "Senegal": "SN", "United Arab Emirates": "AE", "Qatar": "QA", "Saudi Arabia": "SA", "Israel": "IL", "Jordan": "JO", "Lebanon": "LB", "Palestine": "PS", "Kazakhstan": "KZ", "Uzbekistan": "UZ", "Kyrgyzstan": "KG"};
+    const opportunityCountryAliases = {"UK": "United Kingdom", "USA": "United States", "U.S.": "United States", "US": "United States", "UAE": "United Arab Emirates", "Korea": "South Korea", "Czechia": "Czech Republic", "Holland": "Netherlands"};
+    function countryFlag(name) {
+        const code = opportunityCountryCodes[name];
+        return code && /^[A-Z]{2}$/.test(code)
+            ? [...code].map(c => String.fromCodePoint(127397 + c.charCodeAt(0))).join('')
+            : '🎨';
+    }
     function thumbInfo(card) {
         const f = (card.dataset.features || '').split(/\s+/);
+        const explicitCountry = (card.dataset.country || '').trim();
         const t = (card.dataset.type || '').split(/\s+/)[0] || 'opportunity';
 
         let flag = '🎨';
         let country = 'Everything Art';
 
-        if (f.includes('japan')) { flag = '🇯🇵'; country = 'Japan'; }
+        if (explicitCountry && opportunityCountryCodes[explicitCountry]) {
+            flag = countryFlag(explicitCountry);
+            country = explicitCountry;
+        }
+        else if (f.includes('japan')) { flag = '🇯🇵'; country = 'Japan'; }
         else if (f.includes('germany')) { flag = '🇩🇪'; country = 'Germany'; }
         else if (f.includes('france')) { flag = '🇫🇷'; country = 'France'; }
         else if (f.includes('uk')) { flag = '🇬🇧'; country = 'United Kingdom'; }
