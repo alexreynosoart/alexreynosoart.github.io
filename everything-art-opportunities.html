@@ -1575,7 +1575,8 @@
 
 <script>
 (function () {
-    const cards = Array.from(document.querySelectorAll('.op-card'));
+    const cards = Array.from(document.querySelectorAll('#opGrid .op-card'));
+    const grid = document.getElementById('opGrid');
     const buttons = Array.from(document.querySelectorAll('.filter-button'));
     const search = document.getElementById('opSearch');
     const count = document.getElementById('resultCount');
@@ -1629,7 +1630,7 @@
 
     // Every card gets a square visual. When automated feed images are added later,
     // an actual source thumbnail can replace this fallback without changing the layout.
-    cards.forEach(card => {
+    function addThumb(card) {
         if (card.querySelector('.op-thumb')) return;
         const info = thumbInfo(card);
         const thumb = document.createElement('div');
@@ -1642,7 +1643,8 @@
                 '<span class="op-thumb-country">' + info.country + '</span>' +
             '</div>';
         card.insertBefore(thumb, card.firstChild);
-    });
+    }
+    cards.forEach(addThumb);
 
     function matches(card) {
         const q = search.value.trim().toLowerCase();
@@ -1758,6 +1760,49 @@
     });
 
     applyFilters(true);
+
+    // Read the repository-generated database; existing HTML cards remain as fallback.
+    async function loadOpportunityDatabase() {
+        try {
+            const response = await fetch('data/art-opportunities.json?refresh=' + Date.now(), {cache:'no-store'});
+            if (!response.ok) throw new Error('Database HTTP ' + response.status);
+            const payload = await response.json();
+            const items = Array.isArray(payload) ? payload : payload.opportunities;
+            if (!Array.isArray(items)) throw new Error('Unexpected opportunities database format');
+            const clean = v => String(v == null ? '' : v).trim();
+            const key = item => (clean(item.title).toLowerCase().replace(/\s+/g,' ') + '|' + clean(item.url).split('?')[0].replace(/\/$/,''));
+            const existing = new Set(cards.map(card => key({title:card.querySelector('h2')?.textContent,url:card.querySelector('a.op-link')?.href})));
+            let added = 0;
+            for (const item of items) {
+                const title=clean(item.title), url=clean(item.url), deadline=clean(item.deadline);
+                if (!title || !/^https?:\/\//i.test(url) || existing.has(key(item))) continue;
+                if (deadline && daysUntil(deadline) < 0) continue;
+                const card=document.createElement('article');card.className='op-card';
+                card.dataset.discipline=clean(item.discipline)||'interdisciplinary';
+                card.dataset.type=clean(item.type)||'resource';
+                card.dataset.features=clean(item.features);
+                card.dataset.deadline=deadline;
+                card.dataset.country=clean(item.country);
+                const badges=document.createElement('div');badges.className='op-badges';
+                const badge=document.createElement('span');badge.className='op-badge';badge.textContent=clean(item.source)||'Art Opportunity';badges.append(badge);
+                const h=document.createElement('h2');h.textContent=title;
+                const org=document.createElement('div');org.className='op-org';org.textContent=clean(item.organization);
+                const description=document.createElement('p');description.className='op-description';description.textContent=clean(item.description);
+                const meta=document.createElement('div');meta.className='op-meta';
+                const detail=document.createElement('div');
+                const strong=document.createElement('strong');strong.textContent=deadline?'Deadline: ':'Status: ';
+                detail.append(strong,document.createTextNode(deadline||'Confirm availability with organizer'));meta.append(detail);
+                const link=document.createElement('a');link.className='op-link';link.href=url;link.target='_blank';link.rel='noopener noreferrer';link.textContent='VIEW OPPORTUNITY →';
+                card.append(badges,h,org,description,meta,link);addThumb(card);
+                grid.append(card);cards.push(card);existing.add(key(item));added++;
+            }
+            console.info('Everything Art: opportunities database loaded',items.length,'records;',added,'new cards added',payload.updatedAt||'');
+            applyFilters(true);
+        } catch(error) {
+            console.warn('Everything Art: opportunities database unavailable; using existing listings.',error);
+        }
+    }
+    loadOpportunityDatabase();
 })();
 </script>
 
