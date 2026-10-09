@@ -1,9 +1,22 @@
 {
-  "updatedAt": "2026-10-09T00:01:04.391428+00:00",
+  "updatedAt": "2026-10-09T00:07:15.466993+00:00",
   "sources": {
-    "Existing Everything Art listing": 25
+    "Existing Everything Art listing": 24
   },
   "opportunities": [
+    {
+      "title": "Leonardo@Djerassi 2027",
+      "organization": "Djerassi Resident Artists Program",
+      "description": "A five-week residency connecting artists and scientists at Djerassi's\n                retreat in the Santa Cruz Mountains, with public and academic engagement.",
+      "url": "https://djerassi.org/apply/leonardo-at-djerassi/",
+      "deadline": "2026-10-09",
+      "discipline": "visual interdisciplinary",
+      "type": "residency fellowship",
+      "features": "us funded",
+      "country": "",
+      "source": "Existing Everything Art listing",
+      "status": "Existing listing; verify with organizer"
+    },
     {
       "title": "Seeking African Contemporary Dancers",
       "organization": "Threads of Truth · New York City",
@@ -13,19 +26,6 @@
       "discipline": "dance performance",
       "type": "audition job",
       "features": "nyc us funded closing",
-      "country": "",
-      "source": "Existing Everything Art listing",
-      "status": "Existing listing; verify with organizer"
-    },
-    {
-      "title": "Biennale Danza 2027: Choreographic Creations",
-      "organization": "La Biennale di Venezia · Venice, Italy",
-      "description": "International call for original choreographic creations to premiere during the 2027 International Festival of Contemporary Dance.",
-      "url": "https://on-the-move.org/news/deadlines",
-      "deadline": "2026-10-20",
-      "discipline": "dance performance",
-      "type": "open-call competition",
-      "features": "worldwide funded closing",
       "country": "",
       "source": "Existing Everything Art listing",
       "status": "Existing listing; verify with organizer"
@@ -57,110 +57,6 @@
       "status": "Existing listing; verify with organizer"
     },
     {
-      "title": "New Music USA Funding",
-      "organization": "New Music USA",
-      "description": "Funding and development opportunities for composers, performers and creators undertaking imaginative new music projects.",
-      "url": "https://newmusicusa.org/get-funding/",
-      "deadline": "",
-      "discipline": "music film digital interdisciplinary",
-      "type": "grant resource",
-      "features": "us funded rolling",
-      "country": "",
-      "source": "Existing Everything Art listing",
-      "status": "Existing listing; verify with organizer"
-    },
-    {
-      "title": "Culture Moves Europe: Individual Mobility 2026–2027",
-      "organization": "Creative Europe + Goethe-Institut",
-      "description": "Mobility support across architecture, cultural heritage, design and fashion, literature, music, performing arts and visual arts.",
-      "url": "https://on-the-move.org/news/culture-moves-europe-call-individual-mobility-2026-2027",
-      "deadline": "2026-10-31",
-      "discipline": "visual photo film music dance performance writing design traditional interdisciplinary",
-      "type": "residency grant",
-      "features": "worldwide funded rolling",
-      "country": "",
-      "source": "Existing Everything Art listing",
-      "status": "Existing listing; verify with organizer"
-    },
-    {
-      "title": "Institut français x Cité internationale des arts 2027–2028",
-      "organization": "Institut français · Paris, France",
-      "description": "International residency programme supporting research and creative projects\n                across artistic disciplines in Paris.",
-      "url": "https://www.on-the-move.org/regions/france",
-      "deadline": "2026-10-08",
-      "discipline": "visual interdisciplinary",
-      "type": "residency",
-      "features": "france worldwide funded",
-      "country": "France",
-      "source": "Existing Everything Art listing",
-      "status": "Existing listing; verify with organizer"
-    },
-    {
-      "title": "Gasworks Residency for Artists Based in East Africa",
-      "organization": "Gasworks · London, United Kingdom",
-      "description": "An eleven-week fully funded London residency for an artist based in East Africa.\n                Confirm the current application deadline with the issuing organisation.",
-      "url": "https://www.on-the-move.org/regions/united-kingdom",
-      "deadline": "",
-      "discipline": "visual interdisciplinary",
-      "type": "residency",
-      "features": "uk worldwide funded",
-      "country": "United Kingdom",
-      "source": "Existing Everything Art listing",
-      "status": "Existing listing; verify with organizer"
-    },
-    {
-      "title": "Delfina Foundation: Brooks International Fellowship 2027",
-      "organization": "Delfina Foundation + Tate · London, UK",
-      "description": "A six-month international fellowship connecting selected researchers with\n                Tate colleagues and activities at Delfina Foundation.",
-      "url": "https://www.on-the-move.org/regions/united-kingdom",
-      "deadline": "",
-      "discipline": "visual interdisciplinary",
-      "type": "fellowship",
-      "features": "uk worldwide",
-      "country": "United Kingdom",
-      "source": "Existing Everything Art listing",
-      "status": "Existing listing; verify with organizer"
-    },
-    {
-      "title": "14th International Ceramics Exhibition Mino",
-      "organization": "Ceramics Park MINO · Gifu, Japan",
-      "description": "International call for self-created ceramic works for a major exhibition\n                scheduled for October and November 2027.",
-      "url": "https://www.on-the-move.org/regions/japan",
-      "deadline": "",
-      "discipline": "visual interdisciplinary",
-      "type": "exhibition open-call",
-      "features": "japan worldwide",
-      "country": "Japan",
-      "source": "Existing Everything Art listing",
-      "status": "Existing listing; verify with organizer"
-    },
-    {
-      "title": "Canada Opportunities Watch",
-      "organization": "On the Move · Canada",
-      "description": "Country feed for Canadian artist mobility, residencies, calls and funding\n                resources. New opportunities can be added here as they open.",
-      "url": "https://on-the-move.org/regions/canada",
-      "deadline": "",
-      "discipline": "visual interdisciplinary",
-      "type": "resource grant",
-      "features": "canada funded rolling",
-      "country": "Canada",
-      "source": "Existing Everything Art listing",
-      "status": "Existing listing; verify with organizer"
-    },
-    {
-      "title": "Leonardo@Djerassi 2027",
-      "organization": "Djerassi Resident Artists Program",
-      "description": "A five-week residency connecting artists and scientists at Djerassi's\n                retreat in the Santa Cruz Mountains, with public and academic engagement.",
-      "url": "https://djerassi.org/apply/leonardo-at-djerassi/",
-      "deadline": "2026-10-09",
-      "discipline": "visual interdisciplinary",
-      "type": "residency fellowship",
-      "features": "us funded",
-      "country": "",
-      "source": "Existing Everything Art listing",
-      "status": "Existing listing; verify with organizer"
-    },
-    {
       "title": "The Meridian Award",
       "organization": "The Meridian Award · Online",
       "description": "An international award offering one contemporary visual artist a $1,000\n                unrestricted cash prize.",
@@ -182,6 +78,19 @@
       "discipline": "visual interdisciplinary",
       "type": "open-call exhibition",
       "features": "nyc us",
+      "country": "",
+      "source": "Existing Everything Art listing",
+      "status": "Existing listing; verify with organizer"
+    },
+    {
+      "title": "Biennale Danza 2027: Choreographic Creations",
+      "organization": "La Biennale di Venezia · Venice, Italy",
+      "description": "International call for original choreographic creations to premiere during the 2027 International Festival of Contemporary Dance.",
+      "url": "https://on-the-move.org/news/deadlines",
+      "deadline": "2026-10-20",
+      "discipline": "dance performance",
+      "type": "open-call competition",
+      "features": "worldwide funded closing",
       "country": "",
       "source": "Existing Everything Art listing",
       "status": "Existing listing; verify with organizer"
@@ -239,6 +148,19 @@
       "status": "Existing listing; verify with organizer"
     },
     {
+      "title": "Culture Moves Europe: Individual Mobility 2026–2027",
+      "organization": "Creative Europe + Goethe-Institut",
+      "description": "Mobility support across architecture, cultural heritage, design and fashion, literature, music, performing arts and visual arts.",
+      "url": "https://on-the-move.org/news/culture-moves-europe-call-individual-mobility-2026-2027",
+      "deadline": "2026-10-31",
+      "discipline": "visual photo film music dance performance writing design traditional interdisciplinary",
+      "type": "residency grant",
+      "features": "worldwide funded rolling",
+      "country": "",
+      "source": "Existing Everything Art listing",
+      "status": "Existing listing; verify with organizer"
+    },
+    {
       "title": "Fall 2026 Visual Arts Grant",
       "organization": "Café Royal Cultural Foundation NYC",
       "description": "Exhibition and project grants for NYC artists creating paintings, drawings,\n                sculptures and photographs. The cycle may close early once the application\n                limit is reached.",
@@ -291,15 +213,41 @@
       "status": "Existing listing; verify with organizer"
     },
     {
-      "title": "Pollock-Krasner Foundation Grant",
-      "organization": "Pollock-Krasner Foundation",
-      "description": "Year-round unrestricted grants for eligible professional painters,\n                sculptors and artists working on paper with established professional\n                exhibition histories.",
-      "url": "https://www.pkf.org/how-to-apply/",
+      "title": "14th International Ceramics Exhibition Mino",
+      "organization": "Ceramics Park MINO · Gifu, Japan",
+      "description": "International call for self-created ceramic works for a major exhibition\n                scheduled for October and November 2027.",
+      "url": "https://www.on-the-move.org/regions/japan",
       "deadline": "",
       "discipline": "visual interdisciplinary",
-      "type": "grant resource",
-      "features": "worldwide funded rolling",
-      "country": "",
+      "type": "exhibition open-call",
+      "features": "japan worldwide",
+      "country": "Japan",
+      "source": "Existing Everything Art listing",
+      "status": "Existing listing; verify with organizer"
+    },
+    {
+      "title": "Canada Opportunities Watch",
+      "organization": "On the Move · Canada",
+      "description": "Country feed for Canadian artist mobility, residencies, calls and funding\n                resources. New opportunities can be added here as they open.",
+      "url": "https://on-the-move.org/regions/canada",
+      "deadline": "",
+      "discipline": "visual interdisciplinary",
+      "type": "resource grant",
+      "features": "canada funded rolling",
+      "country": "Canada",
+      "source": "Existing Everything Art listing",
+      "status": "Existing listing; verify with organizer"
+    },
+    {
+      "title": "Delfina Foundation: Brooks International Fellowship 2027",
+      "organization": "Delfina Foundation + Tate · London, UK",
+      "description": "A six-month international fellowship connecting selected researchers with\n                Tate colleagues and activities at Delfina Foundation.",
+      "url": "https://www.on-the-move.org/regions/united-kingdom",
+      "deadline": "",
+      "discipline": "visual interdisciplinary",
+      "type": "fellowship",
+      "features": "uk worldwide",
+      "country": "United Kingdom",
       "source": "Existing Everything Art listing",
       "status": "Existing listing; verify with organizer"
     },
@@ -317,6 +265,32 @@
       "status": "Existing listing; verify with organizer"
     },
     {
+      "title": "Gasworks Residency for Artists Based in East Africa",
+      "organization": "Gasworks · London, United Kingdom",
+      "description": "An eleven-week fully funded London residency for an artist based in East Africa.\n                Confirm the current application deadline with the issuing organisation.",
+      "url": "https://www.on-the-move.org/regions/united-kingdom",
+      "deadline": "",
+      "discipline": "visual interdisciplinary",
+      "type": "residency",
+      "features": "uk worldwide funded",
+      "country": "United Kingdom",
+      "source": "Existing Everything Art listing",
+      "status": "Existing listing; verify with organizer"
+    },
+    {
+      "title": "New Music USA Funding",
+      "organization": "New Music USA",
+      "description": "Funding and development opportunities for composers, performers and creators undertaking imaginative new music projects.",
+      "url": "https://newmusicusa.org/get-funding/",
+      "deadline": "",
+      "discipline": "music film digital interdisciplinary",
+      "type": "grant resource",
+      "features": "us funded rolling",
+      "country": "",
+      "source": "Existing Everything Art listing",
+      "status": "Existing listing; verify with organizer"
+    },
+    {
       "title": "Percent for Art Artist Directory",
       "organization": "NYC Department of Cultural Affairs",
       "description": "Artists can submit materials on an ongoing basis to be considered when NYC\n                researches artists for future Percent for Art commissions.",
@@ -325,6 +299,19 @@
       "discipline": "visual interdisciplinary",
       "type": "resource open-call",
       "features": "nyc us free rolling",
+      "country": "",
+      "source": "Existing Everything Art listing",
+      "status": "Existing listing; verify with organizer"
+    },
+    {
+      "title": "Pollock-Krasner Foundation Grant",
+      "organization": "Pollock-Krasner Foundation",
+      "description": "Year-round unrestricted grants for eligible professional painters,\n                sculptors and artists working on paper with established professional\n                exhibition histories.",
+      "url": "https://www.pkf.org/how-to-apply/",
+      "deadline": "",
+      "discipline": "visual interdisciplinary",
+      "type": "grant resource",
+      "features": "worldwide funded rolling",
       "country": "",
       "source": "Existing Everything Art listing",
       "status": "Existing listing; verify with organizer"
