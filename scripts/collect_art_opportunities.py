@@ -15,6 +15,7 @@ import re
 import urllib.request
 import urllib.parse
 import xml.etree.ElementTree as ET
+from html.parser import HTMLParser
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'data' / 'art-opportunities.json'
@@ -23,7 +24,7 @@ TODAY = dt.datetime.now(dt.timezone.utc).date()
 KEYWORDS = re.compile(r'\b(open call|call for (artists|entries|applications|proposals)|apply now|applications? open|artist residency|artist fellowship|art grant|funding opportunity|artist award|submission deadline|competition)\b', re.I)
 TYPES = [('residency',r'\bresiden'),('fellowship',r'\bfellowship'),('grant',r'\bgrant|\bfunding'),('open-call',r'open call|call for'),('competition',r'award|prize|competition'),('exhibition',r'exhibition')]
 DISCIPLINES = [('photo',r'photograph'),('film',r'film|cinema'),('music',r'music|compos'),('dance',r'dance|choreograph'),('writing',r'writer|poetry|literary'),('design',r'design'),('digital',r'digital|media art')]
-DATE = re.compile(r'\b(?:deadline|apply by|applications? (?:close|due)|closing date)\s*[:\-]?\s*((?:20\d\d[-/]\d\d[-/]\d\d)|(?:(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{1,2},?\s+20\d\d))',re.I)
+DATE = re.compile(r'\b(?:deadline|apply by|applications? (?:close|due)|closing date|closes?|submit by|apply before|due by)\s*(?:is|on|:|\-|–)?\s*((?:20\d{2}[-/]\d{1,2}[-/]\d{1,2})|(?:(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+\d{1,2}(?:st|nd|rd|th)?,?\s+20\d{2})|(?:\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+20\d{2}))',re.I)
 
 def text(node):
     if node is None: return ''
@@ -37,13 +38,40 @@ def child(node,names):
 def deadline_from(body):
     match=DATE.search(body)
     if not match:return ''
-    value=match.group(1).replace('/','-').replace(',','')
-    try:
-        if re.match(r'^20\d\d-',value):return dt.date.fromisoformat(value).isoformat()
-        return dt.datetime.strptime(value,'%B %d %Y').date().isoformat()
-    except ValueError:
-        try:return dt.datetime.strptime(value,'%b %d %Y').date().isoformat()
+    value=re.sub(r'(\d)(?:st|nd|rd|th)\b',r'\1',match.group(1),flags=re.I)
+    value=value.replace('/','-').replace(',','').replace('.','').strip()
+    if re.match(r'^20\d\d-',value):
+        try:
+            parts=[int(x) for x in value.split('-')]
+            return dt.date(*parts).isoformat()
         except ValueError:return ''
+    for fmt in ('%B %d %Y','%b %d %Y','%d %B %Y','%d %b %Y'):
+        try:return dt.datetime.strptime(value,fmt).date().isoformat()
+        except ValueError:pass
+    return ''
+
+class FeedDiscovery(HTMLParser):
+    def __init__(self):
+        super().__init__();self.feeds=[]
+    def handle_starttag(self,tag,attrs):
+        if tag!='link':return
+        a=dict(attrs)
+        if a.get('rel','').lower()=='alternate' and ('rss' in a.get('type','') or 'atom' in a.get('type','')):
+            self.feeds.append(a.get('href',''))
+
+def download(url,accept='text/html, application/rss+xml, application/atom+xml, application/xml'):
+    req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0 (compatible; EverythingArtOpportunityCollector/2.0; +https://alexreynosoart.com)','Accept':accept})
+    with urllib.request.urlopen(req,timeout=18) as response:
+        return response.read(2_000_000)
+
+def discover_feed(url):
+    if not url.startswith('https://'):return ''
+    page=download(url).decode('utf-8','replace')
+    parser=FeedDiscovery();parser.feed(page)
+    for candidate in parser.feeds:
+        resolved=urllib.parse.urljoin(url,candidate)
+        if resolved.startswith('https://'):return resolved
+    return ''
 
 def key(item):return (item.get('title','').strip().lower(),item.get('url','').split('?')[0].rstrip('/'))
 
@@ -54,9 +82,12 @@ def load_json(path,default):
 def collect_feed(source):
     url=source.get('url','')
     if not url.startswith('https://'):return []
-    req=urllib.request.Request(url,headers={'User-Agent':'EverythingArtOpportunityCollector/1.0 (+https://alexreynosoart.com)','Accept':'application/rss+xml, application/atom+xml, application/xml, text/xml'})
-    with urllib.request.urlopen(req,timeout=18) as response:
-        body=response.read(2_000_000)
+    if source.get('discover'):
+        url=discover_feed(url)
+        if not url:
+            print(f"{source.get('name','Source')}: no public RSS/Atom link advertised")
+            return []
+    body=download(url)
     root=ET.fromstring(body)
     entries=[e for e in root.iter() if e.tag.rsplit('}',1)[-1].lower() in ('item','entry')]
     found=[]
@@ -69,6 +100,13 @@ def collect_feed(source):
         if not title or not KEYWORDS.search(title+' '+desc):continue
         deadline=deadline_from(title+' '+desc)
         # Without a clear deadline, RSS news cannot be assumed to be a live application.
+        if not deadline and source.get('inspect_links') and urllib.parse.urlsplit(link).hostname == urllib.parse.urlsplit(source.get('url','')).hostname:
+            try:
+                detail=download(link).decode('utf-8','replace')
+                detail=re.sub(r'<(script|style)\b[^>]*>.*?</\1>', ' ', detail, flags=re.I|re.S)
+                detail=html.unescape(re.sub(r'<[^>]+>',' ',detail))
+                deadline=deadline_from(re.sub(r'\s+',' ',detail)[:50000])
+            except Exception:pass
         if not deadline or deadline<TODAY:continue
         combined=title+' '+desc
         types=[t for t,pattern in TYPES if re.search(pattern,combined,re.I)]
