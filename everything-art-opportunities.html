@@ -484,6 +484,17 @@
             transform: none !important;
         }
     </style>
+<style>
+/* Everything Art Opportunities: browse results controls */
+.ea-page-controls{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:12px;margin:0 0 20px}
+.ea-page-controls label{display:flex;align-items:center;gap:10px;color:#bbb;font-size:.9rem}
+.ea-page-controls select{background:#272727;color:#fff;border:1px solid #555;border-radius:24px;padding:9px 14px;font:inherit;cursor:pointer}
+.ea-load-more-wrap{display:flex;justify-content:center;padding:24px 0 12px}
+.ea-load-more{border:1px solid #c49c18;border-radius:28px;background:#3b3115;color:#ffdf66;padding:13px 30px;font:inherit;font-weight:700;cursor:pointer}
+.ea-load-more:hover{background:#55441a}
+.ea-load-more:focus-visible,.ea-page-controls select:focus-visible{outline:2px solid #ffdb36;outline-offset:3px}
+.ea-load-more-wrap[hidden]{display:none!important}
+</style>
 </head>
 
 <body class="everything-art-opportunities-theme">
@@ -608,6 +619,17 @@
     <div class="op-statusbar">
         <span id="resultCount">Showing current opportunities</span>
         <span class="op-reset" id="resetFilters">Reset filters</span>
+    </div>
+
+    <div class="ea-page-controls">
+        <label for="eaPageSize">Show per page
+            <select id="eaPageSize" aria-label="Number of opportunities to show">
+                <option value="12">12</option>
+                <option value="24" selected>24</option>
+                <option value="48">48</option>
+                <option value="all">All</option>
+            </select>
+        </label>
     </div>
 
     <section class="op-grid" id="opGrid">
@@ -1464,6 +1486,10 @@
 
     </section>
 
+    <div class="ea-load-more-wrap" id="viewMoreWrap" hidden>
+        <button class="ea-load-more" id="viewMoreButton" type="button">Load More Opportunities ↓</button>
+    </div>
+
     <section class="op-section op-section-resources">
         <div class="op-section-heading">
             <div class="op-section-kicker">Keep Digging</div>
@@ -1586,11 +1612,12 @@
     const viewMoreButton = document.getElementById('viewMoreButton');
     const backToTop = document.getElementById('backToTop');
 
-    const PAGE_SIZE = 12;
+    const pageSizeSelect = document.getElementById('eaPageSize');
+    const getPageSize = () => pageSizeSelect.value === 'all' ? Infinity : Number(pageSizeSelect.value);
     let disciplineFilter = 'all';
     let typeFilter = 'all';
     let featureFilter = 'all';
-    let visibleLimit = PAGE_SIZE;
+    let visibleLimit = getPageSize();
 
     function daysUntil(dateString) {
         if (!dateString) return null;
@@ -1671,7 +1698,7 @@
     }
 
     function applyFilters(resetLimit = false) {
-        if (resetLimit) visibleLimit = PAGE_SIZE;
+        if (resetLimit) visibleLimit = getPageSize();
 
         const matched = cards.filter(matches);
 
@@ -1694,7 +1721,7 @@
             : 'Showing ' + shown + ' of ' + matched.length + ' opportunities';
 
         noResults.style.display = matched.length === 0 ? 'block' : 'none';
-        if (viewMoreWrap) viewMoreWrap.style.display = matched.length > visibleLimit ? 'flex' : 'none';
+        if (viewMoreWrap) viewMoreWrap.hidden = matched.length <= visibleLimit;
     }
 
     document.querySelectorAll('.filter-more-button').forEach(button => {
@@ -1727,9 +1754,10 @@
 
     search.addEventListener('input', () => applyFilters(true));
 
+    pageSizeSelect.addEventListener('change', () => applyFilters(true));
     if (viewMoreButton) {
         viewMoreButton.addEventListener('click', () => {
-            visibleLimit += PAGE_SIZE;
+            visibleLimit += getPageSize();
             applyFilters(false);
         });
     }
