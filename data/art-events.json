@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-10-09T12:38:38.719891+00:00",
+  "updatedAt": "2026-10-09T18:35:55.276977+00:00",
   "sources": {
-    "NYC Parks": 42,
-    "Whitney": 8,
+    "NYC Parks": 46,
+    "Whitney": 16,
     "MoMA": 0,
     "Guggenheim": 0,
     "NYPL": 0
@@ -149,18 +149,18 @@
       "free": true
     },
     {
-      "title": "Arts, Culture and Fun: Sugar Skull Art Workshop",
+      "title": "Arts, Culture & Fun: Sugar Skull Art Workshop",
       "description": "Join NYC Parks for a colorful and hands-on Sugar Skull Art Workshop where you’ll transform a traditional sugar skull into a one-of-a-kind work of art. Explore vibrant colors, intricate patterns. Create your own unique sugar skull. Along the way, discover the cultural traditions and symbolism connected to Día de Muertos and the beautiful art of remembering an",
       "date": "2026-10-10",
       "endDate": "2026-10-10",
       "venue": "Herbert Von King Park",
       "location": "Herbert Von King Cultural Arts Center (in Herbert Von King Park)",
       "type": "family workshop",
-      "features": "nyc us",
+      "features": "nyc us free",
       "country": "United States",
       "url": "http://www.nycgovparks.org/events/2026/10/10/arts-culture-and-fun-sugar-skull-art-workshop",
       "source": "NYC Parks",
-      "free": false
+      "free": true
     },
     {
       "title": "Birding in the park with the West Harlem Art Fund",
@@ -261,6 +261,20 @@
       "free": false
     },
     {
+      "title": "Arts & Crafts Showcase",
+      "description": "Feast your eyes on the creativity of local artisans at this annual event, and enjoy a special fall craft for kids.",
+      "date": "2026-10-11",
+      "endDate": "2026-10-11",
+      "venue": "Marine Park",
+      "location": "Carmine Carro Community Center (in Marine Park)",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/10/11/arts-crafts-showcase1",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
       "title": "Ensemble in Process: The Medieval Chronicles",
       "description": "Part concert, part theatrical experience, Ensemble in Process presents The Medieval Chronicles which will take the audience through one's journey of ‘The Dark Night of The Soul’, weaving together a narrative of poetry, music and dance of the Medieval, Renaissance and Contemporary Eras. As we enter our own era unknown, join us for a celebration of some of the",
       "date": "2026-10-11",
@@ -345,6 +359,20 @@
       "free": true
     },
     {
+      "title": "Craft & Chill",
+      "description": "Enjoy a welcoming creative environment where they can explore a variety of artistic techniques and hands-on craft projects. Each session provides an opportunity to learn, create, and discover new interests while working with different materials and artistic styles. Whether you are an experienced artist or exploring your creative side for the first time, Craf",
+      "date": "2026-10-15",
+      "endDate": "2026-10-15",
+      "venue": "Detective Keith L Williams Park",
+      "location": "Multi-Use Room B (in Detective Keith L Williams Park)",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/10/15/craft-chill",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
       "title": "Proximity Opening Reception",
       "description": "Featuring work by: Erin Butler, Linda Butti, Mary Campbell, Lisa Dahl, Griselda Healy, Craig Manister, Ann Marie McDonnell, Mike Shane, Gayle Tanaka, Martha Trivizas. Celebrating Snug Harbor’s longstanding studio program, where artists in residence create new work within its historic buildings, PROXIMITY explores the studio as a generative space: artists wor",
       "date": "2026-10-16",
@@ -355,6 +383,20 @@
       "features": "nyc us free",
       "country": "United States",
       "url": "http://www.nycgovparks.org/events/2026/10/16/proximity-opening-reception",
+      "source": "NYC Parks",
+      "free": true
+    },
+    {
+      "title": "Pumpkin Painting & Fall Festivities",
+      "description": "Fantasy Garden welcomes all for an afternoon of free fall festivities in this beloved green space. There will be a limited number of Pumpkins available for painting and additional harvest-themed crafts, like DIY Scarecrows. Come enjoy the garden, connect with neighbors, and learn more about getting involved! While supplies last.",
+      "date": "2026-10-16",
+      "endDate": "2026-10-16",
+      "venue": "NYC Parks",
+      "location": "Fantasy Garden",
+      "type": "workshop",
+      "features": "nyc us free",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/10/16/pumpkin-painting-fall-festivities",
       "source": "NYC Parks",
       "free": true
     },
@@ -639,6 +681,20 @@
       "free": false
     },
     {
+      "title": "Greenbelt’s Haunted Trail",
+      "description": "Join NYC Parks and Staten Island Recreation for Greenbelt’s Haunted Trail, a fun-filled Halloween celebration for the whole family! Enjoy a pumpkin patch and pumpkin painting, arts and crafts, games, festive activities, and plenty of Halloween fun. And for those feeling brave, take a walk through our haunted trail and see what surprises may be lurking along ",
+      "date": "2026-10-23",
+      "endDate": "2026-10-23",
+      "venue": "Blood Root Valley",
+      "location": "Lower Parking Lot (in Blood Root Valley)",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/10/23/greenbelts-haunted-trail",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
       "title": "Open Studio 2026",
       "description": "On Saturdays, families with kids of all ages are invited to get creative at the Whitney! Join us to make your own art inspired by works on view in the collection and current exhibitions. Each week we offer a different artmaking project. Open Studio will not take place on long weekends or the second Saturday of every month. 2026 Dates: October 17 Open Studio:",
       "date": "2026-10-24",
@@ -649,6 +705,34 @@
       "features": "nyc us",
       "country": "United States",
       "url": "https://whitney.org/events/open-studio-2026",
+      "source": "Whitney",
+      "free": false
+    },
+    {
+      "title": "Wayfinding: Señas del Camino",
+      "description": "The People’s Theatre presents Wayfinding: Señas del Camino. Wayfinding is a devised theatre piece that follows three stories, of escape, of survival, and of discovery, woven together with the personal journeys of its performers. Drawing from myths and old tales, the piece moves through ancient and contemporary ways of finding our place in the world: reading ",
+      "date": "2026-10-25",
+      "endDate": "2026-10-25",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/wayfinding",
+      "source": "Whitney",
+      "free": false
+    },
+    {
+      "title": "All Ages Artmaking: Sky Sketches",
+      "description": "Artists of all ages are invited to spend time with a reproduction of Super Sunset Billboard in the gallery and create their own landscape inspired by what they see. Gaze at Lichtenstein’s sunset or look out the window at the landscape around you, then experiment with shape, line, and pattern to create a view of your own. Lichtenstein created this giant abstr",
+      "date": "2026-11-08",
+      "endDate": "2026-11-08",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/artmaking-sky-sketches",
       "source": "Whitney",
       "free": false
     },
@@ -695,6 +779,20 @@
       "free": false
     },
     {
+      "title": "All Ages Artmaking: Sky Sketches",
+      "description": "Artists of all ages are invited to spend time with a reproduction of Super Sunset Billboard in the gallery and create their own landscape inspired by what they see. Gaze at Lichtenstein’s sunset or look out the window at the landscape around you, then experiment with shape, line, and pattern to create a view of your own. Lichtenstein created this giant abstr",
+      "date": "2026-12-13",
+      "endDate": "2026-12-13",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/artmaking-sky-sketches",
+      "source": "Whitney",
+      "free": false
+    },
+    {
       "title": "Open Studio 2026",
       "description": "On Saturdays, families with kids of all ages are invited to get creative at the Whitney! Join us to make your own art inspired by works on view in the collection and current exhibitions. Each week we offer a different artmaking project. Open Studio will not take place on long weekends or the second Saturday of every month. 2026 Dates: October 17 Open Studio:",
       "date": "2026-12-19",
@@ -705,6 +803,76 @@
       "features": "nyc us",
       "country": "United States",
       "url": "https://whitney.org/events/open-studio-2026",
+      "source": "Whitney",
+      "free": false
+    },
+    {
+      "title": "All Ages Artmaking: Sky Sketches",
+      "description": "Artists of all ages are invited to spend time with a reproduction of Super Sunset Billboard in the gallery and create their own landscape inspired by what they see. Gaze at Lichtenstein’s sunset or look out the window at the landscape around you, then experiment with shape, line, and pattern to create a view of your own. Lichtenstein created this giant abstr",
+      "date": "2027-01-10",
+      "endDate": "2027-01-10",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/artmaking-sky-sketches",
+      "source": "Whitney",
+      "free": false
+    },
+    {
+      "title": "All Ages Artmaking: Sky Sketches",
+      "description": "Artists of all ages are invited to spend time with a reproduction of Super Sunset Billboard in the gallery and create their own landscape inspired by what they see. Gaze at Lichtenstein’s sunset or look out the window at the landscape around you, then experiment with shape, line, and pattern to create a view of your own. Lichtenstein created this giant abstr",
+      "date": "2027-02-14",
+      "endDate": "2027-02-14",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/artmaking-sky-sketches",
+      "source": "Whitney",
+      "free": false
+    },
+    {
+      "title": "All Ages Artmaking: Sky Sketches",
+      "description": "Artists of all ages are invited to spend time with a reproduction of Super Sunset Billboard in the gallery and create their own landscape inspired by what they see. Gaze at Lichtenstein’s sunset or look out the window at the landscape around you, then experiment with shape, line, and pattern to create a view of your own. Lichtenstein created this giant abstr",
+      "date": "2027-03-14",
+      "endDate": "2027-03-14",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/artmaking-sky-sketches",
+      "source": "Whitney",
+      "free": false
+    },
+    {
+      "title": "All Ages Artmaking: Sky Sketches",
+      "description": "Artists of all ages are invited to spend time with a reproduction of Super Sunset Billboard in the gallery and create their own landscape inspired by what they see. Gaze at Lichtenstein’s sunset or look out the window at the landscape around you, then experiment with shape, line, and pattern to create a view of your own. Lichtenstein created this giant abstr",
+      "date": "2027-04-11",
+      "endDate": "2027-04-11",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/artmaking-sky-sketches",
+      "source": "Whitney",
+      "free": false
+    },
+    {
+      "title": "All Ages Artmaking: Sky Sketches",
+      "description": "Artists of all ages are invited to spend time with a reproduction of Super Sunset Billboard in the gallery and create their own landscape inspired by what they see. Gaze at Lichtenstein’s sunset or look out the window at the landscape around you, then experiment with shape, line, and pattern to create a view of your own. Lichtenstein created this giant abstr",
+      "date": "2027-05-09",
+      "endDate": "2027-05-09",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/artmaking-sky-sketches",
       "source": "Whitney",
       "free": false
     }
