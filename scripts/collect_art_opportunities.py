@@ -13,6 +13,9 @@ import os
 from pathlib import Path
 import re
 import urllib.request
+import urllib.error
+import socket
+import time
 import urllib.parse
 import xml.etree.ElementTree as ET
 from html.parser import HTMLParser
@@ -59,10 +62,37 @@ class FeedDiscovery(HTMLParser):
         if a.get('rel','').lower()=='alternate' and ('rss' in a.get('type','') or 'atom' in a.get('type','')):
             self.feeds.append(a.get('href',''))
 
-def download(url,accept='text/html, application/rss+xml, application/atom+xml, application/xml'):
-    req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0 (compatible; EverythingArtOpportunityCollector/2.0; +https://alexreynosoart.com)','Accept':accept})
-    with urllib.request.urlopen(req,timeout=18) as response:
-        return response.read(2_000_000)
+def download(url, accept='text/html, application/rss+xml, application/atom+xml, application/xml'):
+    """Fetch with bounded retries and the canonical On the Move host fallback."""
+    parsed = urllib.parse.urlsplit(url)
+    if parsed.scheme != 'https':
+        raise ValueError('Only HTTPS sources are permitted')
+    urls = [url]
+    if parsed.hostname == 'www.on-the-move.org':
+        urls.insert(0, url.replace('://www.on-the-move.org', '://on-the-move.org', 1))
+    elif parsed.hostname == 'on-the-move.org':
+        urls.append(url.replace('://on-the-move.org', '://www.on-the-move.org', 1))
+    errors = []
+    for candidate in dict.fromkeys(urls):
+        for attempt in range(2):
+            try:
+                request = urllib.request.Request(candidate, headers={
+                    'User-Agent': 'Mozilla/5.0 (compatible; EverythingArtOpportunityCollector/3.1; +https://alexreynosoart.com)',
+                    'Accept': accept,
+                })
+                with urllib.request.urlopen(request, timeout=16) as response:
+                    data = response.read(2_000_001)
+                    if len(data) > 2_000_000:
+                        raise ValueError('Source response exceeded 2 MB')
+                    return data
+            except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, socket.timeout, OSError) as exc:
+                errors.append(f'{urllib.parse.urlsplit(candidate).hostname}: {exc}')
+                # Do not retry permanent HTTP errors such as 403 or 404.
+                if isinstance(exc, urllib.error.HTTPError) and exc.code not in (408, 429, 500, 502, 503, 504):
+                    break
+                if attempt == 0:
+                    time.sleep(1)
+    raise RuntimeError(' | '.join(errors))
 
 def discover_feed(url):
     if not url.startswith('https://'):return ''
@@ -178,10 +208,12 @@ DIRECTORY_SECTIONS = {
 }
 
 def collect_on_the_move(source):
-    url = source.get('url', 'https://www.on-the-move.org/news/deadlines')
+    url = source.get('url', 'https://on-the-move.org/news/deadlines')
     page = download(url).decode('utf-8', 'replace')
     parser = DeadlineDirectoryParser()
     parser.feed(page)
+    if not parser.items:
+        print(f"{source.get('name', 'On the Move')}: page loaded but no directory rows recognized; check HTML layout")
     found = []
     for item in parser.items:
         section = item['section']
@@ -220,7 +252,7 @@ def collect_on_the_move(source):
             'source': source.get('name', 'On the Move'),
             'status': 'Directory listing; verify with organizer',
         })
-    print(f"{source.get('name', 'On the Move')}: scanned {len(parser.items)} directory rows")
+    print(f"{source.get('name', 'On the Move')}: scanned {len(parser.items)} directory rows, accepted {len(found)} with current deadlines")
     return found
 
 def main():
@@ -236,6 +268,7 @@ def main():
         if entry.get('title') and entry.get('url'):items[key(entry)]=entry
     config=load_json(SOURCES,{'feeds':[]})
     for source in config.get('feeds',[]):
+        print(f"Checking {source.get('name','Source')}: {source.get('url','')}")
         try:
             found=collect_on_the_move(source) if source.get("kind") == "on-the-move-deadlines" else collect_feed(source)
             for entry in found:
