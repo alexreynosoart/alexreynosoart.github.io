@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-12T16:49:24.824408+00:00",
+  "updatedAt": "2026-10-12T17:36:53.995555+00:00",
   "sources": {
     "NYC Parks": 51,
     "Whitney": 14,
@@ -7,7 +7,8 @@
     "Guggenheim": 0,
     "NYPL": 7,
     "Bronx Museum": 2,
-    "Film at Lincoln Center": 17
+    "Film at Lincoln Center": 16,
+    "New York Live Arts": 8
   },
   "events": [
     {
@@ -106,6 +107,20 @@
       "country": "United States",
       "url": "https://www.nypl.org/events/exhibitions/forging-ahead",
       "source": "NYPL",
+      "free": false
+    },
+    {
+      "title": "Hank Willis Thomas at Ford Foundation Live Gallery",
+      "description": "On view through Sep 16, 2026 – Jan 01, 2027. Confirm exact showtimes and tickets with the organizer.",
+      "date": "2026-10-12",
+      "endDate": "2027-01-01",
+      "venue": "New York Live Arts",
+      "location": "Manhattan, NY",
+      "type": "exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://newyorklivearts.org/event/hank-willis-thomas-at-ford-foundation-live-gallery/",
+      "source": "New York Live Arts",
       "free": false
     },
     {
@@ -330,20 +345,6 @@
       "country": "United States",
       "url": "https://www.nypl.org/events/exhibitions/unleashed-pets-performing-arts",
       "source": "NYPL",
-      "free": false
-    },
-    {
-      "title": "What Can’t Be Mentioned",
-      "description": "Upcoming screening dates: Oct 12. See official film page for verified showtimes and tickets.",
-      "date": "2026-10-12",
-      "endDate": "2026-10-12",
-      "venue": "Film at Lincoln Center",
-      "location": "Manhattan, NY",
-      "type": "film",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://www.filmlinc.org/films/what-cant-be-mentioned/",
-      "source": "Film at Lincoln Center",
       "free": false
     },
     {
@@ -893,6 +894,20 @@
       "free": false
     },
     {
+      "title": "Toi, moi, Tituba...",
+      "description": "Performance dates: Oct 23, 2026 – Oct 24, 2026. Confirm exact showtimes and tickets with the organizer.",
+      "date": "2026-10-23",
+      "endDate": "2026-10-24",
+      "venue": "New York Live Arts",
+      "location": "Manhattan, NY",
+      "type": "performance",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://newyorklivearts.org/event/toi-moi-tituba/",
+      "source": "New York Live Arts",
+      "free": false
+    },
+    {
       "title": "Arts, Culture & Fun: Día de Muertos Celebration!",
       "description": "Join NYC Parks for a vibrant celebration filled with dance, art, music, culture, and plenty of fun! Explore and experience the rich traditions of Mexican culture through exciting hands-on activities, colorful art, and festive entertainment. Then, enjoy a spectacular live performance by the Calpulli Mexican Dance Company! Dress to impress! Showcase your best ",
       "date": "2026-10-24",
@@ -1117,6 +1132,20 @@
       "free": false
     },
     {
+      "title": "this is the beginning, this is the end",
+      "description": "Performance dates: Nov 06, 2026 – Nov 14, 2026. Confirm exact showtimes and tickets with the organizer.",
+      "date": "2026-11-06",
+      "endDate": "2026-11-14",
+      "venue": "New York Live Arts",
+      "location": "Manhattan, NY",
+      "type": "performance",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://newyorklivearts.org/event/this-is-the-beginning-this-is-the-end/",
+      "source": "New York Live Arts",
+      "free": false
+    },
+    {
       "title": "All Ages Artmaking: Sky Sketches",
       "description": "Artists of all ages are invited to spend time with a reproduction of Super Sunset Billboard in the gallery and create their own landscape inspired by what they see. Gaze at Lichtenstein’s sunset or look out the window at the landscape around you, then experiment with shape, line, and pattern to create a view of your own. Lichtenstein created this giant abstr",
       "date": "2026-11-08",
@@ -1142,6 +1171,34 @@
       "country": "United States",
       "url": "https://whitney.org/events/open-studio-2026",
       "source": "Whitney",
+      "free": false
+    },
+    {
+      "title": "Barnard/Columbia Dances at New York Live Arts",
+      "description": "Performance dates: Nov 19, 2026 – Nov 20, 2026. Confirm exact showtimes and tickets with the organizer.",
+      "date": "2026-11-19",
+      "endDate": "2026-11-20",
+      "venue": "New York Live Arts",
+      "location": "Manhattan, NY",
+      "type": "performance",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://newyorklivearts.org/event/barnard-columbia-dances-at-new-york-live-arts-5/",
+      "source": "New York Live Arts",
+      "free": false
+    },
+    {
+      "title": "Collage Revisited & Story/",
+      "description": "Performance dates: Nov 20, 2026 – Nov 22, 2026. Confirm exact showtimes and tickets with the organizer.",
+      "date": "2026-11-20",
+      "endDate": "2026-11-22",
+      "venue": "Institute of Contemporary Art",
+      "location": "Boston, MA",
+      "type": "performance",
+      "features": "us",
+      "country": "United States",
+      "url": "https://newyorklivearts.org/event/collage-revisited-story/",
+      "source": "New York Live Arts",
       "free": false
     },
     {
@@ -1257,6 +1314,34 @@
       "free": false
     },
     {
+      "title": "Gala 2027",
+      "description": "Performance dates: Mar 15, 2027 – Mar 15, 2027. Confirm exact showtimes and tickets with the organizer.",
+      "date": "2027-03-15",
+      "endDate": "2027-03-15",
+      "venue": "New York Live Arts",
+      "location": "Manhattan, NY",
+      "type": "performance",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://newyorklivearts.org/event/gala-2027/",
+      "source": "New York Live Arts",
+      "free": false
+    },
+    {
+      "title": "Legendary Women",
+      "description": "Performance dates: Mar 24, 2027 – Mar 27, 2027. Confirm exact showtimes and tickets with the organizer.",
+      "date": "2027-03-24",
+      "endDate": "2027-03-27",
+      "venue": "New York Live Arts",
+      "location": "Manhattan, NY",
+      "type": "performance",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://newyorklivearts.org/event/legendary-women/",
+      "source": "New York Live Arts",
+      "free": false
+    },
+    {
       "title": "All Ages Artmaking: Sky Sketches",
       "description": "Artists of all ages are invited to spend time with a reproduction of Super Sunset Billboard in the gallery and create their own landscape inspired by what they see. Gaze at Lichtenstein’s sunset or look out the window at the landscape around you, then experiment with shape, line, and pattern to create a view of your own. Lichtenstein created this giant abstr",
       "date": "2027-04-11",
@@ -1282,6 +1367,20 @@
       "country": "United States",
       "url": "https://whitney.org/events/artmaking-sky-sketches",
       "source": "Whitney",
+      "free": false
+    },
+    {
+      "title": "madder and madder and hotter and hotter",
+      "description": "Performance dates: Jun 12, 2027 – Jun 12, 2027. Confirm exact showtimes and tickets with the organizer.",
+      "date": "2027-06-12",
+      "endDate": "2027-06-12",
+      "venue": "New York Live Arts",
+      "location": "Manhattan, NY",
+      "type": "performance",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://newyorklivearts.org/event/madder-and-madder-and-hotter-and-hotter/",
+      "source": "New York Live Arts",
       "free": false
     }
   ]
