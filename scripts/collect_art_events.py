@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Everything Art scheduled collector: NYC Parks + Whitney, stdlib only."""
+"""Everything Art scheduled multi-source event collector, stdlib only."""
 import datetime as dt, html, json, re, urllib.request, pathlib, sys
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 OUTPUT=ROOT/'data'/'art-events.json'
@@ -323,8 +323,126 @@ def bronx_museum():
     print(f'Bronx Museum: checked {min(len(links), 50)} detail pages, {len(results)} verified exhibitions')
     return results
 
+# Film at Lincoln Center: one card per film, only verified future date headings.
+# A date is accepted only when it appears in that film's own Showtimes section,
+# has a weekday consistent with the calendar, and has at least one displayed time.
+FILM_ROOT = 'https://www.filmlinc.org'
+FILM_INDEX = FILM_ROOT + '/'
+FILM_LINK = re.compile(r'^/films/[^/]+/$')
+FILM_DAY = re.compile(r'^(Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s+([A-Z][a-z]{2})\s+(\d{1,2})$', re.I)
+FILM_TIME = re.compile(r'^\d{1,2}:\d{2}\s*[AP]M$', re.I)
+
+class FilmPage(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.links = []
+        self.lines = []
+        self.title = ''
+        self.heading = ''
+        self._in_title = False
+        self._in_h1 = False
+        self._skip = 0
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        if tag in ('script', 'style', 'noscript'):
+            self._skip += 1
+        if tag == 'title': self._in_title = True
+        if tag == 'h1': self._in_h1 = True
+        if tag == 'a' and a.get('href'): self.links.append(a['href'])
+        if tag in ('h1', 'h2', 'h3', 'h4', 'p', 'div', 'section', 'li', 'br'):
+            self.lines.append('\n')
+    def handle_endtag(self, tag):
+        if tag in ('script', 'style', 'noscript'):
+            self._skip = max(0, self._skip - 1)
+        if tag == 'title': self._in_title = False
+        if tag == 'h1': self._in_h1 = False
+        if tag in ('h1', 'h2', 'h3', 'h4', 'p', 'div', 'section', 'li'):
+            self.lines.append('\n')
+    def handle_data(self, value):
+        if self._in_title: self.title += value
+        if self._in_h1: self.heading += value
+        if not self._skip and value.strip(): self.lines.append(value.strip() + ' ')
+
+def film_html(page):
+    req = urllib.request.Request(page, headers={
+        'User-Agent': 'Mozilla/5.0 (compatible; EverythingArtEventCollector/1.1; +https://alexreynosoart.com)',
+        'Accept': 'text/html,application/xhtml+xml'})
+    with urllib.request.urlopen(req, timeout=25) as response:
+        raw = response.read(2_000_000).decode('utf-8', 'replace')
+    parsed = FilmPage()
+    parsed.feed(raw)
+    return parsed
+
+def film_dates(page):
+    lines = [clean(line) for line in ''.join(page.lines).splitlines()]
+    lines = [line for line in lines if line]
+    try:
+        start = next(i for i, line in enumerate(lines) if line.lower() == 'showtimes') + 1
+    except StopIteration:
+        return []
+    section = []
+    for line in lines[start:start + 250]:
+        if line.lower() in ('more showtimes', 'director', 'year', 'country', 'runtime', 'read more'):
+            break
+        section.append(line)
+    found = set()
+    for i, line in enumerate(section):
+        match = FILM_DAY.fullmatch(line)
+        if not match: continue
+        weekday, month, day = match.groups()
+        # The official film pages list current-year screening dates.
+        # Never infer a future year across December/January without evidence.
+        try:
+            d = dt.datetime.strptime(f'{month} {day} {TODAY.year}', '%b %d %Y').date()
+        except ValueError:
+            continue
+        if d < TODAY or d.strftime('%a').lower() != weekday[:3].lower():
+            continue
+        next_heading = next((j for j in range(i+1, len(section)) if FILM_DAY.fullmatch(section[j])), len(section))
+        if any(FILM_TIME.fullmatch(t) for t in section[i+1:next_heading]):
+            found.add(d)
+    return sorted(found)
+
+def film_at_lincoln_center():
+    index = film_html(FILM_INDEX)
+    links = set()
+    for href in index.links:
+        target = urljoin(FILM_INDEX, href).split('#', 1)[0].split('?', 1)[0]
+        parsed = urlparse(target)
+        if parsed.scheme == 'https' and parsed.netloc == 'www.filmlinc.org' and FILM_LINK.fullmatch(parsed.path):
+            links.add(target)
+    if not links:
+        raise ValueError('Film at Lincoln Center: no film detail links; preserving cache')
+    results = []
+    failures = 0
+    for link in sorted(links)[:35]:
+        try:
+            page = film_html(link)
+            title = clean(page.heading) or clean(page.title)
+            dates = film_dates(page)
+            if not title or not dates:
+                continue
+            start, end = dates[0], dates[-1]
+            date_text = ', '.join(d.strftime('%b %d') for d in dates[:12])
+            description = ('Upcoming screening dates: ' + date_text +
+                           ('. See official film page for verified showtimes and tickets.'))[:360]
+            results.append(dict(title=title, description=description,
+                date=start.isoformat(), endDate=end.isoformat(),
+                venue='Film at Lincoln Center', location='Manhattan, NY',
+                type='film', features='nyc us', country='United States',
+                url=link, source='Film at Lincoln Center', free=False))
+        except (OSError, ValueError) as exc:
+            failures += 1
+            print('Film detail error:', link, str(exc)[:150], file=sys.stderr)
+    if failures == min(len(links), 35) or not results:
+        raise ValueError('Film at Lincoln Center: no verified future screenings; preserving cache')
+    print(f'Film at Lincoln Center: checked {min(len(links), 35)} films, '
+          f'{len(results)} with future screening dates; {failures} detail errors')
+    return results
+
 def main():
-    existing=load_existing();sources={'NYC Parks':parks,'Whitney':whitney,'MoMA':moma,'Guggenheim':guggenheim,'NYPL':nypl,'Bronx Museum':bronx_museum};results={};failures=[]
+    dry_run = '--dry-run' in sys.argv
+    existing=load_existing();sources={'NYC Parks':parks,'Whitney':whitney,'MoMA':moma,'Guggenheim':guggenheim,'NYPL':nypl,'Bronx Museum':bronx_museum,'Film at Lincoln Center':film_at_lincoln_center};results={};failures=[]
     for name,fn in sources.items():
         try:
             results[name]=fn();print(f'{name}: {len(results[name])} events')
@@ -344,6 +462,10 @@ def main():
             k=key(e)
             if k not in merged:merged[k]=e
     events=sorted(merged.values(),key=lambda e:(e['date'],e['title']))
+    if dry_run:
+        print(f'DRY RUN: {len(events)} unique events would be published; failures: {failures}')
+        print('DRY RUN: no event file written, no existing data modified')
+        return 0
     OUTPUT.parent.mkdir(parents=True,exist_ok=True)
     payload={'updatedAt':dt.datetime.now(dt.timezone.utc).isoformat(),'sources':{k:len(v) for k,v in results.items()},'events':events}
     new=json.dumps(payload,ensure_ascii=False,indent=2)+'\n'
