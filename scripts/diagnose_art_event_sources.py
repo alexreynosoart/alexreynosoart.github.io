@@ -1,69 +1,107 @@
 #!/usr/bin/env python3
-"""Read-only diagnostic for 3 prospective Everything Art Events sources.
-Does not touch data/art-events.json or other site files.
-Run in GitHub Actions: python scripts/diagnose_new_art_event_sources.py
+"""READ-ONLY extraction probe for Bronx Museum and Creative Time.
+
+Run: python scripts/diagnose_art_event_sources.py
+Prints candidate records only. Never writes data/art-events.json.
 """
+import datetime as dt
+import html
+from html.parser import HTMLParser
 import re
 import urllib.request
-from html.parser import HTMLParser
 from urllib.parse import urljoin, urlparse
 
-SOURCES = {
-    'Queens Museum': 'https://queensmuseum.org/calendar/',
-    'Bronx Museum': 'https://bronxmuseum.org/exhibitions/',
-    'Creative Time': 'https://creativetime.org/projects/',
-}
-DATE_PATTERNS = [
-    r'\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\.?\s+\d{1,2},?\s+20\d{2}\b',
-    r'\b\d{1,2}\.\d{1,2}\.\d{2,4}\b',
-    r'\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+\d{1,2}\b',
-]
+TODAY = dt.date.today()
+MONTHS = {name: i for i, name in enumerate(
+    'January February March April May June July August September October November December'.split(), 1)}
+MONTH_PATTERN = '|'.join(MONTHS)
+DATE_PATTERN = re.compile(rf'\b({MONTH_PATTERN})\s+(\d{{1,2}}),?\s+(20\d{{2}})\b', re.I)
+RANGE_PATTERN = re.compile(rf'\b({MONTH_PATTERN})\s+(\d{{1,2}}),?\s+(20\d{{2}})\s*[–—-]\s*({MONTH_PATTERN})\s+(\d{{1,2}}),?\s+(20\d{{2}})\b', re.I)
+
 class Page(HTMLParser):
     def __init__(self):
-        super().__init__(); self.parts=[]; self.links=[]; self.skip=0; self.anchor=None
+        super().__init__()
+        self.links = []
+        self.text = []
+        self.title = []
+        self.in_title = False
+        self.hidden = 0
     def handle_starttag(self, tag, attrs):
-        a=dict(attrs)
-        if tag in ('script','style','noscript'): self.skip+=1
-        if tag=='a': self.anchor={'href':a.get('href',''),'text':''}
+        a = dict(attrs)
+        if tag in ('script', 'style', 'noscript'):
+            self.hidden += 1
+        if tag == 'title':
+            self.in_title = True
+        if tag == 'a' and a.get('href'):
+            self.links.append((a['href'], len(self.text)))
+    def handle_endtag(self, tag):
+        if tag in ('script', 'style', 'noscript'):
+            self.hidden = max(0, self.hidden - 1)
+        if tag == 'title':
+            self.in_title = False
     def handle_data(self, data):
-        if not self.skip:
-            t=' '.join(data.split())
-            if t:
-                self.parts.append(t)
-                if self.anchor is not None: self.anchor['text']+=' '+t
-    def handle_endtag(self,tag):
-        if tag in ('script','style','noscript'): self.skip=max(0,self.skip-1)
-        if tag=='a' and self.anchor is not None:
-            self.links.append(self.anchor); self.anchor=None
+        if self.in_title:
+            self.title.append(data)
+        elif not self.hidden and data.strip():
+            self.text.append(html.unescape(data.strip()))
 
-def main():
-    for name,url in SOURCES.items():
-        print('\n=== '+name+' ===',flush=True)
+def get(url):
+    req = urllib.request.Request(url, headers={
+        'User-Agent': 'Mozilla/5.0 (compatible; EverythingArtEventCollector/1.1; +https://alexreynosoart.com)',
+        'Accept': 'text/html,application/xhtml+xml'})
+    with urllib.request.urlopen(req, timeout=25) as response:
+        raw = response.read(2_000_000).decode('utf-8', 'replace')
+    parser = Page()
+    parser.feed(raw)
+    return parser
+
+def iso(month, day, year):
+    return dt.date(int(year), MONTHS[month.capitalize()], int(day))
+
+def dates_near(text):
+    """Candidates only. Dates must be checked against detail-page meaning."""
+    ranges = []
+    for match in RANGE_PATTERN.finditer(text):
+        a = iso(*match.groups()[:3]); b = iso(*match.groups()[3:])
+        if b >= TODAY:
+            ranges.append((a.isoformat(), b.isoformat(), text[max(0, match.start()-90):match.end()+90]))
+    singles = []
+    for match in DATE_PATTERN.finditer(text):
+        d = iso(*match.groups())
+        if d >= TODAY:
+            singles.append((d.isoformat(), text[max(0, match.start()-90):match.end()+90]))
+    return ranges, singles
+
+def inspect(name, index, allowed_prefix, limit=8):
+    print(f'\n=== {name} ===')
+    try:
+        listing = get(index)
+    except Exception as exc:
+        print('INDEX ERROR:', type(exc).__name__, str(exc)[:200]); return
+    links = []
+    for href, _ in listing.links:
+        absolute = urljoin(index, href).split('#', 1)[0].split('?', 1)[0]
+        if urlparse(absolute).netloc == urlparse(index).netloc and allowed_prefix in urlparse(absolute).path:
+            if absolute not in links: links.append(absolute)
+    print('Candidate detail links:', len(links))
+    for link in links[:limit]:
         try:
-            req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0 (compatible; EverythingArtDiagnostic/1.0)','Accept':'text/html'})
-            with urllib.request.urlopen(req,timeout=20) as resp:
-                html=resp.read(2000000).decode('utf-8','replace')
-                print('HTTP:',resp.status,'bytes:',len(html),flush=True)
-            p=Page();p.feed(html)
-            print('Visible text samples containing dates:',flush=True)
-            snippets=[]
-            for i,part in enumerate(p.parts):
-                if any(re.search(pattern,part,re.I) for pattern in DATE_PATTERNS):
-                    snippets.append(' '.join(p.parts[max(0,i-4):min(len(p.parts),i+3)]))
-            for s in snippets[:12]: print('  -',s[:240],flush=True)
-            print('Date-bearing snippets:',len(snippets),flush=True)
-            print('Candidate internal links:',flush=True)
-            seen=set(); count=0
-            for link in p.links:
-                target=urljoin(url,link['href']); parsed=urlparse(target)
-                if parsed.netloc!=urlparse(url).netloc or target in seen: continue
-                seen.add(target)
-                if any(x in parsed.path.lower() for x in ('event','exhibit','calendar','project')) and parsed.path.rstrip('/')!=urlparse(url).path.rstrip('/'):
-                    print('  -',link['text'].strip()[:90],target,flush=True)
-                    count+=1
-                    if count>=12: break
-            print('JSON-LD blocks:',len(re.findall(r'<script[^>]+application/ld\+json',html,re.I)),flush=True)
-        except Exception as e:
-            print('ERROR:',type(e).__name__,str(e)[:300],flush=True)
-    print('\nREAD-ONLY diagnostic complete. No site files changed.',flush=True)
-if __name__=='__main__': main()
+            page = get(link)
+            title = ' '.join(page.title).split('|')[0].strip()
+            visible = ' '.join(page.text)
+            ranges, singles = dates_near(visible[:12000])
+            print('\nTITLE:', title[:130]); print('URL:', link)
+            print('DATE RANGES:', [(a,b) for a,b,_ in ranges[:3]])
+            print('OTHER DATES:', [d for d,_ in singles[:5]])
+            for a,b,context in ranges[:1]: print('DATE CONTEXT:', context[:220])
+            if not ranges and singles:
+                print('DATE CONTEXT:', singles[0][1][:220])
+            if not ranges and not singles:
+                print('NO FUTURE DATE FOUND: do not publish automatically')
+        except Exception as exc:
+            print('DETAIL ERROR:', link, type(exc).__name__, str(exc)[:160])
+
+if __name__ == '__main__':
+    inspect('Bronx Museum exhibitions', 'https://bronxmuseum.org/exhibitions/', '/exhibition/', 10)
+    inspect('Creative Time events', 'https://creativetime.org/events/', '/events/', 10)
+    print('\nREAD-ONLY extraction test complete. No files changed.')
