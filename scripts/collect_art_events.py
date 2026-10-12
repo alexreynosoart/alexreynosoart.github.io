@@ -23,19 +23,29 @@ def fetch(u):
 def art_event(t,d):
     t=FALSE_ART.sub('',t);d=FALSE_ART.sub('',d)
     return not (RECREATION.search(t) and not ART_TITLE.search(t)) and bool(ART_TITLE.search(t) or ART_DESC.search(d))
-def park_kind(t,d,c):
-    s=FALSE_ART.sub('',t+' '+d+' '+c)
-    for pat,kind in [(r'\b(exhibition|exhibit|gallery|sculpture display)\b','exhibition'),(r'\b(opening|reception)\b','opening'),(r'\b(talk|lecture|discussion)\b','talk'),(r'\b(kids|children|family|families)\b','family workshop')]:
-        if re.search(pat,s,re.I):return kind
+def event_kind(title, description='', categories='', family_default=False):
+    """Classify by event title first; description is only supporting evidence."""
+    t=title.lower(); c=categories.lower()
+    if re.search(r'\b(opening|opening reception|reception|vernissage)\b',t):return 'opening'
+    if re.search(r'\b(film festival|festival|festivities|fiesta|fair|celebration|parade)\b',t):return 'festival workshop'
+    if re.search(r'\b(concert|performance|performances|theatre|theater|dance recital|screening|film showing)\b',t):return 'performance workshop'
+    if re.search(r'\b(talk|lecture|panel|conversation|discussion|artist\s? talk|reading)\b',t):return 'talk'
+    if re.search(r'\b(tour|guided tour|gallery tour)\b',t):return 'tour exhibition'
+    if re.search(r'\b(exhibition|exhibit|gallery|installation|open hours|museum exhibit)\b',t):return 'exhibition'
+    if re.search(r'\b(family|families|kids|children|all ages|tots|youth)\b',t):return 'family workshop'
+    if re.search(r'\b(workshop|artmaking|craft|crafts|drawing|painting|sketch|studio|class)\b',t):return 'workshop'
+    if re.search(r'\b(family|children|kids)\b',c):return 'family workshop'
+    if family_default and re.search(r'\b(family|kids|children|all ages)\b',description,re.I):return 'family workshop'
     return 'workshop'
-def whitney_kind(t,d):
-    s=(t+' '+d).lower();tl=t.lower()
-    if re.search(r'opening|reception',tl):return 'opening'
-    if re.search(r'workshop|artmaking|drawing|painting|craft|family|families|kids|children|teens',s):return 'family workshop'
-    if re.search(r'lecture|talk|conversation|discussion|reading|panel',tl):return 'talk'
-    if 'exhibition' in tl:return 'exhibition'
-    if re.search(r'tour|gallery|artist|art|museum|biennial|film|performance',s):return 'exhibition'
-    return ''
+
+def park_kind(t,d,c):return event_kind(t,d,c)
+def whitney_kind(t,d):return event_kind(t,d,family_default=True)
+
+def explicitly_free(title, description='', categories=''):
+    """Only mark free when the text affirmatively describes free admission/activity."""
+    s=' '.join((title,description,categories))
+    if re.search(r'\b(not free|not a free|no free admission|free for members only|free with paid admission|free with museum admission)\b',s,re.I):return False
+    return bool(re.search(r'\b(free admission|admission is free|free entry|free event|free workshop|free program|free artmaking|free to all|activities are free|free and open|free of charge|all activities are free|free fall festivities|program is free|\bFREE\b)\b',s,re.I))
 def canonical(v):return re.sub(r'[^a-z0-9]+',' ',v.lower()).strip()
 def key(e):
     # Include venue and date to avoid collapsing different performances/days.
@@ -59,7 +69,7 @@ def parks():
         repeat=(canonical(t),canonical(venue),canonical(location))
         if repeat in seen:continue
         seen.add(repeat)
-        free=bool(re.search(r'\bfree\b',t+' '+d+' '+c,re.I))
+        free=explicitly_free(t,d,c)
         result.append(dict(title=t,description=d[:360],date=start.isoformat(),endDate=end.isoformat(),venue=venue,location=location,type=park_kind(t,d,c),features='nyc us'+(' free' if free else ''),country='United States',url=link,source='NYC Parks',free=free))
     return result
 def whitney():
@@ -78,7 +88,7 @@ def whitney():
             if isinstance(link,str) and link.startswith('/'):link='https://whitney.org'+link
             link=url(link)
             if not link.startswith('https://whitney.org/'):continue
-            free=bool(re.search(r'\bfree\b',t+' '+d,re.I))
+            free=explicitly_free(t,d)
             result.append(dict(title=t,description=d[:360],date=start.isoformat(),endDate=end.isoformat(),venue='Whitney Museum of American Art',location='Manhattan, NY',type=kind,features='nyc us'+(' free' if free else ''),country='United States',url=link,source='Whitney',free=free))
         nxt=(payload.get('links') or {}).get('next')
         if isinstance(nxt,str) and nxt.startswith('/'):nxt='https://whitney.org'+nxt
@@ -133,9 +143,8 @@ def structured_events(name, page, venue, location, country, features):
             link=urljoin(page,link) if isinstance(link,str) else ''
             if title and start and end>=TODAY and url(link) and urlparse(link).netloc==urlparse(page).netloc:
                 desc=clean(node.get('description'))
-                typ='exhibition' if ('ExhibitionEvent' in kinds or re.search(r'exhibit|gallery',title,re.I)) else 'workshop'
-                if re.search(r'\b(talk|lecture|conversation)\b',title,re.I):typ='talk'
-                if re.search(r'\b(opening|reception)\b',title,re.I):typ='opening'
+                typ=event_kind(title,desc)
+                if 'ExhibitionEvent' in kinds and typ=='workshop':typ='exhibition'
                 free=node.get('isAccessibleForFree') is True
                 result.append(dict(title=title,description=desc[:360],date=start.isoformat(),
                     endDate=end.isoformat(),venue=venue,location=location,type=typ,
@@ -184,6 +193,14 @@ def main():
     OUTPUT.parent.mkdir(parents=True,exist_ok=True)
     payload={'updatedAt':dt.datetime.now(dt.timezone.utc).isoformat(),'sources':{k:len(v) for k,v in results.items()},'events':events}
     new=json.dumps(payload,ensure_ascii=False,indent=2)+'\n'
+    # Keep the prior timestamp and avoid commits when the event data is unchanged.
+    if OUTPUT.exists():
+        try:
+            old=json.loads(OUTPUT.read_text(encoding='utf-8'))
+            if old.get('events')==events and old.get('sources')==payload['sources']:
+                print('Event cache unchanged; no write needed.')
+                return 0
+        except (ValueError,OSError):pass
     OUTPUT.write_text(new,encoding='utf-8')
     print(f'Published {len(events)} unique events. Failed sources: {failures}')
     return 0
