@@ -1,173 +1,112 @@
-#!/usr/bin/env python3
-"""Everything Art: READ-ONLY performing-arts source investigation.
-Run through the existing Diagnose Everything Art Event Sources workflow.
-No files are written, and the live event collector is not invoked.
-"""
-import datetime as dt
-import html
-from html.parser import HTMLParser
-import json
-import re
-import urllib.error
-import urllib.parse
-import urllib.request
+Run python scripts/diagnose_art_event_sources.py
+Everything Art | READ-ONLY Lincoln Center + New York Live Arts diagnostic
+Date: 2026-10-12 | No files written, no publication
 
-SOURCES = [
-    ("Lincoln Center calendar", "https://www.lincolncenter.org/series/lincoln-center-presents/v/calendar", "lincolncenter.org"),
-    ("Lincoln Center featured performances", "https://www.lincolncenter.org/series/lincoln-center-presents/s/Featured%20Performances", "lincolncenter.org"),
-    ("New York Live Arts home", "https://newyorklivearts.org/", "newyorklivearts.org"),
-    ("New York Live Arts programs", "https://newyorklivearts.org/programs/", "newyorklivearts.org"),
-]
-DATE_PATTERNS = [
-    re.compile(r'\b20\d{2}-\d{2}-\d{2}(?:T\d{2}:\d{2}(?::\d{2})?)?\b'),
-    re.compile(r'\b(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2}(?:,?\s+20\d{2})?\b', re.I),
-    re.compile(r'\b(?:Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)\.?\s+\d{1,2}(?:,?\s+20\d{2})?\b', re.I),
-]
+==========================================================================
+Lincoln Center calendar | https://www.lincolncenter.org/series/lincoln-center-presents/v/calendar
+HTTP: 200 | bytes: 2000000 | final: https://www.lincolncenter.org/series/lincoln-center-presents/v/calendar
+TITLE: Lincoln Center
+HEADINGS: ['Be the first to know!', 'Stay up to date', 'Thank you', 'Find Your Show and Get Tickets Now!', 'UPCOMING SHOWS', 'Lincoln Center Immersive', 'PLAZA', 'Created by Andrew Schneider', 'Lincoln Center Presents', 'Josie Robertson Plaza']
+META: {'og:title': 'Lincoln Center', 'og:description': "The world's leading performing arts center. The best in music, dance, opera, theater, cinema, and more.", 'description': "The world's leading performing arts center. The best in music, dance, opera, theater, cinema, and more."}
+TIME datetime samples: []
+VISIBLE date samples: ['October 14', 'October 15', 'October 16', 'October 17', 'October 18', 'October 21', 'October 22', 'October 23', 'October 24', 'October 25', 'October 27', 'October 28', 'October 29', 'October 30', 'October 31']
+RAW ISO date samples: ['October 14', 'October 15', 'October 16', 'October 17', 'October 18', 'October 21', 'October 22', 'October 23', 'October 24', 'October 25', 'October 27', 'October 28']
+JSON-LD blocks: 0 | dated Event objects: 0
+JSON-LD Event examples: []
+Candidate same-site links: 91
+ LINK https://www.lincolncenter.org/lincoln-center-at-home/calendar
+ LINK https://www.lincolncenter.org/series/family
+ LINK https://lincolncenter.org/series/lincoln-center-presents
+ LINK https://www.lincolncenter.org/series/west-initiative/west-initiative
+ LINK https://www.lincolncenter.org/series/visit
+ LINK https://www.lincolncenter.org/series/visit/info/getting-here
+ LINK https://www.lincolncenter.org/series/visit/info/venues-1
+ LINK https://www.lincolncenter.org/series/visit/info/box-offices
+ LINK https://www.lincolncenter.org/series/visit/info/food-and-drink
+ LINK https://www.lincolncenter.org/series/visit/info/accessibility-1
+ LINK https://www.lincolncenter.org/series/visit/info/discounts-and-offers
+ LINK https://www.lincolncenter.org/series/lincoln-center-presents/v/calendar
+ DATE CONTEXT: ation, and local and global perspectives. EXPLORE CALENDAR UPCOMING SHOWS Wednesday, October 14 - Multiple times Lincoln Center Immersive PLAZA Created by Andrew Schneider Lincoln Center Presents Josie Robertso
+ DATE CONTEXT: performance and spoken word tribute. ALL AGES MUSIC SPOKEN WORD Learn More Thursday, October 15 - Multiple times Lincoln Center Immersive PLAZA Created by Andrew Schneider Lincoln Center Presents Josie Robertso
+ DATE CONTEXT: is Lincoln Center debut. ALL AGES JAZZ INDIE LINCOLN CENTER DEBUT Learn More Friday, October 16 - Multiple times Lincoln Center Immersive PLAZA Created by Andrew Schneider Lincoln Center Presents Josie Robertso
 
-class Page(HTMLParser):
-    def __init__(self):
-        super().__init__(convert_charrefs=True)
-        self.title = []
-        self.headings = []
-        self.links = []
-        self.times = []
-        self.meta = {}
-        self.jsonld = []
-        self.text = []
-        self._title = False
-        self._heading = None
-        self._script = False
-        self._script_buffer = []
-        self._skip = 0
+==========================================================================
+Lincoln Center featured performances | https://www.lincolncenter.org/series/lincoln-center-presents/s/Featured%20Performances
+HTTP: 200 | bytes: 2000000 | final: https://www.lincolncenter.org/series/lincoln-center-presents/s/Featured%20Performances
+TITLE: Lincoln Center
+HEADINGS: ['Be the first to know!', 'Stay up to date', 'Thank you', 'Find Your Show and Get Tickets Now!', 'UPCOMING SHOWS', 'Lincoln Center Immersive', 'PLAZA', 'Created by Andrew Schneider', 'Lincoln Center Presents', 'Josie Robertson Plaza']
+META: {'og:title': 'Lincoln Center', 'og:description': "The world's leading performing arts center. The best in music, dance, opera, theater, cinema, and more.", 'description': "The world's leading performing arts center. The best in music, dance, opera, theater, cinema, and more."}
+TIME datetime samples: []
+VISIBLE date samples: ['October 14', 'October 15', 'October 16', 'October 17', 'October 18', 'October 21', 'October 22', 'October 23', 'October 24', 'October 25', 'October 27', 'October 28', 'October 29', 'October 30', 'October 31']
+ LINK https://www.lincolncenter.org/series/visit/info/discounts-and-offers
+ LINK https://www.lincolncenter.org/series/west-initiative/v/about
 
-    def handle_starttag(self, tag, attrs):
-        a = dict(attrs)
-        if tag == 'title': self._title = True
-        if tag in ('h1', 'h2', 'h3'): self._heading = [tag, []]
-        if tag == 'a' and a.get('href'): self.links.append(a['href'])
-        if tag == 'time': self.times.append(a.get('datetime', ''))
-        if tag == 'meta':
-            key = a.get('property') or a.get('name')
-            if key in ('og:title', 'description', 'og:description'): self.meta[key] = a.get('content', '')
-        if tag == 'script':
-            self._skip += 1
-            if a.get('type', '').lower() == 'application/ld+json':
-                self._script = True
-                self._script_buffer = []
-        elif tag in ('style', 'noscript'): self._skip += 1
+==========================================================================
+Lincoln Center calendar detail 2 | https://www.lincolncenter.org/series/visit/info/getting-here
+HTTP: 200 | bytes: 1022194 | final: https://www.lincolncenter.org/series/visit/info/getting-here
+TITLE: Lincoln Center
+HEADINGS: ['Be the first to know!', 'Getting Here', 'Resident Organizations', 'Thanks to Our Supporters', 'Lead Website Technology Partner', 'Supported By', 'Lincoln Center Programs', 'Follow Us', 'Lincoln Center for the Performing Arts', 'Follow Us']
+META: {'og:title': 'Lincoln Center', 'og:description': "The world's leading performing arts center. The best in music, dance, opera, theater, cinema, and more.", 'description': "The world's leading performing arts center. The best in music, dance, opera, theater, cinema, and more."}
+TIME datetime samples: []
+VISIBLE date samples: []
+RAW ISO date samples: []
+JSON-LD blocks: 0 | dated Event objects: 0
+JSON-LD Event examples: []
+Candidate same-site links: 16
+ LINK https://www.lincolncenter.org/lincoln-center-at-home/calendar
+ LINK https://www.lincolncenter.org/series/family
+ LINK https://lincolncenter.org/series/lincoln-center-presents
+ LINK https://www.lincolncenter.org/series/west-initiative/west-initiative
+ LINK https://www.lincolncenter.org/series/visit
+ LINK https://www.lincolncenter.org/series/visit/info/getting-here
+ LINK https://www.lincolncenter.org/series/visit/info/venues-1
+ LINK https://www.lincolncenter.org/series/visit/info/box-offices
+ LINK https://www.lincolncenter.org/series/visit/info/food-and-drink
+ LINK https://www.lincolncenter.org/series/visit/info/accessibility-1
+ LINK https://www.lincolncenter.org/series/visit/info/discounts-and-offers
+ LINK https://www.lincolncenter.org/series/west-initiative/info/mural-artwork
 
-    def handle_endtag(self, tag):
-        if tag == 'title': self._title = False
-        if self._heading and tag == self._heading[0]:
-            value = re.sub(r'\s+', ' ', ''.join(self._heading[1])).strip()
-            if value: self.headings.append(value)
-            self._heading = None
-        if tag == 'script':
-            if self._script:
-                self.jsonld.append(''.join(self._script_buffer))
-                self._script = False
-            self._skip = max(0, self._skip - 1)
-        elif tag in ('style', 'noscript'): self._skip = max(0, self._skip - 1)
+DETAIL SAMPLE: New York Live Arts home | 10 candidate detail links
 
-    def handle_data(self, data):
-        if self._title: self.title.append(data)
-        if self._heading: self._heading[1].append(data)
-        if self._script: self._script_buffer.append(data)
-        if not self._skip: self.text.append(data)
+==========================================================================
+New York Live Arts home detail 1 | https://contribute.newyorklivearts.org/event/2026-new-york-live-arts-gala/e738693
+HTTP: 200 | bytes: 177211 | final: https://contribute.newyorklivearts.org/event/2026-new-york-live-arts-gala/e738693
+TITLE: 2026 New York Live Arts Gala
+HEADINGS: []
+META: {'description': '{{MetaTags.description}}'}
+TIME datetime samples: []
+VISIBLE date samples: []
+RAW ISO date samples: ['2026-05-18T18:00:00', '2019-08-21T16:18:40', '2026-05-18T22:00:00', '2025-10-27T14:34:06', '2026-05-04T20:35:05', '2025-10-27T14:34:07', '2025-10-27T17:10:33', '2025-10-27T16:59:53', '2026-05-04T20:22:05', '2026-05-04T20:28:40', '2025-10-27T17:13:52', '2025-10-27T14:34:08']
+JSON-LD blocks: 3 | dated Event objects: 1
+JSON-LD Event examples: [('2026 New York Live Arts Gala', '2026-05-18T18:00:00-04:00')]
+Candidate same-site links: 0
 
+==========================================================================
+New York Live Arts home detail 2 | https://newyorklivearts.org/event/toi-moi-tituba/
+HTTP: 200 | bytes: 194335 | final: https://newyorklivearts.org/event/toi-moi-tituba/
+TITLE: Toi, moi, Tituba... - New York Live Arts
+HEADINGS: ['Toi, moi, Tituba…', 'this is the beginning, this is the end', 'Barnard/Columbia Dances at New York Live Arts', 'Toi, moi, Tituba…', 'Dorothée Munyaneza']
+META: {'description': 'New York Live Arts, guided by the leadership of visionary artist Bill T. Jones, collaborates with boundary pushing artists, advocates for their vision, and fortifies a creative future.', 'og:title': 'Toi, moi, Tituba... - New York Live Arts', 'og:description': 'New York Live Arts, guided by the leadership of visionary artist Bill T. Jones, collaborates with boundary pushing artists, advocates for their vision, and fortifies a creative future.'}
+TIME datetime samples: []
+VISIBLE date samples: ['October 23', 'November 6', 'November 19', 'August 10, 2023']
+RAW ISO date samples: ['October 23', 'November 6', 'November 19', 'August 10, 2023']
+JSON-LD blocks: 1 | dated Event objects: 0
+JSON-LD Event examples: []
+Candidate same-site links: 15
+ LINK https://newyorklivearts.org/event/toi-moi-tituba/
+ LINK https://newyorklivearts.org/programs/
+ LINK https://newyorklivearts.org/programs/resident-commissioned-artist/
+ LINK https://newyorklivearts.org/programs/live-feed/
+ LINK https://newyorklivearts.org/programs/fresh-tracks/
+ LINK https://newyorklivearts.org/programs/live-artery-2026/
+ LINK https://newyorklivearts.org/programs/live-ideas/
+ LINK https://newyorklivearts.org/programs/bill-chats/
+ LINK https://newyorklivearts.org/programs/live-arts-pride/
+ LINK https://newyorklivearts.org/programs/ford-foundation-live-gallery/
+ LINK https://contribute.newyorklivearts.org/event/2026-new-york-live-arts-gala/e738693
+ LINK https://newyorklivearts.org/event/this-is-the-beginning-this-is-the-end/
+ DATE CONTEXT:  Open Season & Tickets Tickets Dorothée Munyaneza / Kadidi Company Toi, moi, Tituba… October 23 & 24, 7:30pm Tickets Joanna Kotze this is the beginning, this is the end November 6-7 & 11-14, 7:30pm Tickets Barn
+ DATE CONTEXT:  October 23 & 24, 7:30pm Tickets Joanna Kotze this is the beginning, this is the end November 6-7 & 11-14, 7:30pm Tickets Barnard College Barnard/Columbia Dances at New York Live Arts November 19-20 Full Season
+ DATE CONTEXT:  11-14, 7:30pm Tickets Barnard College Barnard/Columbia Dances at New York Live Arts November 19-20 Full Season Bill T. Jones / Arnie Zane Close Bill T. Jones / Arnie Zane Open Bill T. Jones / Arnie Zane About 
 
-def dates(value, limit=15):
-    found = []
-    for pattern in DATE_PATTERNS:
-        for match in pattern.finditer(value):
-            candidate = match.group(0)
-            if candidate not in found: found.append(candidate)
-            if len(found) >= limit: return found
-    return found
-
-
-def fetch(url):
-    req = urllib.request.Request(url, headers={
-        'User-Agent': 'Mozilla/5.0 (compatible; EverythingArtSourceDiagnostic/1.0; +https://alexreynosoart.com)',
-        'Accept': 'text/html,application/xhtml+xml',
-    })
-    with urllib.request.urlopen(req, timeout=30) as response:
-        raw = response.read(2_000_000)
-        return raw.decode('utf-8', 'replace'), response.status, response.geturl(), len(raw)
-
-
-def event_objects(blocks):
-    events = []
-    def visit(node):
-        if isinstance(node, list):
-            for child in node: visit(child)
-        elif isinstance(node, dict):
-            types = node.get('@type', [])
-            if isinstance(types, str): types = [types]
-            if any('Event' in str(t) for t in types) and node.get('startDate'):
-                events.append((str(node.get('name', ''))[:90], str(node.get('startDate', ''))[:40]))
-            for child in node.values():
-                if isinstance(child, (list, dict)): visit(child)
-    for block in blocks:
-        try: visit(json.loads(block))
-        except (ValueError, TypeError): pass
-    return events
-
-
-def inspect(name, url, domain, follow=False):
-    print('\n' + '=' * 74)
-    print(name, '|', url)
-    try:
-        raw, status, final, size = fetch(url)
-    except (urllib.error.URLError, TimeoutError, OSError, ValueError) as exc:
-        print('FETCH ERROR:', str(exc)[:250])
-        return []
-    page = Page()
-    page.feed(raw)
-    visible = re.sub(r'\s+', ' ', html.unescape(' '.join(page.text))).strip()
-    print('HTTP:', status, '| bytes:', size, '| final:', final)
-    print('TITLE:', ' '.join(page.title)[:160])
-    print('HEADINGS:', page.headings[:10])
-    print('META:', page.meta)
-    print('TIME datetime samples:', [x for x in page.times if x][:12])
-    print('VISIBLE date samples:', dates(visible))
-    print('RAW ISO date samples:', dates(raw, 12))
-    events = event_objects(page.jsonld)
-    print('JSON-LD blocks:', len(page.jsonld), '| dated Event objects:', len(events))
-    print('JSON-LD Event examples:', events[:5])
-    candidates = []
-    seen = set()
-    for href in page.links:
-        target = urllib.parse.urljoin(final, href).split('#', 1)[0]
-        parsed = urllib.parse.urlparse(target)
-        if not parsed.hostname or not (parsed.hostname == domain or parsed.hostname.endswith('.' + domain)):
-            continue
-        path = parsed.path.lower()
-        if not re.search(r'/event[s]?/|/series/|/program[s]?/|/calendar|/performance|/show/', path):
-            continue
-        if target not in seen:
-            seen.add(target)
-            candidates.append(target)
-    print('Candidate same-site links:', len(candidates))
-    for target in candidates[:12]: print(' LINK', target)
-    for sample in dates(visible, 3):
-        match = visible.find(sample)
-        print(' DATE CONTEXT:', visible[max(0, match - 85):match + 125])
-    return candidates
-
-
-if __name__ == '__main__':
-    print('Everything Art | READ-ONLY Lincoln Center + New York Live Arts diagnostic')
-    print('Date:', dt.date.today(), '| No files written, no publication')
-    collected = {}
-    for name, url, domain in SOURCES:
-        collected[name] = inspect(name, url, domain)
-    # Test a small sample of actual detail links, if discoverable.
-    for name, domain in [('Lincoln Center calendar', 'lincolncenter.org'),
-                         ('New York Live Arts home', 'newyorklivearts.org')]:
-        links = collected.get(name, [])
-        detail = [u for u in links if re.search(r'/event/|/series/[^/]+/[^/]+', urllib.parse.urlparse(u).path, re.I)]
-        print('\nDETAIL SAMPLE:', name, '|', len(detail), 'candidate detail links')
-        for index, target in enumerate(detail[:2], 1):
-            inspect(name + ' detail ' + str(index), target, domain)
-    print('\nDiagnostic complete. No event files changed.')
+Diagnostic complete. No event files changed.
