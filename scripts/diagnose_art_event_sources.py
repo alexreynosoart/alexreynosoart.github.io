@@ -1,83 +1,111 @@
 #!/usr/bin/env python3
-"""Read-only NYPL event-source investigation. No repository files are written."""
+"""Read-only NYPL exhibition detail diagnostic for Everything Art.
+
+Run using the existing manual diagnostic GitHub Action. No files are written.
+"""
+import html
+import json
 import re
-import urllib.request
 import urllib.error
+import urllib.request
 from html.parser import HTMLParser
-from urllib.parse import urljoin, urlparse
 
-PAGES = [
-    'https://www.nypl.org/events',
-    'https://www.nypl.org/events/calendar',
-    'https://www.nypl.org/events/calendar/classes-workshops',
-    'https://www.nypl.org/events/exhibitions/current',
+URLS = [
+    'https://www.nypl.org/events/exhibitions/silly-old-bear-winnie-pooh-100',
+    'https://www.nypl.org/events/exhibitions/martha-graham-mother-psychological-dance',
+    'https://www.nypl.org/events/exhibitions/forging-ahead',
 ]
+DATE_PATTERN = re.compile(
+    r'\b(?:January|February|March|April|May|June|July|August|September|October|November|December)'
+    r'\s+\d{1,2}(?:st|nd|rd|th)?(?:,?\s+20\d{2})?'
+    r'|\b20\d{2}-\d{2}-\d{2}\b', re.I)
 
-class Inspector(HTMLParser):
+class Inspect(HTMLParser):
     def __init__(self):
         super().__init__()
-        self.scripts = []
-        self.links = []
-        self.forms = []
-        self.data_attrs = []
+        self.title = []
+        self.meta = []
+        self.jsonld = []
+        self.next_data = []
+        self.text = []
+        self.active = None
+        self.buf = []
+        self.in_hidden = 0
     def handle_starttag(self, tag, attrs):
-        d = dict(attrs)
-        if tag == 'script' and d.get('src'):
-            self.scripts.append(d['src'])
-        if tag == 'a' and d.get('href'):
-            self.links.append(d['href'])
-        if tag == 'form':
-            self.forms.append((d.get('action', ''), d.get('method', 'GET')))
-        for k, v in attrs:
-            if k and (k.startswith('data-') and re.search(r'event|calendar|api|endpoint|view', k, re.I)):
-                self.data_attrs.append((k, str(v)[:120]))
+        a = dict(attrs)
+        if tag in ('script', 'style'):
+            self.in_hidden += 1
+            if tag == 'script' and (a.get('type') == 'application/ld+json' or a.get('id') == '__NEXT_DATA__'):
+                self.active = 'jsonld' if a.get('type') == 'application/ld+json' else 'next'
+                self.buf = []
+        elif tag == 'title':
+            self.active = 'title'; self.buf = []
+        elif tag == 'meta':
+            name = a.get('name') or a.get('property') or a.get('itemprop') or ''
+            if any(w in name.lower() for w in ('date', 'time', 'title', 'description')):
+                self.meta.append((name, a.get('content', '')[:200]))
+    def handle_data(self, data):
+        if self.active:
+            self.buf.append(data)
+        elif not self.in_hidden:
+            self.text.append(data)
+    def handle_endtag(self, tag):
+        if tag == 'script':
+            if self.active in ('jsonld', 'next'):
+                value = ''.join(self.buf)
+                (self.jsonld if self.active == 'jsonld' else self.next_data).append(value)
+                self.active = None; self.buf = []
+            self.in_hidden = max(0, self.in_hidden - 1)
+        elif tag == 'style':
+            self.in_hidden = max(0, self.in_hidden - 1)
+        elif tag == 'title' and self.active == 'title':
+            self.title.append(''.join(self.buf).strip()); self.active = None; self.buf = []
 
-def inspect(page):
-    print('\n===', page, '===', flush=True)
-    req = urllib.request.Request(page, headers={
-        'User-Agent': 'Mozilla/5.0 (compatible; EverythingArtEventCollector/1.1; +https://alexreynosoart.com)',
-        'Accept': 'text/html',
-    })
+def relevant_json(node, path='$', out=None, limit=24):
+    if out is None: out = []
+    if len(out) >= limit: return out
+    if isinstance(node, dict):
+        for k, v in node.items():
+            p = path + '.' + str(k)
+            if re.search(r'date|start|end|exhibit|event|title', str(k), re.I) and isinstance(v, (str, int, float)):
+                out.append((p, str(v)[:160]))
+                if len(out) >= limit: break
+            if isinstance(v, (dict, list)): relevant_json(v, p, out, limit)
+            if len(out) >= limit: break
+    elif isinstance(node, list):
+        for i, v in enumerate(node[:100]):
+            if isinstance(v, (dict, list)): relevant_json(v, path + f'[{i}]', out, limit)
+            if len(out) >= limit: break
+    return out
+
+for url in URLS:
+    print('\n=== ' + url + ' ===', flush=True)
     try:
+        req = urllib.request.Request(url, headers={
+            'User-Agent': 'Mozilla/5.0 (compatible; EverythingArtEventDiagnostic/1.0; +https://alexreynosoart.com)',
+            'Accept': 'text/html,application/xhtml+xml',
+        })
         with urllib.request.urlopen(req, timeout=25) as response:
-            final = response.url
             raw = response.read(2_000_000).decode('utf-8', 'replace')
             print('HTTP:', response.status, 'HTML chars:', len(raw))
-    except (urllib.error.URLError, TimeoutError) as exc:
-        print('Request failed:', type(exc).__name__, str(exc)[:180])
-        return
-    p = Inspector()
-    p.feed(raw)
-    print('External script count:', len(p.scripts), 'forms:', len(p.forms), 'links:', len(p.links))
-    for action, method in p.forms[:8]:
-        print('FORM:', method, urljoin(final, action)[:220])
-    for k, v in p.data_attrs[:12]:
-        print('DATA ATTRIBUTE:', k, v)
-    # Show candidate script names only; don't fetch JavaScript bundles or print page contents.
-    for src in p.scripts:
-        if re.search(r'event|calendar|search|drupal|main|app|bundle', src, re.I):
-            print('SCRIPT:', urljoin(final, src)[:240])
-    seen = set()
-    for href in p.links:
-        u = urljoin(final, href)
-        path = urlparse(u).path
-        if urlparse(u).hostname not in ('nypl.org', 'www.nypl.org'):
-            continue
-        if re.search(r'/events/(?:[^/]+/)?(?:[^/]+/)?\d+|/events/[^/]+/[^/]+|/events/calendar\?', u, re.I):
-            if u not in seen and len(seen) < 15:
-                seen.add(u)
-                print('POSSIBLE EVENT LINK:', u[:220])
-    # Print bounded context around API-related terms, with possible secrets masked.
-    terms = ['drupalSettings', 'views/ajax', 'jsonapi', 'graphql', '/api/', 'calendar-event', 'event-card', 'event-list', 'event_date']
-    for term in terms:
-        matches = list(re.finditer(re.escape(term), raw, re.I))
-        print('HINT', term, 'count:', len(matches))
-        for m in matches[:2]:
-            sample = re.sub(r'\s+', ' ', raw[max(0, m.start()-100):m.end()+140])
-            sample = re.sub(r'(?i)(token|api[_-]?key|authorization|password|secret)(["\s:=]+)[^\s"<>]{4,}', r'\1\2[REDACTED]', sample)
-            print('  CONTEXT:', sample[:280])
-
-if __name__ == '__main__':
-    for page in PAGES:
-        inspect(page)
-    print('\nRead-only NYPL investigation complete. No files changed.')
+        parser = Inspect(); parser.feed(raw)
+        print('TITLE:', parser.title[:1])
+        print('META date/title/description fields:', parser.meta[:12])
+        print('JSON-LD blocks:', len(parser.jsonld), 'NEXT_DATA blocks:', len(parser.next_data))
+        for label, blocks in [('JSON-LD', parser.jsonld), ('NEXT_DATA', parser.next_data)]:
+            for index, block in enumerate(blocks[:2]):
+                try:
+                    obj = json.loads(block)
+                    print(label, index, 'candidate fields:', relevant_json(obj))
+                except ValueError:
+                    print(label, index, 'invalid JSON; length:', len(block))
+        visible = re.sub(r'\s+', ' ', html.unescape(' '.join(parser.text))).strip()
+        matches = list(DATE_PATTERN.finditer(visible))
+        print('VISIBLE DATE MATCHES:', len(matches))
+        for m in matches[:12]:
+            print('DATE CONTEXT:', visible[max(0, m.start()-90):m.end()+100])
+        if not matches:
+            print('No visible date strings detected with this limited pattern.')
+    except (urllib.error.URLError, TimeoutError, ValueError) as exc:
+        print('ERROR:', type(exc).__name__, str(exc)[:250])
+print('\nRead-only exhibition detail diagnostic complete. No files changed.')
