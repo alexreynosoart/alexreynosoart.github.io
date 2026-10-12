@@ -843,6 +843,10 @@ def three_museum_preview():
 
 def main():
     dry_run = '--dry-run' in sys.argv
+    stage_three = '--stage-rule-of-three' in sys.argv
+    if stage_three and not dry_run:
+        print('Rule of Three integration requires --dry-run; refusing to publish.', file=sys.stderr)
+        return 2
     if '--three-museum-preview' in sys.argv:
         if not dry_run:
             print('Three-museum preview requires --dry-run; refusing to publish.',file=sys.stderr)
@@ -868,6 +872,25 @@ def main():
     existing=load_existing();sources={'NYC Parks':parks,'Whitney':whitney,'MoMA':moma,'Guggenheim':guggenheim,'NYPL':nypl,'Bronx Museum':bronx_museum,'Film at Lincoln Center':film_at_lincoln_center,'New York Live Arts':new_york_live_arts};results={};failures=[]
     if include_lc:
         sources['Lincoln Center Presents'] = lincoln_center_preview
+    if stage_three:
+        # Import the previously validated V2 staging module only for an explicit
+        # dry-run. Never add these sources to the scheduled publishing path.
+        import rule_of_three_event_staging as three_stage
+        for name, page, location in three_stage.SOURCES:
+            def staged_adapter(n=name, p=page, loc=location):
+                size, candidate_count, accepted, rejected = three_stage.stage(n, p, loc)
+                print(f'RULE OF THREE STAGING: {n}: bytes={size}; candidates={candidate_count}; accepted={len(accepted)}; rejected={len(rejected)}')
+                if not accepted:
+                    raise ValueError(f'{n}: no accepted art events; review source')
+                for event in accepted:
+                    if not isinstance(event.get('url'), str) or not event['url'].startswith('https://'):
+                        raise ValueError(f'{n}: invalid event URL')
+                    if not date(event.get('date')) or not date(event.get('endDate')):
+                        raise ValueError(f'{n}: invalid date')
+                    if date(event['date']) > date(event['endDate']):
+                        raise ValueError(f'{n}: reversed date range')
+                return accepted
+            sources[name] = staged_adapter
     for name,fn in sources.items():
         try:
             results[name]=fn();print(f'{name}: {len(results[name])} events')
@@ -904,6 +927,13 @@ def main():
             except Exception as exc:
                 print(f'DRY RUN: Lincoln Center preview ERROR: {exc}', file=sys.stderr)
         three_museum_preview()
+        if stage_three:
+            for name in ('Wave Hill', 'Staten Island Museum'):
+                print(f'RULE OF THREE MERGE: {name}: {len(results.get(name, []))} records')
+            if any(name in failures for name in ('Wave Hill', 'Staten Island Museum')):
+                print('RULE OF THREE: staging source failure; dry run FAILED.', file=sys.stderr)
+                return 1
+            print('RULE OF THREE: integration preview ONLY. Scheduled publishing remains unchanged.')
         print(f'DRY RUN: {len(events)} unique events would be published; failures: {failures}')
         print('DRY RUN: no event file written, no existing data modified')
         return 0
