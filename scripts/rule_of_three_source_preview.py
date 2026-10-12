@@ -204,7 +204,7 @@ def candidates(tree, base, name, online=False):
     return sorted(results, key=lambda row: (row[1], row[0]))
 
 SMITHSONIAN_BATCH_SIZE = 100
-SMITHSONIAN_MAX_LIST_PAGES = 12
+SMITHSONIAN_MAX_LIST_PAGES = 8
 SMITHSONIAN_DELAY_SECONDS = 0.45
 ART_TERMS = re.compile(
     r"\b(?:art|artist|artwork|painting|paint|drawing|sketch|illustrat|"
@@ -229,7 +229,10 @@ def smithsonian_program_links(tree, base):
     return links
 
 def smithsonian_listing_links(tree, base):
-    """Follow only links within the official online listing and its pagination."""
+    """Discover official category/search pages actually linked in the HTML.
+
+    No invented endpoints. Program detail pages are handled separately.
+    """
     links = set()
     for node in walk(tree.root):
         if node.tag != 'a' or not node.attrs.get('href'):
@@ -238,11 +241,10 @@ def smithsonian_listing_links(tree, base):
         parsed = urlparse(link)
         if parsed.hostname != urlparse(base).hostname:
             continue
-        # Follow official online-listing subpages and pagination only.
         path = parsed.path.rstrip('/')
-        if path == '/ticketing/online' and parsed.query:
-            links.add(link)
-        elif path.startswith('/ticketing/online/'):
+        # Only existing, explicitly linked official listing/category pages.
+        if (path in ('/ticketing/programs', '/ticketing/search', '/ticketing/online')
+                or path.startswith('/ticketing/online/')):
             links.add(link)
     return links
 
@@ -250,7 +252,9 @@ def smithsonian_detail_candidates(tree, base):
     """Discover up to 100 official programs; verify dates, online status and art relevance."""
     program_links = smithsonian_program_links(tree, base)
     listing_queue = sorted(smithsonian_listing_links(tree, base))
-    print(f'Smithsonian listing pagination/subpage links: {len(listing_queue)}')
+    print(f'Smithsonian official category/search/listing links discovered: {len(listing_queue)}')
+    for page in listing_queue[:8]:
+        print(f'  DISCOVERED LISTING {page}')
     visited_listings = {base}
     while listing_queue and len(visited_listings) < SMITHSONIAN_MAX_LIST_PAGES and len(program_links) < SMITHSONIAN_BATCH_SIZE:
         page = listing_queue.pop(0)
@@ -270,12 +274,14 @@ def smithsonian_detail_candidates(tree, base):
             continue
         page_tree = Tree()
         page_tree.feed(raw.decode('utf-8', 'replace'))
-        program_links.update(smithsonian_program_links(page_tree, base))
+        new_programs = smithsonian_program_links(page_tree, base) - program_links
+        print(f'  LISTING {page}: {len(new_programs)} additional program links')
+        program_links.update(new_programs)
         listing_queue.extend(sorted(smithsonian_listing_links(page_tree, base) - visited_listings - set(listing_queue)))
     links = sorted(program_links)[:SMITHSONIAN_BATCH_SIZE]
     print(f'Smithsonian official program links discovered: {len(program_links)} across {len(visited_listings)} listing page(s); checking {len(links)} (cap {SMITHSONIAN_BATCH_SIZE})')
     if len(program_links) < SMITHSONIAN_BATCH_SIZE:
-        print('DISCOVERY NOTE: The site exposed fewer than 100 links; the limit cannot create additional links.')
+        print('DISCOVERY NOTE: Accessible linked listings expose fewer than 100 program links. A dynamic catalog may require a different approved source.')
     approved, held, unrelated = [], 0, 0
     for link in links:
         time.sleep(SMITHSONIAN_DELAY_SECONDS)
