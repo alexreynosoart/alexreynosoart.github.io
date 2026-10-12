@@ -203,8 +203,8 @@ NYPL_INDEX = NYPL_ROOT + '/events/exhibitions/current'
 NYPL_MONTHS = ('January February March April May June July August '
                'September October November December').split()
 NYPL_END = re.compile(
-    r'\\bThrough\\s+(' + '|'.join(NYPL_MONTHS) +
-    r')\\s+(\\d{1,2}),?\\s+(20\\d{2})\\b', re.I)
+    r'\bThrough\s+(' + '|'.join(NYPL_MONTHS) +
+    r')\s+(\d{1,2}),?\s+(20\d{2})\b', re.I)
 
 def nypl_html(page):
     req = urllib.request.Request(page, headers={
@@ -238,7 +238,7 @@ def nypl():
             visible = clean(' '.join(page.text))
             # The heading/date banner says "Through November 30, 2026".
             # Do not treat unrelated historical dates in the article as event dates.
-            match = NYPL_END.search(visible[:1100])
+            match = NYPL_END.search(visible[:5000])
             if not title or not match:
                 continue
             month, day, year = match.groups()
