@@ -1,11 +1,12 @@
 {
-  "updatedAt": "2026-10-12T01:11:57.811169+00:00",
+  "updatedAt": "2026-10-12T16:05:16.697910+00:00",
   "sources": {
     "NYC Parks": 51,
     "Whitney": 14,
     "MoMA": 0,
     "Guggenheim": 0,
-    "NYPL": 7
+    "NYPL": 7,
+    "Bronx Museum": 2
   },
   "events": [
     {
@@ -34,6 +35,20 @@
       "country": "United States",
       "url": "https://www.nypl.org/events/exhibitions/forging-ahead",
       "source": "NYPL",
+      "free": false
+    },
+    {
+      "title": "Lifelong Studio Exhibition: Transcending the Form—Abstract Figurative Painting",
+      "description": "On view October 09, 2026 through December 30, 2026. ",
+      "date": "2026-10-12",
+      "endDate": "2026-12-30",
+      "venue": "The Bronx Museum",
+      "location": "Bronx, NY",
+      "type": "exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://bronxmuseum.org/exhibition/lifelong-studio-painting/",
+      "source": "Bronx Museum",
       "free": false
     },
     {
@@ -104,6 +119,20 @@
       "country": "United States",
       "url": "https://www.nypl.org/events/exhibitions/sacred-winds",
       "source": "NYPL",
+      "free": false
+    },
+    {
+      "title": "Saya Woolfalk: The WoodsWoman Method",
+      "description": "On view October 09, 2026 through March 28, 2027. ",
+      "date": "2026-10-12",
+      "endDate": "2027-03-28",
+      "venue": "The Bronx Museum",
+      "location": "Bronx, NY",
+      "type": "exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://bronxmuseum.org/exhibition/woodswoman-method/",
+      "source": "Bronx Museum",
       "free": false
     },
     {
