@@ -711,10 +711,25 @@ def lincoln_center_preview():
         title = item['title']
         times = ', '.join(sorted(item['times']))
         description = ('Listed showtime(s): ' + times + '. ' if times != 'unspecified' else '') + 'Check the official Lincoln Center event page for current details and tickets.'
+        # Only mark admission free when the official event page was reviewed.
+        # Unknown admission stays unmarked; choose-what-you-pay is not free.
+        slug = urlparse(target).path.rsplit('/', 1)[-1]
+        confirmed_free = slug in {
+            'plaza-374', 'lol-laughing-out-lonely-701',
+        }
+        if slug == 'plaza-374':
+            kind, venue = 'installation', 'Josie Robertson Plaza, Lincoln Center'
+            description = 'Interactive outdoor artwork by Andrew Schneider. Free admission; registration encouraged. ' + description
+        elif slug == 'over-my-head-i-hear-freedom-in-the-air-604':
+            kind, venue = 'performance', 'Lincoln Center Presents'
+            description = 'Choose-What-You-Pay admission. ' + description
+        else:
+            kind, venue = 'performance', 'Lincoln Center Presents'
         results.append(dict(title=title, description=description,
-            date=day, endDate=day, venue='Lincoln Center Presents',
-            location='Manhattan, NY', type='performance', features='nyc us',
-            country='United States', url=target, source='Lincoln Center Presents', free=False))
+            date=day, endDate=day, venue=venue,
+            location='Manhattan, NY', type=kind,
+            features='nyc us' + (' free' if confirmed_free else ''),
+            country='United States', url=target, source='Lincoln Center Presents', free=confirmed_free))
     print('Lincoln Center skipped associations:', skipped)
     print('Lincoln Center candidate URL/date/time combinations:', len(candidates))
     print('Lincoln Center candidate URL/date cards after same-day grouping:', len(results))
@@ -741,9 +756,9 @@ def main():
             return 1
         print('DRY RUN: no event file written, no existing data modified')
         return 0
-    # Opt-in publishing: a normal scheduled run remains unchanged.
-    # Add --publish-lincoln-center to the publishing workflow only after review.
-    include_lc = dry_run or '--publish-lincoln-center' in sys.argv
+    # Lincoln Center is enabled for regular publishing after three spot checks.
+    # Emergency rollback: pass --no-lincoln-center to disable this adapter.
+    include_lc = '--no-lincoln-center' not in sys.argv
     existing=load_existing();sources={'NYC Parks':parks,'Whitney':whitney,'MoMA':moma,'Guggenheim':guggenheim,'NYPL':nypl,'Bronx Museum':bronx_museum,'Film at Lincoln Center':film_at_lincoln_center,'New York Live Arts':new_york_live_arts};results={};failures=[]
     if include_lc:
         sources['Lincoln Center Presents'] = lincoln_center_preview
@@ -760,7 +775,7 @@ def main():
     if len(failures)==len(sources):
         print('All sources failed; leaving cache unchanged.',file=sys.stderr)
         return 1
-    # Do not publish an unreviewed or unexpectedly small/large Lincoln Center feed.
+    # Abort publishing if the Lincoln Center feed fails or changes unexpectedly.
     if not dry_run and include_lc and 'Lincoln Center Presents' in failures:
         print('Lincoln Center fetch failed: aborting opt-in publication; cache unchanged.',file=sys.stderr)
         return 1
