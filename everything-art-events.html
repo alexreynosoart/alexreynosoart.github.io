@@ -736,6 +736,8 @@ async function loadParksArt(){
   'Whitney':{title:'Whitney Museum',description:'Museum programs, exhibitions, talks and creative events.',url:'https://whitney.org/events',tag:'NYC · Museum Events'},
   'NYPL':{title:'New York Public Library',description:'Exhibitions and cultural programs across the library system.',url:'https://www.nypl.org/events/exhibitions/current',tag:'NYC · Exhibitions'},
   'Bronx Museum':{title:'The Bronx Museum',description:'Contemporary art exhibitions and community programs.',url:'https://bronxmuseum.org/exhibitions/',tag:'Bronx · Exhibitions'},
+   'Wave Hill':{title:'Wave Hill',description:'Gallery tours, family art projects and cultural programs in the Bronx.',url:'https://www.wavehill.org/calendar',tag:'Bronx · Art & Gardens'},
+   'Staten Island Museum':{title:'Staten Island Museum',description:'Exhibitions, artist talks, workshops and museum programs.',url:'https://www.statenislandmuseum.org/events/',tag:'Staten Island · Museum Events'},
    'Film at Lincoln Center':{title:'Film at Lincoln Center',description:'Upcoming film screenings, festivals and special cinema programs.',url:'https://www.filmlinc.org/now-playing/',tag:'NYC · Film Screenings'},
    'New York Live Arts':{title:'New York Live Arts',description:'Contemporary dance, live performance and experimental arts programs.',url:'https://newyorklivearts.org/',tag:'NYC · Dance & Performance'}
  };
@@ -753,6 +755,32 @@ async function loadParksArt(){
   }
   section.hidden=!grid.children.length;
  }
+// Combine same-day Wave Hill records that arrive through both NYC Parks and Wave Hill.
+// Keep the official Wave Hill link while retaining the more informative description.
+function consolidateWaveHillEvents(events){
+ const result=[], index=new Map();
+ const isWaveHill=e=>/\bwave hill\b/i.test([e.venue,e.source,e.location].join(' '));
+ const identity=e=>{
+  const title=canonicalTitle(e.title).replace(/^family art project /,'').replace(/^meet the artists /,'meet the artist ');
+  return datePart(e.date)+'|'+title;
+ };
+ for(const e of events){
+  if(!e||typeof e!=='object'){result.push(e);continue;}
+  if(!isWaveHill(e)){result.push(e);continue;}
+  const key=identity(e);
+  if(!index.has(key)){index.set(key,result.length);result.push({...e});continue;}
+  const old=result[index.get(key)];
+  const primary=textValue(e.source).toLowerCase()==='wave hill'?e:old;
+  const secondary=primary===e?old:e;
+  const description=[old.description,e.description].map(textValue).sort((a,b)=>b.length-a.length)[0];
+  const official=primary===e?e:old;
+  result[index.get(key)]={...secondary,...primary,
+   description:description||textValue(primary.description),
+   url:safeLink(official.url)||safeLink(secondary.url),
+   free:primary.free===true||secondary.free===true};
+ }
+ return result;
+}
 async function loadEventDatabase(){
  try{
   const response=await fetch('/data/art-events.json',{cache:'no-cache'});
@@ -763,7 +791,9 @@ async function loadEventDatabase(){
   const grid=document.getElementById('opGrid');
   let added=0;
   const existing=new Set(cards.map(c=>[canonicalTitle(c.querySelector('h2')?.textContent),c.dataset.date].join('|')));
-  for(const e of payload.events){
+  const displayEvents=consolidateWaveHillEvents(payload.events);
+  console.info('Everything Art: consolidated',payload.events.length-displayEvents.length,'same-day Wave Hill duplicates');
+  for(const e of displayEvents){
    if(!e||typeof e!=='object')continue;
    const title=textValue(e.title).trim(),start=datePart(e.date),end=datePart(e.endDate)||start;
    const link=safeLink(e.url);
