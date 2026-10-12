@@ -440,9 +440,132 @@ def film_at_lincoln_center():
           f'{len(results)} with future screening dates; {failures} detail errors')
     return results
 
+
+# New York Live Arts: inspect individual event pages, not the shared season menu.
+NYLA_ROOT = 'https://newyorklivearts.org'
+NYLA_INDEX = NYLA_ROOT + '/'
+NYLA_MONTHS = {m.lower(): i for i, m in enumerate(NYPL_MONTHS, 1)}
+NYLA_MONTH_PATTERN = '|'.join(NYPL_MONTHS)
+NYLA_DATE_START = re.compile(r'\b(' + NYLA_MONTH_PATTERN + r')\s+(\d{1,2})(?:\s*[-–]\s*(\d{1,2}))?(?:\s*&\s*(\d{1,2})(?:\s*[-–]\s*(\d{1,2}))?)?(?:,?\s+(20\d{2}))?\b', re.I)
+NYLA_MONTH_END = re.compile(r'\b(' + NYLA_MONTH_PATTERN + r')\s+(20\d{2})\b', re.I)
+
+class NYLAPage(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.links = []
+        self.text = []
+        self.title = ''
+        self.description = ''
+        self._title = False
+        self._skip = 0
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        if tag in ('script', 'style', 'noscript'): self._skip += 1
+        if tag == 'title': self._title = True
+        if tag == 'a' and a.get('href'): self.links.append(a['href'])
+        if tag == 'meta' and a.get('name', '').lower() == 'description':
+            self.description = self.description or clean(a.get('content'))
+        if tag in ('div', 'section', 'p', 'h1', 'h2', 'h3', 'li', 'br'):
+            self.text.append(' ')
+    def handle_endtag(self, tag):
+        if tag in ('script', 'style', 'noscript'): self._skip = max(0, self._skip - 1)
+        if tag == 'title': self._title = False
+        if tag in ('div', 'section', 'p', 'h1', 'h2', 'h3', 'li'): self.text.append(' ')
+    def handle_data(self, value):
+        if self._title: self.title += value
+        if not self._skip and value.strip(): self.text.append(value + ' ')
+
+def nyla_html(page):
+    req = urllib.request.Request(page, headers={
+        'User-Agent': 'Mozilla/5.0 (compatible; EverythingArtEventCollector/1.1; +https://alexreynosoart.com)',
+        'Accept': 'text/html,application/xhtml+xml'})
+    with urllib.request.urlopen(req, timeout=25) as response:
+        raw = response.read(1_500_000).decode('utf-8', 'replace')
+    parsed = NYLAPage()
+    parsed.feed(raw)
+    return parsed
+
+def nyla_detail_dates(visible, title):
+    # The season navigation repeats dates for OTHER events. Ignore everything
+    # before the unique detail-page breadcrumb, "Home ➔ Events ➔ <title>".
+    breadcrumb = re.search(r'Home\s*[➔›>]\s*Events\s*[➔›>]', visible, re.I)
+    if not breadcrumb:
+        return None
+    detail = visible[breadcrumb.end():breadcrumb.end() + 1100]
+    # The first local date must appear close to the detail heading/venue.
+    match = NYLA_DATE_START.search(detail[:340])
+    if not match:
+        return None
+    month, first, range_end, and_start, and_end, explicit_year = match.groups()
+    month_number = NYLA_MONTHS[month.lower()]
+    year = int(explicit_year) if explicit_year else TODAY.year
+    if not explicit_year and month_number < TODAY.month:
+        year += 1
+    day_numbers = [int(x) for x in (first, range_end, and_start, and_end) if x]
+    try:
+        start = dt.date(year, month_number, min(day_numbers))
+        end = dt.date(year, month_number, max(day_numbers))
+    except ValueError:
+        return None
+    # "On View: September 16, 2026 – January 2027" is an exhibition range.
+    if re.search(r'\bOn View\s*:', detail[:340], re.I):
+        end_match = NYLA_MONTH_END.search(detail[match.end():match.end()+80])
+        if not end_match: return None
+        end = dt.date(int(end_match.group(2)), NYLA_MONTHS[end_match.group(1).lower()], 1)
+        # Month-only end dates are ambiguous: conservatively use first of month.
+        kind = 'exhibition'
+    else:
+        kind = 'performance'
+    if end < TODAY: return None
+    return start, end, kind, detail
+
+def new_york_live_arts():
+    index = nyla_html(NYLA_INDEX)
+    links = set()
+    for href in index.links:
+        target = urljoin(NYLA_INDEX, href).split('#', 1)[0].split('?', 1)[0]
+        parsed = urlparse(target)
+        if (parsed.scheme == 'https' and parsed.netloc in ('newyorklivearts.org', 'www.newyorklivearts.org')
+                and re.fullmatch(r'/event/[^/]+/?', parsed.path)):
+            links.add(target.rstrip('/') + '/')
+    if not links:
+        raise ValueError('New York Live Arts: no detail links; preserving cache')
+    results = []
+    failures = 0
+    for link in sorted(links)[:45]:
+        try:
+            page = nyla_html(link)
+            title = clean(re.split(r'\s+[-–]\s+New York Live Arts', page.title)[0])
+            visible = clean(' '.join(page.text))
+            extracted = nyla_detail_dates(visible, title)
+            if not title or not extracted: continue
+            start, end, kind, detail = extracted
+            # Some productions tour: use the detail page's venue, not the site name.
+            boston = bool(re.search(r'Institute of Contemporary Art\s*[|]\s*Boston|Boston,\s*MA', detail[:340], re.I))
+            venue = 'Institute of Contemporary Art' if boston else 'New York Live Arts'
+            location = 'Boston, MA' if boston else 'Manhattan, NY'
+            features = 'us' if boston else 'nyc us'
+            # The detail date is verified, but time/ticket information remains on official page.
+            description = ('On view through ' if kind == 'exhibition' else 'Performance dates: ')
+            description += (start.strftime('%b %d, %Y') + ' – ' + end.strftime('%b %d, %Y')
+                            + '. Confirm exact showtimes and tickets with the organizer.')
+            results.append(dict(title=title, description=description[:360],
+                date=max(start, TODAY).isoformat() if kind == 'exhibition' else start.isoformat(),
+                endDate=end.isoformat(), venue=venue, location=location, type=kind,
+                features=features, country='United States', url=link,
+                source='New York Live Arts', free=False))
+        except (OSError, ValueError) as exc:
+            failures += 1
+            print('New York Live Arts detail error:', link, str(exc)[:150], file=sys.stderr)
+    if failures == min(len(links), 45) or not results:
+        raise ValueError('New York Live Arts: no verified upcoming performances; preserving cache')
+    print(f'New York Live Arts: checked {min(len(links), 45)} pages, '
+          f'{len(results)} dated listings; {failures} detail errors')
+    return results
+
 def main():
     dry_run = '--dry-run' in sys.argv
-    existing=load_existing();sources={'NYC Parks':parks,'Whitney':whitney,'MoMA':moma,'Guggenheim':guggenheim,'NYPL':nypl,'Bronx Museum':bronx_museum,'Film at Lincoln Center':film_at_lincoln_center};results={};failures=[]
+    existing=load_existing();sources={'NYC Parks':parks,'Whitney':whitney,'MoMA':moma,'Guggenheim':guggenheim,'NYPL':nypl,'Bronx Museum':bronx_museum,'Film at Lincoln Center':film_at_lincoln_center,'New York Live Arts':new_york_live_arts};results={};failures=[]
     for name,fn in sources.items():
         try:
             results[name]=fn();print(f'{name}: {len(results[name])} events')
