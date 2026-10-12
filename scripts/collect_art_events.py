@@ -563,8 +563,121 @@ def new_york_live_arts():
           f'{len(results)} dated listings; {failures} detail errors')
     return results
 
+
+# Lincoln Center Presents: opt-in preview only until calendar mapping is approved.
+# The scheduled publishing run deliberately does not call this adapter.
+LC_CALENDAR = 'https://www.lincolncenter.org/series/lincoln-center-presents/v/calendar'
+LC_PREFIX = '/series/lincoln-center-presents/'
+LC_DATE = re.compile(
+    r'\b(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+'
+    r'(January|February|March|April|May|June|July|August|September|October|November|December)'
+    r'\s+(\d{1,2})(?:\s+at\s+(\d{1,2}:\d{2}\s*[ap]m)|\s*-\s*(Multiple times))?', re.I)
+
+class LCCalendar(HTMLParser):
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.tokens = []
+        self.links = []
+        self.anchor = None
+        self.hidden = 0
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if tag in ('script', 'style', 'noscript'):
+            self.hidden += 1
+        if tag == 'a' and not self.hidden:
+            self.anchor = {'href': attrs.get('href', ''), 'start': len(self.tokens)}
+    def handle_data(self, value):
+        if not self.hidden:
+            self.tokens.append(html.unescape(value))
+    def handle_endtag(self, tag):
+        if tag == 'a' and self.anchor is not None:
+            self.anchor['end'] = len(self.tokens)
+            self.links.append(self.anchor)
+            self.anchor = None
+        if tag in ('script', 'style', 'noscript'):
+            self.hidden = max(0, self.hidden - 1)
+
+def lc_date(match):
+    month = dt.datetime.strptime(match.group(2), '%B').month
+    day = int(match.group(3))
+    for year in (TODAY.year, TODAY.year + 1):
+        try:
+            value = dt.date(year, month, day)
+        except ValueError:
+            continue
+        if (TODAY <= value <= TODAY + dt.timedelta(days=400)
+                and value.strftime('%A').lower() == match.group(1).lower()):
+            return value
+    return None
+
+def lincoln_center_preview():
+    req = urllib.request.Request(LC_CALENDAR, headers={
+        'User-Agent': 'Mozilla/5.0 (compatible; EverythingArtEventCollector/1.1; +https://alexreynosoart.com)',
+        'Accept': 'text/html,application/xhtml+xml'})
+    with urllib.request.urlopen(req, timeout=40) as response:
+        raw = response.read(6_000_000)
+        print('Lincoln Center calendar HTTP:', response.status, '| bytes:', len(raw))
+    page = LCCalendar()
+    page.feed(raw.decode('utf-8', 'replace'))
+    candidates = {}
+    for anchor in page.links:
+        target = urljoin(LC_CALENDAR, anchor['href']).split('#', 1)[0].split('?', 1)[0]
+        parsed = urlparse(target)
+        tail = parsed.path[len(LC_PREFIX):].strip('/') if parsed.path.startswith(LC_PREFIX) else ''
+        if parsed.scheme != 'https' or parsed.netloc not in ('www.lincolncenter.org', 'lincolncenter.org') or not tail or '/' in tail:
+            continue
+        before = clean(' '.join(page.tokens[max(0, anchor['start'] - 90):anchor['start']]))
+        matches = list(LC_DATE.finditer(before))
+        if not matches:
+            continue
+        match = matches[-1]
+        when = lc_date(match)
+        if when is None:
+            continue
+        time = clean(match.group(4) or match.group(5) or 'unspecified')
+        # This is a candidate association, not an independently verified showtime.
+        # Avoid duplicate image/title/learn-more links for the same calendar card.
+        candidates.setdefault((target, when.isoformat(), time),
+            clean(' '.join(page.tokens[anchor['end']:anchor['end'] + 28]))[:160])
+    # One card per production per day: existing site dedupe does not include time.
+    by_day = {}
+    for (target, day, time), context in candidates.items():
+        item = by_day.setdefault((target, day), {'times': set(), 'context': context})
+        item['times'].add(time)
+    results = []
+    for (target, day), item in sorted(by_day.items(), key=lambda x: (x[0][1], x[0][0])):
+        slug = urlparse(target).path.rstrip('/').rsplit('/', 1)[-1]
+        slug = re.sub(r'-\d+$', '', slug)
+        # Slug titles are provisional. Official display titles need separate review.
+        title = slug.replace('-', ' ').title()
+        times = ', '.join(sorted(item['times']))
+        description = ('Calendar candidate: ' + times + '. ' + item['context'] +
+                       ' Verify event title, date, and time on the official page.')[:360]
+        results.append(dict(title=title, description=description,
+            date=day, endDate=day, venue='Lincoln Center Presents',
+            location='Manhattan, NY', type='performance', features='nyc us',
+            country='United States', url=target, source='Lincoln Center Presents', free=False))
+    print('Lincoln Center candidate URL/date/time combinations:', len(candidates))
+    print('Lincoln Center candidate URL/date cards after same-day grouping:', len(results))
+    for item in results[:25]:
+        print(' PREVIEW:', item['date'], '|', item['title'], '|', item['description'][:85], '|', item['url'])
+    print('Lincoln Center: preview candidates are NOT approved for publication.')
+    return results
+
 def main():
     dry_run = '--dry-run' in sys.argv
+    # Read-only isolated source preview. No other adapters run and no JSON is written.
+    if '--lincoln-preview' in sys.argv:
+        if not dry_run:
+            print('Lincoln Center preview requires --dry-run; refusing to run.', file=sys.stderr)
+            return 2
+        try:
+            lincoln_center_preview()
+        except Exception as exc:
+            print(f'Lincoln Center preview ERROR: {exc}', file=sys.stderr)
+            return 1
+        print('DRY RUN: no event file written, no existing data modified')
+        return 0
     existing=load_existing();sources={'NYC Parks':parks,'Whitney':whitney,'MoMA':moma,'Guggenheim':guggenheim,'NYPL':nypl,'Bronx Museum':bronx_museum,'Film at Lincoln Center':film_at_lincoln_center,'New York Live Arts':new_york_live_arts};results={};failures=[]
     for name,fn in sources.items():
         try:
@@ -586,6 +699,11 @@ def main():
             if k not in merged:merged[k]=e
     events=sorted(merged.values(),key=lambda e:(e['date'],e['title']))
     if dry_run:
+        try:
+            lc_candidates = lincoln_center_preview()
+            print(f'DRY RUN: {len(lc_candidates)} Lincoln Center candidate cards excluded from publication')
+        except Exception as exc:
+            print(f'DRY RUN: Lincoln Center preview ERROR: {exc}', file=sys.stderr)
         print(f'DRY RUN: {len(events)} unique events would be published; failures: {failures}')
         print('DRY RUN: no event file written, no existing data modified')
         return 0
