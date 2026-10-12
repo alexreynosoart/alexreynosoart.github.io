@@ -20,13 +20,23 @@ SOURCES = (
 ART = re.compile(r'\b(art|artist|gallery|exhibit|exhibition|museum|painting|drawing|craft|sculpt|photo|print|workshop|collection|creative|history|making|design|film|lecture|talk|tour)\b', re.I)
 EXCLUDE = re.compile(r'\b(yoga|birding|bird and nature walk|hawk watch|garden highlights walk|afternoon tea|owl adventure|kids on the move)\b', re.I)
 
-def category(title):
-    if re.search(r'\b(opening|reception|preview)\b', title, re.I): return 'opening'
-    if re.search(r'\b(exhibition|exhibit|gallery|collection)\b', title, re.I): return 'exhibition'
-    if re.search(r'\b(tour|walking tour|behind the scenes)\b', title, re.I): return 'tour exhibition'
-    if re.search(r'\b(talk|lecture|discussion)\b', title, re.I): return 'talk'
-    if re.search(r'\b(family|kids|children)\b', title, re.I): return 'family workshop'
+def category(title, link):
+    context = (title + ' ' + urlparse(link).path.replace('-', ' ')).lower()
+    if re.search(r'\b(opening|reception|preview)\b', context): return 'opening'
+    if 'family art project' in context: return 'family workshop'
+    if re.search(r'\b(tour|walking tour|behind the scenes)\b', context): return 'tour'
+    if 'workshop' in context and 'talk' in context: return 'workshop talk'
+    if re.search(r'\b(talk|lecture|discussion)\b', context): return 'talk'
+    if re.search(r'\b(exhibition|exhibit|gallery|collection)\b', context): return 'exhibition'
     return 'workshop'
+
+def art_context(title, link):
+    # Official event-path words can restore context removed from a display title.
+    path = urlparse(link).path.lower().replace('-', ' ')
+    return bool(ART.search(title) or
+                'family art project' in path or
+                ('stephanie dinkins' in path and 'preview' in path))
+
 
 def stage(name, url, location):
     req = Request(url, headers={'User-Agent':'EverythingArtEventCollector/1.0 (public calendar staging)', 'Accept':'text/html,application/xhtml+xml'})
@@ -46,7 +56,7 @@ def stage(name, url, location):
         reason = None
         if not title or start < date.today(): reason = 'expired or missing title'
         elif EXCLUDE.search(title): reason = 'not primarily an art event'
-        elif not ART.search(title): reason = 'art relevance not established by title'
+        elif not art_context(title, link): reason = 'art relevance not established by title or official event path'
         elif urlparse(link).hostname != urlparse(url).hostname: reason = 'unexpected link domain'
         elif (title.casefold(), start.isoformat(), link) in seen: reason = 'duplicate'
         if reason:
@@ -54,7 +64,7 @@ def stage(name, url, location):
             continue
         seen.add((title.casefold(), start.isoformat(), link))
         item = dict(title=title, description='', date=start.isoformat(), endDate=start.isoformat(),
-                    venue=name, location=location, type=category(title), features='nyc us',
+                    venue=name, location=location, type=category(title, link), features='nyc us',
                     country='United States', url=link, source=name, free=False)
         # Schema check against the fields used by the existing collector.
         assert all(k in item for k in ('title','description','date','endDate','venue','location','type','features','country','url','source','free'))
@@ -62,7 +72,7 @@ def stage(name, url, location):
     return len(raw), len(candidates), accepted, rejected
 
 def main():
-    print('RULE OF THREE: EVENT SCHEMA STAGING, READ-ONLY', flush=True)
+    print('RULE OF THREE: CONTEXT-AWARE EVENT STAGING V2, READ-ONLY', flush=True)
     total = 0
     for name, url, location in SOURCES:
         print(f'\n=== {name} ===', flush=True)
