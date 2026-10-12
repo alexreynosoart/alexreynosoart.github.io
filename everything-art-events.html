@@ -24,18 +24,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Art Events | Everything Art</title>
-    <meta name="description" content="Current exhibitions, openings, art fairs, workshops, talks, family programs and online art events from Everything Art.">
+    <meta name="description" content="Current exhibitions, film screenings, openings, art fairs, workshops, talks, family programs and online art events from Everything Art.">
 
     <!-- Social sharing -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Art Events | Everything Art">
-    <meta property="og:description" content="Exhibitions, openings, art fairs, festivals, workshops, talks, family programs and online art events from Everything Art.">
+    <meta property="og:description" content="Exhibitions, film screenings, openings, art fairs, festivals, workshops, talks, family programs and online art events from Everything Art.">
     <meta property="og:url" content="https://alexreynosoart.com/everything-art-events.html">
     <meta property="og:image" content="https://alexreynosoart.com/images/social/everything-art-events-share.webp">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Art Events | Everything Art">
-    <meta name="twitter:description" content="Exhibitions, openings, art fairs, festivals, workshops, talks, family programs and online art events from Everything Art.">
+    <meta name="twitter:description" content="Exhibitions, film screenings, openings, art fairs, festivals, workshops, talks, family programs and online art events from Everything Art.">
     <meta name="twitter:image" content="https://alexreynosoart.com/images/social/everything-art-events-share.webp">
 
     <link rel="stylesheet" href="css/style.css">
@@ -377,7 +377,7 @@ body.everything-art-events-theme .ea-load-more[hidden],body.everything-art-event
 <span>What’s Happening</span>
 </div>
 <h1>ART EVENTS</h1>
-<p>Exhibitions, openings, art fairs, festivals, workshops, talks and online events. From New York City to the wider art world, find something worth seeing.</p>
+<p>Exhibitions, film screenings, openings, art fairs, festivals, workshops, talks and online events. From New York City to the wider art world, find something worth seeing.</p>
 <div class="op-updated"><span class="op-live-dot" aria-hidden="true"></span>Art event hub</div>
 </section>
 
@@ -388,6 +388,7 @@ body.everything-art-events-theme .ea-load-more[hidden],body.everything-art-event
 <div class="filter-row" aria-label="Event type">
 <button class="filter-button active" data-filter-group="type" data-filter="all">All</button>
 <button class="filter-button" data-filter-group="type" data-filter="exhibition">Exhibitions</button>
+<button class="filter-button" data-filter-group="type" data-filter="film">🎬 Film</button>
 <button class="filter-button" data-filter-group="type" data-filter="opening">Openings</button>
 <button class="filter-button" data-filter-group="type" data-filter="fair">Art Fairs</button>
 <button class="filter-button" data-filter-group="type" data-filter="workshop">Workshops</button>
@@ -571,7 +572,7 @@ loadMore.addEventListener('click',()=>{visibleLimit+=Number(pageSizeSelect.value
 function days(d){if(!d)return null;const a=new Date();a.setHours(0,0,0,0);const target=new Date(d+'T00:00:00');return Math.round((target-a)/86400000);}
 function info(c){const f=(c.dataset.features||'').split(/\s+/),t=(c.dataset.type||'').split(/\s+/);let flag='🎨',place='Art Event';
 if(f.includes('nyc')){flag='🗽';place='New York City';}else if(c.dataset.country==='France'){flag='🇫🇷';place='Paris';}else if(c.dataset.country==='United Kingdom'){flag='🇬🇧';place='London';}else if(c.dataset.country==='Germany'){flag='🇩🇪';place='Germany';}else if(c.dataset.country==='Canada'){flag='🇨🇦';place='Canada';}else if(c.dataset.country==='Japan'){flag='🇯🇵';place='Japan';}else if(f.includes('us')){flag='🇺🇸';place='United States';}else if(f.includes('worldwide')){flag='🌎';place='Worldwide';}
-let kind=t.includes('fair')?'Art Fair':t.includes('exhibition')?'Exhibition':t.includes('workshop')?'Workshop':t.includes('talk')?'Talk':t.includes('family')?'Family':'Event';return{flag,place,kind};}
+let kind=t.includes('film')?'Film':t.includes('fair')?'Art Fair':t.includes('exhibition')?'Exhibition':t.includes('workshop')?'Workshop':t.includes('talk')?'Talk':t.includes('family')?'Family':'Event';return{flag,place,kind};}
 function addThumb(c){const i=info(c),d=document.createElement('div');d.className='op-thumb';d.setAttribute('aria-hidden','true');d.innerHTML='<div class="op-thumb-inner"><span class="op-thumb-flag">'+i.flag+'</span><span class="op-thumb-type">'+i.kind+'</span><span class="op-thumb-country">'+i.place+'</span></div>';c.insertBefore(d,c.firstChild);}
 cards.forEach(addThumb);
 function match(c){
@@ -733,7 +734,8 @@ async function loadParksArt(){
   'NYC Parks':{title:'NYC Parks',description:'Art workshops, exhibitions and creative activities in New York City parks.',url:'https://www.nycgovparks.org/events',tag:'NYC · Parks Events'},
   'Whitney':{title:'Whitney Museum',description:'Museum programs, exhibitions, talks and creative events.',url:'https://whitney.org/events',tag:'NYC · Museum Events'},
   'NYPL':{title:'New York Public Library',description:'Exhibitions and cultural programs across the library system.',url:'https://www.nypl.org/events/exhibitions/current',tag:'NYC · Exhibitions'},
-  'Bronx Museum':{title:'The Bronx Museum',description:'Contemporary art exhibitions and community programs.',url:'https://bronxmuseum.org/exhibitions/',tag:'Bronx · Exhibitions'}
+  'Bronx Museum':{title:'The Bronx Museum',description:'Contemporary art exhibitions and community programs.',url:'https://bronxmuseum.org/exhibitions/',tag:'Bronx · Exhibitions'},
+   'Film at Lincoln Center':{title:'Film at Lincoln Center',description:'Upcoming film screenings, festivals and special cinema programs.',url:'https://www.filmlinc.org/now-playing/',tag:'NYC · Film Screenings'}
  };
  function renderConnectedSources(counts){
   const section=document.getElementById('eaConnectedSources');
@@ -784,7 +786,7 @@ async function loadEventDatabase(){
    const meta=makeNode('div','op-meta'),date=makeNode('div','');
    date.append(makeNode('strong','','Date(s): '),document.createTextNode(start+(end!==start?' – '+end:'')));
    meta.append(date);card.append(meta);
-   const a=makeNode('a','op-link','VIEW OFFICIAL EVENT →');a.href=link;a.target='_blank';a.rel='noopener noreferrer';card.append(a);
+   const a=makeNode('a','op-link',kind.split(/\s+/).includes('film')?'VIEW FILM & SHOWTIMES →':'VIEW OFFICIAL EVENT →');a.href=link;a.target='_blank';a.rel='noopener noreferrer';card.append(a);
    addThumb(card);grid.append(card);cards.push(card);added++;
   }
   if(!added&&!cards.length)throw Error('No usable events in database');
