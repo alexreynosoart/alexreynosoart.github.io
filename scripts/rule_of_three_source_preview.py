@@ -202,6 +202,74 @@ def candidates(tree, base, name, online=False):
         results.append((title, start, link, 'HTML', confidence))
     return sorted(results, key=lambda row: (row[1], row[0]))
 
+def smithsonian_detail_candidates(tree, base):
+    """Fail-closed detail-page checks, not shared listing-page dates."""
+    links = []
+    for node in walk(tree.root):
+        if node.tag != 'a' or not node.attrs.get('href'):
+            continue
+        link = urljoin(base, node.attrs['href']).split('#')[0]
+        parsed = urlparse(link)
+        if parsed.hostname != urlparse(base).hostname or not parsed.path.startswith('/ticketing/programs/'):
+            continue
+        if parsed.path.rstrip('/') == '/ticketing/programs':
+            continue
+        if link not in links:
+            links.append(link)
+    print(f'Smithsonian official program detail links: {len(links)} (checking up to 18)')
+    approved = []
+    for link in links[:18]:
+        try:
+            req = Request(link, headers={'User-Agent': 'EverythingArtEventCollector/1.0 (+read-only verification)', 'Accept': 'text/html'})
+            with urlopen(req, timeout=15) as response:
+                if response.status != 200 or urlparse(response.url).hostname != urlparse(base).hostname:
+                    continue
+                raw = response.read(MAX_BYTES + 1)
+                if len(raw) > MAX_BYTES or 'html' not in response.headers.get('Content-Type', '').lower():
+                    continue
+        except (HTTPError, URLError, TimeoutError, OSError):
+            continue
+        detail = Tree()
+        detail.feed(raw.decode('utf-8', 'replace'))
+        # Only content inside the event's main region; sitewide navigation
+        # and shared calendar dates are not reliable event evidence.
+        main = next((n for n in walk(detail.root) if n.tag == 'main'), None)
+        if main is None:
+            print(f'  HOLD no main content: {link}')
+            continue
+        headings = [n.text().strip() for n in walk(main) if n.tag == 'h1' and n.text().strip()]
+        title = headings[0] if headings else ''
+        body = main.text()[:20000]
+        if not title or len(title) > 180:
+            print(f'  HOLD title not verified: {link}')
+            continue
+        # Require an explicitly dated event within the detail page. Never
+        # fall back to today's date or a date from the listing page.
+        time_dates = [event_date(n.attrs.get('datetime')) for n in walk(main)
+                      if n.tag == 'time' and n.attrs.get('datetime')]
+        time_dates = [d for d in time_dates if d and d >= date.today()]
+        # Date strings must contain a year to avoid assigning the wrong year.
+        date_strings = re.findall(r'\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\.?\s+\d{1,2},?\s+20\d{2}\b', body, re.I)
+        body_dates = [human_date(d) for d in date_strings]
+        body_dates = [d for d in body_dates if d and d >= date.today()]
+        dates = sorted(set(time_dates or body_dates))
+        if not dates:
+            print(f'  HOLD no verified future date: {title!r}')
+            continue
+        # Online attendance must be explicit on this program's own page.
+        online = bool(re.search(r'\b(?:online program|online lecture|online class|online workshop|virtual program|virtual event|via zoom|on zoom|livestream|live stream|webinar)\b', body, re.I))
+        if not online:
+            print(f'  HOLD online attendance unverified: {title!r}')
+            continue
+        # Multiple dates may indicate a course series; do not invent sessions.
+        if len(dates) > 1:
+            print(f'  HOLD multiple future dates (manual session review): {title!r} | {dates[:4]}')
+            continue
+        approved.append((title, dates[0], link, 'DETAIL PAGE', 'DATE + ONLINE CONFIRMED IN MAIN'))
+        print(f'  VERIFIED title={title!r} | date={dates[0]} | url={link}')
+    print(f'Smithsonian verified preview: {len(approved)}; READ-ONLY, not published')
+    return approved
+
 def inspect(name, url, online=False):
     print(f'\n=== {name} ===', flush=True)
     req = Request(url, headers={'User-Agent': 'EverythingArtEventCollector/1.0 (+public calendar preview)', 'Accept': 'text/html,application/xhtml+xml'})
@@ -222,13 +290,15 @@ def inspect(name, url, online=False):
         return
     tree = Tree()
     tree.feed(raw.decode('utf-8', 'replace'))
-    found = candidates(tree, final, name, online=online)
+    found = (smithsonian_detail_candidates(tree, final)
+             if name == 'Smithsonian Associates' and online
+             else candidates(tree, final, name, online=online))
     print(f'JSON-LD blocks: {len(tree.jsonld)} | event-level candidate links: {len(found)}')
     for title, start, link, origin, confidence in found[:15]:
         print(f'  [{origin} / {confidence}] title={title!r} | date={start.isoformat()} | url={link}')
     print(f'Preview count: {len(found)} future candidates; no publication approval implied')
     if online:
-        print('ONLINE CAUTION: Nearby labels are clues, not verified attendance. Check each official event page.')
+        print('ONLINE CAUTION: Only Smithsonian detail-page checks are strengthened in this version; other online sources remain exploratory.')
     print('PREVIEW ONLY. Candidate records require date/title/link review before publication.')
 
 if __name__ == '__main__':
