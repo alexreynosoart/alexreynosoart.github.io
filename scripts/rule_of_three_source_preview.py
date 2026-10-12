@@ -8,6 +8,7 @@ Usage: python scripts/rule_of_three_source_preview.py --online
 import argparse
 import json
 import re
+import time
 from datetime import date, datetime
 from html import unescape
 from html.parser import HTMLParser
@@ -202,25 +203,60 @@ def candidates(tree, base, name, online=False):
         results.append((title, start, link, 'HTML', confidence))
     return sorted(results, key=lambda row: (row[1], row[0]))
 
-def smithsonian_detail_candidates(tree, base):
-    """Fail-closed detail-page checks, not shared listing-page dates."""
-    links = []
+SMITHSONIAN_BATCH_SIZE = 100
+SMITHSONIAN_MAX_LIST_PAGES = 12
+SMITHSONIAN_DELAY_SECONDS = 0.45
+ART_TERMS = re.compile(
+    r"\\b(?:art|artist|artwork|painting|paint|drawing|sketch|illustrat|"
+    r"photograph|sculpt|ceramic|pottery|printmak|watercolor|collage|"
+    r"design|architecture|architect|museum|gallery|exhibition|"
+    r"craft|textile|weaving|fiber art|mixed media|visual culture|"
+    r"art history|film|animation|calligraphy|miniature)\\w*\\b", re.I
+)
+
+def smithsonian_program_links(tree, base):
+    """Only program detail URLs, never site navigation or program indexes."""
+    links = set()
     for node in walk(tree.root):
         if node.tag != 'a' or not node.attrs.get('href'):
             continue
         link = urljoin(base, node.attrs['href']).split('#')[0]
         parsed = urlparse(link)
-        if parsed.hostname != urlparse(base).hostname or not parsed.path.startswith('/ticketing/programs/'):
+        if (parsed.hostname == urlparse(base).hostname
+                and re.match(r'^/ticketing/programs/[^/]+/?$', parsed.path)
+                and parsed.path.rstrip('/') != '/ticketing/programs'):
+            links.add(link)
+    return links
+
+def smithsonian_listing_links(tree, base):
+    """Follow only links within the official online listing and its pagination."""
+    links = set()
+    for node in walk(tree.root):
+        if node.tag != 'a' or not node.attrs.get('href'):
             continue
-        if parsed.path.rstrip('/') == '/ticketing/programs':
+        link = urljoin(base, node.attrs['href']).split('#')[0]
+        parsed = urlparse(link)
+        if parsed.hostname != urlparse(base).hostname:
             continue
-        if link not in links:
-            links.append(link)
-    print(f'Smithsonian official program detail links: {len(links)} (checking up to 18)')
-    approved = []
-    for link in links[:18]:
+        if parsed.path.rstrip('/') != '/ticketing/online':
+            continue
+        if link != base and parsed.query:
+            links.add(link)
+    return links
+
+def smithsonian_detail_candidates(tree, base):
+    """Discover up to 100 official programs; verify dates, online status and art relevance."""
+    program_links = smithsonian_program_links(tree, base)
+    listing_queue = sorted(smithsonian_listing_links(tree, base))
+    visited_listings = {base}
+    while listing_queue and len(visited_listings) < SMITHSONIAN_MAX_LIST_PAGES and len(program_links) < SMITHSONIAN_BATCH_SIZE:
+        page = listing_queue.pop(0)
+        if page in visited_listings:
+            continue
+        visited_listings.add(page)
+        time.sleep(SMITHSONIAN_DELAY_SECONDS)
         try:
-            req = Request(link, headers={'User-Agent': 'EverythingArtEventCollector/1.0 (+read-only verification)', 'Accept': 'text/html'})
+            req = Request(page, headers={'User-Agent': 'EverythingArtEventCollector/1.0 (+read-only verification)', 'Accept': 'text/html'})
             with urlopen(req, timeout=15) as response:
                 if response.status != 200 or urlparse(response.url).hostname != urlparse(base).hostname:
                     continue
@@ -229,45 +265,72 @@ def smithsonian_detail_candidates(tree, base):
                     continue
         except (HTTPError, URLError, TimeoutError, OSError):
             continue
+        page_tree = Tree()
+        page_tree.feed(raw.decode('utf-8', 'replace'))
+        program_links.update(smithsonian_program_links(page_tree, base))
+        listing_queue.extend(sorted(smithsonian_listing_links(page_tree, base) - visited_listings - set(listing_queue)))
+    links = sorted(program_links)[:SMITHSONIAN_BATCH_SIZE]
+    print(f'Smithsonian official program links discovered: {len(program_links)} across {len(visited_listings)} listing page(s); checking {len(links)} (cap {SMITHSONIAN_BATCH_SIZE})')
+    if len(program_links) < SMITHSONIAN_BATCH_SIZE:
+        print('DISCOVERY NOTE: Fewer than 100 links were exposed by accessible listing pages; capacity is not a guarantee.')
+    approved, held, unrelated = [], 0, 0
+    for link in links:
+        time.sleep(SMITHSONIAN_DELAY_SECONDS)
+        try:
+            req = Request(link, headers={'User-Agent': 'EverythingArtEventCollector/1.0 (+read-only verification)', 'Accept': 'text/html'})
+            with urlopen(req, timeout=15) as response:
+                if response.status != 200 or urlparse(response.url).hostname != urlparse(base).hostname:
+                    held += 1
+                    continue
+                raw = response.read(MAX_BYTES + 1)
+                if len(raw) > MAX_BYTES or 'html' not in response.headers.get('Content-Type', '').lower():
+                    held += 1
+                    continue
+        except (HTTPError, URLError, TimeoutError, OSError):
+            held += 1
+            continue
         detail = Tree()
         detail.feed(raw.decode('utf-8', 'replace'))
-        # Only content inside the event's main region; sitewide navigation
-        # and shared calendar dates are not reliable event evidence.
         main = next((n for n in walk(detail.root) if n.tag == 'main'), None)
         if main is None:
+            held += 1
             print(f'  HOLD no main content: {link}')
             continue
         headings = [n.text().strip() for n in walk(main) if n.tag == 'h1' and n.text().strip()]
         title = headings[0] if headings else ''
         body = main.text()[:20000]
-        if not title or len(title) > 180:
-            print(f'  HOLD title not verified: {link}')
+        if not title or len(title) > 180 or title.lower().startswith('all upcoming'):
+            held += 1
+            print(f'  HOLD invalid event title: {title!r}')
             continue
-        # Require an explicitly dated event within the detail page. Never
-        # fall back to today's date or a date from the listing page.
+        if not ART_TERMS.search(title + ' ' + body[:3500]):
+            unrelated += 1
+            print(f'  SKIP not clearly art-related: {title!r}')
+            continue
         time_dates = [event_date(n.attrs.get('datetime')) for n in walk(main)
                       if n.tag == 'time' and n.attrs.get('datetime')]
         time_dates = [d for d in time_dates if d and d >= date.today()]
-        # Date strings must contain a year to avoid assigning the wrong year.
-        date_strings = re.findall(r'\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\.?\s+\d{1,2},?\s+20\d{2}\b', body, re.I)
+        date_strings = re.findall(r'\\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\\.?\\s+\\d{1,2},?\\s+20\\d{2}\\b', body, re.I)
         body_dates = [human_date(d) for d in date_strings]
         body_dates = [d for d in body_dates if d and d >= date.today()]
         dates = sorted(set(time_dates or body_dates))
         if not dates:
+            held += 1
             print(f'  HOLD no verified future date: {title!r}')
             continue
-        # Online attendance must be explicit on this program's own page.
-        online = bool(re.search(r'\b(?:online program|online lecture|online class|online workshop|virtual program|virtual event|via zoom|on zoom|livestream|live stream|webinar)\b', body, re.I))
+        online = bool(re.search(r'\\b(?:online program|online lecture|online class|online workshop|virtual program|virtual event|via zoom|on zoom|livestream|live stream|webinar)\\b', body, re.I))
         if not online:
+            held += 1
             print(f'  HOLD online attendance unverified: {title!r}')
             continue
-        # Multiple dates may indicate a course series; do not invent sessions.
         if len(dates) > 1:
+            held += 1
             print(f'  HOLD multiple future dates (manual session review): {title!r} | {dates[:4]}')
             continue
-        approved.append((title, dates[0], link, 'DETAIL PAGE', 'DATE + ONLINE CONFIRMED IN MAIN'))
-        print(f'  VERIFIED title={title!r} | date={dates[0]} | url={link}')
-    print(f'Smithsonian verified preview: {len(approved)}; READ-ONLY, not published')
+        approved.append((title, dates[0], link, 'DETAIL PAGE', 'DATE + ONLINE + ART SCREENED'))
+        print(f'  CANDIDATE title={title!r} | date={dates[0]} | url={link}')
+    print(f'Smithsonian art-screened preview: {len(approved)} candidates; {held} held; {unrelated} unrelated; READ-ONLY')
+    print('ART SCREEN CAUTION: Keyword matching is preliminary. Review each candidate before publication.')
     return approved
 
 def inspect(name, url, online=False):
