@@ -1,107 +1,84 @@
-#!/usr/bin/env python3
-"""READ-ONLY extraction probe for Bronx Museum and Creative Time.
-
-Run: python scripts/diagnose_art_event_sources.py
-Prints candidate records only. Never writes data/art-events.json.
+"""READ-ONLY Everything Art source diagnostic: BRIC, Lincoln Center, Film at Lincoln Center, New York Live Arts.
+Paste into scripts/diagnose_art_event_sources.py and run the existing diagnostic GitHub Action.
+Does not write files or change published events.
 """
-import datetime as dt
-import html
-from html.parser import HTMLParser
 import re
+import json
 import urllib.request
+import urllib.error
+from html.parser import HTMLParser
 from urllib.parse import urljoin, urlparse
 
-TODAY = dt.date.today()
-MONTHS = {name: i for i, name in enumerate(
-    'January February March April May June July August September October November December'.split(), 1)}
-MONTH_PATTERN = '|'.join(MONTHS)
-DATE_PATTERN = re.compile(rf'\b({MONTH_PATTERN})\s+(\d{{1,2}}),?\s+(20\d{{2}})\b', re.I)
-RANGE_PATTERN = re.compile(rf'\b({MONTH_PATTERN})\s+(\d{{1,2}}),?\s+(20\d{{2}})\s*[–—-]\s*({MONTH_PATTERN})\s+(\d{{1,2}}),?\s+(20\d{{2}})\b', re.I)
-
-class Page(HTMLParser):
+SOURCES = {
+    'BRIC': 'https://bricartsmedia.org/events/',
+    'Lincoln Center': 'https://www.lincolncenter.org/series/lincoln-center-presents/v/calendar',
+    'Film at Lincoln Center': 'https://www.filmlinc.org/',
+    'New York Live Arts': 'https://newyorklivearts.org/',
+}
+MONTH = r'(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)'
+DATE_PATTERNS = [
+    re.compile(r'\b' + MONTH + r'\s+\d{1,2}(?:\s*[-–]\s*\d{1,2})?,?\s+20\d{2}\b', re.I),
+    re.compile(r'\b20\d{2}-\d{2}-\d{2}\b'),
+    re.compile(r'\b\d{1,2}/\d{1,2}/20\d{2}\b'),
+]
+class Scan(HTMLParser):
     def __init__(self):
-        super().__init__()
-        self.links = []
-        self.text = []
-        self.title = []
-        self.in_title = False
-        self.hidden = 0
+        super().__init__(); self.links=[]; self.text=[]; self.scripts=[]; self._jsonld=False; self._script=[]
     def handle_starttag(self, tag, attrs):
-        a = dict(attrs)
-        if tag in ('script', 'style', 'noscript'):
-            self.hidden += 1
-        if tag == 'title':
-            self.in_title = True
-        if tag == 'a' and a.get('href'):
-            self.links.append((a['href'], len(self.text)))
+        d=dict(attrs)
+        if tag=='a' and d.get('href'): self.links.append(d['href'])
+        if tag=='script' and 'ld+json' in d.get('type','').lower(): self._jsonld=True; self._script=[]
     def handle_endtag(self, tag):
-        if tag in ('script', 'style', 'noscript'):
-            self.hidden = max(0, self.hidden - 1)
-        if tag == 'title':
-            self.in_title = False
+        if tag=='script' and self._jsonld: self.scripts.append(''.join(self._script)); self._jsonld=False
     def handle_data(self, data):
-        if self.in_title:
-            self.title.append(data)
-        elif not self.hidden and data.strip():
-            self.text.append(html.unescape(data.strip()))
+        if self._jsonld: self._script.append(data)
+        else: self.text.append(data)
 
-def get(url):
-    req = urllib.request.Request(url, headers={
-        'User-Agent': 'Mozilla/5.0 (compatible; EverythingArtEventCollector/1.1; +https://alexreynosoart.com)',
-        'Accept': 'text/html,application/xhtml+xml'})
-    with urllib.request.urlopen(req, timeout=25) as response:
-        raw = response.read(2_000_000).decode('utf-8', 'replace')
-    parser = Page()
-    parser.feed(raw)
-    return parser
+def jsonld_events(obj):
+    if isinstance(obj, list): return sum(jsonld_events(x) for x in obj)
+    if isinstance(obj, dict):
+        typ=obj.get('@type',[]); typ=[typ] if isinstance(typ,str) else typ
+        n=1 if any(str(t).lower().endswith('event') for t in typ) and obj.get('startDate') else 0
+        return n+sum(jsonld_events(v) for v in obj.values() if isinstance(v,(list,dict)))
+    return 0
 
-def iso(month, day, year):
-    return dt.date(int(year), MONTHS[month.capitalize()], int(day))
-
-def dates_near(text):
-    """Candidates only. Dates must be checked against detail-page meaning."""
-    ranges = []
-    for match in RANGE_PATTERN.finditer(text):
-        a = iso(*match.groups()[:3]); b = iso(*match.groups()[3:])
-        if b >= TODAY:
-            ranges.append((a.isoformat(), b.isoformat(), text[max(0, match.start()-90):match.end()+90]))
-    singles = []
-    for match in DATE_PATTERN.finditer(text):
-        d = iso(*match.groups())
-        if d >= TODAY:
-            singles.append((d.isoformat(), text[max(0, match.start()-90):match.end()+90]))
-    return ranges, singles
-
-def inspect(name, index, allowed_prefix, limit=8):
-    print(f'\n=== {name} ===')
+def inspect(name,url):
+    print('\n'+'='*70+'\n'+name+' | '+url,flush=True)
+    req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0 (compatible; EverythingArtDiagnostic/1.0)','Accept':'text/html,application/xhtml+xml'})
     try:
-        listing = get(index)
-    except Exception as exc:
-        print('INDEX ERROR:', type(exc).__name__, str(exc)[:200]); return
-    links = []
-    for href, _ in listing.links:
-        absolute = urljoin(index, href).split('#', 1)[0].split('?', 1)[0]
-        if urlparse(absolute).netloc == urlparse(index).netloc and allowed_prefix in urlparse(absolute).path:
-            if absolute not in links: links.append(absolute)
-    print('Candidate detail links:', len(links))
-    for link in links[:limit]:
-        try:
-            page = get(link)
-            title = ' '.join(page.title).split('|')[0].strip()
-            visible = ' '.join(page.text)
-            ranges, singles = dates_near(visible[:12000])
-            print('\nTITLE:', title[:130]); print('URL:', link)
-            print('DATE RANGES:', [(a,b) for a,b,_ in ranges[:3]])
-            print('OTHER DATES:', [d for d,_ in singles[:5]])
-            for a,b,context in ranges[:1]: print('DATE CONTEXT:', context[:220])
-            if not ranges and singles:
-                print('DATE CONTEXT:', singles[0][1][:220])
-            if not ranges and not singles:
-                print('NO FUTURE DATE FOUND: do not publish automatically')
-        except Exception as exc:
-            print('DETAIL ERROR:', link, type(exc).__name__, str(exc)[:160])
+        with urllib.request.urlopen(req,timeout=22) as resp:
+            body=resp.read(1_500_000); final=resp.geturl(); status=resp.status; ctype=resp.headers.get('Content-Type','')
+    except Exception as e:
+        print('FETCH FAILED:',type(e).__name__,str(e)[:220],flush=True); return
+    print('HTTP:',status,'| final URL:',final,'| bytes:',len(body),'| content type:',ctype,flush=True)
+    html=body.decode('utf-8','replace'); p=Scan()
+    try: p.feed(html)
+    except Exception as e: print('HTML parse warning:',str(e)[:150])
+    plain=' '.join(p.text); plain=re.sub(r'\s+',' ',plain)
+    dates=[]
+    for pat in DATE_PATTERNS:
+        for m in pat.finditer(plain):
+            s=m.group(0)
+            if s not in dates: dates.append(s)
+    print('Visible date examples:',dates[:12],flush=True)
+    print('JSON-LD blocks:',len(p.scripts),flush=True)
+    count=0
+    for s in p.scripts:
+        try: count+=jsonld_events(json.loads(s))
+        except (ValueError,TypeError): pass
+    print('JSON-LD dated Event objects:',count,flush=True)
+    host=urlparse(final).netloc.replace('www.','')
+    links=[]
+    for href in p.links:
+        full=urljoin(final,href)
+        if urlparse(full).netloc.replace('www.','')!=host: continue
+        if not re.search(r'event|calendar|program|screen|film|performance|show|dance|festival',full,re.I): continue
+        if full not in links: links.append(full)
+    print('Relevant same-site links:',len(links),flush=True)
+    for item in links[:10]: print(' LINK',item,flush=True)
+    if not dates and not count: print('NOTE: No dated events verified from this landing page; needs deeper inspection.',flush=True)
 
-if __name__ == '__main__':
-    inspect('Bronx Museum exhibitions', 'https://bronxmuseum.org/exhibitions/', '/exhibition/', 10)
-    inspect('Creative Time events', 'https://creativetime.org/events/', '/events/', 10)
-    print('\nREAD-ONLY extraction test complete. No files changed.')
+if __name__=='__main__':
+    print('Everything Art | READ-ONLY mixed-discipline source diagnostic',flush=True)
+    for name,url in SOURCES.items(): inspect(name,url)
+    print('\nDiagnostic finished. No event files changed.',flush=True)
