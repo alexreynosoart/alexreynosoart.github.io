@@ -250,6 +250,7 @@ def smithsonian_detail_candidates(tree, base):
     """Discover up to 100 official programs; verify dates, online status and art relevance."""
     program_links = smithsonian_program_links(tree, base)
     listing_queue = sorted(smithsonian_listing_links(tree, base))
+    print(f'Smithsonian listing pagination/subpage links: {len(listing_queue)}')
     visited_listings = {base}
     while listing_queue and len(visited_listings) < SMITHSONIAN_MAX_LIST_PAGES and len(program_links) < SMITHSONIAN_BATCH_SIZE:
         page = listing_queue.pop(0)
@@ -305,7 +306,10 @@ def smithsonian_detail_candidates(tree, base):
             held += 1
             print(f'  HOLD invalid event title: {title!r}')
             continue
-        if not ART_TERMS.search(title + ' ' + body[:3500]):
+        # Require a meaningful art signal in the title or a strong art-specific
+        # phrase in the event body; generic words elsewhere in navigation are not enough.
+        strong_body_art = re.search(r'\b(?:art history|visual arts?|fine arts?|studio art|art museum|art exhibition|painting workshop|drawing workshop|photography workshop|architecture lecture|design history|craft workshop)\b', body[:2500], re.I)
+        if not ART_TERMS.search(title) and not strong_body_art:
             unrelated += 1
             print(f'  SKIP not clearly art-related: {title!r}')
             continue
@@ -326,13 +330,17 @@ def smithsonian_detail_candidates(tree, base):
             print(f'  HOLD online attendance unverified: {title!r}')
             continue
         if len(dates) > 1:
-            held += 1
-            print(f'  HOLD multiple future dates (manual session review): {title!r} | {dates[:4]}')
+            # A course is one listing, not one duplicate per meeting.
+            # Keep its start date for downstream preview compatibility, and
+            # display the end date here for explicit human review.
+            approved.append((title, dates[0], link, 'DETAIL PAGE / COURSE', 'MULTI-SESSION / MANUAL REVIEW'))
+            print(f'  COURSE CANDIDATE title={title!r} | starts={dates[0]} | ends={dates[-1]} | sessions={len(dates)} | url={link}')
             continue
         approved.append((title, dates[0], link, 'DETAIL PAGE', 'DATE + ONLINE + ART SCREENED'))
         print(f'  CANDIDATE title={title!r} | date={dates[0]} | url={link}')
     print(f'Smithsonian art-screened preview: {len(approved)} candidates; {held} held; {unrelated} unrelated; READ-ONLY')
-    print('ART SCREEN CAUTION: Keyword matching is preliminary. Review each candidate before publication.')
+    print('ART SCREEN CAUTION: Keyword matching is preliminary; course end dates and session counts need manual review.')
+    print('DISCOVERY CAUTION: If only 13 links appear, this HTML does not expose the full catalog. No guessed API endpoints or URLs are used.')
     return approved
 
 def inspect(name, url, online=False):
