@@ -843,10 +843,8 @@ def three_museum_preview():
 
 def main():
     dry_run = '--dry-run' in sys.argv
-    stage_three = '--stage-rule-of-three' in sys.argv
-    if stage_three and not dry_run:
-        print('Rule of Three integration requires --dry-run; refusing to publish.', file=sys.stderr)
-        return 2
+    # Enabled by default for scheduled publishing; emergency rollback available.
+    stage_three = '--no-rule-of-three' not in sys.argv
     if '--three-museum-preview' in sys.argv:
         if not dry_run:
             print('Three-museum preview requires --dry-run; refusing to publish.',file=sys.stderr)
@@ -873,8 +871,7 @@ def main():
     if include_lc:
         sources['Lincoln Center Presents'] = lincoln_center_preview
     if stage_three:
-        # Import the previously validated V2 staging module only for an explicit
-        # dry-run. Never add these sources to the scheduled publishing path.
+        # Reuse the tested staging adapter in scheduled publishing and dry runs.
         import rule_of_three_event_staging as three_stage
         for name, page, location in three_stage.SOURCES:
             def staged_adapter(n=name, p=page, loc=location):
@@ -911,9 +908,17 @@ def main():
     if not dry_run and include_lc and not (10 <= len(results['Lincoln Center Presents']) <= 400):
         print('Lincoln Center count outside safety bounds; cache unchanged.',file=sys.stderr)
         return 1
+    # A failed new source must never silently remove its events from the live cache.
+    # Abort this publication rather than committing a partial source failure.
+    if not dry_run and stage_three and any(n in failures for n in ('Wave Hill', 'Staten Island Museum')):
+        print('Rule of Three source failed: publication aborted; cache unchanged.', file=sys.stderr)
+        return 1
     merged={}
     for name in sources:
         for e in results[name]:
+            # Filter past dates at publication time, including cached fallbacks.
+            if (date(e.get('endDate')) or date(e.get('date')) or TODAY) < TODAY:
+                continue
             k=key(e)
             if k not in merged:merged[k]=e
     events=sorted(merged.values(),key=lambda e:(e['date'],e['title']))
@@ -933,7 +938,7 @@ def main():
             if any(name in failures for name in ('Wave Hill', 'Staten Island Museum')):
                 print('RULE OF THREE: staging source failure; dry run FAILED.', file=sys.stderr)
                 return 1
-            print('RULE OF THREE: integration preview ONLY. Scheduled publishing remains unchanged.')
+            print('RULE OF THREE: integration enabled; DRY RUN does not publish.')
         print(f'DRY RUN: {len(events)} unique events would be published; failures: {failures}')
         print('DRY RUN: no event file written, no existing data modified')
         return 0
