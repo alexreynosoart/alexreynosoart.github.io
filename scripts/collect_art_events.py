@@ -165,9 +165,103 @@ def guggenheim():
     return structured_events('Guggenheim','https://www.guggenheim.org/',
         'Solomon R. Guggenheim Museum','Manhattan, NY','United States','nyc us')
 
+# NYPL uses visible exhibition detail pages, not JSON-LD.
+# Keep this adapter separate from the other working source adapters.
+class NYPLPage(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.links = []
+        self.title = ''
+        self.description = ''
+        self.text = []
+        self._capture_title = False
+        self._hidden = 0
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        if tag in ('script', 'style', 'noscript'):
+            self._hidden += 1
+        if tag == 'title':
+            self._capture_title = True
+        if tag == 'a' and a.get('href'):
+            self.links.append(a['href'])
+        if tag == 'meta':
+            if a.get('name', '').lower() == 'description' or a.get('property', '').lower() == 'og:description':
+                self.description = self.description or clean(a.get('content'))
+    def handle_endtag(self, tag):
+        if tag in ('script', 'style', 'noscript'):
+            self._hidden = max(0, self._hidden - 1)
+        if tag == 'title':
+            self._capture_title = False
+    def handle_data(self, value):
+        if self._capture_title:
+            self.title += value
+        elif not self._hidden:
+            self.text.append(value)
+
+NYPL_ROOT = 'https://www.nypl.org'
+NYPL_INDEX = NYPL_ROOT + '/events/exhibitions/current'
+NYPL_MONTHS = ('January February March April May June July August '
+               'September October November December').split()
+NYPL_END = re.compile(
+    r'\\bThrough\\s+(' + '|'.join(NYPL_MONTHS) +
+    r')\\s+(\\d{1,2}),?\\s+(20\\d{2})\\b', re.I)
+
+def nypl_html(page):
+    req = urllib.request.Request(page, headers={
+        'User-Agent': 'Mozilla/5.0 (compatible; EverythingArtEventCollector/1.1; +https://alexreynosoart.com)',
+        'Accept': 'text/html,application/xhtml+xml'})
+    with urllib.request.urlopen(req, timeout=25) as response:
+        raw = response.read(2_000_000).decode('utf-8', 'replace')
+    parser = NYPLPage()
+    parser.feed(raw)
+    return parser
+
 def nypl():
-    return structured_events('NYPL','https://www.nypl.org/events',
-        'New York Public Library','New York, NY','United States','nyc us')
+    index = nypl_html(NYPL_INDEX)
+    links = set()
+    for href in index.links:
+        absolute = urljoin(NYPL_INDEX, href).split('#', 1)[0].split('?', 1)[0].rstrip('/')
+        path = urlparse(absolute)
+        if (path.scheme == 'https' and path.netloc == 'www.nypl.org'
+                and path.path.startswith('/events/exhibitions/')
+                and path.path.count('/') == 3
+                and path.path.rsplit('/', 1)[-1] not in ('current', 'past', 'online', 'treasures')):
+            links.add(absolute)
+    if not links:
+        raise ValueError('NYPL index yielded no exhibition detail links; preserving cache')
+    results = []
+    failures = 0
+    for link in sorted(links)[:60]:
+        try:
+            page = nypl_html(link)
+            title = clean(page.title.split(' | The New York Public Library')[0])
+            visible = clean(' '.join(page.text))
+            # The heading/date banner says "Through November 30, 2026".
+            # Do not treat unrelated historical dates in the article as event dates.
+            match = NYPL_END.search(visible[:1100])
+            if not title or not match:
+                continue
+            month, day, year = match.groups()
+            end = dt.date(int(year), NYPL_MONTHS.index(month.capitalize()) + 1, int(day))
+            if end < TODAY:
+                continue
+            # The listing begins today if the actual opening date is unknown.
+            # This is an availability/listing date, NOT a claimed exhibition opening.
+            desc = page.description or 'Current exhibition at The New York Public Library.'
+            desc = ('On view through ' + end.strftime('%B %d, %Y') + '. ' + desc)[:360]
+            results.append(dict(
+                title=title, description=desc, date=TODAY.isoformat(),
+                endDate=end.isoformat(), venue='New York Public Library',
+                location='New York, NY', type='exhibition',
+                features='nyc us', country='United States',
+                url=link, source='NYPL', free=False))
+        except (OSError, ValueError) as exc:
+            failures += 1
+            print('NYPL detail error:', link, str(exc)[:150], file=sys.stderr)
+    if failures == min(len(links), 60):
+        raise ValueError('All NYPL detail requests failed; preserving cache')
+    print(f'NYPL: inspected {min(len(links), 60)} exhibition links; {failures} detail errors')
+    return results
 
 def main():
     existing=load_existing();sources={'NYC Parks':parks,'Whitney':whitney,'MoMA':moma,'Guggenheim':guggenheim,'NYPL':nypl};results={};failures=[]
