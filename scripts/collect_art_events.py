@@ -742,8 +742,67 @@ def lincoln_center_preview():
     print('Lincoln Center: calendar-derived dates; spot-check official event pages before enabling live publication.')
     return results
 
+
+# Rule of Three: read-only discovery of official museum calendars.
+# These candidates never enter the published event feed until independently verified.
+def three_museum_preview():
+    from html.parser import HTMLParser
+    from urllib.parse import urljoin, urlparse
+    class Reader(HTMLParser):
+        def __init__(self):
+            super().__init__();self.parts=[];self.links=[];self.href=None;self.label=[]
+        def handle_starttag(self,tag,attrs):
+            if tag=='a':
+                self.href=dict(attrs).get('href');self.label=[]
+        def handle_data(self,data):
+            v=clean(data)
+            if v:
+                self.parts.append(v)
+                if self.href is not None:self.label.append(v)
+        def handle_endtag(self,tag):
+            if tag=='a' and self.href is not None:
+                self.links.append((self.href,clean(' '.join(self.label))))
+                self.href=None;self.label=[]
+    targets={
+      'The Met':('https://www.metmuseum.org/exhibitions?location=main','metmuseum.org'),
+      'Brooklyn Museum':('https://www.brooklynmuseum.org/exhibitions','brooklynmuseum.org'),
+      'Queens Museum':('https://queensmuseum.org/calendar/','queensmuseum.org'),
+    }
+    print('RULE OF THREE: official-source discovery only; NO events will be published')
+    for name,(address,domain) in targets.items():
+        try:
+            req=urllib.request.Request(address,headers={'User-Agent':'Mozilla/5.0 (compatible; EverythingArtPreview/1.0)','Accept':'text/html'})
+            with urllib.request.urlopen(req,timeout=30) as resp:
+                final=resp.geturl();raw=resp.read(7_000_000).decode('utf-8','replace')
+            if domain not in (urlparse(final).hostname or ''):raise ValueError('Unexpected redirect')
+            parser=Reader();parser.feed(raw)
+            seen=set();candidates=[]
+            for href,label in parser.links:
+                target=urljoin(final,href or '')
+                path=urlparse(target).path.lower()
+                if not label or len(label)<5 or len(label)>150 or target in seen:continue
+                if domain not in (urlparse(target).hostname or ''):continue
+                if name=='The Met' and '/exhibitions/' not in path:continue
+                if name=='Brooklyn Museum' and not any(x in path for x in ('/exhibitions/','/calendar/')):continue
+                if name=='Queens Museum' and not any(x in path for x in ('/exhibition/','/event/','/events/','/whats-on/')):continue
+                seen.add(target);candidates.append((label,target))
+            print(f'{name}: HTTP OK; {len(raw)} bytes; {len(candidates)} distinct possible detail links')
+            for label,target in candidates[:12]:print(' CANDIDATE:',label[:85],'|',target)
+            if not candidates:
+                print(f'{name}: no confidently extracted detail links; adapter requires investigation (NOT a zero-event finding)')
+        except Exception as exc:
+            print(f'{name}: preview unavailable: {exc}; no publishing attempted')
+    print('RULE OF THREE: preview complete; 0 new museum events added to the cache')
+
 def main():
     dry_run = '--dry-run' in sys.argv
+    if '--three-museum-preview' in sys.argv:
+        if not dry_run:
+            print('Three-museum preview requires --dry-run; refusing to publish.',file=sys.stderr)
+            return 2
+        three_museum_preview()
+        print('DRY RUN: no event file written, no existing data modified')
+        return 0
     # Read-only isolated source preview. No other adapters run and no JSON is written.
     if '--lincoln-preview' in sys.argv:
         if not dry_run:
@@ -797,6 +856,7 @@ def main():
                 print(f'DRY RUN: {len(lc_candidates)} Lincoln Center candidate cards excluded from publication')
             except Exception as exc:
                 print(f'DRY RUN: Lincoln Center preview ERROR: {exc}', file=sys.stderr)
+        three_museum_preview()
         print(f'DRY RUN: {len(events)} unique events would be published; failures: {failures}')
         print('DRY RUN: no event file written, no existing data modified')
         return 0
