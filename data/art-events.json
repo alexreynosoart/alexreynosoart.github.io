@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-12T17:36:53.995555+00:00",
+  "updatedAt": "2026-10-12T18:39:37.019694+00:00",
   "sources": {
     "NYC Parks": 51,
     "Whitney": 14,
@@ -7,7 +7,7 @@
     "Guggenheim": 0,
     "NYPL": 7,
     "Bronx Museum": 2,
-    "Film at Lincoln Center": 16,
+    "Film at Lincoln Center": 14,
     "New York Live Arts": 8
   },
   "events": [
@@ -79,20 +79,6 @@
       "country": "United States",
       "url": "https://www.nypl.org/events/exhibitions/declaring-america-1776-beyond",
       "source": "NYPL",
-      "free": false
-    },
-    {
-      "title": "Double Freedom",
-      "description": "Upcoming screening dates: Oct 12. See official film page for verified showtimes and tickets.",
-      "date": "2026-10-12",
-      "endDate": "2026-10-12",
-      "venue": "Film at Lincoln Center",
-      "location": "Manhattan, NY",
-      "type": "film",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://www.filmlinc.org/films/double-freedom/",
-      "source": "Film at Lincoln Center",
       "free": false
     },
     {
@@ -261,20 +247,6 @@
       "country": "United States",
       "url": "https://www.nypl.org/events/exhibitions/silly-old-bear-winnie-pooh-100",
       "source": "NYPL",
-      "free": false
-    },
-    {
-      "title": "Tender Loving Care",
-      "description": "Upcoming screening dates: Oct 12. See official film page for verified showtimes and tickets.",
-      "date": "2026-10-12",
-      "endDate": "2026-10-12",
-      "venue": "Film at Lincoln Center",
-      "location": "Manhattan, NY",
-      "type": "film",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://www.filmlinc.org/films/tender-loving-care/",
-      "source": "Film at Lincoln Center",
       "free": false
     },
     {
