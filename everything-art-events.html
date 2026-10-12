@@ -333,6 +333,20 @@ body.everything-art-events-theme .ea-load-more {border:1px solid #c49c18; border
 body.everything-art-events-theme .ea-load-more:hover {background:#55441a;}
 body.everything-art-events-theme .ea-load-more[hidden],body.everything-art-events-theme .ea-description-toggle[hidden] {display:none;}
 @media(max-width:600px){body.everything-art-events-theme .ea-page-controls {align-items:flex-start;}body.everything-art-events-theme .ea-page-controls label {margin-left:auto;}}
+/* Scalable connected-source directory; inactive regions stay visibly muted. */
+body.everything-art-events-theme .ea-source-intro{color:#aaa;margin:0 0 14px;font-size:.9rem}
+body.everything-art-events-theme .ea-source-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+body.everything-art-events-theme .ea-source-tab{border:1px solid #555;background:#282828;color:#eee;border-radius:999px;padding:10px 16px;font:inherit;font-size:.85rem;font-weight:750;cursor:pointer}
+body.everything-art-events-theme .ea-source-tab.is-active{background:#ffd633;border-color:#ffd633;color:#111}
+body.everything-art-events-theme .ea-source-tab:disabled{background:#1b1b1b;border-color:#353535;color:#777;cursor:not-allowed;opacity:.75}
+body.everything-art-events-theme .ea-source-tab:focus-visible,body.everything-art-events-theme #eaSourceMore:focus-visible{outline:2px solid #ffd633;outline-offset:3px}
+body.everything-art-events-theme .ea-source-tools{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:0 0 16px}
+body.everything-art-events-theme #eaSourceSearch{min-width:180px;flex:1 1 260px;max-width:440px;box-sizing:border-box;background:#202020;color:#fff;border:1px solid #555;border-radius:16px;padding:12px 15px;font:inherit}
+body.everything-art-events-theme #eaSourceSearch::placeholder{color:#999}
+body.everything-art-events-theme #eaSourceCount{color:#aaa;font-size:.82rem}
+body.everything-art-events-theme .ea-source-actions{text-align:center;margin:18px 0 0}
+body.everything-art-events-theme #eaSourceMore{border:1px solid #aa8722;background:#3b3216;color:#ffe17a;border-radius:999px;padding:11px 20px;font:inherit;font-weight:750;cursor:pointer}
+body.everything-art-events-theme .ea-source-empty{color:#aaa;margin:12px 0}
 </style>
 </head>
 
@@ -497,8 +511,18 @@ body.everything-art-events-theme .ea-load-more[hidden],body.everything-art-event
 <div class="resource-heading"><div><div class="op-kicker">Keep Exploring</div><h2>Live Art Event Sources</h2></div>
 <p>Established calendars to check for exhibitions, museum programs, fairs and events between Everything Art updates.</p></div>
 <div id="eaConnectedSources" hidden>
-<h3 style="margin:0 0 16px;font-size:1.15rem">Connected event sources</h3>
+<h3 style="margin:0 0 12px;font-size:1.15rem">Connected event sources</h3>
+<p class="ea-source-intro">Browse the institutions currently contributing events. Other regions will become available as new sources connect.</p>
+<div class="ea-source-tabs" id="eaSourceTabs" aria-label="Connected source regions">
+<button type="button" class="ea-source-tab is-active" data-source-region="nyc" aria-pressed="true">🗽 NYC</button>
+<button type="button" class="ea-source-tab" data-source-region="us" aria-pressed="false" disabled>🇺🇸 U.S.</button>
+<button type="button" class="ea-source-tab" data-source-region="europe" aria-pressed="false" disabled>🌍 Europe</button>
+<button type="button" class="ea-source-tab" data-source-region="world" aria-pressed="false" disabled>🌐 Worldwide</button>
+</div>
+<div class="ea-source-tools"><input type="search" id="eaSourceSearch" aria-label="Search connected institutions" placeholder="Search connected institutions…" autocomplete="off"><span id="eaSourceCount" aria-live="polite"></span></div>
 <div class="resource-grid" id="eaConnectedSourceGrid"></div>
+<div class="ea-source-actions"><button type="button" id="eaSourceMore" hidden>View all sources ↓</button></div>
+<p id="eaSourceEmpty" class="ea-source-empty" hidden>No connected sources match your search.</p>
 </div>
 <h3 style="margin:24px 0 16px;font-size:1.15rem">Explore more calendars</h3>
 <div class="resource-grid"><a class="resource-card" href="https://www.moma.org/calendar/exhibitions" target="_blank" rel="noopener noreferrer">
@@ -732,30 +756,63 @@ async function loadParksArt(){
  // Show only verified, currently contributing sources from the saved database.
  // Source names are mapped to their official calendars; never invent a link.
  const eaSourceDirectory={
-  'NYC Parks':{title:'NYC Parks',description:'Art workshops, exhibitions and creative activities in New York City parks.',url:'https://www.nycgovparks.org/events',tag:'NYC · Parks Events'},
-  'Whitney':{title:'Whitney Museum',description:'Museum programs, exhibitions, talks and creative events.',url:'https://whitney.org/events',tag:'NYC · Museum Events'},
-  'NYPL':{title:'New York Public Library',description:'Exhibitions and cultural programs across the library system.',url:'https://www.nypl.org/events/exhibitions/current',tag:'NYC · Exhibitions'},
-  'Bronx Museum':{title:'The Bronx Museum',description:'Contemporary art exhibitions and community programs.',url:'https://bronxmuseum.org/exhibitions/',tag:'Bronx · Exhibitions'},
-   'Wave Hill':{title:'Wave Hill',description:'Gallery tours, family art projects and cultural programs in the Bronx.',url:'https://www.wavehill.org/calendar',tag:'Bronx · Art & Gardens'},
-   'Staten Island Museum':{title:'Staten Island Museum',description:'Exhibitions, artist talks, workshops and museum programs.',url:'https://www.statenislandmuseum.org/events/',tag:'Staten Island · Museum Events'},
-   'Film at Lincoln Center':{title:'Film at Lincoln Center',description:'Upcoming film screenings, festivals and special cinema programs.',url:'https://www.filmlinc.org/now-playing/',tag:'NYC · Film Screenings'},
-   'New York Live Arts':{title:'New York Live Arts',description:'Contemporary dance, live performance and experimental arts programs.',url:'https://newyorklivearts.org/',tag:'NYC · Dance & Performance'}
+  'NYC Parks':{title:'NYC Parks',description:'Art workshops, exhibitions and creative activities in New York City parks.',url:'https://www.nycgovparks.org/events',tag:'NYC · Parks Events',region:'nyc'},
+  'Whitney':{title:'Whitney Museum',description:'Museum programs, exhibitions, talks and creative events.',url:'https://whitney.org/events',tag:'NYC · Museum Events',region:'nyc'},
+  'NYPL':{title:'New York Public Library',description:'Exhibitions and cultural programs across the library system.',url:'https://www.nypl.org/events/exhibitions/current',tag:'NYC · Exhibitions',region:'nyc'},
+  'Bronx Museum':{title:'The Bronx Museum',description:'Contemporary art exhibitions and community programs.',url:'https://bronxmuseum.org/exhibitions/',tag:'Bronx · Exhibitions',region:'nyc'},
+   'Wave Hill':{title:'Wave Hill',description:'Gallery tours, family art projects and cultural programs in the Bronx.',url:'https://www.wavehill.org/calendar',tag:'Bronx · Art & Gardens',region:'nyc'},
+   'Staten Island Museum':{title:'Staten Island Museum',description:'Exhibitions, artist talks, workshops and museum programs.',url:'https://www.statenislandmuseum.org/events/',tag:'Staten Island · Museum Events',region:'nyc'},
+   'Film at Lincoln Center':{title:'Film at Lincoln Center',description:'Upcoming film screenings, festivals and special cinema programs.',url:'https://www.filmlinc.org/now-playing/',tag:'NYC · Film Screenings',region:'nyc'},
+   'New York Live Arts':{title:'New York Live Arts',description:'Contemporary dance, live performance and experimental arts programs.',url:'https://newyorklivearts.org/',tag:'NYC · Dance & Performance',region:'nyc'}
  };
- function renderConnectedSources(counts){
-  const section=document.getElementById('eaConnectedSources');
+ // Region metadata is ready for new institutions; no empty region is highlighted.
+ let eaConnectedList=[];
+ let eaSourceRegion='nyc',eaShowAllSources=false;
+ const eaSourceSearch=document.getElementById('eaSourceSearch');
+ const eaSourceMore=document.getElementById('eaSourceMore');
+ const eaSourceTabs=[...document.querySelectorAll('#eaSourceTabs [data-source-region]')];
+ function displayConnectedSources(){
   const grid=document.getElementById('eaConnectedSourceGrid');
-  if(!section||!grid||!counts||typeof counts!=='object')return;
+  const q=(eaSourceSearch?.value||'').trim().toLowerCase();
+  const matching=eaConnectedList.filter(({name,info})=>(info.region||'nyc')===eaSourceRegion &&
+   [name,info.title,info.description,info.tag].join(' ').toLowerCase().includes(q));
+  const shown=eaShowAllSources||q?matching:matching.slice(0,6);
   grid.replaceChildren();
-  for(const [name,info] of Object.entries(eaSourceDirectory)){
-   if(!Number.isFinite(Number(counts[name]))||Number(counts[name])<=0)continue;
+  for(const {info} of shown){
    const card=makeNode('a','resource-card');
    card.href=info.url;card.target='_blank';card.rel='noopener noreferrer';
    card.append(makeNode('h3','',info.title),makeNode('p','',info.description),makeNode('span','resource-source',info.tag));
    grid.append(card);
   }
-  section.hidden=!grid.children.length;
+  document.getElementById('eaSourceCount').textContent=matching.length+' connected source'+(matching.length===1?'':'s');
+  document.getElementById('eaSourceEmpty').hidden=matching.length!==0;
+  eaSourceMore.hidden=!!q||matching.length<=6;
+  eaSourceMore.textContent=eaShowAllSources?'Show fewer ↑':'View all '+matching.length+' sources ↓';
  }
-// Combine same-day Wave Hill records that arrive through both NYC Parks and Wave Hill.
+ function renderConnectedSources(counts){
+  const section=document.getElementById('eaConnectedSources');
+  if(!section||!counts||typeof counts!=='object')return;
+  eaConnectedList=Object.entries(eaSourceDirectory).filter(([name])=>Number(counts[name])>0).map(([name,info])=>({name,info}));
+  section.hidden=!eaConnectedList.length;
+  const activeRegions=new Set(eaConnectedList.map(x=>x.info.region||'nyc'));
+  eaSourceTabs.forEach(button=>{
+   const region=button.dataset.sourceRegion;
+   button.disabled=!activeRegions.has(region);
+   button.classList.toggle('is-active',region===eaSourceRegion);
+   button.setAttribute('aria-pressed',String(region===eaSourceRegion));
+  });
+  displayConnectedSources();
+ }
+ eaSourceTabs.forEach(button=>button.addEventListener('click',()=>{
+  if(button.disabled)return;
+  eaSourceRegion=button.dataset.sourceRegion;
+  eaShowAllSources=false;
+  eaSourceTabs.forEach(b=>{b.classList.toggle('is-active',b===button);b.setAttribute('aria-pressed',String(b===button));});
+  displayConnectedSources();
+ }));
+ eaSourceSearch.addEventListener('input',displayConnectedSources);
+ eaSourceMore.addEventListener('click',()=>{eaShowAllSources=!eaShowAllSources;displayConnectedSources();});
+ // Combine same-day Wave Hill records that arrive through both NYC Parks and Wave Hill.
 // Keep the official Wave Hill link while retaining the more informative description.
 function consolidateWaveHillEvents(events){
  const result=[], index=new Map();
