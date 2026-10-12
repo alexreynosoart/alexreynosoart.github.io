@@ -1,0 +1,22 @@
+name: Test Rule of Three Integration
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  dry-run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate Python modules
+        run: python -m py_compile scripts/collect_art_events.py scripts/rule_of_three_event_staging.py scripts/rule_of_three_source_preview.py
+      - name: Simulate all existing sources plus two staged sources
+        run: python scripts/collect_art_events.py --dry-run --stage-rule-of-three
+      - name: Confirm published cache was not modified
+        run: git diff --exit-code -- data/art-events.json
