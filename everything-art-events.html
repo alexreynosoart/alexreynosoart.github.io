@@ -494,6 +494,11 @@ body.everything-art-events-theme .ea-load-more[hidden],body.everything-art-event
 <section class="resource-desk events-resource-desk">
 <div class="resource-heading"><div><div class="op-kicker">Keep Exploring</div><h2>Live Art Event Sources</h2></div>
 <p>Established calendars to check for exhibitions, museum programs, fairs and events between Everything Art updates.</p></div>
+<div id="eaConnectedSources" hidden>
+<h3 style="margin:0 0 16px;font-size:1.15rem">Connected event sources</h3>
+<div class="resource-grid" id="eaConnectedSourceGrid"></div>
+</div>
+<h3 style="margin:24px 0 16px;font-size:1.15rem">Explore more calendars</h3>
 <div class="resource-grid"><a class="resource-card" href="https://www.moma.org/calendar/exhibitions" target="_blank" rel="noopener noreferrer">
     <h3>MoMA Exhibitions</h3><p>Current and upcoming exhibitions at The Museum of Modern Art in New York.</p><span class="resource-source">NYC · Museum Calendar</span></a><a class="resource-card" href="https://www.mcny.org/events" target="_blank" rel="noopener noreferrer">
     <h3>Museum of the City of New York</h3><p>Talks, workshops, family programs, exhibitions and special events.</p><span class="resource-source">NYC · Events</span></a><a class="resource-card" href="https://www.nga.gov/calendar" target="_blank" rel="noopener noreferrer">
@@ -722,12 +727,35 @@ async function loadParksArt(){
  }
  // Prefer the automatically generated GitHub Pages event database.
 // Only fall back to the original browser-side feeds if the database fails.
+ // Show only verified, currently contributing sources from the saved database.
+ // Source names are mapped to their official calendars; never invent a link.
+ const eaSourceDirectory={
+  'NYC Parks':{title:'NYC Parks',description:'Art workshops, exhibitions and creative activities in New York City parks.',url:'https://www.nycgovparks.org/events',tag:'NYC · Parks Events'},
+  'Whitney':{title:'Whitney Museum',description:'Museum programs, exhibitions, talks and creative events.',url:'https://whitney.org/events',tag:'NYC · Museum Events'},
+  'NYPL':{title:'New York Public Library',description:'Exhibitions and cultural programs across the library system.',url:'https://www.nypl.org/events/exhibitions/current',tag:'NYC · Exhibitions'},
+  'Bronx Museum':{title:'The Bronx Museum',description:'Contemporary art exhibitions and community programs.',url:'https://bronxmuseum.org/exhibitions/',tag:'Bronx · Exhibitions'}
+ };
+ function renderConnectedSources(counts){
+  const section=document.getElementById('eaConnectedSources');
+  const grid=document.getElementById('eaConnectedSourceGrid');
+  if(!section||!grid||!counts||typeof counts!=='object')return;
+  grid.replaceChildren();
+  for(const [name,info] of Object.entries(eaSourceDirectory)){
+   if(!Number.isFinite(Number(counts[name]))||Number(counts[name])<=0)continue;
+   const card=makeNode('a','resource-card');
+   card.href=info.url;card.target='_blank';card.rel='noopener noreferrer';
+   card.append(makeNode('h3','',info.title),makeNode('p','',info.description),makeNode('span','resource-source',info.tag));
+   grid.append(card);
+  }
+  section.hidden=!grid.children.length;
+ }
 async function loadEventDatabase(){
  try{
   const response=await fetch('/data/art-events.json',{cache:'no-cache'});
   if(!response.ok)throw Error('Event database HTTP '+response.status);
   const payload=await response.json();
   if(!payload||!Array.isArray(payload.events)||!payload.events.length)throw Error('Event database is empty or invalid');
+   renderConnectedSources(payload.sources);
   const grid=document.getElementById('opGrid');
   let added=0;
   const existing=new Set(cards.map(c=>[canonicalTitle(c.querySelector('h2')?.textContent),c.dataset.date].join('|')));
