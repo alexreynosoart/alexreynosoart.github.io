@@ -1,0 +1,31 @@
+name: Test Everything Art Events (Dry Run)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify collector supports dry run
+        run: |
+          python -m py_compile scripts/collect_art_events.py
+          grep -q -- '--dry-run' scripts/collect_art_events.py || { echo 'Collector does not appear to support --dry-run. Stopping.'; exit 1; }
+      - name: Collect events without publishing
+        run: python scripts/collect_art_events.py --dry-run
+      - name: Verify event cache was not modified
+        run: |
+          if ! git diff --exit-code -- data/art-events.json; then
+            echo 'ERROR: Dry run modified data/art-events.json'
+            exit 1
+          fi
+          echo 'PASS: Event cache unchanged.'
