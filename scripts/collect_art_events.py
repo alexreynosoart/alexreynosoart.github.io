@@ -743,98 +743,103 @@ def lincoln_center_preview():
     return results
 
 
-# Rule of Three: read-only discovery of official museum calendars.
-# These candidates never enter the published event feed until independently verified.
+# Rule of Three, Round Three: shared response diagnostics and safe museum previews.
+# Do not infer dates from unrelated page text or artwork collection records.
+# These probes are strictly read-only and do not enter the published JSON.
 def three_museum_preview():
-    """Read-only investigation of official public feeds; never adds museum events."""
-    from html.parser import HTMLParser
-    from urllib.parse import urljoin, urlparse
+    """Diagnose official responses and extract only explicitly dated JSON-LD candidates."""
     from urllib.error import HTTPError, URLError
-    import xml.etree.ElementTree as ET
+    from urllib.parse import urlparse, urljoin
+    from collections import Counter
 
-    class Reader(HTMLParser):
-        def __init__(self):
-            super().__init__(); self.links=[]; self.href=None; self.label=[]
-        def handle_starttag(self, tag, attrs):
-            if tag=='a':
-                self.href=dict(attrs).get('href'); self.label=[]
-        def handle_data(self, value):
-            if self.href is not None: self.label.append(value)
-        def handle_endtag(self, tag):
-            if tag=='a' and self.href is not None:
-                self.links.append((self.href, clean(' '.join(self.label))))
-                self.href=None; self.label=[]
-
-    # Official endpoints only. No third-party mirrors or attempts to evade blocks.
-    targets={
-      'The Met': [
-        ('Exhibitions calendar','https://www.metmuseum.org/exhibitions?location=main','html'),
-        ('Exhibitions RSS discovery','https://www.metmuseum.org/exhibitions/rss','xml'),
-      ],
-      'Brooklyn Museum': [
-        ('Exhibitions calendar','https://www.brooklynmuseum.org/exhibitions','html'),
-        ('Public WordPress events endpoint','https://www.brooklynmuseum.org/wp-json/wp/v2/events?per_page=10','json'),
-      ],
-      'Queens Museum': [
-        ('Events-only calendar','https://queensmuseum.org/calendar/?filter=event&sort=date','html'),
-        ('Exhibitions-only calendar','https://queensmuseum.org/calendar/?filter=exhibition&sort=date','html'),
-        ('Public WordPress events endpoint','https://queensmuseum.org/wp-json/wp/v2/events?per_page=10','json'),
-      ],
+    targets = {
+        'The Met': [('Exhibitions', 'https://www.metmuseum.org/exhibitions')],
+        'Brooklyn Museum': [('Exhibitions', 'https://www.brooklynmuseum.org/exhibitions')],
+        'Queens Museum': [('Calendar', 'https://queensmuseum.org/calendar/')],
     }
-    print('RULE OF THREE ROUND TWO: official feed discovery only; no museum events published')
-    for name, probes in targets.items():
-        print(f'{name}: investigating {len(probes)} official endpoints')
-        for label, address, kind in probes:
+
+    def extract_candidates(raw, base):
+        parser = StructuredDataParser()
+        parser.feed(raw)
+        found = []
+        seen = set()
+        def visit(node):
+            if isinstance(node, list):
+                for part in node: visit(part)
+                return
+            if not isinstance(node, dict): return
+            types = node.get('@type', [])
+            if isinstance(types, str): types = [types]
+            accepted = {'Event', 'ExhibitionEvent', 'VisualArtsEvent', 'EducationEvent',
+                        'Festival', 'ChildrensEvent'}
+            if any(str(t).split('/')[-1] in accepted for t in types):
+                title = clean(node.get('name'))
+                start = date(node.get('startDate'))
+                end = date(node.get('endDate')) or start
+                target = node.get('url') or node.get('@id') or ''
+                if isinstance(target, dict): target = target.get('@id', '')
+                link = urljoin(base, target) if isinstance(target, str) else ''
+                host = urlparse(link).hostname or ''
+                expected = urlparse(base).hostname or ''
+                if (title and start and end and start <= end and end >= TODAY
+                        and host == expected and link.startswith('https://')):
+                    identity = (title.casefold(), start.isoformat(), link)
+                    if identity not in seen:
+                        seen.add(identity)
+                        found.append((title, start.isoformat(), end.isoformat(), link))
+            for field in ('@graph', 'itemListElement', 'event', 'subEvent', 'mainEntity'):
+                if field in node: visit(node[field])
+        for block in parser.blocks:
+            try: visit(json.loads(block))
+            except (ValueError, TypeError): pass
+        return found, len(parser.blocks)
+
+    print('RULE OF THREE ROUND THREE: official response validation; museum publication DISABLED')
+    total = 0
+    for museum, endpoints in targets.items():
+        print(f'{museum}: {len(endpoints)} official entry point(s)')
+        for label, address in endpoints:
             try:
-                req=urllib.request.Request(address,headers={
-                    'User-Agent':'EverythingArtEventCollector/1.0 (alexreynosoart.com)',
-                    'Accept':'application/json, application/rss+xml, application/xml, text/html',
+                req = urllib.request.Request(address, headers={
+                    'User-Agent': 'EverythingArtEventCollector/1.0 (alexreynosoart.com)',
+                    'Accept': 'text/html,application/ld+json,application/json',
                 })
-                with urllib.request.urlopen(req,timeout=20) as resp:
-                    final=resp.geturl();status=resp.status
-                    content=resp.read(2_000_000)
-                    ctype=resp.headers.get('Content-Type','')
-                allowed=urlparse(address).hostname
-                final_host=urlparse(final).hostname or ''
-                if final_host != allowed and not final_host.endswith('.'+allowed):
-                    raise ValueError('unexpected external redirect')
-                raw=content.decode('utf-8','replace')
-                if 'json' in ctype.lower() or kind=='json':
-                    data=json.loads(raw)
-                    items=data if isinstance(data,list) else data.get('events',data.get('items',[])) if isinstance(data,dict) else []
-                    print(f'  {label}: HTTP {status}; JSON; {len(items) if isinstance(items,list) else 0} records')
-                    for item in (items[:3] if isinstance(items,list) else []):
-                        if isinstance(item,dict):
-                            print('   SAMPLE:',clean(str(item.get('title',item.get('name',''))))[:90], '|',str(item.get('date',item.get('start_date','')))[:35])
-                elif 'xml' in ctype.lower() or kind=='xml':
-                    root=ET.fromstring(raw)
-                    items=root.findall('.//item') or root.findall('.//{http://www.w3.org/2005/Atom}entry')
-                    print(f'  {label}: HTTP {status}; XML; {len(items)} entries')
-                    for item in items[:3]:print('   SAMPLE:',clean(item.findtext('title',''))[:100])
-                else:
-                    parser=Reader();parser.feed(raw)
-                    seen=set();links=[]
-                    for href,title in parser.links:
-                        link=urljoin(final,href or '')
-                        host=urlparse(link).hostname or ''
-                        path=urlparse(link).path.lower()
-                        if not title or len(title)>170 or link in seen:continue
-                        if host != allowed and not host.endswith('.'+allowed):continue
-                        if name=='The Met' and '/exhibitions/' not in path:continue
-                        if name=='Brooklyn Museum' and not any(k in path for k in ('/exhibitions/','/events/','/calendar/')):continue
-                        if name=='Queens Museum' and not any(k in path for k in ('/exhibition/','/event/','/events/','/calendar/')):continue
-                        seen.add(link);links.append((title,link))
-                    dates=re.findall(r'\b(?:0?[1-9]|1[0-2])[./-](?:[0-2]?[0-9]|3[01])[./-](?:20)?2[6-9]\b',raw)
-                    print(f'  {label}: HTTP {status}; HTML; {len(links)} possible links; {len(dates)} date strings')
-                    for title,link in links[:5]:print('   SAMPLE:',title[:85],'|',link)
+                with urllib.request.urlopen(req, timeout=25) as response:
+                    status = response.status
+                    final = response.geturl()
+                    ctype = response.headers.get('Content-Type', '')
+                    raw_bytes = response.read(2_000_000)
+                expected = urlparse(address).hostname or ''
+                actual = urlparse(final).hostname or ''
+                if actual != expected and not actual.endswith('.' + expected):
+                    print(f'  {label}: external redirect; skipped')
+                    continue
+                raw = raw_bytes.decode('utf-8', 'replace')
+                print(f'  {label}: HTTP {status}; content-type={ctype[:65]}; bytes={len(raw_bytes)}')
+                if status != 200:
+                    print('   Not a normal HTTP 200 response; no event extraction')
+                    continue
+                if 'html' not in ctype.lower() and '<html' not in raw[:500].lower():
+                    print('   Response is not HTML; no event extraction')
+                    continue
+                low = raw[:12000].lower()
+                indicators = [word for word in ('captcha', 'access denied', 'rate limit',
+                    'just a moment', 'verify you are human') if word in low]
+                if indicators:
+                    print('   Possible access/interstitial page:', ', '.join(indicators), '; skipping')
+                    continue
+                candidates, blocks = extract_candidates(raw, final)
+                print(f'   JSON-LD blocks: {blocks}; dated official event candidates: {len(candidates)}')
+                for title, start, end, link in candidates[:8]:
+                    print('   CANDIDATE:', start, 'to', end, '|', title[:95], '|', link)
+                total += len(candidates)
             except HTTPError as exc:
-                retry=exc.headers.get('Retry-After','') if exc.headers else ''
-                print(f'  {label}: HTTP {exc.code}; not retrying'+(f'; Retry-After: {retry}' if retry else ''))
-            except (URLError,ValueError,ET.ParseError,TimeoutError) as exc:
+                retry = exc.headers.get('Retry-After', '') if exc.headers else ''
+                print(f'  {label}: HTTP {exc.code}; not retrying' +
+                    (f'; Retry-After: {retry}' if retry else ''))
+            except (URLError, OSError, ValueError, TimeoutError) as exc:
                 print(f'  {label}: unavailable ({type(exc).__name__}: {str(exc)[:100]})')
-            except Exception as exc:
-                print(f'  {label}: unavailable ({type(exc).__name__}: {str(exc)[:100]})')
-    print('RULE OF THREE ROUND TWO: discovery complete; 0 new museum events published')
+    print(f'RULE OF THREE ROUND THREE: {total} preview candidates; 0 museum events published')
 
 def main():
     dry_run = '--dry-run' in sys.argv
