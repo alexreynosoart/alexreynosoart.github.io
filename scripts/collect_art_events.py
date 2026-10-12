@@ -263,8 +263,68 @@ def nypl():
     print(f'NYPL: inspected {min(len(links), 60)} exhibition links; {failures} detail errors')
     return results
 
+
+# Bronx Museum: exhibition detail pages with explicit "On View" date ranges.
+# Do not infer openings or turn reception dates into exhibition dates.
+BRONX_INDEX = 'https://bronxmuseum.org/exhibitions/'
+BRONX_MONTH = {m.lower(): i for i, m in enumerate(NYPL_MONTHS, 1)}
+BRONX_DATE = re.compile(r'\b(' + '|'.join(NYPL_MONTHS) + r')\s+(\d{1,2})(?:,?\s+(20\d{2}))?\b', re.I)
+BRONX_RANGE = re.compile(
+    r'\bOn\s+View\s*:?\s*(' + '|'.join(NYPL_MONTHS) + r')\s+(\d{1,2})\s*'
+    r'(?:,?\s+(20\d{2}))?\s*[–—-]\s*(' + '|'.join(NYPL_MONTHS) + r')\s+'
+    r'(\d{1,2})\s*,?\s*(20\d{2})', re.I)
+
+def bronx_museum():
+    index = nypl_html(BRONX_INDEX)
+    links = set()
+    for href in index.links:
+        target = urljoin(BRONX_INDEX, href).split('#', 1)[0].split('?', 1)[0].rstrip('/') + '/'
+        parsed = urlparse(target)
+        if parsed.scheme == 'https' and parsed.netloc == 'bronxmuseum.org' and re.fullmatch(r'/exhibition/[^/]+/', parsed.path):
+            links.add(target)
+    if not links:
+        raise ValueError('Bronx Museum: no exhibition links; preserve cache')
+    results = []
+    failures = 0
+    for link in sorted(links)[:50]:
+        try:
+            page = nypl_html(link)
+            title = clean(page.title.split(' - The Bronx Museum')[0].split(' – The Bronx Museum')[0])
+            visible = clean(' '.join(page.text))
+            # Limit to an explicit exhibition On View label, not unrelated dates.
+            match = BRONX_RANGE.search(visible[:9000])
+            if not match or not title:
+                print('Bronx Museum: skipping undated exhibition', link)
+                continue
+            sm, sd, sy, em, ed, ey = match.groups()
+            end = dt.date(int(ey), BRONX_MONTH[em.lower()], int(ed))
+            start_year = int(sy) if sy else int(ey)
+            start = dt.date(start_year, BRONX_MONTH[sm.lower()], int(sd))
+            if not sy and start > end:
+                start = start.replace(year=start.year - 1)
+            if end < TODAY or start > end:
+                continue
+            # Use today's date for already-open exhibitions, as a listing date.
+            listing_date = max(start, TODAY)
+            description = ('On view ' + start.strftime('%B %d, %Y') + ' through '
+                           + end.strftime('%B %d, %Y') + '. ' + (page.description or ''))[:360]
+            results.append(dict(title=title, description=description,
+                date=listing_date.isoformat(), endDate=end.isoformat(),
+                venue='The Bronx Museum', location='Bronx, NY',
+                type='exhibition', features='nyc us', country='United States',
+                url=link, source='Bronx Museum', free=False))
+        except (OSError, ValueError) as exc:
+            failures += 1
+            print('Bronx Museum detail error:', link, str(exc)[:150], file=sys.stderr)
+    if failures == min(len(links), 50):
+        raise ValueError('All Bronx Museum detail requests failed; preserve cache')
+    if not results:
+        raise ValueError('No verified Bronx Museum exhibition dates; preserve cache')
+    print(f'Bronx Museum: checked {min(len(links), 50)} detail pages, {len(results)} verified exhibitions')
+    return results
+
 def main():
-    existing=load_existing();sources={'NYC Parks':parks,'Whitney':whitney,'MoMA':moma,'Guggenheim':guggenheim,'NYPL':nypl};results={};failures=[]
+    existing=load_existing();sources={'NYC Parks':parks,'Whitney':whitney,'MoMA':moma,'Guggenheim':guggenheim,'NYPL':nypl,'Bronx Museum':bronx_museum};results={};failures=[]
     for name,fn in sources.items():
         try:
             results[name]=fn();print(f'{name}: {len(results[name])} events')
