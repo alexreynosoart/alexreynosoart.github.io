@@ -204,7 +204,7 @@ def candidates(tree, base, name, online=False):
     return sorted(results, key=lambda row: (row[1], row[0]))
 
 SMITHSONIAN_BATCH_SIZE = 100
-SMITHSONIAN_MAX_LIST_PAGES = 8
+SMITHSONIAN_MAX_LIST_PAGES = 24
 SMITHSONIAN_DELAY_SECONDS = 0.45
 ART_TERMS = re.compile(
     r"\b(?:art|artist|artwork|painting|paint|drawing|sketch|illustrat|"
@@ -214,8 +214,16 @@ ART_TERMS = re.compile(
     r"art history|film|animation|calligraphy|miniature)\w*\b", re.I
 )
 
+SMITHSONIAN_CATEGORY_WORDS = re.compile(
+    r'\b(?:art|architecture|drawing|painting|sculpture|photography|mixed media|fiber arts|'
+    r'printmaking|ceramics|design|studio arts|craft|illustration|textiles)\b', re.I
+)
+SMITHSONIAN_DIRECTORY_TITLE = re.compile(
+    r'^(?:all upcoming\b|what.s new this month\??$|studio arts: what.s new\??$)', re.I
+)
+
 def smithsonian_program_links(tree, base):
-    """Only program detail URLs, never site navigation or program indexes."""
+    """Collect actual official program URLs; directories are classified later."""
     links = set()
     for node in walk(tree.root):
         if node.tag != 'a' or not node.attrs.get('href'):
@@ -229,10 +237,7 @@ def smithsonian_program_links(tree, base):
     return links
 
 def smithsonian_listing_links(tree, base):
-    """Discover official category/search pages actually linked in the HTML.
-
-    No invented endpoints. Program detail pages are handled separately.
-    """
+    """Use only real, linked official listing pages, not speculative endpoints."""
     links = set()
     for node in walk(tree.root):
         if node.tag != 'a' or not node.attrs.get('href'):
@@ -242,17 +247,32 @@ def smithsonian_listing_links(tree, base):
         if parsed.hostname != urlparse(base).hostname:
             continue
         path = parsed.path.rstrip('/')
-        # Only existing, explicitly linked official listing/category pages.
         if (path in ('/ticketing/programs', '/ticketing/search', '/ticketing/online')
                 or path.startswith('/ticketing/online/')):
+            links.add(link)
+    return links
+
+def smithsonian_art_directory_links(tree, base):
+    """Follow linked 'All upcoming [art category]' cards as directories."""
+    links = set()
+    for node in walk(tree.root):
+        if node.tag != 'a' or not node.attrs.get('href'):
+            continue
+        label = node.text().strip()
+        if not (SMITHSONIAN_DIRECTORY_TITLE.search(label)
+                and SMITHSONIAN_CATEGORY_WORDS.search(label)):
+            continue
+        link = urljoin(base, node.attrs['href']).split('#')[0]
+        parsed = urlparse(link)
+        if parsed.hostname == urlparse(base).hostname and parsed.path.startswith('/ticketing/'):
             links.add(link)
     return links
 
 def smithsonian_detail_candidates(tree, base):
     """Discover up to 100 official programs; verify dates, online status and art relevance."""
     program_links = smithsonian_program_links(tree, base)
-    listing_queue = sorted(smithsonian_listing_links(tree, base))
-    print(f'Smithsonian official category/search/listing links discovered: {len(listing_queue)}')
+    listing_queue = sorted(smithsonian_listing_links(tree, base) | smithsonian_art_directory_links(tree, base))
+    print(f'Smithsonian official listing and art-directory links discovered: {len(listing_queue)}')
     for page in listing_queue[:8]:
         print(f'  DISCOVERED LISTING {page}')
     visited_listings = {base}
@@ -277,7 +297,9 @@ def smithsonian_detail_candidates(tree, base):
         new_programs = smithsonian_program_links(page_tree, base) - program_links
         print(f'  LISTING {page}: {len(new_programs)} additional program links')
         program_links.update(new_programs)
-        listing_queue.extend(sorted(smithsonian_listing_links(page_tree, base) - visited_listings - set(listing_queue)))
+        listing_queue.extend(sorted((smithsonian_listing_links(page_tree, base) | smithsonian_art_directory_links(page_tree, base)) - visited_listings - set(listing_queue)))
+    # Prefer verified art-topic program URLs, rather than spending the 100-item
+    # budget on category navigation entries from the program directory.
     links = sorted(program_links)[:SMITHSONIAN_BATCH_SIZE]
     print(f'Smithsonian official program links discovered: {len(program_links)} across {len(visited_listings)} listing page(s); checking {len(links)} (cap {SMITHSONIAN_BATCH_SIZE})')
     if len(program_links) < SMITHSONIAN_BATCH_SIZE:
@@ -308,7 +330,7 @@ def smithsonian_detail_candidates(tree, base):
         headings = [n.text().strip() for n in walk(main) if n.tag == 'h1' and n.text().strip()]
         title = headings[0] if headings else ''
         body = main.text()[:20000]
-        if not title or len(title) > 180 or title.lower().startswith('all upcoming'):
+        if not title or len(title) > 180 or SMITHSONIAN_DIRECTORY_TITLE.search(title):
             held += 1
             print(f'  HOLD invalid event title: {title!r}')
             continue
@@ -346,7 +368,7 @@ def smithsonian_detail_candidates(tree, base):
         print(f'  CANDIDATE title={title!r} | date={dates[0]} | url={link}')
     print(f'Smithsonian art-screened preview: {len(approved)} candidates; {held} held; {unrelated} unrelated; READ-ONLY')
     print('ART SCREEN CAUTION: Keyword matching is preliminary; course end dates and session counts need manual review.')
-    print('DISCOVERY CAUTION: If only 13 links appear, this HTML does not expose the full catalog. No guessed API endpoints or URLs are used.')
+    print('DISCOVERY CAUTION: Category pages are followed only when linked in official HTML; candidate dates and online status still require review.')
     return approved
 
 def inspect(name, url, online=False):
