@@ -1,115 +1,182 @@
 #!/usr/bin/env python3
-"""Read-only diagnostics for three official NYC arts calendars.
-No data files are read or written. Standard library only.
+"""Read-only event-level investigation of three NYC arts calendars.
+No event-cache writes. Python standard library only.
 """
+import json
+import re
+from datetime import date, datetime
 from html.parser import HTMLParser
-from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
 from urllib.parse import urljoin, urlparse
-import re
+from urllib.request import Request, urlopen
 
 SOURCES = [
-    ("Wave Hill", "https://www.wavehill.org/calendar"),
-    ("Staten Island Museum", "https://www.statenislandmuseum.org/events/list/"),
-    ("Bronx Council on the Arts", "https://www.bronxarts.org/events/"),
+    ('Wave Hill', 'https://www.wavehill.org/calendar'),
+    ('Staten Island Museum', 'https://www.statenislandmuseum.org/events/list/'),
+    ('Bronx Council on the Arts', 'https://www.bronxarts.org/events/'),
 ]
-LIMIT = 4_000_000
-DATE_RE = re.compile(r'\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\.?\s+\d{1,2}(?:,?\s+20\d{2})?\b|\b20\d{2}-\d{2}-\d{2}\b', re.I)
-EVENT_HINT = re.compile(r'event|calendar|exhibit|workshop|gallery|tour|program|talk|art|festival', re.I)
+DATE = re.compile(r'\b20\d{2}-\d{2}-\d{2}\b|\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\.?\s+\d{1,2}(?:,?\s+20\d{2})?\b', re.I)
+BLOCK = re.compile(r'event|calendar|listing|program|exhibition|tribe|card|schedule', re.I)
+BAD = re.compile(r'^(?:home|events?|calendar|learn more|read more|view all|more info|details|menu|skip to|next|previous|visit|about|discover|education|support|exhibitions?)$', re.I)
+MAX_BYTES = 4_000_000
 
-class PageParser(HTMLParser):
+class Node:
+    def __init__(self, tag='', attrs=None, parent=None):
+        self.tag, self.attrs, self.parent = tag, dict(attrs or []), parent
+        self.children, self.bits = [], []
+    def text(self):
+        return ' '.join(' '.join(self.bits).split())
+
+class Tree(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
-        self.hidden = 0
-        self.text = []
-        self.links = []
-        self.anchor = None
-        self.times = []
-        self.jsonld = 0
-        self.script_count = 0
+        self.root = Node('root')
+        self.stack = [self.root]
+        self.jsonld = []
+        self.in_ld = False
+        self.ld_bits = []
     def handle_starttag(self, tag, attrs):
-        a = dict(attrs)
-        if tag in ('script', 'style', 'noscript'):
-            self.hidden += 1
-            if tag == 'script':
-                self.script_count += 1
-                if 'ld+json' in a.get('type', '').lower():
-                    self.jsonld += 1
-        if tag == 'a' and self.hidden == 0:
-            self.anchor = [a.get('href', ''), []]
-        if tag == 'time' and a.get('datetime'):
-            self.times.append(a['datetime'])
+        node = Node(tag, attrs, self.stack[-1])
+        self.stack[-1].children.append(node)
+        if tag == 'script' and 'ld+json' in node.attrs.get('type', '').lower():
+            self.in_ld, self.ld_bits = True, []
+        if tag not in ('meta', 'link', 'img', 'br', 'hr', 'input', 'source', 'area', 'embed', 'wbr'):
+            self.stack.append(node)
+    def handle_startendtag(self, tag, attrs):
+        self.handle_starttag(tag, attrs)
+        if self.stack[-1].tag == tag:
+            self.stack.pop()
     def handle_endtag(self, tag):
-        if tag in ('script', 'style', 'noscript'):
-            self.hidden = max(0, self.hidden - 1)
-        if tag == 'a' and self.anchor:
-            href, labels = self.anchor
-            label = ' '.join(' '.join(labels).split())
-            if href and label:
-                self.links.append((href, label))
-            self.anchor = None
+        if tag == 'script' and self.in_ld:
+            self.jsonld.append(''.join(self.ld_bits))
+            self.in_ld = False
+        for i in range(len(self.stack)-1, 0, -1):
+            if self.stack[i].tag == tag:
+                del self.stack[i:]
+                return
     def handle_data(self, data):
-        if not self.hidden:
-            s = ' '.join(data.split())
-            if s:
-                self.text.append(s)
-                if self.anchor:
-                    self.anchor[1].append(s)
+        if self.in_ld:
+            self.ld_bits.append(data)
+        if any(n.tag in ('script', 'style', 'noscript') for n in self.stack):
+            return
+        for n in self.stack:
+            n.bits.append(data)
+
+def walk(node):
+    yield node
+    for child in node.children:
+        yield from walk(child)
+
+def event_json(obj):
+    if isinstance(obj, list):
+        for item in obj:
+            yield from event_json(item)
+    elif isinstance(obj, dict):
+        types = obj.get('@type', [])
+        if isinstance(types, str):
+            types = [types]
+        if any(t.lower().endswith('event') for t in types if isinstance(t, str)):
+            yield obj
+        for value in obj.values():
+            if isinstance(value, (dict, list)):
+                yield from event_json(value)
+
+def event_date(raw):
+    if not raw:
+        return None
+    try:
+        return datetime.fromisoformat(str(raw).replace('Z', '+00:00')).date()
+    except ValueError:
+        pass
+    try:
+        return date.fromisoformat(str(raw)[:10])
+    except ValueError:
+        return None
+
+def candidates(tree, base, name):
+    host = urlparse(base).hostname
+    results = []
+    seen = set()
+    for script in tree.jsonld:
+        try:
+            objects = list(event_json(json.loads(script)))
+        except (ValueError, TypeError):
+            continue
+        for item in objects:
+            title, rawdate, link = item.get('name', ''), item.get('startDate', ''), item.get('url', '')
+            if isinstance(link, dict):
+                link = link.get('@id', '')
+            if isinstance(title, str) and isinstance(link, str) and title and rawdate and link:
+                absolute = urljoin(base, link)
+                if urlparse(absolute).hostname == host and absolute not in seen:
+                    seen.add(absolute)
+                    results.append(('JSON-LD', title[:110], str(rawdate)[:35], absolute))
+    for n in walk(tree.root):
+        if n.tag != 'a' or not n.attrs.get('href'):
+            continue
+        link = urljoin(base, n.attrs['href']).split('#')[0]
+        path = urlparse(link).path.rstrip('/')
+        if urlparse(link).hostname != host or link in seen:
+            continue
+        if path in ('', '/calendar', '/events', '/events/list'):
+            continue
+        label = n.text()[:140]
+        if not label or BAD.match(label.strip()):
+            continue
+        if name == 'Wave Hill' and not path.startswith('/calendar/'):
+            continue
+        if name == 'Staten Island Museum' and '/event/' not in path:
+            continue
+        if name == 'Bronx Council on the Arts' and not (re.search(r'event|calendar|exhibit|workshop|program', path, re.I) or BLOCK.search(' '.join(str(x.attrs.get('class','')) for x in (n.parent, n.parent.parent if n.parent else None) if x))):
+            continue
+        context = n.parent
+        best = None
+        for _ in range(5):
+            if not context:
+                break
+            text = context.text()[:2500]
+            dates = DATE.findall(text)
+            times = [x.attrs['datetime'] for x in walk(context) if x.tag == 'time' and x.attrs.get('datetime')]
+            if dates or times:
+                best = (dates[:3], times[:3], text[:180])
+                break
+            context = context.parent
+        if not best:
+            continue
+        seen.add(link)
+        rawdate = (best[1] or best[0])[0]
+        results.append(('HTML', label, rawdate, link))
+    return results
 
 def inspect(name, url):
     print(f'\n=== {name} ===', flush=True)
-    print(f'Official URL: {url}', flush=True)
-    request = Request(url, headers={
-        'User-Agent': 'EverythingArtEventCollector/1.0 (+public calendar preview)',
-        'Accept': 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.5',
-    })
+    req = Request(url, headers={'User-Agent': 'EverythingArtEventCollector/1.0 (+public calendar preview)', 'Accept': 'text/html,application/xhtml+xml'})
     try:
-        with urlopen(request, timeout=35) as response:
-            status = response.status
-            final = response.url
-            content_type = response.headers.get('Content-Type', '')
-            raw = response.read(LIMIT + 1)
-    except HTTPError as exc:
-        print(f'HTTP: {exc.code} | blocked/unavailable; no events extracted')
+        with urlopen(req, timeout=35) as response:
+            final, status = response.url, response.status
+            kind = response.headers.get('Content-Type', '')
+            raw = response.read(MAX_BYTES+1)
+    except HTTPError as e:
+        print(f'HTTP {e.code}: unavailable; 0 records approved')
         return
-    except (URLError, TimeoutError, OSError) as exc:
-        print(f'Fetch failed: {type(exc).__name__}: {exc}')
+    except (URLError, TimeoutError, OSError) as e:
+        print(f'Fetch failed: {type(e).__name__}: {e}')
         return
-    print(f'HTTP: {status} | bytes: {len(raw)} | content-type: {content_type}')
-    print(f'Final URL: {final}')
-    if urlparse(final).hostname != urlparse(url).hostname:
-        print('Redirected to another host; skipping extraction for safety.')
+    print(f'HTTP {status} | bytes {len(raw)} | {kind}')
+    if urlparse(final).hostname != urlparse(url).hostname or len(raw) > MAX_BYTES or 'html' not in kind.lower():
+        print('Safety guard: unexpected response; skipping')
         return
-    if len(raw) > LIMIT:
-        print('Response exceeded 4 MB cap; skipping extraction.')
-        return
-    if 'html' not in content_type.lower():
-        print('Not HTML; skipping extraction.')
-        return
-    html = raw.decode('utf-8', errors='replace')
-    parser = PageParser()
-    parser.feed(html)
-    visible = ' '.join(parser.text)
-    dates = list(dict.fromkeys(DATE_RE.findall(visible)))
-    candidates = []
-    seen = set()
-    for href, label in parser.links:
-        absolute = urljoin(final, href)
-        if urlparse(absolute).hostname == urlparse(final).hostname and EVENT_HINT.search(absolute + ' ' + label):
-            if absolute not in seen:
-                seen.add(absolute)
-                candidates.append((label[:110], absolute))
-    print(f'Visible text chars: {len(visible)} | script tags: {parser.script_count} | JSON-LD tags: {parser.jsonld}')
-    print(f'Date strings in visible text: {len(dates)} | <time datetime> values: {len(parser.times)}')
-    print(f'Date examples: {dates[:8]}')
-    print(f'Time values: {parser.times[:8]}')
-    print(f'Possible same-site event links: {len(candidates)}')
-    for label, href in candidates[:10]:
-        print(f'  - {label} | {href}')
-    print('Assessment: ' + ('PROMISING: dated HTML and links; needs event-level validation' if (dates or parser.times) and candidates else 'NOT YET USABLE: no clear dated linked records'))
+    tree = Tree()
+    tree.feed(raw.decode('utf-8', 'replace'))
+    found = candidates(tree, final, name)
+    print(f'JSON-LD blocks: {len(tree.jsonld)} | event-level candidate links: {len(found)}')
+    for origin, title, rawdate, link in found[:12]:
+        parsed = event_date(rawdate)
+        print(f'  [{origin}] title={title!r} | date={rawdate!r} | ISO-date={parsed} | url={link}')
+    print('PREVIEW ONLY. Candidate records require date/title/link review before publication.')
 
 if __name__ == '__main__':
-    print('RULE OF THREE: OFFICIAL CALENDAR READ-ONLY PREVIEW')
+    print('RULE OF THREE: EVENT-LEVEL VALIDATION, READ-ONLY')
     for name, url in SOURCES:
         inspect(name, url)
-    print('\nPREVIEW ONLY: no events published; data/art-events.json untouched.')
+    print('\nNo event cache read or written; production collector unchanged.')
