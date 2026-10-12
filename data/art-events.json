@@ -1,14 +1,71 @@
 {
-  "updatedAt": "2026-10-12T16:05:16.697910+00:00",
+  "updatedAt": "2026-10-12T16:49:24.824408+00:00",
   "sources": {
     "NYC Parks": 51,
     "Whitney": 14,
     "MoMA": 0,
     "Guggenheim": 0,
     "NYPL": 7,
-    "Bronx Museum": 2
+    "Bronx Museum": 2,
+    "Film at Lincoln Center": 17
   },
   "events": [
+    {
+      "title": "9 Temples to Heaven",
+      "description": "Upcoming screening dates: Oct 12. See official film page for verified showtimes and tickets.",
+      "date": "2026-10-12",
+      "endDate": "2026-10-12",
+      "venue": "Film at Lincoln Center",
+      "location": "Manhattan, NY",
+      "type": "film",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.filmlinc.org/films/9-temples-to-heaven/",
+      "source": "Film at Lincoln Center",
+      "free": false
+    },
+    {
+      "title": "Bitter Christmas",
+      "description": "Upcoming screening dates: Oct 12, Nov 13, Nov 14, Nov 15, Nov 16, Nov 17. See official film page for verified showtimes and tickets.",
+      "date": "2026-10-12",
+      "endDate": "2026-11-17",
+      "venue": "Film at Lincoln Center",
+      "location": "Manhattan, NY",
+      "type": "film",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.filmlinc.org/films/bitter-christmas/",
+      "source": "Film at Lincoln Center",
+      "free": false
+    },
+    {
+      "title": "Bucking Fastard",
+      "description": "Upcoming screening dates: Oct 12. See official film page for verified showtimes and tickets.",
+      "date": "2026-10-12",
+      "endDate": "2026-10-12",
+      "venue": "Film at Lincoln Center",
+      "location": "Manhattan, NY",
+      "type": "film",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.filmlinc.org/films/bucking-fastard/",
+      "source": "Film at Lincoln Center",
+      "free": false
+    },
+    {
+      "title": "Club Kid",
+      "description": "Upcoming screening dates: Oct 12. See official film page for verified showtimes and tickets.",
+      "date": "2026-10-12",
+      "endDate": "2026-10-12",
+      "venue": "Film at Lincoln Center",
+      "location": "Manhattan, NY",
+      "type": "film",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.filmlinc.org/films/club-kid/",
+      "source": "Film at Lincoln Center",
+      "free": false
+    },
     {
       "title": "Declaring America: 1776 and Beyond",
       "description": "On view through January 10, 2027. NYPL honors the 250th anniversary of the signing of the Declaration of Independence and the founding of the country.",
@@ -24,6 +81,20 @@
       "free": false
     },
     {
+      "title": "Double Freedom",
+      "description": "Upcoming screening dates: Oct 12. See official film page for verified showtimes and tickets.",
+      "date": "2026-10-12",
+      "endDate": "2026-10-12",
+      "venue": "Film at Lincoln Center",
+      "location": "Manhattan, NY",
+      "type": "film",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.filmlinc.org/films/double-freedom/",
+      "source": "Film at Lincoln Center",
+      "free": false
+    },
+    {
       "title": "Forging Ahead: Recent Acquisitions of Black Women Artists",
       "description": "On view through March 27, 2027. 21 artists explore iconography of the Black woman's body, storytelling, futurism, spirituality, and the mapping of Black history.",
       "date": "2026-10-12",
@@ -35,6 +106,20 @@
       "country": "United States",
       "url": "https://www.nypl.org/events/exhibitions/forging-ahead",
       "source": "NYPL",
+      "free": false
+    },
+    {
+      "title": "La Gradiva",
+      "description": "Upcoming screening dates: Oct 12. See official film page for verified showtimes and tickets.",
+      "date": "2026-10-12",
+      "endDate": "2026-10-12",
+      "venue": "Film at Lincoln Center",
+      "location": "Manhattan, NY",
+      "type": "film",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.filmlinc.org/films/la-gradiva/",
+      "source": "Film at Lincoln Center",
       "free": false
     },
     {
@@ -77,6 +162,20 @@
       "country": "United States",
       "url": "http://www.nycgovparks.org/events/2026/10/12/new-dendrology-at-the-arsenal-gallery",
       "source": "NYC Parks",
+      "free": false
+    },
+    {
+      "title": "New York Shorts",
+      "description": "Upcoming screening dates: Oct 12. See official film page for verified showtimes and tickets.",
+      "date": "2026-10-12",
+      "endDate": "2026-10-12",
+      "venue": "Film at Lincoln Center",
+      "location": "Manhattan, NY",
+      "type": "film",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.filmlinc.org/films/2026-new-york-shorts/",
+      "source": "Film at Lincoln Center",
       "free": false
     },
     {
@@ -150,6 +249,62 @@
       "free": false
     },
     {
+      "title": "Tender Loving Care",
+      "description": "Upcoming screening dates: Oct 12. See official film page for verified showtimes and tickets.",
+      "date": "2026-10-12",
+      "endDate": "2026-10-12",
+      "venue": "Film at Lincoln Center",
+      "location": "Manhattan, NY",
+      "type": "film",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.filmlinc.org/films/tender-loving-care/",
+      "source": "Film at Lincoln Center",
+      "free": false
+    },
+    {
+      "title": "The Man I Love",
+      "description": "Upcoming screening dates: Oct 12. See official film page for verified showtimes and tickets.",
+      "date": "2026-10-12",
+      "endDate": "2026-10-12",
+      "venue": "Film at Lincoln Center",
+      "location": "Manhattan, NY",
+      "type": "film",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.filmlinc.org/films/the-man-i-love/",
+      "source": "Film at Lincoln Center",
+      "free": false
+    },
+    {
+      "title": "The Only Living Pickpocket in New York",
+      "description": "Upcoming screening dates: Oct 12. See official film page for verified showtimes and tickets.",
+      "date": "2026-10-12",
+      "endDate": "2026-10-12",
+      "venue": "Film at Lincoln Center",
+      "location": "Manhattan, NY",
+      "type": "film",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.filmlinc.org/films/the-only-living-pickpocket/",
+      "source": "Film at Lincoln Center",
+      "free": false
+    },
+    {
+      "title": "The Unknown",
+      "description": "Upcoming screening dates: Oct 12. See official film page for verified showtimes and tickets.",
+      "date": "2026-10-12",
+      "endDate": "2026-10-12",
+      "venue": "Film at Lincoln Center",
+      "location": "Manhattan, NY",
+      "type": "film",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.filmlinc.org/films/the-unknown/",
+      "source": "Film at Lincoln Center",
+      "free": false
+    },
+    {
       "title": "To Uncover and Reveal to the World: Arturo Schomburg’s Library",
       "description": "On view through December 05, 2026. Before the Schomburg Center for Research in Black Culture, there was the library of Arturo “Arthur” Schomburg: race man, bookworm, and scholar of the African diaspora.",
       "date": "2026-10-12",
@@ -175,6 +330,20 @@
       "country": "United States",
       "url": "https://www.nypl.org/events/exhibitions/unleashed-pets-performing-arts",
       "source": "NYPL",
+      "free": false
+    },
+    {
+      "title": "What Can’t Be Mentioned",
+      "description": "Upcoming screening dates: Oct 12. See official film page for verified showtimes and tickets.",
+      "date": "2026-10-12",
+      "endDate": "2026-10-12",
+      "venue": "Film at Lincoln Center",
+      "location": "Manhattan, NY",
+      "type": "film",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.filmlinc.org/films/what-cant-be-mentioned/",
+      "source": "Film at Lincoln Center",
       "free": false
     },
     {
@@ -276,6 +445,20 @@
       "free": false
     },
     {
+      "title": "The Devils",
+      "description": "Upcoming screening dates: Oct 15, Oct 16, Oct 17, Oct 18, Oct 19, Oct 20. See official film page for verified showtimes and tickets.",
+      "date": "2026-10-15",
+      "endDate": "2026-10-20",
+      "venue": "Film at Lincoln Center",
+      "location": "Manhattan, NY",
+      "type": "film",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.filmlinc.org/films/the-devils/",
+      "source": "Film at Lincoln Center",
+      "free": false
+    },
+    {
       "title": "Arts, Culture & Fun: BE BOLDER - Senior Ballet Programming",
       "description": "NYC Parks, in partnership with the Misty Copeland Foundation, invites seniorsages 50 years-old and older to enroll in the, BE BOLDER: Ballet Explorations (BE) Ballet Offers Life-long Discovery, Expression, and Reconnection (BOLDER), dance program, a fun ballet class with live music. The program reflects Misty Copeland’s deeply held belief that dance is for e",
       "date": "2026-10-16",
@@ -301,6 +484,20 @@
       "country": "United States",
       "url": "http://www.nycgovparks.org/events/2026/10/16/old-stone-house-open-hours",
       "source": "NYC Parks",
+      "free": false
+    },
+    {
+      "title": "Once Upon a Time in Harlem",
+      "description": "Upcoming screening dates: Oct 16, Oct 17, Oct 18, Oct 19, Oct 20, Oct 21. See official film page for verified showtimes and tickets.",
+      "date": "2026-10-16",
+      "endDate": "2026-10-21",
+      "venue": "Film at Lincoln Center",
+      "location": "Manhattan, NY",
+      "type": "film",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.filmlinc.org/films/once-upon-a-time-in-harlem/",
+      "source": "Film at Lincoln Center",
       "free": false
     },
     {
@@ -654,6 +851,20 @@
       "free": false
     },
     {
+      "title": "Fatherland",
+      "description": "Upcoming screening dates: Oct 23, Oct 24, Oct 25, Oct 26, Oct 27, Oct 28. See official film page for verified showtimes and tickets.",
+      "date": "2026-10-23",
+      "endDate": "2026-10-28",
+      "venue": "Film at Lincoln Center",
+      "location": "Manhattan, NY",
+      "type": "film",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.filmlinc.org/films/fatherland/",
+      "source": "Film at Lincoln Center",
+      "free": false
+    },
+    {
       "title": "Greenbelt’s Haunted Trail",
       "description": "Join NYC Parks and Staten Island Recreation for Greenbelt’s Haunted Trail, a fun-filled Halloween celebration for the whole family! Enjoy a pumpkin patch and pumpkin painting, arts and crafts, games, festive activities, and plenty of Halloween fun. And for those feeling brave, take a walk through our haunted trail and see what surprises may be lurking along ",
       "date": "2026-10-23",
@@ -665,6 +876,20 @@
       "country": "United States",
       "url": "http://www.nycgovparks.org/events/2026/10/23/greenbelts-haunted-trail",
       "source": "NYC Parks",
+      "free": false
+    },
+    {
+      "title": "Possible Love",
+      "description": "Upcoming screening dates: Oct 23, Oct 24, Oct 25, Oct 26, Oct 27, Oct 28. See official film page for verified showtimes and tickets.",
+      "date": "2026-10-23",
+      "endDate": "2026-10-28",
+      "venue": "Film at Lincoln Center",
+      "location": "Manhattan, NY",
+      "type": "film",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.filmlinc.org/films/possible-love/",
+      "source": "Film at Lincoln Center",
       "free": false
     },
     {
@@ -917,6 +1142,20 @@
       "country": "United States",
       "url": "https://whitney.org/events/open-studio-2026",
       "source": "Whitney",
+      "free": false
+    },
+    {
+      "title": "Minotaur",
+      "description": "Upcoming screening dates: Nov 20, Nov 21, Nov 22, Nov 23, Nov 24, Nov 25. See official film page for verified showtimes and tickets.",
+      "date": "2026-11-20",
+      "endDate": "2026-11-25",
+      "venue": "Film at Lincoln Center",
+      "location": "Manhattan, NY",
+      "type": "film",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.filmlinc.org/films/minotaur/",
+      "source": "Film at Lincoln Center",
       "free": false
     },
     {
