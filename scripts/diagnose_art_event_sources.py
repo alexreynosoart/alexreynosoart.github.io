@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Everything Art: READ-ONLY Lincoln Center calendar date-to-event mapping diagnostic.
-Replace scripts/diagnose_art_event_sources.py; run existing diagnostic workflow.
-Does not modify collector, event JSON, or website.
+"""Everything Art | Lincoln Center read-only collector PREVIEW.
+Replace scripts/diagnose_art_event_sources.py, run diagnostic workflow.
+No writes, no JSON changes, no publishing. Dates are candidates, not verified.
 """
 import datetime as dt
 import html
@@ -12,16 +12,17 @@ from urllib.parse import urljoin, urlparse
 
 URL = 'https://www.lincolncenter.org/series/lincoln-center-presents/v/calendar'
 PREFIX = '/series/lincoln-center-presents/'
-MONTHS = r'(?:January|February|March|April|May|June|July|August|September|October|November|December)'
-DATE = re.compile(r'\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+' + MONTHS + r'\s+\d{1,2}(?:\s+at\s+\d{1,2}:\d{2}\s*[ap]m|\s*-\s*Multiple times)?', re.I)
+MONTH = r'(?:January|February|March|April|May|June|July|August|September|October|November|December)'
+DATE = re.compile(r'\b(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+(' + MONTH + r')\s+(\d{1,2})(?:\s+at\s+(\d{1,2}:\d{2}\s*[ap]m)|\s*-\s*(Multiple times))?', re.I)
+EXCLUDE = {'calendar', 'ticketing', 'fast track', 'choose-what-you-pay'}
 
 class Calendar(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
         self.tokens = []
+        self.links = []
         self.anchor = None
         self.hidden = 0
-        self.links = []
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
         if tag in ('script', 'style', 'noscript'):
@@ -40,56 +41,74 @@ class Calendar(HTMLParser):
             self.links.append(self.anchor)
             self.anchor = None
         if tag in ('script', 'style', 'noscript'):
-            self.hidden = max(0, self.hidden - 1)
+            self.hidden = max(0, self.hidden - 1
+            )
 
 def compact(value):
     return re.sub(r'\s+', ' ', value).strip()
 
-def is_detail(link):
-    p = urlparse(link)
-    if p.netloc not in ('www.lincolncenter.org', 'lincolncenter.org'):
-        return False
-    if not p.path.startswith(PREFIX):
+def detail(url):
+    p = urlparse(url)
+    if p.netloc not in ('www.lincolncenter.org', 'lincolncenter.org') or not p.path.startswith(PREFIX):
         return False
     tail = p.path[len(PREFIX):].strip('/')
-    return bool(tail and '/' not in tail and tail not in ('calendar', 'ticketing'))
+    return bool(tail and '/' not in tail and tail.lower() not in EXCLUDE)
 
-print('Everything Art | READ-ONLY Lincoln Center CALENDAR MAPPING diagnostic')
-print('Date:', dt.date.today(), '| No files written or published')
+def parse_date(match, today):
+    month = dt.datetime.strptime(match.group(2), '%B').month
+    day = int(match.group(3))
+    options = []
+    for year in (today.year, today.year + 1):
+        try:
+            value = dt.date(year, month, day)
+        except ValueError:
+            continue
+        if value >= today - dt.timedelta(days=1) and value <= today + dt.timedelta(days=400):
+            options.append(value)
+    if not options:
+        return None, 'out of range'
+    date = min(options)
+    if date.strftime('%A').lower() != match.group(1).lower():
+        return date, 'WEEKDAY MISMATCH'
+    return date, 'weekday matches'
+
+print('Everything Art | READ-ONLY Lincoln Center collector preview')
+print('No files will be written. Candidate dates must pass review before integration.')
+today = dt.date.today()
+print('Run date:', today)
+req = urllib.request.Request(URL, headers={'User-Agent': 'Mozilla/5.0 (compatible; EverythingArtDiagnostic/1.0; +https://alexreynosoart.com)', 'Accept': 'text/html'})
 try:
-    req = urllib.request.Request(URL, headers={
-        'User-Agent': 'Mozilla/5.0 (compatible; EverythingArtDiagnostic/1.0; +https://alexreynosoart.com)',
-        'Accept': 'text/html'})
     with urllib.request.urlopen(req, timeout=35) as response:
-        raw = response.read(4_500_000)
-        print('HTTP:', response.status, '| bytes:', len(raw), '| final:', response.geturl())
+        raw = response.read(5_000_000)
+        print('HTTP:', response.status, '| bytes:', len(raw))
     page = Calendar()
     page.feed(raw.decode('utf-8', 'replace'))
-    links = []
-    seen = set()
+    unique = {}
     for a in page.links:
-        full = urljoin(URL, a['href']).split('#')[0].split('?')[0]
-        if not is_detail(full) or full in seen:
-            continue
-        seen.add(full)
-        links.append((full, a))
-    print('UNIQUE DETAIL LINKS:', len(links))
-    print('INSPECTING FIRST 18 LINKS IN DOCUMENT ORDER')
-    for index, (link, a) in enumerate(links[:18], 1):
-        # Read only text BEFORE the link, never assume a date belongs to it.
+        url = urljoin(URL, a['href']).split('#')[0].split('?')[0]
+        if detail(url) and url not in unique:
+            unique[url] = a
+    print('Unique production URLs:', len(unique))
+    print('Previewing up to 30 production URLs in calendar order:')
+    accepted = 0
+    for index, (url, a) in enumerate(list(unique.items())[:30], 1):
         before = compact(' '.join(page.tokens[max(0, a['start'] - 90):a['start']]))
-        after = compact(' '.join(page.tokens[a['end']:a['end'] + 25]))
-        matches = list(DATE.finditer(before))
-        nearest = matches[-1].group(0) if matches else '(none found in preceding text)'
-        print('\nEVENT', index)
-        print(' URL:', link)
-        print(' ANCHOR:', repr(compact(' '.join(a['text']))[:110]))
-        print(' NEAREST PRECEDING DATE (UNVERIFIED):', nearest)
-        print(' BEFORE:', before[-420:])
-        print(' AFTER:', after[:160])
-    print('\nNOTE: Preceding dates are candidate associations only, NOT verified event dates.')
-    print('Look for a consistent date -> event title -> detail link pattern before collecting.')
+        after = compact(' '.join(page.tokens[a['end']:a['end'] + 30]))
+        dates = list(DATE.finditer(before))
+        match = dates[-1] if dates else None
+        date, check = parse_date(match, today) if match else (None, 'no date')
+        # A match may be a repeated navigation/calendar entry. This is a preview only.
+        title = compact(' '.join(a['text'])) or urlparse(url).path.rsplit('/', 1)[-1].replace('-', ' ')
+        print('\n%02d | %s | %s | %s' % (index, date.isoformat() if date else 'NO DATE', check, title[:95]))
+        print(' URL:', url)
+        print(' TIME:', match.group(4) if match and match.group(4) else 'Multiple times' if match and match.group(5) else 'not specified')
+        print(' BEFORE:', before[-140:])
+        print(' AFTER:', after[:175])
+        if date and check == 'weekday matches':
+            accepted += 1
+    print('\nCANDIDATE MATCHES (first 30):', accepted)
+    print('IMPORTANT: Matching weekdays do not independently prove the date belongs to the linked show.')
+    print('Diagnostic complete. No event file written or modified.')
 except Exception as exc:
-    print('DIAGNOSTIC ERROR:', type(exc).__name__, str(exc)[:400])
+    print('Diagnostic error:', type(exc).__name__, str(exc)[:300])
     raise
-print('\nDiagnostic complete. No event files changed.')
