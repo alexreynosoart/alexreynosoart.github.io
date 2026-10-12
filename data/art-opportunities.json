@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-10-10T00:48:30.062998+00:00",
+  "updatedAt": "2026-10-12T06:52:07.375756+00:00",
   "sources": {
-    "On the Move": 53,
+    "On the Move": 55,
     "Existing Everything Art listing": 23
   },
   "opportunities": [
@@ -500,6 +500,19 @@
       "status": "Existing listing; verify with organizer"
     },
     {
+      "title": "Busan Biennale: Artistic Director of the Sea Art Festival 2027",
+      "organization": "Busan Biennale",
+      "description": "Jobs. Application deadline: 2026-10-31. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/busan-biennale-artistic-director-sea-art-festival-2027",
+      "deadline": "2026-10-31",
+      "discipline": "interdisciplinary",
+      "type": "job",
+      "features": "",
+      "country": "United States",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Craftwork4.0All: Craft Mobilities 2026–2027",
       "organization": "Craftwork4.0All",
       "description": "Meeting & networking. Application deadline: 2026-10-31. Confirm eligibility, fees and details with the organizer.",
@@ -678,6 +691,19 @@
       "type": "residency",
       "features": "",
       "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Gasworks: Upė Foundation Curatorial Fellow for Curator with a Baltic Connection (UK)",
+      "organization": "Gasworks",
+      "description": "Fellowships. Application deadline: 2026-11-09. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/gasworks-upe-foundation-curatorial-fellow-curator-baltic-connection-uk",
+      "deadline": "2026-11-09",
+      "discipline": "interdisciplinary",
+      "type": "fellowship",
+      "features": "",
+      "country": "United Kingdom",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
