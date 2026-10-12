@@ -1,0 +1,31 @@
+name: Test Queens Museum Calendar Preview
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Queens Museum read-only preview
+        run: python scripts/queens_museum_calendar_preview.py
+
+      - name: Verify event cache unchanged
+        run: |
+          if ! git diff --exit-code -- data/art-events.json; then
+            echo 'ERROR: Event cache changed during preview.'
+            exit 1
+          fi
+          echo 'PASS: Event cache unchanged.'
