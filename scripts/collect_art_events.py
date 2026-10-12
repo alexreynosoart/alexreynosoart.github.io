@@ -746,53 +746,95 @@ def lincoln_center_preview():
 # Rule of Three: read-only discovery of official museum calendars.
 # These candidates never enter the published event feed until independently verified.
 def three_museum_preview():
+    """Read-only investigation of official public feeds; never adds museum events."""
     from html.parser import HTMLParser
     from urllib.parse import urljoin, urlparse
+    from urllib.error import HTTPError, URLError
+    import xml.etree.ElementTree as ET
+
     class Reader(HTMLParser):
         def __init__(self):
-            super().__init__();self.parts=[];self.links=[];self.href=None;self.label=[]
-        def handle_starttag(self,tag,attrs):
+            super().__init__(); self.links=[]; self.href=None; self.label=[]
+        def handle_starttag(self, tag, attrs):
             if tag=='a':
-                self.href=dict(attrs).get('href');self.label=[]
-        def handle_data(self,data):
-            v=clean(data)
-            if v:
-                self.parts.append(v)
-                if self.href is not None:self.label.append(v)
-        def handle_endtag(self,tag):
+                self.href=dict(attrs).get('href'); self.label=[]
+        def handle_data(self, value):
+            if self.href is not None: self.label.append(value)
+        def handle_endtag(self, tag):
             if tag=='a' and self.href is not None:
-                self.links.append((self.href,clean(' '.join(self.label))))
-                self.href=None;self.label=[]
+                self.links.append((self.href, clean(' '.join(self.label))))
+                self.href=None; self.label=[]
+
+    # Official endpoints only. No third-party mirrors or attempts to evade blocks.
     targets={
-      'The Met':('https://www.metmuseum.org/exhibitions?location=main','metmuseum.org'),
-      'Brooklyn Museum':('https://www.brooklynmuseum.org/exhibitions','brooklynmuseum.org'),
-      'Queens Museum':('https://queensmuseum.org/calendar/','queensmuseum.org'),
+      'The Met': [
+        ('Exhibitions calendar','https://www.metmuseum.org/exhibitions?location=main','html'),
+        ('Exhibitions RSS discovery','https://www.metmuseum.org/exhibitions/rss','xml'),
+      ],
+      'Brooklyn Museum': [
+        ('Exhibitions calendar','https://www.brooklynmuseum.org/exhibitions','html'),
+        ('Public WordPress events endpoint','https://www.brooklynmuseum.org/wp-json/wp/v2/events?per_page=10','json'),
+      ],
+      'Queens Museum': [
+        ('Events-only calendar','https://queensmuseum.org/calendar/?filter=event&sort=date','html'),
+        ('Exhibitions-only calendar','https://queensmuseum.org/calendar/?filter=exhibition&sort=date','html'),
+        ('Public WordPress events endpoint','https://queensmuseum.org/wp-json/wp/v2/events?per_page=10','json'),
+      ],
     }
-    print('RULE OF THREE: official-source discovery only; NO events will be published')
-    for name,(address,domain) in targets.items():
-        try:
-            req=urllib.request.Request(address,headers={'User-Agent':'Mozilla/5.0 (compatible; EverythingArtPreview/1.0)','Accept':'text/html'})
-            with urllib.request.urlopen(req,timeout=30) as resp:
-                final=resp.geturl();raw=resp.read(7_000_000).decode('utf-8','replace')
-            if domain not in (urlparse(final).hostname or ''):raise ValueError('Unexpected redirect')
-            parser=Reader();parser.feed(raw)
-            seen=set();candidates=[]
-            for href,label in parser.links:
-                target=urljoin(final,href or '')
-                path=urlparse(target).path.lower()
-                if not label or len(label)<5 or len(label)>150 or target in seen:continue
-                if domain not in (urlparse(target).hostname or ''):continue
-                if name=='The Met' and '/exhibitions/' not in path:continue
-                if name=='Brooklyn Museum' and not any(x in path for x in ('/exhibitions/','/calendar/')):continue
-                if name=='Queens Museum' and not any(x in path for x in ('/exhibition/','/event/','/events/','/whats-on/')):continue
-                seen.add(target);candidates.append((label,target))
-            print(f'{name}: HTTP OK; {len(raw)} bytes; {len(candidates)} distinct possible detail links')
-            for label,target in candidates[:12]:print(' CANDIDATE:',label[:85],'|',target)
-            if not candidates:
-                print(f'{name}: no confidently extracted detail links; adapter requires investigation (NOT a zero-event finding)')
-        except Exception as exc:
-            print(f'{name}: preview unavailable: {exc}; no publishing attempted')
-    print('RULE OF THREE: preview complete; 0 new museum events added to the cache')
+    print('RULE OF THREE ROUND TWO: official feed discovery only; no museum events published')
+    for name, probes in targets.items():
+        print(f'{name}: investigating {len(probes)} official endpoints')
+        for label, address, kind in probes:
+            try:
+                req=urllib.request.Request(address,headers={
+                    'User-Agent':'EverythingArtEventCollector/1.0 (alexreynosoart.com)',
+                    'Accept':'application/json, application/rss+xml, application/xml, text/html',
+                })
+                with urllib.request.urlopen(req,timeout=20) as resp:
+                    final=resp.geturl();status=resp.status
+                    content=resp.read(2_000_000)
+                    ctype=resp.headers.get('Content-Type','')
+                allowed=urlparse(address).hostname
+                final_host=urlparse(final).hostname or ''
+                if final_host != allowed and not final_host.endswith('.'+allowed):
+                    raise ValueError('unexpected external redirect')
+                raw=content.decode('utf-8','replace')
+                if 'json' in ctype.lower() or kind=='json':
+                    data=json.loads(raw)
+                    items=data if isinstance(data,list) else data.get('events',data.get('items',[])) if isinstance(data,dict) else []
+                    print(f'  {label}: HTTP {status}; JSON; {len(items) if isinstance(items,list) else 0} records')
+                    for item in (items[:3] if isinstance(items,list) else []):
+                        if isinstance(item,dict):
+                            print('   SAMPLE:',clean(str(item.get('title',item.get('name',''))))[:90], '|',str(item.get('date',item.get('start_date','')))[:35])
+                elif 'xml' in ctype.lower() or kind=='xml':
+                    root=ET.fromstring(raw)
+                    items=root.findall('.//item') or root.findall('.//{http://www.w3.org/2005/Atom}entry')
+                    print(f'  {label}: HTTP {status}; XML; {len(items)} entries')
+                    for item in items[:3]:print('   SAMPLE:',clean(item.findtext('title',''))[:100])
+                else:
+                    parser=Reader();parser.feed(raw)
+                    seen=set();links=[]
+                    for href,title in parser.links:
+                        link=urljoin(final,href or '')
+                        host=urlparse(link).hostname or ''
+                        path=urlparse(link).path.lower()
+                        if not title or len(title)>170 or link in seen:continue
+                        if host != allowed and not host.endswith('.'+allowed):continue
+                        if name=='The Met' and '/exhibitions/' not in path:continue
+                        if name=='Brooklyn Museum' and not any(k in path for k in ('/exhibitions/','/events/','/calendar/')):continue
+                        if name=='Queens Museum' and not any(k in path for k in ('/exhibition/','/event/','/events/','/calendar/')):continue
+                        seen.add(link);links.append((title,link))
+                    dates=re.findall(r'\b(?:0?[1-9]|1[0-2])[./-](?:[0-2]?[0-9]|3[01])[./-](?:20)?2[6-9]\b',raw)
+                    print(f'  {label}: HTTP {status}; HTML; {len(links)} possible links; {len(dates)} date strings')
+                    for title,link in links[:5]:print('   SAMPLE:',title[:85],'|',link)
+            except HTTPError as exc:
+                retry=exc.headers.get('Retry-After','') if exc.headers else ''
+                print(f'  {label}: HTTP {exc.code}; not retrying'+(f'; Retry-After: {retry}' if retry else ''))
+            except (URLError,ValueError,ET.ParseError,TimeoutError) as exc:
+                print(f'  {label}: unavailable ({type(exc).__name__}: {str(exc)[:100]})')
+            except Exception as exc:
+                print(f'  {label}: unavailable ({type(exc).__name__}: {str(exc)[:100]})')
+    print('RULE OF THREE ROUND TWO: discovery complete; 0 new museum events published')
 
 def main():
     dry_run = '--dry-run' in sys.argv
