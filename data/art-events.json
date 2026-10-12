@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-12T19:13:16.019635+00:00",
+  "updatedAt": "2026-10-12T20:57:22.237827+00:00",
   "sources": {
     "NYC Parks": 51,
     "Whitney": 14,
@@ -7,25 +7,13 @@
     "Guggenheim": 0,
     "NYPL": 7,
     "Bronx Museum": 2,
-    "Film at Lincoln Center": 14,
+    "Film at Lincoln Center": 11,
     "New York Live Arts": 8,
-    "Lincoln Center Presents": 183
+    "Lincoln Center Presents": 183,
+    "Wave Hill": 4,
+    "Staten Island Museum": 5
   },
   "events": [
-    {
-      "title": "9 Temples to Heaven",
-      "description": "Upcoming screening dates: Oct 12. See official film page for verified showtimes and tickets.",
-      "date": "2026-10-12",
-      "endDate": "2026-10-12",
-      "venue": "Film at Lincoln Center",
-      "location": "Manhattan, NY",
-      "type": "film",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://www.filmlinc.org/films/9-temples-to-heaven/",
-      "source": "Film at Lincoln Center",
-      "free": false
-    },
     {
       "title": "Bitter Christmas",
       "description": "Upcoming screening dates: Oct 12, Nov 13, Nov 14, Nov 15, Nov 16, Nov 17. See official film page for verified showtimes and tickets.",
@@ -51,20 +39,6 @@
       "features": "nyc us",
       "country": "United States",
       "url": "https://www.filmlinc.org/films/bucking-fastard/",
-      "source": "Film at Lincoln Center",
-      "free": false
-    },
-    {
-      "title": "Club Kid",
-      "description": "Upcoming screening dates: Oct 12. See official film page for verified showtimes and tickets.",
-      "date": "2026-10-12",
-      "endDate": "2026-10-12",
-      "venue": "Film at Lincoln Center",
-      "location": "Manhattan, NY",
-      "type": "film",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://www.filmlinc.org/films/club-kid/",
       "source": "Film at Lincoln Center",
       "free": false
     },
@@ -223,6 +197,20 @@
       "free": false
     },
     {
+      "title": "Saunksquas, Sassafras, and Moccasins: Walking Tour with Oleana Whispering Dove",
+      "description": "",
+      "date": "2026-10-12",
+      "endDate": "2026-10-12",
+      "venue": "Wave Hill",
+      "location": "Bronx, NY",
+      "type": "tour",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.wavehill.org/calendar/walking-tour-with-oleana-whispering-dove",
+      "source": "Wave Hill",
+      "free": false
+    },
+    {
       "title": "Saya Woolfalk: The WoodsWoman Method",
       "description": "On view October 09, 2026 through March 28, 2027. ",
       "date": "2026-10-12",
@@ -261,20 +249,6 @@
       "features": "nyc us",
       "country": "United States",
       "url": "https://www.filmlinc.org/films/the-man-i-love/",
-      "source": "Film at Lincoln Center",
-      "free": false
-    },
-    {
-      "title": "The Only Living Pickpocket in New York",
-      "description": "Upcoming screening dates: Oct 12. See official film page for verified showtimes and tickets.",
-      "date": "2026-10-12",
-      "endDate": "2026-10-12",
-      "venue": "Film at Lincoln Center",
-      "location": "Manhattan, NY",
-      "type": "film",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://www.filmlinc.org/films/the-only-living-pickpocket/",
       "source": "Film at Lincoln Center",
       "free": false
     },
@@ -797,6 +771,20 @@
       "free": false
     },
     {
+      "title": "Revealing the Palisades",
+      "description": "",
+      "date": "2026-10-17",
+      "endDate": "2026-10-17",
+      "venue": "Wave Hill",
+      "location": "Bronx, NY",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.wavehill.org/calendar/family-art-project-revealing-the-palisades-2026",
+      "source": "Wave Hill",
+      "free": false
+    },
+    {
       "title": "Spooky Skully Still-Life Drawing",
       "description": "Join us at Kissena Park Field House for a fun still-life drawing session with our friendly neighborhood skeleton, Skully! Our team will supply you with all the materials you need to create your very own sketch of a Spooky Still-Life Skeleton. We will use materials such as graphite pencils, charcoal and chalk pastels to create one-of-a-kind pieces of art.",
       "date": "2026-10-17",
@@ -839,6 +827,20 @@
       "free": false
     },
     {
+      "title": "Word Art Workshop and Artist Talk with Roemello Agjmurati",
+      "description": "",
+      "date": "2026-10-17",
+      "endDate": "2026-10-17",
+      "venue": "Staten Island Museum",
+      "location": "Staten Island, NY",
+      "type": "workshop talk",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.statenislandmuseum.org/event/word-art-workshop-and-artist-talk-with-roemello-agjmurati/",
+      "source": "Staten Island Museum",
+      "free": false
+    },
+    {
       "title": "BHS Castle Tour",
       "description": "The Bayside Historical Society is excited to participate in this year's Open House New York Weekend, an event spanning all five boroughs that celebrates architecture and design.On Sunday, October 18th, from 12:00pm to 4:00pm, we will be participating with free guided tours of The Castle in Fort Totten Park, which has been the home of the Bayside Historical S",
       "date": "2026-10-18",
@@ -851,6 +853,20 @@
       "url": "http://www.nycgovparks.org/events/2026/10/18/visit-the-bhs-castle-during-open-house-new-york-2026",
       "source": "NYC Parks",
       "free": true
+    },
+    {
+      "title": "Behind the Scenes: Collections Care and Tour of Staten Island Making History",
+      "description": "",
+      "date": "2026-10-18",
+      "endDate": "2026-10-18",
+      "venue": "Staten Island Museum",
+      "location": "Staten Island, NY",
+      "type": "tour",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.statenislandmuseum.org/event/behind-the-scenes-collections-care-and-tour-of-staten-island-making-history/",
+      "source": "Staten Island Museum",
+      "free": false
     },
     {
       "title": "Climate Future Film Festival hosted by Growing Good Community Garden",
@@ -934,6 +950,20 @@
       "country": "United States",
       "url": "http://www.nycgovparks.org/events/2026/10/18/prospect-farm-fall-harvest-festival",
       "source": "NYC Parks",
+      "free": false
+    },
+    {
+      "title": "Revealing the Palisades",
+      "description": "",
+      "date": "2026-10-18",
+      "endDate": "2026-10-18",
+      "venue": "Wave Hill",
+      "location": "Bronx, NY",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.wavehill.org/calendar/family-art-project-revealing-the-palisades-2026-2",
+      "source": "Wave Hill",
       "free": false
     },
     {
@@ -1735,6 +1765,20 @@
       "free": false
     },
     {
+      "title": "Stephanie Dinkins: Anchoring Home Member’s Preview",
+      "description": "",
+      "date": "2026-11-12",
+      "endDate": "2026-11-12",
+      "venue": "Staten Island Museum",
+      "location": "Staten Island, NY",
+      "type": "opening",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.statenislandmuseum.org/event/stephanie-dinkins-anchoring-home-members-preview/",
+      "source": "Staten Island Museum",
+      "free": false
+    },
+    {
       "title": "The Precipice",
       "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2026-11-12",
@@ -1788,6 +1832,20 @@
       "country": "United States",
       "url": "https://whitney.org/events/open-studio-2026",
       "source": "Whitney",
+      "free": false
+    },
+    {
+      "title": "Stephanie Dinkins: Anchoring Home Public Exhibition Opening",
+      "description": "",
+      "date": "2026-11-14",
+      "endDate": "2026-11-14",
+      "venue": "Staten Island Museum",
+      "location": "Staten Island, NY",
+      "type": "opening",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.statenislandmuseum.org/event/stephanie-dinkins-anchoring-home-public-exhibition-opening/",
+      "source": "Staten Island Museum",
       "free": false
     },
     {
@@ -1900,6 +1958,20 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/the-danish-girl-in-concert",
       "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "Family History Month Workshop 2: Transcribe-a-thon",
+      "description": "",
+      "date": "2026-11-21",
+      "endDate": "2026-11-21",
+      "venue": "Staten Island Museum",
+      "location": "Staten Island, NY",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.statenislandmuseum.org/event/family-history-month-workshop-2-transcribe-a-thon/",
+      "source": "Staten Island Museum",
       "free": false
     },
     {
