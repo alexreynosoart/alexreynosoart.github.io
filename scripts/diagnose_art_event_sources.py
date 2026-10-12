@@ -9,11 +9,13 @@ import urllib.error
 import urllib.request
 from collections import Counter
 from html.parser import HTMLParser
+from urllib.parse import urljoin, urlparse
 
 SOURCES = {
     'MoMA': 'https://www.moma.org/calendar/exhibitions',
     'Guggenheim': 'https://www.guggenheim.org/',
     'NYPL': 'https://www.nypl.org/events',
+    'NYPL Calendar': 'https://www.nypl.org/events/calendar',
 }
 
 class PageParser(HTMLParser):
@@ -22,7 +24,13 @@ class PageParser(HTMLParser):
         self.in_ld = False
         self.parts = []
         self.blocks = []
+        self.links = []
     def handle_starttag(self, tag, attrs):
+        if tag == 'a':
+            attrs_dict = dict(attrs)
+            href = attrs_dict.get('href', '')
+            if href and len(self.links) < 5000:
+                self.links.append(href)
         if tag == 'script' and dict(attrs).get('type', '').lower().split(';')[0].strip() == 'application/ld+json':
             self.in_ld = True
             self.parts = []
@@ -70,6 +78,19 @@ def inspect(name, url):
         parser = PageParser()
         parser.feed(raw)
         print(f'JSON-LD script blocks: {len(parser.blocks)}')
+        if name.startswith('NYPL'):
+            event_links = []
+            for href in parser.links:
+                absolute = urljoin(final_url, href)
+                parsed = urlparse(absolute)
+                if parsed.hostname in ('nypl.org', 'www.nypl.org') and re.search(r'/events?/|/calendar/|/programs?/', parsed.path, re.I):
+                    if absolute not in event_links:
+                        event_links.append(absolute)
+            print(f'NYPL event-like anchors: {len(event_links)} (first 12 shown)')
+            for link in event_links[:12]:
+                print('  LINK:', link)
+            for label, pattern in [('datetime attributes', r'datetime=[\"\'][^\"\']+'), ('ISO dates', r'20\d{2}-\d{2}-\d{2}'), ('calendar API hints', r'(?:api|graphql|drupalSettings|__NEXT_DATA__)')]:
+                print(f'{label}: {len(re.findall(pattern, raw, re.I))}')
         counts = Counter()
         samples = []
         errors = 0
