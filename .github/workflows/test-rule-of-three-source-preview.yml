@@ -2,6 +2,16 @@ name: Test Rule of Three Sources
 
 on:
   workflow_dispatch:
+    inputs:
+      source_group:
+        description: 'Which calendars should be tested?'
+        required: true
+        default: online
+        type: choice
+        options:
+          - online
+          - nyc
+          - all
 
 permissions:
   contents: read
@@ -16,7 +26,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Test three official calendars (read-only)
-        run: python scripts/rule_of_three_source_preview.py
+      - name: Preview selected official calendars (read-only)
+        env:
+          SOURCE_GROUP: ${{ inputs.source_group }}
+        run: python scripts/rule_of_three_source_preview.py --"$SOURCE_GROUP"
       - name: Verify event cache unchanged
         run: git diff --exit-code -- data/art-events.json
