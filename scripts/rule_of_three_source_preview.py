@@ -207,11 +207,11 @@ SMITHSONIAN_BATCH_SIZE = 100
 SMITHSONIAN_MAX_LIST_PAGES = 12
 SMITHSONIAN_DELAY_SECONDS = 0.45
 ART_TERMS = re.compile(
-    r"\\b(?:art|artist|artwork|painting|paint|drawing|sketch|illustrat|"
+    r"\b(?:art|artist|artwork|painting|paint|drawing|sketch|illustrat|"
     r"photograph|sculpt|ceramic|pottery|printmak|watercolor|collage|"
     r"design|architecture|architect|museum|gallery|exhibition|"
     r"craft|textile|weaving|fiber art|mixed media|visual culture|"
-    r"art history|film|animation|calligraphy|miniature)\\w*\\b", re.I
+    r"art history|film|animation|calligraphy|miniature)\w*\b", re.I
 )
 
 def smithsonian_program_links(tree, base):
@@ -238,9 +238,11 @@ def smithsonian_listing_links(tree, base):
         parsed = urlparse(link)
         if parsed.hostname != urlparse(base).hostname:
             continue
-        if parsed.path.rstrip('/') != '/ticketing/online':
-            continue
-        if link != base and parsed.query:
+        # Follow official online-listing subpages and pagination only.
+        path = parsed.path.rstrip('/')
+        if path == '/ticketing/online' and parsed.query:
+            links.add(link)
+        elif path.startswith('/ticketing/online/'):
             links.add(link)
     return links
 
@@ -272,7 +274,7 @@ def smithsonian_detail_candidates(tree, base):
     links = sorted(program_links)[:SMITHSONIAN_BATCH_SIZE]
     print(f'Smithsonian official program links discovered: {len(program_links)} across {len(visited_listings)} listing page(s); checking {len(links)} (cap {SMITHSONIAN_BATCH_SIZE})')
     if len(program_links) < SMITHSONIAN_BATCH_SIZE:
-        print('DISCOVERY NOTE: Fewer than 100 links were exposed by accessible listing pages; capacity is not a guarantee.')
+        print('DISCOVERY NOTE: The site exposed fewer than 100 links; the limit cannot create additional links.')
     approved, held, unrelated = [], 0, 0
     for link in links:
         time.sleep(SMITHSONIAN_DELAY_SECONDS)
@@ -310,7 +312,7 @@ def smithsonian_detail_candidates(tree, base):
         time_dates = [event_date(n.attrs.get('datetime')) for n in walk(main)
                       if n.tag == 'time' and n.attrs.get('datetime')]
         time_dates = [d for d in time_dates if d and d >= date.today()]
-        date_strings = re.findall(r'\\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\\.?\\s+\\d{1,2},?\\s+20\\d{2}\\b', body, re.I)
+        date_strings = re.findall(r'\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\.?\s+\d{1,2},?\s+20\d{2}\b', body, re.I)
         body_dates = [human_date(d) for d in date_strings]
         body_dates = [d for d in body_dates if d and d >= date.today()]
         dates = sorted(set(time_dates or body_dates))
@@ -318,7 +320,7 @@ def smithsonian_detail_candidates(tree, base):
             held += 1
             print(f'  HOLD no verified future date: {title!r}')
             continue
-        online = bool(re.search(r'\\b(?:online program|online lecture|online class|online workshop|virtual program|virtual event|via zoom|on zoom|livestream|live stream|webinar)\\b', body, re.I))
+        online = bool(re.search(r'\b(?:online program|online lecture|online class|online workshop|virtual program|virtual event|via zoom|on zoom|livestream|live stream|webinar)\b', body, re.I))
         if not online:
             held += 1
             print(f'  HOLD online attendance unverified: {title!r}')
