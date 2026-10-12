@@ -585,10 +585,12 @@ class LCCalendar(HTMLParser):
         if tag in ('script', 'style', 'noscript'):
             self.hidden += 1
         if tag == 'a' and not self.hidden:
-            self.anchor = {'href': attrs.get('href', ''), 'start': len(self.tokens)}
+            self.anchor = {'href': attrs.get('href', ''), 'start': len(self.tokens), 'text': []}
     def handle_data(self, value):
         if not self.hidden:
             self.tokens.append(html.unescape(value))
+            if self.anchor is not None:
+                self.anchor['text'].append(html.unescape(value))
     def handle_endtag(self, tag):
         if tag == 'a' and self.anchor is not None:
             self.anchor['end'] = len(self.tokens)
@@ -609,6 +611,48 @@ def lc_date(match):
                 and value.strftime('%A').lower() == match.group(1).lower()):
             return value
     return None
+
+# Read titles from calendar links first, not from URL slugs.
+# A slug is only a fallback and is never treated as a verified official title.
+LC_GENERIC_LINK = re.compile(r'^(learn more|read more|details|tickets|buy tickets|view event|image|more info|register|rsvp)$', re.I)
+LC_CATEGORIES = (
+    'Festival of Firsts', 'Legacies of San Juan Hill Festival',
+    'Kids, Teens, and Families', 'Lincoln Center Immersive',
+    'Lincoln Center Presents', 'Unsound New York',
+)
+
+def lc_slug_title(target):
+    slug = urlparse(target).path.rstrip('/').rsplit('/', 1)[-1]
+    slug = re.sub(r'-\d+$', '', slug)
+    # Lincoln Center slugs contain literal entity names such as "andamp".
+    slug = re.sub(r'-and(?:amp|rsquo|ndash|mdash|quot)-',
+        lambda m: {'-andamp-':' & ', '-andrsquo-': '’', '-andndash-':' – ',
+                   '-andmdash-':' — ', '-andquot-':' " '}.get(m.group(0), ' '), slug)
+    return html.unescape(slug.replace('-', ' ')).strip().title()
+
+def lc_title_candidate(value):
+    value = clean(value)
+    value = re.sub(r'\s+', ' ', value).strip(' |–-')
+    if not value or len(value) > 180 or LC_GENERIC_LINK.fullmatch(value):
+        return ''
+    if value in LC_CATEGORIES or value.lower() in ('calendar', 'lincoln center', 'events'):
+        return ''
+    return value
+
+def lc_calendar_title(anchor, context, target):
+    # Some card anchors wrap the event title; other anchors wrap only an image.
+    direct = lc_title_candidate(' '.join(anchor.get('text', [])))
+    if direct and not re.search(r'\b(learn more|buy tickets|view details)\b', direct, re.I):
+        return direct, 'calendar link'
+    # The text immediately after a card's image link often contains
+    # "Category Event Title Lincoln Center Presents ...".
+    segment = re.split(r'\bLincoln Center Presents\b', context, maxsplit=1, flags=re.I)[0]
+    for category in sorted(LC_CATEGORIES, key=len, reverse=True):
+        segment = re.sub(r'^' + re.escape(category) + r'\s+', '', segment, flags=re.I)
+    inferred = lc_title_candidate(segment)
+    if inferred and len(inferred.split()) <= 22:
+        return inferred, 'calendar card text'
+    return lc_slug_title(target), 'slug fallback (needs review)'
 
 def lincoln_center_preview():
     req = urllib.request.Request(LC_CALENDAR, headers={
@@ -637,21 +681,29 @@ def lincoln_center_preview():
         time = clean(match.group(4) or match.group(5) or 'unspecified')
         # This is a candidate association, not an independently verified showtime.
         # Avoid duplicate image/title/learn-more links for the same calendar card.
-        candidates.setdefault((target, when.isoformat(), time),
-            clean(' '.join(page.tokens[anchor['end']:anchor['end'] + 28]))[:160])
+        context = clean(' '.join(page.tokens[anchor['end']:anchor['end'] + 28]))[:250]
+        proposed_title, title_source = lc_calendar_title(anchor, context, target)
+        candidate_key = (target, when.isoformat(), time)
+        # Prefer a verified calendar-link title over a contextual guess.
+        prior = candidates.get(candidate_key)
+        rank = {'calendar link': 3, 'calendar card text': 2, 'slug fallback (needs review)': 1}
+        if prior is None or rank[title_source] > rank[prior[2]]:
+            candidates[candidate_key] = (context, proposed_title, title_source)
     # One card per production per day: existing site dedupe does not include time.
     by_day = {}
-    for (target, day, time), context in candidates.items():
-        item = by_day.setdefault((target, day), {'times': set(), 'context': context})
+    for (target, day, time), (context, proposed_title, title_source) in candidates.items():
+        item = by_day.setdefault((target, day), {'times': set(), 'context': context,
+            'title': proposed_title, 'title_source': title_source})
         item['times'].add(time)
+        rank = {'calendar link': 3, 'calendar card text': 2, 'slug fallback (needs review)': 1}
+        if rank[title_source] > rank[item['title_source']]:
+            item['title'], item['title_source'] = proposed_title, title_source
     results = []
     for (target, day), item in sorted(by_day.items(), key=lambda x: (x[0][1], x[0][0])):
-        slug = urlparse(target).path.rstrip('/').rsplit('/', 1)[-1]
-        slug = re.sub(r'-\d+$', '', slug)
-        # Slug titles are provisional. Official display titles need separate review.
-        title = slug.replace('-', ' ').title()
+        title = item['title']
         times = ', '.join(sorted(item['times']))
-        description = ('Calendar candidate: ' + times + '. ' + item['context'] +
+        description = ('Calendar candidate: ' + times + '. Title from ' +
+                       item['title_source'] + '. ' + item['context'] +
                        ' Verify event title, date, and time on the official page.')[:360]
         results.append(dict(title=title, description=description,
             date=day, endDate=day, venue='Lincoln Center Presents',
@@ -659,6 +711,8 @@ def lincoln_center_preview():
             country='United States', url=target, source='Lincoln Center Presents', free=False))
     print('Lincoln Center candidate URL/date/time combinations:', len(candidates))
     print('Lincoln Center candidate URL/date cards after same-day grouping:', len(results))
+    from collections import Counter
+    print('Lincoln Center title extraction methods:', dict(Counter(x['title_source'] for x in by_day.values())))
     for item in results[:25]:
         print(' PREVIEW:', item['date'], '|', item['title'], '|', item['description'][:85], '|', item['url'])
     print('Lincoln Center: preview candidates are NOT approved for publication.')
