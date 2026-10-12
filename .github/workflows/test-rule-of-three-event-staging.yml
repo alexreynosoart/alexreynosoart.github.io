@@ -1,0 +1,22 @@
+name: Test Rule of Three Event Staging
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  stage-events:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Stage two sources without publishing
+        run: python scripts/rule_of_three_event_staging.py
+      - name: Verify event cache unchanged
+        run: git diff --exit-code -- data/art-events.json
