@@ -5,6 +5,7 @@ No event-cache writes. Python standard library only.
 import json
 import re
 from datetime import date, datetime
+from html import unescape
 from html.parser import HTMLParser
 from urllib.error import HTTPError, URLError
 from urllib.parse import urljoin, urlparse
@@ -93,10 +94,36 @@ def event_date(raw):
     except ValueError:
         return None
 
+def human_date(raw):
+    parsed = event_date(raw)
+    if parsed:
+        return parsed
+    for fmt in ('%b %d %Y', '%B %d %Y', '%b %d, %Y', '%B %d, %Y'):
+        try:
+            return datetime.strptime(raw.strip(), fmt).date()
+        except ValueError:
+            pass
+    return None
+
+def clean_title(label, name, link):
+    label = unescape(label).replace('\xa0', ' ').strip()
+    if name == 'Bronx Council on the Arts':
+        # Calendar anchor labels are dates; a slug is only a clue, NOT a verified title.
+        slug = urlparse(link).path.rsplit('/', 1)[-1].removesuffix('.html')
+        slug = re.sub(r'(?:-20\d{2}-\d{2}-\d{2})+$', '', slug)
+        return slug.replace('-', ' ').strip().title(), 'URL-SLUG (unverified)'
+    if name == 'Wave Hill':
+        label = re.sub(r'\b(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),?\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2},?\s+20\d{2}.*$', '', label, flags=re.I).strip()
+        for prefix in ('Art Talks + Tours ', 'Families Family Art Project: ', 'Families Nature Talks + Tours ', 'Nature Talks + Tours Wellness + Cooking ', 'Gardens Talks + Tours ', 'Special Events ', 'Wellness + Cooking ', 'Talks + Tours '):
+            if label.startswith(prefix):
+                label = label[len(prefix):]
+                break
+    return label, 'VISIBLE-HTML'
+
 def candidates(tree, base, name):
     host = urlparse(base).hostname
-    results = []
-    seen = set()
+    today = date.today()
+    results, seen = [], set()
     for script in tree.jsonld:
         try:
             objects = list(event_json(json.loads(script)))
@@ -106,11 +133,14 @@ def candidates(tree, base, name):
             title, rawdate, link = item.get('name', ''), item.get('startDate', ''), item.get('url', '')
             if isinstance(link, dict):
                 link = link.get('@id', '')
-            if isinstance(title, str) and isinstance(link, str) and title and rawdate and link:
-                absolute = urljoin(base, link)
-                if urlparse(absolute).hostname == host and absolute not in seen:
-                    seen.add(absolute)
-                    results.append(('JSON-LD', title[:110], str(rawdate)[:35], absolute))
+            if not all(isinstance(v, str) and v for v in (title, rawdate, link)):
+                continue
+            absolute = urljoin(base, link)
+            start = human_date(rawdate)
+            if urlparse(absolute).hostname != host or not start or start < today or absolute in seen:
+                continue
+            seen.add(absolute)
+            results.append((unescape(title), start, absolute, 'JSON-LD', 'VERIFIED-STRUCTURE'))
     for n in walk(tree.root):
         if n.tag != 'a' or not n.attrs.get('href'):
             continue
@@ -118,35 +148,39 @@ def candidates(tree, base, name):
         path = urlparse(link).path.rstrip('/')
         if urlparse(link).hostname != host or link in seen:
             continue
-        if path in ('', '/calendar', '/events', '/events/list'):
-            continue
-        label = n.text()[:140]
-        if not label or BAD.match(label.strip()):
-            continue
         if name == 'Wave Hill' and not path.startswith('/calendar/'):
             continue
         if name == 'Staten Island Museum' and '/event/' not in path:
             continue
-        if name == 'Bronx Council on the Arts' and not (re.search(r'event|calendar|exhibit|workshop|program', path, re.I) or BLOCK.search(' '.join(str(x.attrs.get('class','')) for x in (n.parent, n.parent.parent if n.parent else None) if x))):
+        if name == 'Bronx Council on the Arts' and not (path.startswith('/events/') and path.endswith('.html')):
+            continue
+        label = n.text()[:220].strip()
+        if not label or BAD.match(label) or label.lower() == 'submit an event':
             continue
         context = n.parent
         best = None
         for _ in range(5):
-            if not context:
+            if context is None:
                 break
-            text = context.text()[:2500]
-            dates = DATE.findall(text)
             times = [x.attrs['datetime'] for x in walk(context) if x.tag == 'time' and x.attrs.get('datetime')]
-            if dates or times:
-                best = (dates[:3], times[:3], text[:180])
+            dates = DATE.findall(context.text()[:2500])
+            if times or dates:
+                best = (times or dates)[0]
                 break
             context = context.parent
         if not best:
             continue
+        start = human_date(best)
+        # BCA calendar cards often link a range; their visible label is the
+        # card's date, not necessarily the event's full date range.
+        if not start or start < today:
+            continue
+        title, confidence = clean_title(label, name, link)
+        if not title or DATE.fullmatch(title):
+            continue
         seen.add(link)
-        rawdate = (best[1] or best[0])[0]
-        results.append(('HTML', label, rawdate, link))
-    return results
+        results.append((title, start, link, 'HTML', confidence))
+    return sorted(results, key=lambda row: (row[1], row[0]))
 
 def inspect(name, url):
     print(f'\n=== {name} ===', flush=True)
@@ -170,13 +204,13 @@ def inspect(name, url):
     tree.feed(raw.decode('utf-8', 'replace'))
     found = candidates(tree, final, name)
     print(f'JSON-LD blocks: {len(tree.jsonld)} | event-level candidate links: {len(found)}')
-    for origin, title, rawdate, link in found[:12]:
-        parsed = event_date(rawdate)
-        print(f'  [{origin}] title={title!r} | date={rawdate!r} | ISO-date={parsed} | url={link}')
+    for title, start, link, origin, confidence in found[:15]:
+        print(f'  [{origin} / {confidence}] title={title!r} | date={start.isoformat()} | url={link}')
+    print(f'Preview count: {len(found)} future candidates; no publication approval implied')
     print('PREVIEW ONLY. Candidate records require date/title/link review before publication.')
 
 if __name__ == '__main__':
-    print('RULE OF THREE: EVENT-LEVEL VALIDATION, READ-ONLY')
+    print('RULE OF THREE: CLEAN FUTURE-EVENT CANDIDATES, READ-ONLY')
     for name, url in SOURCES:
         inspect(name, url)
     print('\nNo event cache read or written; production collector unchanged.')
