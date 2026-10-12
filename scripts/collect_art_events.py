@@ -664,6 +664,7 @@ def lincoln_center_preview():
     page = LCCalendar()
     page.feed(raw.decode('utf-8', 'replace'))
     candidates = {}
+    skipped = {'no_date': 0, 'weak_title': 0, 'date_too_far': 0}
     for anchor in page.links:
         target = urljoin(LC_CALENDAR, anchor['href']).split('#', 1)[0].split('?', 1)[0]
         parsed = urlparse(target)
@@ -673,16 +674,23 @@ def lincoln_center_preview():
         before = clean(' '.join(page.tokens[max(0, anchor['start'] - 90):anchor['start']]))
         matches = list(LC_DATE.finditer(before))
         if not matches:
+            skipped['no_date'] += 1
             continue
         match = matches[-1]
         when = lc_date(match)
-        if when is None:
+        if when is None or when > TODAY + dt.timedelta(days=365):
+            skipped['date_too_far'] += 1
             continue
         time = clean(match.group(4) or match.group(5) or 'unspecified')
         # This is a candidate association, not an independently verified showtime.
         # Avoid duplicate image/title/learn-more links for the same calendar card.
         context = clean(' '.join(page.tokens[anchor['end']:anchor['end'] + 28]))[:250]
         proposed_title, title_source = lc_calendar_title(anchor, context, target)
+        # Publication requires a title explicitly attached to a calendar link.
+        # Reject guessed titles from adjacent card text or URL slugs.
+        if title_source != 'calendar link' or not proposed_title:
+            skipped['weak_title'] += 1
+            continue
         candidate_key = (target, when.isoformat(), time)
         # Prefer a verified calendar-link title over a contextual guess.
         prior = candidates.get(candidate_key)
@@ -709,13 +717,16 @@ def lincoln_center_preview():
             date=day, endDate=day, venue='Lincoln Center Presents',
             location='Manhattan, NY', type='performance', features='nyc us',
             country='United States', url=target, source='Lincoln Center Presents', free=False))
+    print('Lincoln Center skipped associations:', skipped)
     print('Lincoln Center candidate URL/date/time combinations:', len(candidates))
     print('Lincoln Center candidate URL/date cards after same-day grouping:', len(results))
     from collections import Counter
     print('Lincoln Center title extraction methods:', dict(Counter(x['title_source'] for x in by_day.values())))
     for item in results[:25]:
         print(' PREVIEW:', item['date'], '|', item['title'], '|', item['description'][:85], '|', item['url'])
-    print('Lincoln Center: preview candidates are NOT approved for publication.')
+    if not (10 <= len(results) <= 400):
+        raise ValueError(f'Lincoln Center unexpected candidate count {len(results)}; review before publishing')
+    print('Lincoln Center: candidate associations require final live review before publishing.')
     return results
 
 def main():
@@ -732,7 +743,15 @@ def main():
             return 1
         print('DRY RUN: no event file written, no existing data modified')
         return 0
+    if '--include-lincoln-center' in sys.argv and not dry_run:
+        print('Lincoln Center integration is dry-run only; refusing publication.', file=sys.stderr)
+        return 2
+    # Lincoln Center participates in dry-run simulation only.
+    # Scheduled publication remains unchanged until separately approved.
+    include_lc = dry_run
     existing=load_existing();sources={'NYC Parks':parks,'Whitney':whitney,'MoMA':moma,'Guggenheim':guggenheim,'NYPL':nypl,'Bronx Museum':bronx_museum,'Film at Lincoln Center':film_at_lincoln_center,'New York Live Arts':new_york_live_arts};results={};failures=[]
+    if include_lc:
+        sources['Lincoln Center Presents'] = lincoln_center_preview
     for name,fn in sources.items():
         try:
             results[name]=fn();print(f'{name}: {len(results[name])} events')
@@ -753,11 +772,14 @@ def main():
             if k not in merged:merged[k]=e
     events=sorted(merged.values(),key=lambda e:(e['date'],e['title']))
     if dry_run:
-        try:
-            lc_candidates = lincoln_center_preview()
-            print(f'DRY RUN: {len(lc_candidates)} Lincoln Center candidate cards excluded from publication')
-        except Exception as exc:
-            print(f'DRY RUN: Lincoln Center preview ERROR: {exc}', file=sys.stderr)
+        if include_lc:
+            print(f'DRY RUN: {len(results.get("Lincoln Center Presents", []))} Lincoln Center candidate cards included in simulated total')
+        else:
+            try:
+                lc_candidates = lincoln_center_preview()
+                print(f'DRY RUN: {len(lc_candidates)} Lincoln Center candidate cards excluded from publication')
+            except Exception as exc:
+                print(f'DRY RUN: Lincoln Center preview ERROR: {exc}', file=sys.stderr)
         print(f'DRY RUN: {len(events)} unique events would be published; failures: {failures}')
         print('DRY RUN: no event file written, no existing data modified')
         return 0
