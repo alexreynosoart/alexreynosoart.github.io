@@ -16,7 +16,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Stage two sources without publishing
+      - name: Verify NYC staging without publishing
         run: python scripts/rule_of_three_event_staging.py
+      - name: Verify Smithsonian online staging without publishing
+        run: python scripts/collect_art_events.py --dry-run --smithsonian-preview
       - name: Verify event cache unchanged
         run: git diff --exit-code -- data/art-events.json
