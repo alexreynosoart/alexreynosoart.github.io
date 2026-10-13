@@ -163,6 +163,15 @@
 @media(max-width:600px){.bas-artists-heading{flex-direction:column;gap:11px}.bas-artist-card{flex-basis:165px}.bas-artist-gallery{padding:12px 10px}.bas-artist-gallery-hint{font-size:.72rem}}
 @media(prefers-reduced-motion:reduce){.bas-artist-rail{scroll-behavior:auto}}
 </style>
+
+<style>
+/* Explicit video controls remain available even when a browser hides native controls. */
+.bas-video-actions{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:12px}
+.bas-video-actions button{appearance:none;background:#c59b50;color:#16120d;border:1px solid #e1b66a;border-radius:999px;padding:11px 20px;font:inherit;font-weight:800;cursor:pointer;min-height:44px}
+.bas-video-actions button:hover{background:#e1b66a}
+.bas-video-actions button:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.bas-video-actions span{font-size:.85rem;color:#c9c3ba}
+</style>
 </head><body class="everything-art-theme">
 <nav class="ea-mini-nav" aria-label="Everything Art navigation"><div class="ea-mini-nav-inner"><div class="ea-mini-primary"><a class="ea-mini-link" href="everything-art.html">EVERYTHING ART</a><a class="ea-mini-link" href="everything-art-opportunities.html">OPPORTUNITIES</a><a class="ea-mini-link" href="everything-art-events.html">ART EVENTS</a><a class="ea-mini-link" href="everything-art-resources.html">RESOURCES</a></div><div class="ea-mini-actions"><a class="ea-mini-link ea-mini-facebook" href="https://www.facebook.com/groups/GreatArt" target="_blank" rel="noopener noreferrer">FB GROUP ↗</a><a class="ea-mini-ar" href="index.html" aria-label="Alex Reynoso Art home"><img src="images/favicon.png" alt=""></a></div></div></nav>
 <main class="bas-page"><header class="bas-hero"><div class="bas-kicker">Everything Art · Community Event Spotlight</div><h1>BASEMENT ART<br>SESSIONS</h1><p class="bas-lead">Art, music, people and creative energy. Explore the artist-led gatherings organized by Marthalicia Matarrita, bringing artists and art lovers together to share work and support the creative community.</p><div class="bas-buttons"><a class="bas-btn" href="#taste-and-paint">NEXT EVENT: TASTE AND PAINT ↓</a><a class="bas-btn secondary" href="everything-art-events.html">ALL ART EVENTS →</a></div></header>
@@ -188,7 +197,7 @@
 <p>For Taste and Paint, invited artists are encouraged to bring their work, connect with visitors and offer finished artwork for sale at prices they choose.</p>
 <p>This page is an independent Everything Art community spotlight. Event arrangements and artist participation are coordinated by the organizer.</p>
 <p><a href="mailto:Marthaliciam@gmail.com">Contact Marthalicia about the event ↗</a></p></div>
-<div><div class="bas-video-wrap"><video controls playsinline preload="metadata" poster="images/everything-art/basement-art-sessions-venue-video-poster.webp" aria-label="Marthalicia speaking about the venue"><source src="videos/basement-art-sessions-marthalicia-venue.mp4" type="video/mp4">Your browser does not support HTML5 video.</video></div><p class="bas-video-meta">Marthalicia shares a look inside the space. Video provided for this community spotlight.</p></div></div></section>
+<div><div class="bas-video-wrap"><video id="bas-venue-video" controls playsinline preload="metadata" poster="images/everything-art/basement-art-sessions-venue-video-poster.webp" aria-label="Marthalicia speaking about the venue"><source src="videos/basement-art-sessions-marthalicia-venue.mp4" type="video/mp4">Your browser does not support HTML5 video.</video></div><div class="bas-video-actions"><button type="button" id="bas-video-toggle" aria-controls="bas-venue-video" aria-label="Play venue video">▶ Play video</button><span id="bas-video-status" aria-live="polite">Ready to play</span></div><p class="bas-video-meta">Marthalicia shares a look inside the space. Video provided for this community spotlight.</p></div></div></section>
 <section class="bas-section bas-connect" id="marthalicia-links" aria-labelledby="bas-connect-title">
 <div class="bas-kicker">Connect with the organizer</div>
 <h2 id="bas-connect-title">Explore Marthalicia's Work</h2>
@@ -292,6 +301,30 @@
   window.addEventListener('resize',updateButtons);
   rail.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();step(e.key==='ArrowRight'?1:-1);}});
   updateButtons();
+})();
+</script>
+
+<script>
+(function(){
+  'use strict';
+  const video=document.getElementById('bas-venue-video');
+  const toggle=document.getElementById('bas-video-toggle');
+  const status=document.getElementById('bas-video-status');
+  if(!video||!toggle||!status)return;
+  function sync(){
+    const playing=!video.paused&&!video.ended;
+    toggle.textContent=playing?'Ⅱ Pause video':'▶ Play video';
+    toggle.setAttribute('aria-label',playing?'Pause venue video':'Play venue video');
+    status.textContent=video.ended?'Video finished':playing?'Playing':video.currentTime>0?'Paused':'Ready to play';
+  }
+  toggle.addEventListener('click',async function(){
+    if(video.paused||video.ended){
+      try{await video.play();}catch(err){status.textContent='Unable to play video. Try the video controls.';}
+    }else{video.pause();}
+    sync();
+  });
+  ['play','pause','ended','loadedmetadata'].forEach(name=>video.addEventListener(name,sync));
+  sync();
 })();
 </script>
 </body></html>
