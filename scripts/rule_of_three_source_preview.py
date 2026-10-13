@@ -434,3 +434,4 @@ if __name__ == '__main__':
     for name, url in sources:
         inspect(name, url, online=(name in {n for n, _ in ONLINE_SOURCES}))
     print('\nNo event cache read or written; production collector unchanged.')
+ 
