@@ -414,6 +414,7 @@ body.everything-art-events-theme .ea-source-empty{color:#aaa;margin:12px 0}
 <span class="op-filter-label">Where + Features</span>
 <div class="filter-row" aria-label="Event location and features">
 <button class="filter-button active" data-filter-group="feature" data-filter="all">Anywhere</button>
+<button class="filter-button" data-filter-group="feature" data-filter="online">💻 Online</button>
 <button class="filter-button" data-filter-group="feature" data-filter="nyc">🗽 NYC</button>
 <button class="filter-button" data-filter-group="feature" data-filter="us">🇺🇸 U.S.</button>
 <button class="filter-button" data-filter-group="feature" data-filter="worldwide">🌎 Worldwide</button>
@@ -425,7 +426,6 @@ body.everything-art-events-theme .ea-source-empty{color:#aaa;margin:12px 0}
 <button class="filter-button desktop-extra" data-filter-group="feature" data-filter="uk">🇬🇧 UK</button>
 <button class="filter-button desktop-extra" data-filter-group="feature" data-filter="canada">🇨🇦 Canada</button>
 <button class="filter-button desktop-extra" data-filter-group="feature" data-filter="japan">🇯🇵 Japan</button>
-<button class="filter-button desktop-extra" data-filter-group="feature" data-filter="online">💻 Online</button>
 </div></div>
 </section>
 
@@ -514,7 +514,8 @@ body.everything-art-events-theme .ea-source-empty{color:#aaa;margin:12px 0}
 <h3 style="margin:0 0 12px;font-size:1.15rem">Connected event sources</h3>
 <p class="ea-source-intro">Browse the institutions currently contributing events. Other regions will become available as new sources connect.</p>
 <div class="ea-source-tabs" id="eaSourceTabs" aria-label="Connected source regions">
-<button type="button" class="ea-source-tab is-active" data-source-region="nyc" aria-pressed="true">🗽 NYC</button>
+<button type="button" class="ea-source-tab is-active" data-source-region="online" aria-pressed="true">💻 Online</button>
+<button type="button" class="ea-source-tab" data-source-region="nyc" aria-pressed="false">🗽 NYC</button>
 <button type="button" class="ea-source-tab" data-source-region="us" aria-pressed="false" disabled>🇺🇸 U.S.</button>
 <button type="button" class="ea-source-tab" data-source-region="europe" aria-pressed="false" disabled>🌍 Europe</button>
 <button type="button" class="ea-source-tab" data-source-region="world" aria-pressed="false" disabled>🌐 Worldwide</button>
@@ -764,11 +765,11 @@ async function loadParksArt(){
    'Staten Island Museum':{title:'Staten Island Museum',description:'Exhibitions, artist talks, workshops and museum programs.',url:'https://www.statenislandmuseum.org/events/',tag:'Staten Island · Museum Events',region:'nyc'},
    'Film at Lincoln Center':{title:'Film at Lincoln Center',description:'Upcoming film screenings, festivals and special cinema programs.',url:'https://www.filmlinc.org/now-playing/',tag:'NYC · Film Screenings',region:'nyc'},
    'New York Live Arts':{title:'New York Live Arts',description:'Contemporary dance, live performance and experimental arts programs.',url:'https://newyorklivearts.org/',tag:'NYC · Dance & Performance',region:'nyc'},
-   'Smithsonian Associates':{title:'Smithsonian Associates',description:'Online drawing, painting, mixed-media and other visual art classes and programs.',url:'https://smithsonianassociates.org/ticketing/programs/drawing',tag:'U.S. · Online Art Programs',region:'us'}
+   'Smithsonian Associates':{title:'Smithsonian Associates',description:'Online drawing, painting, mixed-media and other visual art classes and programs.',url:'https://smithsonianassociates.org/ticketing/programs/drawing',tag:'U.S. · Online Art Programs',region:'online'}
  };
  // Region metadata is ready for new institutions; no empty region is highlighted.
  let eaConnectedList=[];
- let eaSourceRegion='nyc',eaShowAllSources=false;
+ let eaSourceRegion='online',eaShowAllSources=false;
  const eaSourceSearch=document.getElementById('eaSourceSearch');
  const eaSourceMore=document.getElementById('eaSourceMore');
  const eaSourceTabs=[...document.querySelectorAll('#eaSourceTabs [data-source-region]')];
@@ -796,7 +797,7 @@ async function loadParksArt(){
   eaConnectedList=Object.entries(eaSourceDirectory).filter(([name])=>Number(counts[name])>0).map(([name,info])=>({name,info}));
   section.hidden=!eaConnectedList.length;
   const activeRegions=new Set(eaConnectedList.map(x=>x.info.region||'nyc'));
-  if(!activeRegions.has(eaSourceRegion) && activeRegions.size){eaSourceRegion=activeRegions.has('nyc')?'nyc':activeRegions.values().next().value;}
+  if(!activeRegions.has(eaSourceRegion) && activeRegions.size){eaSourceRegion=activeRegions.has('online')?'online':activeRegions.has('nyc')?'nyc':activeRegions.values().next().value;}
   eaSourceTabs.forEach(button=>{
    const region=button.dataset.sourceRegion;
    button.disabled=!activeRegions.has(region);
