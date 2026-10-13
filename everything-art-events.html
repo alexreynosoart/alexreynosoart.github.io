@@ -763,7 +763,8 @@ async function loadParksArt(){
    'Wave Hill':{title:'Wave Hill',description:'Gallery tours, family art projects and cultural programs in the Bronx.',url:'https://www.wavehill.org/calendar',tag:'Bronx · Art & Gardens',region:'nyc'},
    'Staten Island Museum':{title:'Staten Island Museum',description:'Exhibitions, artist talks, workshops and museum programs.',url:'https://www.statenislandmuseum.org/events/',tag:'Staten Island · Museum Events',region:'nyc'},
    'Film at Lincoln Center':{title:'Film at Lincoln Center',description:'Upcoming film screenings, festivals and special cinema programs.',url:'https://www.filmlinc.org/now-playing/',tag:'NYC · Film Screenings',region:'nyc'},
-   'New York Live Arts':{title:'New York Live Arts',description:'Contemporary dance, live performance and experimental arts programs.',url:'https://newyorklivearts.org/',tag:'NYC · Dance & Performance',region:'nyc'}
+   'New York Live Arts':{title:'New York Live Arts',description:'Contemporary dance, live performance and experimental arts programs.',url:'https://newyorklivearts.org/',tag:'NYC · Dance & Performance',region:'nyc'},
+   'Smithsonian Associates':{title:'Smithsonian Associates',description:'Online drawing, painting, mixed-media and other visual art classes and programs.',url:'https://smithsonianassociates.org/ticketing/programs/drawing',tag:'U.S. · Online Art Programs',region:'us'}
  };
  // Region metadata is ready for new institutions; no empty region is highlighted.
  let eaConnectedList=[];
@@ -795,6 +796,7 @@ async function loadParksArt(){
   eaConnectedList=Object.entries(eaSourceDirectory).filter(([name])=>Number(counts[name])>0).map(([name,info])=>({name,info}));
   section.hidden=!eaConnectedList.length;
   const activeRegions=new Set(eaConnectedList.map(x=>x.info.region||'nyc'));
+  if(!activeRegions.has(eaSourceRegion) && activeRegions.size){eaSourceRegion=activeRegions.has('nyc')?'nyc':activeRegions.values().next().value;}
   eaSourceTabs.forEach(button=>{
    const region=button.dataset.sourceRegion;
    button.disabled=!activeRegions.has(region);
@@ -871,6 +873,7 @@ async function loadEventDatabase(){
    card.dataset.country=textValue(e.country)||'United States';
    const badges=makeNode('div','op-badges');
    badges.append(makeNode('span','op-badge',source),makeNode('span','op-badge',kindLabel));
+   if(card.dataset.features.split(/\s+/).includes('online'))badges.append(makeNode('span','op-badge','💻 Online'));
    if(free)badges.append(makeNode('span','op-badge','Free'));
    card.append(badges,makeNode('h2','',title),makeNode('div','op-org',venue+(location?' · '+location:'')),makeNode('p','op-description',textValue(e.description)||'See the official event listing for details.'));
    const meta=makeNode('div','op-meta'),date=makeNode('div','');
