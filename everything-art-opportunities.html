@@ -495,6 +495,21 @@
 .ea-load-more:focus-visible,.ea-page-controls select:focus-visible{outline:2px solid #ffdb36;outline-offset:3px}
 .ea-load-more-wrap[hidden]{display:none!important}
 </style>
+<style>
+/* Artist Resource Desk: compact source directory, independent of opportunity filters. */
+.ea-op-source-tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:2px 0 12px;margin-top:18px}
+.ea-op-source-tabs::-webkit-scrollbar{display:none}
+.ea-op-source-tab{flex:0 0 auto;border:1px solid #555;border-radius:999px;background:#292929;color:#f5f5f5;padding:10px 16px;font:inherit;font-size:.75rem;font-weight:800;cursor:pointer}
+.ea-op-source-tab.is-active{background:#ffd633;border-color:#ffd633;color:#111}
+.ea-op-source-tab:disabled{opacity:.4;cursor:default}
+.ea-op-source-tools{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin:4px 0 18px}
+.ea-op-source-search{width:min(100%,440px);padding:13px 16px;background:#222;border:1px solid #555;border-radius:16px;color:#fff;font:inherit;box-sizing:border-box}
+.ea-op-source-count{font-size:.8rem;color:#aaa}
+.ea-op-source-more-wrap{text-align:center;margin-top:18px}
+.ea-op-source-more{border:1px solid #b88e13;border-radius:999px;background:#3b3115;color:#ffdf66;padding:12px 20px;font:inherit;font-weight:800;cursor:pointer}
+.ea-op-source-empty{color:#aaa;margin:16px 0}
+.ea-op-source-tab:focus-visible,.ea-op-source-more:focus-visible,.ea-op-source-search:focus-visible{outline:2px solid #ffd633;outline-offset:3px}
+</style>
 </head>
 
 <body class="everything-art-opportunities-theme">
@@ -1502,8 +1517,20 @@
             </p>
         </div>
 
-        <div class="resource-grid">
-            <a class="resource-card"
+        <div class="ea-op-source-tabs" id="eaOpSourceTabs" aria-label="Browse artist resources by region">
+            <button type="button" class="ea-op-source-tab is-active" data-source-region="all" aria-pressed="true">All</button>
+            <button type="button" class="ea-op-source-tab" data-source-region="online" aria-pressed="false">💻 Online</button>
+            <button type="button" class="ea-op-source-tab" data-source-region="nyc" aria-pressed="false">🗽 NYC</button>
+            <button type="button" class="ea-op-source-tab" data-source-region="us" aria-pressed="false">🇺🇸 U.S.</button>
+            <button type="button" class="ea-op-source-tab" data-source-region="europe" aria-pressed="false">🌍 Europe</button>
+            <button type="button" class="ea-op-source-tab" data-source-region="worldwide" aria-pressed="false">🌐 Worldwide</button>
+        </div>
+        <div class="ea-op-source-tools">
+            <input class="ea-op-source-search" id="eaOpSourceSearch" type="search" placeholder="Search artist resources..." aria-label="Search artist resources">
+            <span class="ea-op-source-count" id="eaOpSourceCount" aria-live="polite"></span>
+        </div>
+        <div class="resource-grid" id="eaOpResourceGrid">
+            <a class="resource-card" data-source-region="nyc"
                href="https://www.nyc.gov/site/dcla/publicart/opportunities.page"
                target="_blank" rel="noopener noreferrer">
                 <h3>NYC Public Art Opportunities</h3>
@@ -1511,7 +1538,7 @@
                 <span class="resource-source">Official NYC</span>
             </a>
 
-            <a class="resource-card"
+            <a class="resource-card" data-source-region="nyc"
                href="https://www.nyfa.org/opportunities/"
                target="_blank" rel="noopener noreferrer">
                 <h3>NYFA Opportunities</h3>
@@ -1519,7 +1546,7 @@
                 <span class="resource-source">New York Foundation for the Arts</span>
             </a>
 
-            <a class="resource-card"
+            <a class="resource-card" data-source-region="us"
                href="https://www.arts.gov/grants"
                target="_blank" rel="noopener noreferrer">
                 <h3>National Endowment for the Arts</h3>
@@ -1527,7 +1554,7 @@
                 <span class="resource-source">Official U.S.</span>
             </a>
 
-            <a class="resource-card"
+            <a class="resource-card" data-source-region="worldwide"
                href="https://www.pkf.org/how-to-apply/"
                target="_blank" rel="noopener noreferrer">
                 <h3>Pollock-Krasner Foundation</h3>
@@ -1535,7 +1562,7 @@
                 <span class="resource-source">Rolling Resource</span>
             </a>
 
-            <a class="resource-card"
+            <a class="resource-card" data-source-region="us"
                href="https://www.foundationforcontemporaryarts.org/grants/"
                target="_blank" rel="noopener noreferrer">
                 <h3>Foundation for Contemporary Arts</h3>
@@ -1543,17 +1570,21 @@
                 <span class="resource-source">Artist Funding</span>
             </a>
 
-            <a class="resource-card"
+            <a class="resource-card" data-source-region="us"
                href="https://artadia.org/awards/"
                target="_blank" rel="noopener noreferrer">
                 <h3>Artadia Awards</h3>
                 <p>Artist awards in selected U.S. cities with application cycles throughout the year.</p>
                 <span class="resource-source">Artist Awards</span>
             </a>
-            <a class="resource-card" href="https://www.dance.nyc/for-artists/listings/" target="_blank" rel="noopener noreferrer"><h3>Dance/NYC Listings</h3><p>Auditions, choreography, funding, jobs, training and movement opportunities across dance styles.</p><span class="resource-source">Dance + Movement</span></a>
-            <a class="resource-card" href="https://newmusicusa.org/get-funding/" target="_blank" rel="noopener noreferrer"><h3>New Music USA</h3><p>Funding and development resources for composers, performers, ensembles and new-music creators.</p><span class="resource-source">Music + Sound</span></a>
-            <a class="resource-card" href="https://www.pw.org/grants" target="_blank" rel="noopener noreferrer"><h3>Poets &amp; Writers</h3><p>Current contests, grants, awards and fellowships for poetry, fiction, nonfiction and literary creators.</p><span class="resource-source">Writing + Poetry</span></a>
-            <a class="resource-card" href="https://on-the-move.org/" target="_blank" rel="noopener noreferrer"><h3>On the Move</h3><p>International mobility calls and funding guides spanning performing arts, music, literature, design, visual art and more.</p><span class="resource-source">International + Multidisciplinary</span></a>
+            <a class="resource-card" data-source-region="nyc" href="https://www.dance.nyc/for-artists/listings/" target="_blank" rel="noopener noreferrer"><h3>Dance/NYC Listings</h3><p>Auditions, choreography, funding, jobs, training and movement opportunities across dance styles.</p><span class="resource-source">Dance + Movement</span></a>
+            <a class="resource-card" data-source-region="us" href="https://newmusicusa.org/get-funding/" target="_blank" rel="noopener noreferrer"><h3>New Music USA</h3><p>Funding and development resources for composers, performers, ensembles and new-music creators.</p><span class="resource-source">Music + Sound</span></a>
+            <a class="resource-card" data-source-region="us" href="https://www.pw.org/grants" target="_blank" rel="noopener noreferrer"><h3>Poets &amp; Writers</h3><p>Current contests, grants, awards and fellowships for poetry, fiction, nonfiction and literary creators.</p><span class="resource-source">Writing + Poetry</span></a>
+            <a class="resource-card" data-source-region="worldwide" href="https://on-the-move.org/" target="_blank" rel="noopener noreferrer"><h3>On the Move</h3><p>International mobility calls and funding guides spanning performing arts, music, literature, design, visual art and more.</p><span class="resource-source">International + Multidisciplinary</span></a>
+        </div>
+        <p class="ea-op-source-empty" id="eaOpSourceEmpty" hidden>No resources match this selection.</p>
+        <div class="ea-op-source-more-wrap" id="eaOpSourceMoreWrap" hidden>
+            <button class="ea-op-source-more" id="eaOpSourceMore" type="button">View all resources ↓</button>
         </div>
     </section>
 
@@ -1844,6 +1875,38 @@
         }
     }
     loadOpportunityDatabase();
+})();
+</script>
+
+
+<script>
+/* Resource Desk browsing is independent of the live opportunity engine. */
+(() => {
+    const grid=document.getElementById('eaOpResourceGrid');
+    const tabs=[...document.querySelectorAll('#eaOpSourceTabs [data-source-region]')];
+    const cards=[...grid.querySelectorAll('.resource-card')];
+    const search=document.getElementById('eaOpSourceSearch');
+    const count=document.getElementById('eaOpSourceCount');
+    const empty=document.getElementById('eaOpSourceEmpty');
+    const moreWrap=document.getElementById('eaOpSourceMoreWrap');
+    const more=document.getElementById('eaOpSourceMore');
+    let region='all',expanded=false;
+    const regions=new Set(cards.map(card=>card.dataset.sourceRegion));
+    tabs.forEach(tab=>{if(tab.dataset.sourceRegion!=='all'&&!regions.has(tab.dataset.sourceRegion))tab.disabled=true;});
+    function render(){
+        const q=search.value.trim().toLowerCase();
+        const matches=cards.filter(card=>(region==='all'||card.dataset.sourceRegion===region)&&(!q||card.textContent.toLowerCase().includes(q)));
+        cards.forEach(card=>{card.hidden=!matches.includes(card)||( !expanded&&matches.indexOf(card)>=6);card.style.display=card.hidden?'none':'';});
+        count.textContent=matches.length+' resource'+(matches.length===1?'':'s');
+        empty.hidden=matches.length!==0;
+        moreWrap.hidden=matches.length<=6;
+        more.textContent=expanded?'Show fewer resources ↑':'View all '+matches.length+' resources ↓';
+        tabs.forEach(tab=>{const active=tab.dataset.sourceRegion===region;tab.classList.toggle('is-active',active);tab.setAttribute('aria-pressed',String(active));});
+    }
+    tabs.forEach(tab=>tab.addEventListener('click',()=>{if(tab.disabled)return;region=tab.dataset.sourceRegion;expanded=false;render();}));
+    search.addEventListener('input',()=>{expanded=false;render();});
+    more.addEventListener('click',()=>{expanded=!expanded;render();});
+    render();
 })();
 </script>
 
