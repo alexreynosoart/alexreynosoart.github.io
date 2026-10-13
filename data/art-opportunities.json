@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-10-13T00:52:34.596200+00:00",
+  "updatedAt": "2026-10-13T12:51:06.553543+00:00",
   "sources": {
     "Existing Everything Art listing": 22,
-    "On the Move": 53
+    "On the Move": 56
   },
   "opportunities": [
     {
@@ -82,6 +82,19 @@
       "country": "",
       "source": "Existing Everything Art listing",
       "status": "Existing listing; verify with organizer"
+    },
+    {
+      "title": "HERside: Residency Exchange for Female Artists and Cultural Professionals (Slovakia, Ukraine)",
+      "organization": "HERside",
+      "description": "Residencies. Application deadline: 2026-10-15. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/herside-unesco-creative-cities-parallel-residencies-slovakia-ukraine",
+      "deadline": "2026-10-15",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
     },
     {
       "title": "IETM Global Connect Programme for Supported Membership 2027 (Cyprus)",
@@ -329,6 +342,19 @@
       "country": "United States",
       "source": "Existing Everything Art listing",
       "status": "Existing listing; verify with organizer"
+    },
+    {
+      "title": "Narva Art Residency: Residency for Nordic or Baltic Artists on ‘Sensing the Border’ (Estonia)",
+      "organization": "Narva Art Residency",
+      "description": "Residencies. Application deadline: 2026-10-25. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/narva-art-residency-residency-nordic-or-baltic-artists-sensing-border-estonia",
+      "deadline": "2026-10-25",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Estonia",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
     },
     {
       "title": "National Asian Culture Center: ACC NEXT Emerging Asian Artists International 2027 (South Korea)",
@@ -717,6 +743,19 @@
       "type": "open-call exhibition",
       "features": "",
       "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "TRACES: Residency at Laboratory for Energy Materials for Visual Artists 2027 (Switzerland)",
+      "organization": "TRACES",
+      "description": "Residencies. Application deadline: 2026-11-22. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/traces-residency-laboratory-energy-materials-visual-artists-2027-switzerland",
+      "deadline": "2026-11-22",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Switzerland",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
