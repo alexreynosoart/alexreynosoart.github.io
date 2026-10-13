@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-13T00:48:16.726731+00:00",
+  "updatedAt": "2026-10-13T06:45:20.483593+00:00",
   "sources": {
     "NYC Parks": 51,
     "Whitney": 14,
@@ -7,13 +7,27 @@
     "Guggenheim": 0,
     "NYPL": 7,
     "Bronx Museum": 2,
-    "Film at Lincoln Center": 6,
+    "Film at Lincoln Center": 7,
     "New York Live Arts": 8,
     "Lincoln Center Presents": 183,
-    "Wave Hill": 3,
+    "Wave Hill": 4,
     "Staten Island Museum": 5
   },
   "events": [
+    {
+      "title": "Cosi Fan Tutte",
+      "description": "Upcoming screening dates: Oct 13, Oct 14. See official film page for verified showtimes and tickets.",
+      "date": "2026-10-13",
+      "endDate": "2026-10-14",
+      "venue": "Film at Lincoln Center",
+      "location": "Manhattan, NY",
+      "type": "film",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.filmlinc.org/films/cosi-fan-tutte/",
+      "source": "Film at Lincoln Center",
+      "free": false
+    },
     {
       "title": "Declaring America: 1776 and Beyond",
       "description": "On view through January 10, 2027. NYPL honors the 250th anniversary of the signing of the Declaration of Independence and the founding of the country.",
@@ -1696,9 +1710,9 @@
     },
     {
       "title": "Bitter Christmas",
-      "description": "Upcoming screening dates: Nov 13, Nov 14, Nov 15, Nov 16, Nov 17. See official film page for verified showtimes and tickets.",
+      "description": "Upcoming screening dates: Nov 13, Nov 14, Nov 15, Nov 16, Nov 17, Nov 18. See official film page for verified showtimes and tickets.",
       "date": "2026-11-13",
-      "endDate": "2026-11-17",
+      "endDate": "2026-11-18",
       "venue": "Film at Lincoln Center",
       "location": "Manhattan, NY",
       "type": "film",
@@ -1790,6 +1804,20 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/create-athon-mural-making-graffiti-style-561",
       "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "Mind-Builders Creative Arts Center Stage Band",
+      "description": "",
+      "date": "2026-11-15",
+      "endDate": "2026-11-15",
+      "venue": "Wave Hill",
+      "location": "Bronx, NY",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.wavehill.org/calendar/mind-builders-creative-arts-center-stage-band",
+      "source": "Wave Hill",
       "free": false
     },
     {
