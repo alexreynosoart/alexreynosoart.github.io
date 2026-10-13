@@ -1,49 +1,10 @@
 {
-  "updatedAt": "2026-10-12T06:52:07.375756+00:00",
+  "updatedAt": "2026-10-13T00:52:34.596200+00:00",
   "sources": {
-    "On the Move": 55,
-    "Existing Everything Art listing": 23
+    "Existing Everything Art listing": 22,
+    "On the Move": 53
   },
   "opportunities": [
-    {
-      "title": "Australian Tapestry Workshop: Hancock Fellowship International Artists Residency 2027 (Australia)",
-      "organization": "Australian Tapestry Workshop",
-      "description": "Residencies. Application deadline: 2026-10-12. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/australian-tapestry-workshop-hancock-fellowship-international-artists-residency-2027-australia",
-      "deadline": "2026-10-12",
-      "discipline": "interdisciplinary",
-      "type": "residency fellowship",
-      "features": "",
-      "country": "Australia",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
-      "title": "dot.ateliers: 2027 Artist Residency (Ghana)",
-      "organization": "dot.ateliers",
-      "description": "Residencies. Application deadline: 2026-10-12. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/dotateliers-2027-artist-residency-ghana",
-      "deadline": "2026-10-12",
-      "discipline": "interdisciplinary",
-      "type": "residency",
-      "features": "",
-      "country": "Ghana",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
-      "title": "Seeking African Contemporary Dancers",
-      "organization": "Threads of Truth · New York City",
-      "description": "Paid performance opportunity for experienced African Contemporary dancers, with a rehearsal stipend.",
-      "url": "https://www.dance.nyc/for-artists/listings/Category-Auditions%7CJobs-Internships/Search-dancer",
-      "deadline": "2026-10-12",
-      "discipline": "dance performance",
-      "type": "audition job",
-      "features": "nyc us funded closing",
-      "country": "",
-      "source": "Existing Everything Art listing",
-      "status": "Existing listing; verify with organizer"
-    },
     {
       "title": "Adina Talve-Goodman Fellowship",
       "organization": "One Story · Poets & Writers listing",
