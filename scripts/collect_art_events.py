@@ -845,6 +845,28 @@ def main():
     dry_run = '--dry-run' in sys.argv
     # Enabled by default for scheduled publishing; emergency rollback available.
     stage_three = '--no-rule-of-three' not in sys.argv
+    # Include Smithsonian in regular dry runs. Scheduled publication is opt-in
+    # until its merged output has been reviewed. Rollback: --no-smithsonian.
+    include_smithsonian = ('--no-smithsonian' not in sys.argv and
+                           (dry_run or '--enable-smithsonian' in sys.argv))
+    if '--smithsonian-preview' in sys.argv:
+        if not dry_run:
+            print('Smithsonian preview requires --dry-run; refusing to publish.', file=sys.stderr)
+            return 2
+        import rule_of_three_event_staging as three_stage
+        try:
+            discovered, accepted, held = three_stage.stage_smithsonian()
+        except Exception as exc:
+            print(f'Smithsonian preview ERROR: {exc}', file=sys.stderr)
+            return 1
+        for event in accepted:
+            print('SMITHSONIAN STAGED:', event['date'], 'to', event['endDate'],
+                  '|', event['title'], '|', event['url'])
+        for title, reason in held:
+            print('SMITHSONIAN HELD:', title, '|', reason)
+        print(f'SMITHSONIAN DRY RUN: {len(accepted)} staged of {discovered}; {len(held)} held')
+        print('DRY RUN: no event file written, no existing data modified')
+        return 0
     if '--three-museum-preview' in sys.argv:
         if not dry_run:
             print('Three-museum preview requires --dry-run; refusing to publish.',file=sys.stderr)
@@ -888,6 +910,28 @@ def main():
                         raise ValueError(f'{n}: reversed date range')
                 return accepted
             sources[name] = staged_adapter
+    if include_smithsonian:
+        # The existing reviewed staging adapter rechecks each official detail page.
+        # Do not use raw discovery candidates for public events.
+        import rule_of_three_event_staging as smith_stage
+        def smithsonian_adapter():
+            discovered, approved, held = smith_stage.stage_smithsonian()
+            print(f'SMITHSONIAN MERGE: discovered={discovered}; approved={len(approved)}; held={len(held)}')
+            for title, reason in held:
+                print(f'SMITHSONIAN HELD: {title!r}: {reason}')
+            if not approved:
+                raise ValueError('Smithsonian: no verified online art events; review source')
+            for event in approved:
+                if event.get('source') != 'Smithsonian Associates' or event.get('features') != 'online us':
+                    raise ValueError('Smithsonian: unapproved source or attendance classification')
+                if not url(event.get('url')) or not event['url'].startswith('https://smithsonianassociates.org/ticketing/programs/'):
+                    raise ValueError('Smithsonian: invalid official program URL')
+                if not date(event.get('date')) or not date(event.get('endDate')):
+                    raise ValueError('Smithsonian: invalid dates')
+                if date(event['date']) <= TODAY or date(event['endDate']) < date(event['date']):
+                    raise ValueError('Smithsonian: expired, same-day, or reversed date')
+            return approved
+        sources['Smithsonian Associates'] = smithsonian_adapter
     for name,fn in sources.items():
         try:
             results[name]=fn();print(f'{name}: {len(results[name])} events')
@@ -907,6 +951,10 @@ def main():
         return 1
     if not dry_run and include_lc and not (10 <= len(results['Lincoln Center Presents']) <= 400):
         print('Lincoln Center count outside safety bounds; cache unchanged.',file=sys.stderr)
+        return 1
+    # Never publish a partial Smithsonian update after a fetch or validation error.
+    if not dry_run and include_smithsonian and 'Smithsonian Associates' in failures:
+        print('Smithsonian verification failed: publication aborted; cache unchanged.', file=sys.stderr)
         return 1
     # A failed new source must never silently remove its events from the live cache.
     # Abort this publication rather than committing a partial source failure.
@@ -939,6 +987,12 @@ def main():
                 print('RULE OF THREE: staging source failure; dry run FAILED.', file=sys.stderr)
                 return 1
             print('RULE OF THREE: integration enabled; DRY RUN does not publish.')
+        if include_smithsonian:
+            print(f'SMITHSONIAN DRY RUN MERGE: {len(results.get("Smithsonian Associates", []))} verified online records')
+            if 'Smithsonian Associates' in failures:
+                print('SMITHSONIAN DRY RUN FAILED: source verification error.', file=sys.stderr)
+                return 1
+            print('SMITHSONIAN: dry-run only; live publication requires --enable-smithsonian.')
         print(f'DRY RUN: {len(events)} unique events would be published; failures: {failures}')
         print('DRY RUN: no event file written, no existing data modified')
         return 0
