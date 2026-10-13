@@ -514,7 +514,8 @@ body.everything-art-events-theme .ea-source-empty{color:#aaa;margin:12px 0}
 <h3 style="margin:0 0 12px;font-size:1.15rem">Connected event sources</h3>
 <p class="ea-source-intro">Browse the institutions currently contributing events. Other regions will become available as new sources connect.</p>
 <div class="ea-source-tabs" id="eaSourceTabs" aria-label="Connected source regions">
-<button type="button" class="ea-source-tab is-active" data-source-region="online" aria-pressed="true">💻 Online</button>
+<button type="button" class="ea-source-tab is-active" data-source-region="all" aria-pressed="true">All</button>
+<button type="button" class="ea-source-tab" data-source-region="online" aria-pressed="false">💻 Online</button>
 <button type="button" class="ea-source-tab" data-source-region="nyc" aria-pressed="false">🗽 NYC</button>
 <button type="button" class="ea-source-tab" data-source-region="us" aria-pressed="false" disabled>🇺🇸 U.S.</button>
 <button type="button" class="ea-source-tab" data-source-region="europe" aria-pressed="false" disabled>🌍 Europe</button>
@@ -769,14 +770,14 @@ async function loadParksArt(){
  };
  // Region metadata is ready for new institutions; no empty region is highlighted.
  let eaConnectedList=[];
- let eaSourceRegion='online',eaShowAllSources=false;
+ let eaSourceRegion='all',eaShowAllSources=false;
  const eaSourceSearch=document.getElementById('eaSourceSearch');
  const eaSourceMore=document.getElementById('eaSourceMore');
  const eaSourceTabs=[...document.querySelectorAll('#eaSourceTabs [data-source-region]')];
  function displayConnectedSources(){
   const grid=document.getElementById('eaConnectedSourceGrid');
   const q=(eaSourceSearch?.value||'').trim().toLowerCase();
-  const matching=eaConnectedList.filter(({name,info})=>(info.region||'nyc')===eaSourceRegion &&
+  const matching=eaConnectedList.filter(({name,info})=>(eaSourceRegion==='all'||(info.region||'nyc')===eaSourceRegion) &&
    [name,info.title,info.description,info.tag].join(' ').toLowerCase().includes(q));
   const shown=eaShowAllSources||q?matching:matching.slice(0,6);
   grid.replaceChildren();
@@ -797,10 +798,10 @@ async function loadParksArt(){
   eaConnectedList=Object.entries(eaSourceDirectory).filter(([name])=>Number(counts[name])>0).map(([name,info])=>({name,info}));
   section.hidden=!eaConnectedList.length;
   const activeRegions=new Set(eaConnectedList.map(x=>x.info.region||'nyc'));
-  if(!activeRegions.has(eaSourceRegion) && activeRegions.size){eaSourceRegion=activeRegions.has('online')?'online':activeRegions.has('nyc')?'nyc':activeRegions.values().next().value;}
+  if(eaSourceRegion!=='all' && !activeRegions.has(eaSourceRegion)){eaSourceRegion='all';}
   eaSourceTabs.forEach(button=>{
    const region=button.dataset.sourceRegion;
-   button.disabled=!activeRegions.has(region);
+   button.disabled=region!=='all'&&!activeRegions.has(region);
    button.classList.toggle('is-active',region===eaSourceRegion);
    button.setAttribute('aria-pressed',String(region===eaSourceRegion));
   });
