@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-13T16:29:14.325699+00:00",
+  "updatedAt": "2026-10-13T18:43:58.639451+00:00",
   "sources": {
     "NYC Parks": 51,
     "Whitney": 120,
@@ -15,20 +15,6 @@
     "Smithsonian Associates": 8
   },
   "events": [
-    {
-      "title": "Cosi Fan Tutte",
-      "description": "Upcoming screening dates: Oct 13, Oct 14. See official film page for verified showtimes and tickets.",
-      "date": "2026-10-13",
-      "endDate": "2026-10-14",
-      "venue": "Film at Lincoln Center",
-      "location": "Manhattan, NY",
-      "type": "film",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://www.filmlinc.org/films/cosi-fan-tutte/",
-      "source": "Film at Lincoln Center",
-      "free": false
-    },
     {
       "title": "Declaring America: 1776 and Beyond",
       "description": "On view through January 10, 2027. NYPL honors the 250th anniversary of the signing of the Declaration of Independence and the founding of the country.",
@@ -280,6 +266,20 @@
       "url": "http://www.nycgovparks.org/events/2026/10/14/be-bold-ballet-programming",
       "source": "NYC Parks",
       "free": true
+    },
+    {
+      "title": "Cosi Fan Tutte",
+      "description": "Upcoming screening dates: Oct 14. See official film page for verified showtimes and tickets.",
+      "date": "2026-10-14",
+      "endDate": "2026-10-14",
+      "venue": "Film at Lincoln Center",
+      "location": "Manhattan, NY",
+      "type": "film",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.filmlinc.org/films/cosi-fan-tutte/",
+      "source": "Film at Lincoln Center",
+      "free": false
     },
     {
       "title": "Make It Miniature: Big Ideas in Small Formats",
@@ -783,20 +783,6 @@
       "country": "United States",
       "url": "https://www.statenislandmuseum.org/event/word-art-workshop-and-artist-talk-with-roemello-agjmurati/",
       "source": "Staten Island Museum",
-      "free": false
-    },
-    {
-      "title": "15-Minute Tour: Highlights of Roy Lichtenstein: Like New",
-      "description": "Free Friday Nights, 7 pm, 7:30 pm Free Second Sundays, 3 pm, 3:30 pm Join a Whitney Educator in the galleries for 15- to 20-minute tours of select artworks featured in Roy Lichtenstein: Like New. Free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Times and locations are sub",
-      "date": "2026-10-18",
-      "endDate": "2026-10-18",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/15min-tour-lichtenstein",
-      "source": "Whitney",
       "free": false
     },
     {
@@ -1346,20 +1332,6 @@
       "free": false
     },
     {
-      "title": "15-Minute Tour: Highlights of Roy Lichtenstein: Like New",
-      "description": "Free Friday Nights, 7 pm, 7:30 pm Free Second Sundays, 3 pm, 3:30 pm Join a Whitney Educator in the galleries for 15- to 20-minute tours of select artworks featured in Roy Lichtenstein: Like New. Free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Times and locations are sub",
-      "date": "2026-10-25",
-      "endDate": "2026-10-25",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/15min-tour-lichtenstein",
-      "source": "Whitney",
-      "free": false
-    },
-    {
       "title": "Art in the Garden: Spooky Season Decor",
       "description": "Free artmaking for all ages at Patchen Community Square Garden (PCSG)! Drop in anytime between 10:30 a.m. - 1:30 p.m. No prior artmaking experience needed -- all skill levels and age groups welcome! Supplies, prompts, and guidance provided.Each month will have a new theme: October theme is Spooky Season DecorCheck @patchensquare and @lynnettetherese for more",
       "date": "2026-10-25",
@@ -1612,6 +1584,20 @@
       "free": false
     },
     {
+      "title": "Halloween Teen Night",
+      "description": "Get ready for a night of art, music, costumes, and spooky fun at Halloween Teen Night at the Whitney, hosted by our Youth Insights Leaders. This year, step into the bold, comic-inspired world of Roy Lichtenstein, where dramatic imagery, playful perspectives, and the visual language of comics transform everyday spaces into something unexpected. Explore the ga",
+      "date": "2026-10-30",
+      "endDate": "2026-10-30",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us free",
+      "country": "United States",
+      "url": "https://whitney.org/events/halloween-teen-night-2026",
+      "source": "Whitney",
+      "free": true
+    },
+    {
       "title": "Friday the 13th Part VIII: Jason Takes Manhattan",
       "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2026-10-31",
@@ -1623,20 +1609,6 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/friday-the-13th-part-viii-jason-takes-manhattan-729",
       "source": "Lincoln Center Presents",
-      "free": false
-    },
-    {
-      "title": "15-Minute Tour: Highlights of Roy Lichtenstein: Like New",
-      "description": "Free Friday Nights, 7 pm, 7:30 pm Free Second Sundays, 3 pm, 3:30 pm Join a Whitney Educator in the galleries for 15- to 20-minute tours of select artworks featured in Roy Lichtenstein: Like New. Free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Times and locations are sub",
-      "date": "2026-11-01",
-      "endDate": "2026-11-01",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/15min-tour-lichtenstein",
-      "source": "Whitney",
       "free": false
     },
     {
@@ -1934,20 +1906,6 @@
       "free": false
     },
     {
-      "title": "15-Minute Tour: Highlights of Roy Lichtenstein: Like New",
-      "description": "Free Friday Nights, 7 pm, 7:30 pm Free Second Sundays, 3 pm, 3:30 pm Join a Whitney Educator in the galleries for 15- to 20-minute tours of select artworks featured in Roy Lichtenstein: Like New. Free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Times and locations are sub",
-      "date": "2026-11-15",
-      "endDate": "2026-11-15",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/15min-tour-lichtenstein",
-      "source": "Whitney",
-      "free": false
-    },
-    {
       "title": "Create-athon: Mural Making, Graffiti Style",
       "description": "Listed showtime(s): 1:00 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2026-11-15",
@@ -2116,20 +2074,6 @@
       "free": false
     },
     {
-      "title": "15-Minute Tour: Highlights of Roy Lichtenstein: Like New",
-      "description": "Free Friday Nights, 7 pm, 7:30 pm Free Second Sundays, 3 pm, 3:30 pm Join a Whitney Educator in the galleries for 15- to 20-minute tours of select artworks featured in Roy Lichtenstein: Like New. Free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Times and locations are sub",
-      "date": "2026-11-22",
-      "endDate": "2026-11-22",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/15min-tour-lichtenstein",
-      "source": "Whitney",
-      "free": false
-    },
-    {
       "title": "Rain: for babies and their carers",
       "description": "Listed showtime(s): 11:00 am, 2:00 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2026-11-22",
@@ -2148,20 +2092,6 @@
       "description": "Free Friday Nights, 7 pm, 7:30 pm Free Second Sundays, 3 pm, 3:30 pm Join a Whitney Educator in the galleries for 15- to 20-minute tours of select artworks featured in Roy Lichtenstein: Like New. Free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Times and locations are sub",
       "date": "2026-11-27",
       "endDate": "2026-11-27",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/15min-tour-lichtenstein",
-      "source": "Whitney",
-      "free": false
-    },
-    {
-      "title": "15-Minute Tour: Highlights of Roy Lichtenstein: Like New",
-      "description": "Free Friday Nights, 7 pm, 7:30 pm Free Second Sundays, 3 pm, 3:30 pm Join a Whitney Educator in the galleries for 15- to 20-minute tours of select artworks featured in Roy Lichtenstein: Like New. Free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Times and locations are sub",
-      "date": "2026-11-29",
-      "endDate": "2026-11-29",
       "venue": "Whitney Museum of American Art",
       "location": "Manhattan, NY",
       "type": "tour exhibition",
@@ -2281,20 +2211,6 @@
       "country": "United States",
       "url": "https://smithsonianassociates.org/ticketing/programs/takuga-botanical-prints",
       "source": "Smithsonian Associates",
-      "free": false
-    },
-    {
-      "title": "15-Minute Tour: Highlights of Roy Lichtenstein: Like New",
-      "description": "Free Friday Nights, 7 pm, 7:30 pm Free Second Sundays, 3 pm, 3:30 pm Join a Whitney Educator in the galleries for 15- to 20-minute tours of select artworks featured in Roy Lichtenstein: Like New. Free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Times and locations are sub",
-      "date": "2026-12-06",
-      "endDate": "2026-12-06",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/15min-tour-lichtenstein",
-      "source": "Whitney",
       "free": false
     },
     {
@@ -2844,20 +2760,6 @@
       "free": false
     },
     {
-      "title": "15-Minute Tour: Highlights of Roy Lichtenstein: Like New",
-      "description": "Free Friday Nights, 7 pm, 7:30 pm Free Second Sundays, 3 pm, 3:30 pm Join a Whitney Educator in the galleries for 15- to 20-minute tours of select artworks featured in Roy Lichtenstein: Like New. Free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Times and locations are sub",
-      "date": "2027-01-17",
-      "endDate": "2027-01-17",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/15min-tour-lichtenstein",
-      "source": "Whitney",
-      "free": false
-    },
-    {
       "title": "BLUR",
       "description": "Listed showtime(s): Multiple times. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2027-01-17",
@@ -3138,20 +3040,6 @@
       "free": false
     },
     {
-      "title": "15-Minute Tour: Highlights of Roy Lichtenstein: Like New",
-      "description": "Free Friday Nights, 7 pm, 7:30 pm Free Second Sundays, 3 pm, 3:30 pm Join a Whitney Educator in the galleries for 15- to 20-minute tours of select artworks featured in Roy Lichtenstein: Like New. Free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Times and locations are sub",
-      "date": "2027-01-24",
-      "endDate": "2027-01-24",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/15min-tour-lichtenstein",
-      "source": "Whitney",
-      "free": false
-    },
-    {
       "title": "BLUR",
       "description": "Listed showtime(s): Multiple times. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2027-01-24",
@@ -3275,20 +3163,6 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/wakka-wakkaandrsquos-dead-as-a-dodo-26",
       "source": "Lincoln Center Presents",
-      "free": false
-    },
-    {
-      "title": "15-Minute Tour: Highlights of Roy Lichtenstein: Like New",
-      "description": "Free Friday Nights, 7 pm, 7:30 pm Free Second Sundays, 3 pm, 3:30 pm Join a Whitney Educator in the galleries for 15- to 20-minute tours of select artworks featured in Roy Lichtenstein: Like New. Free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Times and locations are sub",
-      "date": "2027-01-31",
-      "endDate": "2027-01-31",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/15min-tour-lichtenstein",
-      "source": "Whitney",
       "free": false
     },
     {
@@ -3443,20 +3317,6 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/river-whyless-983",
       "source": "Lincoln Center Presents",
-      "free": false
-    },
-    {
-      "title": "15-Minute Tour: Highlights of Roy Lichtenstein: Like New",
-      "description": "Free Friday Nights, 7 pm, 7:30 pm Free Second Sundays, 3 pm, 3:30 pm Join a Whitney Educator in the galleries for 15- to 20-minute tours of select artworks featured in Roy Lichtenstein: Like New. Free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Times and locations are sub",
-      "date": "2027-02-07",
-      "endDate": "2027-02-07",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/15min-tour-lichtenstein",
-      "source": "Whitney",
       "free": false
     },
     {
@@ -3793,20 +3653,6 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/playing-with-fire-an-immersive-odyssey-with-yuja-wang",
       "source": "Lincoln Center Presents",
-      "free": false
-    },
-    {
-      "title": "15-Minute Tour: Highlights of Roy Lichtenstein: Like New",
-      "description": "Free Friday Nights, 7 pm, 7:30 pm Free Second Sundays, 3 pm, 3:30 pm Join a Whitney Educator in the galleries for 15- to 20-minute tours of select artworks featured in Roy Lichtenstein: Like New. Free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Times and locations are sub",
-      "date": "2027-02-21",
-      "endDate": "2027-02-21",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/15min-tour-lichtenstein",
-      "source": "Whitney",
       "free": false
     },
     {
@@ -4202,20 +4048,6 @@
       "free": false
     },
     {
-      "title": "15-Minute Tour: Highlights of Roy Lichtenstein: Like New",
-      "description": "Free Friday Nights, 7 pm, 7:30 pm Free Second Sundays, 3 pm, 3:30 pm Join a Whitney Educator in the galleries for 15- to 20-minute tours of select artworks featured in Roy Lichtenstein: Like New. Free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Times and locations are sub",
-      "date": "2027-03-21",
-      "endDate": "2027-03-21",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/15min-tour-lichtenstein",
-      "source": "Whitney",
-      "free": false
-    },
-    {
       "title": "Legendary Women",
       "description": "Performance dates: Mar 24, 2027 – Mar 27, 2027. Confirm exact showtimes and tickets with the organizer.",
       "date": "2027-03-24",
@@ -4274,36 +4106,8 @@
     {
       "title": "15-Minute Tour: Highlights of Roy Lichtenstein: Like New",
       "description": "Free Friday Nights, 7 pm, 7:30 pm Free Second Sundays, 3 pm, 3:30 pm Join a Whitney Educator in the galleries for 15- to 20-minute tours of select artworks featured in Roy Lichtenstein: Like New. Free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Times and locations are sub",
-      "date": "2027-03-28",
-      "endDate": "2027-03-28",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/15min-tour-lichtenstein",
-      "source": "Whitney",
-      "free": false
-    },
-    {
-      "title": "15-Minute Tour: Highlights of Roy Lichtenstein: Like New",
-      "description": "Free Friday Nights, 7 pm, 7:30 pm Free Second Sundays, 3 pm, 3:30 pm Join a Whitney Educator in the galleries for 15- to 20-minute tours of select artworks featured in Roy Lichtenstein: Like New. Free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Times and locations are sub",
       "date": "2027-04-02",
       "endDate": "2027-04-02",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/15min-tour-lichtenstein",
-      "source": "Whitney",
-      "free": false
-    },
-    {
-      "title": "15-Minute Tour: Highlights of Roy Lichtenstein: Like New",
-      "description": "Free Friday Nights, 7 pm, 7:30 pm Free Second Sundays, 3 pm, 3:30 pm Join a Whitney Educator in the galleries for 15- to 20-minute tours of select artworks featured in Roy Lichtenstein: Like New. Free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Times and locations are sub",
-      "date": "2027-04-04",
-      "endDate": "2027-04-04",
       "venue": "Whitney Museum of American Art",
       "location": "Manhattan, NY",
       "type": "tour exhibition",
@@ -4370,6 +4174,20 @@
       "free": false
     },
     {
+      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
+      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
+      "date": "2027-04-16",
+      "endDate": "2027-04-16",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "tour exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
+      "source": "Whitney",
+      "free": false
+    },
+    {
       "title": "Be the Sambista!",
       "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2027-04-17",
@@ -4384,8 +4202,22 @@
       "free": false
     },
     {
-      "title": "15-Minute Tour: Highlights of Roy Lichtenstein: Like New",
-      "description": "Free Friday Nights, 7 pm, 7:30 pm Free Second Sundays, 3 pm, 3:30 pm Join a Whitney Educator in the galleries for 15- to 20-minute tours of select artworks featured in Roy Lichtenstein: Like New. Free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Times and locations are sub",
+      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
+      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
+      "date": "2027-04-17",
+      "endDate": "2027-04-17",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "tour exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
+      "source": "Whitney",
+      "free": false
+    },
+    {
+      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
+      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
       "date": "2027-04-18",
       "endDate": "2027-04-18",
       "venue": "Whitney Museum of American Art",
@@ -4393,7 +4225,49 @@
       "type": "tour exhibition",
       "features": "nyc us",
       "country": "United States",
-      "url": "https://whitney.org/events/15min-tour-lichtenstein",
+      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
+      "source": "Whitney",
+      "free": false
+    },
+    {
+      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
+      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
+      "date": "2027-04-19",
+      "endDate": "2027-04-19",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "tour exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
+      "source": "Whitney",
+      "free": false
+    },
+    {
+      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
+      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
+      "date": "2027-04-21",
+      "endDate": "2027-04-21",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "tour exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
+      "source": "Whitney",
+      "free": false
+    },
+    {
+      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
+      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
+      "date": "2027-04-22",
+      "endDate": "2027-04-22",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "tour exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
       "source": "Whitney",
       "free": false
     },
@@ -4440,6 +4314,20 @@
       "free": false
     },
     {
+      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
+      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
+      "date": "2027-04-23",
+      "endDate": "2027-04-23",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "tour exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
+      "source": "Whitney",
+      "free": false
+    },
+    {
       "title": "La Obra",
       "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2027-04-23",
@@ -4454,6 +4342,20 @@
       "free": false
     },
     {
+      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
+      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
+      "date": "2027-04-24",
+      "endDate": "2027-04-24",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "tour exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
+      "source": "Whitney",
+      "free": false
+    },
+    {
       "title": "La Obra",
       "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2027-04-24",
@@ -4465,20 +4367,6 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/la-obra-13",
       "source": "Lincoln Center Presents",
-      "free": false
-    },
-    {
-      "title": "15-Minute Tour: Highlights of Roy Lichtenstein: Like New",
-      "description": "Free Friday Nights, 7 pm, 7:30 pm Free Second Sundays, 3 pm, 3:30 pm Join a Whitney Educator in the galleries for 15- to 20-minute tours of select artworks featured in Roy Lichtenstein: Like New. Free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Times and locations are sub",
-      "date": "2027-04-25",
-      "endDate": "2027-04-25",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/15min-tour-lichtenstein",
-      "source": "Whitney",
       "free": false
     },
     {
@@ -4510,6 +4398,20 @@
       "free": false
     },
     {
+      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
+      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
+      "date": "2027-04-25",
+      "endDate": "2027-04-25",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "tour exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
+      "source": "Whitney",
+      "free": false
+    },
+    {
       "title": "La Obra",
       "description": "Listed showtime(s): 2:00 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2027-04-25",
@@ -4524,6 +4426,48 @@
       "free": false
     },
     {
+      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
+      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
+      "date": "2027-04-26",
+      "endDate": "2027-04-26",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "tour exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
+      "source": "Whitney",
+      "free": false
+    },
+    {
+      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
+      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
+      "date": "2027-04-28",
+      "endDate": "2027-04-28",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "tour exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
+      "source": "Whitney",
+      "free": false
+    },
+    {
+      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
+      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
+      "date": "2027-04-29",
+      "endDate": "2027-04-29",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "tour exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
+      "source": "Whitney",
+      "free": false
+    },
+    {
       "title": "15-Minute Tour: Highlights of Roy Lichtenstein: Like New",
       "description": "Free Friday Nights, 7 pm, 7:30 pm Free Second Sundays, 3 pm, 3:30 pm Join a Whitney Educator in the galleries for 15- to 20-minute tours of select artworks featured in Roy Lichtenstein: Like New. Free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Times and locations are sub",
       "date": "2027-04-30",
@@ -4534,6 +4478,20 @@
       "features": "nyc us",
       "country": "United States",
       "url": "https://whitney.org/events/15min-tour-lichtenstein",
+      "source": "Whitney",
+      "free": false
+    },
+    {
+      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
+      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
+      "date": "2027-04-30",
+      "endDate": "2027-04-30",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "tour exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
       "source": "Whitney",
       "free": false
     },
@@ -4566,8 +4524,22 @@
       "free": false
     },
     {
-      "title": "15-Minute Tour: Highlights of Roy Lichtenstein: Like New",
-      "description": "Free Friday Nights, 7 pm, 7:30 pm Free Second Sundays, 3 pm, 3:30 pm Join a Whitney Educator in the galleries for 15- to 20-minute tours of select artworks featured in Roy Lichtenstein: Like New. Free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Times and locations are sub",
+      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
+      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
+      "date": "2027-05-01",
+      "endDate": "2027-05-01",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "tour exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
+      "source": "Whitney",
+      "free": false
+    },
+    {
+      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
+      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
       "date": "2027-05-02",
       "endDate": "2027-05-02",
       "venue": "Whitney Museum of American Art",
@@ -4575,7 +4547,49 @@
       "type": "tour exhibition",
       "features": "nyc us",
       "country": "United States",
-      "url": "https://whitney.org/events/15min-tour-lichtenstein",
+      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
+      "source": "Whitney",
+      "free": false
+    },
+    {
+      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
+      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
+      "date": "2027-05-03",
+      "endDate": "2027-05-03",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "tour exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
+      "source": "Whitney",
+      "free": false
+    },
+    {
+      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
+      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
+      "date": "2027-05-05",
+      "endDate": "2027-05-05",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "tour exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
+      "source": "Whitney",
+      "free": false
+    },
+    {
+      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
+      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
+      "date": "2027-05-06",
+      "endDate": "2027-05-06",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "tour exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
       "source": "Whitney",
       "free": false
     },
@@ -4594,6 +4608,34 @@
       "free": false
     },
     {
+      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
+      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
+      "date": "2027-05-07",
+      "endDate": "2027-05-07",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "tour exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
+      "source": "Whitney",
+      "free": false
+    },
+    {
+      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
+      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
+      "date": "2027-05-08",
+      "endDate": "2027-05-08",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "tour exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
+      "source": "Whitney",
+      "free": false
+    },
+    {
       "title": "15-Minute Tour: Highlights of Roy Lichtenstein: Like New",
       "description": "Free Friday Nights, 7 pm, 7:30 pm Free Second Sundays, 3 pm, 3:30 pm Join a Whitney Educator in the galleries for 15- to 20-minute tours of select artworks featured in Roy Lichtenstein: Like New. Free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Times and locations are sub",
       "date": "2027-05-09",
@@ -4604,6 +4646,20 @@
       "features": "nyc us",
       "country": "United States",
       "url": "https://whitney.org/events/15min-tour-lichtenstein",
+      "source": "Whitney",
+      "free": false
+    },
+    {
+      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
+      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
+      "date": "2027-05-10",
+      "endDate": "2027-05-10",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "tour exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
       "source": "Whitney",
       "free": false
     },
