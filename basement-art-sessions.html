@@ -48,6 +48,18 @@
 .bas-collab-grid a span{font-size:.9rem}
 .bas-collab-grid a:hover,.bas-collab-grid a:focus-visible{border-color:#e4bf72;background:#43331f}
 @media(max-width:700px){.bas-collab-grid{grid-template-columns:1fr}}
+
+/* Basement Art Sessions historical timeline */
+.bas-history-timeline{position:relative;display:grid;gap:14px;margin:22px 0 26px}
+.bas-history-item{display:grid;grid-template-columns:105px minmax(0,1fr);gap:20px;align-items:start;padding:20px 22px;background:#211e1a;border:1px solid #5c4b31;border-radius:14px}
+.bas-history-year{font-size:.85rem;font-weight:850;letter-spacing:.055em;color:#e4bf72;padding-top:4px}
+.bas-history-item h3,.bas-history-invite h3{font-size:1.12rem;color:#fff;margin:0 0 8px}
+.bas-history-item p,.bas-history-invite p{margin:0 0 11px}
+.bas-history-item a,.bas-history-invite a{font-weight:700;text-underline-offset:3px}
+.bas-history-links{display:flex;flex-wrap:wrap;gap:10px 20px}
+.bas-history-current{border-color:#c59b50;background:linear-gradient(120deg,#2c2418,#201c18)}
+.bas-history-invite{border:1px dashed #887047;background:#242018;border-radius:14px;padding:22px;margin-bottom:14px}
+@media(max-width:560px){.bas-history-item{grid-template-columns:1fr;gap:6px;padding:17px}.bas-history-year{padding:0}}
 </style>    <style>
         /* Everything Art phone header: canonical two-row layout */
         @media (max-width: 700px) {
@@ -227,9 +239,20 @@
 </section>
 <section class="bas-section" id="community"><div class="bas-kicker">Beyond a single night</div><h2>A community built through art</h2>
 <div class="bas-timeline"><article><h3>Gather</h3><p>Bring artists and audiences together in a shared creative space.</p></article><article><h3>Create and share</h3><p>Make room for artwork, conversation, music and direct connections.</p></article><article><h3>Keep growing</h3><p>Document future sessions, artists and developments as the organizer shares them.</p></article></div></section>
-<section class="bas-section" id="updates"><div class="bas-kicker">Growing archive</div><h2>More Basement Art Sessions</h2><p>Basement Art Sessions is an ongoing series. Explore earlier event listings here as the archive grows.</p>
-<div class="bas-archive-entry"><h3>Basement Art Session #8</h3><p>September 12, 2026 · Bronx, New York</p><a href="https://www.eventbrite.com/e/basement-art-session-8-tickets-1987963463233" target="_blank" rel="noopener noreferrer">View original event listing ↗</a></div>
-<p class="bas-note">Past listings are provided as an archive, not as current events. For the latest arrangements, use the official event link or contact the organizer.</p></section>
+<section class="bas-section" id="updates" aria-labelledby="bas-history-title">
+<div class="bas-kicker">Community history · Living archive</div>
+<h2 id="bas-history-title">The Story of Basement Art Sessions</h2>
+<p>From early artist gatherings to newer Bronx events, Basement Art Sessions has a history worth keeping. These dated references offer a starting point for the archive, with more stories, flyers and memories to be added as they are shared.</p>
+<div class="bas-history-timeline">
+<article class="bas-history-item"><div class="bas-history-year">2014</div><div><h3>Early Basement Art Sessions</h3><p>In a January 2015 personal recap, Marthalicia wrote about holding four Basement Art Sessions during 2014. The original blog is a starting point for exploring those early gatherings.</p><a href="https://marthaliciaart.blogspot.com/" target="_blank" rel="noopener noreferrer">Explore Marthalicia's art blog ↗</a></div></article>
+<article class="bas-history-item"><div class="bas-history-year">2015</div><div><h3>Artists tell the story</h3><p>A February interview discusses Marthalicia's art and the community behind the sessions. A participating artist also documented an early gathering in March.</p><div class="bas-history-links"><a href="https://www.artcrasher.com/artists-in-focus/2015/2/21/marthalicia-matarrita-artist-looking-life-in-the-face" target="_blank" rel="noopener noreferrer">Read Marthalicia's interview ↗</a><a href="https://jacobhurleyart.com/page/2/" target="_blank" rel="noopener noreferrer">Read an artist's account ↗</a></div></div></article>
+<article class="bas-history-item"><div class="bas-history-year">2024</div><div><h3>Live Painting &amp; Barbecue</h3><p>An archived listing connects Basement Art Sessions with a live-painting and barbecue gathering at Copacabana in Manhattan on August 10, 2024.</p><a href="https://stayhappening.com/e/live-painting-andamp-barbecue-copacabana-E3LV5RYHR0DR" target="_blank" rel="noopener noreferrer">View archived event listing ↗</a></div></article>
+<article class="bas-history-item"><div class="bas-history-year">2026</div><div><h3>Basement Art Session #8</h3><p>September 12, 2026 · Bronx, New York. The original ticket listing offers a glimpse of the series and its invitation to artists.</p><a href="https://www.eventbrite.com/e/basement-art-session-8-tickets-1987963463233" target="_blank" rel="noopener noreferrer">View Session #8 listing ↗</a></div></article>
+<article class="bas-history-item bas-history-current"><div class="bas-history-year">Nov 2026</div><div><h3>Basement Art Session #9 · Taste and Paint</h3><p>November 21, 2026 · Orion's BX, Bronx. The featured upcoming gathering brings together art, food, music and community collaborators.</p><a href="#taste-and-paint">See the event details ↑</a></div></article>
+</div>
+<div class="bas-history-invite"><h3>Were you part of an earlier session?</h3><p>Artists and attendees who have old flyers, photographs or memories can contact Marthalicia about contributing to the story. Materials should only be published with the appropriate permissions.</p><a href="mailto:Marthaliciam@gmail.com?subject=Basement%20Art%20Sessions%20history">Share a memory with the organizer ↗</a></div>
+<p class="bas-note">This is a developing selection of historical references, not a complete list of numbered sessions. Some older links may be archived or change over time. We will not assign missing session numbers or identify participants without reliable records.</p>
+</section>
 <div class="bas-footer"><a href="everything-art-events.html">← All Art Events</a><a href="everything-art.html">Everything Art Home</a><p>Event organized by Basement Art Sessions. Everything Art provides a community spotlight and links to the official organizer.</p></div></main>
 <footer class="ea-site-footer bas-site-footer"><nav class="ea-family-footer" aria-label="Everything Art footer navigation">
 <a href="everything-art.html">EVERYTHING ART</a><a href="everything-art-opportunities.html">OPPORTUNITIES</a><a href="everything-art-events.html">ART EVENTS</a><a href="everything-art-resources.html">RESOURCES</a>
