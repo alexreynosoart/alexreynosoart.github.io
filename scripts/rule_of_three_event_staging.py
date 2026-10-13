@@ -71,7 +71,80 @@ def stage(name, url, location):
         accepted.append(item)
     return len(raw), len(candidates), accepted, rejected
 
+
+def stage_smithsonian():
+    """Read-only Smithsonian candidates, verified from official detail pages."""
+    from datetime import datetime
+    import time
+    base = 'https://smithsonianassociates.org/ticketing/online/'
+    req = Request(base, headers={'User-Agent': 'EverythingArtEventCollector/1.0 (read-only staging)', 'Accept': 'text/html'})
+    with urlopen(req, timeout=35) as response:
+        if response.status != 200 or urlparse(response.url).hostname != urlparse(base).hostname:
+            raise ValueError('Smithsonian listing response not trusted')
+        raw = response.read(preview.MAX_BYTES + 1)
+        if len(raw) > preview.MAX_BYTES: raise ValueError('Smithsonian listing too large')
+    tree = preview.Tree()
+    tree.feed(raw.decode('utf-8', 'replace'))
+    discovered = preview.smithsonian_detail_candidates(tree, base)
+    accepted, held = [], []
+    for title, start, link, origin, confidence in discovered:
+        # Reopen the official detail page to capture the complete course range.
+        time.sleep(preview.SMITHSONIAN_DELAY_SECONDS)
+        try:
+            request = Request(link, headers={'User-Agent': 'EverythingArtEventCollector/1.0 (read-only staging)', 'Accept': 'text/html'})
+            with urlopen(request, timeout=20) as response:
+                if response.status != 200 or urlparse(response.url).hostname != 'smithsonianassociates.org':
+                    raise ValueError('Untrusted detail response')
+                content = response.read(preview.MAX_BYTES + 1)
+                if len(content) > preview.MAX_BYTES: raise ValueError('Oversized detail')
+            detail = preview.Tree()
+            detail.feed(content.decode('utf-8', 'replace'))
+            main = next((node for node in preview.walk(detail.root) if node.tag == 'main'), None)
+            if main is None: raise ValueError('Missing main section')
+            headings = [n.text().strip() for n in preview.walk(main) if n.tag == 'h1' and n.text().strip()]
+            if not headings or headings[0] != title: raise ValueError('Title mismatch')
+            body = main.text()[:20000]
+            if not preview.ONLINE_WORDS.search(body):
+                raise ValueError('Online attendance unverified')
+            time_dates = [preview.event_date(n.attrs.get('datetime')) for n in preview.walk(main)
+                          if n.tag == 'time' and n.attrs.get('datetime')]
+            time_dates = [d for d in time_dates if d and d >= date.today()]
+            date_strings = re.findall(r'\\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\\.?\\s+\\d{1,2},?\\s+20\\d{2}\\b', body, re.I)
+            body_dates = [preview.human_date(value) for value in date_strings]
+            body_dates = [d for d in body_dates if d and d >= date.today()]
+            dates = sorted(set(time_dates or body_dates))
+            if not dates or dates[0] != start: raise ValueError('Date mismatch')
+            course = len(dates) > 1
+            description = (f'Online course, {len(dates)} listed session dates. '
+                           if course else 'Online Smithsonian Associates program. ')
+            if course:
+                description += f'First session {dates[0].isoformat()}, last listed session {dates[-1].isoformat()}. '
+            description += 'Check the official program page for registration, schedule and attendance details.'
+            accepted.append(dict(title=title, description=description[:360],
+                date=dates[0].isoformat(), endDate=dates[-1].isoformat(),
+                venue='Smithsonian Associates', location='Online', type='workshop' if course else 'talk',
+                features='online us', country='United States', url=link,
+                source='Smithsonian Associates', free=False))
+        except (OSError, ValueError, TimeoutError) as exc:
+            held.append((title, str(exc)[:130]))
+    return len(discovered), accepted, held
+
 def main():
+    import sys
+    if '--smithsonian' in sys.argv:
+        print('RULE OF THREE: SMITHSONIAN ONLINE STAGING, READ-ONLY', flush=True)
+        try:
+            discovered, accepted, held = stage_smithsonian()
+        except Exception as exc:
+            print(f'FAILED: {type(exc).__name__}: {exc}', flush=True)
+            return 1
+        print(f'Smithsonian candidates={discovered}; staged={len(accepted)}; held={len(held)}')
+        for item in accepted:
+            print('STAGED ' + json.dumps(item, ensure_ascii=False), flush=True)
+        for title, reason in held:
+            print(f'HELD {title!r}: {reason}', flush=True)
+        print('PREVIEW ONLY: no event cache read or written.')
+        return 0
     print('RULE OF THREE: CONTEXT-AWARE EVENT STAGING V2, READ-ONLY', flush=True)
     total = 0
     for name, url, location in SOURCES:
