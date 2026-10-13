@@ -349,13 +349,23 @@ body.everything-art-events-theme #eaSourceMore{border:1px solid #aa8722;backgrou
 body.everything-art-events-theme .ea-source-empty{color:#aaa;margin:12px 0}
 </style>
 <style>
-
-/* Basement Art Sessions: scoped featured event treatment. */
-body.everything-art-events-theme .op-card.bas-featured-card {border:1px solid #b99854; background:linear-gradient(145deg,#292218,#1b1b1b 65%);}
-body.everything-art-events-theme .op-card.bas-featured-card .bas-card-thumb {grid-column:1/-1; width:100%; overflow:hidden; border-radius:12px; background:#15110d; display:flex; justify-content:center; max-height:260px;}
-body.everything-art-events-theme .op-card.bas-featured-card .bas-card-thumb img {width:100%;height:260px;object-fit:contain;display:block;}
-body.everything-art-events-theme .op-card.bas-featured-card .bas-card-tag {color:#e7c578;font-size:.75rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;grid-column:1/-1;}
-body.everything-art-events-theme .op-card.bas-featured-card .bas-card-secondary {grid-column:1/-1;color:#e9c57e;font-size:.84rem;font-weight:700;text-decoration:underline;text-underline-offset:3px;}
+/* Independent community spotlight, above the searchable event listings. */
+body.everything-art-events-theme .bas-spotlight{margin:26px 0 34px;padding:clamp(18px,3vw,28px);border:1px solid #b99854;border-radius:22px;background:linear-gradient(125deg,#2c2419,#191919 70%);color:#eee}
+body.everything-art-events-theme .bas-spotlight-kicker{font-size:.77rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:#e9c67f;margin-bottom:17px}
+body.everything-art-events-theme .bas-spotlight-layout{display:grid;grid-template-columns:minmax(160px,230px) minmax(0,1fr);gap:clamp(18px,3vw,32px);align-items:center}
+body.everything-art-events-theme .bas-spotlight-image{display:block;background:#16110d;border:1px solid #6c542e;border-radius:13px;overflow:hidden;max-width:230px}
+body.everything-art-events-theme .bas-spotlight-image img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:contain}
+body.everything-art-events-theme .bas-spotlight h2{font-size:clamp(1.5rem,3vw,2.1rem);line-height:1.18;color:#fff;margin:0 0 8px}
+body.everything-art-events-theme .bas-spotlight-organizer{font-size:.91rem;color:#c9bca7;margin:0 0 14px}
+body.everything-art-events-theme .bas-spotlight-description{line-height:1.55;color:#d8d1c7;margin:0 0 14px;max-width:620px}
+body.everything-art-events-theme .bas-spotlight-facts{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+body.everything-art-events-theme .bas-spotlight-facts span{font-size:.82rem;border:1px solid #6d5a3b;border-radius:999px;padding:6px 10px;color:#e9dcc5}
+body.everything-art-events-theme .bas-spotlight-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+body.everything-art-events-theme .bas-spotlight-actions a{display:inline-flex;align-items:center;justify-content:center;text-align:center;min-height:44px;padding:10px 17px;border-radius:10px;text-decoration:none;font-size:.87rem;font-weight:800;line-height:1.3}
+body.everything-art-events-theme .bas-spotlight-primary{background:#e4bb69;color:#18130b!important}
+body.everything-art-events-theme .bas-spotlight-secondary{border:1px solid #b99854;color:#f1d69c!important;background:transparent}
+body.everything-art-events-theme .bas-spotlight-actions a:focus-visible{outline:3px solid #fff;outline-offset:3px}
+@media(max-width:620px){body.everything-art-events-theme .bas-spotlight-layout{grid-template-columns:1fr;align-items:start}body.everything-art-events-theme .bas-spotlight-image{max-width:200px;margin:0 auto}body.everything-art-events-theme .bas-spotlight-actions a{flex:1 1 180px}}
 </style>
 </head>
 
@@ -404,6 +414,26 @@ body.everything-art-events-theme .op-card.bas-featured-card .bas-card-secondary 
 <div class="op-updated"><span class="op-live-dot" aria-hidden="true"></span>Art event hub</div>
 </section>
 
+<!-- Featured community spotlight: intentionally outside the filtered event grid -->
+<section class="bas-spotlight" aria-labelledby="bas-spotlight-title">
+  <div class="bas-spotlight-kicker">★ Featured community event · Everything Art</div>
+  <div class="bas-spotlight-layout">
+    <a class="bas-spotlight-image" href="basement-art-sessions.html" aria-label="Explore Basement Art Sessions">
+      <img src="images/everything-art/basement-art-sessions-taste-and-paint-flyer.jpg" alt="Original Taste and Paint flyer for Basement Art Session number nine" loading="eager">
+    </a>
+    <div class="bas-spotlight-content">
+      <h2 id="bas-spotlight-title">Taste and Paint | Basement Art Sessions</h2>
+      <p class="bas-spotlight-organizer">Organized by Marthalicia Matarrita · Orion’s BX, Bronx</p>
+      <p class="bas-spotlight-description">Art, food and music come together for Basement Art Session #9. Artists and painters are invited to get involved, and visitors can explore the event, meet the organizer and find ticket information.</p>
+      <div class="bas-spotlight-facts" aria-label="Event details"><span>Sat, Nov 21, 2026</span><span>8 PM–1 AM</span><span>Bronx, NYC</span><span>21+</span><span>Tickets from $25</span></div>
+      <div class="bas-spotlight-actions">
+        <a class="bas-spotlight-primary" href="basement-art-sessions.html">EXPLORE BASEMENT ART SESSIONS →</a>
+        <a class="bas-spotlight-secondary" href="https://www.eventbrite.com/e/taste-and-paint-tickets-2003302726382" target="_blank" rel="noopener noreferrer">OFFICIAL TICKETS ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="op-toolbox" aria-label="Filter art events">
 <input id="opSearch" class="op-search" type="search" placeholder="Search event, museum, city, artist or keyword..." aria-label="Search art events">
 <div class="op-filter-block">
@@ -441,19 +471,6 @@ body.everything-art-events-theme .op-card.bas-featured-card .bas-card-secondary 
 <div class="op-statusbar"><span id="resultCount">Showing upcoming art events</span><span class="op-reset" id="resetFilters">Reset filters</span></div>
 <div class="ea-page-controls"><span id="eaShowing" aria-live="polite">Loading live art events…</span><label for="eaPageSize">Show <select id="eaPageSize" aria-label="Events per batch"><option value="12">12</option><option value="24" selected>24</option><option value="48">48</option><option value="96">96</option></select> at a time</label></div>
 <section class="op-grid" id="opGrid">
-        <!-- Everything Art community connection: Basement Art Sessions, November 2026 -->
-        <article class="op-card bas-featured-card" data-type="workshop performance" data-features="nyc us" data-date="2026-11-21" data-country="United States" data-end-date="2026-11-22">
-            <div class="bas-card-thumb"><img src="images/everything-art/basement-art-sessions-taste-and-paint-flyer.jpg" alt="Original Taste and Paint event flyer" loading="lazy"></div>
-            <div class="bas-card-tag">Everything Art community connection · Basement Art Sessions</div>
-            <div class="op-badges"><span class="op-badge">🗽 Bronx, NYC</span><span class="op-badge">Art + Music</span><span class="op-badge">21+</span></div>
-            <h2>Taste and Paint | Basement Art Sessions</h2>
-            <div class="op-org">Organized by Marthalicia Matarrita · Orion’s BX, Bronx</div>
-            <p class="op-description">An evening bringing artists and art lovers together for art, food and music. Participating artists can show and sell their work. See the organizer’s event details and ticket options before attending.</p>
-            <div class="op-meta"><div><strong>When:</strong> Saturday, November 21, 2026 · 8 PM–1 AM (ends November 22)</div><div><strong>Admission:</strong> From $25 · Other packages available · 21+</div></div>
-            <a class="op-link" href="basement-art-sessions.html">EXPLORE BASEMENT ART SESSIONS →</a>
-            <a class="bas-card-secondary" href="https://www.eventbrite.com/e/taste-and-paint-tickets-2003302726382" target="_blank" rel="noopener noreferrer">OFFICIAL TICKETS ON EVENTBRITE ↗</a>
-        </article>
-
         <article class="op-card" data-type="exhibition" data-features="nyc us soon" data-date="2026-09-27" data-country="United States" data-end-date="2027-06-13">
             <div class="op-badges"><span class="op-badge">🗽 NYC</span><span class="op-badge">Exhibition</span><span class="op-badge">Opens Sep 27</span></div>
             <h2>Nilima Sheikh: Fractured Skies</h2>
@@ -623,7 +640,7 @@ function info(c){const f=(c.dataset.features||'').split(/\s+/),t=(c.dataset.type
 if(f.includes('nyc')){flag='🗽';place='New York City';}else if(c.dataset.country==='France'){flag='🇫🇷';place='Paris';}else if(c.dataset.country==='United Kingdom'){flag='🇬🇧';place='London';}else if(c.dataset.country==='Germany'){flag='🇩🇪';place='Germany';}else if(c.dataset.country==='Canada'){flag='🇨🇦';place='Canada';}else if(c.dataset.country==='Japan'){flag='🇯🇵';place='Japan';}else if(f.includes('us')){flag='🇺🇸';place='United States';}else if(f.includes('worldwide')){flag='🌎';place='Worldwide';}
 let kind=t.includes('film')?'Film':t.includes('performance')?'Dance / Performance':t.includes('fair')?'Art Fair':t.includes('exhibition')?'Exhibition':t.includes('workshop')?'Workshop':t.includes('talk')?'Talk':t.includes('family')?'Family':'Event';return{flag,place,kind};}
 function addThumb(c){const i=info(c),d=document.createElement('div');d.className='op-thumb';d.setAttribute('aria-hidden','true');d.innerHTML='<div class="op-thumb-inner"><span class="op-thumb-flag">'+i.flag+'</span><span class="op-thumb-type">'+i.kind+'</span><span class="op-thumb-country">'+i.place+'</span></div>';c.insertBefore(d,c.firstChild);}
-cards.forEach(c=>{if(!c.classList.contains('bas-featured-card'))addThumb(c);});
+cards.forEach(addThumb);
 function match(c){
   // A single-day event expires after its event day. Exhibitions/fairs expire after their last day.
   const finalDate=c.dataset.endDate||c.dataset.date;
