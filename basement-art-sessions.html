@@ -136,15 +136,15 @@
 <div><div class="bas-video-wrap"><video controls playsinline preload="metadata" poster="images/everything-art/basement-art-sessions-venue-video-poster.webp" aria-label="Marthalicia speaking about the venue"><source src="videos/basement-art-sessions-marthalicia-venue.mp4" type="video/mp4">Your browser does not support HTML5 video.</video></div><p class="bas-video-meta">Marthalicia shares a look inside the space. Video provided for this community spotlight.</p></div></div></section>
 <section class="bas-section bas-artists-section" id="participating-artists" aria-labelledby="bas-artists-title">
 <div class="bas-kicker">Artists in the room</div>
-<div class="bas-artists-heading"><div><h2 id="bas-artists-title">Participating Artists</h2><p class="bas-artist-intro">A growing directory of the artists who make these gatherings possible. Profiles and links will appear as participation and permission are confirmed.</p></div><span class="bas-artist-count" id="bas-artist-count" aria-live="polite">0 confirmed</span></div>
+<div class="bas-artists-heading"><div><h2 id="bas-artists-title">Participating Artists</h2><p class="bas-artist-intro">Meet the creative voices behind Basement Art Sessions. Artist portraits, artwork and links will be featured here as the gallery takes shape.</p></div></div>
 <div class="bas-artist-gallery"><div class="bas-artist-rail" id="bas-artist-rail" tabindex="0" aria-label="Artist profile gallery, scroll horizontally">
-<!-- Preview placeholders only. These are not actual participants. Replace with confirmed artist profiles later. -->
-<article class="bas-artist-card bas-artist-pending"><div class="bas-artist-avatar" aria-hidden="true"><span>✳</span></div><div class="bas-artist-card-title">Artist to be announced</div><p>Awaiting confirmation</p></article>
-<article class="bas-artist-card bas-artist-pending"><div class="bas-artist-avatar" aria-hidden="true"><span>✳</span></div><div class="bas-artist-card-title">Artist to be announced</div><p>Awaiting confirmation</p></article>
-<article class="bas-artist-card bas-artist-pending"><div class="bas-artist-avatar" aria-hidden="true"><span>✳</span></div><div class="bas-artist-card-title">Artist to be announced</div><p>Awaiting confirmation</p></article>
-<article class="bas-artist-card bas-artist-pending"><div class="bas-artist-avatar" aria-hidden="true"><span>✳</span></div><div class="bas-artist-card-title">Artist to be announced</div><p>Awaiting confirmation</p></article>
+<!-- Gallery design placeholders. Add artist profiles and approved links when ready. -->
+<article class="bas-artist-card bas-artist-pending"><div class="bas-artist-avatar" aria-hidden="true"><span>✳</span></div><div class="bas-artist-card-title">Artist spotlight</div><p>Profile coming soon</p></article>
+<article class="bas-artist-card bas-artist-pending"><div class="bas-artist-avatar" aria-hidden="true"><span>✳</span></div><div class="bas-artist-card-title">Artist spotlight</div><p>Profile coming soon</p></article>
+<article class="bas-artist-card bas-artist-pending"><div class="bas-artist-avatar" aria-hidden="true"><span>✳</span></div><div class="bas-artist-card-title">Artist spotlight</div><p>Profile coming soon</p></article>
+<article class="bas-artist-card bas-artist-pending"><div class="bas-artist-avatar" aria-hidden="true"><span>✳</span></div><div class="bas-artist-card-title">Artist spotlight</div><p>Profile coming soon</p></article>
 </div><div class="bas-artist-controls"><span class="bas-artist-gallery-hint">Swipe or use the arrows to explore</span><div class="bas-artist-arrows"><button type="button" id="bas-artists-prev" aria-label="Scroll artist gallery left">←</button><button type="button" id="bas-artists-next" aria-label="Scroll artist gallery right">→</button></div></div></div>
-<p class="bas-artist-disclaimer">Artist names, portraits, and social links will be added only after confirmation. The cards above are placeholders, not a list of scheduled participants.</p>
+<p class="bas-artist-disclaimer">Artist portraits, artwork and social links will be added as the gallery develops. These preview cards are not individual artist profiles.</p>
 </section>
 <section class="bas-section" id="community"><div class="bas-kicker">Beyond a single night</div><h2>A community built through art</h2>
 <div class="bas-timeline"><article><h3>Gather</h3><p>Bring artists and audiences together in a shared creative space.</p></article><article><h3>Create and share</h3><p>Make room for artwork, conversation, music and direct connections.</p></article><article><h3>Keep growing</h3><p>Document future sessions, artists and developments as the organizer shares them.</p></article></div></section>
@@ -203,13 +203,7 @@
   const rail=document.getElementById('bas-artist-rail');
   const prev=document.getElementById('bas-artists-prev');
   const next=document.getElementById('bas-artists-next');
-  const count=document.getElementById('bas-artist-count');
-  if(!rail||!prev||!next||!count)return;
-  // Only cards explicitly marked as confirmed count as participating artists.
-  function refreshCount(){
-    const confirmed=rail.querySelectorAll('.bas-artist-card[data-confirmed="true"]').length;
-    count.textContent=confirmed+' confirmed';
-  }
+  if(!rail||!prev||!next)return;
   function updateButtons(){
     prev.disabled=rail.scrollLeft<=2;
     next.disabled=rail.scrollLeft+rail.clientWidth>=rail.scrollWidth-2;
@@ -225,7 +219,7 @@
   rail.addEventListener('scroll',updateButtons,{passive:true});
   window.addEventListener('resize',updateButtons);
   rail.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();step(e.key==='ArrowRight'?1:-1);}});
-  refreshCount();updateButtons();
+  updateButtons();
 })();
 </script>
 </body></html>
