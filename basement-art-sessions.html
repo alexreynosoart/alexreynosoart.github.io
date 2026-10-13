@@ -23,6 +23,20 @@
 /* Flyer viewer: independent of the global site scripts */
 .bas-flyer-open{display:block;width:100%;padding:0;border:0;background:transparent;cursor:zoom-in;border-radius:10px}.bas-flyer-open:focus-visible{outline:3px solid #f4d083;outline-offset:4px}.bas-lightbox[hidden]{display:none!important}.bas-lightbox{position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.95);display:flex;align-items:center;justify-content:center;padding:56px 58px 62px;touch-action:pan-y}.bas-lightbox-figure{margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;max-width:100%;max-height:100%;gap:10px}.bas-lightbox-image{display:block;max-width:100%;max-height:calc(100dvh - 125px);width:auto;height:auto;object-fit:contain;border-radius:4px;user-select:none}.bas-lightbox-caption{font-size:.9rem;color:#eee;text-align:center}.bas-lightbox button{position:absolute;z-index:1;display:grid;place-items:center;width:44px;height:44px;border:1px solid #8c7147;border-radius:50%;background:#24211d;color:#fff;font-size:1.8rem;cursor:pointer}.bas-lightbox button:focus-visible{outline:3px solid #f4d083;outline-offset:3px}.bas-lightbox-close{right:14px;top:12px}.bas-lightbox-prev{left:8px;top:50%;transform:translateY(-50%)}.bas-lightbox-next{right:8px;top:50%;transform:translateY(-50%)}body.bas-lightbox-active{overflow:hidden}
 @media(max-width:760px){.bas-event{grid-template-columns:1fr}.bas-page{padding:24px 14px 60px}.bas-flyers{gap:8px}.bas-hero{padding:25px 22px}.bas-lightbox{padding:62px 46px 65px}.bas-lightbox-image{max-height:calc(100dvh - 150px)}.bas-lightbox button{width:38px;height:38px}}
+
+/* Organizer's verified public destinations */
+.bas-connect{border:1px solid #695332;border-radius:18px;padding:24px;background:linear-gradient(130deg,#242019,#171615)}
+.bas-connect-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+.bas-connect-link{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:66px;padding:14px 16px;background:#30281e;border:1px solid #79603a;border-radius:12px;color:#f4d083!important;text-decoration:none;font-weight:750;line-height:1.35}
+.bas-connect-link:hover,.bas-connect-link:focus-visible{background:#493820;border-color:#e2bc73}
+.bas-connect-link span{font-size:1.1rem}
+.bas-connect-note{font-size:.86rem;color:#bbb!important}
+.bas-archive-entry{background:#211e1a;border:1px solid #5c4b31;border-radius:14px;padding:19px 21px;margin-top:16px}
+.bas-archive-entry h3{color:#fff;margin:0 0 8px;font-size:1.12rem}
+.bas-archive-entry p{margin:0 0 10px}
+@media(max-width:700px){.bas-connect-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:430px){.bas-connect-grid{grid-template-columns:1fr}}
+
 </style>    <style>
         /* Everything Art phone header: canonical two-row layout */
         @media (max-width: 700px) {
@@ -150,6 +164,20 @@
 <p>This page is an independent Everything Art community spotlight. Event arrangements and artist participation are coordinated by the organizer.</p>
 <p><a href="mailto:Marthaliciam@gmail.com">Contact Marthalicia about the event ↗</a></p></div>
 <div><div class="bas-video-wrap"><video controls playsinline preload="metadata" poster="images/everything-art/basement-art-sessions-venue-video-poster.webp" aria-label="Marthalicia speaking about the venue"><source src="videos/basement-art-sessions-marthalicia-venue.mp4" type="video/mp4">Your browser does not support HTML5 video.</video></div><p class="bas-video-meta">Marthalicia shares a look inside the space. Video provided for this community spotlight.</p></div></div></section>
+<section class="bas-section bas-connect" id="marthalicia-links" aria-labelledby="bas-connect-title">
+<div class="bas-kicker">Connect with the organizer</div>
+<h2 id="bas-connect-title">Explore Marthalicia's Work</h2>
+<p>Discover Marthalicia's artwork, murals, creative business and the community behind Basement Art Sessions.</p>
+<div class="bas-connect-grid">
+<a class="bas-connect-link" href="https://www.marthalicia.com/" target="_blank" rel="noopener noreferrer">Artist website <span aria-hidden="true">↗</span></a>
+<a class="bas-connect-link" href="https://www.instagram.com/marthalicia/" target="_blank" rel="noopener noreferrer">Artist Instagram <span aria-hidden="true">↗</span></a>
+<a class="bas-connect-link" href="https://www.patreon.com/cw/BasementArtSession" target="_blank" rel="noopener noreferrer">Support Basement Art Sessions <span aria-hidden="true">↗</span></a>
+<a class="bas-connect-link" href="https://www.instagram.com/nycm2/" target="_blank" rel="noopener noreferrer">Murals · @nycm2 <span aria-hidden="true">↗</span></a>
+<a class="bas-connect-link" href="https://www.instagram.com/msapllc/" target="_blank" rel="noopener noreferrer">Creative business · @msapllc <span aria-hidden="true">↗</span></a>
+<a class="bas-connect-link" href="mailto:Marthaliciam@gmail.com">Event inquiries <span aria-hidden="true">↗</span></a>
+</div>
+<p class="bas-connect-note">Links lead to the organizer's own pages. Everything Art is an independent community spotlight.</p>
+</section>
 <section class="bas-section bas-artists-section" id="participating-artists" aria-labelledby="bas-artists-title">
 <div class="bas-kicker">Artists in the room</div>
 <div class="bas-artists-heading"><div><h2 id="bas-artists-title">Participating Artists</h2><p class="bas-artist-intro">Meet the creative voices behind Basement Art Sessions. Artist portraits, artwork and links will be featured here as the gallery takes shape.</p></div></div>
@@ -164,7 +192,9 @@
 </section>
 <section class="bas-section" id="community"><div class="bas-kicker">Beyond a single night</div><h2>A community built through art</h2>
 <div class="bas-timeline"><article><h3>Gather</h3><p>Bring artists and audiences together in a shared creative space.</p></article><article><h3>Create and share</h3><p>Make room for artwork, conversation, music and direct connections.</p></article><article><h3>Keep growing</h3><p>Document future sessions, artists and developments as the organizer shares them.</p></article></div></section>
-<section class="bas-section" id="updates"><div class="bas-kicker">Growing archive</div><h2>More Basement Art Sessions</h2><p>This page will collect confirmed future events, past-session highlights and dated updates about the space as they become available. For the latest event arrangements, use the official ticket link or contact the organizer.</p></section>
+<section class="bas-section" id="updates"><div class="bas-kicker">Growing archive</div><h2>More Basement Art Sessions</h2><p>Basement Art Sessions is an ongoing series. Explore earlier event listings here as the archive grows.</p>
+<div class="bas-archive-entry"><h3>Basement Art Session #8</h3><p>September 12, 2026 · Bronx, New York</p><a href="https://www.eventbrite.com/e/basement-art-session-8-tickets-1987963463233" target="_blank" rel="noopener noreferrer">View original event listing ↗</a></div>
+<p class="bas-note">Past listings are provided as an archive, not as current events. For the latest arrangements, use the official event link or contact the organizer.</p></section>
 <div class="bas-footer"><a href="everything-art-events.html">← All Art Events</a><a href="everything-art.html">Everything Art Home</a><p>Event organized by Basement Art Sessions. Everything Art provides a community spotlight and links to the official organizer.</p></div></main>
 <footer class="ea-site-footer bas-site-footer"><nav class="ea-family-footer" aria-label="Everything Art footer navigation">
 <a href="everything-art.html">EVERYTHING ART</a><a href="everything-art-opportunities.html">OPPORTUNITIES</a><a href="everything-art-events.html">ART EVENTS</a><a href="everything-art-resources.html">RESOURCES</a>
