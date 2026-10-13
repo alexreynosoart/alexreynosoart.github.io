@@ -19,6 +19,6 @@ jobs:
       - name: Verify NYC staging without publishing
         run: python scripts/rule_of_three_event_staging.py
       - name: Verify Smithsonian online staging without publishing
-        run: python scripts/collect_art_events.py --dry-run --smithsonian-preview
+        run: python scripts/rule_of_three_event_staging.py --smithsonian
       - name: Verify event cache unchanged
         run: git diff --exit-code -- data/art-events.json
