@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-10-13T12:51:06.553543+00:00",
+  "updatedAt": "2026-10-13T18:48:53.693740+00:00",
   "sources": {
     "Existing Everything Art listing": 22,
-    "On the Move": 56
+    "On the Move": 57
   },
   "opportunities": [
     {
@@ -184,6 +184,19 @@
       "type": "grant",
       "features": "",
       "country": "United States",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Cité internationale des arts: Trame Residency for French-speaking Artists 2027 (France)",
+      "organization": "Cité internationale des arts",
+      "description": "Residencies. Application deadline: 2026-10-18. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/cite-internationale-des-arts-trame-residency-french-speaking-artists-2027-france",
+      "deadline": "2026-10-18",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "France",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
