@@ -45,7 +45,16 @@
         .events-resource-desk {
             margin-top: 64px;
         }
-    </style>
+    
+/* Automatic featured-event handoff: compact permanent community doorway after the event. */
+body.everything-art-events-theme .bas-community-door{display:none;margin:20px 0 26px;padding:15px 19px;border:1px solid #74603b;border-radius:14px;background:#201c17;color:#e8e0d2;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}
+body.everything-art-events-theme .bas-community-door p{margin:4px 0 0;color:#c8bfb1;font-size:.9rem;line-height:1.5}
+body.everything-art-events-theme .bas-community-door strong{color:#f0d18d}
+body.everything-art-events-theme .bas-community-door a{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border:1px solid #b99854;border-radius:9px;color:#f0d18d!important;font-weight:800;text-decoration:none;min-height:44px}
+body.everything-art-events-theme.bas-event-finished .bas-spotlight{display:none}
+body.everything-art-events-theme.bas-event-finished .bas-community-door{display:flex}
+
+</style>
 
 
 
@@ -433,6 +442,16 @@ body.everything-art-events-theme .bas-spotlight-actions a:focus-visible{outline:
     </div>
   </div>
 </section>
+
+<!-- Permanent, modest doorway to the Basement Art Sessions community page.
+     Shown automatically after the November 21 event finishes. -->
+<aside class="bas-community-door" aria-label="Basement Art Sessions community spotlight">
+  <div>
+    <strong>Basement Art Sessions · Community Spotlight</strong>
+    <p>Discover Marthalicia Matarrita, the artists, and past and future Basement Art Sessions.</p>
+  </div>
+  <a href="basement-art-sessions.html">EXPLORE THE SERIES →</a>
+</aside>
 
 <section class="op-toolbox" aria-label="Filter art events">
 <input id="opSearch" class="op-search" type="search" placeholder="Search event, museum, city, artist or keyword..." aria-label="Search art events">
@@ -952,5 +971,29 @@ document.querySelectorAll('.everything-art-events-theme .op-toolbox .filter-more
 </script>
     <script src="js/script.js"></script>
     
+<script>
+/* The event ends Nov 22, 2026 at 1:00 AM in New York.
+   Afterward, retire the large promotional spotlight but retain a small
+   permanent doorway to the organizer's dedicated community page. */
+(function () {
+  function refreshBasementSpotlight() {
+    const parts = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/New_York',
+      year: 'numeric', month: '2-digit', day: '2-digit',
+      hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
+    }).formatToParts(new Date());
+    const value = name => parts.find(p => p.type === name).value;
+    const stamp = Number(value('year') + value('month') + value('day') + value('hour') + value('minute'));
+    document.body.classList.toggle('bas-event-finished', stamp >= 202611220100);
+  }
+  refreshBasementSpotlight();
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) refreshBasementSpotlight();
+  });
+  window.addEventListener('focus', refreshBasementSpotlight);
+  /* Update an open tab across the cutoff without needing a refresh. */
+  setInterval(refreshBasementSpotlight, 60000);
+})();
+</script>
 </body>
 </html>
