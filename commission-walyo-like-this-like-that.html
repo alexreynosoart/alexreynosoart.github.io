@@ -493,6 +493,15 @@ h2{
     text-transform:uppercase;
 }
 
+
+/* WORK-IN-PROGRESS VIDEO: native controls and lightweight poster */
+.walyo-preview{margin-top:36px;max-width:860px;margin-left:auto;margin-right:auto}
+.walyo-preview-frame{padding:10px;border:1px solid #514525;background:#0a0a0a;box-shadow:0 18px 50px rgba(0,0,0,.4)}
+.walyo-preview-frame video{display:block;width:100%;height:auto;max-height:72vh;background:#000;object-fit:contain}
+.walyo-preview-caption{margin:13px 0 0;color:#aaa;font-size:.88rem}
+.walyo-preview-caption strong{color:var(--yellow)}
+@media(max-width:600px){.walyo-preview-frame{padding:5px}.walyo-preview-frame video{max-height:65vh}}
+
 /* CREDITS */
 
 .credits-panel{
@@ -790,15 +799,18 @@ footer{
 <div class="video-wrap">
 <section class="section">
     <p class="eyebrow">07 / The Teaser</p>
-    <h2>Still being<br><span class="yellow">built.</span></h2>
+    <h2>A first<br><span class="yellow">glimpse.</span></h2>
 
-    <p class="lead">The final 15 to 20 second visual will live here when the commission is complete.</p>
+    <p class="lead">A work-in-progress glimpse into the world of <em>Like This / Like That</em>. This is an early preview, not the finished release teaser.</p>
 
-    <div class="video-placeholder" aria-label="Final WalyO teaser video coming soon">
-        <div class="video-placeholder-inner">
-            <strong>LIKE THIS<br>LIKE THAT</strong>
-            <span>Final teaser coming soon</span>
+    <div class="walyo-preview">
+        <div class="walyo-preview-frame">
+            <video controls preload="none" playsinline poster="images/walyo-teaser-thumbnail.webp" aria-label="WalyO Like This Like That work-in-progress video preview">
+                <source src="videos/walyo-teaser-web-720p.mp4" type="video/mp4">
+                Your browser does not support HTML5 video.
+            </video>
         </div>
+        <p class="walyo-preview-caption"><strong>WORK IN PROGRESS.</strong> Early teaser preview. Final video coming with the release.</p>
     </div>
 </section>
 </div>
