@@ -527,6 +527,29 @@ def stage(name, url, location):
     return len(raw), len(candidates), accepted, rejected
 
 
+# Manually reviewed program IDs. A positive discovery result alone is not approval.
+# Review these again when the Smithsonian catalog changes.
+SMITHSONIAN_APPROVED_SLUGS = frozenset({
+    'art-of-surviving-belle-isle',
+    'artists-travels-north-africa',
+    'make-it-miniature-big-ideas-in-small-formats',
+    'art-of-floral-design',
+    'drawing-light-and-how-masters-did-it-in-color',
+    'van-goghs-toolbox-techniques-in-drawing',
+    'mixed-media-art-warmups',
+    'jazz-it-up-holiday-cards-pointed-pen-calligraphy',
+    'takuga-botanical-prints',
+})
+SMITHSONIAN_EXCLUDED_SLUGS = frozenset({
+    'night-photography-in-washington-d-c',  # requires in-person participation
+    'crafting-witches',  # primarily history, not visual-art instruction
+})
+# Official class start dates reviewed separately from registration deadlines.
+SMITHSONIAN_START_OVERRIDES = {
+    'jazz-it-up-holiday-cards-pointed-pen-calligraphy': date(2026, 12, 5),
+    'takuga-botanical-prints': date(2026, 12, 5),
+}
+
 def stage_smithsonian():
     """Read-only Smithsonian candidates, verified from official detail pages."""
     from datetime import datetime
@@ -543,6 +566,18 @@ def stage_smithsonian():
     discovered = preview.smithsonian_detail_candidates(tree, base)
     accepted, held = [], []
     for title, start, link, origin, confidence in discovered:
+        slug = urlparse(link).path.rstrip('/').split('/')[-1]
+        if slug in SMITHSONIAN_EXCLUDED_SLUGS:
+            held.append((title, 'excluded: in-person requirement or not primarily visual art'))
+            continue
+        if slug not in SMITHSONIAN_APPROVED_SLUGS:
+            held.append((title, 'not on manually reviewed Smithsonian art shortlist'))
+            continue
+        if start <= date.today():
+            # Same-day listings lack a verified local start time. Do not publish
+            # an event that might already have finished.
+            held.append((title, 'same-day or expired; start time not independently verified'))
+            continue
         # Reopen the official detail page to capture the complete course range.
         time.sleep(preview.SMITHSONIAN_DELAY_SECONDS)
         try:
@@ -568,15 +603,30 @@ def stage_smithsonian():
             body_dates = [preview.human_date(value) for value in date_strings]
             body_dates = [d for d in body_dates if d and d >= date.today()]
             dates = sorted(set(time_dates or body_dates))
-            if not dates or dates[0] != start: raise ValueError('Date mismatch')
-            course = len(dates) > 1
-            description = (f'Online course, {len(dates)} listed session dates. '
+            if not dates: raise ValueError('No dated program details')
+            override = SMITHSONIAN_START_OVERRIDES.get(slug)
+            if override:
+                # A registration cutoff may precede the first class. Explicitly
+                # anchor the event to its separately reviewed class start.
+                if override not in dates:
+                    raise ValueError('Reviewed class start missing from current official page')
+                first = override
+            else:
+                if dates[0] != start: raise ValueError('Date mismatch')
+                first = start
+            if first <= date.today():
+                raise ValueError('Same-day or expired; start time unverified')
+            # Only retain dates on/after the actual start, never a registration deadline.
+            session_dates = [d for d in dates if d >= first]
+            last = max(session_dates)
+            course = len(session_dates) > 1
+            description = (f'Online course, {len(session_dates)} listed dates. '
                            if course else 'Online Smithsonian Associates program. ')
             if course:
-                description += f'First session {dates[0].isoformat()}, last listed session {dates[-1].isoformat()}. '
+                description += f'First listed class {first.isoformat()}, last listed date {last.isoformat()}. '
             description += 'Check the official program page for registration, schedule and attendance details.'
             accepted.append(dict(title=title, description=description[:360],
-                date=dates[0].isoformat(), endDate=dates[-1].isoformat(),
+                date=first.isoformat(), endDate=last.isoformat(),
                 venue='Smithsonian Associates', location='Online', type='workshop' if course else 'talk',
                 features='online us', country='United States', url=link,
                 source='Smithsonian Associates', free=False))
