@@ -13,6 +13,9 @@ from urllib.request import Request, urlopen
 
 import rule_of_three_source_preview as preview
 
+# Independent response-size guard; do not depend on preview module constants.
+MAX_BYTES = 4_000_000
+
 SOURCES = (
     ('Wave Hill', 'https://www.wavehill.org/calendar', 'Bronx, NY'),
     ('Staten Island Museum', 'https://www.statenislandmuseum.org/events/list/', 'Staten Island, NY'),
@@ -45,8 +48,8 @@ def stage(name, url, location):
             raise ValueError('Unexpected status or redirected domain')
         if 'html' not in response.headers.get('Content-Type','').lower():
             raise ValueError('Expected HTML calendar')
-        raw = response.read(preview.MAX_BYTES + 1)
-        if len(raw) > preview.MAX_BYTES: raise ValueError('Oversized calendar')
+        raw = response.read(MAX_BYTES + 1)
+        if len(raw) > MAX_BYTES: raise ValueError('Oversized calendar')
     tree = preview.Tree()
     tree.feed(raw.decode('utf-8', 'replace'))
     candidates = preview.candidates(tree, url, name)
@@ -81,8 +84,8 @@ def stage_smithsonian():
     with urlopen(req, timeout=35) as response:
         if response.status != 200 or urlparse(response.url).hostname != urlparse(base).hostname:
             raise ValueError('Smithsonian listing response not trusted')
-        raw = response.read(preview.MAX_BYTES + 1)
-        if len(raw) > preview.MAX_BYTES: raise ValueError('Smithsonian listing too large')
+        raw = response.read(MAX_BYTES + 1)
+        if len(raw) > MAX_BYTES: raise ValueError('Smithsonian listing too large')
     tree = preview.Tree()
     tree.feed(raw.decode('utf-8', 'replace'))
     discovered = preview.smithsonian_detail_candidates(tree, base)
@@ -95,8 +98,8 @@ def stage_smithsonian():
             with urlopen(request, timeout=20) as response:
                 if response.status != 200 or urlparse(response.url).hostname != 'smithsonianassociates.org':
                     raise ValueError('Untrusted detail response')
-                content = response.read(preview.MAX_BYTES + 1)
-                if len(content) > preview.MAX_BYTES: raise ValueError('Oversized detail')
+                content = response.read(MAX_BYTES + 1)
+                if len(content) > MAX_BYTES: raise ValueError('Oversized detail')
             detail = preview.Tree()
             detail.feed(content.decode('utf-8', 'replace'))
             main = next((node for node in preview.walk(detail.root) if node.tag == 'main'), None)
@@ -109,7 +112,7 @@ def stage_smithsonian():
             time_dates = [preview.event_date(n.attrs.get('datetime')) for n in preview.walk(main)
                           if n.tag == 'time' and n.attrs.get('datetime')]
             time_dates = [d for d in time_dates if d and d >= date.today()]
-            date_strings = re.findall(r'\\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\\.?\\s+\\d{1,2},?\\s+20\\d{2}\\b', body, re.I)
+            date_strings = re.findall(r'\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\.?\s+\d{1,2},?\s+20\d{2}\b', body, re.I)
             body_dates = [preview.human_date(value) for value in date_strings]
             body_dates = [d for d in body_dates if d and d >= date.today()]
             dates = sorted(set(time_dates or body_dates))
