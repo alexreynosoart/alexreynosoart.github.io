@@ -85,7 +85,7 @@
 .bas-story-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:25px;align-items:start}
 .bas-story-panel{background:#24211d;border:1px solid #5c4b31;border-radius:18px;padding:24px}
 .bas-story-panel h3{margin:0 0 12px;color:#f4d083;font-size:1.2rem}
-.bas-video-wrap{max-width:430px;margin:0 auto;background:#101010;border:1px solid #6c552f;border-radius:16px;overflow:hidden}
+.bas-video-wrap{max-width:430px;margin:0 auto;background:#101010;border:1px solid #6c552f;border-radius:16px;overflow:hidden;padding:7px}.bas-video-wrap video{border-radius:10px}
 .bas-video-wrap video{width:100%;height:auto;max-height:600px;display:block;background:#101010}
 .bas-video-meta{font-size:.87rem;color:#bdbdbd;text-align:center;margin-top:10px}
 .bas-timeline{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
@@ -96,6 +96,31 @@
 .bas-site-footer{max-width:1080px;margin:0 auto 30px;padding:0 20px}
 .bas-site-footer .ea-family-footer{width:100%}
 @media(max-width:760px){.bas-story-grid{grid-template-columns:1fr}.bas-timeline{grid-template-columns:1fr}.bas-hero h1{font-size:clamp(2.05rem,9vw,3.5rem)}.bas-hero{padding:24px 20px}.bas-lead{font-size:1rem}.bas-page{padding-top:20px}}
+</style>
+<style>
+/* Basement Art Sessions artist directory: horizontal gallery */
+.bas-artists-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:18px}
+.bas-artists-heading h2{margin-bottom:7px}
+.bas-artist-intro{margin:0;max-width:680px;font-size:.97rem}
+.bas-artist-count{white-space:nowrap;border:1px solid #7e6540;color:#f4d083;border-radius:999px;padding:8px 13px;font-size:.84rem;font-weight:750;background:#211c16}
+.bas-artist-gallery{border:1px solid #5c4b31;background:linear-gradient(130deg,#201b16,#141414);border-radius:19px;padding:19px 16px 12px;min-width:0}
+.bas-artist-rail{display:flex;gap:15px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:3px 2px 13px;scrollbar-width:thin;scrollbar-color:#8c7147 #221e19}
+.bas-artist-rail:focus-visible{outline:2px solid #f4d083;outline-offset:2px}
+.bas-artist-card{flex:0 0 clamp(165px,24%,215px);scroll-snap-align:start;min-width:0;background:#24211d;border:1px solid #5c4b31;border-radius:15px;padding:11px;text-align:center}
+.bas-artist-avatar{aspect-ratio:1/1;display:grid;place-items:center;background:linear-gradient(145deg,#30271c,#191919);border:1px dashed #796342;border-radius:10px;margin-bottom:12px}
+.bas-artist-avatar span{font-size:2.3rem;color:#ad9161}
+.bas-artist-card-title{color:#f6f0e7;font-size:.94rem;font-weight:750;line-height:1.35}
+.bas-artist-card p{font-size:.8rem;color:#bbb;margin:6px 0 2px;line-height:1.45}
+.bas-artist-controls{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:5px 2px 0}
+.bas-artist-gallery-hint{font-size:.8rem;color:#b9b0a2}
+.bas-artist-arrows{display:flex;gap:8px}
+.bas-artist-arrows button{width:38px;height:38px;border-radius:50%;background:#24211d;border:1px solid #8c7147;color:#f4d083;cursor:pointer;font-size:1.25rem}
+.bas-artist-arrows button:hover:not(:disabled){background:#49351c}
+.bas-artist-arrows button:focus-visible{outline:2px solid #f4d083;outline-offset:3px}
+.bas-artist-arrows button:disabled{opacity:.35;cursor:default}
+.bas-artist-disclaimer{font-size:.84rem;color:#bdb4a6!important;margin:12px 0 0}
+@media(max-width:600px){.bas-artists-heading{flex-direction:column;gap:11px}.bas-artist-card{flex-basis:165px}.bas-artist-gallery{padding:12px 10px}.bas-artist-gallery-hint{font-size:.72rem}}
+@media(prefers-reduced-motion:reduce){.bas-artist-rail{scroll-behavior:auto}}
 </style>
 </head><body class="everything-art-theme">
 <nav class="ea-mini-nav" aria-label="Everything Art navigation"><div class="ea-mini-nav-inner"><div class="ea-mini-primary"><a class="ea-mini-link" href="everything-art.html">EVERYTHING ART</a><a class="ea-mini-link" href="everything-art-opportunities.html">OPPORTUNITIES</a><a class="ea-mini-link" href="everything-art-events.html">ART EVENTS</a><a class="ea-mini-link" href="everything-art-resources.html">RESOURCES</a></div><div class="ea-mini-actions"><a class="ea-mini-link ea-mini-facebook" href="https://www.facebook.com/groups/GreatArt" target="_blank" rel="noopener noreferrer">FB GROUP ↗</a><a class="ea-mini-ar" href="index.html" aria-label="Alex Reynoso Art home"><img src="images/favicon.png" alt=""></a></div></div></nav>
@@ -109,7 +134,18 @@
 <p>This page is an independent Everything Art community spotlight. Event arrangements and artist participation are coordinated by the organizer.</p>
 <p><a href="mailto:Marthaliciam@gmail.com">Contact Marthalicia about the event ↗</a></p></div>
 <div><div class="bas-video-wrap"><video controls playsinline preload="metadata" poster="images/everything-art/basement-art-sessions-venue-video-poster.webp" aria-label="Marthalicia speaking about the venue"><source src="videos/basement-art-sessions-marthalicia-venue.mp4" type="video/mp4">Your browser does not support HTML5 video.</video></div><p class="bas-video-meta">Marthalicia shares a look inside the space. Video provided for this community spotlight.</p></div></div></section>
-<section class="bas-section"><div class="bas-kicker">Artists in the room</div><h2>Participating Artists</h2><div class="bas-artist-placeholder">Artist portraits, artwork thumbnails and individual portfolio links will appear here as participants and permissions are confirmed.</div></section>
+<section class="bas-section bas-artists-section" id="participating-artists" aria-labelledby="bas-artists-title">
+<div class="bas-kicker">Artists in the room</div>
+<div class="bas-artists-heading"><div><h2 id="bas-artists-title">Participating Artists</h2><p class="bas-artist-intro">A growing directory of the artists who make these gatherings possible. Profiles and links will appear as participation and permission are confirmed.</p></div><span class="bas-artist-count" id="bas-artist-count" aria-live="polite">0 confirmed</span></div>
+<div class="bas-artist-gallery"><div class="bas-artist-rail" id="bas-artist-rail" tabindex="0" aria-label="Artist profile gallery, scroll horizontally">
+<!-- Preview placeholders only. These are not actual participants. Replace with confirmed artist profiles later. -->
+<article class="bas-artist-card bas-artist-pending"><div class="bas-artist-avatar" aria-hidden="true"><span>✳</span></div><div class="bas-artist-card-title">Artist to be announced</div><p>Awaiting confirmation</p></article>
+<article class="bas-artist-card bas-artist-pending"><div class="bas-artist-avatar" aria-hidden="true"><span>✳</span></div><div class="bas-artist-card-title">Artist to be announced</div><p>Awaiting confirmation</p></article>
+<article class="bas-artist-card bas-artist-pending"><div class="bas-artist-avatar" aria-hidden="true"><span>✳</span></div><div class="bas-artist-card-title">Artist to be announced</div><p>Awaiting confirmation</p></article>
+<article class="bas-artist-card bas-artist-pending"><div class="bas-artist-avatar" aria-hidden="true"><span>✳</span></div><div class="bas-artist-card-title">Artist to be announced</div><p>Awaiting confirmation</p></article>
+</div><div class="bas-artist-controls"><span class="bas-artist-gallery-hint">Swipe or use the arrows to explore</span><div class="bas-artist-arrows"><button type="button" id="bas-artists-prev" aria-label="Scroll artist gallery left">←</button><button type="button" id="bas-artists-next" aria-label="Scroll artist gallery right">→</button></div></div></div>
+<p class="bas-artist-disclaimer">Artist names, portraits, and social links will be added only after confirmation. The cards above are placeholders, not a list of scheduled participants.</p>
+</section>
 <section class="bas-section" id="community"><div class="bas-kicker">Beyond a single night</div><h2>A community built through art</h2>
 <div class="bas-timeline"><article><h3>Gather</h3><p>Bring artists and audiences together in a shared creative space.</p></article><article><h3>Create and share</h3><p>Make room for artwork, conversation, music and direct connections.</p></article><article><h3>Keep growing</h3><p>Document future sessions, artists and developments as the organizer shares them.</p></article></div></section>
 <section class="bas-section" id="updates"><div class="bas-kicker">Growing archive</div><h2>More Basement Art Sessions</h2><p>This page will collect confirmed future events, past-session highlights and dated updates about the space as they become available. For the latest event arrangements, use the official ticket link or contact the organizer.</p></section>
@@ -161,4 +197,35 @@
   viewer.addEventListener('touchstart',e=>{if(e.touches.length===1)touchX=e.touches[0].clientX;else touchX=null;},{passive:true});
   viewer.addEventListener('touchend',e=>{if(touchX===null||e.changedTouches.length!==1)return;const dx=e.changedTouches[0].clientX-touchX;if(Math.abs(dx)>65)show(current+(dx<0?1:-1));touchX=null;},{passive:true});
 })();
-</script></body></html>
+</script>
+<script>
+(function(){
+  const rail=document.getElementById('bas-artist-rail');
+  const prev=document.getElementById('bas-artists-prev');
+  const next=document.getElementById('bas-artists-next');
+  const count=document.getElementById('bas-artist-count');
+  if(!rail||!prev||!next||!count)return;
+  // Only cards explicitly marked as confirmed count as participating artists.
+  function refreshCount(){
+    const confirmed=rail.querySelectorAll('.bas-artist-card[data-confirmed="true"]').length;
+    count.textContent=confirmed+' confirmed';
+  }
+  function updateButtons(){
+    prev.disabled=rail.scrollLeft<=2;
+    next.disabled=rail.scrollLeft+rail.clientWidth>=rail.scrollWidth-2;
+  }
+  function step(direction){
+    const card=rail.querySelector('.bas-artist-card');
+    const gap=parseFloat(getComputedStyle(rail).gap)||0;
+    const amount=card?card.getBoundingClientRect().width+gap:180;
+    rail.scrollBy({left:direction*amount,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+  }
+  prev.addEventListener('click',()=>step(-1));
+  next.addEventListener('click',()=>step(1));
+  rail.addEventListener('scroll',updateButtons,{passive:true});
+  window.addEventListener('resize',updateButtons);
+  rail.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();step(e.key==='ArrowRight'?1:-1);}});
+  refreshCount();updateButtons();
+})();
+</script>
+</body></html>
