@@ -268,6 +268,24 @@ def smithsonian_art_directory_links(tree, base):
             links.add(link)
     return links
 
+def smithsonian_category_diagnostics(tree, base):
+    """Print actual category anchor destinations, including JS/data-driven links."""
+    found = set()
+    for node in walk(tree.root):
+        if node.tag != 'a':
+            continue
+        label = node.text().strip()
+        if not (label.lower().startswith('all upcoming') and SMITHSONIAN_CATEGORY_WORDS.search(label)):
+            continue
+        raw_href = node.attrs.get('href', '')
+        extra = {k: v for k, v in node.attrs.items() if k.startswith('data-') or k in ('onclick', 'role')}
+        record = (label, raw_href, repr(extra)[:240])
+        if record in found:
+            continue
+        found.add(record)
+        print(f'  ART CATEGORY LINK label={label!r} href={raw_href!r} attrs={extra!r}')
+    print(f'Smithsonian art category anchor diagnostics: {len(found)} unique links')
+
 def smithsonian_detail_candidates(tree, base):
     """Discover up to 100 official programs; verify dates, online status and art relevance."""
     program_links = smithsonian_program_links(tree, base)
@@ -294,6 +312,8 @@ def smithsonian_detail_candidates(tree, base):
             continue
         page_tree = Tree()
         page_tree.feed(raw.decode('utf-8', 'replace'))
+        if urlparse(page).path.rstrip('/') == '/ticketing/programs':
+            smithsonian_category_diagnostics(page_tree, base)
         new_programs = smithsonian_program_links(page_tree, base) - program_links
         print(f'  LISTING {page}: {len(new_programs)} additional program links')
         program_links.update(new_programs)
