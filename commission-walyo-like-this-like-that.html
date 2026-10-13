@@ -619,6 +619,21 @@ footer{
     .credit-row{display:block}
     .credit-row strong{display:block;margin-top:4px;text-align:left}
 }
+
+/* WalyO production image story */
+.walyo-photo{display:block;width:100%;height:auto;border-radius:12px;border:1px solid #55462f;background:#171717}
+.walyo-photo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:26px 0}
+.walyo-photo-grid figure,.walyo-character-grid figure{margin:0;background:#171717;border:1px solid #333;border-radius:14px;overflow:hidden}
+.walyo-photo-grid figcaption,.walyo-character-grid figcaption{padding:12px 15px;color:#c9c9c9;font-size:.92rem;line-height:1.5}
+.walyo-photo-grid img{width:100%;height:320px;object-fit:cover;object-position:center}
+.walyo-photo-grid .walyo-wide{grid-column:1/-1}
+.walyo-photo-grid .walyo-wide img{height:auto;max-height:600px;object-fit:contain;background:#111}
+.walyo-character-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:30px 0}
+.walyo-character-grid img{width:100%;height:270px;object-fit:cover;object-position:center top;background:#141914}
+.walyo-photo-intro{font-size:.92rem;color:#bcbcbc;margin-top:10px}
+.walyo-feature-dj{width:100%;max-width:430px;margin:22px auto 0;border-radius:12px;border:1px solid #4b4232;overflow:hidden}
+.walyo-feature-dj img{width:100%;height:340px;object-fit:cover;object-position:center 30%}
+@media(max-width:640px){.walyo-photo-grid{grid-template-columns:1fr}.walyo-photo-grid .walyo-wide{grid-column:auto}.walyo-photo-grid img{height:auto;max-height:480px;object-fit:contain}.walyo-character-grid{grid-template-columns:1fr 1fr;gap:10px}.walyo-character-grid img{height:195px}.walyo-character-grid figcaption{font-size:.8rem;padding:9px}.walyo-feature-dj img{height:280px}}
 </style>
 </head>
 
@@ -730,6 +745,7 @@ footer{
             <div class="cowabunga-inner">
                 <span class="cowabunga-name">Enter<br>DJ Cowabunga.</span>
                 <p>The track needed a character. DJ Cowabunga already knew where the speakers were.</p>
+                <div class="walyo-feature-dj"><img src="images/walyo-cowabunga-dj.webp" alt="DJ Cowabunga performing at the turntables" loading="lazy"></div>
             </div>
         </div>
 
@@ -745,11 +761,11 @@ footer{
     <p class="lead">The first work-in-progress preview turned the teaser into a place. Old-school hip-hop graffiti, speakers, DJ equipment and boomboxes filled the scene. WalyO's name became part of the environment itself.</p>
 
     <div class="wip-stage">
-        <div class="wall">
-            <div class="walyo-mark">
-                WALYO
-                <small>Corrected and approved</small>
-            </div>
+        <div class="walyo-photo-grid">
+            <figure class="walyo-wide"><img src="images/walyo-street-first-look.webp" alt="Old-school hip-hop street set with graffiti, steps, speakers and early WalyBeats lettering" loading="lazy"><figcaption>Building the block: graffiti, stairs, turntables and the first lettering concept.</figcaption></figure>
+            <figure><img src="images/walyo-first-sign-detail.webp" alt="Close-up of the first WalyBeats lettering on the DJ booth" loading="lazy"><figcaption>First look: the original WalyBeats lettering.</figcaption></figure>
+            <figure><img src="images/walyo-approved-sign.webp" alt="Revised WalyO sign with two gold crowns" loading="lazy"><figcaption>Creative refinement: the corrected WalyO name and crowns.</figcaption></figure>
+            <figure class="walyo-wide"><img src="images/walyo-sidewalk-scene.webp" alt="WalyO graffiti sign behind a sticker-covered sidewalk sandwich board" loading="lazy"><figcaption>Adding street-level details to make the scene feel lived in.</figcaption></figure>
         </div>
 
         <div class="feedback">
@@ -770,6 +786,15 @@ footer{
 
 
 <section class="section">
+    <p class="eyebrow">Character Development / Behind The Scenes</p>
+    <h2>Meet the <span class="yellow">crew.</span></h2>
+    <p class="lead">DJ Cowabunga brings the music. A boombox-carrying rabbit and a bucket-hat squirrel bring their own old-school energy. These are cropped character studies from the production, not the finished scenes.</p>
+    <div class="walyo-character-grid">
+        <figure><img src="images/walyo-cowabunga-detail.webp" alt="Close-up of DJ Cowabunga in a black bucket hat and gold chain" loading="lazy"><figcaption><strong>DJ Cowabunga</strong><br>Bucket hat, chain and attitude.</figcaption></figure>
+        <figure><img src="images/walyo-rabbit-detail.webp" alt="Rabbit carrying a vintage boombox" loading="lazy"><figcaption><strong>Boombox Rabbit</strong><br>Bringing the soundtrack.</figcaption></figure>
+        <figure><img src="images/walyo-squirrel-detail.webp" alt="Squirrel wearing a denim bucket hat" loading="lazy"><figcaption><strong>Bucket-Hat Squirrel</strong><br>Ready for the block.</figcaption></figure>
+    </div>
+    <p class="walyo-photo-intro">A look at the visual development. The final teaser remains under wraps until release.</p>
     <p class="eyebrow">06 / More Than A Clip</p>
     <h2>Now it needs<br><span class="yellow">a release plan.</span></h2>
 
