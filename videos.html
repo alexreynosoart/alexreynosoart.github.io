@@ -203,18 +203,18 @@
             .theater-frame { transition: none; }
         }
 
-        .explore-feature { max-width: 900px; margin: 58px auto 0; padding: 34px 16px 12px; border-top: 2px solid #b78339; text-align: center; }
-        .explore-feature h2 { color: #d9a04b; margin: 0 0 12px; }
-        .explore-feature p { max-width: 650px; margin: 0 auto 24px; }
-        .explore-big { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; width: min(100%, 660px); min-height: 210px; margin: auto; padding: 30px; border: 2px solid #d9a04b; border-radius: 16px; background: linear-gradient(140deg, #382514, #121212 75%); color: #ffcf72; font: inherit; font-size: clamp(1.45rem, 4vw, 2.25rem); font-weight: 800; cursor: pointer; }
-        .explore-big span { font-size: .95rem; font-weight: 400; color: #eee; }
-        .explore-big:hover, .explore-big:focus-visible { background: linear-gradient(140deg, #593919, #171717 75%); outline-offset: 4px; }
-        .collection-chooser[hidden] { display: none; }
-        .collection-chooser { width: min(92vw, 520px); margin: auto; padding: 22px; text-align: center; color: white; }
-        .collection-chooser h2 { color: #f6cb72; }
-        .collection-chooser button { display: block; width: 100%; margin: 15px 0; padding: 20px; background: #292015; color: #f6cb72; border: 1px solid #d9a04b; border-radius: 10px; font: inherit; font-weight: 700; cursor: pointer; }
-        .collection-chooser button span { display: block; font-weight: 400; font-size: .85rem; color: #ddd; margin-top: 6px; }
-        .collection-chooser button:hover { background: #49361e; }
+        /* One cinematic preview, no extra menus or thumbnail wall. */
+        .shorts-gallery { max-width: 760px; margin: 48px auto 0; padding: 28px 16px 0; border-top: 2px solid #b78339; text-align: center; }
+        .shorts-gallery h2 { color: #d9a04b; margin: 0 0 8px; }
+        .shorts-gallery > p { margin: 0 auto 20px; }
+        .feature-short { display: block; position: relative; margin: 0 auto; width: min(100%, 380px); aspect-ratio: 9 / 16; overflow: hidden; border: 1px solid #b78339; border-radius: 14px; padding: 0; background: #090909; color: white; cursor: pointer; }
+        .feature-short img { display: block; width: 100%; height: 100%; object-fit: cover; }
+        .feature-short::after { content: ''; position: absolute; inset: 45% 0 0; background: linear-gradient(transparent,rgba(0,0,0,.85)); pointer-events: none; }
+        .feature-short .feature-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); display: grid; place-items: center; width: 68px; height: 68px; border-radius: 50%; background: #000b; border: 2px solid #d9a04b; color: #ffcf77; font-size: 29px; z-index: 1; }
+        .feature-short .feature-label { position: absolute; bottom: 20px; left: 12px; right: 12px; z-index: 1; font-size: 1.25rem; font-weight: 700; }
+        .feature-short:hover, .feature-short:focus-visible { outline: 3px solid #d9a04b; outline-offset: 3px; }
+        .shorts-footnote { margin: 16px auto 0; font-size: .95rem; }
+        .shorts-footnote a { color: #d8ad65; text-underline-offset: 3px; }
         /* Full-screen vertical Shorts viewer */
         .short-modal[hidden] { display: none; }
         .short-modal {
@@ -230,9 +230,6 @@
             padding: calc(44px + env(safe-area-inset-top, 0px)) 0
                      calc(8px + env(safe-area-inset-bottom, 0px));
         }
-        .short-modal iframe[hidden] { display: none; }
-        .short-nav[hidden] { display: none; }
-        .short-swipe-rail[hidden] { display: none; }
         .short-modal iframe {
             display: block; flex: 1 1 auto; min-height: 0;
             height: 100%; width: min(100vw, 56.25vh);
@@ -258,15 +255,6 @@
         .short-swipe-rail { position: absolute; left: 0; top: 70px; bottom: 0; width: max(12px, env(safe-area-inset-left, 0px)); z-index: 4; touch-action: none; }
         @media (max-width: 700px) { .shorts-gallery { margin-top: 40px; } .shorts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 12px; } .short-card h3 { font-size: .9rem; } }
 
-        .shorts-explore { text-align: center; margin-top: 24px; }
-        .shorts-explore button, .collection-launch { border: 1px solid #d9a04b; background: #292015; color: #f6cb72; border-radius: 9px; padding: 13px 19px; font: inherit; font-weight: 700; cursor: pointer; }
-        .shorts-explore button:hover, .collection-launch:hover { background: #49361e; }
-        .viewer-label { position: absolute; z-index: 3; left: 15px; top: calc(10px + env(safe-area-inset-top, 0px)); color: #f6cb72; font-size: .8rem; max-width: 58%; text-align: left; }
-        .syndrome-playlist { max-width: 900px; margin: 60px auto 0; padding: 28px 12px 0; border-top: 2px solid #b78339; text-align: center; }
-        .syndrome-playlist h2 { color: #d9a04b; }
-        .syndrome-player-wrap { margin: 22px auto 0; aspect-ratio: 16 / 9; background: #000; border-radius: 12px; overflow: hidden; }
-        .syndrome-player-wrap iframe { display: block; width: 100%; height: 100%; border: 0; }
-        .syndrome-playlist a { color: #d8ad65; }
     </style>
 </head>
 
@@ -353,10 +341,15 @@
 
         </section>
 
-        <section class="explore-feature" aria-labelledby="explore-heading">
-            <h2 id="explore-heading">Explore All Videos</h2>
-            <p>Dancing animals, strange experiments, music, and 65 Syndrome Walking Memes. Pick a collection and enjoy the show. 🍿</p>
-            <button type="button" id="exploreAll" class="explore-big">▶ Explore All Videos <span>Open the video collections</span></button>
+        <section class="shorts-gallery" aria-labelledby="shorts-heading">
+            <h2 id="shorts-heading">The Shorts Are Rolling 🍿</h2>
+            <p>Press play. Swipe or use the arrows for the next video. Each Short loops until you move on.</p>
+            <button type="button" class="feature-short" id="featureShort" aria-label="Play Birds in my Hood and explore nine Shorts">
+                <img src="https://i.ytimg.com/vi/DYqxGucshvg/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/DYqxGucshvg/hqdefault.jpg'" alt="Birds in my Hood at 4:50 am" loading="lazy">
+                <span class="feature-play" aria-hidden="true">▶</span>
+                <span class="feature-label">Play Shorts · 9 videos</span>
+            </button>
+            <p class="shorts-footnote">More to explore: <a href="https://www.youtube.com/playlist?list=PLZtkDeEaMeUcAcn_1daA22JEvLUYFFb-T" target="_blank" rel="noopener noreferrer">65 Syndrome Walking Memes ↗</a></p>
         </section>
     </section>
 </main>
@@ -364,17 +357,11 @@
 
 <div class="short-modal" id="shortModal" hidden role="dialog" aria-modal="true" aria-label="YouTube Short player">
     <div class="short-modal-inner">
-        <div class="viewer-label" id="viewerLabel" aria-live="polite"></div>
         <button class="short-close" id="shortClose" type="button" aria-label="Close video">✕ Close</button>
         <div class="short-swipe-rail" id="shortSwipeRail" aria-hidden="true"></div>
         <button type="button" class="short-nav short-prev" id="shortPrev" aria-label="Previous Short">↑</button>
         <button type="button" class="short-nav short-next" id="shortNext" aria-label="Next Short">↓</button>
-        <div class="collection-chooser" id="collectionChooser">
-            <h2>Choose Your Show 🍿</h2>
-            <button id="chooseFeatured" type="button">▶ Featured Shorts<span>9 handpicked videos, with swipe navigation and looping</span></button>
-            <button id="chooseSyndrome" type="button">▶ Syndrome Walking Meme<span>All 65 videos in the YouTube playlist</span></button>
-        </div>
-        <iframe id="shortPlayer" hidden title="YouTube Short" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <iframe id="shortPlayer" title="YouTube Short" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
 </div>
 
@@ -457,31 +444,18 @@
         { title: 'Twilight’s Alternate Ending', id: 'U0Ppnw_RKws' }
     ];
 
-    const collectionChooser = document.getElementById('collectionChooser');
+    const featureShort = document.getElementById('featureShort');
     const shortModal = document.getElementById('shortModal');
     const shortPlayer = document.getElementById('shortPlayer');
     const shortClose = document.getElementById('shortClose');
     let lastShortButton = null;
     let currentShortIndex = -1;
-    let viewerMode = 'featured';
-    const syndromePlaylistId = 'PLZtkDeEaMeUcAcn_1daA22JEvLUYFFb-T';
-    const viewerLabel = document.getElementById('viewerLabel');
     const availableShorts = shorts.map((short, index) => short.id ? index : -1).filter(index => index >= 0);
     const shortPrev = document.getElementById('shortPrev');
     const shortNext = document.getElementById('shortNext');
     const shortSwipeRail = document.getElementById('shortSwipeRail');
-    function showPlayback() {
-        collectionChooser.hidden = true;
-        shortPlayer.hidden = false;
-        shortPrev.hidden = false;
-        shortNext.hidden = false;
-        shortSwipeRail.hidden = false;
-    }
     function playShort(index) {
-        showPlayback();
         if (!shorts[index] || !shorts[index].id) return;
-        viewerMode = 'featured';
-        viewerLabel.textContent = 'Featured Shorts · ' + (availableShorts.indexOf(index) + 1) + ' / ' + availableShorts.length;
         currentShortIndex = index;
         const id = encodeURIComponent(shorts[index].id);
         shortPlayer.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&playsinline=1&loop=1&playlist=' + id + '&rel=0';
@@ -491,40 +465,7 @@
         shortPrev.disabled = availableShorts.length < 2;
         shortNext.disabled = availableShorts.length < 2;
     }
-    function openSyndrome() {
-        showPlayback();
-        viewerMode = 'syndrome';
-        currentShortIndex = -1;
-        viewerLabel.textContent = 'Syndrome Walking Meme · YouTube playlist';
-        // Playlist mode: YouTube advances between the 65 items. It does not loop each item.
-        shortPlayer.src = 'https://www.youtube-nocookie.com/embed/videoseries?list=' + encodeURIComponent(syndromePlaylistId) + '&autoplay=1&playsinline=1&rel=0&enablejsapi=1';
-        shortPlayer.title = 'Syndrome Walking Meme playlist';
-        shortModal.hidden = false;
-        document.body.style.overflow = 'hidden';
-        shortPrev.disabled = false;
-        shortNext.disabled = false;
-        shortClose.focus();
-    }
-    document.getElementById('exploreAll').addEventListener('click', () => {
-        lastShortButton = document.getElementById('exploreAll');
-        collectionChooser.hidden = false;
-        shortPlayer.hidden = true;
-        shortPrev.hidden = true;
-        shortNext.hidden = true;
-        shortSwipeRail.hidden = true;
-        viewerLabel.textContent = '';
-        shortModal.hidden = false;
-        document.body.style.overflow = 'hidden';
-        document.getElementById('chooseFeatured').focus();
-    });
-    document.getElementById('chooseFeatured').addEventListener('click', () => { playShort(availableShorts[0]); shortClose.focus(); });
-    document.getElementById('chooseSyndrome').addEventListener('click', openSyndrome);
-    function playlistCommand(func) {
-        if (!shortPlayer.contentWindow) return;
-        shortPlayer.contentWindow.postMessage(JSON.stringify({event: 'command', func, args: []}), 'https://www.youtube-nocookie.com');
-    }
     function moveShort(direction) {
-        if (viewerMode === 'syndrome') { playlistCommand(direction > 0 ? 'nextVideo' : 'previousVideo'); return; }
         if (currentShortIndex < 0 || availableShorts.length < 2) return;
         const pos = availableShorts.indexOf(currentShortIndex);
         const nextPos = (pos + direction + availableShorts.length) % availableShorts.length;
@@ -550,13 +491,15 @@
         if (Math.abs(delta) > 45) moveShort(delta < 0 ? 1 : -1);
     }, { passive: true });
 
+    featureShort.addEventListener('click', () => {
+        lastShortButton = featureShort;
+        playShort(0);
+        shortClose.focus();
+    });
     function closeShort() {
         shortModal.hidden = true;
         currentShortIndex = -1;
-        viewerMode = 'featured';
         shortPlayer.removeAttribute('src'); // stops playback
-        shortPlayer.hidden = true;
-        collectionChooser.hidden = false;
         document.body.style.overflow = '';
         if (lastShortButton) lastShortButton.focus();
     }
@@ -565,7 +508,6 @@
     document.addEventListener('keydown', (event) => {
         if (shortModal.hidden) return;
         if (event.key === 'Escape') closeShort();
-        if (shortPlayer.hidden) return;
         if (event.key === 'ArrowDown') { event.preventDefault(); moveShort(1); }
         if (event.key === 'ArrowUp') { event.preventDefault(); moveShort(-1); }
     });
