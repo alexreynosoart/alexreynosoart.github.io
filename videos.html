@@ -256,6 +256,12 @@
         .short-nav:disabled { opacity: .3; cursor: default; }
         .short-swipe-rail { position: absolute; left: 0; top: 70px; bottom: 0; width: max(12px, env(safe-area-inset-left, 0px)); z-index: 4; touch-action: none; }
         @media (max-width: 700px) { .shorts-gallery { margin-top: 40px; } .shorts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 12px; } .short-card h3 { font-size: .9rem; } }
+
+        .syndrome-playlist { max-width: 900px; margin: 60px auto 0; padding: 28px 12px 0; border-top: 2px solid #b78339; text-align: center; }
+        .syndrome-playlist h2 { color: #d9a04b; }
+        .syndrome-player-wrap { margin: 22px auto 0; aspect-ratio: 16 / 9; background: #000; border-radius: 12px; overflow: hidden; }
+        .syndrome-player-wrap iframe { display: block; width: 100%; height: 100%; border: 0; }
+        .syndrome-playlist a { color: #d8ad65; }
     </style>
 </head>
 
@@ -348,6 +354,20 @@
             <div class="shorts-grid" id="shortsGrid"></div>
             <p class="shorts-bottom"><a href="https://www.youtube.com/@AlexReynosoArt/shorts" target="_blank" rel="noopener noreferrer">See all Shorts on YouTube ↗</a></p>
         </section>
+
+        <section class="syndrome-playlist" aria-labelledby="syndrome-heading">
+            <h2 id="syndrome-heading">Syndrome Walking Meme</h2>
+            <p>65 videos, one collection. Pick a video from the playlist and enjoy the show.</p>
+            <div class="syndrome-player-wrap">
+                <iframe title="Syndrome Walking Meme - YouTube playlist"
+                        src="https://www.youtube-nocookie.com/embed/videoseries?list=PLZtkDeEaMeUcAcn_1daA22JEvLUYFFb-T&amp;rel=0"
+                        loading="lazy"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen></iframe>
+            </div>
+            <p class="shorts-bottom"><a href="https://www.youtube.com/playlist?list=PLZtkDeEaMeUcAcn_1daA22JEvLUYFFb-T" target="_blank" rel="noopener noreferrer">Open the full playlist on YouTube ↗</a></p>
+        </section>
     </section>
 </main>
 
@@ -432,13 +452,13 @@
     const shorts = [
         { title: 'Birds in my Hood at 4:50 am', id: 'DYqxGucshvg' },
         { title: 'Farmer Got the Groove', id: '-caZmLdyvdA' },
-        { title: '20 Mins of Alarm Clock Torture', id: '' },
-        { title: "Wake Up, It’s the First of the Month!", id: '' },
-        { title: 'The 80’s | Safety Dance', id: '' },
-        { title: 'Weekend Dance Party', id: '' },
-        { title: 'I Went From THIS to DIS!', id: '' },
-        { title: 'When Two Sides of Your Personality...', id: '' },
-        { title: 'Twilight’s Alternate Ending', id: '' }
+        { title: '20 Mins of Alarm Clock Torture', id: 'ONlsxKewHh0' },
+        { title: "Wake Up, It’s the First of the Month!", id: '' }, // Supplied URL duplicated Alarm Clock; awaiting correct ID
+        { title: 'The 80’s | Safety Dance', id: 'V7uRvLBXT5k' },
+        { title: 'Weekend Dance Party', id: 'W1ngHUJ0XR8' },
+        { title: 'I Went From THIS to DIS!', id: '4-b_FFA3kVg' },
+        { title: 'When Two Sides of Your Personality...', id: 'hs3uI5VS_N0' },
+        { title: 'Twilight’s Alternate Ending', id: 'U0Ppnw_RKws' }
     ];
 
     const shortsGrid = document.getElementById('shortsGrid');
