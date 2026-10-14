@@ -202,6 +202,31 @@
         @media (prefers-reduced-motion: reduce) {
             .theater-frame { transition: none; }
         }
+
+        /* Shorts gallery: self-contained styles */
+        .shorts-gallery { max-width: 1050px; margin: 58px auto 0; padding: 28px 14px 0; border-top: 2px solid #b78339; text-align: left; }
+        .shorts-gallery h2 { color: #d9a04b; margin: 0 0 8px; text-align: center; }
+        .shorts-gallery > p { text-align: center; margin: 0 auto 25px; }
+        .shorts-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px 16px; }
+        .short-card { min-width: 0; }
+        .short-poster { position: relative; display: block; width: 100%; aspect-ratio: 9 / 16; border: 1px solid #785d39; border-radius: 12px; overflow: hidden; background: linear-gradient(155deg, #251849, #123b45 60%, #111); color: #fff; cursor: pointer; padding: 0; }
+        .short-poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .short-poster .short-placeholder { position: absolute; inset: 0; display: grid; place-items: center; padding: 18px; font-size: 1.2rem; font-weight: bold; text-align: center; }
+        .short-poster .short-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,.75); border: 1px solid #fff8; border-radius: 50%; width: 60px; height: 60px; display: grid; place-items: center; font-size: 25px; }
+        .short-poster:hover, .short-poster:focus-visible { outline: 2px solid #d9a04b; outline-offset: 3px; }
+        .short-card h3 { font-size: 1rem; margin: 10px 0 0; line-height: 1.35; }
+        .shorts-bottom { text-align: center; margin-top: 26px; }
+        .shorts-bottom a { color: #d8ad65; text-underline-offset: 3px; }
+        .short-modal[hidden] { display: none; }
+        .short-modal-inner { display: flex; flex-direction: column; }
+        .short-modal-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; padding: 10px 0; }
+        .short-modal-actions a { color: #ffe09b; font-size: .9rem; padding: 7px 10px; border: 1px solid #9e773c; border-radius: 6px; text-decoration: none; }
+        .short-modal-actions a:hover { background: #352913; }
+        .short-modal { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,.92); display: flex; align-items: center; justify-content: center; padding: 45px 15px 20px; }
+        .short-modal-inner { position: relative; height: min(78vh, 780px); width: min(100%, 440px); background: #000; }
+        .short-modal iframe { display: block; width: 100%; flex: 1; min-height: 0; border: 0; }
+        .short-close { position: absolute; top: -42px; right: 0; border: 1px solid #ddd; background: #171717; color: white; border-radius: 7px; padding: 6px 12px; font-size: 1rem; cursor: pointer; }
+        @media (max-width: 700px) { .shorts-gallery { margin-top: 40px; } .shorts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 12px; } .short-card h3 { font-size: .9rem; } }
     </style>
 </head>
 
@@ -287,8 +312,27 @@
             </p>
 
         </section>
+
+        <section class="shorts-gallery" aria-labelledby="shorts-heading">
+            <h2 id="shorts-heading">Shorts &amp; Other Questionable Decisions</h2>
+            <p>A little dancing, a little chaos. Pick a Short and enjoy the show. 🍿</p>
+            <div class="shorts-grid" id="shortsGrid"></div>
+            <p class="shorts-bottom"><a href="https://www.youtube.com/@AlexReynosoArt/shorts" target="_blank" rel="noopener noreferrer">See all Shorts on YouTube ↗</a></p>
+        </section>
     </section>
 </main>
+
+
+<div class="short-modal" id="shortModal" hidden role="dialog" aria-modal="true" aria-label="YouTube Short player">
+    <div class="short-modal-inner">
+        <button class="short-close" id="shortClose" type="button" aria-label="Close video">✕ Close</button>
+        <iframe id="shortPlayer" title="YouTube Short" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <div class="short-modal-actions">
+            <a id="watchOnYouTube" href="#" target="_blank" rel="noopener noreferrer">Watch on YouTube ↗</a>
+            <a href="https://www.youtube.com/@AlexReynosoArt/shorts" target="_blank" rel="noopener noreferrer">Watch More on YouTube ↗</a>
+        </div>
+    </div>
+</div>
 
 <footer>
     <div class="footer-social" aria-label="Alex Reynoso Art on social media">
@@ -350,6 +394,80 @@
     const youtubeAPI = document.createElement('script');
     youtubeAPI.src = 'https://www.youtube.com/iframe_api';
     document.head.appendChild(youtubeAPI);
+</script>
+
+
+<script>
+    // Add the actual YouTube Short ID for each item below.
+    // Example URL: youtube.com/shorts/ABC123xyz -> id: 'ABC123xyz'
+    // Add real IDs before publishing the gallery. Missing IDs are disabled, not redirected.
+    const shorts = [
+        { title: 'Birds in my Hood at 4:50 am', id: '' },
+        { title: 'Farmer Got the Groove', id: '' },
+        { title: '20 Mins of Alarm Clock Torture', id: '' },
+        { title: "Wake Up, It’s the First of the Month!", id: '' },
+        { title: 'The 80’s | Safety Dance', id: '' },
+        { title: 'Weekend Dance Party', id: '' },
+        { title: 'I Went From THIS to DIS!', id: '' },
+        { title: 'When Two Sides of Your Personality...', id: '' },
+        { title: 'Twilight’s Alternate Ending', id: '' }
+    ];
+
+    const shortsGrid = document.getElementById('shortsGrid');
+    const shortModal = document.getElementById('shortModal');
+    const shortPlayer = document.getElementById('shortPlayer');
+    const shortClose = document.getElementById('shortClose');
+    let lastShortButton = null;
+    const watchOnYouTube = document.getElementById('watchOnYouTube');
+
+    shorts.forEach((short) => {
+        const card = document.createElement('article');
+        card.className = 'short-card';
+        const button = document.createElement('button');
+        button.className = 'short-poster';
+        button.type = 'button';
+        button.setAttribute('aria-label', 'Watch ' + short.title);
+        if (!short.id) { button.disabled = true; button.title = 'Video link coming soon'; button.style.cursor = 'not-allowed'; }
+        if (short.id) {
+            const thumb = document.createElement('img');
+            thumb.src = 'https://i.ytimg.com/vi/' + encodeURIComponent(short.id) + '/hqdefault.jpg';
+            thumb.alt = '';
+            thumb.loading = 'lazy';
+            button.appendChild(thumb);
+        } else {
+            const placeholder = document.createElement('span');
+            placeholder.className = 'short-placeholder';
+            placeholder.textContent = short.title;
+            button.appendChild(placeholder);
+        }
+        const play = document.createElement('span');
+        play.className = 'short-play';
+        play.setAttribute('aria-hidden', 'true');
+        play.textContent = '▶';
+        button.appendChild(play);
+        button.addEventListener('click', () => {
+            if (!short.id) return;
+            watchOnYouTube.href = 'https://www.youtube.com/shorts/' + encodeURIComponent(short.id);
+            lastShortButton = button;
+            shortPlayer.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(short.id) + '?autoplay=1&playsinline=1';
+            shortModal.hidden = false;
+            document.body.style.overflow = 'hidden';
+            shortClose.focus();
+        });
+        const title = document.createElement('h3');
+        title.textContent = short.title;
+        card.append(button, title);
+        shortsGrid.appendChild(card);
+    });
+    function closeShort() {
+        shortModal.hidden = true;
+        shortPlayer.removeAttribute('src'); // stops playback
+        document.body.style.overflow = '';
+        if (lastShortButton) lastShortButton.focus();
+    }
+    shortClose.addEventListener('click', closeShort);
+    shortModal.addEventListener('click', (event) => { if (event.target === shortModal) closeShort(); });
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !shortModal.hidden) closeShort(); });
 </script>
 
 </body>
