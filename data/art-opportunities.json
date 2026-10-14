@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-10-14T01:04:21.982470+00:00",
+  "updatedAt": "2026-10-14T07:08:02.581210+00:00",
   "sources": {
-    "On the Move": 56,
+    "On the Move": 58,
     "Existing Everything Art listing": 21
   },
   "opportunities": [
@@ -188,6 +188,19 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Maison Ackerman/Abbaye Royale de Fontevraud: Artist Residency 2027 for Immersive Artistic Project (France)",
+      "organization": "Maison Ackerman/Abbaye Royale de Fontevraud",
+      "description": "Commissions & tenders. Application deadline: 2026-10-18. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/maison-ackermanabbaye-royale-de-fontevraud-artist-residency-2027-immersive-artistic-project",
+      "deadline": "2026-10-18",
+      "discipline": "interdisciplinary",
+      "type": "open-call residency",
+      "features": "",
+      "country": "France",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Open Call for 2028 Exhibitions",
       "organization": "Open Source Gallery · Brooklyn, NY",
       "description": "Artists working in any medium and location may propose conceptually driven\n                exhibitions emphasizing experimentation, sustainability and social engagement.",
@@ -329,6 +342,19 @@
       "country": "United States",
       "source": "Existing Everything Art listing",
       "status": "Existing listing; verify with organizer"
+    },
+    {
+      "title": "Kunstraum Memphis: ‘Memphis Calling’ Curatorial Exhibition Concept 2027 (Austria)",
+      "organization": "Kunstraum Memphis",
+      "description": "Presenting work. Application deadline: 2026-10-25. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/kunstraum-memphis-memphis-calling-curatorial-exhibition-concept-2027-austria",
+      "deadline": "2026-10-25",
+      "discipline": "interdisciplinary",
+      "type": "open-call exhibition",
+      "features": "",
+      "country": "Austria",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
     },
     {
       "title": "Narva Art Residency: Residency for Nordic or Baltic Artists on ‘Sensing the Border’ (Estonia)",
