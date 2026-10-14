@@ -487,15 +487,15 @@
     // Character tags describe the ACTUAL videos, never their decorative backgrounds.
     // Add new character tags only after verifying what appears in the video.
     const shorts = [
-        { title: 'Birds in my Hood at 4:50 am', id: 'DYqxGucshvg', tags: ['squirrel', 'birds', 'city'] },
-        { title: 'Farmer Got the Groove', id: '-caZmLdyvdA', tags: ['farmer alex', 'farm'] },
-        { title: '20 Mins of Alarm Clock Torture', id: 'ONlsxKewHh0', tags: ['wolf', 'crocodile', 'marshpit'] },
+        { title: 'Birds in my Hood at 4:50 am', id: 'DYqxGucshvg', tags: ['crow', 'cat', 'pig'] },
+        { title: 'Farmer Got the Groove', id: '-caZmLdyvdA', tags: ['pig', 'bee', 'kitten', 'squirrel', 'chicken', 'cow', 'bull', 'rooster', 'wolf', 'goat', 'sheep', 'farmer alex'] },
+        { title: '20 Mins of Alarm Clock Torture', id: 'ONlsxKewHh0', tags: ['crocodile', 'wolf'] },
         { title: "Wake Up, It’s the First of the Month!", id: '7izZDKgieEA', tags: ['cow', 'ufo', 'farm'] },
-        { title: 'The 80’s | Safety Dance', id: 'V7uRvLBXT5k', tags: ['wolf', 'deer', 'bear', 'crocodile', '80s'] },
+        { title: 'The 80’s | Safety Dance', id: 'V7uRvLBXT5k', tags: ['sheep', 'gorilla', 'crocodile', 'wolf', 'deer', 'bear'] },
         { title: 'Weekend Dance Party', id: 'W1ngHUJ0XR8', tags: [] },
         { title: 'I Went From THIS to DIS!', id: '4-b_FFA3kVg', tags: ['crocodile'] },
         { title: 'When Two Sides of Your Personality...', id: 'hs3uI5VS_N0', tags: ['wolf', 'gorilla', 'whale'] },
-        { title: 'Twilight’s Alternate Ending', id: 'U0Ppnw_RKws', tags: ['blade', 'twilight'] }
+        { title: 'Twilight’s Alternate Ending', id: 'U0Ppnw_RKws', tags: ['bear', 'wolf', 'crocodile', 'deer'] }
     ];
 
     // Match uploaded character backgrounds to their Shorts.
@@ -550,8 +550,8 @@
     const shortCount = document.getElementById('shortCount');
     let activeCategory = 'All';
     // Filters are derived from verified character tags; no empty Rabbit or generic Dance Party filter.
-    const characterNames = ['squirrel', 'wolf', 'crocodile', 'cow', 'deer', 'bear', 'gorilla', 'whale', 'rabbit', 'farmer alex'];
-    const characterLabels = { squirrel: 'Squirrels', wolf: 'Wolf', crocodile: 'Crocodiles', cow: 'Cow', deer: 'Deer', bear: 'Bear', gorilla: 'Gorilla', whale: 'Whale', rabbit: 'Rabbit', 'farmer alex': 'Farmer Alex' };
+    const characterNames = ['crow', 'cat', 'pig', 'bee', 'kitten', 'squirrel', 'chicken', 'cow', 'bull', 'rooster', 'wolf', 'goat', 'sheep', 'crocodile', 'deer', 'bear', 'gorilla', 'whale', 'farmer alex'];
+    const characterLabels = { crow: 'Crow', cat: 'Cat', pig: 'Pig', bee: 'Bee', kitten: 'Kitten', squirrel: 'Squirrel', chicken: 'Chicken', cow: 'Cow', bull: 'Bull', rooster: 'Rooster', wolf: 'Wolf', goat: 'Goat', sheep: 'Sheep', crocodile: 'Crocodile', deer: 'Deer', bear: 'Bear', gorilla: 'Gorilla', whale: 'Whale', 'farmer alex': 'Farmer Alex' };
     const confirmedCharacters = characterNames.filter(tag => shorts.some(short => short.tags.includes(tag)));
     const categories = ['All', ...confirmedCharacters.map(tag => characterLabels[tag])];
     const categoryTags = Object.fromEntries(confirmedCharacters.map(tag => [characterLabels[tag], tag]));
