@@ -232,28 +232,36 @@
             padding: calc(44px + env(safe-area-inset-top, 0px)) 0
                      calc(8px + env(safe-area-inset-bottom, 0px));
         }
-        /* Character-specific cinematic backgrounds, behind the vertical player. */
-        .short-modal-inner {
-            background-color: #000;
-            background-image: var(--short-scene, none);
-            background-position: center center;
-            background-size: cover;
-            background-repeat: no-repeat;
-            isolation: isolate;
+        /* Scene image on a separate layer: darken artwork, not the video. */
+        .short-modal-inner { isolation: isolate; }
+        .short-modal-inner::after {
+            content: "";
+            position: absolute; inset: 0; z-index: -2;
+            background: var(--short-scene, none) center center / cover no-repeat;
+            filter: brightness(.75);
+            pointer-events: none;
         }
         .short-modal-inner::before {
             content: "";
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
+            position: absolute; inset: 0; z-index: -1;
             background: radial-gradient(ellipse 36% 72% at center,
                 rgba(0,0,0,.58) 0%, rgba(0,0,0,.20) 70%, transparent 100%);
+            pointer-events: none;
+        }
+        .short-modal-inner:fullscreen,
+        .short-modal-inner:-webkit-full-screen {
+            width: 100vw; height: 100vh; height: 100dvh;
+            background: #000;
+        }
+        .short-expand {
+            position: absolute;
+            top: calc(7px + env(safe-area-inset-top, 0px));
+            right: calc(106px + env(safe-area-inset-right, 0px));
+            z-index: 6; border: 1px solid #777; border-radius: 7px;
+            padding: 7px 10px; background: #222; color: #fff;
+            font-size: .95rem; cursor: pointer;
         }
         .short-modal iframe { position: relative; z-index: 1; }
-        @media (max-width: 700px) {
-            .short-modal-inner { background-position: center center; }
-        }
         .short-modal iframe {
             display: block; flex: 1 1 auto; min-height: 0;
             height: 100%; width: min(100vw, 56.25vh);
@@ -378,6 +386,7 @@
 
 <div class="short-modal" id="shortModal" hidden role="dialog" aria-modal="true" aria-label="YouTube Short player">
     <div class="short-modal-inner">
+        <button class="short-expand" id="shortExpand" type="button" aria-label="Expand scene to fullscreen">⛶ Expand Scene</button>
         <button class="short-close" id="shortClose" type="button" aria-label="Close video">✕ Close</button>
         <div class="short-swipe-rail" id="shortSwipeRail" aria-hidden="true"></div>
         <button type="button" class="short-nav short-prev" id="shortPrev" aria-label="Previous Short">↑</button>
@@ -467,7 +476,8 @@
     const shortBackgrounds = {
         'DYqxGucshvg': 'images/videos-shorts-player-background.png',
         '7izZDKgieEA': 'images/videos-shorts-background-cow.png',
-        'ONlsxKewHh0': 'images/videos-shorts-background-crocodiles.png'
+        'ONlsxKewHh0': 'images/videos-shorts-background-crocodiles.png',
+        '4-b_FFA3kVg': 'images/videos-shorts-background-crocodiles.png'
     };
     const shortModalInner = document.querySelector('.short-modal-inner');
 
@@ -475,6 +485,32 @@
     const shortModal = document.getElementById('shortModal');
     const shortPlayer = document.getElementById('shortPlayer');
     const shortClose = document.getElementById('shortClose');
+    const shortExpand = document.getElementById('shortExpand');
+    function sceneIsFullscreen() {
+        return document.fullscreenElement === shortModalInner || document.webkitFullscreenElement === shortModalInner;
+    }
+    function syncExpandButton() {
+        shortExpand.textContent = sceneIsFullscreen() ? '⛶ Exit Fullscreen' : '⛶ Expand Scene';
+        shortExpand.setAttribute('aria-label', sceneIsFullscreen() ? 'Exit scene fullscreen' : 'Expand scene to fullscreen');
+    }
+    shortExpand.addEventListener('click', async () => {
+        try {
+            if (sceneIsFullscreen()) {
+                if (document.exitFullscreen) await document.exitFullscreen();
+                else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+            } else if (shortModalInner.requestFullscreen) {
+                await shortModalInner.requestFullscreen();
+            } else if (shortModalInner.webkitRequestFullscreen) {
+                shortModalInner.webkitRequestFullscreen();
+            } else {
+                shortExpand.textContent = 'Fullscreen unavailable';
+            }
+        } catch (error) {
+            shortExpand.textContent = 'Fullscreen unavailable';
+        }
+    });
+    document.addEventListener('fullscreenchange', syncExpandButton);
+    document.addEventListener('webkitfullscreenchange', syncExpandButton);
     let lastShortButton = null;
     let currentShortIndex = -1;
     const availableShorts = shorts.map((short, index) => short.id ? index : -1).filter(index => index >= 0);
@@ -557,6 +593,10 @@
         shortsGrid.appendChild(card);
     });
     function closeShort() {
+        if (sceneIsFullscreen()) {
+            if (document.exitFullscreen) document.exitFullscreen().catch(() => {});
+            else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+        }
         shortModal.hidden = true;
         currentShortIndex = -1;
         shortPlayer.removeAttribute('src'); // stops playback
@@ -567,7 +607,7 @@
     shortModal.addEventListener('click', (event) => { if (event.target === shortModal) closeShort(); });
     document.addEventListener('keydown', (event) => {
         if (shortModal.hidden) return;
-        if (event.key === 'Escape') closeShort();
+        if (event.key === 'Escape' && !sceneIsFullscreen()) closeShort();
         if (event.key === 'ArrowDown') { event.preventDefault(); moveShort(1); }
         if (event.key === 'ArrowUp') { event.preventDefault(); moveShort(-1); }
     });
