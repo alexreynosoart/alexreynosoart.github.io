@@ -338,7 +338,7 @@
             <p>A little dancing, a little chaos. Pick a Short and enjoy the show. 🍿</p>
             <div class="short-search-wrap">
                 <label for="shortSearch">Find your favorite characters</label>
-                <input id="shortSearch" type="search" placeholder="Search squirrels, rabbit, cow, crocodiles..." autocomplete="off">
+                <input id="shortSearch" type="search" placeholder="Search wolf, squirrel, crocodile, whale..." autocomplete="off">
                 <div class="short-filters" id="shortFilters" aria-label="Filter Shorts by character"></div>
                 <p id="shortCount" class="short-count" role="status" aria-live="polite"></p>
             </div>
@@ -484,16 +484,18 @@
 
 <script>
     // Nine selected Shorts, each linked to its YouTube video ID.
+    // Character tags describe the ACTUAL videos, never their decorative backgrounds.
+    // Add new character tags only after verifying what appears in the video.
     const shorts = [
-        { title: 'Birds in my Hood at 4:50 am', id: 'DYqxGucshvg', tags: ['squirrel', 'squirrels', 'birds', 'city', 'animals'] },
-        { title: 'Farmer Got the Groove', id: '-caZmLdyvdA', tags: ['farmer', 'farmer alex', 'farm', 'cow', 'squirrel', 'scarecrow'] },
-        { title: '20 Mins of Alarm Clock Torture', id: 'ONlsxKewHh0', tags: ['crocodile', 'crocodiles', 'alligator', 'alligator dance', 'marshpit'] },
-        { title: "Wake Up, It’s the First of the Month!", id: '7izZDKgieEA', tags: ['cow', 'ufo', 'farm', 'animals'] },
-        { title: 'The 80’s | Safety Dance', id: 'V7uRvLBXT5k', tags: ['dance party', '80s', 'skeleton', 'nightclub'] },
-        { title: 'Weekend Dance Party', id: 'W1ngHUJ0XR8', tags: ['dance party', 'skeleton', 'nightclub'] },
-        { title: 'I Went From THIS to DIS!', id: '4-b_FFA3kVg', tags: ['crocodile', 'crocodiles', 'alligator', 'animals'] },
-        { title: 'When Two Sides of Your Personality...', id: 'hs3uI5VS_N0', tags: ['personalities', 'grandma', 'wolf', 'rabbit', 'gorilla', 'animals'] },
-        { title: 'Twilight’s Alternate Ending', id: 'U0Ppnw_RKws', tags: ['dance party', 'blade', 'twilight', 'skeleton', 'nightclub'] }
+        { title: 'Birds in my Hood at 4:50 am', id: 'DYqxGucshvg', tags: ['squirrel', 'birds', 'city'] },
+        { title: 'Farmer Got the Groove', id: '-caZmLdyvdA', tags: ['farmer alex', 'farm'] },
+        { title: '20 Mins of Alarm Clock Torture', id: 'ONlsxKewHh0', tags: ['wolf', 'crocodile', 'marshpit'] },
+        { title: "Wake Up, It’s the First of the Month!", id: '7izZDKgieEA', tags: ['cow', 'ufo', 'farm'] },
+        { title: 'The 80’s | Safety Dance', id: 'V7uRvLBXT5k', tags: ['wolf', 'deer', 'bear', 'crocodile', '80s'] },
+        { title: 'Weekend Dance Party', id: 'W1ngHUJ0XR8', tags: [] },
+        { title: 'I Went From THIS to DIS!', id: '4-b_FFA3kVg', tags: ['crocodile'] },
+        { title: 'When Two Sides of Your Personality...', id: 'hs3uI5VS_N0', tags: ['wolf', 'gorilla', 'whale'] },
+        { title: 'Twilight’s Alternate Ending', id: 'U0Ppnw_RKws', tags: ['blade', 'twilight'] }
     ];
 
     // Match uploaded character backgrounds to their Shorts.
@@ -547,8 +549,12 @@
     const shortFilters = document.getElementById('shortFilters');
     const shortCount = document.getElementById('shortCount');
     let activeCategory = 'All';
-    const categories = ['All', 'Squirrels', 'Cow', 'Crocodiles', 'Rabbit', 'Dance Party', 'Farmer Alex'];
-    const categoryTags = { Squirrels: 'squirrel', Cow: 'cow', Crocodiles: 'crocodile', Rabbit: 'rabbit', 'Dance Party': 'dance party', 'Farmer Alex': 'farmer alex' };
+    // Filters are derived from verified character tags; no empty Rabbit or generic Dance Party filter.
+    const characterNames = ['squirrel', 'wolf', 'crocodile', 'cow', 'deer', 'bear', 'gorilla', 'whale', 'rabbit', 'farmer alex'];
+    const characterLabels = { squirrel: 'Squirrels', wolf: 'Wolf', crocodile: 'Crocodiles', cow: 'Cow', deer: 'Deer', bear: 'Bear', gorilla: 'Gorilla', whale: 'Whale', rabbit: 'Rabbit', 'farmer alex': 'Farmer Alex' };
+    const confirmedCharacters = characterNames.filter(tag => shorts.some(short => short.tags.includes(tag)));
+    const categories = ['All', ...confirmedCharacters.map(tag => characterLabels[tag])];
+    const categoryTags = Object.fromEntries(confirmedCharacters.map(tag => [characterLabels[tag], tag]));
     const cardElements = [];
     function applyShortFilters() {
         const query = shortSearch.value.trim().toLowerCase();
