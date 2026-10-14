@@ -203,20 +203,18 @@
             .theater-frame { transition: none; }
         }
 
-        /* Shorts gallery: self-contained styles */
-        .shorts-gallery { max-width: 1050px; margin: 58px auto 0; padding: 28px 14px 0; border-top: 2px solid #b78339; text-align: left; }
-        .shorts-gallery h2 { color: #d9a04b; margin: 0 0 8px; text-align: center; }
-        .shorts-gallery > p { text-align: center; margin: 0 auto 25px; }
-        .shorts-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px 16px; }
-        .short-card { min-width: 0; }
-        .short-poster { position: relative; display: block; width: 100%; aspect-ratio: 9 / 16; border: 1px solid #785d39; border-radius: 12px; overflow: hidden; background: linear-gradient(155deg, #251849, #123b45 60%, #111); color: #fff; cursor: pointer; padding: 0; }
-        .short-poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .short-poster .short-placeholder { position: absolute; inset: 0; display: grid; place-items: center; padding: 18px; font-size: 1.2rem; font-weight: bold; text-align: center; }
-        .short-poster .short-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,.75); border: 1px solid #fff8; border-radius: 50%; width: 60px; height: 60px; display: grid; place-items: center; font-size: 25px; }
-        .short-poster:hover, .short-poster:focus-visible { outline: 2px solid #d9a04b; outline-offset: 3px; }
-        .short-card h3 { font-size: 1rem; margin: 10px 0 0; line-height: 1.35; }
-        .shorts-bottom { text-align: center; margin-top: 26px; }
-        .shorts-bottom a { color: #d8ad65; text-underline-offset: 3px; }
+        .explore-feature { max-width: 900px; margin: 58px auto 0; padding: 34px 16px 12px; border-top: 2px solid #b78339; text-align: center; }
+        .explore-feature h2 { color: #d9a04b; margin: 0 0 12px; }
+        .explore-feature p { max-width: 650px; margin: 0 auto 24px; }
+        .explore-big { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; width: min(100%, 660px); min-height: 210px; margin: auto; padding: 30px; border: 2px solid #d9a04b; border-radius: 16px; background: linear-gradient(140deg, #382514, #121212 75%); color: #ffcf72; font: inherit; font-size: clamp(1.45rem, 4vw, 2.25rem); font-weight: 800; cursor: pointer; }
+        .explore-big span { font-size: .95rem; font-weight: 400; color: #eee; }
+        .explore-big:hover, .explore-big:focus-visible { background: linear-gradient(140deg, #593919, #171717 75%); outline-offset: 4px; }
+        .collection-chooser[hidden] { display: none; }
+        .collection-chooser { width: min(92vw, 520px); margin: auto; padding: 22px; text-align: center; color: white; }
+        .collection-chooser h2 { color: #f6cb72; }
+        .collection-chooser button { display: block; width: 100%; margin: 15px 0; padding: 20px; background: #292015; color: #f6cb72; border: 1px solid #d9a04b; border-radius: 10px; font: inherit; font-weight: 700; cursor: pointer; }
+        .collection-chooser button span { display: block; font-weight: 400; font-size: .85rem; color: #ddd; margin-top: 6px; }
+        .collection-chooser button:hover { background: #49361e; }
         /* Full-screen vertical Shorts viewer */
         .short-modal[hidden] { display: none; }
         .short-modal {
@@ -232,6 +230,9 @@
             padding: calc(44px + env(safe-area-inset-top, 0px)) 0
                      calc(8px + env(safe-area-inset-bottom, 0px));
         }
+        .short-modal iframe[hidden] { display: none; }
+        .short-nav[hidden] { display: none; }
+        .short-swipe-rail[hidden] { display: none; }
         .short-modal iframe {
             display: block; flex: 1 1 auto; min-height: 0;
             height: 100%; width: min(100vw, 56.25vh);
@@ -352,19 +353,10 @@
 
         </section>
 
-        <section class="shorts-gallery" aria-labelledby="shorts-heading">
-            <h2 id="shorts-heading">Shorts &amp; Other Questionable Decisions</h2>
-            <p>A little dancing, a little chaos. Pick a Short and enjoy the show. 🍿</p>
-            <div class="shorts-grid" id="shortsGrid"></div>
-            <div class="shorts-explore"><button type="button" id="exploreAll">▶ Explore All Featured Shorts</button></div>
-            <p class="shorts-bottom"><a href="https://www.youtube.com/@AlexReynosoArt/shorts" target="_blank" rel="noopener noreferrer">See all Shorts on YouTube ↗</a></p>
-        </section>
-
-        <section class="syndrome-playlist" aria-labelledby="syndrome-heading">
-            <h2 id="syndrome-heading">Syndrome Walking Meme</h2>
-            <p>65 videos in one collection. Open the playlist right here in the theater.</p>
-            <button class="collection-launch" id="syndromeLaunch" type="button">▶ Watch the Syndrome Collection</button>
-            <p class="shorts-bottom"><a href="https://www.youtube.com/playlist?list=PLZtkDeEaMeUcAcn_1daA22JEvLUYFFb-T" target="_blank" rel="noopener noreferrer">Full playlist on YouTube ↗</a></p>
+        <section class="explore-feature" aria-labelledby="explore-heading">
+            <h2 id="explore-heading">Explore All Videos</h2>
+            <p>Dancing animals, strange experiments, music, and 65 Syndrome Walking Memes. Pick a collection and enjoy the show. 🍿</p>
+            <button type="button" id="exploreAll" class="explore-big">▶ Explore All Videos <span>Open the video collections</span></button>
         </section>
     </section>
 </main>
@@ -377,7 +369,12 @@
         <div class="short-swipe-rail" id="shortSwipeRail" aria-hidden="true"></div>
         <button type="button" class="short-nav short-prev" id="shortPrev" aria-label="Previous Short">↑</button>
         <button type="button" class="short-nav short-next" id="shortNext" aria-label="Next Short">↓</button>
-        <iframe id="shortPlayer" title="YouTube Short" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <div class="collection-chooser" id="collectionChooser">
+            <h2>Choose Your Show 🍿</h2>
+            <button id="chooseFeatured" type="button">▶ Featured Shorts<span>9 handpicked videos, with swipe navigation and looping</span></button>
+            <button id="chooseSyndrome" type="button">▶ Syndrome Walking Meme<span>All 65 videos in the YouTube playlist</span></button>
+        </div>
+        <iframe id="shortPlayer" hidden title="YouTube Short" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
 </div>
 
@@ -460,7 +457,7 @@
         { title: 'Twilight’s Alternate Ending', id: 'U0Ppnw_RKws' }
     ];
 
-    const shortsGrid = document.getElementById('shortsGrid');
+    const collectionChooser = document.getElementById('collectionChooser');
     const shortModal = document.getElementById('shortModal');
     const shortPlayer = document.getElementById('shortPlayer');
     const shortClose = document.getElementById('shortClose');
@@ -473,7 +470,15 @@
     const shortPrev = document.getElementById('shortPrev');
     const shortNext = document.getElementById('shortNext');
     const shortSwipeRail = document.getElementById('shortSwipeRail');
+    function showPlayback() {
+        collectionChooser.hidden = true;
+        shortPlayer.hidden = false;
+        shortPrev.hidden = false;
+        shortNext.hidden = false;
+        shortSwipeRail.hidden = false;
+    }
     function playShort(index) {
+        showPlayback();
         if (!shorts[index] || !shorts[index].id) return;
         viewerMode = 'featured';
         viewerLabel.textContent = 'Featured Shorts · ' + (availableShorts.indexOf(index) + 1) + ' / ' + availableShorts.length;
@@ -487,6 +492,7 @@
         shortNext.disabled = availableShorts.length < 2;
     }
     function openSyndrome() {
+        showPlayback();
         viewerMode = 'syndrome';
         currentShortIndex = -1;
         viewerLabel.textContent = 'Syndrome Walking Meme · YouTube playlist';
@@ -499,8 +505,20 @@
         shortNext.disabled = false;
         shortClose.focus();
     }
-    document.getElementById('syndromeLaunch').addEventListener('click', openSyndrome);
-    document.getElementById('exploreAll').addEventListener('click', () => { lastShortButton = document.getElementById('exploreAll'); playShort(availableShorts[0]); shortClose.focus(); });
+    document.getElementById('exploreAll').addEventListener('click', () => {
+        lastShortButton = document.getElementById('exploreAll');
+        collectionChooser.hidden = false;
+        shortPlayer.hidden = true;
+        shortPrev.hidden = true;
+        shortNext.hidden = true;
+        shortSwipeRail.hidden = true;
+        viewerLabel.textContent = '';
+        shortModal.hidden = false;
+        document.body.style.overflow = 'hidden';
+        document.getElementById('chooseFeatured').focus();
+    });
+    document.getElementById('chooseFeatured').addEventListener('click', () => { playShort(availableShorts[0]); shortClose.focus(); });
+    document.getElementById('chooseSyndrome').addEventListener('click', openSyndrome);
     function playlistCommand(func) {
         if (!shortPlayer.contentWindow) return;
         shortPlayer.contentWindow.postMessage(JSON.stringify({event: 'command', func, args: []}), 'https://www.youtube-nocookie.com');
@@ -532,47 +550,13 @@
         if (Math.abs(delta) > 45) moveShort(delta < 0 ? 1 : -1);
     }, { passive: true });
 
-    shorts.forEach((short, index) => {
-        const card = document.createElement('article');
-        card.className = 'short-card';
-        const button = document.createElement('button');
-        button.className = 'short-poster';
-        button.type = 'button';
-        button.setAttribute('aria-label', 'Watch ' + short.title);
-        if (!short.id) { button.disabled = true; button.title = 'Video link coming soon'; button.style.cursor = 'not-allowed'; }
-        if (short.id) {
-            const thumb = document.createElement('img');
-            thumb.src = 'https://i.ytimg.com/vi/' + encodeURIComponent(short.id) + '/hqdefault.jpg';
-            thumb.alt = '';
-            thumb.loading = 'lazy';
-            button.appendChild(thumb);
-        } else {
-            const placeholder = document.createElement('span');
-            placeholder.className = 'short-placeholder';
-            placeholder.textContent = short.title;
-            button.appendChild(placeholder);
-        }
-        const play = document.createElement('span');
-        play.className = 'short-play';
-        play.setAttribute('aria-hidden', 'true');
-        play.textContent = '▶';
-        button.appendChild(play);
-        button.addEventListener('click', () => {
-            if (!short.id) return;
-            lastShortButton = button;
-            playShort(index);
-            shortClose.focus();
-        });
-        const title = document.createElement('h3');
-        title.textContent = short.title;
-        card.append(button, title);
-        shortsGrid.appendChild(card);
-    });
     function closeShort() {
         shortModal.hidden = true;
         currentShortIndex = -1;
         viewerMode = 'featured';
         shortPlayer.removeAttribute('src'); // stops playback
+        shortPlayer.hidden = true;
+        collectionChooser.hidden = false;
         document.body.style.overflow = '';
         if (lastShortButton) lastShortButton.focus();
     }
@@ -581,6 +565,7 @@
     document.addEventListener('keydown', (event) => {
         if (shortModal.hidden) return;
         if (event.key === 'Escape') closeShort();
+        if (shortPlayer.hidden) return;
         if (event.key === 'ArrowDown') { event.preventDefault(); moveShort(1); }
         if (event.key === 'ArrowUp') { event.preventDefault(); moveShort(-1); }
     });
