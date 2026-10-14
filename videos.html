@@ -232,6 +232,28 @@
             padding: calc(44px + env(safe-area-inset-top, 0px)) 0
                      calc(8px + env(safe-area-inset-bottom, 0px));
         }
+        /* Character-specific cinematic backgrounds, behind the vertical player. */
+        .short-modal-inner {
+            background-color: #000;
+            background-image: var(--short-scene, none);
+            background-position: center center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            isolation: isolate;
+        }
+        .short-modal-inner::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background: radial-gradient(ellipse 36% 72% at center,
+                rgba(0,0,0,.58) 0%, rgba(0,0,0,.20) 70%, transparent 100%);
+        }
+        .short-modal iframe { position: relative; z-index: 1; }
+        @media (max-width: 700px) {
+            .short-modal-inner { background-position: center center; }
+        }
         .short-modal iframe {
             display: block; flex: 1 1 auto; min-height: 0;
             height: 100%; width: min(100vw, 56.25vh);
@@ -441,6 +463,14 @@
         { title: 'Twilight’s Alternate Ending', id: 'U0Ppnw_RKws' }
     ];
 
+    // Match the three uploaded images by filename; other Shorts remain black.
+    const shortBackgrounds = {
+        'DYqxGucshvg': 'images/videos-shorts-player-background.png',
+        '7izZDKgieEA': 'images/videos-shorts-background-cow.png',
+        'ONlsxKewHh0': 'images/videos-shorts-background-crocodiles.png'
+    };
+    const shortModalInner = document.querySelector('.short-modal-inner');
+
     const shortsGrid = document.getElementById('shortsGrid');
     const shortModal = document.getElementById('shortModal');
     const shortPlayer = document.getElementById('shortPlayer');
@@ -454,6 +484,8 @@
     function playShort(index) {
         if (!shorts[index] || !shorts[index].id) return;
         currentShortIndex = index;
+        const scene = shortBackgrounds[shorts[index].id];
+        shortModalInner.style.setProperty('--short-scene', scene ? 'url("' + scene + '")' : 'none');
         const id = encodeURIComponent(shorts[index].id);
         shortPlayer.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&playsinline=1&loop=1&playlist=' + id + '&rel=0';
         shortPlayer.title = shorts[index].title;
