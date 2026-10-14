@@ -488,7 +488,7 @@
     // Add new character tags only after verifying what appears in the video.
     const shorts = [
         { title: 'Birds in my Hood at 4:50 am', id: 'DYqxGucshvg', tags: ['crow', 'cat', 'pig'] },
-        { title: 'Farmer Got the Groove', id: '-caZmLdyvdA', tags: ['pig', 'bee', 'kitten', 'squirrel', 'chicken', 'cow', 'bull', 'rooster', 'wolf', 'goat', 'sheep', 'farmer alex'] },
+        { title: 'Farmer Got the Groove', id: '-caZmLdyvdA', tags: ['pig', 'bee', 'cat', 'squirrel', 'chicken', 'cow', 'bull', 'rooster', 'wolf', 'goat', 'sheep', 'farmer alex'] },
         { title: '20 Mins of Alarm Clock Torture', id: 'ONlsxKewHh0', tags: ['crocodile', 'wolf'] },
         { title: "Wake Up, It’s the First of the Month!", id: '7izZDKgieEA', tags: ['cow', 'ufo', 'farm'] },
         { title: 'The 80’s | Safety Dance', id: 'V7uRvLBXT5k', tags: ['sheep', 'gorilla', 'crocodile', 'wolf', 'deer', 'bear'] },
@@ -550,8 +550,8 @@
     const shortCount = document.getElementById('shortCount');
     let activeCategory = 'All';
     // Filters are derived from verified character tags; no empty Rabbit or generic Dance Party filter.
-    const characterNames = ['crow', 'cat', 'pig', 'bee', 'kitten', 'squirrel', 'chicken', 'cow', 'bull', 'rooster', 'wolf', 'goat', 'sheep', 'crocodile', 'deer', 'bear', 'gorilla', 'whale', 'farmer alex'];
-    const characterLabels = { crow: 'Crow', cat: 'Cat', pig: 'Pig', bee: 'Bee', kitten: 'Kitten', squirrel: 'Squirrel', chicken: 'Chicken', cow: 'Cow', bull: 'Bull', rooster: 'Rooster', wolf: 'Wolf', goat: 'Goat', sheep: 'Sheep', crocodile: 'Crocodile', deer: 'Deer', bear: 'Bear', gorilla: 'Gorilla', whale: 'Whale', 'farmer alex': 'Farmer Alex' };
+    const characterNames = ['crow', 'cat', 'pig', 'bee', 'cat', 'squirrel', 'chicken', 'cow', 'bull', 'rooster', 'wolf', 'goat', 'sheep', 'crocodile', 'deer', 'bear', 'gorilla', 'whale', 'farmer alex'];
+    const characterLabels = { crow: 'Crow', cat: 'Cat', pig: 'Pig', bee: 'Bee', squirrel: 'Squirrel', chicken: 'Chicken', cow: 'Cow', bull: 'Bull', rooster: 'Rooster', wolf: 'Wolf', goat: 'Goat', sheep: 'Sheep', crocodile: 'Crocodile', deer: 'Deer', bear: 'Bear', gorilla: 'Gorilla', whale: 'Whale', 'farmer alex': 'Farmer Alex' };
     const confirmedCharacters = characterNames.filter(tag => shorts.some(short => short.tags.includes(tag)));
     const categories = ['All', ...confirmedCharacters.map(tag => characterLabels[tag])];
     const categoryTags = Object.fromEntries(confirmedCharacters.map(tag => [characterLabels[tag], tag]));
