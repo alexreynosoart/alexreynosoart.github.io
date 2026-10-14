@@ -209,6 +209,7 @@
         .shorts-gallery > p { text-align: center; margin: 0 auto 25px; }
         .shorts-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px 16px; }
         .short-card { min-width: 0; }
+        .short-card[hidden] { display: none; }
         .short-poster { position: relative; display: block; width: 100%; aspect-ratio: 9 / 16; border: 1px solid #785d39; border-radius: 12px; overflow: hidden; background: linear-gradient(155deg, #251849, #123b45 60%, #111); color: #fff; cursor: pointer; padding: 0; }
         .short-poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
         .short-poster .short-placeholder { position: absolute; inset: 0; display: grid; place-items: center; padding: 18px; font-size: 1.2rem; font-weight: bold; text-align: center; }
@@ -287,6 +288,20 @@
         .short-swipe-rail { position: absolute; left: 0; top: 70px; bottom: 0; width: max(12px, env(safe-area-inset-left, 0px)); z-index: 4; touch-action: none; }
         @media (max-width: 700px) { .shorts-gallery { margin-top: 40px; } .shorts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 12px; } .short-card h3 { font-size: .9rem; } }
 
+
+        /* Character search and secondary Hydroponics feature */
+        .shorts-gallery { margin-top: 24px; }
+        .short-search-wrap { max-width: 680px; margin: 0 auto 24px; text-align: center; }
+        .short-search-wrap label { display: block; color: #e5bc79; font-weight: 700; margin-bottom: 9px; }
+        #shortSearch { width: 100%; padding: 13px 15px; border-radius: 9px; border: 1px solid #a57938; background: #151515; color: #fff; font: inherit; box-sizing: border-box; }
+        #shortSearch:focus-visible { outline: 2px solid #e5bc79; outline-offset: 2px; }
+        .short-filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; margin-top: 12px; }
+        .short-filter { border: 1px solid #856332; background: #201a14; color: #efc782; padding: 7px 12px; border-radius: 20px; cursor: pointer; font: inherit; font-size: .85rem; }
+        .short-filter[aria-pressed="true"] { background: #b78339; color: #111; font-weight: 700; }
+        .short-count { color: #bbb; font-size: .85rem; margin: 12px 0 0 !important; }
+        .hydroponics-secondary { max-width: 1050px; margin: 52px auto 0; border-top: 2px solid #b78339; padding-top: 30px; }
+        .hydroponics-secondary::before { content: 'More from the Studio'; display: block; text-align: center; color: #d9a04b; font-size: 1.45rem; font-weight: 700; margin-bottom: 22px; }
+
     </style>
 </head>
 
@@ -318,6 +333,20 @@
             Grab some popcorn. 🍿
         </p>
 
+        <section class="shorts-gallery" aria-labelledby="shorts-heading">
+            <h2 id="shorts-heading">Shorts &amp; Other Questionable Decisions</h2>
+            <p>A little dancing, a little chaos. Pick a Short and enjoy the show. 🍿</p>
+            <div class="short-search-wrap">
+                <label for="shortSearch">Find your favorite characters</label>
+                <input id="shortSearch" type="search" placeholder="Search squirrels, rabbit, cow, crocodiles..." autocomplete="off">
+                <div class="short-filters" id="shortFilters" aria-label="Filter Shorts by character"></div>
+                <p id="shortCount" class="short-count" role="status" aria-live="polite"></p>
+            </div>
+            <div class="shorts-grid" id="shortsGrid"></div>
+            <p class="shorts-bottom"><a href="https://www.youtube.com/@AlexReynosoArt/shorts" target="_blank" rel="noopener noreferrer">See all Shorts on YouTube ↗</a></p>
+        </section>
+
+        <section class="hydroponics-secondary" aria-label="Hydroponics theater">
         <div class="theater-viewport">
             <div class="theater-stage"
                  id="theater"
@@ -373,11 +402,6 @@
 
         </section>
 
-        <section class="shorts-gallery" aria-labelledby="shorts-heading">
-            <h2 id="shorts-heading">Shorts &amp; Other Questionable Decisions</h2>
-            <p>A little dancing, a little chaos. Pick a Short and enjoy the show. 🍿</p>
-            <div class="shorts-grid" id="shortsGrid"></div>
-            <p class="shorts-bottom"><a href="https://www.youtube.com/@AlexReynosoArt/shorts" target="_blank" rel="noopener noreferrer">See all Shorts on YouTube ↗</a></p>
         </section>
 
     </section>
@@ -461,15 +485,15 @@
 <script>
     // Nine selected Shorts, each linked to its YouTube video ID.
     const shorts = [
-        { title: 'Birds in my Hood at 4:50 am', id: 'DYqxGucshvg' },
-        { title: 'Farmer Got the Groove', id: '-caZmLdyvdA' },
-        { title: '20 Mins of Alarm Clock Torture', id: 'ONlsxKewHh0' },
-        { title: "Wake Up, It’s the First of the Month!", id: '7izZDKgieEA' },
-        { title: 'The 80’s | Safety Dance', id: 'V7uRvLBXT5k' },
-        { title: 'Weekend Dance Party', id: 'W1ngHUJ0XR8' },
-        { title: 'I Went From THIS to DIS!', id: '4-b_FFA3kVg' },
-        { title: 'When Two Sides of Your Personality...', id: 'hs3uI5VS_N0' },
-        { title: 'Twilight’s Alternate Ending', id: 'U0Ppnw_RKws' }
+        { title: 'Birds in my Hood at 4:50 am', id: 'DYqxGucshvg', tags: ['squirrel', 'squirrels', 'birds', 'city', 'animals'] },
+        { title: 'Farmer Got the Groove', id: '-caZmLdyvdA', tags: ['farmer', 'farmer alex', 'farm', 'cow', 'squirrel', 'scarecrow'] },
+        { title: '20 Mins of Alarm Clock Torture', id: 'ONlsxKewHh0', tags: ['crocodile', 'crocodiles', 'alligator', 'alligator dance', 'marshpit'] },
+        { title: "Wake Up, It’s the First of the Month!", id: '7izZDKgieEA', tags: ['cow', 'ufo', 'farm', 'animals'] },
+        { title: 'The 80’s | Safety Dance', id: 'V7uRvLBXT5k', tags: ['dance party', '80s', 'skeleton', 'nightclub'] },
+        { title: 'Weekend Dance Party', id: 'W1ngHUJ0XR8', tags: ['dance party', 'skeleton', 'nightclub'] },
+        { title: 'I Went From THIS to DIS!', id: '4-b_FFA3kVg', tags: ['crocodile', 'crocodiles', 'alligator', 'animals'] },
+        { title: 'When Two Sides of Your Personality...', id: 'hs3uI5VS_N0', tags: ['personalities', 'grandma', 'wolf', 'rabbit', 'gorilla', 'animals'] },
+        { title: 'Twilight’s Alternate Ending', id: 'U0Ppnw_RKws', tags: ['dance party', 'blade', 'twilight', 'skeleton', 'nightclub'] }
     ];
 
     // Match uploaded character backgrounds to their Shorts.
@@ -518,7 +542,36 @@
     document.addEventListener('webkitfullscreenchange', syncExpandButton);
     let lastShortButton = null;
     let currentShortIndex = -1;
-    const availableShorts = shorts.map((short, index) => short.id ? index : -1).filter(index => index >= 0);
+    let availableShorts = shorts.map((short, index) => short.id ? index : -1).filter(index => index >= 0);
+    const shortSearch = document.getElementById('shortSearch');
+    const shortFilters = document.getElementById('shortFilters');
+    const shortCount = document.getElementById('shortCount');
+    let activeCategory = 'All';
+    const categories = ['All', 'Squirrels', 'Cow', 'Crocodiles', 'Rabbit', 'Dance Party', 'Farmer Alex'];
+    const categoryTags = { Squirrels: 'squirrel', Cow: 'cow', Crocodiles: 'crocodile', Rabbit: 'rabbit', 'Dance Party': 'dance party', 'Farmer Alex': 'farmer alex' };
+    const cardElements = [];
+    function applyShortFilters() {
+        const query = shortSearch.value.trim().toLowerCase();
+        availableShorts = [];
+        shorts.forEach((short, index) => {
+            const tags = short.tags || [];
+            const matchesCategory = activeCategory === 'All' || tags.includes(categoryTags[activeCategory]);
+            const matchesQuery = !query || [short.title, ...tags].some(value => value.toLowerCase().includes(query));
+            const visible = matchesCategory && matchesQuery;
+            if (cardElements[index]) cardElements[index].hidden = !visible;
+            if (visible && short.id) availableShorts.push(index);
+        });
+        shortCount.textContent = availableShorts.length ? `${availableShorts.length} video${availableShorts.length === 1 ? '' : 's'} found` : 'No matches yet. Try another character or clear the search.';
+        shortFilters.querySelectorAll('button').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.category === activeCategory)));
+    }
+    categories.forEach(category => {
+        const button = document.createElement('button');
+        button.type = 'button'; button.className = 'short-filter';
+        button.dataset.category = category; button.textContent = category;
+        button.addEventListener('click', () => { activeCategory = category; applyShortFilters(); });
+        shortFilters.appendChild(button);
+    });
+    shortSearch.addEventListener('input', applyShortFilters);
     const shortPrev = document.getElementById('shortPrev');
     const shortNext = document.getElementById('shortNext');
     const shortSwipeRail = document.getElementById('shortSwipeRail');
@@ -596,7 +649,9 @@
         title.textContent = short.title;
         card.append(button, title);
         shortsGrid.appendChild(card);
+        cardElements.push(card);
     });
+    applyShortFilters();
     function closeShort() {
         if (sceneIsFullscreen()) {
             if (document.exitFullscreen) document.exitFullscreen().catch(() => {});
