@@ -245,17 +245,11 @@
             color: white; border-radius: 7px; padding: 7px 12px;
             font-size: .95rem; cursor: pointer;
         }
-        .short-modal-actions {
-            flex: 0 0 auto; display: flex; justify-content: center;
-            flex-wrap: wrap; gap: 8px; padding: 9px 8px 2px;
-            box-sizing: border-box; width: 100%;
+        /* Keep YouTube's built-in controls clear of the screen edge. */
+        .short-modal iframe {
+            width: min(calc(100vw - 24px), 56.25dvh);
+            max-width: calc(100% - 24px);
         }
-        .short-modal-actions a {
-            color: #ffe09b; font-size: .85rem; padding: 8px 10px;
-            border: 1px solid #9e773c; border-radius: 6px;
-            text-decoration: none;
-        }
-        .short-modal-actions a:hover { background: #352913; }
         @media (max-width: 700px) { .shorts-gallery { margin-top: 40px; } .shorts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 12px; } .short-card h3 { font-size: .9rem; } }
     </style>
 </head>
@@ -357,10 +351,6 @@
     <div class="short-modal-inner">
         <button class="short-close" id="shortClose" type="button" aria-label="Close video">✕ Close</button>
         <iframe id="shortPlayer" title="YouTube Short" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        <div class="short-modal-actions">
-            <a id="watchOnYouTube" href="#" target="_blank" rel="noopener noreferrer">Watch on YouTube ↗</a>
-            <a href="https://www.youtube.com/@AlexReynosoArt/shorts" target="_blank" rel="noopener noreferrer">Watch More on YouTube ↗</a>
-        </div>
     </div>
 </div>
 
@@ -448,7 +438,6 @@
     const shortPlayer = document.getElementById('shortPlayer');
     const shortClose = document.getElementById('shortClose');
     let lastShortButton = null;
-    const watchOnYouTube = document.getElementById('watchOnYouTube');
 
     shorts.forEach((short) => {
         const card = document.createElement('article');
@@ -477,9 +466,8 @@
         button.appendChild(play);
         button.addEventListener('click', () => {
             if (!short.id) return;
-            watchOnYouTube.href = 'https://www.youtube.com/shorts/' + encodeURIComponent(short.id);
             lastShortButton = button;
-            shortPlayer.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(short.id) + '?autoplay=1&playsinline=1';
+            shortPlayer.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(short.id) + '?autoplay=1&playsinline=1&loop=1&playlist=' + encodeURIComponent(short.id);
             shortModal.hidden = false;
             document.body.style.overflow = 'hidden';
             shortClose.focus();
