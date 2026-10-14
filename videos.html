@@ -217,15 +217,45 @@
         .short-card h3 { font-size: 1rem; margin: 10px 0 0; line-height: 1.35; }
         .shorts-bottom { text-align: center; margin-top: 26px; }
         .shorts-bottom a { color: #d8ad65; text-underline-offset: 3px; }
+        /* Full-screen vertical Shorts viewer */
         .short-modal[hidden] { display: none; }
-        .short-modal-inner { display: flex; flex-direction: column; }
-        .short-modal-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; padding: 10px 0; }
-        .short-modal-actions a { color: #ffe09b; font-size: .9rem; padding: 7px 10px; border: 1px solid #9e773c; border-radius: 6px; text-decoration: none; }
+        .short-modal {
+            position: fixed; inset: 0; z-index: 9999;
+            background: #000; display: flex; justify-content: center;
+            align-items: stretch; padding: 0;
+        }
+        .short-modal-inner {
+            position: relative; display: flex; flex-direction: column;
+            align-items: center; width: 100%; height: 100vh;
+            height: 100dvh; background: #000;
+            box-sizing: border-box;
+            padding: calc(44px + env(safe-area-inset-top, 0px)) 0
+                     calc(8px + env(safe-area-inset-bottom, 0px));
+        }
+        .short-modal iframe {
+            display: block; flex: 1 1 auto; min-height: 0;
+            height: 100%; width: min(100vw, 56.25vh);
+            width: min(100vw, 56.25dvh);
+            max-width: 100%; border: 0; background: #000;
+        }
+        .short-close {
+            position: absolute; top: calc(7px + env(safe-area-inset-top, 0px));
+            right: max(12px, env(safe-area-inset-right, 0px));
+            z-index: 2; border: 1px solid #777; background: #222;
+            color: white; border-radius: 7px; padding: 7px 12px;
+            font-size: .95rem; cursor: pointer;
+        }
+        .short-modal-actions {
+            flex: 0 0 auto; display: flex; justify-content: center;
+            flex-wrap: wrap; gap: 8px; padding: 9px 8px 2px;
+            box-sizing: border-box; width: 100%;
+        }
+        .short-modal-actions a {
+            color: #ffe09b; font-size: .85rem; padding: 8px 10px;
+            border: 1px solid #9e773c; border-radius: 6px;
+            text-decoration: none;
+        }
         .short-modal-actions a:hover { background: #352913; }
-        .short-modal { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,.92); display: flex; align-items: center; justify-content: center; padding: 45px 15px 20px; }
-        .short-modal-inner { position: relative; height: min(78vh, 780px); width: min(100%, 440px); background: #000; }
-        .short-modal iframe { display: block; width: 100%; flex: 1; min-height: 0; border: 0; }
-        .short-close { position: absolute; top: -42px; right: 0; border: 1px solid #ddd; background: #171717; color: white; border-radius: 7px; padding: 6px 12px; font-size: 1rem; cursor: pointer; }
         @media (max-width: 700px) { .shorts-gallery { margin-top: 40px; } .shorts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 12px; } .short-card h3 { font-size: .9rem; } }
     </style>
 </head>
