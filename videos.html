@@ -203,18 +203,20 @@
             .theater-frame { transition: none; }
         }
 
-        /* One cinematic preview, no extra menus or thumbnail wall. */
-        .shorts-gallery { max-width: 760px; margin: 48px auto 0; padding: 28px 16px 0; border-top: 2px solid #b78339; text-align: center; }
-        .shorts-gallery h2 { color: #d9a04b; margin: 0 0 8px; }
-        .shorts-gallery > p { margin: 0 auto 20px; }
-        .feature-short { display: block; position: relative; margin: 0 auto; width: min(100%, 380px); aspect-ratio: 9 / 16; overflow: hidden; border: 1px solid #b78339; border-radius: 14px; padding: 0; background: #090909; color: white; cursor: pointer; }
-        .feature-short img { display: block; width: 100%; height: 100%; object-fit: cover; }
-        .feature-short::after { content: ''; position: absolute; inset: 45% 0 0; background: linear-gradient(transparent,rgba(0,0,0,.85)); pointer-events: none; }
-        .feature-short .feature-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); display: grid; place-items: center; width: 68px; height: 68px; border-radius: 50%; background: #000b; border: 2px solid #d9a04b; color: #ffcf77; font-size: 29px; z-index: 1; }
-        .feature-short .feature-label { position: absolute; bottom: 20px; left: 12px; right: 12px; z-index: 1; font-size: 1.25rem; font-weight: 700; }
-        .feature-short:hover, .feature-short:focus-visible { outline: 3px solid #d9a04b; outline-offset: 3px; }
-        .shorts-footnote { margin: 16px auto 0; font-size: .95rem; }
-        .shorts-footnote a { color: #d8ad65; text-underline-offset: 3px; }
+        /* Shorts gallery: self-contained styles */
+        .shorts-gallery { max-width: 1050px; margin: 58px auto 0; padding: 28px 14px 0; border-top: 2px solid #b78339; text-align: left; }
+        .shorts-gallery h2 { color: #d9a04b; margin: 0 0 8px; text-align: center; }
+        .shorts-gallery > p { text-align: center; margin: 0 auto 25px; }
+        .shorts-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px 16px; }
+        .short-card { min-width: 0; }
+        .short-poster { position: relative; display: block; width: 100%; aspect-ratio: 9 / 16; border: 1px solid #785d39; border-radius: 12px; overflow: hidden; background: linear-gradient(155deg, #251849, #123b45 60%, #111); color: #fff; cursor: pointer; padding: 0; }
+        .short-poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .short-poster .short-placeholder { position: absolute; inset: 0; display: grid; place-items: center; padding: 18px; font-size: 1.2rem; font-weight: bold; text-align: center; }
+        .short-poster .short-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,.75); border: 1px solid #fff8; border-radius: 50%; width: 60px; height: 60px; display: grid; place-items: center; font-size: 25px; }
+        .short-poster:hover, .short-poster:focus-visible { outline: 2px solid #d9a04b; outline-offset: 3px; }
+        .short-card h3 { font-size: 1rem; margin: 10px 0 0; line-height: 1.35; }
+        .shorts-bottom { text-align: center; margin-top: 26px; }
+        .shorts-bottom a { color: #d8ad65; text-underline-offset: 3px; }
         /* Full-screen vertical Shorts viewer */
         .short-modal[hidden] { display: none; }
         .short-modal {
@@ -342,15 +344,12 @@
         </section>
 
         <section class="shorts-gallery" aria-labelledby="shorts-heading">
-            <h2 id="shorts-heading">The Shorts Are Rolling 🍿</h2>
-            <p>Press play. Swipe or use the arrows for the next video. Each Short loops until you move on.</p>
-            <button type="button" class="feature-short" id="featureShort" aria-label="Play Birds in my Hood and explore nine Shorts">
-                <img src="https://i.ytimg.com/vi/DYqxGucshvg/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/DYqxGucshvg/hqdefault.jpg'" alt="Birds in my Hood at 4:50 am" loading="lazy">
-                <span class="feature-play" aria-hidden="true">▶</span>
-                <span class="feature-label">Play Shorts · 9 videos</span>
-            </button>
-            <p class="shorts-footnote">More to explore: <a href="https://www.youtube.com/playlist?list=PLZtkDeEaMeUcAcn_1daA22JEvLUYFFb-T" target="_blank" rel="noopener noreferrer">65 Syndrome Walking Memes ↗</a></p>
+            <h2 id="shorts-heading">Shorts &amp; Other Questionable Decisions</h2>
+            <p>A little dancing, a little chaos. Pick a Short and enjoy the show. 🍿</p>
+            <div class="shorts-grid" id="shortsGrid"></div>
+            <p class="shorts-bottom"><a href="https://www.youtube.com/@AlexReynosoArt/shorts" target="_blank" rel="noopener noreferrer">See all Shorts on YouTube ↗</a></p>
         </section>
+
     </section>
 </main>
 
@@ -429,9 +428,7 @@
 
 
 <script>
-    // Add the actual YouTube Short ID for each item below.
-    // Example URL: youtube.com/shorts/ABC123xyz -> id: 'ABC123xyz'
-    // Add real IDs before publishing the gallery. Missing IDs are disabled, not redirected.
+    // Nine selected Shorts, each linked to its YouTube video ID.
     const shorts = [
         { title: 'Birds in my Hood at 4:50 am', id: 'DYqxGucshvg' },
         { title: 'Farmer Got the Groove', id: '-caZmLdyvdA' },
@@ -444,7 +441,7 @@
         { title: 'Twilight’s Alternate Ending', id: 'U0Ppnw_RKws' }
     ];
 
-    const featureShort = document.getElementById('featureShort');
+    const shortsGrid = document.getElementById('shortsGrid');
     const shortModal = document.getElementById('shortModal');
     const shortPlayer = document.getElementById('shortPlayer');
     const shortClose = document.getElementById('shortClose');
@@ -491,10 +488,41 @@
         if (Math.abs(delta) > 45) moveShort(delta < 0 ? 1 : -1);
     }, { passive: true });
 
-    featureShort.addEventListener('click', () => {
-        lastShortButton = featureShort;
-        playShort(0);
-        shortClose.focus();
+    shorts.forEach((short, index) => {
+        const card = document.createElement('article');
+        card.className = 'short-card';
+        const button = document.createElement('button');
+        button.className = 'short-poster';
+        button.type = 'button';
+        button.setAttribute('aria-label', 'Watch ' + short.title);
+        if (!short.id) { button.disabled = true; button.title = 'Video link coming soon'; button.style.cursor = 'not-allowed'; }
+        if (short.id) {
+            const thumb = document.createElement('img');
+            thumb.src = 'https://i.ytimg.com/vi/' + encodeURIComponent(short.id) + '/hqdefault.jpg';
+            thumb.alt = '';
+            thumb.loading = 'lazy';
+            button.appendChild(thumb);
+        } else {
+            const placeholder = document.createElement('span');
+            placeholder.className = 'short-placeholder';
+            placeholder.textContent = short.title;
+            button.appendChild(placeholder);
+        }
+        const play = document.createElement('span');
+        play.className = 'short-play';
+        play.setAttribute('aria-hidden', 'true');
+        play.textContent = '▶';
+        button.appendChild(play);
+        button.addEventListener('click', () => {
+            if (!short.id) return;
+            lastShortButton = button;
+            playShort(index);
+            shortClose.focus();
+        });
+        const title = document.createElement('h3');
+        title.textContent = short.title;
+        card.append(button, title);
+        shortsGrid.appendChild(card);
     });
     function closeShort() {
         shortModal.hidden = true;
