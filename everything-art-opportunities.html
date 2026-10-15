@@ -496,6 +496,7 @@
 .ea-load-more-wrap[hidden]{display:none!important}
 </style>
 <style>
+.ea-search-hint{margin:7px 0 0;color:#aaa;font-size:.78rem;line-height:1.5}
 /* Artist Resource Desk: compact source directory, independent of opportunity filters. */
 .ea-op-source-tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:2px 0 12px;margin-top:18px}
 .ea-op-source-tabs::-webkit-scrollbar{display:none}
@@ -577,7 +578,9 @@
                class="op-search"
                type="search"
                placeholder="Search opportunity, organization, location or keyword..."
-               aria-label="Search artist opportunities">
+               aria-label="Search artist opportunities"
+               aria-describedby="opSearchHint">
+        <p id="opSearchHint" class="ea-search-hint">Try an art form, location, organization or keyword.</p>
 
         <div class="op-filter-block">
             <span class="op-filter-label">Discipline</span>
@@ -1711,7 +1714,7 @@
         </article>
 
         <div class="no-results" id="noResults">
-            No opportunities match those filters right now. Try another category or reset the filters.
+            No opportunities match your search or filters right now. Try another keyword, reset the filters, or use <strong>Find More Opportunities</strong> above to search beyond our directory.
         </div>
 
     </section>
