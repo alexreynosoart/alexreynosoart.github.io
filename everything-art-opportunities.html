@@ -652,7 +652,7 @@
     </div>
 
     <div class="ea-web-discovery" aria-label="Find opportunities beyond this directory">
-        <button id="eaFindMoreWeb" class="ea-web-discovery-button" type="button">Find More Opportunities ↗</button>
+        <a id="eaFindMoreWeb" class="ea-web-discovery-button" href="https://www.google.com/search?q=artist%20grants%20residencies%20open%20calls%20opportunities%202026%202027" target="_blank" rel="noopener noreferrer">Find More Opportunities ↗</a>
         <span class="ea-web-discovery-note">Search the web using your keywords. Results open in a new tab and are not verified by Everything Art.</span>
     </div>
 
@@ -1889,9 +1889,7 @@
         const query = keywords
             ? keywords + ' artist grant residency open call application 2026 2027'
             : 'artist grants residencies open calls opportunities 2026 2027';
-        const url = 'https://www.google.com/search?q=' + encodeURIComponent(query);
-        const tab = window.open(url, '_blank', 'noopener,noreferrer');
-        if (!tab) window.location.assign(url);
+        findMoreWeb.href = 'https://www.google.com/search?q=' + encodeURIComponent(query);
     });
 
     const count = document.getElementById('resultCount');
