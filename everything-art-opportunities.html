@@ -629,6 +629,13 @@
                 <button class="filter-button desktop-extra" data-filter-group="feature" data-filter="japan">🇯🇵 Japan</button>
             </div>
         </div>
+        <div class="op-filter-block">
+            <span class="op-filter-label">Audience</span>
+            <div class="filter-row" aria-label="Opportunity audience">
+                <button class="filter-button active" data-filter-group="audience" data-filter="all">Everyone</button>
+                <button class="filter-button" data-filter-group="audience" data-filter="educators">Teachers &amp; Schools</button>
+            </div>
+        </div>
     </section>
 
     <div class="op-statusbar">
@@ -1495,6 +1502,32 @@
             </a>
         </article>
 
+        <!-- EDUCATOR RESOURCE STARTERS: ongoing directories, not advertised as open grants -->
+        <article class="op-card" data-audience="educators" data-discipline="visual interdisciplinary" data-type="resource grant training" data-features="us rolling" data-deadline="">
+            <div class="op-badges"><span class="op-badge">New York</span><span class="op-badge">Teachers &amp; Schools</span><span class="op-badge">Funding Resource</span></div>
+            <h2>ArtsWestchester: Grants &amp; Programs</h2>
+            <div class="op-org">ArtsWestchester · Westchester County, NY</div>
+            <p class="op-description">Explore regional arts funding and community programs. Check each program's current eligibility and application dates with the organizer.</p>
+            <div class="op-meta"><div><strong>For:</strong> Artists, eligible organizations and community partners</div><div><strong>Status:</strong> Ongoing resource; individual calls vary</div></div>
+            <a class="op-link" href="https://artswestchester.org/" target="_blank" rel="noopener noreferrer">EXPLORE ARTSWESTCHESTER →</a>
+        </article>
+        <article class="op-card" data-audience="educators" data-discipline="visual interdisciplinary" data-type="resource training" data-features="us rolling" data-deadline="">
+            <div class="op-badges"><span class="op-badge">White Plains</span><span class="op-badge">PTAs</span><span class="op-badge">School Partnerships</span></div>
+            <h2>White Plains Public Schools: PTA Directory</h2>
+            <div class="op-org">White Plains City School District · New York</div>
+            <p class="op-description">Find school PTA contacts and explore local arts enrichment partnerships, including Church Street, George Washington, Mamaroneck Avenue, Post Road and Ridgeway.</p>
+            <div class="op-meta"><div><strong>For:</strong> Teachers, families, teaching artists and school partners</div><div><strong>Status:</strong> Organization directory, not a grant application</div></div>
+            <a class="op-link" href="https://www.whiteplainspublicschools.org/about/ptas" target="_blank" rel="noopener noreferrer">VIEW SCHOOL PTA DIRECTORY →</a>
+        </article>
+        <article class="op-card" data-audience="educators" data-discipline="visual interdisciplinary" data-type="resource grant" data-features="us rolling" data-deadline="">
+            <div class="op-badges"><span class="op-badge">United States</span><span class="op-badge">Arts Funding</span><span class="op-badge">Official Resource</span></div>
+            <h2>National Endowment for the Arts: Grants</h2>
+            <div class="op-org">National Endowment for the Arts</div>
+            <p class="op-description">Browse federal arts grant programs and eligibility requirements. Many programs fund eligible organizations rather than individual classroom teachers.</p>
+            <div class="op-meta"><div><strong>For:</strong> Eligible arts and community organizations</div><div><strong>Status:</strong> Check program-specific deadlines</div></div>
+            <a class="op-link" href="https://www.arts.gov/grants" target="_blank" rel="noopener noreferrer">VIEW OFFICIAL GRANTS →</a>
+        </article>
+
         <div class="no-results" id="noResults">
             No opportunities match those filters right now. Try another category or reset the filters.
         </div>
@@ -1648,6 +1681,7 @@
     let disciplineFilter = 'all';
     let typeFilter = 'all';
     let featureFilter = 'all';
+    let audienceFilter = 'all';
     let visibleLimit = getPageSize();
 
     function daysUntil(dateString) {
@@ -1728,6 +1762,7 @@
         let disciplineMatch = disciplineFilter === 'all' || disciplines.includes(disciplineFilter);
         let typeMatch = typeFilter === 'all' || types.includes(typeFilter);
         let featureMatch = featureFilter === 'all' || features.includes(featureFilter);
+        let audienceMatch = audienceFilter === 'all' || (card.dataset.audience || '').split(/\s+/).includes(audienceFilter);
 
         if (featureFilter === 'closing') {
             const days = daysUntil(deadline);
@@ -1738,7 +1773,7 @@
         const daysRemaining = daysUntil(deadline);
         if (daysRemaining !== null && daysRemaining < 0) return false;
 
-        return disciplineMatch && typeMatch && featureMatch && (!q || text.includes(q));
+        return disciplineMatch && typeMatch && featureMatch && audienceMatch && (!q || text.includes(q));
     }
 
     function applyFilters(resetLimit = false) {
@@ -1791,6 +1826,7 @@
             if (group === 'discipline') disciplineFilter = value;
             if (group === 'type') typeFilter = value;
             if (group === 'feature') featureFilter = value;
+            if (group === 'audience') audienceFilter = value;
 
             applyFilters(true);
         });
@@ -1810,6 +1846,7 @@
         disciplineFilter = 'all';
         typeFilter = 'all';
         featureFilter = 'all';
+        audienceFilter = 'all';
         search.value = '';
 
         document.querySelectorAll('[data-filter-group="discipline"]')
@@ -1818,6 +1855,9 @@
             .forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
 
         document.querySelectorAll('[data-filter-group="feature"]')
+            .forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
+
+        document.querySelectorAll('[data-filter-group="audience"]')
             .forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
 
         applyFilters(true);
@@ -1855,6 +1895,7 @@
                 card.dataset.features=clean(item.features);
                 card.dataset.deadline=deadline;
                 card.dataset.country=clean(item.country);
+                card.dataset.audience=clean(item.audience);
                 const badges=document.createElement('div');badges.className='op-badges';
                 const badge=document.createElement('span');badge.className='op-badge';badge.textContent=clean(item.source)||'Art Opportunity';badges.append(badge);
                 const h=document.createElement('h2');h.textContent=title;
