@@ -510,6 +510,14 @@
 .ea-op-source-empty{color:#aaa;margin:16px 0}
 .ea-op-source-tab:focus-visible,.ea-op-source-more:focus-visible,.ea-op-source-search:focus-visible{outline:2px solid #ffd633;outline-offset:3px}
 </style>
+<style>
+/* Optional web discovery: separate from curated Everything Art listings. */
+.ea-web-discovery{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:12px;margin:12px 0 24px;text-align:center}
+.ea-web-discovery-button{border:1px solid #b88e13;border-radius:999px;background:#3b3115;color:#ffdf66;padding:12px 22px;font:inherit;font-size:.85rem;font-weight:800;cursor:pointer}
+.ea-web-discovery-button:hover{background:#55441a}
+.ea-web-discovery-button:focus-visible{outline:2px solid #ffd633;outline-offset:3px}
+.ea-web-discovery-note{font-size:.78rem;color:#aaa;max-width:370px}
+</style>
 </head>
 
 <body class="everything-art-opportunities-theme">
@@ -641,6 +649,11 @@
     <div class="op-statusbar">
         <span id="resultCount">Showing current opportunities</span>
         <span class="op-reset" id="resetFilters">Reset filters</span>
+    </div>
+
+    <div class="ea-web-discovery" aria-label="Find opportunities beyond this directory">
+        <button id="eaFindMoreWeb" class="ea-web-discovery-button" type="button">Find More Opportunities ↗</button>
+        <span class="ea-web-discovery-note">Search the web using your keywords. Results open in a new tab and are not verified by Everything Art.</span>
     </div>
 
     <div class="ea-page-controls">
@@ -1870,6 +1883,17 @@
     const grid = document.getElementById('opGrid');
     const buttons = Array.from(document.querySelectorAll('.filter-button'));
     const search = document.getElementById('opSearch');
+    const findMoreWeb = document.getElementById('eaFindMoreWeb');
+    findMoreWeb.addEventListener('click', () => {
+        const keywords = search.value.trim();
+        const query = keywords
+            ? keywords + ' artist grant residency open call application 2026 2027'
+            : 'artist grants residencies open calls opportunities 2026 2027';
+        const url = 'https://www.google.com/search?q=' + encodeURIComponent(query);
+        const tab = window.open(url, '_blank', 'noopener,noreferrer');
+        if (!tab) window.location.assign(url);
+    });
+
     const count = document.getElementById('resultCount');
     const noResults = document.getElementById('noResults');
     const reset = document.getElementById('resetFilters');
