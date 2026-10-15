@@ -1889,9 +1889,23 @@
     const findMoreWeb = document.getElementById('eaFindMoreWeb');
     findMoreWeb.addEventListener('click', () => {
         const keywords = search.value.trim();
-        const query = keywords
-            ? keywords + ' 2026'
-            : 'artist opportunities 2026';
+        const selected = group => document.querySelector(
+            '.filter-button.active[data-filter-group="' + group + '"]'
+        );
+        const filters = [];
+        const discipline = selected('discipline');
+        const type = selected('type');
+        const feature = selected('feature');
+        const audience = selected('audience');
+        if (discipline && discipline.dataset.filter !== 'all') filters.push(discipline.textContent.trim());
+        if (type && type.dataset.filter !== 'all') filters.push(type.textContent.trim());
+        if (feature && feature.dataset.filter !== 'all') {
+            const labels = {free:'free to apply',funded:'funded paid',closing:'application deadline soon',rolling:'rolling applications',nyc:'New York City',us:'United States',worldwide:'international',uk:'United Kingdom'};
+            filters.push(labels[feature.dataset.filter] || feature.textContent.replace(/[^\p{L}\p{N}\s]/gu,'').trim());
+        }
+        if (audience && audience.dataset.filter !== 'all') filters.push(audience.textContent.trim());
+        const parts = [keywords, ...filters].filter(Boolean);
+        const query = (parts.length ? parts.join(' ') : 'artist opportunities') + ' 2026';
         findMoreWeb.href = 'https://www.google.com/search?q=' + encodeURIComponent(query);
     });
 
