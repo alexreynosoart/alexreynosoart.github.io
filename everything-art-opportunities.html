@@ -1715,6 +1715,7 @@
 
         <div class="ea-op-source-tabs" id="eaOpSourceTabs" aria-label="Browse artist resources by region">
             <button type="button" class="ea-op-source-tab is-active" data-source-region="all" aria-pressed="true">All</button>
+            <button type="button" class="ea-op-source-tab" data-source-region="schools" aria-pressed="false">🎨 Teachers &amp; Schools</button>
             <button type="button" class="ea-op-source-tab" data-source-region="online" aria-pressed="false">💻 Online</button>
             <button type="button" class="ea-op-source-tab" data-source-region="nyc" aria-pressed="false">🗽 NYC</button>
             <button type="button" class="ea-op-source-tab" data-source-region="us" aria-pressed="false">🇺🇸 U.S.</button>
@@ -1722,7 +1723,7 @@
             <button type="button" class="ea-op-source-tab" data-source-region="worldwide" aria-pressed="false">🌐 Worldwide</button>
         </div>
         <div class="ea-op-source-tools">
-            <input class="ea-op-source-search" id="eaOpSourceSearch" type="search" placeholder="Search artist resources..." aria-label="Search artist resources">
+            <input class="ea-op-source-search" id="eaOpSourceSearch" type="search" placeholder="Search artist, school and teaching resources..." aria-label="Search artist resources">
             <span class="ea-op-source-count" id="eaOpSourceCount" aria-live="polite"></span>
         </div>
         <div class="resource-grid" id="eaOpResourceGrid">
@@ -1777,6 +1778,37 @@
             <a class="resource-card" data-source-region="us" href="https://newmusicusa.org/get-funding/" target="_blank" rel="noopener noreferrer"><h3>New Music USA</h3><p>Funding and development resources for composers, performers, ensembles and new-music creators.</p><span class="resource-source">Music + Sound</span></a>
             <a class="resource-card" data-source-region="us" href="https://www.pw.org/grants" target="_blank" rel="noopener noreferrer"><h3>Poets &amp; Writers</h3><p>Current contests, grants, awards and fellowships for poetry, fiction, nonfiction and literary creators.</p><span class="resource-source">Writing + Poetry</span></a>
             <a class="resource-card" data-source-region="worldwide" href="https://on-the-move.org/" target="_blank" rel="noopener noreferrer"><h3>On the Move</h3><p>International mobility calls and funding guides spanning performing arts, music, literature, design, visual art and more.</p><span class="resource-source">International + Multidisciplinary</span></a>
+            <!-- Ongoing educational resources, not claims of currently open grants. -->
+            <a class="resource-card" data-source-region="nyc" data-source-audience="schools"
+               href="https://www.materialsforthearts.org/faqs/" target="_blank" rel="noopener noreferrer">
+                <h3>Materials for the Arts</h3>
+                <p>Free donated art and creative materials for eligible NYC public schools and nonprofit organizations. Check membership and pickup requirements.</p>
+                <span class="resource-source">🎨 Teachers &amp; Schools · NYC · Free Supplies</span>
+            </a>
+            <a class="resource-card" data-source-region="us" data-source-audience="schools"
+               href="https://artswestchester.org/programs/schools/" target="_blank" rel="noopener noreferrer">
+                <h3>ArtsWestchester School Programs</h3>
+                <p>Explore teaching-artist residencies, workshops and arts learning partnerships for Westchester schools.</p>
+                <span class="resource-source">🎨 Teachers &amp; Schools · Westchester · Teaching Artists</span>
+            </a>
+            <a class="resource-card" data-source-region="nyc" data-source-audience="schools"
+               href="https://sites.google.com/schools.nyc.gov/nyc-doe-visual-arts/home" target="_blank" rel="noopener noreferrer">
+                <h3>NYC Public Schools Visual Arts Educators</h3>
+                <p>Visual arts teaching guidance, professional learning information and curriculum support for NYC public school educators.</p>
+                <span class="resource-source">🎨 Teachers &amp; Schools · NYC · Teacher Development</span>
+            </a>
+            <a class="resource-card" data-source-region="nyc" data-source-audience="schools"
+               href="https://nycaieroundtable.org/resources/resource-library/" target="_blank" rel="noopener noreferrer">
+                <h3>NYC Arts in Education Roundtable</h3>
+                <p>Arts education research, teaching resources and professional learning materials for educators and cultural organizations.</p>
+                <span class="resource-source">🎨 Teachers &amp; Schools · NYC · Resource Library</span>
+            </a>
+            <a class="resource-card" data-source-region="us" data-source-audience="schools"
+               href="https://arts.ny.gov/resources/resources-by-discipline" target="_blank" rel="noopener noreferrer">
+                <h3>New York State Arts Resources</h3>
+                <p>Statewide arts organizations and discipline-specific resources to help educators find partners and further guidance.</p>
+                <span class="resource-source">🎨 Teachers &amp; Schools · New York State · Directory</span>
+            </a>
         </div>
         <p class="ea-op-source-empty" id="eaOpSourceEmpty" hidden>No resources match this selection.</p>
         <div class="ea-op-source-more-wrap" id="eaOpSourceMoreWrap" hidden>
@@ -2099,11 +2131,11 @@
     const moreWrap=document.getElementById('eaOpSourceMoreWrap');
     const more=document.getElementById('eaOpSourceMore');
     let region='all',expanded=false;
-    const regions=new Set(cards.map(card=>card.dataset.sourceRegion));
+    const regions=new Set(cards.flatMap(card=>[card.dataset.sourceRegion,...(card.dataset.sourceAudience||'').split(/\s+/).filter(Boolean)]));
     tabs.forEach(tab=>{if(tab.dataset.sourceRegion!=='all'&&!regions.has(tab.dataset.sourceRegion))tab.disabled=true;});
     function render(){
         const q=search.value.trim().toLowerCase();
-        const matches=cards.filter(card=>(region==='all'||card.dataset.sourceRegion===region)&&(!q||card.textContent.toLowerCase().includes(q)));
+        const matches=cards.filter(card=>(region==='all'||card.dataset.sourceRegion===region||(card.dataset.sourceAudience||'').split(/\s+/).includes(region))&&(!q||card.textContent.toLowerCase().includes(q)));
         cards.forEach(card=>{card.hidden=!matches.includes(card)||( !expanded&&matches.indexOf(card)>=6);card.style.display=card.hidden?'none':'';});
         count.textContent=matches.length+' resource'+(matches.length===1?'':'s');
         empty.hidden=matches.length!==0;
