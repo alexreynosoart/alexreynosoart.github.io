@@ -184,6 +184,22 @@
 .bas-video-actions button:focus-visible{outline:3px solid #fff;outline-offset:3px}
 .bas-video-actions span{font-size:.85rem;color:#c9c3ba}
 </style>
+<style>
+/* Basement memories: visual archive preview */
+.bas-memory-shell{border:1px solid #5c4b31;border-radius:18px;padding:20px;background:linear-gradient(130deg,#201b16,#141414);margin:25px 0}
+.bas-memory-shell h3{color:#fff;margin:0 0 8px;font-size:1.3rem}
+.bas-memory-rail{display:flex;gap:15px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:10px 2px 15px;scrollbar-color:#8c7147 #221e19}
+.bas-memory-card{flex:0 0 clamp(210px,32%,285px);scroll-snap-align:start;background:#24211d;border:1px solid #705a36;border-radius:14px;overflow:hidden;min-width:0}
+.bas-memory-photo{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top;background:#30271d}
+.bas-memory-empty{aspect-ratio:4/3;display:grid;place-content:center;text-align:center;gap:8px;background:linear-gradient(145deg,#30271c,#191919);color:#cdb88e;border-bottom:1px dashed #796342;padding:14px}
+.bas-memory-empty span{font-size:2rem}.bas-memory-empty small{font-size:.82rem}
+.bas-memory-copy{padding:14px}.bas-memory-copy strong{color:#fff;display:block}.bas-memory-copy p{margin:6px 0 0!important;font-size:.86rem;color:#c8c1b7!important}
+.bas-memory-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:6px;color:#b9b0a2;font-size:.82rem}
+.bas-memory-controls button{width:38px;height:38px;border-radius:50%;background:#24211d;border:1px solid #8c7147;color:#f4d083;font-size:1.2rem;cursor:pointer}.bas-memory-controls button:disabled{opacity:.35;cursor:default}
+.bas-memory-zoom{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in}.bas-memory-zoom:focus-visible,.bas-memory-controls button:focus-visible{outline:2px solid #f4d083;outline-offset:2px}
+@media(max-width:600px){.bas-memory-shell{padding:14px}.bas-memory-card{flex-basis:225px}}
+@media(prefers-reduced-motion:reduce){.bas-memory-rail{scroll-behavior:auto}}
+</style>
 </head><body class="everything-art-theme">
 <nav class="ea-mini-nav" aria-label="Everything Art navigation"><div class="ea-mini-nav-inner"><div class="ea-mini-primary"><a class="ea-mini-link" href="everything-art.html">EVERYTHING ART</a><a class="ea-mini-link" href="everything-art-opportunities.html">OPPORTUNITIES</a><a class="ea-mini-link" href="everything-art-events.html">ART EVENTS</a><a class="ea-mini-link" href="everything-art-resources.html">RESOURCES</a></div><div class="ea-mini-actions"><a class="ea-mini-link ea-mini-facebook" href="https://www.facebook.com/groups/GreatArt" target="_blank" rel="noopener noreferrer">FB GROUP ↗</a><a class="ea-mini-ar" href="index.html" aria-label="Alex Reynoso Art home"><img src="images/favicon.png" alt=""></a></div></div></nav>
 <main class="bas-page"><header class="bas-hero"><div class="bas-kicker">Everything Art · Community Event Spotlight</div><h1>BASEMENT ART<br>SESSIONS</h1><p class="bas-lead">Art, music, people and creative energy. Explore the artist-led gatherings organized by Marthalicia Matarrita, bringing artists and art lovers together to share work and support the creative community.</p><div class="bas-buttons"><a class="bas-btn" href="#taste-and-paint">NEXT EVENT: TASTE AND PAINT ↓</a><a class="bas-btn secondary" href="everything-art-events.html">ALL ART EVENTS →</a></div></header>
@@ -250,6 +266,19 @@
 <article class="bas-history-item"><div class="bas-history-year">2026</div><div><h3>Basement Art Session #8</h3><p>September 12, 2026 · Bronx, New York. The original ticket listing offers a glimpse of the series and its invitation to artists.</p><a href="https://www.eventbrite.com/e/basement-art-session-8-tickets-1987963463233" target="_blank" rel="noopener noreferrer">View Session #8 listing ↗</a></div></article>
 <article class="bas-history-item bas-history-current"><div class="bas-history-year">Nov 2026</div><div><h3>Basement Art Session #9 · Taste and Paint</h3><p>November 21, 2026 · Orion's BX, Bronx. The featured upcoming gathering brings together art, food, music and community collaborators.</p><a href="#taste-and-paint">See the event details ↑</a></div></article>
 </div>
+<section class="bas-memory-shell" id="basement-memories" aria-labelledby="bas-memory-title">
+<div class="bas-kicker">A growing visual archive</div>
+<h3 id="bas-memory-title">Memories from the Basement</h3>
+<p>Flyers, photographs and moments from the sessions. This gallery is taking shape as artists and attendees share their memories.</p>
+<div class="bas-memory-rail" id="bas-memory-rail" tabindex="0" aria-label="Basement Art Sessions visual archive, scroll horizontally">
+<article class="bas-memory-card"><button type="button" class="bas-memory-zoom" aria-label="Enlarge Session 9 event flyer"><img class="bas-memory-photo" src="images/everything-art/basement-art-sessions-taste-and-paint-flyer.jpg" alt="Official Taste and Paint event flyer for Basement Art Session 9" loading="lazy"></button><div class="bas-memory-copy"><strong>Session #9 · Taste and Paint</strong><p>November 21, 2026 · Event flyer</p></div></article>
+<article class="bas-memory-card"><div class="bas-memory-empty" aria-label="Session 8 photo placeholder"><span aria-hidden="true">▧</span><small>Photos coming soon</small></div><div class="bas-memory-copy"><strong>Session #8</strong><p>September 12, 2026 · Bronx</p></div></article>
+<article class="bas-memory-card"><div class="bas-memory-empty" aria-label="2024 gathering photo placeholder"><span aria-hidden="true">▧</span><small>Photos coming soon</small></div><div class="bas-memory-copy"><strong>Live Painting &amp; Barbecue</strong><p>August 10, 2024 · Manhattan</p></div></article>
+<article class="bas-memory-card"><div class="bas-memory-empty" aria-label="Early gatherings photo placeholder"><span aria-hidden="true">▧</span><small>Photos coming soon</small></div><div class="bas-memory-copy"><strong>Early Sessions</strong><p>2014–2015 · Historical archive</p></div></article>
+</div>
+<div class="bas-memory-controls"><span>Swipe or use the arrows to explore</span><div><button type="button" id="bas-memory-prev" aria-label="Scroll memories left">←</button> <button type="button" id="bas-memory-next" aria-label="Scroll memories right">→</button></div></div>
+<p class="bas-note">Preview spaces are placeholders, not photographs of past sessions. Contributions will be added with permission and verified event details.</p>
+</section>
 <div class="bas-history-invite"><h3>Were you part of an earlier session?</h3><p>Artists and attendees who have old flyers, photographs or memories can contact Marthalicia about contributing to the story. Materials should only be published with the appropriate permissions.</p><a href="mailto:Marthaliciam@gmail.com?subject=Basement%20Art%20Sessions%20history">Share a memory with the organizer ↗</a></div>
 <p class="bas-note">This is a developing selection of historical references, not a complete list of numbered sessions. Some older links may be archived or change over time. We will not assign missing session numbers or identify participants without reliable records.</p>
 </section>
@@ -349,6 +378,19 @@
   });
   ['play','pause','ended','loadedmetadata'].forEach(name=>video.addEventListener(name,sync));
   sync();
+})();
+</script>
+<script>
+(function(){
+ const rail=document.getElementById('bas-memory-rail'),prev=document.getElementById('bas-memory-prev'),next=document.getElementById('bas-memory-next');
+ if(!rail||!prev||!next)return;
+ const update=()=>{prev.disabled=rail.scrollLeft<=2;next.disabled=rail.scrollLeft+rail.clientWidth>=rail.scrollWidth-2};
+ const step=d=>{const card=rail.querySelector('.bas-memory-card');const gap=parseFloat(getComputedStyle(rail).gap)||0;rail.scrollBy({left:d*(card.getBoundingClientRect().width+gap),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})};
+ prev.addEventListener('click',()=>step(-1));next.addEventListener('click',()=>step(1));rail.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);
+ rail.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();step(e.key==='ArrowRight'?1:-1)}});
+ const zoom=rail.querySelector('.bas-memory-zoom');
+ if(zoom)zoom.addEventListener('click',()=>{const flyer=document.querySelector('#bas-gallery .bas-flyer-open');if(flyer)flyer.click()});
+ update();
 })();
 </script>
 </body></html>
