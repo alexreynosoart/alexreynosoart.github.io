@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-10-15T01:01:36.614804+00:00",
+  "updatedAt": "2026-10-15T13:08:29.384782+00:00",
   "sources": {
-    "On the Move": 56,
+    "On the Move": 60,
     "Existing Everything Art listing": 21
   },
   "opportunities": [
@@ -448,6 +448,19 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Ljubljana UNESCO City of Literature: Writer in the Park Residency 2027 (Slovenia)",
+      "organization": "Ljubljana UNESCO City of Literature",
+      "description": "Residencies. Application deadline: 2026-10-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/ljubljana-unesco-city-literature-writer-park-residency-2027-slovenia",
+      "deadline": "2026-10-30",
+      "discipline": "writing",
+      "type": "residency",
+      "features": "",
+      "country": "Slovenia",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Matsu Biennial 2026 Call for International Artists (Taiwan)",
       "organization": "On the Move",
       "description": "Presenting work. Application deadline: 2026-10-30. Confirm eligibility, fees and details with the organizer.",
@@ -643,6 +656,19 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Aerowaves: Podcast Academy 2027 (Ireland, Online)",
+      "organization": "Aerowaves",
+      "description": "Training. Application deadline: 2026-11-05. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/aerowaves-podcast-academy-2027-ireland-online",
+      "deadline": "2026-11-05",
+      "discipline": "interdisciplinary",
+      "type": "training",
+      "features": "",
+      "country": "Ireland",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Artistic Production Grant: Spring 2027",
       "organization": "VIA Art Fund",
       "description": "The Spring 2027 award cycle begins with a letter of inquiry for artistic\n                production projects. Full applications are by invitation.",
@@ -665,6 +691,19 @@
       "type": "residency",
       "features": "",
       "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Dresden University of Technology/The Schaufler Foundation: Schaufler Lab@TU Dresden 2027 Residency (Germany)",
+      "organization": "Dresden University of Technology/The Schaufler Foundation",
+      "description": "Residencies. Application deadline: 2026-11-09. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/dresden-university-technologythe-schaufler-foundation-schaufler-labtu-dresden-2027-residency",
+      "deadline": "2026-11-09",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Germany",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
@@ -821,6 +860,19 @@
       "type": "grant",
       "features": "",
       "country": "Sweden",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Culture Moves Europe: Call for Residency Hosts 2026–2027",
+      "organization": "Culture Moves Europe",
+      "description": "Residencies. Application deadline: 2027-01-18. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/culture-moves-europe-call-residency-hosts-2026-2027",
+      "deadline": "2027-01-18",
+      "discipline": "interdisciplinary",
+      "type": "residency open-call",
+      "features": "",
+      "country": "",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
