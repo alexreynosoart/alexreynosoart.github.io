@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-15T00:57:50.908607+00:00",
+  "updatedAt": "2026-10-15T07:02:13.043620+00:00",
   "sources": {
     "NYC Parks": 52,
     "Whitney": 50,
@@ -9,10 +9,10 @@
     "Bronx Museum": 2,
     "Film at Lincoln Center": 6,
     "New York Live Arts": 8,
-    "Lincoln Center Presents": 180,
+    "Lincoln Center Presents": 178,
     "Wave Hill": 4,
     "Staten Island Museum": 5,
-    "Smithsonian Associates": 5
+    "Smithsonian Associates": 4
   },
   "events": [
     {
@@ -100,20 +100,6 @@
       "free": false
     },
     {
-      "title": "Mei Semones",
-      "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
-      "date": "2026-10-15",
-      "endDate": "2026-10-15",
-      "venue": "Lincoln Center Presents",
-      "location": "Manhattan, NY",
-      "type": "performance",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/mei-semones-849",
-      "source": "Lincoln Center Presents",
-      "free": false
-    },
-    {
       "title": "New Dendrology at the Arsenal Gallery",
       "description": "New Dendrology is a group exhibition featuring eleven artists whose work contributes to the study of trees, offering new insight and connection between humans and their arboreal neighbors.From communing with streets trees through a reading with The New York City Street Tree Tarot deck by Matthew López-Jensen, to the commitment ceremonies officiated by Laura ",
       "date": "2026-10-15",
@@ -182,20 +168,6 @@
       "url": "http://www.nycgovparks.org/events/2026/10/15/ongoing-outdoor-museum-exhibit-alices-terracotta-garden",
       "source": "NYC Parks",
       "free": false
-    },
-    {
-      "title": "PLAZA",
-      "description": "Interactive outdoor artwork by Andrew Schneider. Free admission; registration encouraged. Listed showtime(s): Multiple times. Check the official Lincoln Center event page for current details and tickets.",
-      "date": "2026-10-15",
-      "endDate": "2026-10-15",
-      "venue": "Josie Robertson Plaza, Lincoln Center",
-      "location": "Manhattan, NY",
-      "type": "installation",
-      "features": "nyc us free",
-      "country": "United States",
-      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/plaza-374",
-      "source": "Lincoln Center Presents",
-      "free": true
     },
     {
       "title": "Park Open Studio",
@@ -604,6 +576,20 @@
       "free": true
     },
     {
+      "title": "Public Gallery Tour",
+      "description": "",
+      "date": "2026-10-17",
+      "endDate": "2026-10-17",
+      "venue": "Wave Hill",
+      "location": "Bronx, NY",
+      "type": "tour",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.wavehill.org/calendar/public-gallery-tour-spring-2026-2",
+      "source": "Wave Hill",
+      "free": false
+    },
+    {
       "title": "Pumpkin Painting at Newport Garden",
       "description": "Newport Garden and GreenThumb welcomes all for an afternoon activity! We will have limited pumpkins available for participants to paint. Come learn more about the garden and meet community members!",
       "date": "2026-10-17",
@@ -909,20 +895,6 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/fujiororororororta-andamp-ka-baird-actress-team-rolfes",
       "source": "Lincoln Center Presents",
-      "free": false
-    },
-    {
-      "title": "Make It Miniature: Big Ideas in Small Formats",
-      "description": "Online course, 5 listed dates. First listed class 2026-10-21, last listed date 2026-12-02. Check the official program page for registration, schedule and attendance details.",
-      "date": "2026-10-21",
-      "endDate": "2026-12-02",
-      "venue": "Smithsonian Associates",
-      "location": "Online",
-      "type": "workshop",
-      "features": "online us",
-      "country": "United States",
-      "url": "https://smithsonianassociates.org/ticketing/programs/make-it-miniature-big-ideas-in-small-formats",
-      "source": "Smithsonian Associates",
       "free": false
     },
     {
