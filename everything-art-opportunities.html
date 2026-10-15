@@ -1529,6 +1529,43 @@
         </article>
 
 
+        <!-- LOCAL SCHOOL FUNDING: verified official sources, October 15, 2026 -->
+        <article class="op-card" data-audience="educators" data-discipline="visual interdisciplinary" data-type="grant" data-features="us funded rolling" data-deadline="">
+            <div class="op-badges"><span class="op-badge">White Plains</span><span class="op-badge">School Funding</span><span class="op-badge">Ongoing Applications</span></div>
+            <h2>Friends of White Plains Public Schools: Enrichment Grants</h2>
+            <div class="op-org">Friends of White Plains Public Schools · White Plains, NY</div>
+            <p class="op-description">Funding for classroom enrichment, visiting artists, cultural programs and learning materials not covered by the district budget. Applications are accepted from teachers, coordinators and administrators, not PTAs. Submit at least five weeks before the activity.</p>
+            <div class="op-meta"><div><strong>Typical awards:</strong> $300–$3,000</div><div><strong>Deadline:</strong> No fixed deadline listed; 2026–27 forms available</div></div>
+            <a class="op-link" href="https://friendsofwpps.org/guidelines-%26-application-1" target="_blank" rel="noopener noreferrer">VIEW GRANT APPLICATION →</a>
+        </article>
+
+        <article class="op-card" data-audience="educators" data-discipline="visual interdisciplinary" data-type="grant" data-features="us funded closing" data-deadline="2026-10-19" data-expire-at="2026-10-20T03:59:59Z">
+            <div class="op-badges"><span class="op-badge">United States</span><span class="op-badge">PTA Grant</span><span class="op-badge">$5,000</span></div>
+            <h2>National PTA: 2026–27 Youth-Led Service Grant</h2>
+            <div class="op-org">National PTA · United States</div>
+            <p class="op-description">Supports youth-designed service projects, including arts and creative expression. Requires an eligible middle- or high-school PTA/PTSA leader and a youth co-applicant; not an elementary-school-only grant.</p>
+            <div class="op-meta"><div><strong>Award:</strong> $5,000</div><div><strong>Deadline:</strong> October 19, 2026, 11:59 p.m. Pacific</div></div>
+            <a class="op-link" href="https://www.pta.org/home/run-your-pta/Awards-Grants" target="_blank" rel="noopener noreferrer">VIEW GRANT DETAILS →</a>
+        </article>
+
+        <article class="op-card" data-audience="educators" data-discipline="visual interdisciplinary" data-type="resource grant" data-features="us rolling" data-deadline="">
+            <div class="op-badges"><span class="op-badge">United States</span><span class="op-badge">PTA Arts Funding</span><span class="op-badge">Application Dates Vary</span></div>
+            <h2>National PTA: Arts Education Funding Resources</h2>
+            <div class="op-org">National PTA · United States</div>
+            <p class="op-description">Explore arts education grant information and tools for PTAs expanding student access to creative programs. Check the current application round and local PTA eligibility before applying.</p>
+            <div class="op-meta"><div><strong>For:</strong> Eligible local PTAs</div><div><strong>Status:</strong> Ongoing directory; individual grant windows vary</div></div>
+            <a class="op-link" href="https://www.pta.org/home/programs/reflections/artsedtools" target="_blank" rel="noopener noreferrer">EXPLORE ARTS FUNDING →</a>
+        </article>
+
+        <article class="op-card" data-audience="educators" data-discipline="visual interdisciplinary" data-type="resource training" data-features="us rolling" data-deadline="">
+            <div class="op-badges"><span class="op-badge">Westchester</span><span class="op-badge">Schools</span><span class="op-badge">Arts Partnerships</span></div>
+            <h2>Putnam/Northern Westchester BOCES: Arts in Education</h2>
+            <div class="op-org">PNW BOCES · New York</div>
+            <p class="op-description">Explore school arts programs, visiting artists and information on district arts-in-education services. District participation and any reimbursement eligibility must be confirmed with BOCES.</p>
+            <div class="op-meta"><div><strong>For:</strong> Schools and district coordinators</div><div><strong>Status:</strong> Ongoing program resource, not a direct cash grant</div></div>
+            <a class="op-link" href="https://www.pnwboces.org/artsined/how2use/faqs.aspx" target="_blank" rel="noopener noreferrer">EXPLORE SCHOOL ARTS PROGRAMS →</a>
+        </article>
+
         <!-- EXPANDED TEACHERS & SCHOOLS: standing resources, check program-specific eligibility -->
         <article class="op-card" data-audience="educators" data-discipline="visual interdisciplinary" data-type="resource grant" data-features="us rolling" data-deadline="">
             <div class="op-badges"><span class="op-badge">New York</span><span class="op-badge">Teachers &amp; Schools</span><span class="op-badge">State Arts Funding</span></div>
@@ -1829,8 +1866,12 @@
         }
 
         // Expired dated opportunities are never shown, even under search.
+        // Exact expiration timestamp takes priority for grants with a specified timezone.
+        // Keep cards in the source for archival/reference; hide them from all active filters.
+        const expiresAt = card.dataset.expireAt;
+        if (expiresAt && Date.now() > Date.parse(expiresAt)) return false;
         const daysRemaining = daysUntil(deadline);
-        if (daysRemaining !== null && daysRemaining < 0) return false;
+        if (!expiresAt && daysRemaining !== null && daysRemaining < 0) return false;
 
         return disciplineMatch && typeMatch && featureMatch && audienceMatch && (!q || text.includes(q));
     }
