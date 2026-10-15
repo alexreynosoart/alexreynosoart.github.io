@@ -1,18 +1,18 @@
 {
-  "updatedAt": "2026-10-15T07:02:13.043620+00:00",
+  "updatedAt": "2026-10-15T18:58:09.100319+00:00",
   "sources": {
-    "NYC Parks": 52,
+    "NYC Parks": 56,
     "Whitney": 50,
     "MoMA": 0,
     "Guggenheim": 0,
     "NYPL": 7,
     "Bronx Museum": 2,
-    "Film at Lincoln Center": 6,
+    "Film at Lincoln Center": 7,
     "New York Live Arts": 8,
     "Lincoln Center Presents": 178,
     "Wave Hill": 4,
     "Staten Island Museum": 5,
-    "Smithsonian Associates": 4
+    "Smithsonian Associates": 3
   },
   "events": [
     {
@@ -604,6 +604,20 @@
       "free": false
     },
     {
+      "title": "Pumpkin Picking at El Batey de Dona Provi Garden!",
+      "description": "We will have pumpkin painting, face painting, games and more! Come dressed in your best costumes! All activities are first come, first served and while supplies last.",
+      "date": "2026-10-17",
+      "endDate": "2026-10-17",
+      "venue": "NYC Parks",
+      "location": "El Batey Borincano Garden",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/10/17/pumpkin-picking-at-el-batey-de-dona-provi-garden",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
       "title": "Revealing the Palisades",
       "description": "",
       "date": "2026-10-17",
@@ -642,6 +656,34 @@
       "features": "nyc us",
       "country": "United States",
       "url": "http://www.nycgovparks.org/events/2026/10/17/fall-festival",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
+      "title": "Student Art Installation: Out of the Box Biodiversity: Sculpture, Raku Fired Clay, Watercolor, Pen & Ink",
+      "description": "Youth Art Featuring Pieces Completed by the Students of Artist and Sculptor Donna Napoli-Steele.Exhibition of student-made upcycled sculptures, raku ceramics and watercolors. This event is being hosted in conjunction with Open House New York (OHNY) weekend.Open House New York Weekend is an annual festival that unlocks 300 destinations across the five borough",
+      "date": "2026-10-17",
+      "endDate": "2026-10-17",
+      "venue": "Conference House Park",
+      "location": "Rutan-Becket House (in Conference House Park)",
+      "type": "exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/10/17/student-art-installation-out-of-the-box-biodiversity-sculptu",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
+      "title": "Temporary Art Installation: Americana Songfest: Paintings Inspired by America's Songs",
+      "description": "South Shore Artists Group Presents: Americana Songfest: Paintings Inspired by America's Songs.Visit this temporary art exhibit, featuring works from the Staten Island South Shore Artists Group! This event is being hosted in conjunction with Open House New York (OHNY) weekend.Open House New York Weekend is an annual festival that unlocks 300 destinations acro",
+      "date": "2026-10-17",
+      "endDate": "2026-10-17",
+      "venue": "Conference House Park",
+      "location": "H.H. Biddle House (in Conference House Park)",
+      "type": "exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/10/17/temporary-art-installation-americana-songfest-paintings-inspired-by-americas-songs",
       "source": "NYC Parks",
       "free": false
     },
@@ -1444,6 +1486,20 @@
       "free": false
     },
     {
+      "title": "McDonald’s Pumpkin Patch",
+      "description": "Join NYC Parks and Staten Island Recreation at McDonald’s Playground for a spooktacular Halloween celebration for the whole family! Pick your own sugar pumpkin from our festive pumpkin patch and get creative at our pumpkin painting station. Enjoy Halloween arts and crafts and jumbo games for an afternoon of festive fall fun!",
+      "date": "2026-10-29",
+      "endDate": "2026-10-29",
+      "venue": "Austin J. McDonald Playground",
+      "location": "Front Entrance (in Austin J. McDonald Playground)",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/10/29/mcdonalds-pumpkin-patch",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
       "title": "Orchestra in Miniature",
       "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2026-10-29",
@@ -1455,6 +1511,20 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/orchestra-in-miniature-848",
       "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "Walter Annenberg Lecture: Alex Da Corte",
+      "description": "Alex Da Corte is a Venezuelan-American artist inspired by Pop Art and Surrealism and informed by American cultural references. He is the co-curator of Roy Lichtenstein: Like New , which presents a retrospective of Lichtenstein in the contemporary context of accelerated production and circulation of images. For this Walter Annenberg Lecture, Alex Da Corte pre",
+      "date": "2026-10-29",
+      "endDate": "2026-10-29",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "talk",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/annenberg-26-alex-da-corte",
+      "source": "Whitney",
       "free": false
     },
     {
@@ -1553,6 +1623,20 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/de-papel-848",
       "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "Everytime",
+      "description": "Upcoming screening dates: Nov 06, Nov 07, Nov 08, Nov 09, Nov 10, Nov 11. See official film page for verified showtimes and tickets.",
+      "date": "2026-11-06",
+      "endDate": "2026-11-11",
+      "venue": "Film at Lincoln Center",
+      "location": "Manhattan, NY",
+      "type": "film",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.filmlinc.org/films/everytime/",
+      "source": "Film at Lincoln Center",
       "free": false
     },
     {
@@ -2015,20 +2099,6 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/songs-of-the-season-1",
       "source": "Lincoln Center Presents",
-      "free": false
-    },
-    {
-      "title": "Takuga: Botanical Prints in Sumi Ink and Watercolor",
-      "description": "Online Smithsonian Associates program. Check the official program page for registration, schedule and attendance details.",
-      "date": "2026-12-05",
-      "endDate": "2026-12-05",
-      "venue": "Smithsonian Associates",
-      "location": "Online",
-      "type": "talk",
-      "features": "online us",
-      "country": "United States",
-      "url": "https://smithsonianassociates.org/ticketing/programs/takuga-botanical-prints",
-      "source": "Smithsonian Associates",
       "free": false
     },
     {
@@ -3569,20 +3639,6 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/art-bath-290",
       "source": "Lincoln Center Presents",
-      "free": false
-    },
-    {
-      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
-      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
-      "date": "2027-04-08",
-      "endDate": "2027-04-08",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
-      "source": "Whitney",
       "free": false
     },
     {
