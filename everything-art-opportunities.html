@@ -2005,10 +2005,20 @@
         const features = (card.dataset.features || '').split(/\s+/);
         const deadline = card.dataset.deadline || '';
         const text = card.innerText.toLowerCase();
+        // Make geographic keywords searchable even when the card uses only region tags.
+        // NYC listings are also U.S. listings, but U.S. listings are not all NYC listings.
+        const locationTerms = features.includes('nyc')
+            ? ' nyc new york city new york bronx brooklyn queens manhattan staten island us usa united states'
+            : features.includes('us')
+                ? ' us usa united states'
+                : features.includes('worldwide')
+                    ? ' worldwide international global'
+                    : '';
+        const searchableText = text + locationTerms;
 
         let disciplineMatch = disciplineFilter === 'all' || disciplines.includes(disciplineFilter);
         let typeMatch = typeFilter === 'all' || types.includes(typeFilter);
-        let featureMatch = featureFilter === 'all' || features.includes(featureFilter);
+        let featureMatch = featureFilter === 'all' || features.includes(featureFilter) || (featureFilter === 'us' && features.includes('nyc'));
         let audienceMatch = audienceFilter === 'all' || (card.dataset.audience || '').split(/\s+/).includes(audienceFilter);
 
         if (featureFilter === 'closing') {
@@ -2024,7 +2034,7 @@
         const daysRemaining = daysUntil(deadline);
         if (!expiresAt && daysRemaining !== null && daysRemaining < 0) return false;
 
-        return disciplineMatch && typeMatch && featureMatch && audienceMatch && (!q || text.includes(q));
+        return disciplineMatch && typeMatch && featureMatch && audienceMatch && (!q || searchableText.includes(q));
     }
 
     function applyFilters(resetLimit = false) {
@@ -2187,7 +2197,7 @@
     tabs.forEach(tab=>{if(tab.dataset.sourceRegion!=='all'&&!regions.has(tab.dataset.sourceRegion))tab.disabled=true;});
     function render(){
         const q=search.value.trim().toLowerCase();
-        const matches=cards.filter(card=>(region==='all'||card.dataset.sourceRegion===region||(card.dataset.sourceAudience||'').split(/\s+/).includes(region))&&(!q||card.textContent.toLowerCase().includes(q)));
+        const matches=cards.filter(card=>(region==='all'||card.dataset.sourceRegion===region||(region==='us'&&card.dataset.sourceRegion==='nyc')||(card.dataset.sourceAudience||'').split(/\s+/).includes(region))&&(!q||(card.textContent.toLowerCase() + (card.dataset.sourceRegion==='nyc' ? ' nyc new york city new york bronx us usa united states' : card.dataset.sourceRegion==='us' ? ' us usa united states' : '')).includes(q)));
         cards.forEach(card=>{card.hidden=!matches.includes(card)||( !expanded&&matches.indexOf(card)>=6);card.style.display=card.hidden?'none':'';});
         count.textContent=matches.length+' resource'+(matches.length===1?'':'s');
         empty.hidden=matches.length!==0;
