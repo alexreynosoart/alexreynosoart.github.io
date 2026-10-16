@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-16T16:43:52.102050+00:00",
+  "updatedAt": "2026-10-16T21:15:38.376857+00:00",
   "sources": {
     "NYC Parks": 58,
     "Whitney": 50,
@@ -9,7 +9,7 @@
     "Bronx Museum": 2,
     "Film at Lincoln Center": 7,
     "New York Live Arts": 8,
-    "Lincoln Center Presents": 175,
+    "Lincoln Center Presents": 176,
     "Wave Hill": 4,
     "Staten Island Museum": 5,
     "Smithsonian Associates": 3
@@ -969,7 +969,7 @@
     },
     {
       "title": "Live Music by Cassie Watson Francillon and Sasha Masakowski",
-      "description": "Join the Whitney for a performance by Cassie Watson Francillon & Sasha Masakowski at Free Friday Nights , co-presented by Brooklyn-based performance venue and community space Public Records . Avant-garde harpist Cassie Watson Francillon 's music is steeped in liberation, psychedelia and Black American sonic components that defy genre boundaries. With roots i",
+      "description": "Join the Whitney for a performance by Cassie Watson Francillon & Sasha Masakowski at Free Friday Nights , co-presented by Brooklyn-based performance venue and community space Public Records . Avant-garde harpist Cassie Watson Francillon 's music is steeped in liberation, psychedelia and Black American sonic components that defy genre and boundaries. With roo",
       "date": "2026-10-23",
       "endDate": "2026-10-23",
       "venue": "Whitney Museum of American Art",
@@ -1640,6 +1640,20 @@
       "free": false
     },
     {
+      "title": "Whitney Descriptions: Roy Lichtenstein and Printmaking Workshop",
+      "description": "Join us for a touch tour and a tactile printmaking experience with Whitney educator Alexandra Huber-Weiss and Robert Blackburn Printmaking Workshop . The event begins with the tour at 11 am in Roy Lichtenstein: Like New . At 12 pm, we will transition to the 3rd Floor Hearst Artspace for a collagraph printmaking workshop. For all accommodations, please email ",
+      "date": "2026-11-07",
+      "endDate": "2026-11-07",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us free",
+      "country": "United States",
+      "url": "https://whitney.org/events/whitney-descriptions-lichtenstein",
+      "source": "Whitney",
+      "free": true
+    },
+    {
       "title": "Come & Sing: Broadway Finales",
       "description": "Listed showtime(s): 11:00 am. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2026-11-08",
@@ -1664,6 +1678,20 @@
       "features": "nyc us",
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/de-papel-848",
+      "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "Community Blood Drive",
+      "description": "Listed showtime(s): 12:00 pm. Check the official Lincoln Center event page for current details and tickets.",
+      "date": "2026-11-09",
+      "endDate": "2026-11-09",
+      "venue": "Lincoln Center Presents",
+      "location": "Manhattan, NY",
+      "type": "performance",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/community-blood-drive-2-673",
       "source": "Lincoln Center Presents",
       "free": false
     },
