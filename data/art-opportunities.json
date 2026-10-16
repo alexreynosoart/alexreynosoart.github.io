@@ -1,101 +1,10 @@
 {
-  "updatedAt": "2026-10-15T13:08:29.384782+00:00",
+  "updatedAt": "2026-10-16T01:01:30.230836+00:00",
   "sources": {
-    "On the Move": 60,
-    "Existing Everything Art listing": 21
+    "On the Move": 55,
+    "Existing Everything Art listing": 19
   },
   "opportunities": [
-    {
-      "title": "Bunnell Streets Arts Center: Alaska AIR 2027-2028 Artist in Residence (USA)",
-      "organization": "Bunnell Streets Arts Center",
-      "description": "Residencies. Application deadline: 2026-10-15. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/bunnell-streets-arts-center-alaska-air-2027-2028-artist-residence-usa",
-      "deadline": "2026-10-15",
-      "discipline": "interdisciplinary",
-      "type": "residency",
-      "features": "",
-      "country": "United States",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
-      "title": "Gerald Cable Book Award",
-      "organization": "Silverfish Review Press · Poets & Writers listing",
-      "description": "Annual award for a debut poetry collection, including a cash prize, publication and author copies.",
-      "url": "https://www.pw.org/grants",
-      "deadline": "2026-10-15",
-      "discipline": "writing",
-      "type": "competition open-call",
-      "features": "us funded closing",
-      "country": "",
-      "source": "Existing Everything Art listing",
-      "status": "Existing listing; verify with organizer"
-    },
-    {
-      "title": "HERside: Residency Exchange for Female Artists and Cultural Professionals (Slovakia, Ukraine)",
-      "organization": "HERside",
-      "description": "Residencies. Application deadline: 2026-10-15. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/herside-unesco-creative-cities-parallel-residencies-slovakia-ukraine",
-      "deadline": "2026-10-15",
-      "discipline": "interdisciplinary",
-      "type": "residency",
-      "features": "",
-      "country": "",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
-      "title": "IETM Global Connect Programme for Supported Membership 2027 (Cyprus)",
-      "organization": "On the Move",
-      "description": "Meeting & networking. Application deadline: 2026-10-15. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/ietm-global-connect-programme-supported-membership-2027-cyprus",
-      "deadline": "2026-10-15",
-      "discipline": "interdisciplinary",
-      "type": "resource",
-      "features": "",
-      "country": "Cyprus",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
-      "title": "IterCulture: Teatri Riflessi 2027 International Short Performance Competition (Italy)",
-      "organization": "IterCulture",
-      "description": "Competitions & awards. Application deadline: 2026-10-15. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/iterculture-teatri-riflessi-2027-international-short-performance-competition-italy",
-      "deadline": "2026-10-15",
-      "discipline": "interdisciplinary",
-      "type": "competition",
-      "features": "",
-      "country": "Italy",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
-      "title": "Loewe Foundation: 2027 Craft Prize",
-      "organization": "Loewe Foundation",
-      "description": "Competitions & awards. Application deadline: 2026-10-15. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/loewe-foundation-2027-craft-prize",
-      "deadline": "2026-10-15",
-      "discipline": "interdisciplinary",
-      "type": "competition",
-      "features": "",
-      "country": "",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
-      "title": "The Meridian Award",
-      "organization": "The Meridian Award · Online",
-      "description": "An international award offering one contemporary visual artist a $1,000\n                unrestricted cash prize.",
-      "url": "https://www.nyfa.org/opportunities/opportunity-info/?id=79bf0bb0-eddd-45ca-9a43-cd4dd918ae33",
-      "deadline": "2026-10-15",
-      "discipline": "visual interdisciplinary",
-      "type": "grant fellowship",
-      "features": "worldwide funded",
-      "country": "",
-      "source": "Existing Everything Art listing",
-      "status": "Existing listing; verify with organizer"
-    },
     {
       "title": "Call for Researchers > Cultural Mobility Funding Guide – Focus on Africa (2027 Edition)",
       "organization": "On the Move",
