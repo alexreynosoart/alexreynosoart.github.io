@@ -4065,8 +4065,9 @@ row.addEventListener('click', function(event) {
           const dx = x2 - x1, dy = y2 - y1;
           const distance = Math.hypot(dx, dy);
 
-          if (currentTool === 'brush' && brushType === 'soft') {
-              /* PhotoCraft-inspired feathered coverage: a continuous stroke mask,
+          if ((currentTool === 'brush' && brushType === 'soft') ||
+              (currentTool === 'eraser' && eraserMode === 'soft')) {
+              /* Shared PhotoCraft-inspired feathered coverage for soft brush and soft eraser:
                  blurred once, with stronger flow at the center. Opacity remains
                  controlled ONLY by miaPreviewStroke at the stroke level. */
               if (!miaSoftPoints.length) miaSoftPoints.push([x1, y1]);
@@ -4080,7 +4081,7 @@ row.addEventListener('click', function(event) {
               miaSoftMask.height = miaStrokeCanvas.height;
               const mc = miaSoftMask.getContext('2d');
               mc.lineCap = 'round'; mc.lineJoin = 'round';
-              mc.strokeStyle = currentColor;
+              mc.strokeStyle = currentTool === 'eraser' ? '#000' : currentColor;
               mc.lineWidth = Math.max(1, size * 0.96);
               mc.beginPath();
               mc.moveTo(miaSoftPoints[0][0], miaSoftPoints[0][1]);
@@ -4184,11 +4185,6 @@ row.addEventListener('click', function(event) {
               /* Pen: crisp, accurately sized line. Marker: broad felt-tip with
                  just a touch of edge softness. Eraser modes stay unchanged. */
               strokeCtx.lineWidth = size;
-              if (currentTool === 'eraser' && eraserMode === 'soft') {
-                  strokeCtx.lineWidth = size * 1.55;
-                  strokeCtx.shadowColor = '#000';
-                  strokeCtx.shadowBlur = size * 1.45;
-              }
               strokeCtx.beginPath();
               strokeCtx.moveTo(x1, y1);
               strokeCtx.lineTo(x2, y2);
