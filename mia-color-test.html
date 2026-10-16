@@ -6125,5 +6125,103 @@ body.v242-touch-active .tool-indicator.move::after  {
 })();
 </script>
 
+
+<style>
+/* MIA TEST: Brush/Eraser size and opacity layout repair.
+   Override the four-column submenu grid without changing drawing logic. */
+#desktopTabletBrushMenu > .mia-compact-size-row,
+#desktopTabletEraserMenu > .mia-compact-size-row,
+#mobileBrushSubmenu > .mia-compact-size-row,
+#mobileEraserSubmenu > .mia-compact-size-row {
+  grid-column: 1 / -1 !important;
+  grid-row: auto !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 8px !important;
+  padding: 12px 2px 4px !important;
+  margin: 8px 0 0 !important;
+  border-top: 1px solid #ddd !important;
+}
+#desktopTabletBrushMenu .mia-compact-size-row > .mia-control-half,
+#desktopTabletEraserMenu .mia-compact-size-row > .mia-control-half,
+#mobileBrushSubmenu .mia-compact-size-row > .mia-control-half,
+#mobileEraserSubmenu .mia-compact-size-row > .mia-control-half {
+  display: grid !important;
+  grid-template-columns: minmax(74px,1fr) 42px 52px 42px !important;
+  gap: 8px !important;
+  align-items: center !important;
+  justify-content: stretch !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 42px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+#desktopTabletBrushMenu .mia-compact-size-row .mia-compact-size-label,
+#desktopTabletBrushMenu .mia-compact-size-row .mia-compact-opacity-label,
+#desktopTabletEraserMenu .mia-compact-size-row .mia-compact-size-label,
+#desktopTabletEraserMenu .mia-compact-size-row .mia-compact-opacity-label,
+#mobileBrushSubmenu .mia-compact-size-row .mia-compact-size-label,
+#mobileBrushSubmenu .mia-compact-size-row .mia-compact-opacity-label,
+#mobileEraserSubmenu .mia-compact-size-row .mia-compact-size-label,
+#mobileEraserSubmenu .mia-compact-size-row .mia-compact-opacity-label {
+  font-size: 12px !important;
+  margin: 0 !important;
+  min-width: 0 !important;
+  white-space: nowrap !important;
+}
+#desktopTabletBrushMenu .mia-compact-size-row button,
+#desktopTabletEraserMenu .mia-compact-size-row button,
+#mobileBrushSubmenu .mia-compact-size-row button,
+#mobileEraserSubmenu .mia-compact-size-row button {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 42px !important;
+  min-width: 0 !important;
+  max-width: 42px !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  font-size: 20px !important;
+}
+#desktopTabletBrushMenu .mia-compact-size-row [data-mia-size-value],
+#desktopTabletBrushMenu .mia-compact-size-row [data-mia-opacity-value],
+#desktopTabletEraserMenu .mia-compact-size-row [data-mia-size-value],
+#desktopTabletEraserMenu .mia-compact-size-row [data-mia-opacity-value],
+#mobileBrushSubmenu .mia-compact-size-row [data-mia-size-value],
+#mobileBrushSubmenu .mia-compact-size-row [data-mia-opacity-value],
+#mobileEraserSubmenu .mia-compact-size-row [data-mia-size-value],
+#mobileEraserSubmenu .mia-compact-size-row [data-mia-opacity-value] {
+  width: 52px !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  font-size: 14px !important;
+}
+@media(max-width: 420px) {
+  #mobileBrushSubmenu .mia-compact-size-row > .mia-control-half,
+  #mobileEraserSubmenu .mia-compact-size-row > .mia-control-half {
+    grid-template-columns: minmax(64px,1fr) 36px 46px 36px !important;
+    gap: 5px !important;
+  }
+  #mobileBrushSubmenu .mia-compact-size-row button,
+  #mobileEraserSubmenu .mia-compact-size-row button { width:36px !important; max-width:36px !important; }
+  #mobileBrushSubmenu .mia-compact-size-row [data-mia-size-value],
+  #mobileBrushSubmenu .mia-compact-size-row [data-mia-opacity-value],
+  #mobileEraserSubmenu .mia-compact-size-row [data-mia-size-value],
+  #mobileEraserSubmenu .mia-compact-size-row [data-mia-opacity-value] { width:46px !important; }
+}
+</style>
+
 </body>
 </html>
