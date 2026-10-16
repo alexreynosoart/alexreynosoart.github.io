@@ -6675,5 +6675,58 @@ body.v242-touch-active .tool-indicator.move::after  {
  },false);
 })();
 </script>
+
+<style>
+/* MIA UI tidy-up: hide legacy test controls while retaining their JS state. */
+html body #miaDynamicsMobileHost,
+html body #miaDynamicsDesktopHost,
+html body #miaDynamicsMobileHost #miaPressureTester,
+html body #miaDynamicsDesktopHost #miaPressureTester,
+html body #miaPressureTester,
+html body #miaPressureTester.open {display:none!important;visibility:hidden!important;position:absolute!important;width:0!important;height:0!important;overflow:hidden!important;padding:0!important;margin:0!important;}
+/* Compact single checkbox, no explanatory rows. */
+#mobileBrushSubmenu > .mia-dynamics-compact,
+#desktopTabletBrushMenu > .mia-dynamics-compact {
+  grid-column:1/-1!important; margin:2px 0 0!important;
+  padding:0 2px!important;min-height:24px!important;
+  font-size:12px!important;line-height:1.2!important;
+}
+/* Keep the labels and the corresponding buttons together at the left. */
+#mobileBrushSubmenu > .mia-compact-size-row,
+#mobileEraserSubmenu > .mia-compact-size-row {
+  display:flex!important;flex-direction:row!important;flex-wrap:wrap!important;
+  justify-content:flex-start!important;align-items:center!important;
+  gap:8px 16px!important;padding:8px 0 3px!important;
+}
+#mobileBrushSubmenu .mia-compact-size-row > .mia-control-half,
+#mobileEraserSubmenu .mia-compact-size-row > .mia-control-half {
+  display:grid!important;width:max-content!important;max-width:100%!important;
+  grid-template-columns:max-content 34px 40px 34px!important;
+  gap:5px!important;justify-content:start!important;
+  min-height:36px!important;
+}
+#mobileBrushSubmenu .mia-compact-size-row .mia-compact-size-label,
+#mobileEraserSubmenu .mia-compact-size-row .mia-compact-size-label {width:39px!important;}
+#mobileBrushSubmenu .mia-compact-size-row .mia-compact-opacity-label,
+#mobileEraserSubmenu .mia-compact-size-row .mia-compact-opacity-label {width:58px!important;}
+#mobileBrushSubmenu .mia-compact-size-row button,
+#mobileEraserSubmenu .mia-compact-size-row button {width:34px!important;max-width:34px!important;min-width:34px!important;height:34px!important;min-height:34px!important;}
+#mobileBrushSubmenu .mia-compact-size-row [data-mia-size-value],
+#mobileBrushSubmenu .mia-compact-size-row [data-mia-opacity-value],
+#mobileEraserSubmenu .mia-compact-size-row [data-mia-size-value],
+#mobileEraserSubmenu .mia-compact-size-row [data-mia-opacity-value] {width:40px!important;}
+@media(max-width:390px){
+ #mobileBrushSubmenu > .mia-compact-size-row,
+ #mobileEraserSubmenu > .mia-compact-size-row {gap:6px!important;}
+ #mobileBrushSubmenu .mia-compact-size-row > .mia-control-half,
+ #mobileEraserSubmenu .mia-compact-size-row > .mia-control-half {grid-template-columns:max-content 30px 35px 30px!important;gap:3px!important;}
+ #mobileBrushSubmenu .mia-compact-size-row button,
+ #mobileEraserSubmenu .mia-compact-size-row button {width:30px!important;min-width:30px!important;max-width:30px!important;}
+ #mobileBrushSubmenu .mia-compact-size-row [data-mia-size-value],
+ #mobileBrushSubmenu .mia-compact-size-row [data-mia-opacity-value],
+ #mobileEraserSubmenu .mia-compact-size-row [data-mia-size-value],
+ #mobileEraserSubmenu .mia-compact-size-row [data-mia-opacity-value] {width:35px!important;}
+}
+</style>
 </body>
 </html>
