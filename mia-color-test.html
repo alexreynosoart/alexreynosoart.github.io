@@ -4156,6 +4156,47 @@ row.addEventListener('click', function(event) {
           miaStrokeBase = false;
           miaPreviewDirty = null;
       }
+      /* PhotoCraft-inspired tip falloff: thin translucent felt edge, dense core.
+         Cache the rotated tip to avoid expensive per-move gradients on iPhone. */
+      const miaFeltTips = new Map();
+      function miaGetFeltMarkerTip(width, color) {
+          const w = Math.max(1, Math.round(width * 2) / 2);
+          const key = color + ':' + w;
+          if (miaFeltTips.has(key)) return miaFeltTips.get(key);
+          const extent = Math.ceil(w * 1.8 + 12);
+          const tip = document.createElement('canvas');
+          tip.width = tip.height = extent;
+          const c = tip.getContext('2d');
+          const center = extent / 2;
+          const length = Math.max(1, w * 1.02);
+          const thick = Math.max(1, w * 0.33);
+          const edge = Math.max(0.65, Math.min(3.5, w * 0.075));
+          c.translate(center, center);
+          c.rotate(-Math.PI / 6);
+          /* Outer veil is deliberately narrow, unlike the Soft airbrush. */
+          c.globalAlpha = 0.20;
+          c.fillStyle = color;
+          c.fillRect(-length/2-edge, -thick/2-edge, length+2*edge, thick+2*edge);
+          c.globalAlpha = 0.45;
+          c.fillRect(-length/2-edge*0.55, -thick/2-edge*0.55,
+                     length+edge*1.1, thick+edge*1.1);
+          c.globalAlpha = 1;
+          c.fillRect(-length/2, -thick/2, length, thick);
+          /* A few translucent fibers keep the tip from looking plastic. */
+          if (w >= 9) {
+              c.globalAlpha = 0.16;
+              c.fillStyle = '#ffffff';
+              for (let i = 0; i < 9; i++) {
+                  const seed = ((i * 37 + Math.round(w) * 17) % 97) / 97;
+                  const x = (seed - 0.5) * length * 0.82;
+                  const y = (((i * 19 + 7) % 89) / 89 - 0.5) * thick * 0.75;
+                  c.fillRect(x, y, Math.max(0.4, w*0.015), Math.max(0.5, thick*0.11));
+              }
+          }
+          if (miaFeltTips.size > 100) miaFeltTips.clear();
+          miaFeltTips.set(key, tip);
+          return tip;
+      }
       function drawStroke(x1, y1, x2, y2) {
           if (!miaStrokeBase) miaBeginStroke();
           strokeCtx.save();
@@ -4221,30 +4262,21 @@ row.addEventListener('click', function(event) {
               miaScheduleStrokePreview();
               return;
           } else if (currentTool === 'brush' && brushType === 'marker') {
-              /* Incremental angled chisel nib. Each new dab keeps its own width;
-                 changing speed or pressure never resizes earlier parts. Ink
-                 coverage is built once per gesture in the existing stroke mask. */
+              /* Soft felt-chisel nib: cached once per size/color, stamped incrementally.
+                 Previous stroke segments keep their own width as dynamics changes. */
               const nibWidth = Math.max(1, size);
-              const step = Math.max(0.7, nibWidth * 0.12);
+              const step = Math.max(0.7, nibWidth * 0.075);
               const count = Math.max(1, Math.ceil(distance / step));
-              const angle = -Math.PI / 6;
-              const c = Math.cos(angle), sn = Math.sin(angle);
-              const halfLong = nibWidth * 0.51;
-              const halfShort = Math.max(0.65, nibWidth * 0.16);
+              const nib = miaGetFeltMarkerTip(nibWidth, currentColor);
+              const r = nib.width / 2;
               strokeCtx.globalAlpha = 1;
               for (let i = 0; i <= count; i++) {
                   const t = i / count;
                   const cx = x1 + dx * t, cy = y1 + dy * t;
-                  strokeCtx.beginPath();
-                  strokeCtx.moveTo(cx - c*halfLong + sn*halfShort, cy - sn*halfLong - c*halfShort);
-                  strokeCtx.lineTo(cx + c*halfLong + sn*halfShort, cy + sn*halfLong - c*halfShort);
-                  strokeCtx.lineTo(cx + c*halfLong - sn*halfShort, cy + sn*halfLong + c*halfShort);
-                  strokeCtx.lineTo(cx - c*halfLong - sn*halfShort, cy - sn*halfLong + c*halfShort);
-                  strokeCtx.closePath();
-                  strokeCtx.fill();
+                  strokeCtx.drawImage(nib, cx - r, cy - r);
               }
               strokeCtx.restore();
-              miaMarkPreviewDirty(x1, y1, x2, y2, nibWidth * 0.7 + 5);
+              miaMarkPreviewDirty(x1, y1, x2, y2, nib.width / 2 + 5);
               miaScheduleStrokePreview();
               return;
           } else if (currentTool === 'brush' && brushType === 'texture') {
@@ -6794,6 +6826,50 @@ html body #miaPressureTester.open {display:none!important;visibility:hidden!impo
      check.checked=e.target.checked;
    }
  });
+})();
+</script>
+
+<style>
+/* One small Dynamics control per layout, with no extra diagnostic rows. */
+#miaDynamicsUnifiedDesktop, #miaDynamicsUnifiedTablet {display:flex;align-items:center;gap:7px;
+ font:700 12px Arial,sans-serif;color:#333;margin:5px 0;padding:3px 2px;}
+#miaDynamicsUnifiedDesktop input,#miaDynamicsUnifiedTablet input {width:17px;height:17px;margin:0;accent-color:#111}
+@media(max-width:1000px){#miaDynamicsUnifiedDesktop{display:none!important}}
+@media(min-width:1001px){#miaDynamicsUnifiedTablet{display:none!important}}
+/* Suppress older desktop duplicate only; phone uses its existing compact checkbox. */
+#miaDesktopSidebarDynamics{display:none!important}
+</style>
+<script>
+(function(){
+ function init(){
+  const main=document.getElementById('miaDynamicsMobile');
+  const sidebar=document.getElementById('desktopStudioSidebar');
+  const tablet=document.getElementById('desktopTabletBrushMenu');
+  if(!main)return;
+  function add(host,id){
+   if(!host||document.getElementById(id))return;
+   const label=document.createElement('label');label.id=id;
+   const input=document.createElement('input');input.type='checkbox';input.className='mia-unified-dynamics';
+   label.append(input,document.createTextNode('Dynamics'));
+   const size=host.querySelector('[data-mia-size-row]');
+   if(size)size.insertAdjacentElement('afterend',label);else host.append(label);
+   input.checked=main.checked;
+   input.addEventListener('change',()=>{
+    main.checked=input.checked;
+    main.dispatchEvent(new Event('change',{bubbles:true}));
+    document.querySelectorAll('.mia-unified-dynamics').forEach(other=>{other.checked=input.checked});
+   });
+  }
+  add(sidebar,'miaDynamicsUnifiedDesktop');
+  add(tablet,'miaDynamicsUnifiedTablet');
+  document.addEventListener('change',e=>{
+   if(e.target.matches?.('.mia-dynamics-compact input')){
+    document.querySelectorAll('.mia-unified-dynamics').forEach(x=>{x.checked=e.target.checked});
+   }
+  });
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);
+ else init();
 })();
 </script>
 </body>
