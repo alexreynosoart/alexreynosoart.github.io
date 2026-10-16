@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-10-16T01:01:30.230836+00:00",
+  "updatedAt": "2026-10-16T11:37:10.901909+00:00",
   "sources": {
-    "On the Move": 55,
+    "On the Move": 57,
     "Existing Everything Art listing": 19
   },
   "opportunities": [
@@ -262,6 +262,19 @@
       "type": "open-call exhibition",
       "features": "",
       "country": "South Korea",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Commonwealth Foundation: Individual Organisation and Collective Action Grants 2026–2027",
+      "organization": "Commonwealth Foundation",
+      "description": "Project funding. Application deadline: 2026-10-26. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/commonwealth-foundation-individual-organisation-and-collective-action-grants-2026-2027",
+      "deadline": "2026-10-26",
+      "discipline": "interdisciplinary",
+      "type": "grant",
+      "features": "",
+      "country": "",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
@@ -635,6 +648,19 @@
       "description": "Project funding. Application deadline: 2026-11-10. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/culture-helps-solidaritykultura-dopomagae-project-and-collaboration-grants-round-2",
       "deadline": "2026-11-10",
+      "discipline": "interdisciplinary",
+      "type": "grant",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Art4Mental: Art, Technology and Mental Health Project (Poland, Ukraine)",
+      "organization": "Art4Mental",
+      "description": "Project funding. Application deadline: 2026-11-11. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/art4mental-art-technology-and-mental-health-project-poland-ukraine",
+      "deadline": "2026-11-11",
       "discipline": "interdisciplinary",
       "type": "grant",
       "features": "",
