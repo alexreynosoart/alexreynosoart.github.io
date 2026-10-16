@@ -6600,5 +6600,80 @@ body.v242-touch-active .tool-indicator.move::after  {
  });
 })();
 </script>
+
+<style>
+/* MIA test: one unobtrusive dynamics control, no diagnostic panels. */
+#miaPressureTester,#miaPressureTester.open {display:none!important}
+.mia-dynamics-compact {display:none;align-items:center;gap:7px;margin:5px 0 0;padding:2px 4px;font-size:12px;font-weight:700;color:#333;min-height:26px}
+.mia-dynamics-compact label {display:inline-flex;align-items:center;gap:7px;cursor:pointer;white-space:nowrap}
+.mia-dynamics-compact input {width:17px;height:17px;margin:0;accent-color:#111}
+.mia-dynamics-compact.mia-visible {display:flex}
+#mobileBrushSubmenu .mia-dynamics-compact {grid-column:1/-1;width:100%}
+#desktopTabletBrushMenu .mia-dynamics-compact {width:100%}
+</style>
+<script>
+/* This is a UI-only revision: preserve all existing stroke/opacity algorithms. */
+(function(){
+ const body=document.body;
+ const mobile=document.getElementById('mobileBrushSubmenu');
+ const desktop=document.getElementById('desktopTabletBrushMenu');
+ const originalFinger=document.getElementById('miaFingerDynamicsToggle');
+ const originalStylus=document.getElementById('miaPressureToggle');
+ if(!mobile||!desktop||!originalFinger||!originalStylus)return;
+ // One setting controls both mechanisms; stylus pressure is used only if detected.
+ const makeControl=(host,id)=>{
+  const row=document.createElement('div');row.className='mia-dynamics-compact';
+  const label=document.createElement('label');
+  const check=document.createElement('input');check.type='checkbox';check.id=id;check.checked=false;
+  label.append(check,document.createTextNode('Dynamics'));row.append(label);host.append(row);
+  check.addEventListener('change',()=>{
+   const on=check.checked;
+   originalFinger.checked=on;originalStylus.checked=on;
+   originalFinger.dispatchEvent(new Event('change',{bubbles:true}));
+   originalStylus.dispatchEvent(new Event('change',{bubbles:true}));
+   document.querySelectorAll('.mia-dynamics-compact input').forEach(x=>{x.checked=on});
+  });return row;
+ };
+ const m=makeControl(mobile,'miaDynamicsMobile');
+ const d=makeControl(desktop,'miaDynamicsDesktop');
+ // Old test UI and its details must never occupy canvas space.
+ const old=document.getElementById('miaPressureTester');if(old)old.hidden=true;
+ function sync(){
+  const mBrush=mobile.querySelector('[data-mobile-brush-choice].active');
+  const dBrush=desktop.querySelector('[data-desktop-tablet-brush].active');
+  m.classList.toggle('mia-visible',!mBrush||mBrush.dataset.mobileBrushChoice==='pen');
+  d.classList.toggle('mia-visible',!dBrush||dBrush.dataset.desktopTabletBrush==='pen');
+ }
+ sync();document.addEventListener('click',e=>{
+  if(e.target.closest('[data-mobile-brush-choice],[data-desktop-tablet-brush]'))requestAnimationFrame(sync);
+ });
+ // Close settings when tapping outside; consume the first canvas touch so it
+ // dismisses the popover without leaving an accidental brush/eraser mark.
+ const mobileClasses=['mobile-brush-submenu-open','mobile-eraser-submenu-open'];
+ function isOpen(){return mobileClasses.some(c=>body.classList.contains(c))}
+ function closeMobile(){mobileClasses.forEach(c=>body.classList.remove(c))}
+ function closeDesktop(){[desktop,document.getElementById('desktopTabletEraserMenu')].forEach(x=>x?.classList.remove('open'))}
+ function insideSettings(target){return !!target.closest('#mobileBrushSubmenu,#mobileEraserSubmenu,#desktopTabletBrushMenu,#desktopTabletEraserMenu')}
+ function isLauncher(target){return !!target.closest('[data-mobile-submenu],[data-desktop-tablet-tool],[data-tool],[data-v2-tool],[data-desktop-tool]')}
+ document.addEventListener('pointerdown',e=>{
+  const mobileMode=window.matchMedia('(max-width:1000px)').matches;
+  const active=mobileMode?isOpen():!!(desktop.classList.contains('open')||document.getElementById('desktopTabletEraserMenu')?.classList.contains('open'));
+  if(!active||insideSettings(e.target)||isLauncher(e.target))return;
+  if(mobileMode)closeMobile();else closeDesktop();
+  // Canvas first touch dismisses settings rather than drawing unexpectedly.
+  if(e.target.closest('.canvas-frame,#paintCanvas,#canvasStage')){
+   e.preventDefault();e.stopImmediatePropagation();
+   const swallow=ev=>{ev.preventDefault();ev.stopImmediatePropagation()};
+   document.addEventListener('pointermove',swallow,{capture:true,once:true});
+   document.addEventListener('pointerup',swallow,{capture:true,once:true});
+  }
+ },true);
+ // For mouse clicks outside panels, close them without interfering with controls.
+ document.addEventListener('click',e=>{
+  if(insideSettings(e.target)||isLauncher(e.target))return;
+  if(window.matchMedia('(max-width:1000px)').matches)closeMobile();else closeDesktop();
+ },false);
+})();
+</script>
 </body>
 </html>
