@@ -4021,7 +4021,7 @@ row.addEventListener('click', function(event) {
                   drawing =                     false;                  moving =                     false;                  const distance =                     pointerDistance();                  if (                     pinchStartDistance > 0                 ) {                      zoomMultiplier =                         Math.max(                             minZoom,                             Math.min(                                 maxZoom,                                  pinchStartZoom *                                 (                                     distance /                                     pinchStartDistance                                 )                             )                         );                  }                  const center =                     pointerCenter();                  if (                     center &&                     panStartCenter                 ) {                      panX =                         panStartX +                         (                             center.x -                             panStartCenter.x                         );                      panY =                         panStartY +                         (                             center.y -                             panStartCenter.y                         );                  }                  updateView();                  return;              }               /*             TOUCH FILL PREVIEW             */              if (                 touchFillPreview &&                 event.pointerId === touchFillPreview.pointerId &&                 currentTool === 'fill'             ) {                 event.preventDefault();                 previewTouchFill(event);                 return;             }               /*             ONE-FINGER MOVE             */              if (                 currentTool === 'move' &&                 moving             ) {                  event.preventDefault();                  panX =                     moveStartPanX +                     (                         event.clientX -                         moveStartX                     );                  panY =                     moveStartPanY +                     (                         event.clientY -                         moveStartY                     );                  updateView();                  return;              }               /*             SELECT / LASSO             */              if (selecting && currentTool === 'select') {                 event.preventDefault();                  const point = getCanvasPoint(event);                 selectionPath.push({ x: point.x, y: point.y });                  selectionCtx.clearRect(0, 0, selectionCanvas.width, selectionCanvas.height);                 selectionCtx.save();                 selectionCtx.strokeStyle = '#111';                 selectionCtx.lineWidth = Math.max(                     2,                     2 / Math.max(fitScale * zoomMultiplier, .25)                 );                 selectionCtx.setLineDash([8, 6]);                 selectionCtx.beginPath();                 selectionCtx.moveTo(selectionPath[0].x, selectionPath[0].y);                 selectionPath.slice(1).forEach(function(p) {                     selectionCtx.lineTo(p.x, p.y);                 });                 selectionCtx.stroke();                 selectionCtx.restore();                 return;             }               /*             DRAWING             */              if (                 !drawing ||                 navigationGesture             ) {                 return;             }              event.preventDefault();              const point =                 getCanvasPoint(                     event                 );              if (window.miaPressureTest) {
                   const dyn = window.miaPressureTest;
                   dyn.sample(event, false);
-                  if (dyn.fingerDynamics && event.pointerType === 'touch' && currentTool === 'brush' && brushType === 'pen') {
+                  if (dyn.fingerDynamics && event.pointerType === 'touch' && (currentTool === 'brush' || currentTool === 'eraser')) {
                       const dt = Math.max(4, Math.min(80, (event.timeStamp || performance.now()) - dyn.fingerLastTime));
                       const speed = Math.hypot(point.x-lastX, point.y-lastY) / dt;
                       /* Faster movement = narrower Pen. Smooth changes to avoid abrupt width jumps. */
@@ -4181,11 +4181,11 @@ row.addEventListener('click', function(event) {
           /* Optional stylus-only dynamics. Finger and mouse retain the exact stable engine. */
           const miaPenPressureActive = window.miaPressureTest && window.miaPressureTest.enabled &&
               window.miaPressureTest.pointerType === 'pen' &&
-              currentTool === 'brush' && brushType === 'pen' &&
+              (currentTool === 'brush' || currentTool === 'eraser') &&
               window.miaPressureTest.hasVariablePressure;
           const miaFingerDynamicActive = window.miaPressureTest && window.miaPressureTest.fingerDynamics &&
               window.miaPressureTest.pointerType === 'touch' &&
-              currentTool === 'brush' && brushType === 'pen';
+              (currentTool === 'brush' || currentTool === 'eraser');
           const size = Math.max(1, brushSize * (miaPenPressureActive
               ? (0.22 + 0.78 * window.miaPressureTest.pressure)
               : (miaFingerDynamicActive ? window.miaPressureTest.fingerSizeFactor : 1)));
@@ -6641,8 +6641,8 @@ body.v242-touch-active .tool-indicator.move::after  {
  function sync(){
   const mBrush=mobile.querySelector('[data-mobile-brush-choice].active');
   const dBrush=desktop.querySelector('[data-desktop-tablet-brush].active');
-  m.classList.toggle('mia-visible',!mBrush||mBrush.dataset.mobileBrushChoice==='pen');
-  d.classList.toggle('mia-visible',!dBrush||dBrush.dataset.desktopTabletBrush==='pen');
+  m.classList.toggle('mia-visible',true);
+  d.classList.toggle('mia-visible',true);
  }
  sync();document.addEventListener('click',e=>{
   if(e.target.closest('[data-mobile-brush-choice],[data-desktop-tablet-brush]'))requestAnimationFrame(sync);
@@ -6728,5 +6728,45 @@ html body #miaPressureTester.open {display:none!important;visibility:hidden!impo
  #mobileEraserSubmenu .mia-compact-size-row [data-mia-opacity-value] {width:35px!important;}
 }
 </style>
+
+<style>
+/* Dynamics is one shared option across all four brushes and all eraser tips. */
+#mobileEraserSubmenu > .mia-dynamics-compact,
+#desktopTabletEraserMenu > .mia-dynamics-compact {
+ display:flex;align-items:center;gap:7px;width:100%;margin:5px 0 0;
+ padding:2px 4px;min-height:26px;font-size:12px;font-weight:700;color:#333;
+}
+#mobileEraserSubmenu > .mia-dynamics-compact {grid-column:1/-1}
+</style>
+<script>
+(function(){
+ const brush=document.getElementById('miaDynamicsMobile');
+ const desktop=document.getElementById('miaDynamicsDesktop');
+ const finger=document.getElementById('miaFingerDynamicsToggle');
+ const stylus=document.getElementById('miaPressureToggle');
+ if(!brush||!desktop||!finger||!stylus)return;
+ const controls=[brush,desktop];
+ for(const [hostId,id] of [
+  ['mobileEraserSubmenu','miaDynamicsEraserMobile'],
+  ['desktopTabletEraserMenu','miaDynamicsEraserDesktop']
+ ]){
+  const host=document.getElementById(hostId);if(!host)continue;
+  const row=document.createElement('div');row.className='mia-dynamics-compact mia-visible';
+  const label=document.createElement('label');label.style.cssText='display:inline-flex;align-items:center;gap:7px;white-space:nowrap;cursor:pointer';
+  const input=document.createElement('input');input.type='checkbox';input.id=id;
+  input.style.cssText='width:17px;height:17px;margin:0;accent-color:#111';
+  label.append(input,document.createTextNode('Dynamics'));row.append(label);host.append(row);
+  controls.push(input);
+ }
+ function sync(value){
+  controls.forEach(c=>{c.checked=value});
+  finger.checked=value;stylus.checked=value;
+  finger.dispatchEvent(new Event('change',{bubbles:true}));
+  stylus.dispatchEvent(new Event('change',{bubbles:true}));
+ }
+ controls.forEach(c=>c.addEventListener('change',()=>sync(c.checked)));
+ sync(false);
+})();
+</script>
 </body>
 </html>
