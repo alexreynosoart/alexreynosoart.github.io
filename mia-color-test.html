@@ -6536,48 +6536,59 @@ body.v242-touch-active .tool-indicator.move::after  {
 </script>
 
 <style>
-/* MIA TEST: make Pen dynamics visible within the phone brush controls. */
-#mobileBrushSubmenu #miaPressureTester {
-  position:static !important; inset:auto !important; z-index:auto !important;
-  width:100%; max-width:none; margin:8px 0 0; padding:8px 10px;
-  background:#f6f6f6; color:#222; border:1px solid #d7d7d7;
-  border-radius:12px; box-shadow:none; font:12px/1.4 Arial,sans-serif;
-}
-#mobileBrushSubmenu #miaPressureTester button {
-  background:#fff; border:1px solid #ccc; color:#222;
-  font-size:12px; padding:7px 10px;
-}
-#mobileBrushSubmenu #miaPressureTester .mia-pressure-details {
-  display:block; padding-top:6px;
-}
-#mobileBrushSubmenu #miaPressureTester label {
-  display:flex; gap:7px; align-items:center; margin:4px 0;
-}
-#mobileBrushSubmenu #miaPressureTester input {width:17px;height:17px}
-#mobileBrushSubmenu #miaPressureTester .mia-pressure-extra {display:none}
-#mobileBrushSubmenu #miaPressureTester.open .mia-pressure-extra {display:block}
-@media(max-width:850px) {
- #mobileBrushSubmenu {max-height:min(65vh,520px);overflow-y:auto}
-}
+/* Compact dynamics control, shared by phone, tablet and desktop. */
+#miaPressureTester {position:static!important;inset:auto!important;z-index:auto!important;
+ width:auto!important;max-width:none!important;box-shadow:none!important;
+ margin:0!important;padding:0!important;background:transparent!important;
+ color:#222!important;border:0!important;font:12px/1.35 Arial,sans-serif!important}
+#miaPressureTester .mia-pressure-details {display:block!important;padding:0!important}
+#miaPressureTester .mia-pressure-extra {display:none!important}
+#miaPressureTester.open .mia-pressure-extra {display:block!important}
+#miaPressureTester .mia-pressure-details>label {display:flex;align-items:center;gap:6px;margin:0;font-weight:700}
+#miaPressureTester input {width:17px;height:17px;accent-color:#111}
+#miaPressureTester #miaPressureExpand {background:transparent!important;border:0!important;
+ padding:3px 5px!important;font-size:11px!important;color:#666!important;white-space:nowrap}
+#miaPressureTester .mia-pressure-extra {padding:8px;margin-top:5px;border:1px solid #ddd;border-radius:9px;background:#fafafa}
+#miaPressureTester .mia-pressure-extra label {margin:4px 0}
+#miaDynamicsMobileHost {grid-column:1/-1;display:flex;align-items:center;justify-content:flex-start;
+ padding:3px 5px 0;min-height:28px}
+#miaDynamicsDesktopHost {padding:8px 0;border-top:1px solid #eee}
+@media(max-width:1000px){#miaDynamicsDesktopHost{display:none}}
+@media(min-width:1001px){#miaDynamicsMobileHost{display:none}}
 </style>
 <script>
-/* Put the existing experimental controls where phone users actually see them.
-   No changes to brush rendering or the optimized paint pipeline. */
+/* Place one existing toggle in the correct responsive tool area.
+   Drawing, opacity and stroke rendering are untouched. */
 (function(){
- const menu=document.getElementById('mobileBrushSubmenu');
  const panel=document.getElementById('miaPressureTester');
- if(!menu||!panel) return;
+ const menu=document.getElementById('mobileBrushSubmenu');
+ const desktop=document.getElementById('desktopStudioSidebar');
+ if(!panel||!menu) return;
  const details=panel.querySelector('.mia-pressure-details');
  const finger=panel.querySelector('#miaFingerDynamicsToggle')?.closest('label');
- const extra=document.createElement('div');
- extra.className='mia-pressure-extra';
- if(details) {
-   Array.from(details.children).forEach(el=>{if(el!==finger) extra.appendChild(el)});
+ if(details && finger){
+   const extra=document.createElement('div');extra.className='mia-pressure-extra';
+   Array.from(details.children).forEach(el=>{if(el!==finger)extra.appendChild(el)});
    details.appendChild(extra);
  }
  const expand=document.getElementById('miaPressureExpand');
- if(expand) expand.textContent='Pressure details ▾';
- menu.appendChild(panel);
+ if(expand){expand.textContent='Details ▾';
+   const sync=()=>{expand.textContent=panel.classList.contains('open')?'Details ▴':'Details ▾'};
+   expand.addEventListener('click',sync);
+ }
+ if(finger){
+   const labelText=Array.from(finger.childNodes).find(n=>n.nodeType===3);
+   if(labelText)labelText.textContent=' Finger dynamics';
+ }
+ const mobileHost=document.createElement('div');mobileHost.id='miaDynamicsMobileHost';
+ menu.appendChild(mobileHost);
+ const desktopHost=document.createElement('div');desktopHost.id='miaDynamicsDesktopHost';
+ if(desktop)desktop.appendChild(desktopHost);
+ function place(){
+   const target=window.matchMedia('(min-width:1001px)').matches&&desktop?desktopHost:mobileHost;
+   if(panel.parentElement!==target)target.appendChild(panel);
+ }
+ place();window.addEventListener('resize',place,{passive:true});
 })();
 </script>
 </body>
