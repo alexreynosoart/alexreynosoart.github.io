@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-16T00:57:39.543130+00:00",
+  "updatedAt": "2026-10-16T11:30:30.814676+00:00",
   "sources": {
     "NYC Parks": 56,
     "Whitney": 50,
@@ -9,7 +9,7 @@
     "Bronx Museum": 2,
     "Film at Lincoln Center": 7,
     "New York Live Arts": 8,
-    "Lincoln Center Presents": 178,
+    "Lincoln Center Presents": 175,
     "Wave Hill": 4,
     "Staten Island Museum": 5,
     "Smithsonian Associates": 3
@@ -41,20 +41,6 @@
       "country": "United States",
       "url": "https://www.nypl.org/events/exhibitions/declaring-america-1776-beyond",
       "source": "NYPL",
-      "free": false
-    },
-    {
-      "title": "Emilia y Pablo",
-      "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
-      "date": "2026-10-16",
-      "endDate": "2026-10-16",
-      "venue": "Lincoln Center Presents",
-      "location": "Manhattan, NY",
-      "type": "performance",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/emilia-y-pablo-924",
-      "source": "Lincoln Center Presents",
       "free": false
     },
     {
@@ -212,20 +198,6 @@
       "free": false
     },
     {
-      "title": "PLAZA",
-      "description": "Interactive outdoor artwork by Andrew Schneider. Free admission; registration encouraged. Listed showtime(s): Multiple times. Check the official Lincoln Center event page for current details and tickets.",
-      "date": "2026-10-16",
-      "endDate": "2026-10-16",
-      "venue": "Josie Robertson Plaza, Lincoln Center",
-      "location": "Manhattan, NY",
-      "type": "installation",
-      "features": "nyc us free",
-      "country": "United States",
-      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/plaza-374",
-      "source": "Lincoln Center Presents",
-      "free": true
-    },
-    {
       "title": "Park Open Studio",
       "description": "Led by a local teaching artist, this drop-in class invites participants to explore creativity through hands-on artmaking under the shade of Scrabble Plaza’s trees. Past mediums have included plein-air drawing, printmaking, cyanotypes, and more. All materials are provided by the Washington Square Park Conservancy.",
       "date": "2026-10-16",
@@ -325,9 +297,9 @@
     },
     {
       "title": "The Devils",
-      "description": "Upcoming screening dates: Oct 16, Oct 17, Oct 18, Oct 19, Oct 20. See official film page for verified showtimes and tickets.",
+      "description": "Upcoming screening dates: Oct 16, Oct 17, Oct 18, Oct 19, Oct 20, Oct 21. See official film page for verified showtimes and tickets.",
       "date": "2026-10-16",
-      "endDate": "2026-10-20",
+      "endDate": "2026-10-21",
       "venue": "Film at Lincoln Center",
       "location": "Manhattan, NY",
       "type": "film",
@@ -363,20 +335,6 @@
       "country": "United States",
       "url": "https://www.nypl.org/events/exhibitions/unleashed-pets-performing-arts",
       "source": "NYPL",
-      "free": false
-    },
-    {
-      "title": "Urban Love Suite",
-      "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
-      "date": "2026-10-16",
-      "endDate": "2026-10-16",
-      "venue": "Lincoln Center Presents",
-      "location": "Manhattan, NY",
-      "type": "performance",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/urban-love-suite-865",
-      "source": "Lincoln Center Presents",
       "free": false
     },
     {
