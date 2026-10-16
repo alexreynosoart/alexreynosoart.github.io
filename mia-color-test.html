@@ -6534,5 +6534,51 @@ body.v242-touch-active .tool-indicator.move::after  {
  };
 })();
 </script>
+
+<style>
+/* MIA TEST: make Pen dynamics visible within the phone brush controls. */
+#mobileBrushSubmenu #miaPressureTester {
+  position:static !important; inset:auto !important; z-index:auto !important;
+  width:100%; max-width:none; margin:8px 0 0; padding:8px 10px;
+  background:#f6f6f6; color:#222; border:1px solid #d7d7d7;
+  border-radius:12px; box-shadow:none; font:12px/1.4 Arial,sans-serif;
+}
+#mobileBrushSubmenu #miaPressureTester button {
+  background:#fff; border:1px solid #ccc; color:#222;
+  font-size:12px; padding:7px 10px;
+}
+#mobileBrushSubmenu #miaPressureTester .mia-pressure-details {
+  display:block; padding-top:6px;
+}
+#mobileBrushSubmenu #miaPressureTester label {
+  display:flex; gap:7px; align-items:center; margin:4px 0;
+}
+#mobileBrushSubmenu #miaPressureTester input {width:17px;height:17px}
+#mobileBrushSubmenu #miaPressureTester .mia-pressure-extra {display:none}
+#mobileBrushSubmenu #miaPressureTester.open .mia-pressure-extra {display:block}
+@media(max-width:850px) {
+ #mobileBrushSubmenu {max-height:min(65vh,520px);overflow-y:auto}
+}
+</style>
+<script>
+/* Put the existing experimental controls where phone users actually see them.
+   No changes to brush rendering or the optimized paint pipeline. */
+(function(){
+ const menu=document.getElementById('mobileBrushSubmenu');
+ const panel=document.getElementById('miaPressureTester');
+ if(!menu||!panel) return;
+ const details=panel.querySelector('.mia-pressure-details');
+ const finger=panel.querySelector('#miaFingerDynamicsToggle')?.closest('label');
+ const extra=document.createElement('div');
+ extra.className='mia-pressure-extra';
+ if(details) {
+   Array.from(details.children).forEach(el=>{if(el!==finger) extra.appendChild(el)});
+   details.appendChild(extra);
+ }
+ const expand=document.getElementById('miaPressureExpand');
+ if(expand) expand.textContent='Pressure details ▾';
+ menu.appendChild(panel);
+})();
+</script>
 </body>
 </html>
