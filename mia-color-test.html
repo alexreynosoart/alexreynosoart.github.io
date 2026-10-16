@@ -6536,59 +6536,68 @@ body.v242-touch-active .tool-indicator.move::after  {
 </script>
 
 <style>
-/* Compact dynamics control, shared by phone, tablet and desktop. */
+/* Test-only dynamics: one compact row on every device. */
 #miaPressureTester {position:static!important;inset:auto!important;z-index:auto!important;
- width:auto!important;max-width:none!important;box-shadow:none!important;
+ width:100%!important;max-width:none!important;box-shadow:none!important;
  margin:0!important;padding:0!important;background:transparent!important;
- color:#222!important;border:0!important;font:12px/1.35 Arial,sans-serif!important}
-#miaPressureTester .mia-pressure-details {display:block!important;padding:0!important}
+ color:#222!important;border:0!important;font:12px/1.3 Arial,sans-serif!important}
+#miaPressureTester .mia-pressure-details {display:contents!important}
 #miaPressureTester .mia-pressure-extra {display:none!important}
-#miaPressureTester.open .mia-pressure-extra {display:block!important}
-#miaPressureTester .mia-pressure-details>label {display:flex;align-items:center;gap:6px;margin:0;font-weight:700}
-#miaPressureTester input {width:17px;height:17px;accent-color:#111}
+#miaPressureTester.open .mia-pressure-extra {display:block!important;flex-basis:100%}
+#miaPressureTester .mia-pressure-details>label {display:flex;align-items:center;gap:5px;margin:0;font-weight:700;white-space:nowrap}
+#miaPressureTester input {width:16px;height:16px;accent-color:#111;flex-shrink:0}
 #miaPressureTester #miaPressureExpand {background:transparent!important;border:0!important;
- padding:3px 5px!important;font-size:11px!important;color:#666!important;white-space:nowrap}
+ padding:3px!important;font-size:11px!important;color:#666!important;white-space:nowrap;margin-left:auto}
 #miaPressureTester .mia-pressure-extra {padding:8px;margin-top:5px;border:1px solid #ddd;border-radius:9px;background:#fafafa}
 #miaPressureTester .mia-pressure-extra label {margin:4px 0}
-#miaDynamicsMobileHost {grid-column:1/-1;display:flex;align-items:center;justify-content:flex-start;
- padding:3px 5px 0;min-height:28px}
-#miaDynamicsDesktopHost {padding:8px 0;border-top:1px solid #eee}
-@media(max-width:1000px){#miaDynamicsDesktopHost{display:none}}
-@media(min-width:1001px){#miaDynamicsMobileHost{display:none}}
+#miaDynamicsMobileHost,#miaDynamicsDesktopHost {display:none;min-width:0;width:100%;padding:0 3px}
+#miaDynamicsMobileHost #miaPressureTester,#miaDynamicsDesktopHost #miaPressureTester {
+ display:flex!important;align-items:center;flex-wrap:wrap;gap:4px 8px}
+#miaDynamicsMobileHost {margin-top:5px}
+#miaDynamicsDesktopHost {margin-top:8px;padding-top:8px;border-top:1px solid #eee}
+@media(max-width:1000px){#miaDynamicsMobileHost.mia-show-dynamics{display:block}}
+@media(min-width:1001px){#miaDynamicsDesktopHost.mia-show-dynamics{display:block}}
 </style>
 <script>
-/* Place one existing toggle in the correct responsive tool area.
-   Drawing, opacity and stroke rendering are untouched. */
+/* Mount the single working checkbox under each device's real brush controls.
+   Only the interface is changed, not brush size, compositing or drawing. */
 (function(){
  const panel=document.getElementById('miaPressureTester');
- const menu=document.getElementById('mobileBrushSubmenu');
- const desktop=document.getElementById('desktopStudioSidebar');
- if(!panel||!menu) return;
+ const mobile=document.getElementById('mobileBrushSubmenu');
+ const desktop=document.getElementById('desktopTabletBrushMenu');
+ if(!panel||!mobile||!desktop)return;
  const details=panel.querySelector('.mia-pressure-details');
  const finger=panel.querySelector('#miaFingerDynamicsToggle')?.closest('label');
- if(details && finger){
-   const extra=document.createElement('div');extra.className='mia-pressure-extra';
-   Array.from(details.children).forEach(el=>{if(el!==finger)extra.appendChild(el)});
-   details.appendChild(extra);
+ if(details&&finger){
+  const extra=document.createElement('div');extra.className='mia-pressure-extra';
+  Array.from(details.children).forEach(el=>{if(el!==finger)extra.appendChild(el)});
+  details.appendChild(extra);
  }
  const expand=document.getElementById('miaPressureExpand');
- if(expand){expand.textContent='Details ▾';
-   const sync=()=>{expand.textContent=panel.classList.contains('open')?'Details ▴':'Details ▾'};
-   expand.addEventListener('click',sync);
+ if(expand){
+  const sync=()=>{expand.textContent=panel.classList.contains('open')?'Details ▴':'Details ▾'};
+  expand.addEventListener('click',sync);sync();
  }
- if(finger){
-   const labelText=Array.from(finger.childNodes).find(n=>n.nodeType===3);
-   if(labelText)labelText.textContent=' Finger dynamics';
+ if(finger){const node=Array.from(finger.childNodes).find(n=>n.nodeType===3);
+  if(node)node.textContent=' Finger dynamics';}
+ const mh=document.createElement('div');mh.id='miaDynamicsMobileHost';mobile.appendChild(mh);
+ const dh=document.createElement('div');dh.id='miaDynamicsDesktopHost';desktop.appendChild(dh);
+ function sync(){
+  const wide=window.matchMedia('(min-width:1001px)').matches;
+  const host=wide?dh:mh;
+  if(panel.parentElement!==host)host.appendChild(panel);
+  const selected=wide
+   ?desktop.querySelector('[data-desktop-tablet-brush].active')?.dataset.desktopTabletBrush
+   :mobile.querySelector('[data-mobile-brush-choice].active')?.dataset.mobileBrushChoice;
+  const isPen=selected==='pen'||(!selected && !window.miaActiveBrushType);
+  mh.classList.toggle('mia-show-dynamics',isPen);
+  dh.classList.toggle('mia-show-dynamics',isPen);
  }
- const mobileHost=document.createElement('div');mobileHost.id='miaDynamicsMobileHost';
- menu.appendChild(mobileHost);
- const desktopHost=document.createElement('div');desktopHost.id='miaDynamicsDesktopHost';
- if(desktop)desktop.appendChild(desktopHost);
- function place(){
-   const target=window.matchMedia('(min-width:1001px)').matches&&desktop?desktopHost:mobileHost;
-   if(panel.parentElement!==target)target.appendChild(panel);
- }
- place();window.addEventListener('resize',place,{passive:true});
+ sync();window.addEventListener('resize',sync,{passive:true});
+ document.addEventListener('click',e=>{
+  if(e.target.closest('[data-mobile-brush-choice],[data-desktop-tablet-brush],[data-brush-type]'))
+   requestAnimationFrame(sync);
+ });
 })();
 </script>
 </body>
