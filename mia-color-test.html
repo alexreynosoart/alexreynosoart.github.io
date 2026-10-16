@@ -4221,46 +4221,30 @@ row.addEventListener('click', function(event) {
               miaScheduleStrokePreview();
               return;
           } else if (currentTool === 'brush' && brushType === 'marker') {
-              /* Repaint the complete marker gesture, not individual segments:
-                 prevents the darker rectangular overlaps shown in the test. */
-              if (!miaMarkerPoints.length) miaMarkerPoints.push([x1, y1]);
-              miaMarkerPoints.push([x2, y2]);
-              strokeCtx.restore();
-              strokeCtx.save();
-              strokeCtx.setTransform(1, 0, 0, 1, 0, 0);
-              strokeCtx.clearRect(0, 0, miaStrokeCanvas.width, miaStrokeCanvas.height);
-              strokeCtx.restore();
-              strokeCtx.save();
-              if (window.__miaSelectionHasClipV256 && window.__miaSelectionClipV256) {
-                  strokeCtx.clip(window.__miaSelectionClipV256);
-              }
-              if (selectionPath.length > 2) {
+              /* Incremental angled chisel nib. Each new dab keeps its own width;
+                 changing speed or pressure never resizes earlier parts. Ink
+                 coverage is built once per gesture in the existing stroke mask. */
+              const nibWidth = Math.max(1, size);
+              const step = Math.max(0.7, nibWidth * 0.12);
+              const count = Math.max(1, Math.ceil(distance / step));
+              const angle = -Math.PI / 6;
+              const c = Math.cos(angle), sn = Math.sin(angle);
+              const halfLong = nibWidth * 0.51;
+              const halfShort = Math.max(0.65, nibWidth * 0.16);
+              strokeCtx.globalAlpha = 1;
+              for (let i = 0; i <= count; i++) {
+                  const t = i / count;
+                  const cx = x1 + dx * t, cy = y1 + dy * t;
                   strokeCtx.beginPath();
-                  strokeCtx.moveTo(selectionPath[0].x, selectionPath[0].y);
-                  selectionPath.slice(1).forEach(function(p) { strokeCtx.lineTo(p.x, p.y); });
-                  strokeCtx.closePath(); strokeCtx.clip();
+                  strokeCtx.moveTo(cx - c*halfLong + sn*halfShort, cy - sn*halfLong - c*halfShort);
+                  strokeCtx.lineTo(cx + c*halfLong + sn*halfShort, cy + sn*halfLong - c*halfShort);
+                  strokeCtx.lineTo(cx + c*halfLong - sn*halfShort, cy + sn*halfLong + c*halfShort);
+                  strokeCtx.lineTo(cx - c*halfLong - sn*halfShort, cy - sn*halfLong + c*halfShort);
+                  strokeCtx.closePath();
+                  strokeCtx.fill();
               }
-              strokeCtx.lineCap = 'round'; strokeCtx.lineJoin = 'round';
-              strokeCtx.strokeStyle = currentColor;
-              const markerPath = () => {
-                  strokeCtx.beginPath();
-                  strokeCtx.moveTo(miaMarkerPoints[0][0], miaMarkerPoints[0][1]);
-                  for (let i = 1; i < miaMarkerPoints.length; i++) {
-                      strokeCtx.lineTo(miaMarkerPoints[i][0], miaMarkerPoints[i][1]);
-                  }
-              };
-              /* Soft outer ink edge, followed by a broad, even felt-tip body. */
-              strokeCtx.globalAlpha = 0.24;
-              strokeCtx.lineWidth = size * 1.10;
-              markerPath(); strokeCtx.stroke();
-              strokeCtx.globalAlpha = 0.96;
-              strokeCtx.lineWidth = size * 0.91;
-              markerPath(); strokeCtx.stroke();
               strokeCtx.restore();
-              /* Marker redraws its full gesture; preview only its footprint. */
-              for (const point of miaMarkerPoints) {
-                  miaMarkPreviewDirty(point[0], point[1], point[0], point[1], size * 0.60 + 4);
-              }
+              miaMarkPreviewDirty(x1, y1, x2, y2, nibWidth * 0.7 + 5);
               miaScheduleStrokePreview();
               return;
           } else if (currentTool === 'brush' && brushType === 'texture') {
@@ -6766,6 +6750,50 @@ html body #miaPressureTester.open {display:none!important;visibility:hidden!impo
  }
  controls.forEach(c=>c.addEventListener('change',()=>sync(c.checked)));
  sync(false);
+})();
+</script>
+
+<style>
+/* MIA marker/dynamics test: shared compact controls on all layouts. */
+#desktopTabletBrushMenu > .mia-dynamics-compact,
+#desktopTabletEraserMenu > .mia-dynamics-compact {
+  grid-column:1/-1 !important; width:100% !important;
+  display:flex !important; margin:3px 0 !important;
+}
+#mobileBrushSubmenu > .mia-dynamics-compact,
+#mobileEraserSubmenu > .mia-dynamics-compact {
+  grid-column:1/-1 !important; display:flex !important;
+}
+#miaDesktopSidebarDynamics {display:none;align-items:center;gap:8px;margin:8px 0 0;
+  font-size:12px;font-weight:700;color:#333}
+#miaDesktopSidebarDynamics input {width:17px;height:17px;margin:0;accent-color:#111}
+@media(min-width:1001px){#miaDesktopSidebarDynamics {display:flex}}
+</style>
+<script>
+/* The actual wide-screen sidebar is separate from the tablet brush popover. */
+(function(){
+ const sidebar=document.querySelector('.desktop-studio-sidebar');
+ const main=document.getElementById('miaDynamicsDesktop');
+ if(!sidebar||!main)return;
+ const row=document.createElement('label');row.id='miaDesktopSidebarDynamics';
+ const check=document.createElement('input');check.type='checkbox';
+ row.append(check,document.createTextNode('Dynamics'));
+ const size=sidebar.querySelector('[data-mia-size-row]');
+ if(size)size.insertAdjacentElement('afterend',row);
+ else {
+   const tools=sidebar.querySelector('.desktop-side-section');
+   (tools||sidebar).append(row);
+ }
+ check.checked=main.checked;
+ check.addEventListener('change',()=>{
+   main.checked=check.checked;
+   main.dispatchEvent(new Event('change',{bubbles:true}));
+ });
+ document.addEventListener('change',e=>{
+   if(e.target!==check && e.target.matches?.('.mia-dynamics-compact input')){
+     check.checked=e.target.checked;
+   }
+ });
 })();
 </script>
 </body>
