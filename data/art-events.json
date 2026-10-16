@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-10-16T11:30:30.814676+00:00",
+  "updatedAt": "2026-10-16T16:43:52.102050+00:00",
   "sources": {
-    "NYC Parks": 56,
+    "NYC Parks": 58,
     "Whitney": 50,
     "MoMA": 0,
     "Guggenheim": 0,
@@ -87,9 +87,9 @@
     },
     {
       "title": "Martha Graham: The Mother of Psychological Dance",
-      "description": "On view through November 07, 2026. Current exhibition at The New York Public Library.",
+      "description": "On view through January 02, 2027. Current exhibition at The New York Public Library.",
       "date": "2026-10-16",
-      "endDate": "2026-11-07",
+      "endDate": "2027-01-02",
       "venue": "New York Public Library",
       "location": "New York, NY",
       "type": "exhibition",
@@ -236,20 +236,6 @@
       "features": "nyc us free",
       "country": "United States",
       "url": "http://www.nycgovparks.org/events/2026/10/16/proximity-opening-reception",
-      "source": "NYC Parks",
-      "free": true
-    },
-    {
-      "title": "Pumpkin Painting & Fall Festivities",
-      "description": "Fantasy Garden welcomes all for an afternoon of free fall festivities in this beloved green space. There will be a limited number of Pumpkins available for painting and additional harvest-themed crafts, like DIY Scarecrows. Come enjoy the garden, connect with neighbors, and learn more about getting involved! While supplies last.",
-      "date": "2026-10-16",
-      "endDate": "2026-10-16",
-      "venue": "NYC Parks",
-      "location": "Fantasy Garden",
-      "type": "festival workshop",
-      "features": "nyc us free",
-      "country": "United States",
-      "url": "http://www.nycgovparks.org/events/2026/10/16/pumpkin-painting-fall-festivities",
       "source": "NYC Parks",
       "free": true
     },
@@ -1024,6 +1010,20 @@
       "free": false
     },
     {
+      "title": "Pumpkin Painting & Fall Festivities",
+      "description": "Fantasy Garden welcomes all for an afternoon of free fall festivities in this beloved green space. There will be a limited number of Pumpkins available for painting and additional harvest-themed crafts, like DIY Scarecrows. Come enjoy the garden, connect with neighbors, and learn more about getting involved! While supplies last.",
+      "date": "2026-10-23",
+      "endDate": "2026-10-23",
+      "venue": "NYC Parks",
+      "location": "Fantasy Garden",
+      "type": "festival workshop",
+      "features": "nyc us free",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/10/23/pumpkin-painting-fall-festivities",
+      "source": "NYC Parks",
+      "free": true
+    },
+    {
       "title": "Toi, moi, Tituba...",
       "description": "Performance dates: Oct 23, 2026 – Oct 24, 2026. Confirm exact showtimes and tickets with the organizer.",
       "date": "2026-10-23",
@@ -1497,6 +1497,34 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/gerardo-contino-595",
       "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "Haunted Heights: Halloween at Morningside Park",
+      "description": "Join NYC Parks, Friends of Morningside Park, and Columbia University Space Initiative and Zuckerman Institute for music, arts and crafts, and spooktacular activities. Come dressed in your Halloween costumes and enjoy family friendly activities including creating your own lava lamps and interacting with human and animal brains.",
+      "date": "2026-10-30",
+      "endDate": "2026-10-30",
+      "venue": "Morningside Park",
+      "location": "North Lawn (in Morningside Park)",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/10/30/haunted-heights-halloween-at-morningside-park",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
+      "title": "Wicked Walker Family Fun & Halloween Event",
+      "description": "Join NYC Parks and Staten Island Recreation for Wicked Walker, a spooktacular, family-friendly Halloween celebration at Walker Park! Brave our haunted house filled with ghouls, eerie sights, and spine-chilling surprises around every corner. Then, continue the Halloween fun with a pumpkin patch and pumpkin painting, arts and crafts, games, and more festive ac",
+      "date": "2026-10-30",
+      "endDate": "2026-10-30",
+      "venue": "Walker Park",
+      "location": "Walker Park Field House (in Walker Park)",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/10/30/wicked-walker-family-fun-halloween-event",
+      "source": "NYC Parks",
       "free": false
     },
     {
