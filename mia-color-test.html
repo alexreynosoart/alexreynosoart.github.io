@@ -3997,11 +3997,13 @@ row.addEventListener('click', function(event) {
       const miaBaseCtx = miaBaseCanvas.getContext('2d');
       const miaSoftMask = document.createElement('canvas');
       let miaSoftPoints = [];
+      let miaMarkerPoints = [];
       let miaStrokeBase = false;
       let miaStrokeTool = 'brush';
       let miaStrokeAlpha = 1;
       function miaBeginStroke() {
           miaSoftPoints = [];
+          miaMarkerPoints = [];
           const w = paintCanvas.width, h = paintCanvas.height;
           miaStrokeCanvas.width = w; miaStrokeCanvas.height = h;
           miaBaseCanvas.width = w; miaBaseCanvas.height = h;
@@ -4025,6 +4027,7 @@ row.addEventListener('click', function(event) {
       }
       function miaEndStroke(cancel) {
           miaSoftPoints = [];
+          miaMarkerPoints = [];
           if (!miaStrokeBase) return;
           if (cancel) {
               paintCtx.save();
@@ -4063,9 +4066,9 @@ row.addEventListener('click', function(event) {
           const distance = Math.hypot(dx, dy);
 
           if (currentTool === 'brush' && brushType === 'soft') {
-              /* Rebuild one continuous airbrush mask for the whole gesture.
-                 Avoids additive circular stamps and the hard central stripe.
-                 Inspired by PhotoCraft's per-stroke coverage and radial falloff. */
+              /* PhotoCraft-inspired feathered coverage: a continuous stroke mask,
+                 blurred once, with stronger flow at the center. Opacity remains
+                 controlled ONLY by miaPreviewStroke at the stroke level. */
               if (!miaSoftPoints.length) miaSoftPoints.push([x1, y1]);
               miaSoftPoints.push([x2, y2]);
               strokeCtx.restore();
@@ -4073,22 +4076,18 @@ row.addEventListener('click', function(event) {
               strokeCtx.setTransform(1, 0, 0, 1, 0, 0);
               strokeCtx.clearRect(0, 0, miaStrokeCanvas.width, miaStrokeCanvas.height);
               strokeCtx.restore();
-              /* Draw a continuous centerline to a separate mask, then blur the
-                 complete stroke once, not each dab. The mask stays transparent. */
               miaSoftMask.width = miaStrokeCanvas.width;
               miaSoftMask.height = miaStrokeCanvas.height;
               const mc = miaSoftMask.getContext('2d');
               mc.lineCap = 'round'; mc.lineJoin = 'round';
               mc.strokeStyle = currentColor;
-              mc.lineWidth = Math.max(1, size * 0.72);
+              mc.lineWidth = Math.max(1, size * 0.96);
               mc.beginPath();
               mc.moveTo(miaSoftPoints[0][0], miaSoftPoints[0][1]);
               for (let i = 1; i < miaSoftPoints.length; i++) {
                   mc.lineTo(miaSoftPoints[i][0], miaSoftPoints[i][1]);
               }
-              if (miaSoftPoints.length === 1) {
-                  mc.lineTo(x2 + 0.01, y2);
-              }
+              if (miaSoftPoints.length === 1) mc.lineTo(x2 + 0.01, y2);
               mc.stroke();
               strokeCtx.save();
               if (window.__miaSelectionHasClipV256 && window.__miaSelectionClipV256) {
@@ -4100,9 +4099,49 @@ row.addEventListener('click', function(event) {
                   selectionPath.slice(1).forEach(function(p) { strokeCtx.lineTo(p.x, p.y); });
                   strokeCtx.closePath(); strokeCtx.clip();
               }
-              strokeCtx.filter = 'blur(' + Math.max(2, size * 0.48).toFixed(2) + 'px)';
-              strokeCtx.globalAlpha = 0.72;
+              strokeCtx.filter = 'blur(' + Math.max(1.5, size * 0.31).toFixed(2) + 'px)';
+              strokeCtx.globalAlpha = 1;
               strokeCtx.drawImage(miaSoftMask, 0, 0);
+              strokeCtx.filter = 'none';
+              strokeCtx.restore();
+              miaPreviewStroke();
+              return;
+          } else if (currentTool === 'brush' && brushType === 'marker') {
+              /* Repaint the complete marker gesture, not individual segments:
+                 prevents the darker rectangular overlaps shown in the test. */
+              if (!miaMarkerPoints.length) miaMarkerPoints.push([x1, y1]);
+              miaMarkerPoints.push([x2, y2]);
+              strokeCtx.restore();
+              strokeCtx.save();
+              strokeCtx.setTransform(1, 0, 0, 1, 0, 0);
+              strokeCtx.clearRect(0, 0, miaStrokeCanvas.width, miaStrokeCanvas.height);
+              strokeCtx.restore();
+              strokeCtx.save();
+              if (window.__miaSelectionHasClipV256 && window.__miaSelectionClipV256) {
+                  strokeCtx.clip(window.__miaSelectionClipV256);
+              }
+              if (selectionPath.length > 2) {
+                  strokeCtx.beginPath();
+                  strokeCtx.moveTo(selectionPath[0].x, selectionPath[0].y);
+                  selectionPath.slice(1).forEach(function(p) { strokeCtx.lineTo(p.x, p.y); });
+                  strokeCtx.closePath(); strokeCtx.clip();
+              }
+              strokeCtx.lineCap = 'round'; strokeCtx.lineJoin = 'round';
+              strokeCtx.strokeStyle = currentColor;
+              const markerPath = () => {
+                  strokeCtx.beginPath();
+                  strokeCtx.moveTo(miaMarkerPoints[0][0], miaMarkerPoints[0][1]);
+                  for (let i = 1; i < miaMarkerPoints.length; i++) {
+                      strokeCtx.lineTo(miaMarkerPoints[i][0], miaMarkerPoints[i][1]);
+                  }
+              };
+              /* Soft outer ink edge, followed by a broad, even felt-tip body. */
+              strokeCtx.globalAlpha = 0.24;
+              strokeCtx.lineWidth = size * 1.10;
+              markerPath(); strokeCtx.stroke();
+              strokeCtx.globalAlpha = 0.96;
+              strokeCtx.lineWidth = size * 0.91;
+              markerPath(); strokeCtx.stroke();
               strokeCtx.restore();
               miaPreviewStroke();
               return;
@@ -4145,19 +4184,7 @@ row.addEventListener('click', function(event) {
               /* Pen: crisp, accurately sized line. Marker: broad felt-tip with
                  just a touch of edge softness. Eraser modes stay unchanged. */
               strokeCtx.lineWidth = size;
-              if (currentTool === 'brush' && brushType === 'marker') {
-                  /* Felt-tip: flatter nib and gently softened ink edge.
-                     Draw the same path with an under-edge and an ink body. */
-                  strokeCtx.lineWidth = size * 1.12;
-                  strokeCtx.globalAlpha = 0.24;
-                  strokeCtx.beginPath();
-                  strokeCtx.moveTo(x1, y1);
-                  strokeCtx.lineTo(x2, y2);
-                  strokeCtx.stroke();
-                  strokeCtx.globalAlpha = 0.91;
-                  strokeCtx.lineWidth = size * 0.88;
-                  strokeCtx.lineCap = 'square';
-              } else if (currentTool === 'eraser' && eraserMode === 'soft') {
+              if (currentTool === 'eraser' && eraserMode === 'soft') {
                   strokeCtx.lineWidth = size * 1.55;
                   strokeCtx.shadowColor = '#000';
                   strokeCtx.shadowBlur = size * 1.45;
