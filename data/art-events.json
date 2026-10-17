@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-10-17T10:50:11.693123+00:00",
+  "updatedAt": "2026-10-17T15:40:54.274747+00:00",
   "sources": {
-    "NYC Parks": 57,
+    "NYC Parks": 62,
     "Whitney": 50,
     "MoMA": 0,
     "Guggenheim": 0,
@@ -1164,6 +1164,20 @@
       "free": true
     },
     {
+      "title": "Pumpkin Decorating at Jardin la Roca",
+      "description": "Join us for a pumpkin decorating event at the garden! We will also have face painting. All are welcome!",
+      "date": "2026-10-24",
+      "endDate": "2026-10-24",
+      "venue": "NYC Parks",
+      "location": "Jardin la Roca",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/10/24/pumpkin-decorating-at-jardin-la-roca",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
       "title": "Red Shed Community Garden's Fall Potluck",
       "description": "Red Shed Community Garden presents Fall Potluck on Saturday, October 24th! There will be a pie contest, dog costume contest, face painting and more! Costumes are encouraged!",
       "date": "2026-10-24",
@@ -1346,6 +1360,20 @@
       "free": true
     },
     {
+      "title": "Pumpkin Painting",
+      "description": "Join us for a fun day of pumpkin painting! We have 40 pumpkins so first come first serve!",
+      "date": "2026-10-25",
+      "endDate": "2026-10-25",
+      "venue": "NYC Parks",
+      "location": "Melrose New Generation Community Garden",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/10/25/pumpkin-painting",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
       "title": "The Art of Floral Design",
       "description": "Online course, 6 listed dates. First listed class 2026-10-27, last listed date 2026-12-08. Check the official program page for registration, schedule and attendance details.",
       "date": "2026-10-27",
@@ -1510,6 +1538,48 @@
       "features": "nyc us",
       "country": "United States",
       "url": "http://www.nycgovparks.org/events/2026/10/30/wicked-walker-family-fun-halloween-event",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
+      "title": "Autumn Animal Crafts and Exploration",
+      "description": "No costume? No problem. Join the Urban Park Rangers for a hands-on mask-making activity inspired by the wildlife of Crotona Park. After creating your own animal mask, head out on a guided walk to learn about the native species that call the park home. This program blends creativity, exploration, and nature education—perfect for families and curious participa",
+      "date": "2026-10-31",
+      "endDate": "2026-10-31",
+      "venue": "Crotona Park",
+      "location": "Crotona Nature Center (in Crotona Park)",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/10/31/autumn-animal-crafts-and-exploration",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
+      "title": "Crafts, Candy, & Compost",
+      "description": "Join us at the Maple Street Community Garden’s Crafts, Candy, and Compost event on Saturday, October 31!Festivities include: Food Scrap Ink & Coloring Crafts Candy at the Compost Bins Explore the Garden Costumes Encouraged! All ages welcome! Come make something, explore the garden, and celebrate with us.",
+      "date": "2026-10-31",
+      "endDate": "2026-10-31",
+      "venue": "NYC Parks",
+      "location": "Maple Street Community Garden",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/10/31/crafts-candy-compost",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
+      "title": "Family Art Project: Day of the Dead",
+      "description": "Join us to celebrate this special Mexican cultural holiday. We will explore and create nicho boxes, small shadow boxes filled with meaning and purpose that honor a lost loved one. Registration not required. At 11:30am families can enjoy a storytime program in the Gund Theater, all ages welcome.Wave Hill House is wheelchair-accessible. There is an accessible,",
+      "date": "2026-10-31",
+      "endDate": "2026-10-31",
+      "venue": "Wave Hill",
+      "location": "Wave Hill",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/10/31/family-art-project-day-of-the-dead",
       "source": "NYC Parks",
       "free": false
     },
