@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-17T15:40:54.274747+00:00",
+  "updatedAt": "2026-10-17T20:40:57.748750+00:00",
   "sources": {
     "NYC Parks": 62,
     "Whitney": 50,
@@ -11,7 +11,7 @@
     "New York Live Arts": 8,
     "Lincoln Center Presents": 174,
     "Wave Hill": 5,
-    "Staten Island Museum": 5,
+    "Staten Island Museum": 4,
     "Smithsonian Associates": 3
   },
   "events": [
@@ -517,20 +517,6 @@
       "country": "United States",
       "url": "http://www.nycgovparks.org/events/2026/10/17/williamsbridge-fall-fiesta",
       "source": "NYC Parks",
-      "free": false
-    },
-    {
-      "title": "Word Art Workshop and Artist Talk with Roemello Agjmurati",
-      "description": "",
-      "date": "2026-10-17",
-      "endDate": "2026-10-17",
-      "venue": "Staten Island Museum",
-      "location": "Staten Island, NY",
-      "type": "workshop talk",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://www.statenislandmuseum.org/event/word-art-workshop-and-artist-talk-with-roemello-agjmurati/",
-      "source": "Staten Island Museum",
       "free": false
     },
     {
