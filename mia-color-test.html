@@ -4156,45 +4156,54 @@ row.addEventListener('click', function(event) {
           miaStrokeBase = false;
           miaPreviewDirty = null;
       }
-      /* PhotoCraft-inspired tip falloff: thin translucent felt edge, dense core.
-         Cache the rotated tip to avoid expensive per-move gradients on iPhone. */
+      /* MIA felt marker experiment, inspired by PhotoCraft's documented
+         Wet Edges, Texture and brush-stamping controls (not copied Rust code).
+         The ink profile is rasterized once per size/color and cached. */
       const miaFeltTips = new Map();
       function miaGetFeltMarkerTip(width, color) {
-          const w = Math.max(1, Math.round(width * 2) / 2);
+          const w = Math.max(2, Math.round(width * 2) / 2);
           const key = color + ':' + w;
           if (miaFeltTips.has(key)) return miaFeltTips.get(key);
-          const extent = Math.ceil(w * 1.8 + 12);
+          const extent = Math.ceil(w * 2.25 + 18);
           const tip = document.createElement('canvas');
           tip.width = tip.height = extent;
           const c = tip.getContext('2d');
-          const center = extent / 2;
-          const length = Math.max(1, w * 1.02);
-          const thick = Math.max(1, w * 0.33);
-          const edge = Math.max(0.65, Math.min(3.5, w * 0.075));
-          c.translate(center, center);
-          c.rotate(-Math.PI / 6);
-          /* Outer veil is deliberately narrow, unlike the Soft airbrush. */
-          c.globalAlpha = 0.20;
-          c.fillStyle = color;
-          c.fillRect(-length/2-edge, -thick/2-edge, length+2*edge, thick+2*edge);
-          c.globalAlpha = 0.45;
-          c.fillRect(-length/2-edge*0.55, -thick/2-edge*0.55,
-                     length+edge*1.1, thick+edge*1.1);
-          c.globalAlpha = 1;
-          c.fillRect(-length/2, -thick/2, length, thick);
-          /* A few translucent fibers keep the tip from looking plastic. */
-          if (w >= 9) {
-              c.globalAlpha = 0.16;
-              c.fillStyle = '#ffffff';
-              for (let i = 0; i < 9; i++) {
-                  const seed = ((i * 37 + Math.round(w) * 17) % 97) / 97;
-                  const x = (seed - 0.5) * length * 0.82;
-                  const y = (((i * 19 + 7) % 89) / 89 - 0.5) * thick * 0.75;
-                  c.fillRect(x, y, Math.max(0.4, w*0.015), Math.max(0.5, thick*0.11));
+          const rgba = /^#([0-9a-f]{6})$/i.exec(color);
+          const r = rgba ? parseInt(rgba[1].slice(0,2),16) : 0;
+          const g = rgba ? parseInt(rgba[1].slice(2,4),16) : 0;
+          const b = rgba ? parseInt(rgba[1].slice(4,6),16) : 0;
+          const img = c.createImageData(extent, extent);
+          const halfLong = w * 0.57;
+          const halfShort = Math.max(1.25, w * 0.205);
+          const feather = Math.max(0.9, Math.min(3.5, w * 0.075));
+          const angle = -Math.PI / 6;
+          const ca = Math.cos(angle), sa = Math.sin(angle);
+          const mid = extent / 2;
+          for (let y=0; y<extent; y++) {
+              for (let x=0; x<extent; x++) {
+                  const px=x+.5-mid, py=y+.5-mid;
+                  const u=px*ca+py*sa, v=-px*sa+py*ca;
+                  const au=Math.abs(u), av=Math.abs(v);
+                  const du=au-halfLong, dv=av-halfShort;
+                  const outside=Math.hypot(Math.max(0,du),Math.max(0,dv));
+                  const signed=(du>0||dv>0) ? outside : Math.max(du,dv);
+                  if(signed>feather) continue;
+                  /* Broad ink body, translucent outer fibers, irregular edge. */
+                  let coverage=signed<=-feather ? 1 : Math.max(0, Math.min(1,(feather-signed)/(2*feather)));
+                  const hash=Math.sin((x*127.1+y*311.7+w*17.1)*0.13)*43758.5453;
+                  const grain=(hash-Math.floor(hash));
+                  const fiber=Math.sin(u*0.52+v*0.14)*Math.sin(u*0.17-v*0.63);
+                  const variation=0.93+0.07*grain-0.10*Math.max(0,fiber);
+                  /* Make the extreme perimeter noticeably lighter. */
+                  const ink=Math.round(255*Math.pow(coverage,1.25)*variation);
+                  const idx=(y*extent+x)*4;
+                  img.data[idx]=r; img.data[idx+1]=g; img.data[idx+2]=b;
+                  img.data[idx+3]=ink;
               }
           }
-          if (miaFeltTips.size > 100) miaFeltTips.clear();
-          miaFeltTips.set(key, tip);
+          c.putImageData(img,0,0);
+          if (miaFeltTips.size > 72) miaFeltTips.clear();
+          miaFeltTips.set(key,tip);
           return tip;
       }
       function drawStroke(x1, y1, x2, y2) {
@@ -4265,7 +4274,7 @@ row.addEventListener('click', function(event) {
               /* Soft felt-chisel nib: cached once per size/color, stamped incrementally.
                  Previous stroke segments keep their own width as dynamics changes. */
               const nibWidth = Math.max(1, size);
-              const step = Math.max(0.7, nibWidth * 0.075);
+              const step = Math.max(0.9, nibWidth * 0.16);
               const count = Math.max(1, Math.ceil(distance / step));
               const nib = miaGetFeltMarkerTip(nibWidth, currentColor);
               const r = nib.width / 2;
