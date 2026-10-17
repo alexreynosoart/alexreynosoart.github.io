@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-17T04:33:12.063449+00:00",
+  "updatedAt": "2026-10-17T10:50:11.693123+00:00",
   "sources": {
     "NYC Parks": 57,
     "Whitney": 50,
@@ -9,8 +9,8 @@
     "Bronx Museum": 2,
     "Film at Lincoln Center": 7,
     "New York Live Arts": 8,
-    "Lincoln Center Presents": 176,
-    "Wave Hill": 4,
+    "Lincoln Center Presents": 174,
+    "Wave Hill": 5,
     "Staten Island Museum": 5,
     "Smithsonian Associates": 3
   },
@@ -184,20 +184,6 @@
       "free": true
     },
     {
-      "title": "LOL: Laughing Out Lonely",
-      "description": "Listed showtime(s): 5:00 pm, 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
-      "date": "2026-10-17",
-      "endDate": "2026-10-17",
-      "venue": "Lincoln Center Presents",
-      "location": "Manhattan, NY",
-      "type": "performance",
-      "features": "nyc us free",
-      "country": "United States",
-      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/lol-laughing-out-lonely-701",
-      "source": "Lincoln Center Presents",
-      "free": true
-    },
-    {
       "title": "Lifelong Studio Exhibition: Transcending the Form—Abstract Figurative Painting",
       "description": "On view October 09, 2026 through December 30, 2026. ",
       "date": "2026-10-17",
@@ -294,20 +280,6 @@
       "url": "http://www.nycgovparks.org/events/2026/10/17/ongoing-outdoor-museum-exhibit-alices-terracotta-garden",
       "source": "NYC Parks",
       "free": false
-    },
-    {
-      "title": "PLAZA",
-      "description": "Interactive outdoor artwork by Andrew Schneider. Free admission; registration encouraged. Listed showtime(s): Multiple times. Check the official Lincoln Center event page for current details and tickets.",
-      "date": "2026-10-17",
-      "endDate": "2026-10-17",
-      "venue": "Josie Robertson Plaza, Lincoln Center",
-      "location": "Manhattan, NY",
-      "type": "installation",
-      "features": "nyc us free",
-      "country": "United States",
-      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/plaza-374",
-      "source": "Lincoln Center Presents",
-      "free": true
     },
     {
       "title": "Park Open Studio",
@@ -884,6 +856,20 @@
       "free": true
     },
     {
+      "title": "Public Gallery Tour",
+      "description": "",
+      "date": "2026-10-22",
+      "endDate": "2026-10-22",
+      "venue": "Wave Hill",
+      "location": "Bronx, NY",
+      "type": "tour",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.wavehill.org/calendar/public-gallery-tour-spring-2026-2",
+      "source": "Wave Hill",
+      "free": false
+    },
+    {
       "title": "claire rousay & Martyna Basta / Keith \"Giant Claw\" Rankin & Julek ploski",
       "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2026-10-22",
@@ -1217,6 +1203,20 @@
       "country": "United States",
       "url": "http://www.nycgovparks.org/events/2026/10/24/fall-festival",
       "source": "NYC Parks",
+      "free": false
+    },
+    {
+      "title": "Web Weavers",
+      "description": "",
+      "date": "2026-10-24",
+      "endDate": "2026-10-24",
+      "venue": "Wave Hill",
+      "location": "Bronx, NY",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.wavehill.org/calendar/family-art-project-web-weavers-2026",
+      "source": "Wave Hill",
       "free": false
     },
     {
