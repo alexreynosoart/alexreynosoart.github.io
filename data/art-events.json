@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-18T04:40:42.963125+00:00",
+  "updatedAt": "2026-10-18T11:13:34.579872+00:00",
   "sources": {
     "NYC Parks": 49,
     "Whitney": 49,
@@ -10,7 +10,7 @@
     "Film at Lincoln Center": 7,
     "New York Live Arts": 8,
     "Lincoln Center Presents": 172,
-    "Wave Hill": 4,
+    "Wave Hill": 5,
     "Staten Island Museum": 4,
     "Smithsonian Associates": 3
   },
@@ -1105,6 +1105,20 @@
       "country": "United States",
       "url": "http://www.nycgovparks.org/events/2026/10/25/pumpkin-painting",
       "source": "NYC Parks",
+      "free": false
+    },
+    {
+      "title": "Web Weavers",
+      "description": "",
+      "date": "2026-10-25",
+      "endDate": "2026-10-25",
+      "venue": "Wave Hill",
+      "location": "Bronx, NY",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.wavehill.org/calendar/family-art-project-web-weavers-2026-2",
+      "source": "Wave Hill",
       "free": false
     },
     {
