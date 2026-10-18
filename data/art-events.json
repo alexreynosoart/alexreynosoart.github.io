@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-18T15:55:54.119984+00:00",
+  "updatedAt": "2026-10-18T20:50:06.705171+00:00",
   "sources": {
     "NYC Parks": 51,
     "Whitney": 49,
@@ -11,7 +11,7 @@
     "New York Live Arts": 8,
     "Lincoln Center Presents": 172,
     "Wave Hill": 5,
-    "Staten Island Museum": 4,
+    "Staten Island Museum": 3,
     "Smithsonian Associates": 3
   },
   "events": [
@@ -42,20 +42,6 @@
       "url": "http://www.nycgovparks.org/events/2026/10/18/visit-the-bhs-castle-during-open-house-new-york-2026",
       "source": "NYC Parks",
       "free": true
-    },
-    {
-      "title": "Behind the Scenes: Collections Care and Tour of Staten Island Making History",
-      "description": "",
-      "date": "2026-10-18",
-      "endDate": "2026-10-18",
-      "venue": "Staten Island Museum",
-      "location": "Staten Island, NY",
-      "type": "tour",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://www.statenislandmuseum.org/event/behind-the-scenes-collections-care-and-tour-of-staten-island-making-history/",
-      "source": "Staten Island Museum",
-      "free": false
     },
     {
       "title": "Climate Future Film Festival hosted by Growing Good Community Garden",
