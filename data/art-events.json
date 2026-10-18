@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-10-18T11:13:34.579872+00:00",
+  "updatedAt": "2026-10-18T15:55:54.119984+00:00",
   "sources": {
-    "NYC Parks": 49,
+    "NYC Parks": 51,
     "Whitney": 49,
     "MoMA": 0,
     "Guggenheim": 0,
@@ -1346,6 +1346,20 @@
       "free": false
     },
     {
+      "title": "Day of the Dead Celebration featuring Mariachi Real de Mexico",
+      "description": "Mariachi Real De Mexico was founded in 1991 by Ramon Ponce and his son Ramon Ponce Jr. This year Mariachi Real De Mexico is proudly celebrating 35 years. The GRAMMY winning ensemble is considered to be the ambassador of mariachi music and the most important and sought after mariachi ensemble in New York City and the North East of the United States.There will",
+      "date": "2026-11-01",
+      "endDate": "2026-11-01",
+      "venue": "Forest Park",
+      "location": "Oak Ridge (in Forest Park)",
+      "type": "festival workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/01/day-of-the-dead-celebration-featuring-mariachi-real-de-mexic",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
       "title": "Día de Muertos Celebration",
       "description": "Listed showtime(s): 6:00 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2026-11-01",
@@ -1357,6 +1371,20 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/dandiacutea-de-muertos-celebration-740",
       "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "Nature's Workshop: Fall Foliage Leaf Art",
+      "description": "Enjoy the beauty of fall with the Urban Park Rangers as we collect tree leaves and create colorful leaf art!",
+      "date": "2026-11-01",
+      "endDate": "2026-11-01",
+      "venue": "Crotona Park",
+      "location": "Crotona Nature Center (in Crotona Park)",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/01/natures-workshop-fall-foliage-leaf-art",
+      "source": "NYC Parks",
       "free": false
     },
     {
