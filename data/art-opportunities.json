@@ -1,75 +1,10 @@
 {
-  "updatedAt": "2026-10-17T04:41:18.183309+00:00",
+  "updatedAt": "2026-10-19T04:55:02.907103+00:00",
   "sources": {
-    "On the Move": 54,
-    "Existing Everything Art listing": 19
+    "On the Move": 50,
+    "Existing Everything Art listing": 18
   },
   "opportunities": [
-    {
-      "title": "Cité internationale des arts: Trame Residency for French-speaking Artists 2027 (France)",
-      "organization": "Cité internationale des arts",
-      "description": "Residencies. Application deadline: 2026-10-18. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/cite-internationale-des-arts-trame-residency-french-speaking-artists-2027-france",
-      "deadline": "2026-10-18",
-      "discipline": "interdisciplinary",
-      "type": "residency",
-      "features": "",
-      "country": "France",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
-      "title": "European Commission: Artist-in-Residence 2027 on ‘Decoding Depression’ (Italy)",
-      "organization": "European Commission",
-      "description": "Residencies. Application deadline: 2026-10-18. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/european-commission-artist-residence-2027-decoding-depression-italy",
-      "deadline": "2026-10-18",
-      "discipline": "interdisciplinary",
-      "type": "residency",
-      "features": "",
-      "country": "Italy",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
-      "title": "Maison Ackerman/Abbaye Royale de Fontevraud: Artist Residency 2027 for Immersive Artistic Project (France)",
-      "organization": "Maison Ackerman/Abbaye Royale de Fontevraud",
-      "description": "Commissions & tenders. Application deadline: 2026-10-18. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/maison-ackermanabbaye-royale-de-fontevraud-artist-residency-2027-immersive-artistic-project",
-      "deadline": "2026-10-18",
-      "discipline": "interdisciplinary",
-      "type": "open-call residency",
-      "features": "",
-      "country": "France",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
-      "title": "Open Call for 2028 Exhibitions",
-      "organization": "Open Source Gallery · Brooklyn, NY",
-      "description": "Artists working in any medium and location may propose conceptually driven\n                exhibitions emphasizing experimentation, sustainability and social engagement.",
-      "url": "https://www.nyfa.org/opportunities/opportunity-info/?id=e1f3437b-a6a5-44c2-90d9-591e8da0356d",
-      "deadline": "2026-10-18",
-      "discipline": "visual interdisciplinary",
-      "type": "open-call exhibition",
-      "features": "nyc us",
-      "country": "",
-      "source": "Existing Everything Art listing",
-      "status": "Existing listing; verify with organizer"
-    },
-    {
-      "title": "Skopje European Capital of Culture 2028: Project Proposals",
-      "organization": "Skopje European Capital of Culture 2028",
-      "description": "Project funding. Application deadline: 2026-10-18. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/skopje-european-capital-culture-2028-project-proposals",
-      "deadline": "2026-10-18",
-      "discipline": "interdisciplinary",
-      "type": "grant",
-      "features": "",
-      "country": "",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
     {
       "title": "OASis: KIBLA Residence on Artistic Intelligence Nature and Technology 2026 (Slovenia)",
       "organization": "OASis",
