@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-19T04:47:09.945047+00:00",
+  "updatedAt": "2026-10-19T22:24:48.745694+00:00",
   "sources": {
     "NYC Parks": 44,
     "Whitney": 48,
@@ -7,7 +7,7 @@
     "Guggenheim": 0,
     "NYPL": 7,
     "Bronx Museum": 2,
-    "Film at Lincoln Center": 8,
+    "Film at Lincoln Center": 7,
     "New York Live Arts": 8,
     "Lincoln Center Presents": 172,
     "Wave Hill": 4,
@@ -86,20 +86,6 @@
       "free": false
     },
     {
-      "title": "Macbeth",
-      "description": "Upcoming screening dates: Oct 19, Oct 20. See official film page for verified showtimes and tickets.",
-      "date": "2026-10-19",
-      "endDate": "2026-10-20",
-      "venue": "Film at Lincoln Center",
-      "location": "Manhattan, NY",
-      "type": "film",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://www.filmlinc.org/films/macbeth/",
-      "source": "Film at Lincoln Center",
-      "free": false
-    },
-    {
       "title": "Martha Graham: The Mother of Psychological Dance",
       "description": "On view through January 02, 2027. Current exhibition at The New York Public Library.",
       "date": "2026-10-19",
@@ -129,9 +115,9 @@
     },
     {
       "title": "Once Upon a Time in Harlem",
-      "description": "Upcoming screening dates: Oct 19, Oct 20, Oct 21, Oct 22. See official film page for verified showtimes and tickets.",
+      "description": "Upcoming screening dates: Oct 19, Oct 20, Oct 21, Oct 22, Oct 23, Oct 24. See official film page for verified showtimes and tickets.",
       "date": "2026-10-19",
-      "endDate": "2026-10-22",
+      "endDate": "2026-10-24",
       "venue": "Film at Lincoln Center",
       "location": "Manhattan, NY",
       "type": "film",
@@ -1038,6 +1024,20 @@
       "free": false
     },
     {
+      "title": "Pop Party",
+      "description": "Celebrate Roy Lichtenstein: Like New and the artist’s 103rd birthday with a vibrant costume party! This special edition of Member Night features after-hours access to our full exhibition lineup, live music, and so much more. Artful costumes encouraged—take inspiration from Roy and Dorothy Lichtenstein’s reimagining of Pop art celebrities Andy Warhol and Edie",
+      "date": "2026-10-28",
+      "endDate": "2026-10-28",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/member-night-pop-party",
+      "source": "Whitney",
+      "free": false
+    },
+    {
       "title": "Topaz Jones",
       "description": "Listed showtime(s): 8:00 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2026-10-28",
@@ -1262,6 +1262,20 @@
       "free": false
     },
     {
+      "title": "Contemporaries Fall Social: People’s",
+      "description": "Join us at People's in Greenwich Village for our fall social, exclusively for Contemporaries members. Once the home of the historic Downtown Gallery, People's is an invite-only club and art salon featuring a rotation of contemporary works by emerging artists in a residential townhouse setting. Come between 6:30 and 8:30 to get to know fellow members and enjo",
+      "date": "2026-11-04",
+      "endDate": "2026-11-04",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/contemporaries-social-fall2026",
+      "source": "Whitney",
+      "free": false
+    },
+    {
       "title": "Voices of a People's History",
       "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2026-11-05",
@@ -1287,6 +1301,20 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/alba-musik-contemporary-flamenco-767",
       "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "Art + You",
+      "description": "Join us to explore The Lost World: The Art of Minnie Evans through conversation and drawing. Together, we’ll consider how artists utilize different sources of inspiration—from memory to nature to the subconscious. We’ll further explore these themes and others through automatic drawing, experimenting with color and shape to create our own works of art alongsi",
+      "date": "2026-11-06",
+      "endDate": "2026-11-06",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/art-and-you-nov2026",
+      "source": "Whitney",
       "free": false
     },
     {
@@ -3359,34 +3387,6 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/principal-strings-379",
       "source": "Lincoln Center Presents",
-      "free": false
-    },
-    {
-      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
-      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
-      "date": "2027-04-09",
-      "endDate": "2027-04-09",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
-      "source": "Whitney",
-      "free": false
-    },
-    {
-      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
-      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
-      "date": "2027-04-10",
-      "endDate": "2027-04-10",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
-      "source": "Whitney",
       "free": false
     },
     {
