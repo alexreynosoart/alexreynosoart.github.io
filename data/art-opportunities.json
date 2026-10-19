@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-10-19T04:55:02.907103+00:00",
+  "updatedAt": "2026-10-19T13:37:51.141973+00:00",
   "sources": {
-    "On the Move": 50,
+    "On the Move": 54,
     "Existing Everything Art listing": 18
   },
   "opportunities": [
@@ -578,6 +578,19 @@
       "status": "Existing listing; verify with organizer"
     },
     {
+      "title": "Sixi Museum: Sixi International Artist-In-Residence 2027 (China)",
+      "organization": "Sixi Museum",
+      "description": "Residencies. Application deadline: 2026-11-15. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/sixi-museum-sixi-international-artist-residence-2027-china",
+      "deadline": "2026-11-15",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "The Hopper Prize Fall 2026",
       "organization": "The Hopper Prize",
       "description": "International artist grants with a streamlined application accepting image\n                or video work samples.",
@@ -617,6 +630,19 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "M+: Sigg Fellowship for Chinese Art Research 2026/27 (Hong Kong)",
+      "organization": "M+",
+      "description": "Fellowships. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/m-sigg-fellowship-chinese-art-research-202627-hong-kong",
+      "deadline": "2026-11-30",
+      "discipline": "interdisciplinary",
+      "type": "fellowship",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Ubah Rumah Residency 2027/2028 for Southeast Asia-based Artists (Indonesia)",
       "organization": "On the Move",
       "description": "Residencies. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
@@ -626,6 +652,19 @@
       "type": "residency",
       "features": "",
       "country": "Indonesia",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Hordaland Kunstsenter: Artist Residency 2027/2028 for Nordic- and Baltic-based Artists (Norway)",
+      "organization": "Hordaland Kunstsenter",
+      "description": "Residencies. Application deadline: 2026-12-01. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/hordaland-kunstsenter-artist-residency-20272028-nordic-and-baltic-based-artists-norway",
+      "deadline": "2026-12-01",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Norway",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
@@ -691,6 +730,19 @@
       "type": "grant",
       "features": "",
       "country": "Sweden",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Schwabach: Ortung 15 Competition for the Schwabach Art Prize (Germany)",
+      "organization": "Schwabach",
+      "description": "Competitions & awards. Application deadline: 2027-01-11. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/schwabach-ortung-15-competition-schwabach-art-prize-germany",
+      "deadline": "2027-01-11",
+      "discipline": "interdisciplinary",
+      "type": "competition",
+      "features": "",
+      "country": "Germany",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
