@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-20T17:14:19.419385+00:00",
+  "updatedAt": "2026-10-20T21:42:05.123208+00:00",
   "sources": {
     "NYC Parks": 46,
     "Whitney": 48,
@@ -1441,6 +1441,20 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/de-papel-848",
       "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "Musical Notes and Brush Strokes: Jazz at Lincoln Center Presents a Family Concert",
+      "description": "Jazz inspired Roy. Roy inspires jazz! Did you know that artist Roy Lichtenstein played the saxophone? Join an all-star band from Jazz at Lincoln Center for a special family concert featuring music that was an important part of Lichtenstein’s life. Hear the musicians respond to and interpret works on view in Roy Lichtenstein: Like New , bringing art and jazz ",
+      "date": "2026-11-08",
+      "endDate": "2026-11-08",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "performance workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/jazz-at-lincoln-center-family-concert",
+      "source": "Whitney",
       "free": false
     },
     {
@@ -3415,20 +3429,6 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/principal-strings-379",
       "source": "Lincoln Center Presents",
-      "free": false
-    },
-    {
-      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
-      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
-      "date": "2027-04-12",
-      "endDate": "2027-04-12",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
-      "source": "Whitney",
       "free": false
     },
     {
