@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-10-20T04:57:27.243957+00:00",
+  "updatedAt": "2026-10-20T17:14:19.419385+00:00",
   "sources": {
-    "NYC Parks": 44,
+    "NYC Parks": 46,
     "Whitney": 48,
     "MoMA": 0,
     "Guggenheim": 0,
     "NYPL": 7,
     "Bronx Museum": 2,
-    "Film at Lincoln Center": 8,
+    "Film at Lincoln Center": 7,
     "New York Live Arts": 8,
     "Lincoln Center Presents": 172,
     "Wave Hill": 4,
@@ -69,20 +69,6 @@
       "country": "United States",
       "url": "https://bronxmuseum.org/exhibition/lifelong-studio-painting/",
       "source": "Bronx Museum",
-      "free": false
-    },
-    {
-      "title": "Macbeth",
-      "description": "Upcoming screening dates: Oct 20. See official film page for verified showtimes and tickets.",
-      "date": "2026-10-20",
-      "endDate": "2026-10-20",
-      "venue": "Film at Lincoln Center",
-      "location": "Manhattan, NY",
-      "type": "film",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://www.filmlinc.org/films/macbeth/",
-      "source": "Film at Lincoln Center",
       "free": false
     },
     {
@@ -758,6 +744,20 @@
       "free": false
     },
     {
+      "title": "Oktoberfest Pumpkin Jamboree in Hammarskjold Plaza, midtown Manhattan",
+      "description": "Oktoberfest Autumn Jamboree returns to Dag Plaza with face painting, pumpkin decorating and bowling, crafts, carnival games and prizes. Revel in the atmosphere of a country farm among scarecrows, hay bales, cornstalks and pumpkins with Halloween costumes on parade. The park's Taskin Cafe offers food and drink for sale with open-mike karaoke staged on the adj",
+      "date": "2026-10-24",
+      "endDate": "2026-10-24",
+      "venue": "Dag Hammarskjold Plaza",
+      "location": "Dag Hammarskjold Plaza",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/10/24/oktoberfest-pumpkin-jamboree-in-dag-hammarskjojold-plaza-mid",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
       "title": "PLAZA",
       "description": "Interactive outdoor artwork by Andrew Schneider. Free admission; registration encouraged. Listed showtime(s): Multiple times. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2026-10-24",
@@ -811,6 +811,20 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/relaxed-virtual-screening-of-san-juan-hill-manhattanandrsquos-lost-neighborhood-693",
       "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "Volunteers wanted for Oktoberfest, set up at 10 AM or assist during event",
+      "description": "Hi All, Volunteers for community Oktoberfest event, this Saturday, 10/24 in East Midtown Manhattan's largest park DAG PLAZA TO REGISTER: fdhp@hammarskjoldplaza.orgIn subject line: Oktoberfest volunteerIn message: Include your name, phone #, address and your arrival time. 1. Place/plant the mums, haybales, pumpkins, signs and banners. ARRIVE AT 10 AM, FINISH ",
+      "date": "2026-10-24",
+      "endDate": "2026-10-24",
+      "venue": "Dag Hammarskjold Plaza",
+      "location": "Dag Hammarskjold Plaza",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/10/24/volunteers-wanted-for-oktoberfest-set-up-at-10-am-or-assist",
+      "source": "NYC Parks",
       "free": false
     },
     {
