@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-10-20T05:01:32.683089+00:00",
+  "updatedAt": "2026-10-20T11:51:33.077852+00:00",
   "sources": {
     "Existing Everything Art listing": 18,
-    "On the Move": 52
+    "On the Move": 53
   },
   "opportunities": [
     {
@@ -95,6 +95,19 @@
       "country": "United States",
       "source": "Existing Everything Art listing",
       "status": "Existing listing; verify with organizer"
+    },
+    {
+      "title": "Communauté de communes du Clermontois: Artistic and Cultural Education Residencies 2027 (France)",
+      "organization": "Communauté de communes du Clermontois",
+      "description": "Residencies. Application deadline: 2026-10-25. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/communaute-de-communes-du-clermontois-artistic-and-cultural-education-residencies-2027-france",
+      "deadline": "2026-10-25",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "France",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
     },
     {
       "title": "Kunstraum Memphis: ‘Memphis Calling’ Curatorial Exhibition Concept 2027 (Austria)",
