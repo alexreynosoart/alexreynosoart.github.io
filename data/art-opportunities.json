@@ -1,36 +1,10 @@
 {
-  "updatedAt": "2026-10-19T13:37:51.141973+00:00",
+  "updatedAt": "2026-10-20T05:01:32.683089+00:00",
   "sources": {
-    "On the Move": 54,
-    "Existing Everything Art listing": 18
+    "Existing Everything Art listing": 18,
+    "On the Move": 52
   },
   "opportunities": [
-    {
-      "title": "OASis: KIBLA Residence on Artistic Intelligence Nature and Technology 2026 (Slovenia)",
-      "organization": "OASis",
-      "description": "Residencies. Application deadline: 2026-10-19. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/oasis-kibla-residence-artistic-intelligence-nature-and-technology-2026-slovenia",
-      "deadline": "2026-10-19",
-      "discipline": "interdisciplinary",
-      "type": "residency",
-      "features": "",
-      "country": "Slovenia",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
-      "title": "Salzburg Global: Cultural Futures Forum 2027 on Recognition, Equity, and Workforce Futures (Austria)",
-      "organization": "Salzburg Global",
-      "description": "Meeting & networking. Application deadline: 2026-10-19. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/salzburg-global-cultural-futures-forum-2027-recognition-equity-and-workforce-futures-austria",
-      "deadline": "2026-10-19",
-      "discipline": "interdisciplinary",
-      "type": "resource",
-      "features": "",
-      "country": "Austria",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
     {
       "title": "Biennale Danza 2027: Choreographic Creations",
       "organization": "La Biennale di Venezia · Venice, Italy",
