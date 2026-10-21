@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-10-21T12:03:14.951287+00:00",
+  "updatedAt": "2026-10-21T17:22:52.428376+00:00",
   "sources": {
-    "On the Move": 53,
+    "On the Move": 55,
     "Existing Everything Art listing": 16
   },
   "opportunities": [
@@ -28,6 +28,19 @@
       "type": "open-call exhibition",
       "features": "",
       "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "After the Single Use: Research Residencies 2027",
+      "organization": "After the Single Use",
+      "description": "Residencies. Application deadline: 2026-10-23. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/after-single-use-research-residencies-2027",
+      "deadline": "2026-10-23",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "United States",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
@@ -468,6 +481,19 @@
       "deadline": "2026-11-06",
       "discipline": "digital",
       "type": "residency",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "CircusDanceFestival 2027 360° Shorts (Germany)",
+      "organization": "On the Move",
+      "description": "Presenting work. Application deadline: 2026-11-08. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/circusdancefestival-2027-360deg-shorts-germany",
+      "deadline": "2026-11-08",
+      "discipline": "dance",
+      "type": "open-call exhibition",
       "features": "",
       "country": "",
       "source": "On the Move",
