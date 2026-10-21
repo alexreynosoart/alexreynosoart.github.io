@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-10-21T05:01:06.678895+00:00",
+  "updatedAt": "2026-10-21T12:03:14.951287+00:00",
   "sources": {
-    "On the Move": 52,
+    "On the Move": 53,
     "Existing Everything Art listing": 16
   },
   "opportunities": [
@@ -327,6 +327,19 @@
       "type": "grant",
       "features": "",
       "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Sanford Underground Research Facility: Artist-in-Residence 2027 (USA)",
+      "organization": "Sanford Underground Research Facility",
+      "description": "Residencies. Application deadline: 2026-11-01. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/sanford-underground-research-facility-artist-residence-2027-usa",
+      "deadline": "2026-11-01",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "United States",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
