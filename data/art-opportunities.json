@@ -1,49 +1,10 @@
 {
-  "updatedAt": "2026-10-20T11:51:33.077852+00:00",
+  "updatedAt": "2026-10-21T05:01:06.678895+00:00",
   "sources": {
-    "Existing Everything Art listing": 18,
-    "On the Move": 53
+    "On the Move": 52,
+    "Existing Everything Art listing": 16
   },
   "opportunities": [
-    {
-      "title": "Biennale Danza 2027: Choreographic Creations",
-      "organization": "La Biennale di Venezia · Venice, Italy",
-      "description": "International call for original choreographic creations to premiere during the 2027 International Festival of Contemporary Dance.",
-      "url": "https://on-the-move.org/news/deadlines",
-      "deadline": "2026-10-20",
-      "discipline": "dance performance",
-      "type": "open-call competition",
-      "features": "worldwide funded closing",
-      "country": "",
-      "source": "Existing Everything Art listing",
-      "status": "Existing listing; verify with organizer"
-    },
-    {
-      "title": "La Biennale di Venezia: Biennale Danza 2027 Call for Choreographic Creations (Italy)",
-      "organization": "La Biennale di Venezia",
-      "description": "Presenting work. Application deadline: 2026-10-20. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/la-biennale-di-venezia-biennale-danza-2027-call-choreographic-creations-italy",
-      "deadline": "2026-10-20",
-      "discipline": "dance",
-      "type": "open-call exhibition",
-      "features": "",
-      "country": "Italy",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
-      "title": "Small Hours Group Exhibition",
-      "organization": "Collective Z Gallery · Lower East Side, NYC",
-      "description": "An open call for small-format drawing, painting, photography and printmaking\n                for a December 2026 to January 2027 group exhibition.",
-      "url": "https://www.nyfa.org/opportunities/opportunity-info/?id=98c03c73-4698-4b1e-b6d0-2e410ea6a5e2",
-      "deadline": "2026-10-20",
-      "discipline": "visual interdisciplinary",
-      "type": "open-call exhibition",
-      "features": "nyc us",
-      "country": "",
-      "source": "Existing Everything Art listing",
-      "status": "Existing listing; verify with organizer"
-    },
     {
       "title": "Delfina Foundation: Brooks International Fellowship 2027 (UK)",
       "organization": "Delfina Foundation",
