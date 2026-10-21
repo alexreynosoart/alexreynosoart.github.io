@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-21T11:57:43.867986+00:00",
+  "updatedAt": "2026-10-21T17:18:36.350967+00:00",
   "sources": {
     "NYC Parks": 46,
     "Whitney": 48,
@@ -9,7 +9,7 @@
     "Bronx Museum": 2,
     "Film at Lincoln Center": 7,
     "New York Live Arts": 8,
-    "Lincoln Center Presents": 170,
+    "Lincoln Center Presents": 189,
     "Wave Hill": 4,
     "Staten Island Museum": 3,
     "Smithsonian Associates": 3
@@ -1136,6 +1136,20 @@
       "free": false
     },
     {
+      "title": "Halloween DJ Sets: TYLERFROMWHERE and Lord Fascinator",
+      "description": "6 pm, Lord Fascinator 8 pm, TYLERFROMWHERE Kick off Halloween weekend with DJ sets all night long by TYLERFROMWHERE and Lord Fascinator. Plus, enjoy evening access to world-class exhibitions, including the newly opened Roy Lichtenstein: Like New , drinks and snacks from Frenchette Bakery, skyline views from our terraces, and more as part of Free Friday Night",
+      "date": "2026-10-30",
+      "endDate": "2026-10-30",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us free",
+      "country": "United States",
+      "url": "https://whitney.org/events/halloween-dj-sets-2026",
+      "source": "Whitney",
+      "free": true
+    },
+    {
       "title": "Haunted Heights: Halloween at Morningside Park",
       "description": "Join NYC Parks, Friends of Morningside Park, and Columbia University Space Initiative and Zuckerman Institute for music, arts and crafts, and spooktacular activities. Come dressed in your Halloween costumes and enjoy family friendly activities including creating your own lava lamps and interacting with human and animal brains.",
       "date": "2026-10-30",
@@ -1384,6 +1398,20 @@
       "features": "nyc us free",
       "country": "United States",
       "url": "https://whitney.org/events/whitney-descriptions-lichtenstein",
+      "source": "Whitney",
+      "free": true
+    },
+    {
+      "title": "Whitney Signs: Roy Lichtenstein and Screenprinting Workshop",
+      "description": "Join us for an in-person tour of Roy Lichtenstein: Like New led by Deaf educator Gina Marciona followed by a screenprinting workshop with Robert Blackburn Printmaking Workshop ! A wine and cheese reception will be offered in the Laurie M. Tisch Education Center from 5–6 pm. Please plan to meet in the Hearst Artspace on Floor 3 at 3:15 pm. This tour will be i",
+      "date": "2026-11-07",
+      "endDate": "2026-11-07",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us free",
+      "country": "United States",
+      "url": "https://whitney.org/events/whitney-signs-lichtenstein",
       "source": "Whitney",
       "free": true
     },
@@ -2004,6 +2032,20 @@
       "free": false
     },
     {
+      "title": "SINCERE APOLOGIES",
+      "description": "Listed showtime(s): 7:00 pm. Check the official Lincoln Center event page for current details and tickets.",
+      "date": "2027-01-08",
+      "endDate": "2027-01-08",
+      "venue": "Lincoln Center Presents",
+      "location": "Manhattan, NY",
+      "type": "performance",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/sincere-apologies-3",
+      "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
       "title": "Heidi Latsky Dance",
       "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2027-01-09",
@@ -2018,6 +2060,20 @@
       "free": false
     },
     {
+      "title": "SINCERE APOLOGIES",
+      "description": "Listed showtime(s): 7:00 pm. Check the official Lincoln Center event page for current details and tickets.",
+      "date": "2027-01-09",
+      "endDate": "2027-01-09",
+      "venue": "Lincoln Center Presents",
+      "location": "Manhattan, NY",
+      "type": "performance",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/sincere-apologies-3",
+      "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
       "title": "Heidi Latsky Dance",
       "description": "Listed showtime(s): 2:00 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2027-01-10",
@@ -2028,6 +2084,20 @@
       "features": "nyc us",
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/heidi-latsky-dance-571",
+      "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "SINCERE APOLOGIES",
+      "description": "Listed showtime(s): 2:00 pm. Check the official Lincoln Center event page for current details and tickets.",
+      "date": "2027-01-10",
+      "endDate": "2027-01-10",
+      "venue": "Lincoln Center Presents",
+      "location": "Manhattan, NY",
+      "type": "performance",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/sincere-apologies-3",
       "source": "Lincoln Center Presents",
       "free": false
     },
@@ -2056,6 +2126,20 @@
       "features": "nyc us",
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/hannah-garner-2nd-best-dance-company-501",
+      "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "The Bones",
+      "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
+      "date": "2027-01-12",
+      "endDate": "2027-01-12",
+      "venue": "Lincoln Center Presents",
+      "location": "Manhattan, NY",
+      "type": "performance",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/the-bones-305",
       "source": "Lincoln Center Presents",
       "free": false
     },
@@ -2098,6 +2182,34 @@
       "features": "nyc us",
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/omar-romandaacuten-de-jesanduacutes-or-boca-tuya-345",
+      "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "SINCERE APOLOGIES",
+      "description": "Listed showtime(s): 7:00 pm. Check the official Lincoln Center event page for current details and tickets.",
+      "date": "2027-01-13",
+      "endDate": "2027-01-13",
+      "venue": "Lincoln Center Presents",
+      "location": "Manhattan, NY",
+      "type": "performance",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/sincere-apologies-3",
+      "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "The Bones",
+      "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
+      "date": "2027-01-13",
+      "endDate": "2027-01-13",
+      "venue": "Lincoln Center Presents",
+      "location": "Manhattan, NY",
+      "type": "performance",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/the-bones-305",
       "source": "Lincoln Center Presents",
       "free": false
     },
@@ -2172,6 +2284,34 @@
       "free": false
     },
     {
+      "title": "SINCERE APOLOGIES",
+      "description": "Listed showtime(s): 7:00 pm, 9:30 pm. Check the official Lincoln Center event page for current details and tickets.",
+      "date": "2027-01-14",
+      "endDate": "2027-01-14",
+      "venue": "Lincoln Center Presents",
+      "location": "Manhattan, NY",
+      "type": "performance",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/sincere-apologies-3",
+      "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "The Bones",
+      "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
+      "date": "2027-01-14",
+      "endDate": "2027-01-14",
+      "venue": "Lincoln Center Presents",
+      "location": "Manhattan, NY",
+      "type": "performance",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/the-bones-305",
+      "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
       "title": "BLUR",
       "description": "Listed showtime(s): Multiple times. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2027-01-15",
@@ -2210,6 +2350,34 @@
       "features": "nyc us",
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/nordic-next-527",
+      "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "SINCERE APOLOGIES",
+      "description": "Listed showtime(s): 7:00 pm, 9:30 pm. Check the official Lincoln Center event page for current details and tickets.",
+      "date": "2027-01-15",
+      "endDate": "2027-01-15",
+      "venue": "Lincoln Center Presents",
+      "location": "Manhattan, NY",
+      "type": "performance",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/sincere-apologies-3",
+      "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "The Bones",
+      "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
+      "date": "2027-01-15",
+      "endDate": "2027-01-15",
+      "venue": "Lincoln Center Presents",
+      "location": "Manhattan, NY",
+      "type": "performance",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/the-bones-305",
       "source": "Lincoln Center Presents",
       "free": false
     },
@@ -2256,6 +2424,34 @@
       "free": false
     },
     {
+      "title": "SINCERE APOLOGIES",
+      "description": "Listed showtime(s): 2:00 pm, 6:00 pm, 8:30 pm. Check the official Lincoln Center event page for current details and tickets.",
+      "date": "2027-01-16",
+      "endDate": "2027-01-16",
+      "venue": "Lincoln Center Presents",
+      "location": "Manhattan, NY",
+      "type": "performance",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/sincere-apologies-3",
+      "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "The Bones",
+      "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
+      "date": "2027-01-16",
+      "endDate": "2027-01-16",
+      "venue": "Lincoln Center Presents",
+      "location": "Manhattan, NY",
+      "type": "performance",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/the-bones-305",
+      "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
       "title": "BLUR",
       "description": "Listed showtime(s): Multiple times. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2027-01-17",
@@ -2284,6 +2480,20 @@
       "free": false
     },
     {
+      "title": "SINCERE APOLOGIES",
+      "description": "Listed showtime(s): 4:00 pm, 7:00 pm. Check the official Lincoln Center event page for current details and tickets.",
+      "date": "2027-01-17",
+      "endDate": "2027-01-17",
+      "venue": "Lincoln Center Presents",
+      "location": "Manhattan, NY",
+      "type": "performance",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/sincere-apologies-3",
+      "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
       "title": "Shamel Pitts | TRIBE",
       "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2027-01-17",
@@ -2294,6 +2504,20 @@
       "features": "nyc us",
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/shamel-pitts-or-tribe",
+      "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "The Bones",
+      "description": "Listed showtime(s): 2:00 pm. Check the official Lincoln Center event page for current details and tickets.",
+      "date": "2027-01-17",
+      "endDate": "2027-01-17",
+      "venue": "Lincoln Center Presents",
+      "location": "Manhattan, NY",
+      "type": "performance",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/the-bones-305",
       "source": "Lincoln Center Presents",
       "free": false
     },
@@ -2476,6 +2700,20 @@
       "features": "nyc us",
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/empire-at-sea-840",
+      "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "Joe Bataan",
+      "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
+      "date": "2027-01-22",
+      "endDate": "2027-01-22",
+      "venue": "Lincoln Center Presents",
+      "location": "Manhattan, NY",
+      "type": "performance",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/joe-bataan-2-590",
       "source": "Lincoln Center Presents",
       "free": false
     },
@@ -3040,6 +3278,20 @@
       "free": false
     },
     {
+      "title": "Luisito Quintero's Antología Sextet",
+      "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
+      "date": "2027-02-19",
+      "endDate": "2027-02-19",
+      "venue": "Lincoln Center Presents",
+      "location": "Manhattan, NY",
+      "type": "performance",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/luisito-quinteroand39s-antologandiacutea-sextet-359",
+      "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
       "title": "Playing with Fire: An Immersive Odyssey with Yuja Wang",
       "description": "Listed showtime(s): Multiple times. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2027-02-19",
@@ -3050,6 +3302,20 @@
       "features": "nyc us",
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/playing-with-fire-an-immersive-odyssey-with-yuja-wang",
+      "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "Burnt Sugar The Arkestra Chamber",
+      "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
+      "date": "2027-02-20",
+      "endDate": "2027-02-20",
+      "venue": "Lincoln Center Presents",
+      "location": "Manhattan, NY",
+      "type": "performance",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/burnt-sugar-the-arkestra-chamber",
       "source": "Lincoln Center Presents",
       "free": false
     },
@@ -3204,6 +3470,20 @@
       "features": "nyc us",
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/dirt-428",
+      "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "Nelson Gonzales y su All-Star Band",
+      "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
+      "date": "2027-03-05",
+      "endDate": "2027-03-05",
+      "venue": "Lincoln Center Presents",
+      "location": "Manhattan, NY",
+      "type": "performance",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/nelson-gonzales-y-su-all-star-band-126",
       "source": "Lincoln Center Presents",
       "free": false
     },
@@ -3390,6 +3670,20 @@
       "free": false
     },
     {
+      "title": "Maneco Ruiz Orchestra",
+      "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
+      "date": "2027-04-02",
+      "endDate": "2027-04-02",
+      "venue": "Lincoln Center Presents",
+      "location": "Manhattan, NY",
+      "type": "performance",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/maneco-ruiz-orchestra-551",
+      "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
       "title": "Principal Strings",
       "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2027-04-08",
@@ -3401,20 +3695,6 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/principal-strings-379",
       "source": "Lincoln Center Presents",
-      "free": false
-    },
-    {
-      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
-      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
-      "date": "2027-04-14",
-      "endDate": "2027-04-14",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
-      "source": "Whitney",
       "free": false
     },
     {
