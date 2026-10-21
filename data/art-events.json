@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-21T04:57:02.047834+00:00",
+  "updatedAt": "2026-10-21T11:57:43.867986+00:00",
   "sources": {
     "NYC Parks": 46,
     "Whitney": 48,
@@ -9,7 +9,7 @@
     "Bronx Museum": 2,
     "Film at Lincoln Center": 7,
     "New York Live Arts": 8,
-    "Lincoln Center Presents": 172,
+    "Lincoln Center Presents": 170,
     "Wave Hill": 4,
     "Staten Island Museum": 3,
     "Smithsonian Associates": 3
@@ -83,20 +83,6 @@
       "country": "United States",
       "url": "https://www.nypl.org/events/exhibitions/declaring-america-1776-beyond",
       "source": "NYPL",
-      "free": false
-    },
-    {
-      "title": "FUJI|||||||||||TA & Ka Baird / Actress / Team Rolfes",
-      "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
-      "date": "2026-10-21",
-      "endDate": "2026-10-21",
-      "venue": "Lincoln Center Presents",
-      "location": "Manhattan, NY",
-      "type": "performance",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/fujiororororororta-andamp-ka-baird-actress-team-rolfes",
-      "source": "Lincoln Center Presents",
       "free": false
     },
     {
@@ -238,20 +224,6 @@
       "url": "http://www.nycgovparks.org/events/2026/10/21/ongoing-outdoor-museum-exhibit-alices-terracotta-garden",
       "source": "NYC Parks",
       "free": false
-    },
-    {
-      "title": "PLAZA",
-      "description": "Interactive outdoor artwork by Andrew Schneider. Free admission; registration encouraged. Listed showtime(s): Multiple times. Check the official Lincoln Center event page for current details and tickets.",
-      "date": "2026-10-21",
-      "endDate": "2026-10-21",
-      "venue": "Josie Robertson Plaza, Lincoln Center",
-      "location": "Manhattan, NY",
-      "type": "installation",
-      "features": "nyc us free",
-      "country": "United States",
-      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/plaza-374",
-      "source": "Lincoln Center Presents",
-      "free": true
     },
     {
       "title": "Sacred Winds: The Breath of the Revolution",
