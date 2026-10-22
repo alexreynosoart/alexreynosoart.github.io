@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-22T04:56:13.121413+00:00",
+  "updatedAt": "2026-10-22T12:00:16.445623+00:00",
   "sources": {
     "NYC Parks": 43,
     "Whitney": 48,
@@ -9,8 +9,8 @@
     "Bronx Museum": 2,
     "Film at Lincoln Center": 7,
     "New York Live Arts": 8,
-    "Lincoln Center Presents": 189,
-    "Wave Hill": 4,
+    "Lincoln Center Presents": 187,
+    "Wave Hill": 5,
     "Staten Island Museum": 3,
     "Smithsonian Associates": 3
   },
@@ -184,20 +184,6 @@
       "free": false
     },
     {
-      "title": "PLAZA",
-      "description": "Interactive outdoor artwork by Andrew Schneider. Free admission; registration encouraged. Listed showtime(s): Multiple times. Check the official Lincoln Center event page for current details and tickets.",
-      "date": "2026-10-22",
-      "endDate": "2026-10-22",
-      "venue": "Josie Robertson Plaza, Lincoln Center",
-      "location": "Manhattan, NY",
-      "type": "installation",
-      "features": "nyc us free",
-      "country": "United States",
-      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/plaza-374",
-      "source": "Lincoln Center Presents",
-      "free": true
-    },
-    {
       "title": "Park Open Studio",
       "description": "Led by a local teaching artist, this drop-in class invites participants to explore creativity through hands-on artmaking under the shade of Scrabble Plaza’s trees. Past mediums have included plein-air drawing, printmaking, cyanotypes, and more. All materials are provided by the Washington Square Park Conservancy.",
       "date": "2026-10-22",
@@ -307,20 +293,6 @@
       "country": "United States",
       "url": "https://www.nypl.org/events/exhibitions/unleashed-pets-performing-arts",
       "source": "NYPL",
-      "free": false
-    },
-    {
-      "title": "claire rousay & Martyna Basta / Keith \"Giant Claw\" Rankin & Julek ploski",
-      "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
-      "date": "2026-10-22",
-      "endDate": "2026-10-22",
-      "venue": "Lincoln Center Presents",
-      "location": "Manhattan, NY",
-      "type": "performance",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/claire-rousay-andamp-martyna-basta-keith-andquotgiant-clawandquot-rankin-andamp-julek-ploski",
-      "source": "Lincoln Center Presents",
       "free": false
     },
     {
@@ -672,6 +644,20 @@
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/plaza-374",
       "source": "Lincoln Center Presents",
       "free": true
+    },
+    {
+      "title": "Public Gallery Tour",
+      "description": "",
+      "date": "2026-10-24",
+      "endDate": "2026-10-24",
+      "venue": "Wave Hill",
+      "location": "Bronx, NY",
+      "type": "tour",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.wavehill.org/calendar/public-gallery-tour-spring-2026-2",
+      "source": "Wave Hill",
+      "free": false
     },
     {
       "title": "Pumpkin Decorating at Jardin la Roca",
@@ -1161,6 +1147,20 @@
       "country": "United States",
       "url": "http://www.nycgovparks.org/events/2026/10/31/crafts-candy-compost",
       "source": "NYC Parks",
+      "free": false
+    },
+    {
+      "title": "Day of the Dead",
+      "description": "",
+      "date": "2026-10-31",
+      "endDate": "2026-10-31",
+      "venue": "Wave Hill",
+      "location": "Bronx, NY",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.wavehill.org/calendar/family-art-project-day-of-the-dead-2026",
+      "source": "Wave Hill",
       "free": false
     },
     {
