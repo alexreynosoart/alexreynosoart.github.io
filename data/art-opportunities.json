@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-10-22T05:03:30.707266+00:00",
+  "updatedAt": "2026-10-22T12:06:15.745576+00:00",
   "sources": {
-    "On the Move": 54,
+    "On the Move": 56,
     "Existing Everything Art listing": 16
   },
   "opportunities": [
@@ -318,6 +318,19 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Playful Obscura Arthouse Games Residency 2027 for Artists in Africa (Ethiopia)",
+      "organization": "On the Move",
+      "description": "Residencies. Application deadline: 2026-11-01. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/playful-obscura-arthouse-games-residency-2027-artists-africa-ethiopia",
+      "deadline": "2026-11-01",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Roberto Cimetta Fund: Emergency Mobility Grants 2027",
       "organization": "Roberto Cimetta Fund",
       "description": "Project funding. Application deadline: 2026-11-01. Confirm eligibility, fees and details with the organizer.",
@@ -587,6 +600,19 @@
       "type": "open-call exhibition",
       "features": "",
       "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "François Schneider Foundation: Talents Contemporains Competition on ‘Water’ (France)",
+      "organization": "François Schneider Foundation",
+      "description": "Competitions & awards. Application deadline: 2026-11-22. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/francois-schneider-foundation-talents-contemporains-competition-water-france",
+      "deadline": "2026-11-22",
+      "discipline": "interdisciplinary",
+      "type": "competition",
+      "features": "",
+      "country": "France",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
