@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-10-22T12:00:16.445623+00:00",
+  "updatedAt": "2026-10-22T17:17:17.244959+00:00",
   "sources": {
-    "NYC Parks": 43,
+    "NYC Parks": 44,
     "Whitney": 48,
     "MoMA": 0,
     "Guggenheim": 0,
@@ -255,9 +255,9 @@
     },
     {
       "title": "The Devils",
-      "description": "Upcoming screening dates: Oct 22. See official film page for verified showtimes and tickets.",
+      "description": "Upcoming screening dates: Oct 22, Oct 30, Oct 31, Nov 01, Nov 03, Nov 04. See official film page for verified showtimes and tickets.",
       "date": "2026-10-22",
-      "endDate": "2026-10-22",
+      "endDate": "2026-11-04",
       "venue": "Film at Lincoln Center",
       "location": "Manhattan, NY",
       "type": "film",
@@ -461,6 +461,20 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/suhreetah-311",
       "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "Art Halloween in the Garden",
+      "description": "Bring your sketch pad, pencils and crayons for a Fall Halloween celebration!",
+      "date": "2026-10-24",
+      "endDate": "2026-10-24",
+      "venue": "NYC Parks",
+      "location": "Red Gate Garden",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/10/24/art-halloween-in-the-garden",
+      "source": "NYC Parks",
       "free": false
     },
     {
