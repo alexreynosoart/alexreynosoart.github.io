@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-22T17:17:17.244959+00:00",
+  "updatedAt": "2026-10-22T21:42:14.190877+00:00",
   "sources": {
     "NYC Parks": 44,
     "Whitney": 48,
@@ -1304,6 +1304,20 @@
       "free": false
     },
     {
+      "title": "DJ Set by Ty-Michelle",
+      "description": "Born and raised in New York City, Ty-Michelle has been influenced by various genres of music, to which she credits her grandfather. Her unique style, talent, and versatility have placed her in front of crowds throughout New York City and across Europe. When behind the decks, Ty-Michelle sets out to take listeners on a journey through every set. Immerse yours",
+      "date": "2026-11-06",
+      "endDate": "2026-11-06",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us free",
+      "country": "United States",
+      "url": "https://whitney.org/events/dj-set-ty-michelle",
+      "source": "Whitney",
+      "free": true
+    },
+    {
       "title": "De Papel",
       "description": "Listed showtime(s): 11:00 am, 2:00 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2026-11-06",
@@ -1874,6 +1888,20 @@
       "features": "nyc us",
       "country": "United States",
       "url": "https://whitney.org/events/new-perspectives-latinx-art",
+      "source": "Whitney",
+      "free": false
+    },
+    {
+      "title": "Contemporaries Curator-Led Tour of The Lost World: The Art of Minnie Evans",
+      "description": "Contemporaries members are invited to experience a guided tour of The Lost World: The Art of Minnie Evans with Caroline Webb, Curatorial Assistant and an organizer of the exhibition. The Lost World: The Art of Minnie Evans offers a reexamination of one of the most extraordinary self-taught artists of the twentieth century. Inspired by vivid dreams and vision",
+      "date": "2026-12-10",
+      "endDate": "2026-12-10",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "tour exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/contemporaries-tour-minnie-evans",
       "source": "Whitney",
       "free": false
     },
@@ -3667,20 +3695,6 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/principal-strings-379",
       "source": "Lincoln Center Presents",
-      "free": false
-    },
-    {
-      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
-      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
-      "date": "2027-04-15",
-      "endDate": "2027-04-15",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
-      "source": "Whitney",
       "free": false
     },
     {
