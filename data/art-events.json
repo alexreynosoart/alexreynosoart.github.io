@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-10-23T11:45:24.959269+00:00",
+  "updatedAt": "2026-10-23T17:14:25.243499+00:00",
   "sources": {
-    "NYC Parks": 44,
+    "NYC Parks": 45,
     "Whitney": 48,
     "MoMA": 0,
     "Guggenheim": 0,
@@ -1148,6 +1148,20 @@
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/friday-the-13th-part-viii-jason-takes-manhattan-729",
       "source": "Lincoln Center Presents",
       "free": false
+    },
+    {
+      "title": "Town Square BK's 23rd Annual Greenpoint Children's Halloween Parade And Spooktacular Party",
+      "description": "Calling all princes and princesses, heroes and villains, witches and wizards! Join Town Square BK for our popular annual Greenpoint Children's Halloween Parade and Spooktacular Party on Saturday, October 31st, 2026.12:15 PM ~ The FREE Greenpoint Children's Halloween Parade will step off on front of St. John's Lutheran Church (155 Milton Street near the corne",
+      "date": "2026-10-31",
+      "endDate": "2026-10-31",
+      "venue": "NYC Parks",
+      "location": "St John's Lutheran Church",
+      "type": "festival workshop",
+      "features": "nyc us free",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/10/31/town-square-bks-23rd-annual-greenpoint-childrens-halloween-p",
+      "source": "NYC Parks",
+      "free": true
     },
     {
       "title": "Day of the Dead Celebration featuring Mariachi Real de Mexico",
