@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-10-23T05:03:27.591233+00:00",
+  "updatedAt": "2026-10-23T11:50:37.002942+00:00",
   "sources": {
-    "On the Move": 55,
+    "On the Move": 56,
     "Existing Everything Art listing": 16
   },
   "opportunities": [
@@ -704,6 +704,19 @@
       "type": "residency",
       "features": "",
       "country": "China",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Circostrada: Bounce Professional Development Programme 2027 for Circus and Outdoor Arts (Portugal, Latvia)",
+      "organization": "Circostrada",
+      "description": "Training. Application deadline: 2026-12-31. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/circostrada-bounce-professional-development-programme-2027-circus-and-outdoor-arts-portugal",
+      "deadline": "2026-12-31",
+      "discipline": "interdisciplinary",
+      "type": "training",
+      "features": "",
+      "country": "",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
