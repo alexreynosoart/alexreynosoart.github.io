@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-23T17:14:25.243499+00:00",
+  "updatedAt": "2026-10-23T21:30:14.872143+00:00",
   "sources": {
     "NYC Parks": 45,
     "Whitney": 48,
@@ -1567,6 +1567,20 @@
       "country": "United States",
       "url": "https://www.wavehill.org/calendar/mind-builders-creative-arts-center-stage-band",
       "source": "Wave Hill",
+      "free": false
+    },
+    {
+      "title": "After-Hours Tours of Roy Lichtenstein: Like New",
+      "description": "Monday, November 16 6:45 pm, 7:15 pm Thursday, March 11 Times to be announced. Members are invited to join us for an evening tour of Roy Lichtenstein: Like New . Experience a guided look at the first major exhibition in more than thirty years dedicated to the American artist who shaped Pop art. These fifty-minute tours with Museum Educators are followed by a",
+      "date": "2026-11-16",
+      "endDate": "2026-11-16",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/after-hours-lichtenstein",
+      "source": "Whitney",
       "free": false
     },
     {
@@ -3653,20 +3667,6 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/principal-strings-379",
       "source": "Lincoln Center Presents",
-      "free": false
-    },
-    {
-      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
-      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
-      "date": "2027-04-16",
-      "endDate": "2027-04-16",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
-      "source": "Whitney",
       "free": false
     },
     {
