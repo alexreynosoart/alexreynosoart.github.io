@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-23T04:57:26.288747+00:00",
+  "updatedAt": "2026-10-23T11:45:24.959269+00:00",
   "sources": {
     "NYC Parks": 44,
     "Whitney": 48,
@@ -9,7 +9,7 @@
     "Bronx Museum": 2,
     "Film at Lincoln Center": 7,
     "New York Live Arts": 8,
-    "Lincoln Center Presents": 187,
+    "Lincoln Center Presents": 184,
     "Wave Hill": 5,
     "Staten Island Museum": 3,
     "Smithsonian Associates": 3
@@ -83,20 +83,6 @@
       "country": "United States",
       "url": "http://www.nycgovparks.org/events/2026/10/23/greenbelts-haunted-trail",
       "source": "NYC Parks",
-      "free": false
-    },
-    {
-      "title": "Hania Rani Presents Non-Fiction",
-      "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
-      "date": "2026-10-23",
-      "endDate": "2026-10-23",
-      "venue": "Lincoln Center Presents",
-      "location": "Manhattan, NY",
-      "type": "performance",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/hania-rani-presents-non-fiction",
-      "source": "Lincoln Center Presents",
       "free": false
     },
     {
@@ -254,20 +240,6 @@
       "free": false
     },
     {
-      "title": "PLAZA",
-      "description": "Interactive outdoor artwork by Andrew Schneider. Free admission; registration encouraged. Listed showtime(s): Multiple times. Check the official Lincoln Center event page for current details and tickets.",
-      "date": "2026-10-23",
-      "endDate": "2026-10-23",
-      "venue": "Josie Robertson Plaza, Lincoln Center",
-      "location": "Manhattan, NY",
-      "type": "installation",
-      "features": "nyc us free",
-      "country": "United States",
-      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/plaza-374",
-      "source": "Lincoln Center Presents",
-      "free": true
-    },
-    {
       "title": "Park Open Studio",
       "description": "Led by a local teaching artist, this drop-in class invites participants to explore creativity through hands-on artmaking under the shade of Scrabble Plaza’s trees. Past mediums have included plein-air drawing, printmaking, cyanotypes, and more. All materials are provided by the Washington Square Park Conservancy.",
       "date": "2026-10-23",
@@ -405,20 +377,6 @@
       "country": "United States",
       "url": "https://www.nypl.org/events/exhibitions/unleashed-pets-performing-arts",
       "source": "NYPL",
-      "free": false
-    },
-    {
-      "title": "suhREEtah",
-      "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
-      "date": "2026-10-23",
-      "endDate": "2026-10-23",
-      "venue": "Lincoln Center Presents",
-      "location": "Manhattan, NY",
-      "type": "performance",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/suhreetah-311",
-      "source": "Lincoln Center Presents",
       "free": false
     },
     {
