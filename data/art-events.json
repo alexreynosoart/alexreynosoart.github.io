@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-24T04:44:19.408547+00:00",
+  "updatedAt": "2026-10-24T11:09:11.628581+00:00",
   "sources": {
     "NYC Parks": 43,
     "Whitney": 47,
@@ -10,7 +10,7 @@
     "Film at Lincoln Center": 7,
     "New York Live Arts": 8,
     "Lincoln Center Presents": 181,
-    "Wave Hill": 5,
+    "Wave Hill": 6,
     "Staten Island Museum": 3,
     "Smithsonian Associates": 3
   },
@@ -884,6 +884,20 @@
       "free": false
     },
     {
+      "title": "Public Gallery Tour",
+      "description": "",
+      "date": "2026-10-29",
+      "endDate": "2026-10-29",
+      "venue": "Wave Hill",
+      "location": "Bronx, NY",
+      "type": "tour",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.wavehill.org/calendar/public-gallery-tour-spring-2026-2",
+      "source": "Wave Hill",
+      "free": false
+    },
+    {
       "title": "Walter Annenberg Lecture: Alex Da Corte",
       "description": "Alex Da Corte is a Venezuelan-American artist inspired by Pop Art and Surrealism and informed by American cultural references. He is the co-curator of Roy Lichtenstein: Like New , which presents a retrospective of Lichtenstein in the contemporary context of accelerated production and circulation of images. For this Walter Annenberg Lecture, Alex Da Corte pre",
       "date": "2026-10-29",
@@ -1078,6 +1092,20 @@
       "url": "http://www.nycgovparks.org/events/2026/10/31/town-square-bks-23rd-annual-greenpoint-childrens-halloween-p",
       "source": "NYC Parks",
       "free": true
+    },
+    {
+      "title": "Day of the Dead",
+      "description": "",
+      "date": "2026-11-01",
+      "endDate": "2026-11-01",
+      "venue": "Wave Hill",
+      "location": "Bronx, NY",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.wavehill.org/calendar/family-art-project-day-of-the-dead-2026-2",
+      "source": "Wave Hill",
+      "free": false
     },
     {
       "title": "Day of the Dead Celebration featuring Mariachi Real de Mexico",
