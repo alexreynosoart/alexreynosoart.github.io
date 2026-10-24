@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-10-24T11:09:11.628581+00:00",
+  "updatedAt": "2026-10-24T16:02:14.642736+00:00",
   "sources": {
-    "NYC Parks": 43,
+    "NYC Parks": 48,
     "Whitney": 47,
     "MoMA": 0,
     "Guggenheim": 0,
@@ -1262,6 +1262,34 @@
       "free": false
     },
     {
+      "title": "Artful Gatherings",
+      "description": "Join us at J. Hood Wright Recreation center to celebrate Thanksgiving with a fun and festive paint event! Guests will choose from a selection of preprinted Thanksgiving-themed canvases and bring them to life with their own colors and creativity. No painting experience is needed—just come ready to relax, have fun, and enjoy a creative holiday activity with fa",
+      "date": "2026-11-07",
+      "endDate": "2026-11-07",
+      "venue": "J. Hood Wright Park",
+      "location": "J. Hood Wright Recreation Center (in J. Hood Wright Park)",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/07/artful-gatherings",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
+      "title": "Autumn Eco Crafts and Exploration",
+      "description": "Discover the beauty of nature through art! Join the Urban Park Rangers for a hands-on craft program where we will explore the park to find natural inspiration and create our own unique masterpiece. Art supplies will be provided as participants use colors, textures, and shapes from the natural world to spark creativity.",
+      "date": "2026-11-07",
+      "endDate": "2026-11-07",
+      "venue": "Juniper Valley Park",
+      "location": "Juniper South Playground (in Juniper Valley Park)",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/07/autumn-eco-crafts-and-exploration",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
       "title": "De Papel",
       "description": "Listed showtime(s): 11:00 am, 2:00 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2026-11-07",
@@ -1273,6 +1301,48 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/de-papel-848",
       "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "Family Art Project: Raptors in Autumn Sky",
+      "description": "Keep your eyes on the sky as you look for migrating hawks soaring and circling above the Hudson River. Be inspired by our feathery friends as you fashion a raptor glider for the autumn breezes. Registration not required. Wave Hill House is wheelchair-accessible. There is an accessible, ground-level entrance at the front of the building with a power-assist do",
+      "date": "2026-11-07",
+      "endDate": "2026-11-07",
+      "venue": "Wave Hill",
+      "location": "Wave Hill",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/07/family-art-project-raptors-in-autumn-sky",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
+      "title": "Indigenous Art Workshop with NAIC-NY",
+      "description": "Join the the North American Indigenous Center of New York and the Bronx River Alliance for an Indigenous Art Workshop at Starlight Park!This family and kid-friendly event will offer participants an opportunity to learn traditional indigenous crafts, and gain exposure to contemporary indigenous cultures.This activity is first come, first served.This project i",
+      "date": "2026-11-07",
+      "endDate": "2026-11-07",
+      "venue": "Starlight Park",
+      "location": "Bronx River House (in Starlight Park)",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/07/indigenous-art-workshop-with-naicny",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
+      "title": "Nature's Workshop: Fall Foliage Leaf Art",
+      "description": "Enjoy the beauty of fall with the Urban Park Rangers as we collect tree leaves and create colorful leaf art!",
+      "date": "2026-11-07",
+      "endDate": "2026-11-07",
+      "venue": "Lincoln Terrace / Arthur S. Somers Park",
+      "location": "Lincoln Terrace Park (in Lincoln Terrace / Arthur S. Somers Park)",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/07/natures-workshop-fall-foliage-leaf-art",
+      "source": "NYC Parks",
       "free": false
     },
     {
