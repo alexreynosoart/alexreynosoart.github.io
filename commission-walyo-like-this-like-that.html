@@ -658,6 +658,25 @@ footer{
 .walyo-character-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
 @media(max-width:820px){.walyo-character-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:420px){.walyo-character-grid{grid-template-columns:1fr 1fr}}
+
+/* From Reaction to Creation: responsive story cards */
+.creative-switch{margin-top:38px;padding:clamp(18px,3vw,38px);background:linear-gradient(145deg,#171717,#0b0b0b);border:1px solid #383838;border-radius:14px}
+.creative-switch-heading h3{margin:10px 0 25px;color:#fff;font-size:clamp(1.5rem,3vw,2.6rem);line-height:1.1}
+.creative-switch-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.creative-switch-card{min-width:0;padding:clamp(20px,3vw,32px);border-radius:12px;display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+.creative-switch-before{background:#222;border:1px solid #3d3d3d}
+.creative-switch-after{background:#302713;border:1px solid var(--yellow)}
+.creative-switch-label{font-size:.77rem;letter-spacing:.13em;font-weight:800;color:#aaa}
+.creative-switch-after .creative-switch-label{color:var(--yellow)}
+.creative-switch-symbol{display:grid;place-items:center;width:56px;height:56px;border:1px solid currentColor;border-radius:12px;color:#999;font-size:1.8rem;font-weight:800}
+.creative-switch-after .creative-switch-symbol{color:var(--yellow)}
+.creative-switch-card h4{margin:0;color:#fff;font-size:clamp(1.5rem,3vw,2.4rem);line-height:1.1}
+.creative-switch-after h4{color:var(--yellow)}
+.creative-switch-card p{margin:0;color:#ccc;line-height:1.55}
+.creative-switch-outcome{margin:26px 0 0;color:var(--yellow);font-weight:700;font-size:clamp(.95rem,1.5vw,1.15rem);text-align:center;line-height:1.5}
+.creative-switch-outcome strong{color:#fff}
+@media(max-width:600px){.creative-switch-grid{grid-template-columns:1fr}.creative-switch{margin-top:25px}.creative-switch-outcome{text-align:left}}
+
 </style>
 </head>
 
@@ -760,18 +779,31 @@ footer{
 
 <section class="section">
     <p class="eyebrow">04 / The Turn</p>
-    <h2>Not a reaction.<br><span class="yellow">A teaser.</span></h2>
+    <h2>From reaction<br><span class="yellow">to creation.</span></h2>
+    <p class="lead">What started as a simple reaction-style idea became an original, 90s-inspired animated block party built around the track.</p>
 
-    <p class="lead">The project shifted from putting a song behind a video to creating a custom release teaser timed around the hook and built to lead people toward the full track.</p>
-
-    <div class="shift-stage">
-        <div class="shift-word reaction">Reaction</div>
-        <div class="arrow">→</div>
-        <div class="shift-word teaser">Visual Teaser</div>
-        <div class="shift-note">Same song. Better excuse to build a whole little world around it.</div>
+    <div class="creative-switch" aria-label="How the commission evolved">
+        <div class="creative-switch-heading">
+            <p class="eyebrow">THE CREATIVE SWITCH</p>
+            <h3>One song. <span class="yellow">A bigger idea.</span></h3>
+        </div>
+        <div class="creative-switch-grid">
+            <div class="creative-switch-card creative-switch-before">
+                <span class="creative-switch-label">THE ORIGINAL IDEA</span>
+                <div class="creative-switch-symbol" aria-hidden="true">♫</div>
+                <h4>Reaction</h4>
+                <p>Put the track behind an existing video.</p>
+            </div>
+            <div class="creative-switch-card creative-switch-after">
+                <span class="creative-switch-label">WHAT WE CREATED</span>
+                <div class="creative-switch-symbol" aria-hidden="true">▶</div>
+                <h4>Custom Visual</h4>
+                <p>An original 90s-inspired animated block party.</p>
+            </div>
+        </div>
+        <p class="creative-switch-outcome"><span aria-hidden="true">→</span> A 15–20 second concept became a <strong>48-second finished visual.</strong></p>
     </div>
 </section>
-
 
 <div class="world-wrap">
 <section class="section">
