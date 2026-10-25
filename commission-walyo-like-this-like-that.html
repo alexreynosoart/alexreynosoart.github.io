@@ -180,34 +180,60 @@ h2{
     -webkit-user-drag:none;
 }
 
-/* THE ASK */
-
+/* THE ASK: editorial brief, responsive in Firefox and Safari */
 .ask-wrap{
     border-top:1px solid #292929;
     border-bottom:1px solid #292929;
     background:rgba(0,0,0,.3);
 }
-.ask-grid{
-    display:grid;
-    grid-template-columns:.72fr 1.28fr;
-    gap:75px;
-    align-items:start;
+.ask-brief{
+    width:100%;
+    max-width:1040px;
+    margin:0 auto;
+    min-width:0;
 }
-.big-quote{
-    color:rgba(244,196,48,.13);
-    font-size:clamp(9rem,22vw,17rem);
-    font-weight:900;
-    line-height:.55;
-}
-.ask-copy p{max-width:720px;color:#c5c5c5}
-.quote-card{
+.ask-brief h2{max-width:950px;margin-bottom:22px}
+.ask-intro{max-width:740px;color:#c5c5c5}
+.ask-brief-card{
     margin-top:32px;
-    padding:28px 30px;
-    border-left:4px solid var(--yellow);
-    background:#171717;
-    color:#eee;
-    font-size:1.15rem;
+    padding:clamp(22px,4vw,42px);
+    background:linear-gradient(120deg,#202020,#141414);
+    border:1px solid #383838;
+    border-left:5px solid var(--yellow);
+    border-radius:0 14px 14px 0;
+}
+.ask-brief-label{
+    color:#aaa;
+    font-size:.78rem;
     font-weight:800;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    margin:0 0 14px;
+}
+.ask-brief-card h3{
+    color:#fff;
+    font-size:clamp(1.65rem,3.6vw,2.65rem);
+    line-height:1.15;
+    margin:0 0 12px;
+}
+.ask-brief-card p:last-child{
+    color:#e2e2e2;
+    font-size:clamp(1rem,1.6vw,1.18rem);
+    line-height:1.65;
+    margin:0;
+}
+.ask-next{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    color:var(--yellow);
+    font-weight:800;
+    margin:22px 0 0;
+}
+.ask-next-icon{font-size:1.4rem;line-height:1}
+@media(max-width:600px){
+    .ask-brief-card{margin-top:24px;padding:22px 20px}
+    .ask-next{align-items:flex-start}
 }
 
 /* SHIFT */
@@ -592,11 +618,9 @@ footer{
 }
 
 @media(max-width:820px){
-    .hero,.ask-grid,.world-grid,.credits-panel{grid-template-columns:1fr}
+    .hero,.world-grid,.credits-panel{grid-template-columns:1fr}
     .hero{gap:45px;padding-top:35px}
     .hero-art{width:min(88%,560px);margin:0 auto}
-    .ask-grid{gap:30px}
-    .big-quote{font-size:9rem}
     .world-grid{gap:35px}
     .campaign-grid{grid-template-columns:1fr}
     .credits-panel{gap:35px;padding:32px}
@@ -707,7 +731,7 @@ footer{
 
 <section class="hero">
     <div class="hero-copy">
-        <p class="eyebrow">01 / Music Release Teaser · Friday, October 16, 2026</p>
+        <p class="eyebrow">01 / Completed Music Visual · Single Released October 16, 2026</p>
         <span class="artist">WalyO featuring MJB &amp; Suave Ski</span>
         <h1>LIKE THIS<br><span class="yellow">LIKE THAT.</span></h1>
         <p>A completed 48-second music visual built around a throwback 90s hip-hop track, a block party and one very unexpected cow.</p>
@@ -757,25 +781,21 @@ footer{
 
 <div class="ask-wrap">
 <section class="section">
-    <div class="ask-grid">
-        <div class="big-quote">?</div>
+    <div class="ask-brief">
+        <p class="eyebrow">03 / The Ask</p>
+        <h2>It started with<br><span class="yellow">a question.</span></h2>
+        <p class="ask-intro">WalyO had an upcoming single and an idea: could the track become part of an Alex Reynoso Art video?</p>
 
-        <div class="ask-copy">
-            <p class="eyebrow">03 / The Ask</p>
-            <h2>It started with<br><span class="yellow">a question.</span></h2>
-
-            <p>WalyO reached out with an upcoming single and an idea: could the song become part of one of Alex Reynoso Art's videos?</p>
-
-            <p>The first thought was a reaction-style clip. After hearing the track, the direction changed. Instead of reacting to the music, the goal became building a visual moment around it.</p>
-
-            <div class="quote-card">
-                15 to 20 seconds. A throwback to 90s hip-hop. Enough to make somebody stop and listen.
-            </div>
+        <div class="ask-brief-card">
+            <p class="ask-brief-label">The Original Brief</p>
+            <h3>15–20 seconds.</h3>
+            <p>90s hip-hop energy. Something that makes people stop and listen.</p>
         </div>
+
+        <p class="ask-next"><span class="ask-next-icon" aria-hidden="true">✦</span> Then the idea got bigger.</p>
     </div>
 </section>
 </div>
-
 
 <section class="section">
     <p class="eyebrow">04 / The Turn</p>
