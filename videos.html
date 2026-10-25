@@ -289,6 +289,9 @@
         @media (max-width: 700px) { .shorts-gallery { margin-top: 40px; } .shorts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 12px; } .short-card h3 { font-size: .9rem; } }
 
 
+        /* Stable links to individual videos and the Hydroponics theater */
+        .short-card, #hydroponics-video { scroll-margin-top: 28px; }
+
         /* Character search and secondary Hydroponics feature */
         .shorts-gallery { margin-top: 24px; }
         .short-search-wrap { max-width: 680px; margin: 0 auto 24px; text-align: center; }
@@ -347,7 +350,7 @@
             <p class="shorts-bottom"><a href="https://www.youtube.com/@AlexReynosoArt/shorts" target="_blank" rel="noopener noreferrer">See all Shorts on YouTube ↗</a></p>
         </section>
 
-        <section class="hydroponics-secondary" aria-label="Hydroponics theater">
+        <section class="hydroponics-secondary" id="hydroponics-video" aria-label="Hydroponics theater">
         <div class="theater-viewport">
             <div class="theater-stage"
                  id="theater"
@@ -639,6 +642,7 @@
     shorts.forEach((short, index) => {
         const card = document.createElement('article');
         card.className = 'short-card';
+        card.id = 'short-' + short.id;
         const button = document.createElement('button');
         button.className = 'short-poster';
         button.type = 'button';
