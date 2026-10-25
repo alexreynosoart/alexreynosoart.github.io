@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-10-25T04:48:43.184411+00:00",
+  "updatedAt": "2026-10-25T16:28:20.693570+00:00",
   "sources": {
-    "NYC Parks": 34,
+    "NYC Parks": 35,
     "Whitney": 47,
     "MoMA": 0,
     "Guggenheim": 0,
@@ -1106,6 +1106,20 @@
       "url": "https://whitney.org/events/jazz-at-lincoln-center-family-concert",
       "source": "Whitney",
       "free": false
+    },
+    {
+      "title": "Pumpkin Smash",
+      "description": "Bring your pumpkins, gourds, and jack-o'-lanterns to LES Ecology Center's PUMPKIN SMASH! You smash them, and we'll turn them into compost! Enjoy fun family-friendly activities and light refreshments! ACTIVITIES 12pm - 3pm (ongoing):Pumpkin Smash Zone: Weigh and record your pumpkins, then choose your smashing tool! Toss your pumpkin to crack it open, or give ",
+      "date": "2026-11-08",
+      "endDate": "2026-11-08",
+      "venue": "NYC Parks",
+      "location": "La Plaza Cultural",
+      "type": "workshop",
+      "features": "nyc us free",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/08/pumpkin-smash1",
+      "source": "NYC Parks",
+      "free": true
     },
     {
       "title": "Community Blood Drive",
