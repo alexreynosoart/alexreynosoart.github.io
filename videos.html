@@ -488,6 +488,7 @@
     // Character tags describe the ACTUAL videos, never their decorative backgrounds.
     // Add new character tags only after verifying what appears in the video.
     const shorts = [
+        { title: 'walyO | Like This / Like That', id: 'ULt-N53Skb8', tags: ['cow', 'squirrel', 'rabbit'], },
         { title: 'Birds in my Hood at 4:50 am', id: 'DYqxGucshvg', tags: ['crow', 'cat', 'pig'] },
         { title: 'Farmer Got the Groove', id: '-caZmLdyvdA', tags: ['pig', 'bee', 'cat', 'squirrel', 'chicken', 'cow', 'bull', 'rooster', 'wolf', 'goat', 'sheep', 'farmer alex'] },
         { title: '20 Mins of Alarm Clock Torture', id: 'ONlsxKewHh0', tags: ['crocodile', 'wolf'] },
@@ -504,6 +505,7 @@
 
     // Match uploaded character backgrounds to their Shorts.
     const shortBackgrounds = {
+        'ULt-N53Skb8': 'images/videos-shorts-background-dance-party.png',
         'DYqxGucshvg': 'images/videos-shorts-player-background.png',
         '7izZDKgieEA': 'images/videos-shorts-background-cow.png',
         'ONlsxKewHh0': 'images/videos-shorts-background-crocodiles.png',
@@ -560,8 +562,8 @@
     let visibleLimit = FEATURED_LIMIT;
     const browseMoreShorts = document.getElementById('browseMoreShorts');
     // Filters are derived from verified character tags; no empty Rabbit or generic Dance Party filter.
-    const characterNames = ['crow', 'cat', 'pig', 'bee', 'squirrel', 'chicken', 'cow', 'bull', 'rooster', 'wolf', 'goat', 'sheep', 'crocodile', 'deer', 'bear', 'gorilla', 'whale', 'dog', 'farmer alex'];
-    const characterLabels = { crow: 'Crow', cat: 'Cat', pig: 'Pig', bee: 'Bee', squirrel: 'Squirrel', chicken: 'Chicken', cow: 'Cow', bull: 'Bull', rooster: 'Rooster', wolf: 'Wolf', goat: 'Goat', sheep: 'Sheep', crocodile: 'Crocodile', deer: 'Deer', bear: 'Bear', gorilla: 'Gorilla', whale: 'Whale', dog: 'Dog', 'farmer alex': 'Farmer Alex' };
+    const characterNames = ['crow', 'cat', 'pig', 'bee', 'squirrel', 'chicken', 'cow', 'bull', 'rooster', 'wolf', 'goat', 'sheep', 'crocodile', 'deer', 'bear', 'gorilla', 'whale', 'dog', 'rabbit', 'farmer alex'];
+    const characterLabels = { crow: 'Crow', cat: 'Cat', pig: 'Pig', bee: 'Bee', squirrel: 'Squirrel', chicken: 'Chicken', cow: 'Cow', bull: 'Bull', rooster: 'Rooster', wolf: 'Wolf', goat: 'Goat', sheep: 'Sheep', crocodile: 'Crocodile', deer: 'Deer', bear: 'Bear', gorilla: 'Gorilla', whale: 'Whale', dog: 'Dog', rabbit: 'Rabbit', 'farmer alex': 'Farmer Alex' };
     const confirmedCharacters = characterNames.filter(tag => shorts.some(short => short.tags.includes(tag)));
     const categories = ['All', ...confirmedCharacters.map(tag => characterLabels[tag])];
     const categoryTags = Object.fromEntries(confirmedCharacters.map(tag => [characterLabels[tag], tag]));
@@ -601,7 +603,7 @@
         const scene = shortBackgrounds[shorts[index].id];
         shortModalInner.style.setProperty('--short-scene', scene ? 'url("' + scene + '")' : 'none');
         const id = encodeURIComponent(shorts[index].id);
-        shortPlayer.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&playsinline=1&loop=1&playlist=' + id + '&rel=0';
+        shortPlayer.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&playsinline=1&loop=1&playlist=' + id + '&rel=0';
         shortPlayer.title = shorts[index].title;
         shortModal.hidden = false;
         document.body.style.overflow = 'hidden';
