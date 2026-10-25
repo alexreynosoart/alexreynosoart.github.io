@@ -634,6 +634,24 @@ footer{
 .walyo-feature-dj{width:100%;max-width:430px;margin:22px auto 0;border-radius:12px;border:1px solid #4b4232;overflow:hidden}
 .walyo-feature-dj img{width:100%;height:340px;object-fit:cover;object-position:center 30%}
 @media(max-width:640px){.walyo-photo-grid{grid-template-columns:1fr}.walyo-photo-grid .walyo-wide{grid-column:auto}.walyo-photo-grid img{height:auto;max-height:480px;object-fit:contain}.walyo-character-grid{grid-template-columns:1fr 1fr;gap:10px}.walyo-character-grid img{height:195px}.walyo-character-grid figcaption{font-size:.8rem;padding:9px}.walyo-feature-dj img{height:280px}}
+
+/* Completed project updates: browser-safe, responsive layouts */
+.shift-stage{min-height:0;padding:clamp(20px,4vw,52px);display:flex;flex-direction:column;align-items:flex-start;gap:18px;overflow:hidden}
+.shift-stage .shift-word{position:static;transform:none;font-size:clamp(2.1rem,6vw,5.5rem);line-height:1;letter-spacing:-.055em;max-width:100%;overflow-wrap:anywhere}
+.shift-stage .reaction{color:#555;text-decoration:line-through}
+.shift-stage .teaser{color:var(--yellow);text-align:left}
+.shift-stage .arrow{position:static;transform:none;font-size:clamp(2rem,5vw,4rem);line-height:1;align-self:center}
+.shift-stage .shift-note{position:static;max-width:640px;font-size:1rem;line-height:1.6}
+.walyo-preview-frame{overflow:hidden;max-width:100%}
+.walyo-preview-frame iframe{display:block;width:100%;max-width:100%;aspect-ratio:16/9;border:0}
+.walyo-testimonial{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:center;margin-top:30px;padding:clamp(18px,3vw,36px);border:1px solid #48402c;background:linear-gradient(135deg,#1c1911,#101010)}
+.walyo-testimonial blockquote{margin:0;font-size:clamp(1.25rem,2.2vw,2rem);line-height:1.4;font-weight:750;color:#fff}
+.walyo-testimonial .walyo-quote-credit{margin-top:20px;color:var(--yellow);font-weight:700}
+.walyo-testimonial figure{margin:0;min-width:0}
+.walyo-testimonial img{display:block;width:100%;height:auto;border:1px solid #555}
+.walyo-testimonial figcaption{color:#aaa;font-size:.85rem;margin-top:10px}
+@media(max-width:720px){.walyo-testimonial{grid-template-columns:1fr}.shift-stage .shift-word{font-size:clamp(2rem,9vw,4rem)}}
+
 </style>
 </head>
 
@@ -685,6 +703,30 @@ footer{
     </div>
 </section>
 
+<div class="video-wrap">
+<section class="section">
+    <p class="eyebrow">02 / The Finished Visual</p>
+    <h2>Press play.<br><span class="yellow">The block is alive.</span></h2>
+    <p class="lead">What began as a 15–20 second teaser became a 48-second animated trip through a 90s-inspired hip-hop block party. Watch the completed collaboration below.</p>
+    <div class="walyo-preview">
+        <div class="walyo-preview-frame">
+            <iframe
+                src="https://www.youtube-nocookie.com/embed/ULt-N53Skb8"
+                title="WalyO - Like This / Like That | Visual by Alex Reynoso Art"
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                style="display:block;width:100%;aspect-ratio:16/9;border:0;background:#000;"></iframe>
+        </div>
+        <p class="walyo-preview-caption"><strong>FINISHED VISUAL.</strong> WalyO featuring MJB &amp; Suave Ski · Visual by Alex Reynoso Art.</p>
+        <p><a class="cta-button" href="https://www.youtube.com/watch?v=ULt-N53Skb8" target="_blank" rel="noopener noreferrer">Watch on YouTube ↗</a></p>
+    </div>
+</section>
+</div>
+
+
+
 
 <div class="ask-wrap">
 <section class="section">
@@ -692,7 +734,7 @@ footer{
         <div class="big-quote">?</div>
 
         <div class="ask-copy">
-            <p class="eyebrow">02 / The Ask</p>
+            <p class="eyebrow">03 / The Ask</p>
             <h2>It started with<br><span class="yellow">a question.</span></h2>
 
             <p>WalyO reached out with an upcoming single and an idea: could the song become part of one of Alex Reynoso Art's videos?</p>
@@ -709,7 +751,7 @@ footer{
 
 
 <section class="section">
-    <p class="eyebrow">03 / The Turn</p>
+    <p class="eyebrow">04 / The Turn</p>
     <h2>Not a reaction.<br><span class="yellow">A teaser.</span></h2>
 
     <p class="lead">The project shifted from putting a song behind a video to creating a custom release teaser timed around the hook and built to lead people toward the full track.</p>
@@ -728,7 +770,7 @@ footer{
     <div class="world-grid">
 
         <div>
-            <p class="eyebrow">04 / Finding The World</p>
+            <p class="eyebrow">06 / Finding The World</p>
             <h2>Then the 90s<br><span class="yellow">showed up.</span></h2>
 
             <p class="lead">WalyO wanted the teaser to feel connected to old-school hip-hop. Baggy clothes, hats, chains and attitude were part of the conversation. The final direction focused on bringing that energy into the environment and characters without forcing every detail into the animation.</p>
@@ -755,7 +797,7 @@ footer{
 
 
 <section class="section first-look">
-    <p class="eyebrow">05 / First Look</p>
+    <p class="eyebrow">06 / First Look</p>
     <h2>Build the block.<br><span class="yellow">Put his name on it.</span></h2>
 
     <p class="lead">The first work-in-progress preview turned the teaser into a place. Old-school hip-hop graffiti, speakers, DJ equipment and boomboxes filled the scene. WalyO's name became part of the environment itself.</p>
@@ -793,9 +835,10 @@ footer{
         <figure><img src="images/walyo-cowabunga-detail.webp" alt="Close-up of DJ Cowabunga in a black bucket hat and gold chain" loading="lazy"><figcaption><strong>DJ Cowabunga</strong><br>Bucket hat, chain and attitude.</figcaption></figure>
         <figure><img src="images/walyo-rabbit-detail.webp" alt="Rabbit carrying a vintage boombox" loading="lazy"><figcaption><strong>Boombox Rabbit</strong><br>Bringing the soundtrack.</figcaption></figure>
         <figure><img src="images/walyo-squirrel-detail.webp" alt="Squirrel wearing a denim bucket hat" loading="lazy"><figcaption><strong>Bucket-Hat Squirrel</strong><br>Ready for the block.</figcaption></figure>
+        <figure><img src="images/walyo-stank-face-barbie.png" alt="Stank Face Queen in a black crown bucket hat, holding a pink drink" loading="lazy" style="object-fit:contain;background:radial-gradient(circle at 50% 35%,#383025,#111 75%);"><figcaption><strong>Stank Face Queen</strong><br>Not impressed. Still invited.</figcaption></figure>
     </div>
     <p class="walyo-photo-intro">A look at the visual development. These studies became part of the completed music visual.</p>
-    <p class="eyebrow">06 / More Than A Clip</p>
+    <p class="eyebrow">07 / More Than A Clip</p>
     <h2>The world was built.<br><span class="yellow">Then it came alive.</span></h2>
 
     <p class="lead">From graffiti-covered streets to DJ Cowabunga and the crew, the visual grew into a 48-second animated block party for WalyO’s <em>Like This / Like That</em>, released as a single on October 16, 2026.</p>
@@ -822,43 +865,28 @@ footer{
 </section>
 
 
-<div class="video-wrap">
-<section class="section">
-    <p class="eyebrow">07 / The Finished Visual</p>
-    <h2>Press play.<br><span class="yellow">The block is alive.</span></h2>
-    <p class="lead">What began as a 15–20 second teaser became a 48-second animated trip through a 90s-inspired hip-hop block party. Watch the completed collaboration below.</p>
-    <div class="walyo-preview">
-        <div class="walyo-preview-frame">
-            <iframe
-                src="https://www.youtube-nocookie.com/embed/ULt-N53Skb8"
-                title="WalyO - Like This / Like That | Visual by Alex Reynoso Art"
-                loading="lazy"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                style="display:block;width:100%;aspect-ratio:16/9;border:0;background:#000;"></iframe>
-        </div>
-        <p class="walyo-preview-caption"><strong>FINISHED VISUAL.</strong> WalyO featuring MJB &amp; Suave Ski · Visual by Alex Reynoso Art.</p>
-        <p><a class="cta-button" href="https://www.youtube.com/watch?v=ULt-N53Skb8" target="_blank" rel="noopener noreferrer">Watch on YouTube ↗</a></p>
-    </div>
-</section>
-</div>
-
 <section class="section" aria-labelledby="walyo-reaction-title">
-    <p class="eyebrow">Client Reaction / After the Premiere</p>
+    <p class="eyebrow">08 / Client Reaction</p>
     <h2 id="walyo-reaction-title">Worth the<br><span class="yellow">extra work.</span></h2>
     <p class="lead">After watching the completed visual, WalyO sent a heartfelt message about the care that went into the project and the possibility of working together again.</p>
-    <figure style="max-width:680px;margin:32px auto 0;padding:12px;background:#111;border:1px solid #393939;">
-        <img src="images/walyo-first-reaction.webp" alt="Screenshot of WalyO's appreciative message after seeing the completed music visual" loading="lazy" style="width:100%;height:auto;">
-        <figcaption style="padding:14px 4px 4px;color:#aaa;font-size:.85rem;">WalyO's first response to the completed commission.</figcaption>
-    </figure>
+    <div class="walyo-testimonial">
+        <div>
+            <blockquote>“Bro you have been so dope!! I'm honored with all the work you put in that you didn't have to.”</blockquote>
+            <p class="walyo-quote-credit">WalyO · Artist and collaborator</p>
+            <p style="color:#bcbcbc;line-height:1.6">A message after seeing the finished visual. The full reaction is shown alongside it.</p>
+        </div>
+        <figure>
+            <img src="images/walyo-first-reaction.webp" alt="WalyO's appreciative Instagram message after seeing the finished video" loading="lazy">
+            <figcaption>WalyO's first reaction to the finished commission.</figcaption>
+        </figure>
+    </div>
 </section>
 
 <section class="section">
     <div class="credits-panel">
 
         <div>
-            <p class="eyebrow">08 / The Track</p>
+            <p class="eyebrow">09 / The Track</p>
             <h2>WalyO<br><span class="yellow">+ Friends.</span></h2>
             <p class="lead">A throwback hip-hop single brought into the Alex Reynoso Art world as a completed 48-second music visual.</p>
         </div>
