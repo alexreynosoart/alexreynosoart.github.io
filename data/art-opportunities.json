@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-10-26T04:59:44.110498+00:00",
+  "updatedAt": "2026-10-26T13:19:05.484904+00:00",
   "sources": {
-    "On the Move": 50,
+    "On the Move": 54,
     "Existing Everything Art listing": 15
   },
   "opportunities": [
@@ -197,6 +197,19 @@
       "type": "competition",
       "features": "",
       "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "MASS MoCA: Residency Programme for Parent-Artists 2027 (USA)",
+      "organization": "MASS MoCA",
+      "description": "Residencies. Application deadline: 2026-11-01. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/mass-moca-residency-programme-parent-artists-2027-usa",
+      "deadline": "2026-11-01",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "United States",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
@@ -461,6 +474,32 @@
       "status": "Existing listing; verify with organizer"
     },
     {
+      "title": "Artist-in-Residence 2027 for Visual Artists from South America (Germany)",
+      "organization": "On the Move",
+      "description": "Residencies. Application deadline: 2026-11-15. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/artist-residence-2027-visual-artists-south-america-germany",
+      "deadline": "2026-11-15",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Germany",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Democracy Foundation: Democracy Residency ‘European Dream’ 2027 (Latvia)",
+      "organization": "Democracy Foundation",
+      "description": "Residencies. Application deadline: 2026-11-15. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/democracy-foundation-democracy-residency-european-dream-2027-latvia",
+      "deadline": "2026-11-15",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Latvia",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Sixi Museum: Sixi International Artist-In-Residence 2027 (China)",
       "organization": "Sixi Museum",
       "description": "Residencies. Application deadline: 2026-11-15. Confirm eligibility, fees and details with the organizer.",
@@ -639,6 +678,19 @@
       "type": "grant",
       "features": "",
       "country": "Sweden",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Mophradat: Residency at BUDA with a Premiere at NEXT Festival 2027 (Belgium)",
+      "organization": "Mophradat",
+      "description": "Residencies. Application deadline: 2027-01-04. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/mophradat-residency-buda-premiere-next-festival-2027-belgium",
+      "deadline": "2027-01-04",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Belgium",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
