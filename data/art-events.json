@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-26T04:54:17.451192+00:00",
+  "updatedAt": "2026-10-26T22:44:45.296581+00:00",
   "sources": {
     "NYC Parks": 29,
     "Whitney": 47,
@@ -45,9 +45,9 @@
     },
     {
       "title": "Fatherland",
-      "description": "Upcoming screening dates: Oct 26, Oct 27, Oct 28, Oct 29. See official film page for verified showtimes and tickets.",
+      "description": "Upcoming screening dates: Oct 26, Oct 27, Oct 28, Oct 29, Oct 30, Oct 31. See official film page for verified showtimes and tickets.",
       "date": "2026-10-26",
-      "endDate": "2026-10-29",
+      "endDate": "2026-10-31",
       "venue": "Film at Lincoln Center",
       "location": "Manhattan, NY",
       "type": "film",
@@ -129,9 +129,9 @@
     },
     {
       "title": "Once Upon a Time in Harlem",
-      "description": "Upcoming screening dates: Oct 26, Oct 27, Oct 28, Oct 29. See official film page for verified showtimes and tickets.",
+      "description": "Upcoming screening dates: Oct 26, Oct 27, Oct 28, Oct 29, Oct 30, Oct 31. See official film page for verified showtimes and tickets.",
       "date": "2026-10-26",
-      "endDate": "2026-10-29",
+      "endDate": "2026-10-31",
       "venue": "Film at Lincoln Center",
       "location": "Manhattan, NY",
       "type": "film",
@@ -171,9 +171,9 @@
     },
     {
       "title": "Possible Love",
-      "description": "Upcoming screening dates: Oct 26, Oct 27, Oct 28, Oct 29. See official film page for verified showtimes and tickets.",
+      "description": "Upcoming screening dates: Oct 26, Oct 27, Oct 28, Oct 29, Oct 30, Oct 31. See official film page for verified showtimes and tickets.",
       "date": "2026-10-26",
-      "endDate": "2026-10-29",
+      "endDate": "2026-10-31",
       "venue": "Film at Lincoln Center",
       "location": "Manhattan, NY",
       "type": "film",
@@ -800,6 +800,20 @@
       "free": false
     },
     {
+      "title": "Collagraph Printing with Robert Blackburn Workshop",
+      "description": "Inspired by Roy Lichtenstein ’s bold visual language and his iconic images related to the dynamism and pleasure of athletics, join the Robert Blackburn Printmaking Workshop for hands-on printmaking exploring the intersection of art and sports. Using found and recycled materials, participants will create their own printing plates, experimenting with textures,",
+      "date": "2026-11-06",
+      "endDate": "2026-11-06",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/collagraph-printing-workshop",
+      "source": "Whitney",
+      "free": false
+    },
+    {
       "title": "DJ Set by Ty-Michelle",
       "description": "Born and raised in New York City, Ty-Michelle has been influenced by various genres of music, to which she credits her grandfather. Her unique style, talent, and versatility have placed her in front of crowds throughout New York City and across Europe. When behind the decks, Ty-Michelle sets out to take listeners on a journey through every set. Immerse yours",
       "date": "2026-11-06",
@@ -840,6 +854,34 @@
       "url": "https://www.filmlinc.org/films/everytime/",
       "source": "Film at Lincoln Center",
       "free": false
+    },
+    {
+      "title": "Free Dance Class with Ailey Extension",
+      "description": "Join us for a free hip-hop class led by Ailey Extension instructor Aaron Thomas . All ages and skill levels are welcome! Led by Ailey Extension instructors, these dynamic, fun-filled classes take place on select Free Friday Nights and explore a variety of different dance genres. Come groove with us and stay awhile to enjoy access to Roy Lichtenstein: Like Ne",
+      "date": "2026-11-06",
+      "endDate": "2026-11-06",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us free",
+      "country": "United States",
+      "url": "https://whitney.org/events/ailey-dance-class-nov2026",
+      "source": "Whitney",
+      "free": true
+    },
+    {
+      "title": "Why We Play: Sport, Art, and Youth Identity",
+      "description": "Join us at the Whitney for an evening celebrating the intersection of sport, art, and self-expression in partnership with the Aspen Institute’s Sports & Society Program and the Los Angeles County Museum of Art (LACMA). Why We Play: Sport, Art, and Youth Identity brings together artists, athletes, and cultural leaders to explore how sports and creativity shap",
+      "date": "2026-11-06",
+      "endDate": "2026-11-06",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "family workshop",
+      "features": "nyc us free",
+      "country": "United States",
+      "url": "https://whitney.org/events/why-we-play",
+      "source": "Whitney",
+      "free": true
     },
     {
       "title": "this is the beginning, this is the end",
@@ -994,6 +1036,20 @@
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/de-papel-848",
       "source": "Lincoln Center Presents",
       "free": false
+    },
+    {
+      "title": "Member Morning",
+      "description": "Sundays November 8, December 13, January 10, February 14, March 14, April 11 9:30–10:30 am Get a head start in the galleries with special morning access to Roy Lichtenstein: Like New . Then, stick around for all-ages activities as a part of Free Second Sunday .",
+      "date": "2026-11-08",
+      "endDate": "2026-11-08",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us free",
+      "country": "United States",
+      "url": "https://whitney.org/events/member-morning-lichtenstein",
+      "source": "Whitney",
+      "free": true
     },
     {
       "title": "Musical Notes and Brush Strokes: Jazz at Lincoln Center Presents a Family Concert",
@@ -1245,6 +1301,20 @@
       "country": "United States",
       "url": "https://newyorklivearts.org/event/barnard-columbia-dances-at-new-york-live-arts-5/",
       "source": "New York Live Arts",
+      "free": false
+    },
+    {
+      "title": "Holiday Member Shopping Weeks",
+      "description": "Get a head start on your holiday shopping at the Whitney! Explore an exciting range of gifts and books as well as one-of-a-kind collectibles. Members receive extra discounts during these special weeks. Can’t make it to the Museum? Enjoy your discounts online . Please note discounts cannot be combined and some exceptions apply.",
+      "date": "2026-11-19",
+      "endDate": "2026-12-03",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/holiday-member-shopping-2026",
+      "source": "Whitney",
       "free": false
     },
     {
@@ -3303,48 +3373,6 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/be-the-sambista-225",
       "source": "Lincoln Center Presents",
-      "free": false
-    },
-    {
-      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
-      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
-      "date": "2027-04-17",
-      "endDate": "2027-04-17",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
-      "source": "Whitney",
-      "free": false
-    },
-    {
-      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
-      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
-      "date": "2027-04-18",
-      "endDate": "2027-04-18",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
-      "source": "Whitney",
-      "free": false
-    },
-    {
-      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
-      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
-      "date": "2027-04-19",
-      "endDate": "2027-04-19",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
-      "source": "Whitney",
       "free": false
     },
     {
