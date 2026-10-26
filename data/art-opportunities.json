@@ -1,88 +1,10 @@
 {
-  "updatedAt": "2026-10-24T04:48:07.244007+00:00",
+  "updatedAt": "2026-10-26T04:59:44.110498+00:00",
   "sources": {
-    "On the Move": 55,
-    "Existing Everything Art listing": 16
+    "On the Move": 50,
+    "Existing Everything Art listing": 15
   },
   "opportunities": [
-    {
-      "title": "Asymmetry: 2027 Assistant Curator Fellowship Nottingham Contemporary (UK)",
-      "organization": "Asymmetry",
-      "description": "Fellowships. Application deadline: 2026-10-25. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/asymmetry-2027-assistant-curator-fellowship-nottingham-contemporary-uk",
-      "deadline": "2026-10-25",
-      "discipline": "interdisciplinary",
-      "type": "fellowship",
-      "features": "",
-      "country": "United Kingdom",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
-      "title": "Bronx Museum AIM Fellowship",
-      "organization": "The Bronx Museum · Bronx, NY",
-      "description": "The AIM program is a professional development and career accelerator for\n                rising artists based in New York City.",
-      "url": "https://www.nyfa.org/opportunities/opportunity-info/?id=ff7a65d0-936a-42f2-bcbf-e90e5256dec8",
-      "deadline": "2026-10-25",
-      "discipline": "visual interdisciplinary",
-      "type": "fellowship resource",
-      "features": "nyc us free",
-      "country": "United States",
-      "source": "Existing Everything Art listing",
-      "status": "Existing listing; verify with organizer"
-    },
-    {
-      "title": "Communauté de communes du Clermontois: Artistic and Cultural Education Residencies 2027 (France)",
-      "organization": "Communauté de communes du Clermontois",
-      "description": "Residencies. Application deadline: 2026-10-25. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/communaute-de-communes-du-clermontois-artistic-and-cultural-education-residencies-2027-france",
-      "deadline": "2026-10-25",
-      "discipline": "interdisciplinary",
-      "type": "residency",
-      "features": "",
-      "country": "France",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
-      "title": "Kunstraum Memphis: ‘Memphis Calling’ Curatorial Exhibition Concept 2027 (Austria)",
-      "organization": "Kunstraum Memphis",
-      "description": "Presenting work. Application deadline: 2026-10-25. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/kunstraum-memphis-memphis-calling-curatorial-exhibition-concept-2027-austria",
-      "deadline": "2026-10-25",
-      "discipline": "interdisciplinary",
-      "type": "open-call exhibition",
-      "features": "",
-      "country": "Austria",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
-      "title": "Narva Art Residency: Residency for Nordic or Baltic Artists on ‘Sensing the Border’ (Estonia)",
-      "organization": "Narva Art Residency",
-      "description": "Residencies. Application deadline: 2026-10-25. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/narva-art-residency-residency-nordic-or-baltic-artists-sensing-border-estonia",
-      "deadline": "2026-10-25",
-      "discipline": "interdisciplinary",
-      "type": "residency",
-      "features": "",
-      "country": "Estonia",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
-      "title": "National Asian Culture Center: ACC NEXT Emerging Asian Artists International 2027 (South Korea)",
-      "organization": "National Asian Culture Center",
-      "description": "Presenting work. Application deadline: 2026-10-25. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/national-asian-culture-center-acc-next-emerging-asian-artists-international-2027-south-korea",
-      "deadline": "2026-10-25",
-      "discipline": "interdisciplinary",
-      "type": "open-call exhibition",
-      "features": "",
-      "country": "South Korea",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
     {
       "title": "Commonwealth Foundation: Individual Organisation and Collective Action Grants 2026–2027",
       "organization": "Commonwealth Foundation",
