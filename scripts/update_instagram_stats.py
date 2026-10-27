@@ -3,6 +3,7 @@
 import json
 import os
 import pathlib
+import urllib.error
 import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
@@ -24,10 +25,14 @@ request = urllib.request.Request(
 try:
     with urllib.request.urlopen(request, timeout=90) as response:
         payload = json.load(response)
-except Exception as exc:
-    # Avoid printing a URL that contains the secret key.
-    raise SystemExit("Instagram fetch failed. Check Windsor connection and API key.") from None
-rows = payload.get("data") if isinstance(payload, dict) else None
+except urllib.error.HTTPError as exc:
+    # Never print the request URL, which contains the API key.
+    raise SystemExit(f"Instagram API returned HTTP {exc.code}. Check API access or account permissions.") from None
+except urllib.error.URLError:
+    raise SystemExit("Instagram API network connection failed.") from None
+except (ValueError, TimeoutError):
+    raise SystemExit("Instagram API response was invalid or timed out.") from None
+rows = payload if isinstance(payload, list) else payload.get("data") if isinstance(payload, dict) else None
 if not isinstance(rows, list) or not rows:
     raise SystemExit("Instagram API returned no rows; preserving last good snapshot")
 row = rows[0]
