@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-10-27T05:13:34.347819+00:00",
+  "updatedAt": "2026-10-27T18:09:28.442913+00:00",
   "sources": {
-    "NYC Parks": 29,
-    "Whitney": 47,
+    "NYC Parks": 25,
+    "Whitney": 24,
     "MoMA": 0,
     "Guggenheim": 0,
     "NYPL": 7,
     "Bronx Museum": 2,
-    "Film at Lincoln Center": 7,
+    "Film at Lincoln Center": 8,
     "New York Live Arts": 7,
     "Lincoln Center Presents": 175,
     "Wave Hill": 4,
@@ -338,20 +338,6 @@
       "free": false
     },
     {
-      "title": "Craft & Chill",
-      "description": "Enjoy a welcoming creative environment where they can explore a variety of artistic techniques and hands-on craft projects. Each session provides an opportunity to learn, create, and discover new interests while working with different materials and artistic styles. Whether you are an experienced artist or exploring your creative side for the first time, Craf",
-      "date": "2026-10-29",
-      "endDate": "2026-10-29",
-      "venue": "Detective Keith L Williams Park",
-      "location": "Multi-Use Room B (in Detective Keith L Williams Park)",
-      "type": "workshop",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "http://www.nycgovparks.org/events/2026/10/29/craft-chill",
-      "source": "NYC Parks",
-      "free": false
-    },
-    {
       "title": "McDonald’s Pumpkin Patch",
       "description": "Join NYC Parks and Staten Island Recreation at McDonald’s Playground for a spooktacular Halloween celebration for the whole family! Pick your own sugar pumpkin from our festive pumpkin patch and get creative at our pumpkin painting station. Enjoy Halloween arts and crafts and jumbo games for an afternoon of festive fall fun!",
       "date": "2026-10-29",
@@ -632,6 +618,20 @@
       "free": false
     },
     {
+      "title": "Halloween Open Studio",
+      "description": "Kick off your Halloween at the Whitney! Come in costume for a day of art, music, and dancing before heading out to trick-or-treat. Explore the galleries, create your own works of art inspired by Roy Lichtenstein: Like New , and shake your booties at Boogie Baby, a Family Halloween Dance Party . Show off your costume on the dance floor and enjoy a few fun sur",
+      "date": "2026-10-31",
+      "endDate": "2026-10-31",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/halloween-open-studio-2026",
+      "source": "Whitney",
+      "free": false
+    },
+    {
       "title": "Town Square BK's 23rd Annual Greenpoint Children's Halloween Parade And Spooktacular Party",
       "description": "Calling all princes and princesses, heroes and villains, witches and wizards! Join Town Square BK for our popular annual Greenpoint Children's Halloween Parade and Spooktacular Party on Saturday, October 31st, 2026.12:15 PM ~ The FREE Greenpoint Children's Halloween Parade will step off on front of St. John's Lutheran Church (155 Milton Street near the corne",
       "date": "2026-10-31",
@@ -686,34 +686,6 @@
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/dandiacutea-de-muertos-celebration-740",
       "source": "Lincoln Center Presents",
       "free": false
-    },
-    {
-      "title": "Nature's Workshop: Fall Foliage Leaf Art",
-      "description": "Enjoy the beauty of fall with the Urban Park Rangers as we collect tree leaves and create colorful leaf art!",
-      "date": "2026-11-01",
-      "endDate": "2026-11-01",
-      "venue": "Crotona Park",
-      "location": "Crotona Nature Center (in Crotona Park)",
-      "type": "workshop",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "http://www.nycgovparks.org/events/2026/11/01/natures-workshop-fall-foliage-leaf-art",
-      "source": "NYC Parks",
-      "free": false
-    },
-    {
-      "title": "Arts, Culture & Fun: BE BOLD - Ballet Programming",
-      "description": "NYC Parks, in partnership with the Misty Copeland Foundation, invites childrenages 6 – 14 years to enroll in the BE BOLD afterschool dance program, a funintroductory ballet class with live music. The BE BOLD program is FREE andoffers a new approach to afterschool dance education for young children that makes ballet accessible, affordable, and fun. *Membershi",
-      "date": "2026-11-02",
-      "endDate": "2026-11-02",
-      "venue": "Williamsbridge Oval",
-      "location": "Multi-Use Room (in Williamsbridge Oval)",
-      "type": "family workshop",
-      "features": "nyc us free",
-      "country": "United States",
-      "url": "http://www.nycgovparks.org/events/2026/11/02/be-bold-ballet-programming",
-      "source": "NYC Parks",
-      "free": true
     },
     {
       "title": "Contemporaries Fall Social: People’s",
@@ -867,20 +839,6 @@
       "country": "United States",
       "url": "https://newyorklivearts.org/event/this-is-the-beginning-this-is-the-end/",
       "source": "New York Live Arts",
-      "free": false
-    },
-    {
-      "title": "Artful Gatherings",
-      "description": "Join us at J. Hood Wright Recreation center to celebrate Thanksgiving with a fun and festive paint event! Guests will choose from a selection of preprinted Thanksgiving-themed canvases and bring them to life with their own colors and creativity. No painting experience is needed—just come ready to relax, have fun, and enjoy a creative holiday activity with fa",
-      "date": "2026-11-07",
-      "endDate": "2026-11-07",
-      "venue": "J. Hood Wright Park",
-      "location": "J. Hood Wright Recreation Center (in J. Hood Wright Park)",
-      "type": "workshop",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "http://www.nycgovparks.org/events/2026/11/07/artful-gatherings",
-      "source": "NYC Parks",
       "free": false
     },
     {
@@ -1164,6 +1122,20 @@
       "free": false
     },
     {
+      "title": "Open Studio 2026",
+      "description": "On Saturdays, families with kids of all ages are invited to get creative at the Whitney! Join us to make your own art inspired by works on view in the collection and current exhibitions. Each week we offer a different artmaking project. Open Studio will not take place on long weekends or the second Saturday of every month. 2026 Dates: Saturday, October 24 Op",
+      "date": "2026-11-14",
+      "endDate": "2026-11-14",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/open-studio-2026",
+      "source": "Whitney",
+      "free": false
+    },
+    {
       "title": "Stephanie Dinkins: Anchoring Home Public Exhibition Opening",
       "description": "",
       "date": "2026-11-14",
@@ -1248,6 +1220,20 @@
       "free": false
     },
     {
+      "title": "All of a Sudden",
+      "description": "Upcoming screening dates: Nov 18, Nov 19, Nov 25, Nov 26, Nov 27, Nov 28. See official film page for verified showtimes and tickets.",
+      "date": "2026-11-18",
+      "endDate": "2026-11-28",
+      "venue": "Film at Lincoln Center",
+      "location": "Manhattan, NY",
+      "type": "film",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.filmlinc.org/films/all-of-a-sudden/",
+      "source": "Film at Lincoln Center",
+      "free": false
+    },
+    {
       "title": "Act III ​",
       "description": "November 19 at 7 pm November 21 at 1 pm and 7 pm November 22 at 11 am and 5 pm Performances on November 21 at 1 pm and November 22 at 11 am will be livestreamed at institutions around the world as indicated below. Presented as part of artport: A History of Internet Art , Act III is a multimedia performance by artist duo Operator (Ania Catherine and Dejha Ti)",
       "date": "2026-11-19",
@@ -1263,9 +1249,9 @@
     },
     {
       "title": "Barnard/Columbia Dances at New York Live Arts",
-      "description": "Performance dates: Nov 19, 2026 – Nov 20, 2026. Confirm exact showtimes and tickets with the organizer.",
+      "description": "Performance dates: Nov 19, 2026 – Nov 21, 2026. Confirm exact showtimes and tickets with the organizer.",
       "date": "2026-11-19",
-      "endDate": "2026-11-20",
+      "endDate": "2026-11-21",
       "venue": "New York Live Arts",
       "location": "Manhattan, NY",
       "type": "performance",
@@ -1371,6 +1357,20 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/ju-percussion-612",
       "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "Open Studio 2026",
+      "description": "On Saturdays, families with kids of all ages are invited to get creative at the Whitney! Join us to make your own art inspired by works on view in the collection and current exhibitions. Each week we offer a different artmaking project. Open Studio will not take place on long weekends or the second Saturday of every month. 2026 Dates: Saturday, October 24 Op",
+      "date": "2026-11-21",
+      "endDate": "2026-11-21",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/open-studio-2026",
+      "source": "Whitney",
       "free": false
     },
     {
@@ -1483,6 +1483,20 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/magnificent-celebrating-disability-and-the-power-of-difference-579",
       "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "Open Studio 2026",
+      "description": "On Saturdays, families with kids of all ages are invited to get creative at the Whitney! Join us to make your own art inspired by works on view in the collection and current exhibitions. Each week we offer a different artmaking project. Open Studio will not take place on long weekends or the second Saturday of every month. 2026 Dates: Saturday, October 24 Op",
+      "date": "2026-12-05",
+      "endDate": "2026-12-05",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/open-studio-2026",
+      "source": "Whitney",
       "free": false
     },
     {
@@ -1637,6 +1651,20 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/spotlight-boombox-burlesque-128",
       "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "Open Studio 2026",
+      "description": "On Saturdays, families with kids of all ages are invited to get creative at the Whitney! Join us to make your own art inspired by works on view in the collection and current exhibitions. Each week we offer a different artmaking project. Open Studio will not take place on long weekends or the second Saturday of every month. 2026 Dates: Saturday, October 24 Op",
+      "date": "2026-12-19",
+      "endDate": "2026-12-19",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/open-studio-2026",
+      "source": "Whitney",
       "free": false
     },
     {
@@ -3348,34 +3376,6 @@
       "free": false
     },
     {
-      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
-      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
-      "date": "2027-04-21",
-      "endDate": "2027-04-21",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
-      "source": "Whitney",
-      "free": false
-    },
-    {
-      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
-      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
-      "date": "2027-04-22",
-      "endDate": "2027-04-22",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
-      "source": "Whitney",
-      "free": false
-    },
-    {
       "title": "Juilliard Green Club Presents an Earth Day Concert",
       "description": "Listed showtime(s): 6:00 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2027-04-22",
@@ -3404,20 +3404,6 @@
       "free": false
     },
     {
-      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
-      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
-      "date": "2027-04-23",
-      "endDate": "2027-04-23",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
-      "source": "Whitney",
-      "free": false
-    },
-    {
       "title": "La Obra",
       "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2027-04-23",
@@ -3429,20 +3415,6 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/la-obra-13",
       "source": "Lincoln Center Presents",
-      "free": false
-    },
-    {
-      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
-      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
-      "date": "2027-04-24",
-      "endDate": "2027-04-24",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
-      "source": "Whitney",
       "free": false
     },
     {
@@ -3488,20 +3460,6 @@
       "free": false
     },
     {
-      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
-      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
-      "date": "2027-04-25",
-      "endDate": "2027-04-25",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
-      "source": "Whitney",
-      "free": false
-    },
-    {
       "title": "La Obra",
       "description": "Listed showtime(s): 2:00 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2027-04-25",
@@ -3513,62 +3471,6 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/la-obra-13",
       "source": "Lincoln Center Presents",
-      "free": false
-    },
-    {
-      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
-      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
-      "date": "2027-04-26",
-      "endDate": "2027-04-26",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
-      "source": "Whitney",
-      "free": false
-    },
-    {
-      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
-      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
-      "date": "2027-04-28",
-      "endDate": "2027-04-28",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
-      "source": "Whitney",
-      "free": false
-    },
-    {
-      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
-      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
-      "date": "2027-04-29",
-      "endDate": "2027-04-29",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
-      "source": "Whitney",
-      "free": false
-    },
-    {
-      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
-      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
-      "date": "2027-04-30",
-      "endDate": "2027-04-30",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
-      "source": "Whitney",
       "free": false
     },
     {
@@ -3597,118 +3499,6 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/broadway-for-arts-educationand39s-art-share-399",
       "source": "Lincoln Center Presents",
-      "free": false
-    },
-    {
-      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
-      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
-      "date": "2027-05-01",
-      "endDate": "2027-05-01",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
-      "source": "Whitney",
-      "free": false
-    },
-    {
-      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
-      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
-      "date": "2027-05-02",
-      "endDate": "2027-05-02",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
-      "source": "Whitney",
-      "free": false
-    },
-    {
-      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
-      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
-      "date": "2027-05-03",
-      "endDate": "2027-05-03",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
-      "source": "Whitney",
-      "free": false
-    },
-    {
-      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
-      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
-      "date": "2027-05-05",
-      "endDate": "2027-05-05",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
-      "source": "Whitney",
-      "free": false
-    },
-    {
-      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
-      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
-      "date": "2027-05-06",
-      "endDate": "2027-05-06",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
-      "source": "Whitney",
-      "free": false
-    },
-    {
-      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
-      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
-      "date": "2027-05-07",
-      "endDate": "2027-05-07",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
-      "source": "Whitney",
-      "free": false
-    },
-    {
-      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
-      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
-      "date": "2027-05-08",
-      "endDate": "2027-05-08",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
-      "source": "Whitney",
-      "free": false
-    },
-    {
-      "title": "Exhibition Tour: Roy Lichtenstein: Like New",
-      "description": "Gallery tours through the Whitney’s current exhibitions are offered each day. Join a museum docent for insight into the works on view. See the events calendar for timings. Tours are free with Museum admission. No reservations are necessary, but capacity is limited to twenty people on a first-come, first-served basis. Tours meet in the galleries. Times and lo",
-      "date": "2027-05-10",
-      "endDate": "2027-05-10",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/exhibition-tour-lichtenstein",
-      "source": "Whitney",
       "free": false
     },
     {
