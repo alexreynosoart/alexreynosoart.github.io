@@ -57,6 +57,42 @@ out = {
     "posts": posts,
     "updatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
 }
+# Refresh optional public platform totals; preserve previous good data on errors.
 path = pathlib.Path("data/instagram-stats.json")
+try:
+    previous = json.loads(path.read_text(encoding="utf-8"))
+except (OSError, ValueError):
+    previous = {}
+
+sources = {
+    "tiktok": ("tiktok_organic", "total_followers_count,total_likes", "total_followers_count", "total_likes"),
+    "facebook": ("facebook_organic", "page_fans", "page_fans", None),
+    "youtube": ("youtube", "subscriber_count,video_count", "subscriber_count", "video_count"),
+}
+for platform, (connector, fields, primary, secondary) in sources.items():
+    params = urllib.parse.urlencode({"api_key": key, "fields": fields})
+    req = urllib.request.Request(
+        "https://connectors.windsor.ai/" + connector + "?" + params,
+        headers={"User-Agent": "Windsor/1.0", "Accept": "application/json"},
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=90) as response:
+            result = json.load(response)
+        records = result if isinstance(result, list) else result.get("data")
+        if not isinstance(records, list) or not records:
+            raise ValueError("empty data")
+        record = records[0]
+        count = int(record[primary])
+        detail = int(record[secondary]) if secondary and record.get(secondary) is not None else None
+        if count < 0 or (detail is not None and detail < 0):
+            raise ValueError("negative total")
+        out[platform] = {"count": count, "detail": detail, "updatedAt": out["updatedAt"]}
+        print(platform + ": updated")
+    except (urllib.error.HTTPError, urllib.error.URLError, ValueError, TypeError, KeyError, TimeoutError, OSError):
+        if isinstance(previous.get(platform), dict):
+            out[platform] = previous[platform]
+        print(platform + ": unavailable, keeping last good data")
+
+
 path.parent.mkdir(parents=True, exist_ok=True)
 path.write_text(json.dumps(out, indent=2) + "\n", encoding="utf-8")
