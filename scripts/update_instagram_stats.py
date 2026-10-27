@@ -13,10 +13,7 @@ if not key:
     raise SystemExit("Missing WINDSOR_API_KEY GitHub Actions secret")
 query = urllib.parse.urlencode({
     "api_key": key,
-    "fields": "followers_count,media_count",
-    "select_accounts": "17841401628895978",
-    "date_preset": "last_7dT",
-    "_renderer": "json",
+    "fields": "followers_count",
 })
 request = urllib.request.Request(
     "https://connectors.windsor.ai/instagram?" + query,
@@ -27,7 +24,18 @@ try:
         payload = json.load(response)
 except urllib.error.HTTPError as exc:
     # Never print the request URL, which contains the API key.
-    raise SystemExit(f"Instagram API returned HTTP {exc.code}. Check API access or account permissions.") from None
+    raw = exc.read(4096).decode("utf-8", errors="replace").lower()
+    if any(term in raw for term in ("api key", "api_key", "invalid key", "authentication", "unauthorized")):
+        reason = "API key rejected or not authorized for direct API access"
+    elif any(term in raw for term in ("field", "column", "metric")):
+        reason = "field request rejected"
+    elif any(term in raw for term in ("account", "connected")):
+        reason = "account selection or connection rejected"
+    elif any(term in raw for term in ("quota", "limit", "plan", "subscription")):
+        reason = "plan or usage limit"
+    else:
+        reason = "request rejected (unclassified)"
+    raise SystemExit(f"Instagram API HTTP {exc.code}: {reason}.") from None
 except urllib.error.URLError:
     raise SystemExit("Instagram API network connection failed.") from None
 except (ValueError, TimeoutError):
