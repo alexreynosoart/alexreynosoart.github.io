@@ -1,36 +1,10 @@
 {
-  "updatedAt": "2026-10-27T12:27:02.595825+00:00",
+  "updatedAt": "2026-10-28T05:56:11.356619+00:00",
   "sources": {
-    "On the Move": 54,
-    "Existing Everything Art listing": 15
+    "Existing Everything Art listing": 15,
+    "On the Move": 54
   },
   "opportunities": [
-    {
-      "title": "Chevening: British Library Coptic Collections Fellowship 2027 (UK)",
-      "organization": "Chevening",
-      "description": "Fellowships. Application deadline: 2026-10-27. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/chevening-british-library-coptic-collections-fellowship-2027-uk",
-      "deadline": "2026-10-27",
-      "discipline": "interdisciplinary",
-      "type": "fellowship",
-      "features": "",
-      "country": "United Kingdom",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
-      "title": "Chevening: Southeast Asian British Library Fellowship 2027–28",
-      "organization": "Chevening",
-      "description": "Fellowships. Application deadline: 2026-10-27. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/chevening-southeast-asian-british-library-fellowship-2027-28",
-      "deadline": "2026-10-27",
-      "discipline": "interdisciplinary",
-      "type": "fellowship",
-      "features": "",
-      "country": "",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
     {
       "title": "2027 NAC Artist Fellowship",
       "organization": "The National Arts Club · New York, NY",
@@ -591,6 +565,19 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "ARTEMIS: 2027 Orchestra Academy for Young Instrumentalists (Latvia)",
+      "organization": "ARTEMIS",
+      "description": "Training. Application deadline: 2026-12-05. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/artemis-2027-orchestra-academy-young-instrumentalists-latvia",
+      "deadline": "2026-12-05",
+      "discipline": "interdisciplinary",
+      "type": "training",
+      "features": "",
+      "country": "Latvia",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Adirondack Experience: Artist-in-Residence Programme 2027 (USA)",
       "organization": "Adirondack Experience",
       "description": "Residencies. Application deadline: 2026-12-11. Confirm eligibility, fees and details with the organizer.",
@@ -639,6 +626,19 @@
       "type": "residency",
       "features": "",
       "country": "Slovenia",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "2200: 2027 Residency for Emerging Artists (Switzerland)",
+      "organization": "2200",
+      "description": "Residencies. Application deadline: 2026-12-31. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/2200-2027-residency-emerging-artists-switzerland",
+      "deadline": "2026-12-31",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Switzerland",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
