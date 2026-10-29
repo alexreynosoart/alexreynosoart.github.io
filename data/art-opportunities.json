@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-10-29T06:01:22.643394+00:00",
+  "updatedAt": "2026-10-29T13:20:20.353541+00:00",
   "sources": {
     "Existing Everything Art listing": 15,
-    "On the Move": 109
+    "On the Move": 110
   },
   "opportunities": [
     {
@@ -650,6 +650,19 @@
       "deadline": "2026-11-08",
       "discipline": "dance",
       "type": "open-call exhibition",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Indian Ocean Commission: AléVini Regional Mobility Assistance Fund Cycle 7 (Union of Comoros, Madagascar, Mauritius, Seychelles and Mozambique)",
+      "organization": "Indian Ocean Commission",
+      "description": "Project funding. Application deadline: 2026-11-08. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/indian-ocean-commission-alevini-regional-mobility-assistance-fund-cycle-7-union-comoros",
+      "deadline": "2026-11-08",
+      "discipline": "interdisciplinary",
+      "type": "grant",
       "features": "",
       "country": "",
       "source": "On the Move",
