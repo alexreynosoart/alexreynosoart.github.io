@@ -5594,3 +5594,8 @@ body.everything-art-theme .ea-mini-ar img {
 @media(max-width:750px){.prince-page .art-archive-entry + .art-archive-entry{padding-top:36px}}
 .frida-page .frida-archive-section + .frida-archive-section{border-top:1px solid rgba(47,159,145,.42);padding-top:62px}
 @media(max-width:750px){.frida-page .frida-archive-section + .frida-archive-section{padding-top:36px}}
+
+/* Buddha archive storyboard separators */
+.buddha-page .art-archive-entry + .art-archive-entry{border-top:1px solid rgba(57,132,160,.35);padding-top:62px}
+.buddha-page .art-archive-media video{display:block;width:100%;height:auto;border-radius:12px}
+@media(max-width:750px){.buddha-page .art-archive-entry + .art-archive-entry{padding-top:36px}}
