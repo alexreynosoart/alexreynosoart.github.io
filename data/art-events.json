@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-10-29T05:54:01.930381+00:00",
+  "updatedAt": "2026-10-29T22:49:41.824489+00:00",
   "sources": {
-    "NYC Parks": 27,
-    "Whitney": 25,
+    "NYC Parks": 31,
+    "Whitney": 29,
     "MoMA": 0,
     "Guggenheim": 0,
     "NYPL": 7,
@@ -15,6 +15,20 @@
     "Smithsonian Associates": 2
   },
   "events": [
+    {
+      "title": "Craft & Chill",
+      "description": "Enjoy a welcoming creative environment where they can explore a variety of artistic techniques and hands-on craft projects. Each session provides an opportunity to learn, create, and discover new interests while working with different materials and artistic styles. Whether you are an experienced artist or exploring your creative side for the first time, Craf",
+      "date": "2026-10-29",
+      "endDate": "2026-10-29",
+      "venue": "Detective Keith L Williams Park",
+      "location": "Multi-Use Room B (in Detective Keith L Williams Park)",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/10/29/craft-chill",
+      "source": "NYC Parks",
+      "free": false
+    },
     {
       "title": "Declaring America: 1776 and Beyond",
       "description": "On view through January 10, 2027. NYPL honors the 250th anniversary of the signing of the Declaration of Independence and the founding of the country.",
@@ -632,6 +646,34 @@
       "free": false
     },
     {
+      "title": "Nature's Workshop: Fall Foliage Leaf Art",
+      "description": "Enjoy the beauty of fall with the Urban Park Rangers as we collect tree leaves and create colorful leaf art!",
+      "date": "2026-11-01",
+      "endDate": "2026-11-01",
+      "venue": "Crotona Park",
+      "location": "Crotona Nature Center (in Crotona Park)",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/01/natures-workshop-fall-foliage-leaf-art",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
+      "title": "Arts, Culture & Fun: BE BOLD - Ballet Programming",
+      "description": "NYC Parks, in partnership with the Misty Copeland Foundation, invites childrenages 6 – 14 years to enroll in the BE BOLD afterschool dance program, a funintroductory ballet class with live music. The BE BOLD program is FREE andoffers a new approach to afterschool dance education for young children that makes ballet accessible, affordable, and fun. *Membershi",
+      "date": "2026-11-02",
+      "endDate": "2026-11-02",
+      "venue": "Williamsbridge Oval",
+      "location": "Multi-Use Room (in Williamsbridge Oval)",
+      "type": "family workshop",
+      "features": "nyc us free",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/02/arts-culture-fun-be-bold-ballet-programming",
+      "source": "NYC Parks",
+      "free": true
+    },
+    {
       "title": "Contemporaries Fall Social: People’s",
       "description": "Join us at People's in Greenwich Village for our fall social, exclusively for Contemporaries members. Once the home of the historic Downtown Gallery, People's is an invite-only club and art salon featuring a rotation of contemporary works by emerging artists in a residential townhouse setting. Come between 6:30 and 8:30 to get to know fellow members and enjo",
       "date": "2026-11-04",
@@ -783,6 +825,20 @@
       "country": "United States",
       "url": "https://newyorklivearts.org/event/this-is-the-beginning-this-is-the-end/",
       "source": "New York Live Arts",
+      "free": false
+    },
+    {
+      "title": "Artful Gatherings",
+      "description": "Join us at J. Hood Wright Recreation center to celebrate Thanksgiving with a fun and festive paint event! Guests will choose from a selection of preprinted Thanksgiving-themed canvases and bring them to life with their own colors and creativity. No painting experience is needed—just come ready to relax, have fun, and enjoy a creative holiday activity with fa",
+      "date": "2026-11-07",
+      "endDate": "2026-11-07",
+      "venue": "J. Hood Wright Park",
+      "location": "J. Hood Wright Recreation Center (in J. Hood Wright Park)",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/07/artful-gatherings",
+      "source": "NYC Parks",
       "free": false
     },
     {
@@ -1346,6 +1402,20 @@
       "free": false
     },
     {
+      "title": "Act III ​",
+      "description": "November 19 at 7 pm November 21 at 1 pm and 7 pm November 22 at 11 am and 5 pm Performances on November 21 at 1 pm and November 22 at 11 am will be livestreamed at institutions around the world as indicated below. Presented as part of artport: A History of Internet Art , Act III is a multimedia performance by artist duo Operator (Ania Catherine and Dejha Ti)",
+      "date": "2026-11-21",
+      "endDate": "2026-11-21",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/operator-act-iii",
+      "source": "Whitney",
+      "free": false
+    },
+    {
       "title": "Family History Month Workshop 2: Transcribe-a-thon",
       "description": "",
       "date": "2026-11-21",
@@ -1399,6 +1469,20 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/rain-for-babies-and-their-carers",
       "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "Act III ​",
+      "description": "November 19 at 7 pm November 21 at 1 pm and 7 pm November 22 at 11 am and 5 pm Performances on November 21 at 1 pm and November 22 at 11 am will be livestreamed at institutions around the world as indicated below. Presented as part of artport: A History of Internet Art , Act III is a multimedia performance by artist duo Operator (Ania Catherine and Dejha Ti)",
+      "date": "2026-11-22",
+      "endDate": "2026-11-22",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/operator-act-iii",
+      "source": "Whitney",
       "free": false
     },
     {
