@@ -5586,3 +5586,11 @@ body.everything-art-theme .ea-mini-ar img {
     }
 }
 
+
+/* Artwork storyboard separators: per-painting palettes, shared spacing. */
+.its-her-life-page .art-archive-entry + .art-archive-entry{border-top:1px solid rgba(143,38,61,.38);padding-top:62px}
+@media(max-width:750px){.its-her-life-page .art-archive-entry + .art-archive-entry{padding-top:36px}}
+.prince-page .art-archive-entry + .art-archive-entry{border-top:1px solid rgba(111,85,168,.42);padding-top:62px}
+@media(max-width:750px){.prince-page .art-archive-entry + .art-archive-entry{padding-top:36px}}
+.frida-page .frida-archive-section + .frida-archive-section{border-top:1px solid rgba(47,159,145,.42);padding-top:62px}
+@media(max-width:750px){.frida-page .frida-archive-section + .frida-archive-section{padding-top:36px}}
