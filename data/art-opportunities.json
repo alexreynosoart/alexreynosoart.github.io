@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-10-29T13:20:20.353541+00:00",
+  "updatedAt": "2026-10-29T22:52:06.470553+00:00",
   "sources": {
     "Existing Everything Art listing": 15,
-    "On the Move": 110
+    "On the Move": 111
   },
   "opportunities": [
     {
@@ -860,6 +860,19 @@
       "type": "residency",
       "features": "",
       "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Villa Pérochon: Encounters of Young International Photography Residency and Exhibition 2027 (France)",
+      "organization": "Villa Pérochon",
+      "description": "Residencies. Application deadline: 2026-11-15. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/villa-perochon-encounters-young-international-photography-residency-and-exhibition-2027-france",
+      "deadline": "2026-11-15",
+      "discipline": "photo",
+      "type": "residency exhibition",
+      "features": "",
+      "country": "France",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
