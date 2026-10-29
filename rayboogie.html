@@ -77,6 +77,15 @@
 .rayboogie-page .ray-archive-video-wrap{width:100%;max-width:540px;margin:0 auto}
 .rayboogie-page .ray-archive-video-wrap video{display:block;width:100%;height:auto;max-height:520px;aspect-ratio:4/5;object-fit:contain;object-position:center;border:1px solid rgba(72,185,188,.35);border-radius:10px;background:#101010}
 @media(max-width:700px){.rayboogie-page .art-detail-meta{padding-left:18px}.rayboogie-page .ray-archive-video-wrap video{max-height:460px}}
+
+/* Separate intro rules from the artwork metadata and use blue at the chapter boundary. */
+.rayboogie-page .ray-intro{border-top:0;border-bottom:2px solid rgba(35,108,154,.65);margin-top:42px;padding-top:12px;padding-bottom:38px}
+.rayboogie-page .art-detail-info{border-bottom:0}
+.rayboogie-page .art-archive{border-top-color:rgba(35,108,154,.65);margin-top:65px}
+/* Match the actual landscape video frame rather than forcing a portrait-shaped player. */
+.rayboogie-page .ray-archive-video-wrap{width:min(100%,720px);max-width:720px}
+.rayboogie-page .ray-archive-video-wrap video{aspect-ratio:auto;max-height:none;height:auto;object-fit:contain;background:#111}
+@media(max-width:700px){.rayboogie-page .ray-archive-video-wrap video{max-height:none}.rayboogie-page .ray-intro{margin-top:30px}}
 </style>
 </head>
 
