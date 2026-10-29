@@ -132,6 +132,13 @@
  .rayboogie-page .art-archive-copy h3{margin-top:10px;margin-bottom:12px}
  .rayboogie-page .art-archive-copy p{margin-top:8px;margin-bottom:12px}
 }
+
+/* Storyboard separators: divide complete artwork moments, never images from their captions. */
+.rayboogie-page .art-archive-entry{position:relative}
+.rayboogie-page .art-archive-entry + .art-archive-entry{border-top:1px solid rgba(72,185,188,.30);padding-top:62px}
+@media(max-width:750px){
+ .rayboogie-page .art-archive-entry + .art-archive-entry{padding-top:36px;border-top-color:rgba(72,185,188,.38)}
+}
 </style>
 </head>
 
