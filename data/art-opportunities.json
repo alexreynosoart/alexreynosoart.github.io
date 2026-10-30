@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-10-29T22:52:06.470553+00:00",
+  "updatedAt": "2026-10-30T06:01:55.380440+00:00",
   "sources": {
     "Existing Everything Art listing": 15,
-    "On the Move": 111
+    "On the Move": 112
   },
   "opportunities": [
     {
@@ -1016,6 +1016,19 @@
       "type": "fellowship",
       "features": "",
       "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Sancy Tourist Office: Horizons 2027 ‘Arts-Nature’ Public Art (France)",
+      "organization": "Sancy Tourist Office",
+      "description": "Presenting work. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/sancy-tourist-office-horizons-2027-arts-nature-public-art-france",
+      "deadline": "2026-11-30",
+      "discipline": "interdisciplinary",
+      "type": "open-call exhibition",
+      "features": "",
+      "country": "France",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
