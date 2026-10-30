@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-10-30T05:55:46.650381+00:00",
+  "updatedAt": "2026-10-30T22:26:53.976747+00:00",
   "sources": {
-    "NYC Parks": 30,
+    "NYC Parks": 29,
     "Whitney": 28,
     "MoMA": 0,
     "Guggenheim": 0,
@@ -755,20 +755,6 @@
       "country": "United States",
       "url": "https://newyorklivearts.org/event/this-is-the-beginning-this-is-the-end/",
       "source": "New York Live Arts",
-      "free": false
-    },
-    {
-      "title": "Artful Gatherings",
-      "description": "Join us at J. Hood Wright Recreation center to celebrate Thanksgiving with a fun and festive paint event! Guests will choose from a selection of preprinted Thanksgiving-themed canvases and bring them to life with their own colors and creativity. No painting experience is needed—just come ready to relax, have fun, and enjoy a creative holiday activity with fa",
-      "date": "2026-11-07",
-      "endDate": "2026-11-07",
-      "venue": "J. Hood Wright Park",
-      "location": "J. Hood Wright Recreation Center (in J. Hood Wright Park)",
-      "type": "workshop",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "http://www.nycgovparks.org/events/2026/11/07/artful-gatherings",
-      "source": "NYC Parks",
       "free": false
     },
     {
