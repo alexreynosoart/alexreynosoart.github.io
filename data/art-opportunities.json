@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-10-30T06:01:55.380440+00:00",
+  "updatedAt": "2026-10-30T13:12:24.673785+00:00",
   "sources": {
     "Existing Everything Art listing": 15,
-    "On the Move": 112
+    "On the Move": 114
   },
   "opportunities": [
     {
@@ -994,6 +994,19 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Les Rencontres d'Arles: Curatorial Research Fellowship 2027 (France)",
+      "organization": "Les Rencontres d'Arles",
+      "description": "Fellowships. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/les-rencontres-darles-curatorial-research-fellowship-2027-france",
+      "deadline": "2026-11-30",
+      "discipline": "interdisciplinary",
+      "type": "fellowship",
+      "features": "",
+      "country": "France",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "M+: Sigg Fellowship for Chinese Art Research 2026/27 (Hong Kong)",
       "organization": "M+",
       "description": "Fellowships. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
@@ -1107,6 +1120,19 @@
       "type": "training",
       "features": "",
       "country": "Latvia",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "IN SITU: Online Support and Immersive Lab for Emerging Artists Creating in Public Space (3rd Call)",
+      "organization": "IN SITU",
+      "description": "Training. Application deadline: 2026-12-09. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/situ-online-support-and-immersive-lab-emerging-artists-creating-public-space-3rd-call",
+      "deadline": "2026-12-09",
+      "discipline": "interdisciplinary",
+      "type": "training",
+      "features": "",
+      "country": "",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
