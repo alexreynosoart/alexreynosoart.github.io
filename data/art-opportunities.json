@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-30T13:12:24.673785+00:00",
+  "updatedAt": "2026-10-30T22:29:32.300207+00:00",
   "sources": {
     "Existing Everything Art listing": 15,
     "On the Move": 114
@@ -75,19 +75,6 @@
       "organization": "EU Delegation to the United States of America",
       "description": "Meeting & networking. Application deadline: 2026-10-30. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/index%2Ephp/news/eu-delegation-united-states-america-transatlantic-stars-programme-2027-usa",
-      "deadline": "2026-10-30",
-      "discipline": "interdisciplinary",
-      "type": "resource",
-      "features": "",
-      "country": "United States",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
-      "title": "EU Delegation to the United States of America: Transatlantic Stars Programme 2027 (USA)",
-      "organization": "EU Delegation to the United States of America",
-      "description": "Meeting & networking. Application deadline: 2026-10-30. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/eu-delegation-united-states-america-transatlantic-stars-programme-2027-usa",
       "deadline": "2026-10-30",
       "discipline": "interdisciplinary",
       "type": "resource",
@@ -834,6 +821,19 @@
       "type": "residency",
       "features": "",
       "country": "Latvia",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "EU Delegation to the United States of America: Transatlantic Stars Programme 2027 (USA)",
+      "organization": "EU Delegation to the United States of America",
+      "description": "Meeting & networking. Application deadline: 2026-11-15. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/eu-delegation-united-states-america-transatlantic-stars-programme-2027-usa",
+      "deadline": "2026-11-15",
+      "discipline": "interdisciplinary",
+      "type": "resource",
+      "features": "",
+      "country": "United States",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
