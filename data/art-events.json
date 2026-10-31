@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-10-31T12:39:39.051937+00:00",
+  "updatedAt": "2026-10-31T21:40:31.770450+00:00",
   "sources": {
-    "NYC Parks": 26,
+    "NYC Parks": 29,
     "Whitney": 27,
     "MoMA": 0,
     "Guggenheim": 0,
@@ -335,6 +335,20 @@
       "country": "United States",
       "url": "https://www.nypl.org/events/exhibitions/silly-old-bear-winnie-pooh-100",
       "source": "NYPL",
+      "free": false
+    },
+    {
+      "title": "Sugar Hill Hope Garden Annual Halloween Party Candy Giveaway",
+      "description": "Sugar Hill Hope Garden will be having a Halloween Celebration and Candy Giveaway. There will be trick or treating, arts and crafts and cider. Join the garden group in this enchanted garden on Halloween!",
+      "date": "2026-10-31",
+      "endDate": "2026-10-31",
+      "venue": "NYC Parks",
+      "location": "Sugar Hill Hope Garden",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/10/31/sugar-hill-hope-garden-annual-halloween-party-candy-giveaway",
+      "source": "NYC Parks",
       "free": false
     },
     {
@@ -1024,6 +1038,20 @@
       "free": false
     },
     {
+      "title": "Family Art Project: Tiny Terrariums",
+      "description": "Explore the bustling world of tiny creatures in the dirt right beneath your feet. We'll learn about soil and decomposers as we craft mini jar habitats. While jars are provided, we encourage families to go green and bring their own glass or plastic containers from home. Registration not required. At 11:30am families can enjoy a storytime program in the Gund T",
+      "date": "2026-11-14",
+      "endDate": "2026-11-14",
+      "venue": "Wave Hill",
+      "location": "Wave Hill",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/14/family-art-project-tiny-terrariums",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
       "title": "Music and Creativity",
       "description": "Listed showtime(s): 1:00 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2026-11-14",
@@ -1063,6 +1091,20 @@
       "country": "United States",
       "url": "https://www.statenislandmuseum.org/event/stephanie-dinkins-anchoring-home-public-exhibition-opening/",
       "source": "Staten Island Museum",
+      "free": false
+    },
+    {
+      "title": "Sungazing with West Harlem Art Fund",
+      "description": "Join the West Harlem Art Fund at St. Nicholas Park for a unique solar-viewing experience, where participants can safely observe the Sun through specialized, solar-filtered telescopes.",
+      "date": "2026-11-14",
+      "endDate": "2026-11-14",
+      "venue": "St. Nicholas Park",
+      "location": "West 135th Street Plaza (in St. Nicholas Park)",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/14/sungazing-with-west-harlem-art-fund",
+      "source": "NYC Parks",
       "free": false
     },
     {
