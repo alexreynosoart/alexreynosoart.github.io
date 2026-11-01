@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-11-01T13:32:39.008931+00:00",
+  "updatedAt": "2026-11-01T22:08:52.430303+00:00",
   "sources": {
-    "NYC Parks": 24,
+    "NYC Parks": 26,
     "Whitney": 26,
     "MoMA": 0,
     "Guggenheim": 0,
@@ -996,6 +996,20 @@
       "free": false
     },
     {
+      "title": "Autumn Leaves Story Time and Craft",
+      "description": "Autumn is a colorful, magical season, so let’s learn more about it. Listen to a story or two about autumn leaves, then make your own creative and colorful picture using leaves. Weather permitting, we will go on a short walk to gather additional leaves. Recommended for ages 4-8 with adult chaperone. Additional instructions for participants: Dress appropriatel",
+      "date": "2026-11-15",
+      "endDate": "2026-11-15",
+      "venue": "Blood Root Valley",
+      "location": "Greenbelt Nature Center (in Blood Root Valley)",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/15/autumn-leaves-story-time-and-craft",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
       "title": "Create-athon: Mural Making, Graffiti Style",
       "description": "Listed showtime(s): 1:00 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2026-11-15",
@@ -1011,16 +1025,16 @@
     },
     {
       "title": "Mind-Builders Creative Arts Center Stage Band",
-      "description": "",
+      "description": "Join us for a performance by Mind-Builders Creative Arts Center Stage Band in collaboration with exhibiting artists Angel Nevarez and Valerie Tevere that reimagines music through experimentation, improvisation, and collective listening. Organized as part of the exhibition As far as the ear can hear and shaped by the artists' practice of reinterpreting musica",
       "date": "2026-11-15",
       "endDate": "2026-11-15",
       "venue": "Wave Hill",
-      "location": "Bronx, NY",
+      "location": "Wave Hill",
       "type": "workshop",
       "features": "nyc us",
       "country": "United States",
-      "url": "https://www.wavehill.org/calendar/mind-builders-creative-arts-center-stage-band",
-      "source": "Wave Hill",
+      "url": "http://www.nycgovparks.org/events/2026/11/15/mindbuilders-creative-arts-center-stage-band",
+      "source": "NYC Parks",
       "free": false
     },
     {
