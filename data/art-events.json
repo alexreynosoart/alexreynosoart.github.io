@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-11-02T06:13:54.420923+00:00",
+  "updatedAt": "2026-11-02T16:04:15.563013+00:00",
   "sources": {
     "NYC Parks": 23,
-    "Whitney": 26,
+    "Whitney": 28,
     "MoMA": 0,
     "Guggenheim": 0,
     "NYPL": 7,
@@ -1469,6 +1469,34 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/cosmo-114",
       "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "All Ages Artmaking: Sky Remix Collage",
+      "description": "Artists of all ages are invited to create their own sky remix collage inspired by Lorna Mills ’s Caughtinmoment (2017). Cut, layer, rearrange, and combine images of sunrises, sunsets, clouds, and light to create an entirely new sky of your own! In Caughtinmoment , Mills breaks images of sunrises and sunsets into shifting, pixelated forms, transforming famili",
+      "date": "2026-12-13",
+      "endDate": "2026-12-13",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/all-ages-artmaking-sky-remix-collage",
+      "source": "Whitney",
+      "free": false
+    },
+    {
+      "title": "All Ages Printmaking: Collagraphs with Blackburn Printshop",
+      "description": "Artists of all ages are invited to explore printmaking inspired by Roy Lichtenstein: Like New ! Join master printers from the Robert Blackburn Printmaking Workshop to create a collagraph by building a collage of shapes and textures, then use it to make your own print and explore how an image changes as it moves from collage to print. Roy Lichtenstein changed",
+      "date": "2026-12-13",
+      "endDate": "2026-12-13",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/all-ages-printmaking-dec13",
+      "source": "Whitney",
       "free": false
     },
     {
