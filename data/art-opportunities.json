@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-11-02T06:27:07.626895+00:00",
+  "updatedAt": "2026-11-02T21:48:27.388836+00:00",
   "sources": {
-    "On the Move": 95,
+    "On the Move": 96,
     "Existing Everything Art listing": 13
   },
   "opportunities": [
@@ -117,6 +117,19 @@
       "deadline": "2026-11-02",
       "discipline": "interdisciplinary",
       "type": "residency",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Youth Policy Dialogue 2027 on ‘AI and Music’ (Netherlands)",
+      "organization": "On the Move",
+      "description": "Meeting & networking. Application deadline: 2026-11-02. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/youth-policy-dialogue-2027-ai-and-music-netherlands",
+      "deadline": "2026-11-02",
+      "discipline": "music",
+      "type": "resource",
       "features": "",
       "country": "",
       "source": "On the Move",
