@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-03T01:02:53.324836+00:00",
+  "updatedAt": "2026-11-03T14:24:31.706343+00:00",
   "sources": {
     "NYC Parks": 23,
     "Whitney": 30,
@@ -31,9 +31,9 @@
     },
     {
       "title": "Fatherland",
-      "description": "Upcoming screening dates: Nov 03, Nov 04, Nov 05, Nov 06, Nov 07. See official film page for verified showtimes and tickets.",
+      "description": "Upcoming screening dates: Nov 03, Nov 04, Nov 05, Nov 06, Nov 07, Nov 08. See official film page for verified showtimes and tickets.",
       "date": "2026-11-03",
-      "endDate": "2026-11-07",
+      "endDate": "2026-11-08",
       "venue": "Film at Lincoln Center",
       "location": "Manhattan, NY",
       "type": "film",
