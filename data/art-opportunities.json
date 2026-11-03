@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-11-03T06:59:24.012109+00:00",
+  "updatedAt": "2026-11-03T19:39:17.359126+00:00",
   "sources": {
-    "On the Move": 87,
+    "On the Move": 88,
     "Existing Everything Art listing": 12
   },
   "opportunities": [
@@ -223,6 +223,19 @@
       "type": "fellowship",
       "features": "",
       "country": "United Kingdom",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Leitrim Sculpture Centre: Exhibition Residencies for Visual Artists 2027 (Ireland)",
+      "organization": "Leitrim Sculpture Centre",
+      "description": "Residencies. Application deadline: 2026-11-09. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/leitrim-sculpture-centre-exhibition-residencies-visual-artists-2027-ireland",
+      "deadline": "2026-11-09",
+      "discipline": "interdisciplinary",
+      "type": "residency exhibition",
+      "features": "",
+      "country": "Ireland",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
