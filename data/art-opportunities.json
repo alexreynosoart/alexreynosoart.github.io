@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-11-04T06:42:15.151649+00:00",
+  "updatedAt": "2026-11-04T19:54:28.078859+00:00",
   "sources": {
-    "On the Move": 84,
+    "On the Move": 86,
     "Existing Everything Art listing": 12
   },
   "opportunities": [
@@ -383,6 +383,19 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Montpellier 2028: Residency in Visual Arts and Music 2027 (France)",
+      "organization": "Montpellier 2028",
+      "description": "Residencies. Application deadline: 2026-11-16. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/montpellier-2028-residency-visual-arts-and-music-2027-france",
+      "deadline": "2026-11-16",
+      "discipline": "music",
+      "type": "residency",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "The Hopper Prize Fall 2026",
       "organization": "The Hopper Prize",
       "description": "International artist grants with a streamlined application accepting image\n                or video work samples.",
@@ -496,6 +509,19 @@
       "type": "residency",
       "features": "",
       "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Bernheim Arboretum and Research Forest: Artist in Residence Programme 2027 (USA)",
+      "organization": "Bernheim Arboretum and Research Forest",
+      "description": "Residencies. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/bernheim-arboretum-and-research-forest-artist-residence-programme-2027-usa",
+      "deadline": "2026-11-30",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "United States",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
