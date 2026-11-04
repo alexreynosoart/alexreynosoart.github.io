@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-11-04T06:33:30.673149+00:00",
+  "updatedAt": "2026-11-04T19:50:52.583947+00:00",
   "sources": {
     "NYC Parks": 23,
-    "Whitney": 30,
+    "Whitney": 31,
     "MoMA": 0,
     "Guggenheim": 0,
     "NYPL": 7,
@@ -1245,6 +1245,20 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/rain-for-babies-and-their-carers",
       "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "Premiere: Visual AIDS presents seeds in a dying colony",
+      "description": "The Whitney Museum of American Art is proud to partner with Visual AIDS for the premiere of seeds in a dying colony , a program of four newly commissioned videos that move through the afterlives of colonialism and the ongoing HIV epidemic. Across fractured histories and landscapes marked by extraction, the works trace how systems of power shape the body, mem",
+      "date": "2026-11-29",
+      "endDate": "2026-11-29",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/premiere-seeds-in-a-dying-colony",
+      "source": "Whitney",
       "free": false
     },
     {
