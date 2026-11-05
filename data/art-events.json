@@ -1,34 +1,20 @@
 {
-  "updatedAt": "2026-11-05T06:55:29.934012+00:00",
+  "updatedAt": "2026-11-05T20:01:58.930816+00:00",
   "sources": {
     "NYC Parks": 23,
-    "Whitney": 30,
+    "Whitney": 43,
     "MoMA": 0,
     "Guggenheim": 0,
     "NYPL": 7,
     "Bronx Museum": 2,
     "Film at Lincoln Center": 8,
     "New York Live Arts": 9,
-    "Lincoln Center Presents": 167,
+    "Lincoln Center Presents": 168,
     "Wave Hill": 4,
     "Staten Island Museum": 3,
     "Smithsonian Associates": 2
   },
   "events": [
-    {
-      "title": "Craft & Chill",
-      "description": "Enjoy a welcoming creative environment where they can explore a variety of artistic techniques and hands-on craft projects. Each session provides an opportunity to learn, create, and discover new interests while working with different materials and artistic styles. Whether you are an experienced artist or exploring your creative side for the first time, Craf",
-      "date": "2026-11-05",
-      "endDate": "2026-11-05",
-      "venue": "Detective Keith L Williams Park",
-      "location": "Multi-Use Room B (in Detective Keith L Williams Park)",
-      "type": "workshop",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "http://www.nycgovparks.org/events/2026/11/05/craft-chill",
-      "source": "NYC Parks",
-      "free": false
-    },
     {
       "title": "Declaring America: 1776 and Beyond",
       "description": "On view through January 10, 2027. NYPL honors the 250th anniversary of the signing of the Declaration of Independence and the founding of the country.",
@@ -142,62 +128,6 @@
       "free": false
     },
     {
-      "title": "Ongoing Museum Exhibit: New York's Brick & Terra Cotta Industries",
-      "description": "NYC Parks and the Tottenville Historical Society invite you to visit a unique collection of terracotta artifacts and masonry bricks that chronicle turn-of-the-twentieth-century architectural styles common in New York City and across the United States, and to learn about the area's rich terracotta and brick making tradition, including the famed former Atlanti",
-      "date": "2026-11-05",
-      "endDate": "2026-11-05",
-      "venue": "Conference House Park",
-      "location": "H.H. Biddle House (in Conference House Park)",
-      "type": "exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "http://www.nycgovparks.org/events/2026/11/05/ongoing-museum-exhibit-new-yorks-brick-terra-cotta-industries",
-      "source": "NYC Parks",
-      "free": false
-    },
-    {
-      "title": "Ongoing Museum Exhibit: Still Waters: Reflections of a Maritime Community",
-      "description": "NYC Parks and the Tottenville Historical Society invite you to an exhibit celebrating the South Shore of Staten Island's maritime history and heritage, featuring the A.C. Brown & Sons Shipyard of Tottenville and spotlighting our recreational waterfront and more. Note location: Rutan-Becket House, 6 Shore Rd. Open by chance or by appointment.",
-      "date": "2026-11-05",
-      "endDate": "2026-11-05",
-      "venue": "Conference House Park",
-      "location": "Rutan-Becket House (in Conference House Park)",
-      "type": "exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "http://www.nycgovparks.org/events/2026/11/05/ongoing-museum-exhibit-still-waters-reflections-of-a-maritime-community",
-      "source": "NYC Parks",
-      "free": false
-    },
-    {
-      "title": "Ongoing Museum Exhibit: Voices of 1776",
-      "description": "The Conference House Association and NYC Parks invite you to explore this America 250 Exhibit!Stop by the Lenape Gallery in the Conference House Park Visitor Center and explore “Voices of 1776: The People and Events Surrounding the Historic Staten Island Peace Conference of the American Revolution”.",
-      "date": "2026-11-05",
-      "endDate": "2026-11-05",
-      "venue": "Conference House Park",
-      "location": "Conference House Museum (in Conference House Park)",
-      "type": "exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "http://www.nycgovparks.org/events/2026/11/05/ongoing-museum-exhibit-voices-of-1776",
-      "source": "NYC Parks",
-      "free": false
-    },
-    {
-      "title": "Ongoing Outdoor Museum Exhibit: Alice's Terracotta Garden",
-      "description": "Terra cotta sculpture garden featuring antique architectural ornaments from Tottenville's Atlantic Terra Cotta Company (west side lawn of Biddle House).NYC Parks and the Tottenville Historical Society invite you to visit a unique collection of terracotta artifacts that chronicle turn-of-the-twentieth-century architectural styles common in New York City and a",
-      "date": "2026-11-05",
-      "endDate": "2026-11-05",
-      "venue": "Conference House Park",
-      "location": "H.H. Biddle House (in Conference House Park)",
-      "type": "exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "http://www.nycgovparks.org/events/2026/11/05/ongoing-outdoor-museum-exhibit-alices-terracotta-garden",
-      "source": "NYC Parks",
-      "free": false
-    },
-    {
       "title": "Possible Love",
       "description": "Upcoming screening dates: Nov 05, Nov 06, Nov 07, Nov 08, Nov 09, Nov 10. See official film page for verified showtimes and tickets.",
       "date": "2026-11-05",
@@ -209,20 +139,6 @@
       "country": "United States",
       "url": "https://www.filmlinc.org/films/possible-love/",
       "source": "Film at Lincoln Center",
-      "free": false
-    },
-    {
-      "title": "Public Gallery Tour",
-      "description": "Solo and group exhibitions at Glyndor Gallery explore the dynamic relationships between nature, culture, and site. When exhibitions are on view in the spring, summer, and fall, Gallery Greeters lead public exhibition tours on Thursdays and Saturdays at 2PM, certain dates excluded. Visitors can expect an in-depth look at artworks on view in Glyndor Gallery an",
-      "date": "2026-11-05",
-      "endDate": "2026-11-05",
-      "venue": "Wave Hill",
-      "location": "Wave Hill",
-      "type": "tour exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "http://www.nycgovparks.org/events/2026/11/05/public-gallery-tour",
-      "source": "NYC Parks",
       "free": false
     },
     {
@@ -338,20 +254,6 @@
       "free": false
     },
     {
-      "title": "Arts, Culture & Fun: BE BOLDER - Senior Ballet Programming",
-      "description": "NYC Parks, in partnership with the Misty Copeland Foundation, invites seniorsages 50 years-old and older to enroll in the, BE BOLDER: Ballet Explorations (BE) Ballet Offers Life-long Discovery, Expression, and Reconnection (BOLDER), dance program, a fun ballet class with live music. The program reflects Misty Copeland’s deeply held belief that dance is for e",
-      "date": "2026-11-06",
-      "endDate": "2026-11-06",
-      "venue": "Williamsbridge Oval",
-      "location": "Multi-Use Room (in Williamsbridge Oval)",
-      "type": "workshop",
-      "features": "nyc us free",
-      "country": "United States",
-      "url": "http://www.nycgovparks.org/events/2026/11/06/arts-culture-fun-be-bolder-senior-ballet-programming",
-      "source": "NYC Parks",
-      "free": true
-    },
-    {
       "title": "Collagraph Printing with Robert Blackburn Workshop",
       "description": "Inspired by Roy Lichtenstein ’s bold visual language and his iconic images related to the dynamism and pleasure of athletics, join the Robert Blackburn Printmaking Workshop for hands-on printmaking exploring the intersection of art and sports. Using found and recycled materials, participants will create their own printing plates, experimenting with textures,",
       "date": "2026-11-06",
@@ -422,31 +324,17 @@
       "free": true
     },
     {
-      "title": "Old Stone House: Open Hours",
-      "description": "Come visit the Old Stone House during our public Open Hours! Suggested donation for entry is $3, but no one is turned away for lack of funds. No reservation is necessary for entry.Please note that while our typical hours are Friday-Sunday, 12-4 PM, we host private or ticketed events that may limit public access to the exhibitions. The times listed here are t",
+      "title": "Open Studio for Teens 2026",
+      "description": "November 6 December 4 February 5 March 5 April 2 May 7 June 4 Teens are welcome to join Open Studio for Teens, a free artmaking program on select Fridays. Together with contemporary artists and educators, teens can delve into innovative techniques through hands-on projects that draw inspiration from the themes and artists featured in the Whitney’s collection",
       "date": "2026-11-06",
       "endDate": "2026-11-06",
-      "venue": "Washington Park",
-      "location": "Old Stone House (in Washington Park)",
-      "type": "exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "http://www.nycgovparks.org/events/2026/11/06/old-stone-house-open-hours",
-      "source": "NYC Parks",
-      "free": false
-    },
-    {
-      "title": "Proximity Exhibition",
-      "description": "Featuring work by: Erin Butler, Linda Butti, Mary Campbell, Lisa Dahl, Griselda Healy, Craig Manister, Ann Marie McDonnell, Mike Shane, Gayle Tanaka, Martha Trivizas. Celebrating Snug Harbor’s longstanding studio program, where artists in residence create new work within its historic buildings, PROXIMITY explores the studio as a generative space: artists wor",
-      "date": "2026-11-06",
-      "endDate": "2026-11-06",
-      "venue": "Snug Harbor Cultural Center",
-      "location": "Newhouse Center for Contemporary Art (Building C) (in Snug Harbor Cultural Center)",
-      "type": "exhibition",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
       "features": "nyc us free",
       "country": "United States",
-      "url": "http://www.nycgovparks.org/events/2026/11/06/proximity-exhibition",
-      "source": "NYC Parks",
+      "url": "https://whitney.org/events/open-studio-teens-2027",
+      "source": "Whitney",
       "free": true
     },
     {
@@ -520,20 +408,6 @@
       "free": false
     },
     {
-      "title": "Family Art Project: Raptors in Autumn Sky",
-      "description": "Keep your eyes on the sky as you look for migrating hawks soaring and circling above the Hudson River. Be inspired by our feathery friends as you fashion a raptor glider for the autumn breezes. Registration not required. Wave Hill House is wheelchair-accessible. There is an accessible, ground-level entrance at the front of the building with a power-assist do",
-      "date": "2026-11-07",
-      "endDate": "2026-11-07",
-      "venue": "Wave Hill",
-      "location": "Wave Hill",
-      "type": "family workshop",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "http://www.nycgovparks.org/events/2026/11/07/family-art-project-raptors-in-autumn-sky",
-      "source": "NYC Parks",
-      "free": false
-    },
-    {
       "title": "Indigenous Art Workshop with NAIC-NY",
       "description": "Join the the North American Indigenous Center of New York and the Bronx River Alliance for an Indigenous Art Workshop at Starlight Park!This family and kid-friendly event will offer participants an opportunity to learn traditional indigenous crafts, and gain exposure to contemporary indigenous cultures.This activity is first come, first served.This project i",
       "date": "2026-11-07",
@@ -562,17 +436,59 @@
       "free": false
     },
     {
+      "title": "Old Stone House: Open Hours",
+      "description": "Come visit the Old Stone House during our public Open Hours! Suggested donation for entry is $3, but no one is turned away for lack of funds. No reservation is necessary for entry.Please note that while our typical hours are Friday-Sunday, 12-4 PM, we host private or ticketed events that may limit public access to the exhibitions. The times listed here are t",
+      "date": "2026-11-07",
+      "endDate": "2026-11-07",
+      "venue": "Washington Park",
+      "location": "Old Stone House (in Washington Park)",
+      "type": "exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/07/old-stone-house-open-hours",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
+      "title": "Ongoing Outdoor Museum Exhibit: Alice's Terracotta Garden",
+      "description": "Terra cotta sculpture garden featuring antique architectural ornaments from Tottenville's Atlantic Terra Cotta Company (west side lawn of Biddle House).NYC Parks and the Tottenville Historical Society invite you to visit a unique collection of terracotta artifacts that chronicle turn-of-the-twentieth-century architectural styles common in New York City and a",
+      "date": "2026-11-07",
+      "endDate": "2026-11-07",
+      "venue": "Conference House Park",
+      "location": "H.H. Biddle House (in Conference House Park)",
+      "type": "exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/07/ongoing-outdoor-museum-exhibit-alices-terracotta-garden",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
+      "title": "Proximity Exhibition",
+      "description": "Featuring work by: Erin Butler, Linda Butti, Mary Campbell, Lisa Dahl, Griselda Healy, Craig Manister, Ann Marie McDonnell, Mike Shane, Gayle Tanaka, Martha Trivizas. Celebrating Snug Harbor’s longstanding studio program, where artists in residence create new work within its historic buildings, PROXIMITY explores the studio as a generative space: artists wor",
+      "date": "2026-11-07",
+      "endDate": "2026-11-07",
+      "venue": "Snug Harbor Cultural Center",
+      "location": "Newhouse Center for Contemporary Art (Building C) (in Snug Harbor Cultural Center)",
+      "type": "exhibition",
+      "features": "nyc us free",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/07/proximity-exhibition",
+      "source": "NYC Parks",
+      "free": true
+    },
+    {
       "title": "Public Gallery Tour",
-      "description": "",
+      "description": "Solo and group exhibitions at Glyndor Gallery explore the dynamic relationships between nature, culture, and site. When exhibitions are on view in the spring, summer, and fall, Gallery Greeters lead public exhibition tours on Thursdays and Saturdays at 2PM, certain dates excluded. Visitors can expect an in-depth look at artworks on view in Glyndor Gallery an",
       "date": "2026-11-07",
       "endDate": "2026-11-07",
       "venue": "Wave Hill",
-      "location": "Bronx, NY",
-      "type": "tour",
+      "location": "Wave Hill",
+      "type": "tour exhibition",
       "features": "nyc us",
       "country": "United States",
-      "url": "https://www.wavehill.org/calendar/public-gallery-tour-spring-2026-2",
-      "source": "Wave Hill",
+      "url": "http://www.nycgovparks.org/events/2026/11/07/public-gallery-tour",
+      "source": "NYC Parks",
       "free": false
     },
     {
@@ -618,6 +534,20 @@
       "free": true
     },
     {
+      "title": "All Ages Artmaking: Sky Sketches",
+      "description": "Artists of all ages are invited to spend time with a reproduction of Super Sunset Billboard in the gallery and create their own landscape inspired by what they see. Gaze at Lichtenstein’s sunset or look out the window at the landscape around you, then experiment with shape, line, and pattern to create a view of your own. Lichtenstein created this giant abstr",
+      "date": "2026-11-08",
+      "endDate": "2026-11-08",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/artmaking-sky-sketches",
+      "source": "Whitney",
+      "free": false
+    },
+    {
       "title": "Artist Talk with Cecile Chong and Alexander Zev",
       "description": "Please join NYC Parks’ Art in the Parks Program and the Alliance for Flushing Meadows Corona Park, to celebrate this year’s recipients of the Art in the Parks: Alliance for Flushing Meadows Corona Park Art Grant, Cecile Chong and Alexander Zev. The program will include stops at both artworks, where the artists will speak about their new works. We will start ",
       "date": "2026-11-08",
@@ -630,6 +560,20 @@
       "url": "http://www.nycgovparks.org/events/2026/11/08/artist-talk-with-cecile-chong-and-alexander-zev",
       "source": "NYC Parks",
       "free": false
+    },
+    {
+      "title": "CMOM Pop-up Play Lounge",
+      "description": "Families with young kids are invited to explore an engaging pop-up play lounge, created and led by the Children's Museum of Manhattan (CMOM), as part of Free Second Sundays. Dive into playtime with CMOM's expert early childhood education team! Together we will play in the sand, explore colors and shadows with our lightboards, build collaborative structures, ",
+      "date": "2026-11-08",
+      "endDate": "2026-11-08",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "family workshop",
+      "features": "nyc us free",
+      "country": "United States",
+      "url": "https://whitney.org/events/cmom-pop-up-nov8",
+      "source": "Whitney",
+      "free": true
     },
     {
       "title": "Come & Sing: Broadway Finales",
@@ -657,6 +601,20 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/de-papel-848",
       "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "Family Art Project: Raptors in Autumn Sky",
+      "description": "Keep your eyes on the sky as you look for migrating hawks soaring and circling above the Hudson River. Be inspired by our feathery friends as you fashion a raptor glider for the autumn breezes. Registration not required. Wave Hill House is wheelchair-accessible. There is an accessible, ground-level entrance at the front of the building with a power-assist do",
+      "date": "2026-11-08",
+      "endDate": "2026-11-08",
+      "venue": "Wave Hill",
+      "location": "Wave Hill",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/08/family-art-project-raptors-in-autumn-sky",
+      "source": "NYC Parks",
       "free": false
     },
     {
@@ -716,6 +674,20 @@
       "free": false
     },
     {
+      "title": "Storytime",
+      "description": "The Whitney Free Second Sundays Storytime series continues strong, teaming up with independent bookstores to showcase diverse voices and fresh perspectives that will captivate our youngest visitors. We’re excited to launch a fantastic four-month partnership with Café con Libros, a vibrant, community-centered bookstore and café in Brooklyn’s BedStuy, where ev",
+      "date": "2026-11-08",
+      "endDate": "2026-11-08",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us free",
+      "country": "United States",
+      "url": "https://whitney.org/events/storytime-nov2026",
+      "source": "Whitney",
+      "free": true
+    },
+    {
       "title": "Arts, Culture & Fun: BE BOLD - Ballet Programming",
       "description": "NYC Parks, in partnership with the Misty Copeland Foundation, invites childrenages 6 – 14 years to enroll in the BE BOLD afterschool dance program, a funintroductory ballet class with live music. The BE BOLD program is FREE andoffers a new approach to afterschool dance education for young children that makes ballet accessible, affordable, and fun. *Membershi",
       "date": "2026-11-09",
@@ -758,6 +730,20 @@
       "free": false
     },
     {
+      "title": "Ongoing Museum Exhibit: Voices of 1776",
+      "description": "The Conference House Association and NYC Parks invite you to explore this America 250 Exhibit!Stop by the Lenape Gallery in the Conference House Park Visitor Center and explore “Voices of 1776: The People and Events Surrounding the Historic Staten Island Peace Conference of the American Revolution”.",
+      "date": "2026-11-09",
+      "endDate": "2026-11-09",
+      "venue": "Conference House Park",
+      "location": "Conference House Museum (in Conference House Park)",
+      "type": "exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/09/ongoing-museum-exhibit-voices-of-1776",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
       "title": "Nemanja Radulović & Double Sens",
       "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2026-11-10",
@@ -769,6 +755,34 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/nemanja-radulovic-andamp-double-sens-66",
       "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "Ongoing Museum Exhibit: New York's Brick & Terra Cotta Industries",
+      "description": "NYC Parks and the Tottenville Historical Society invite you to visit a unique collection of terracotta artifacts and masonry bricks that chronicle turn-of-the-twentieth-century architectural styles common in New York City and across the United States, and to learn about the area's rich terracotta and brick making tradition, including the famed former Atlanti",
+      "date": "2026-11-10",
+      "endDate": "2026-11-10",
+      "venue": "Conference House Park",
+      "location": "H.H. Biddle House (in Conference House Park)",
+      "type": "exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/10/ongoing-museum-exhibit-new-yorks-brick-terra-cotta-industries",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
+      "title": "Ongoing Museum Exhibit: Still Waters: Reflections of a Maritime Community",
+      "description": "NYC Parks and the Tottenville Historical Society invite you to an exhibit celebrating the South Shore of Staten Island's maritime history and heritage, featuring the A.C. Brown & Sons Shipyard of Tottenville and spotlighting our recreational waterfront and more. Note location: Rutan-Becket House, 6 Shore Rd. Open by chance or by appointment.",
+      "date": "2026-11-10",
+      "endDate": "2026-11-10",
+      "venue": "Conference House Park",
+      "location": "Rutan-Becket House (in Conference House Park)",
+      "type": "exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/10/ongoing-museum-exhibit-still-waters-reflections-of-a-maritime-community",
+      "source": "NYC Parks",
       "free": false
     },
     {
@@ -784,6 +798,20 @@
       "url": "http://www.nycgovparks.org/events/2026/11/11/volunteer-workday-krystal-community-garden",
       "source": "NYC Parks",
       "free": true
+    },
+    {
+      "title": "Craft & Chill",
+      "description": "Enjoy a welcoming creative environment where they can explore a variety of artistic techniques and hands-on craft projects. Each session provides an opportunity to learn, create, and discover new interests while working with different materials and artistic styles. Whether you are an experienced artist or exploring your creative side for the first time, Craf",
+      "date": "2026-11-12",
+      "endDate": "2026-11-12",
+      "venue": "Detective Keith L Williams Park",
+      "location": "Multi-Use Room B (in Detective Keith L Williams Park)",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/12/craft-chill",
+      "source": "NYC Parks",
+      "free": false
     },
     {
       "title": "Stephanie Dinkins: Anchoring Home Member’s Preview",
@@ -812,6 +840,20 @@
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/the-precipice-637",
       "source": "Lincoln Center Presents",
       "free": false
+    },
+    {
+      "title": "Arts, Culture & Fun: BE BOLDER - Senior Ballet Programming",
+      "description": "NYC Parks, in partnership with the Misty Copeland Foundation, invites seniorsages 50 years-old and older to enroll in the, BE BOLDER: Ballet Explorations (BE) Ballet Offers Life-long Discovery, Expression, and Reconnection (BOLDER), dance program, a fun ballet class with live music. The program reflects Misty Copeland’s deeply held belief that dance is for e",
+      "date": "2026-11-13",
+      "endDate": "2026-11-13",
+      "venue": "Williamsbridge Oval",
+      "location": "Multi-Use Room (in Williamsbridge Oval)",
+      "type": "workshop",
+      "features": "nyc us free",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/13/arts-culture-fun-be-bolder-senior-ballet-programming",
+      "source": "NYC Parks",
+      "free": true
     },
     {
       "title": "Bitter Christmas",
@@ -871,7 +913,7 @@
     },
     {
       "title": "Open Studio 2026",
-      "description": "On Saturdays, families with kids of all ages are invited to get creative at the Whitney! Join us to make your own art inspired by works on view in the collection and current exhibitions. Each week we offer a different artmaking project. Open Studio will not take place on long weekends or the second Saturday of every month. 2026 Dates: Saturday, October 24 Op",
+      "description": "On Saturdays, families with kids of all ages are invited to get creative at the Whitney! Join us to make your own art inspired by works on view in the collection and current exhibitions. Each week we offer a different artmaking project. Open Studio will not take place on long weekends or the second Saturday of every month. 2026 Dates: November 14 November 21",
       "date": "2026-11-14",
       "endDate": "2026-11-14",
       "venue": "Whitney Museum of American Art",
@@ -1179,7 +1221,7 @@
     },
     {
       "title": "Open Studio 2026",
-      "description": "On Saturdays, families with kids of all ages are invited to get creative at the Whitney! Join us to make your own art inspired by works on view in the collection and current exhibitions. Each week we offer a different artmaking project. Open Studio will not take place on long weekends or the second Saturday of every month. 2026 Dates: Saturday, October 24 Op",
+      "description": "On Saturdays, families with kids of all ages are invited to get creative at the Whitney! Join us to make your own art inspired by works on view in the collection and current exhibitions. Each week we offer a different artmaking project. Open Studio will not take place on long weekends or the second Saturday of every month. 2026 Dates: November 14 November 21",
       "date": "2026-11-21",
       "endDate": "2026-11-21",
       "venue": "Whitney Museum of American Art",
@@ -1304,6 +1346,20 @@
       "free": false
     },
     {
+      "title": "Open Studio for Teens 2026",
+      "description": "November 6 December 4 February 5 March 5 April 2 May 7 June 4 Teens are welcome to join Open Studio for Teens, a free artmaking program on select Fridays. Together with contemporary artists and educators, teens can delve into innovative techniques through hands-on projects that draw inspiration from the themes and artists featured in the Whitney’s collection",
+      "date": "2026-12-04",
+      "endDate": "2026-12-04",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us free",
+      "country": "United States",
+      "url": "https://whitney.org/events/open-studio-teens-2027",
+      "source": "Whitney",
+      "free": true
+    },
+    {
       "title": "Él y Ella",
       "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2026-12-04",
@@ -1361,7 +1417,7 @@
     },
     {
       "title": "Open Studio 2026",
-      "description": "On Saturdays, families with kids of all ages are invited to get creative at the Whitney! Join us to make your own art inspired by works on view in the collection and current exhibitions. Each week we offer a different artmaking project. Open Studio will not take place on long weekends or the second Saturday of every month. 2026 Dates: Saturday, October 24 Op",
+      "description": "On Saturdays, families with kids of all ages are invited to get creative at the Whitney! Join us to make your own art inspired by works on view in the collection and current exhibitions. Each week we offer a different artmaking project. Open Studio will not take place on long weekends or the second Saturday of every month. 2026 Dates: November 14 November 21",
       "date": "2026-12-05",
       "endDate": "2026-12-05",
       "venue": "Whitney Museum of American Art",
@@ -1384,6 +1440,20 @@
       "features": "nyc us",
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/songs-of-the-season-1",
+      "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "The High Low: A Night of Blues on Broadway",
+      "description": "Listed showtime(s): 7:00 pm. Check the official Lincoln Center event page for current details and tickets.",
+      "date": "2026-12-07",
+      "endDate": "2026-12-07",
+      "venue": "Lincoln Center Presents",
+      "location": "Manhattan, NY",
+      "type": "performance",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/the-high-low-a-night-of-blues-on-broadway-40",
       "source": "Lincoln Center Presents",
       "free": false
     },
@@ -1528,6 +1598,20 @@
       "free": false
     },
     {
+      "title": "Storytime",
+      "description": "The Whitney Free Second Sundays Storytime series continues strong, teaming up with independent bookstores to showcase diverse voices and fresh perspectives that will captivate our youngest visitors. We’re excited to launch a fantastic four-month partnership with Café con Libros, a vibrant, community-centered bookstore and café in Brooklyn’s BedStuy, where ev",
+      "date": "2026-12-13",
+      "endDate": "2026-12-13",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us free",
+      "country": "United States",
+      "url": "https://whitney.org/events/storytime-nov2026",
+      "source": "Whitney",
+      "free": true
+    },
+    {
       "title": "cOsmO",
       "description": "Listed showtime(s): 11:00 am, 2:00 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2026-12-13",
@@ -1585,7 +1669,7 @@
     },
     {
       "title": "Open Studio 2026",
-      "description": "On Saturdays, families with kids of all ages are invited to get creative at the Whitney! Join us to make your own art inspired by works on view in the collection and current exhibitions. Each week we offer a different artmaking project. Open Studio will not take place on long weekends or the second Saturday of every month. 2026 Dates: Saturday, October 24 Op",
+      "description": "On Saturdays, families with kids of all ages are invited to get creative at the Whitney! Join us to make your own art inspired by works on view in the collection and current exhibitions. Each week we offer a different artmaking project. Open Studio will not take place on long weekends or the second Saturday of every month. 2026 Dates: November 14 November 21",
       "date": "2026-12-19",
       "endDate": "2026-12-19",
       "venue": "Whitney Museum of American Art",
@@ -1694,6 +1778,20 @@
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/sincere-apologies-3",
       "source": "Lincoln Center Presents",
       "free": false
+    },
+    {
+      "title": "Storytime",
+      "description": "The Whitney Free Second Sundays Storytime series continues strong, teaming up with independent bookstores to showcase diverse voices and fresh perspectives that will captivate our youngest visitors. We’re excited to launch a fantastic four-month partnership with Café con Libros, a vibrant, community-centered bookstore and café in Brooklyn’s BedStuy, where ev",
+      "date": "2027-01-10",
+      "endDate": "2027-01-10",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us free",
+      "country": "United States",
+      "url": "https://whitney.org/events/storytime-nov2026",
+      "source": "Whitney",
+      "free": true
     },
     {
       "title": "The 10th Annual NextGen National",
@@ -2550,6 +2648,20 @@
       "free": false
     },
     {
+      "title": "Open Studio for Teens 2026",
+      "description": "November 6 December 4 February 5 March 5 April 2 May 7 June 4 Teens are welcome to join Open Studio for Teens, a free artmaking program on select Fridays. Together with contemporary artists and educators, teens can delve into innovative techniques through hands-on projects that draw inspiration from the themes and artists featured in the Whitney’s collection",
+      "date": "2027-02-05",
+      "endDate": "2027-02-05",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us free",
+      "country": "United States",
+      "url": "https://whitney.org/events/open-studio-teens-2027",
+      "source": "Whitney",
+      "free": true
+    },
+    {
       "title": "Playing with Fire: An Immersive Odyssey with Yuja Wang",
       "description": "Listed showtime(s): Multiple times. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2027-02-05",
@@ -2830,6 +2942,20 @@
       "free": false
     },
     {
+      "title": "Storytime",
+      "description": "The Whitney Free Second Sundays Storytime series continues strong, teaming up with independent bookstores to showcase diverse voices and fresh perspectives that will captivate our youngest visitors. We’re excited to launch a fantastic four-month partnership with Café con Libros, a vibrant, community-centered bookstore and café in Brooklyn’s BedStuy, where ev",
+      "date": "2027-02-14",
+      "endDate": "2027-02-14",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us free",
+      "country": "United States",
+      "url": "https://whitney.org/events/storytime-nov2026",
+      "source": "Whitney",
+      "free": true
+    },
+    {
       "title": "Playing with Fire: An Immersive Odyssey with Yuja Wang",
       "description": "Listed showtime(s): Multiple times. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2027-02-16",
@@ -3082,6 +3208,20 @@
       "free": false
     },
     {
+      "title": "Open Studio for Teens 2026",
+      "description": "November 6 December 4 February 5 March 5 April 2 May 7 June 4 Teens are welcome to join Open Studio for Teens, a free artmaking program on select Fridays. Together with contemporary artists and educators, teens can delve into innovative techniques through hands-on projects that draw inspiration from the themes and artists featured in the Whitney’s collection",
+      "date": "2027-03-05",
+      "endDate": "2027-03-05",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us free",
+      "country": "United States",
+      "url": "https://whitney.org/events/open-studio-teens-2027",
+      "source": "Whitney",
+      "free": true
+    },
+    {
       "title": "DIRT",
       "description": "Listed showtime(s): 2:00 pm, 7:00 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2027-03-06",
@@ -3278,6 +3418,20 @@
       "free": false
     },
     {
+      "title": "Open Studio for Teens 2026",
+      "description": "November 6 December 4 February 5 March 5 April 2 May 7 June 4 Teens are welcome to join Open Studio for Teens, a free artmaking program on select Fridays. Together with contemporary artists and educators, teens can delve into innovative techniques through hands-on projects that draw inspiration from the themes and artists featured in the Whitney’s collection",
+      "date": "2027-04-02",
+      "endDate": "2027-04-02",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us free",
+      "country": "United States",
+      "url": "https://whitney.org/events/open-studio-teens-2027",
+      "source": "Whitney",
+      "free": true
+    },
+    {
       "title": "Principal Strings",
       "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2027-04-08",
@@ -3432,6 +3586,20 @@
       "free": false
     },
     {
+      "title": "Open Studio for Teens 2026",
+      "description": "November 6 December 4 February 5 March 5 April 2 May 7 June 4 Teens are welcome to join Open Studio for Teens, a free artmaking program on select Fridays. Together with contemporary artists and educators, teens can delve into innovative techniques through hands-on projects that draw inspiration from the themes and artists featured in the Whitney’s collection",
+      "date": "2027-05-07",
+      "endDate": "2027-05-07",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us free",
+      "country": "United States",
+      "url": "https://whitney.org/events/open-studio-teens-2027",
+      "source": "Whitney",
+      "free": true
+    },
+    {
       "title": "Santiago & La Orquesta",
       "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2027-05-07",
@@ -3514,6 +3682,20 @@
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/brooklyn-basement-party-46",
       "source": "Lincoln Center Presents",
       "free": false
+    },
+    {
+      "title": "Open Studio for Teens 2026",
+      "description": "November 6 December 4 February 5 March 5 April 2 May 7 June 4 Teens are welcome to join Open Studio for Teens, a free artmaking program on select Fridays. Together with contemporary artists and educators, teens can delve into innovative techniques through hands-on projects that draw inspiration from the themes and artists featured in the Whitney’s collection",
+      "date": "2027-06-04",
+      "endDate": "2027-06-04",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us free",
+      "country": "United States",
+      "url": "https://whitney.org/events/open-studio-teens-2027",
+      "source": "Whitney",
+      "free": true
     },
     {
       "title": "madder and madder and hotter and hotter",
