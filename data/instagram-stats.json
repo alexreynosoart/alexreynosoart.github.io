@@ -1,21 +1,21 @@
 {
   "platform": "instagram",
-  "followers": 139234,
+  "followers": 140317,
   "posts": null,
-  "updatedAt": "2026-11-05T06:57:19+00:00",
+  "updatedAt": "2026-11-05T20:02:47+00:00",
   "tiktok": {
     "count": 36709,
-    "detail": 1775991,
-    "updatedAt": "2026-11-05T06:57:19+00:00"
+    "detail": 1776032,
+    "updatedAt": "2026-11-05T20:02:47+00:00"
   },
   "facebook": {
-    "count": 5336,
+    "count": 5338,
     "detail": null,
-    "updatedAt": "2026-11-05T06:57:19+00:00"
+    "updatedAt": "2026-11-05T20:02:47+00:00"
   },
   "youtube": {
     "count": 1410,
     "detail": 245,
-    "updatedAt": "2026-11-05T06:57:19+00:00"
+    "updatedAt": "2026-11-05T20:02:47+00:00"
   }
 }
