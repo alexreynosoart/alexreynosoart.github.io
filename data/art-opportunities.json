@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-11-04T19:54:28.078859+00:00",
+  "updatedAt": "2026-11-05T20:06:44.677565+00:00",
   "sources": {
-    "On the Move": 86,
+    "On the Move": 88,
     "Existing Everything Art listing": 12
   },
   "opportunities": [
@@ -409,6 +409,19 @@
       "status": "Existing listing; verify with organizer"
     },
     {
+      "title": "Festival Opera Prima 2027 Experimental Theatre and Performing Arts Projects (Italy)",
+      "organization": "On the Move",
+      "description": "Presenting work. Application deadline: 2026-11-21. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/festival-opera-prima-2027-experimental-theatre-and-performing-arts-projects-italy",
+      "deadline": "2026-11-21",
+      "discipline": "interdisciplinary",
+      "type": "open-call exhibition",
+      "features": "",
+      "country": "Italy",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Busan Metropolitan City: Land and Ecological Art (South Korea)",
       "organization": "Busan Metropolitan City",
       "description": "Presenting work. Application deadline: 2026-11-22. Confirm eligibility, fees and details with the organizer.",
@@ -522,6 +535,19 @@
       "type": "residency",
       "features": "",
       "country": "United States",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Blois Danse: International Choreographic Festival 2027 (France)",
+      "organization": "Blois Danse",
+      "description": "Presenting work. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/blois-danse-international-choreographic-festival-2027-france",
+      "deadline": "2026-11-30",
+      "discipline": "dance",
+      "type": "open-call exhibition",
+      "features": "",
+      "country": "France",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
