@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-11-06T07:00:13.063245+00:00",
+  "updatedAt": "2026-11-06T19:33:18.331755+00:00",
   "sources": {
-    "On the Move": 86,
+    "On the Move": 87,
     "Existing Everything Art listing": 11
   },
   "opportunities": [
@@ -691,6 +691,19 @@
       "type": "training",
       "features": "",
       "country": "Latvia",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Frankfurt Moves! Residency 2027 for Emerging Performing Artists Trained in Africa, Asia, Latin America or the WANA Region (Germany)",
+      "organization": "On the Move",
+      "description": "Residencies. Application deadline: 2026-12-07. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/frankfurt-moves-residency-2027-emerging-performing-artists-trained-africa-asia-latin-america",
+      "deadline": "2026-12-07",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Germany",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
