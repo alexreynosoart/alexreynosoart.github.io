@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-07T06:07:17.114157+00:00",
+  "updatedAt": "2026-11-07T13:12:16.711127+00:00",
   "sources": {
     "NYC Parks": 23,
     "Whitney": 38,
@@ -9,7 +9,7 @@
     "Bronx Museum": 2,
     "Film at Lincoln Center": 8,
     "New York Live Arts": 9,
-    "Lincoln Center Presents": 166,
+    "Lincoln Center Presents": 165,
     "Wave Hill": 5,
     "Staten Island Museum": 3,
     "Smithsonian Associates": 2
@@ -41,20 +41,6 @@
       "country": "United States",
       "url": "http://www.nycgovparks.org/events/2026/11/07/autumn-eco-crafts-and-exploration",
       "source": "NYC Parks",
-      "free": false
-    },
-    {
-      "title": "De Papel",
-      "description": "Listed showtime(s): 11:00 am, 2:00 pm. Check the official Lincoln Center event page for current details and tickets.",
-      "date": "2026-11-07",
-      "endDate": "2026-11-07",
-      "venue": "Lincoln Center Presents",
-      "location": "Manhattan, NY",
-      "type": "performance",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/de-papel-848",
-      "source": "Lincoln Center Presents",
       "free": false
     },
     {
