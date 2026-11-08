@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-11-08T06:10:56.306299+00:00",
+  "updatedAt": "2026-11-08T13:33:27.335462+00:00",
   "sources": {
-    "NYC Parks": 12,
+    "NYC Parks": 22,
     "Whitney": 36,
     "MoMA": 0,
     "Guggenheim": 0,
@@ -100,6 +100,20 @@
       "free": false
     },
     {
+      "title": "Docent led tours of the Historic Conference House Museum",
+      "description": "Take a docent led tour of the Conference House Museum also known as the Billiopp House located on Staten Island, New York and overlooking the Raritan Bay. This two-story grand fieldstone house was built by powerful landowner Royal Navy Captain Christopher Billopp About 1680. He wanted a home that would be an expression of his massive wealth, as well as a sym",
+      "date": "2026-11-08",
+      "endDate": "2026-11-08",
+      "venue": "Conference House Park",
+      "location": "Conference House Museum (in Conference House Park)",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/08/docent-led-tours-of-the-historic-conference-house-museum",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
       "title": "Everytime",
       "description": "Upcoming screening dates: Nov 08, Nov 09, Nov 10, Nov 11, Nov 12. See official film page for verified showtimes and tickets.",
       "date": "2026-11-08",
@@ -111,6 +125,20 @@
       "country": "United States",
       "url": "https://www.filmlinc.org/films/everytime/",
       "source": "Film at Lincoln Center",
+      "free": false
+    },
+    {
+      "title": "Family Art Project: Raptors in Autumn Sky",
+      "description": "Keep your eyes on the sky as you look for migrating hawks soaring and circling above the Hudson River. Be inspired by our feathery friends as you fashion a raptor glider for the autumn breezes. Registration not required. Wave Hill House is wheelchair-accessible. There is an accessible, ground-level entrance at the front of the building with a power-assist do",
+      "date": "2026-11-08",
+      "endDate": "2026-11-08",
+      "venue": "Wave Hill",
+      "location": "Wave Hill",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/08/family-art-project-raptors-in-autumn-sky",
+      "source": "NYC Parks",
       "free": false
     },
     {
@@ -212,6 +240,20 @@
       "free": false
     },
     {
+      "title": "Old Stone House: Open Hours",
+      "description": "Come visit the Old Stone House during our public Open Hours! Suggested donation for entry is $3, but no one is turned away for lack of funds. No reservation is necessary for entry.Please note that while our typical hours are Friday-Sunday, 12-4 PM, we host private or ticketed events that may limit public access to the exhibitions. The times listed here are t",
+      "date": "2026-11-08",
+      "endDate": "2026-11-08",
+      "venue": "Washington Park",
+      "location": "Old Stone House (in Washington Park)",
+      "type": "exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/08/old-stone-house-open-hours",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
       "title": "Once Upon a Time in Harlem",
       "description": "Upcoming screening dates: Nov 08, Nov 09, Nov 10, Nov 11, Nov 12. See official film page for verified showtimes and tickets.",
       "date": "2026-11-08",
@@ -223,6 +265,20 @@
       "country": "United States",
       "url": "https://www.filmlinc.org/films/once-upon-a-time-in-harlem/",
       "source": "Film at Lincoln Center",
+      "free": false
+    },
+    {
+      "title": "Ongoing Outdoor Museum Exhibit: Alice's Terracotta Garden",
+      "description": "Terra cotta sculpture garden featuring antique architectural ornaments from Tottenville's Atlantic Terra Cotta Company (west side lawn of Biddle House).NYC Parks and the Tottenville Historical Society invite you to visit a unique collection of terracotta artifacts that chronicle turn-of-the-twentieth-century architectural styles common in New York City and a",
+      "date": "2026-11-08",
+      "endDate": "2026-11-08",
+      "venue": "Conference House Park",
+      "location": "H.H. Biddle House (in Conference House Park)",
+      "type": "exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/08/ongoing-outdoor-museum-exhibit-alices-terracotta-garden",
+      "source": "NYC Parks",
       "free": false
     },
     {
@@ -408,6 +464,20 @@
       "free": false
     },
     {
+      "title": "Ongoing Museum Exhibit: Voices of 1776",
+      "description": "The Conference House Association and NYC Parks invite you to explore this America 250 Exhibit!Stop by the Lenape Gallery in the Conference House Park Visitor Center and explore “Voices of 1776: The People and Events Surrounding the Historic Staten Island Peace Conference of the American Revolution”.",
+      "date": "2026-11-09",
+      "endDate": "2026-11-09",
+      "venue": "Conference House Park",
+      "location": "Conference House Museum (in Conference House Park)",
+      "type": "exhibition",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/09/ongoing-museum-exhibit-voices-of-1776",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
       "title": "Nemanja Radulović & Double Sens",
       "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
       "date": "2026-11-10",
@@ -479,16 +549,16 @@
     },
     {
       "title": "Public Gallery Tour",
-      "description": "",
+      "description": "Solo and group exhibitions at Glyndor Gallery explore the dynamic relationships between nature, culture, and site. When exhibitions are on view in the spring, summer, and fall, Gallery Greeters lead public exhibition tours on Thursdays and Saturdays at 2PM, certain dates excluded. Visitors can expect an in-depth look at artworks on view in Glyndor Gallery an",
       "date": "2026-11-12",
       "endDate": "2026-11-12",
       "venue": "Wave Hill",
-      "location": "Bronx, NY",
-      "type": "tour",
+      "location": "Wave Hill",
+      "type": "tour exhibition",
       "features": "nyc us",
       "country": "United States",
-      "url": "https://www.wavehill.org/calendar/public-gallery-tour-spring-2026-2",
-      "source": "Wave Hill",
+      "url": "http://www.nycgovparks.org/events/2026/11/12/public-gallery-tour",
+      "source": "NYC Parks",
       "free": false
     },
     {
@@ -560,6 +630,20 @@
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/luisito-gandoacutemez-andamp-calle-107-271",
       "source": "Lincoln Center Presents",
       "free": false
+    },
+    {
+      "title": "Proximity Exhibition",
+      "description": "Featuring work by: Erin Butler, Linda Butti, Mary Campbell, Lisa Dahl, Griselda Healy, Craig Manister, Ann Marie McDonnell, Mike Shane, Gayle Tanaka, Martha Trivizas. Celebrating Snug Harbor’s longstanding studio program, where artists in residence create new work within its historic buildings, PROXIMITY explores the studio as a generative space: artists wor",
+      "date": "2026-11-13",
+      "endDate": "2026-11-13",
+      "venue": "Snug Harbor Cultural Center",
+      "location": "Newhouse Center for Contemporary Art (Building C) (in Snug Harbor Cultural Center)",
+      "type": "exhibition",
+      "features": "nyc us free",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/13/proximity-exhibition",
+      "source": "NYC Parks",
+      "free": true
     },
     {
       "title": "Family Art Project: Tiny Terrariums",
@@ -898,6 +982,34 @@
       "free": false
     },
     {
+      "title": "Artful Gatherings",
+      "description": "Join us at J. Hood Wright Recreation center to celebrate Thanksgiving with a fun and festive paint event! Guests will choose from a selection of preprinted Thanksgiving-themed canvases and bring them to life with their own colors and creativity. No painting experience is needed—just come ready to relax, have fun, and enjoy a creative holiday activity with fa",
+      "date": "2026-11-21",
+      "endDate": "2026-11-21",
+      "venue": "J. Hood Wright Park",
+      "location": "J. Hood Wright Recreation Center (in J. Hood Wright Park)",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/21/artful-gatherings",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
+      "title": "Family Art Project: Papery Partners",
+      "description": "Have you ever heard the saying \"scratch my back and I'll scratch yours\"? That’s symbiosis! Layer paper shapes to create colorful scenes showing your favorite plant or animal symbiotic relationships. Registration not required. Wave Hill House is wheelchair-accessible. There is an accessible, ground-level entrance at the front of the building with a power-assi",
+      "date": "2026-11-21",
+      "endDate": "2026-11-21",
+      "venue": "Wave Hill",
+      "location": "Wave Hill",
+      "type": "family workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/21/family-art-project-papery-partners",
+      "source": "NYC Parks",
+      "free": false
+    },
+    {
       "title": "Family History Month Workshop 2: Transcribe-a-thon",
       "description": "",
       "date": "2026-11-21",
@@ -923,6 +1035,20 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/ju-percussion-612",
       "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "Maya Ciarrocchi: LoopCurrent",
+      "description": "Maya Ciarrocchi presents LoopCurrent, a multimedia dance performance that brings together textiles, movement, sound, and seismology to envision a speculative, post-human world. Through performance work, the artist envisions the ways in which climate disaster might shape our world, presenting her research as a performative transmission from this imagined futu",
+      "date": "2026-11-21",
+      "endDate": "2026-11-21",
+      "venue": "Wave Hill",
+      "location": "Wave Hill",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "http://www.nycgovparks.org/events/2026/11/21/maya-ciarrocchi-loopcurrent",
+      "source": "NYC Parks",
       "free": false
     },
     {
