@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-11-09T06:53:10.605939+00:00",
+  "updatedAt": "2026-11-09T22:31:25.211721+00:00",
   "sources": {
-    "On the Move": 89,
+    "On the Move": 93,
     "Existing Everything Art listing": 11
   },
   "opportunities": [
@@ -656,6 +656,32 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "DeVos Institute: Global Executive Arts Management Fellowship 2027–2029 (USA)",
+      "organization": "DeVos Institute",
+      "description": "Training. Application deadline: 2026-12-03. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/devos-institute-global-executive-arts-management-fellowship-2027-2029-usa",
+      "deadline": "2026-12-03",
+      "discipline": "interdisciplinary",
+      "type": "training fellowship",
+      "features": "",
+      "country": "United States",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "African–European Museum Partnership: Funding for Exhibitions and Public Engagement Initiatives",
+      "organization": "African–European Museum Partnership",
+      "description": "Project funding. Application deadline: 2026-12-04. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/african-european-museum-partnership-funding-exhibitions-and-public-engagement-initiatives",
+      "deadline": "2026-12-04",
+      "discipline": "interdisciplinary",
+      "type": "grant exhibition",
+      "features": "",
+      "country": "United States",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "European Hybrid Intelligence Network: Dirtly Lab Residencies 2027 (Belgium, Croatia, Germany, Serbia, Slovenia, Spain)",
       "organization": "European Hybrid Intelligence Network",
       "description": "Residencies. Application deadline: 2026-12-04. Confirm eligibility, fees and details with the organizer.",
@@ -812,6 +838,19 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Associazione Manifestazioni Ascona: Festival Artisti di Strada Ascona 2027 for Street Artists (Switzerland)",
+      "organization": "Associazione Manifestazioni Ascona",
+      "description": "Presenting work. Application deadline: 2026-12-15. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/associazione-manifestazioni-ascona-festival-artisti-di-strada-ascona-2027-street-artists",
+      "deadline": "2026-12-15",
+      "discipline": "interdisciplinary",
+      "type": "open-call exhibition",
+      "features": "",
+      "country": "Switzerland",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Ortaklaşa: EU-Türkiye Cultural Partnership Programme",
       "organization": "Ortaklaşa",
       "description": "Project funding. Application deadline: 2026-12-18. Confirm eligibility, fees and details with the organizer.",
@@ -860,6 +899,19 @@
       "type": "residency",
       "features": "",
       "country": "Slovenia",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Sado Island Galaxy Art Festival 2027 (Japan)",
+      "organization": "On the Move",
+      "description": "Presenting work. Application deadline: 2026-12-22. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/sado-island-galaxy-art-festival-2027-japan",
+      "deadline": "2026-12-22",
+      "discipline": "interdisciplinary",
+      "type": "open-call exhibition",
+      "features": "",
+      "country": "Japan",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
