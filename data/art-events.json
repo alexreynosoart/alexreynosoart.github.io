@@ -1,15 +1,15 @@
 {
-  "updatedAt": "2026-11-09T06:45:16.714176+00:00",
+  "updatedAt": "2026-11-11T06:33:33.031757+00:00",
   "sources": {
-    "NYC Parks": 16,
+    "NYC Parks": 12,
     "Whitney": 30,
     "MoMA": 0,
     "Guggenheim": 0,
     "NYPL": 7,
     "Bronx Museum": 2,
-    "Film at Lincoln Center": 8,
+    "Film at Lincoln Center": 9,
     "New York Live Arts": 9,
-    "Lincoln Center Presents": 162,
+    "Lincoln Center Presents": 161,
     "Wave Hill": 4,
     "Staten Island Museum": 3,
     "Smithsonian Associates": 1
@@ -30,23 +30,9 @@
       "free": false
     },
     {
-      "title": "Arts, Culture & Fun: BE BOLD - Ballet Programming",
-      "description": "NYC Parks, in partnership with the Misty Copeland Foundation, invites childrenages 6 – 14 years to enroll in the BE BOLD afterschool dance program, a funintroductory ballet class with live music. The BE BOLD program is FREE andoffers a new approach to afterschool dance education for young children that makes ballet accessible, affordable, and fun. *Membershi",
-      "date": "2026-11-09",
-      "endDate": "2026-11-09",
-      "venue": "Williamsbridge Oval",
-      "location": "Multi-Use Room (in Williamsbridge Oval)",
-      "type": "family workshop",
-      "features": "nyc us free",
-      "country": "United States",
-      "url": "http://www.nycgovparks.org/events/2026/11/09/arts-culture-fun-be-bold-ballet-programming",
-      "source": "NYC Parks",
-      "free": true
-    },
-    {
       "title": "Declaring America: 1776 and Beyond",
       "description": "On view through January 10, 2027. NYPL honors the 250th anniversary of the signing of the Declaration of Independence and the founding of the country.",
-      "date": "2026-11-09",
+      "date": "2026-11-11",
       "endDate": "2027-01-10",
       "venue": "New York Public Library",
       "location": "New York, NY",
@@ -59,8 +45,8 @@
     },
     {
       "title": "Everytime",
-      "description": "Upcoming screening dates: Nov 09, Nov 10, Nov 11, Nov 12. See official film page for verified showtimes and tickets.",
-      "date": "2026-11-09",
+      "description": "Upcoming screening dates: Nov 11, Nov 12. See official film page for verified showtimes and tickets.",
+      "date": "2026-11-11",
       "endDate": "2026-11-12",
       "venue": "Film at Lincoln Center",
       "location": "Manhattan, NY",
@@ -73,9 +59,9 @@
     },
     {
       "title": "Fatherland",
-      "description": "Upcoming screening dates: Nov 09, Nov 10, Nov 11, Nov 12. See official film page for verified showtimes and tickets.",
-      "date": "2026-11-09",
-      "endDate": "2026-11-12",
+      "description": "Upcoming screening dates: Nov 11, Nov 12, Nov 13, Nov 14, Nov 15, Nov 16. See official film page for verified showtimes and tickets.",
+      "date": "2026-11-11",
+      "endDate": "2026-11-16",
       "venue": "Film at Lincoln Center",
       "location": "Manhattan, NY",
       "type": "film",
@@ -88,7 +74,7 @@
     {
       "title": "Forging Ahead: Recent Acquisitions of Black Women Artists",
       "description": "On view through March 27, 2027. 21 artists explore iconography of the Black woman's body, storytelling, futurism, spirituality, and the mapping of Black history.",
-      "date": "2026-11-09",
+      "date": "2026-11-11",
       "endDate": "2027-03-27",
       "venue": "New York Public Library",
       "location": "New York, NY",
@@ -102,7 +88,7 @@
     {
       "title": "Hank Willis Thomas at Ford Foundation Live Gallery",
       "description": "On view through Sep 16, 2026 – Jan 01, 2027. Confirm exact showtimes and tickets with the organizer.",
-      "date": "2026-11-09",
+      "date": "2026-11-11",
       "endDate": "2027-01-01",
       "venue": "New York Live Arts",
       "location": "Manhattan, NY",
@@ -116,7 +102,7 @@
     {
       "title": "Lifelong Studio Exhibition: Transcending the Form—Abstract Figurative Painting",
       "description": "On view October 09, 2026 through December 30, 2026. ",
-      "date": "2026-11-09",
+      "date": "2026-11-11",
       "endDate": "2026-12-30",
       "venue": "The Bronx Museum",
       "location": "Bronx, NY",
@@ -130,7 +116,7 @@
     {
       "title": "Martha Graham: The Mother of Psychological Dance",
       "description": "On view through January 02, 2027. Current exhibition at The New York Public Library.",
-      "date": "2026-11-09",
+      "date": "2026-11-11",
       "endDate": "2027-01-02",
       "venue": "New York Public Library",
       "location": "New York, NY",
@@ -143,9 +129,9 @@
     },
     {
       "title": "Once Upon a Time in Harlem",
-      "description": "Upcoming screening dates: Nov 09, Nov 10, Nov 11, Nov 12. See official film page for verified showtimes and tickets.",
-      "date": "2026-11-09",
-      "endDate": "2026-11-12",
+      "description": "Upcoming screening dates: Nov 11, Nov 12, Nov 13, Nov 14, Nov 15, Nov 16. See official film page for verified showtimes and tickets.",
+      "date": "2026-11-11",
+      "endDate": "2026-11-16",
       "venue": "Film at Lincoln Center",
       "location": "Manhattan, NY",
       "type": "film",
@@ -156,23 +142,9 @@
       "free": false
     },
     {
-      "title": "Ongoing Museum Exhibit: Voices of 1776",
-      "description": "The Conference House Association and NYC Parks invite you to explore this America 250 Exhibit!Stop by the Lenape Gallery in the Conference House Park Visitor Center and explore “Voices of 1776: The People and Events Surrounding the Historic Staten Island Peace Conference of the American Revolution”.",
-      "date": "2026-11-09",
-      "endDate": "2026-11-09",
-      "venue": "Conference House Park",
-      "location": "Conference House Museum (in Conference House Park)",
-      "type": "exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "http://www.nycgovparks.org/events/2026/11/09/ongoing-museum-exhibit-voices-of-1776",
-      "source": "NYC Parks",
-      "free": false
-    },
-    {
       "title": "Possible Love",
-      "description": "Upcoming screening dates: Nov 09, Nov 10, Nov 11, Nov 12. See official film page for verified showtimes and tickets.",
-      "date": "2026-11-09",
+      "description": "Upcoming screening dates: Nov 11, Nov 12. See official film page for verified showtimes and tickets.",
+      "date": "2026-11-11",
       "endDate": "2026-11-12",
       "venue": "Film at Lincoln Center",
       "location": "Manhattan, NY",
@@ -186,7 +158,7 @@
     {
       "title": "Sacred Winds: The Breath of the Revolution",
       "description": "On view through May 01, 2027. Visual arts students in the Schomburg Center’s Junior Scholars Program reimagine the folding fan as more than an accessory and position it as a powerful symbol within Black diasporic tradition. Through archival materials, paintings, and photography, Sacred Winds explores how fans function as tools of expression, ritual, and resi",
-      "date": "2026-11-09",
+      "date": "2026-11-11",
       "endDate": "2027-05-01",
       "venue": "New York Public Library",
       "location": "New York, NY",
@@ -200,7 +172,7 @@
     {
       "title": "Saya Woolfalk: The WoodsWoman Method",
       "description": "On view October 09, 2026 through March 28, 2027. ",
-      "date": "2026-11-09",
+      "date": "2026-11-11",
       "endDate": "2027-03-28",
       "venue": "The Bronx Museum",
       "location": "Bronx, NY",
@@ -214,7 +186,7 @@
     {
       "title": "Silly Old Bear! Winnie-the-Pooh at 100",
       "description": "On view through November 30, 2026. NYPL celebrates 100 years of Winnie-the-Pooh, drawing from its renowned holdings of children’s literature.",
-      "date": "2026-11-09",
+      "date": "2026-11-11",
       "endDate": "2026-11-30",
       "venue": "New York Public Library",
       "location": "New York, NY",
@@ -227,8 +199,8 @@
     },
     {
       "title": "The Devils",
-      "description": "Upcoming screening dates: Nov 09, Nov 10, Nov 11, Nov 12. See official film page for verified showtimes and tickets.",
-      "date": "2026-11-09",
+      "description": "Upcoming screening dates: Nov 11, Nov 12. See official film page for verified showtimes and tickets.",
+      "date": "2026-11-11",
       "endDate": "2026-11-12",
       "venue": "Film at Lincoln Center",
       "location": "Manhattan, NY",
@@ -242,7 +214,7 @@
     {
       "title": "To Uncover and Reveal to the World: Arturo Schomburg’s Library",
       "description": "On view through December 05, 2026. Before the Schomburg Center for Research in Black Culture, there was the library of Arturo “Arthur” Schomburg: race man, bookworm, and scholar of the African diaspora.",
-      "date": "2026-11-09",
+      "date": "2026-11-11",
       "endDate": "2026-12-05",
       "venue": "New York Public Library",
       "location": "New York, NY",
@@ -256,7 +228,7 @@
     {
       "title": "Unleashed: Pets of the Performing Arts",
       "description": "On view through May 08, 2027. Current exhibition at The New York Public Library.",
-      "date": "2026-11-09",
+      "date": "2026-11-11",
       "endDate": "2027-05-08",
       "venue": "New York Public Library",
       "location": "New York, NY",
@@ -265,48 +237,6 @@
       "country": "United States",
       "url": "https://www.nypl.org/events/exhibitions/unleashed-pets-performing-arts",
       "source": "NYPL",
-      "free": false
-    },
-    {
-      "title": "Nemanja Radulović & Double Sens",
-      "description": "Listed showtime(s): 7:30 pm. Check the official Lincoln Center event page for current details and tickets.",
-      "date": "2026-11-10",
-      "endDate": "2026-11-10",
-      "venue": "Lincoln Center Presents",
-      "location": "Manhattan, NY",
-      "type": "performance",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://www.lincolncenter.org/series/lincoln-center-presents/nemanja-radulovic-andamp-double-sens-66",
-      "source": "Lincoln Center Presents",
-      "free": false
-    },
-    {
-      "title": "Ongoing Museum Exhibit: New York's Brick & Terra Cotta Industries",
-      "description": "NYC Parks and the Tottenville Historical Society invite you to visit a unique collection of terracotta artifacts and masonry bricks that chronicle turn-of-the-twentieth-century architectural styles common in New York City and across the United States, and to learn about the area's rich terracotta and brick making tradition, including the famed former Atlanti",
-      "date": "2026-11-10",
-      "endDate": "2026-11-10",
-      "venue": "Conference House Park",
-      "location": "H.H. Biddle House (in Conference House Park)",
-      "type": "exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "http://www.nycgovparks.org/events/2026/11/10/ongoing-museum-exhibit-new-yorks-brick-terra-cotta-industries",
-      "source": "NYC Parks",
-      "free": false
-    },
-    {
-      "title": "Ongoing Museum Exhibit: Still Waters: Reflections of a Maritime Community",
-      "description": "NYC Parks and the Tottenville Historical Society invite you to an exhibit celebrating the South Shore of Staten Island's maritime history and heritage, featuring the A.C. Brown & Sons Shipyard of Tottenville and spotlighting our recreational waterfront and more. Note location: Rutan-Becket House, 6 Shore Rd. Open by chance or by appointment.",
-      "date": "2026-11-10",
-      "endDate": "2026-11-10",
-      "venue": "Conference House Park",
-      "location": "Rutan-Becket House (in Conference House Park)",
-      "type": "exhibition",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "http://www.nycgovparks.org/events/2026/11/10/ongoing-museum-exhibit-still-waters-reflections-of-a-maritime-community",
-      "source": "NYC Parks",
       "free": false
     },
     {
@@ -1077,6 +1007,20 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/the-high-low-a-night-of-blues-on-broadway-40",
       "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "Film Comment Live: Across the Movi-verse with J. Hoberman",
+      "description": "Upcoming screening dates: Dec 08. See official film page for verified showtimes and tickets.",
+      "date": "2026-12-08",
+      "endDate": "2026-12-08",
+      "venue": "Film at Lincoln Center",
+      "location": "Manhattan, NY",
+      "type": "film",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.filmlinc.org/films/across-movi-verse-j-hoberman/",
+      "source": "Film at Lincoln Center",
       "free": false
     },
     {
