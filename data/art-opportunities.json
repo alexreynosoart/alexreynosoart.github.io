@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-11-11T06:46:43.827252+00:00",
+  "updatedAt": "2026-11-11T19:43:52.470740+00:00",
   "sources": {
-    "On the Move": 90,
+    "On the Move": 93,
     "Existing Everything Art listing": 11
   },
   "opportunities": [
@@ -212,6 +212,19 @@
       "country": "",
       "source": "Existing Everything Art listing",
       "status": "Existing listing; verify with organizer"
+    },
+    {
+      "title": "Royal Drawing School: Don Bachardy Fellowship 2027 (UK)",
+      "organization": "Royal Drawing School",
+      "description": "Fellowships. Application deadline: 2026-11-19. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/royal-drawing-school-don-bachardy-fellowship-2027-uk",
+      "deadline": "2026-11-19",
+      "discipline": "interdisciplinary",
+      "type": "fellowship",
+      "features": "",
+      "country": "United Kingdom",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
     },
     {
       "title": "Festival Opera Prima 2027 Experimental Theatre and Performing Arts Projects (Italy)",
@@ -652,6 +665,32 @@
       "type": "training",
       "features": "",
       "country": "Latvia",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "WONDER: Women in Resistance Movements Research Residencies and Exhibition 2027 (Austria, Germany, Italy, Netherlands, Poland)",
+      "organization": "WONDER",
+      "description": "Residencies. Application deadline: 2026-12-06. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/wonder-women-resistance-movements-research-residencies-and-exhibition-2027-austria-germany",
+      "deadline": "2026-12-06",
+      "discipline": "interdisciplinary",
+      "type": "residency exhibition",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "ARCHAIVE: Residency on AI and Cultural Memory 2027 (Germany, Italy, Netherlands, Portugal, Spain, Remote)",
+      "organization": "ARCHAIVE",
+      "description": "Residencies. Application deadline: 2026-12-07. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/archaive-residency-ai-and-cultural-memory-2027-germany-italy-netherlands-portugal-spain-remote",
+      "deadline": "2026-12-07",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
