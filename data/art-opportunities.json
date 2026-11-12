@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-11-12T07:25:49.631523+00:00",
+  "updatedAt": "2026-11-12T20:07:55.339033+00:00",
   "sources": {
     "Existing Everything Art listing": 11,
-    "On the Move": 91
+    "On the Move": 93
   },
   "opportunities": [
     {
@@ -461,6 +461,19 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "TURBA Festival: 2027 Call for South American Performing Artists (Argentina)",
+      "organization": "TURBA Festival",
+      "description": "Presenting work. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/turba-festival-2027-call-south-american-performing-artists-argentina",
+      "deadline": "2026-11-30",
+      "discipline": "interdisciplinary",
+      "type": "open-call exhibition",
+      "features": "",
+      "country": "Argentina",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Ubah Rumah Residency 2027/2028 for Southeast Asia-based Artists (Indonesia)",
       "organization": "On the Move",
       "description": "Residencies. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
@@ -587,6 +600,19 @@
       "type": "grant exhibition",
       "features": "",
       "country": "United States",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "ARTEMIS: 2027 Academy for Choir Singers from Ukraine, Lithuania, Latvia, Estonia, Poland (Latvia, Lithuania)",
+      "organization": "ARTEMIS",
+      "description": "Training. Application deadline: 2026-12-04. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/artemis-2027-academy-choir-singers-ukraine-lithuania-latvia-estonia-poland-latvia-lithuania",
+      "deadline": "2026-12-04",
+      "discipline": "interdisciplinary",
+      "type": "training",
+      "features": "",
+      "country": "",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
