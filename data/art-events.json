@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-12T07:20:51.622751+00:00",
+  "updatedAt": "2026-11-12T20:02:20.636334+00:00",
   "sources": {
     "NYC Parks": 21,
     "Whitney": 30,
@@ -209,20 +209,6 @@
       "country": "United States",
       "url": "http://www.nycgovparks.org/events/2026/11/12/ongoing-outdoor-museum-exhibit-alices-terracotta-garden",
       "source": "NYC Parks",
-      "free": false
-    },
-    {
-      "title": "Possible Love",
-      "description": "Upcoming screening dates: Nov 12. See official film page for verified showtimes and tickets.",
-      "date": "2026-11-12",
-      "endDate": "2026-11-12",
-      "venue": "Film at Lincoln Center",
-      "location": "Manhattan, NY",
-      "type": "film",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://www.filmlinc.org/films/possible-love/",
-      "source": "Film at Lincoln Center",
       "free": false
     },
     {
@@ -1010,6 +996,20 @@
       "free": false
     },
     {
+      "title": "Whitney Holiday Party",
+      "description": "Enjoy an after-hours holiday celebration at the Whitney! Whitney Members are invited to this special edition of Member Night to experience our full exhibition lineup—including Roy Lichtenstein: Like New and the newly opened artport: A History of Internet Art —with artmaking, music, and more. Exhibitions Enjoy after-hours access to the galleries and mini tour",
+      "date": "2026-12-03",
+      "endDate": "2026-12-03",
+      "venue": "Whitney Museum of American Art",
+      "location": "Manhattan, NY",
+      "type": "workshop",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://whitney.org/events/merry-member-night-dec3",
+      "source": "Whitney",
+      "free": false
+    },
+    {
       "title": "ZviDance Presents an Evening of Two Works",
       "description": "Performance dates: Dec 03, 2026 – Dec 05, 2026. Confirm exact showtimes and tickets with the organizer.",
       "date": "2026-12-03",
@@ -1021,20 +1021,6 @@
       "country": "United States",
       "url": "https://newyorklivearts.org/event/zvidance-presents-an-evening-of-two-works/",
       "source": "New York Live Arts",
-      "free": false
-    },
-    {
-      "title": "​Whitney Holiday Celebration",
-      "description": "Enjoy an after-hours holiday celebration at the Whitney! Whitney Members are invited to this special edition of Member Night to experience our full exhibition lineup—including Roy Lichtenstein: Like New and the newly opened artport: A History of Internet Art —with artmaking, music, and more. Exhibitions Enjoy after-hours access to the galleries and mini tour",
-      "date": "2026-12-03",
-      "endDate": "2026-12-03",
-      "venue": "Whitney Museum of American Art",
-      "location": "Manhattan, NY",
-      "type": "festival workshop",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://whitney.org/events/merry-member-night-dec3",
-      "source": "Whitney",
       "free": false
     },
     {
@@ -1329,6 +1315,20 @@
       "country": "United States",
       "url": "https://www.lincolncenter.org/series/lincoln-center-presents/cosmo-114",
       "source": "Lincoln Center Presents",
+      "free": false
+    },
+    {
+      "title": "La Gradiva",
+      "description": "Upcoming screening dates: Dec 17, Dec 18, Dec 19, Dec 20, Dec 21, Dec 22. See official film page for verified showtimes and tickets.",
+      "date": "2026-12-17",
+      "endDate": "2026-12-22",
+      "venue": "Film at Lincoln Center",
+      "location": "Manhattan, NY",
+      "type": "film",
+      "features": "nyc us",
+      "country": "United States",
+      "url": "https://www.filmlinc.org/films/la-gradiva/",
+      "source": "Film at Lincoln Center",
       "free": false
     },
     {
