@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-11-12T20:07:55.339033+00:00",
+  "updatedAt": "2026-11-13T19:53:07.808580+00:00",
   "sources": {
     "Existing Everything Art listing": 11,
-    "On the Move": 93
+    "On the Move": 97
   },
   "opportunities": [
     {
@@ -331,6 +331,32 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Grafenegg Festival: Ink Still Wet Composer Conductor Workshops 2027 (USA, Austria)",
+      "organization": "Grafenegg Festival",
+      "description": "Training. Application deadline: 2026-11-25. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/grafenegg-festival-ink-still-wet-composer-conductor-workshops-2027-usa-austria",
+      "deadline": "2026-11-25",
+      "discipline": "music",
+      "type": "training",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Theatertreffen: 2027 International Forum for Theatre Professionals (Germany)",
+      "organization": "Theatertreffen",
+      "description": "Meeting & networking. Application deadline: 2026-11-26. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/theatertreffen-2027-international-forum-theatre-professionals-germany",
+      "deadline": "2026-11-26",
+      "discipline": "interdisciplinary",
+      "type": "resource",
+      "features": "",
+      "country": "Germany",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Bernheim Arboretum and Research Forest: Artist in Residence Programme 2027 (USA)",
       "organization": "Bernheim Arboretum and Research Forest",
       "description": "Residencies. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
@@ -639,6 +665,19 @@
       "type": "residency",
       "features": "",
       "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "ZMINA: Resilience Co-creation Funding of International Cooperation Projects Call #2 Ukraine–Creative Europe Countries",
+      "organization": "ZMINA",
+      "description": "Project funding. Application deadline: 2026-12-04. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/zmina-resilience-co-creation-funding-international-cooperation-projects-call-2-ukraine",
+      "deadline": "2026-12-04",
+      "discipline": "interdisciplinary",
+      "type": "grant",
+      "features": "",
+      "country": "Ukraine",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
@@ -1245,6 +1284,19 @@
       "organization": "ZMINA",
       "description": "Project funding. Application deadline: 2027-10-14. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/zmina-rebuilding-international-showcasing-co-creation-projects-ukraine-creative-europe",
+      "deadline": "2027-10-14",
+      "discipline": "interdisciplinary",
+      "type": "grant",
+      "features": "",
+      "country": "Ukraine",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "ZMINA: Resilience International Showcasing of Co-creation Projects Ukraine–Creative Europe Countries",
+      "organization": "ZMINA",
+      "description": "Project funding. Application deadline: 2027-10-14. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/zmina-resilience-international-showcasing-co-creation-projects-ukraine-creative-europe",
       "deadline": "2027-10-14",
       "discipline": "interdisciplinary",
       "type": "grant",
