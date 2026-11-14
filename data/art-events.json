@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-14T06:34:30.707068+00:00",
+  "updatedAt": "2026-11-14T22:33:59.092783+00:00",
   "sources": {
     "NYC Parks": 21,
     "Whitney": 27,
@@ -11,7 +11,7 @@
     "New York Live Arts": 12,
     "Lincoln Center Presents": 157,
     "Wave Hill": 6,
-    "Staten Island Museum": 2,
+    "Staten Island Museum": 1,
     "Smithsonian Associates": 1
   },
   "events": [
@@ -321,20 +321,6 @@
       "country": "United States",
       "url": "https://www.nypl.org/events/exhibitions/silly-old-bear-winnie-pooh-100",
       "source": "NYPL",
-      "free": false
-    },
-    {
-      "title": "Stephanie Dinkins: Anchoring Home Public Exhibition Opening",
-      "description": "",
-      "date": "2026-11-14",
-      "endDate": "2026-11-14",
-      "venue": "Staten Island Museum",
-      "location": "Staten Island, NY",
-      "type": "opening",
-      "features": "nyc us",
-      "country": "United States",
-      "url": "https://www.statenislandmuseum.org/event/stephanie-dinkins-anchoring-home-public-exhibition-opening/",
-      "source": "Staten Island Museum",
       "free": false
     },
     {
