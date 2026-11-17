@@ -1,36 +1,10 @@
 {
-  "updatedAt": "2026-11-16T06:49:01.235707+00:00",
+  "updatedAt": "2026-11-17T08:08:46.939950+00:00",
   "sources": {
-    "On the Move": 89,
-    "Existing Everything Art listing": 10
+    "Existing Everything Art listing": 10,
+    "On the Move": 87
   },
   "opportunities": [
-    {
-      "title": "Montpellier 2028: Residency in Visual Arts and Music 2027 (France)",
-      "organization": "Montpellier 2028",
-      "description": "Residencies. Application deadline: 2026-11-16. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/index%2Ephp/news/montpellier-2028-residency-visual-arts-and-music-2027-france",
-      "deadline": "2026-11-16",
-      "discipline": "music",
-      "type": "residency",
-      "features": "",
-      "country": "",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
-      "title": "Montpellier 2028: Residency in Visual Arts and Music 2027 (France)",
-      "organization": "Montpellier 2028",
-      "description": "Residencies. Application deadline: 2026-11-16. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/montpellier-2028-residency-visual-arts-and-music-2027-france",
-      "deadline": "2026-11-16",
-      "discipline": "music",
-      "type": "residency",
-      "features": "",
-      "country": "",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
     {
       "title": "The Hopper Prize Fall 2026",
       "organization": "The Hopper Prize",
