@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-11-17T08:08:46.939950+00:00",
+  "updatedAt": "2026-11-17T21:05:39.945233+00:00",
   "sources": {
     "Existing Everything Art listing": 10,
-    "On the Move": 87
+    "On the Move": 88
   },
   "opportunities": [
     {
@@ -717,6 +717,19 @@
       "type": "open-call exhibition",
       "features": "",
       "country": "Switzerland",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Interwoven Residencies in Early European Textiles for Visual Artists 2027 (France, Ireland, UK)",
+      "organization": "On the Move",
+      "description": "Residencies. Application deadline: 2026-12-15. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/interwoven-residencies-early-european-textiles-visual-artists-2027-france-ireland-uk",
+      "deadline": "2026-12-15",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
