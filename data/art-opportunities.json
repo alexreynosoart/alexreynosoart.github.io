@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-11-18T07:42:55.876510+00:00",
+  "updatedAt": "2026-11-18T20:42:44.215200+00:00",
   "sources": {
-    "On the Move": 88,
+    "On the Move": 90,
     "Existing Everything Art listing": 9
   },
   "opportunities": [
@@ -314,6 +314,19 @@
       "type": "fellowship",
       "features": "",
       "country": "United Arab Emirates",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Stockholm Fringe Festival 2027 Outdoor Performances (Sweden)",
+      "organization": "On the Move",
+      "description": "Presenting work. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/stockholm-fringe-festival-2027-outdoor-performances-sweden",
+      "deadline": "2026-11-30",
+      "discipline": "interdisciplinary",
+      "type": "open-call exhibition",
+      "features": "",
+      "country": "Sweden",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
@@ -825,19 +838,6 @@
       "status": "Directory listing; verify with organizer"
     },
     {
-      "title": "2200: 2027 Residency for Emerging Artists (Switzerland)",
-      "organization": "2200",
-      "description": "Residencies. Application deadline: 2026-12-31. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/2200-2027-residency-emerging-artists-switzerland",
-      "deadline": "2026-12-31",
-      "discipline": "interdisciplinary",
-      "type": "residency",
-      "features": "",
-      "country": "Switzerland",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
       "title": "A4 Residency Art Center International Residency 2027 (China)",
       "organization": "On the Move",
       "description": "Residencies. Application deadline: 2026-12-31. Confirm eligibility, fees and details with the organizer.",
@@ -938,6 +938,19 @@
       "type": "residency",
       "features": "",
       "country": "Belgium",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Ligeti Center: Artists and Scientists in Residence 2027 ‘Where Sound Shapes Space’ (Germany)",
+      "organization": "Ligeti Center",
+      "description": "Residencies. Application deadline: 2027-01-10. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/ligeti-center-artists-and-scientists-residence-2027-where-sound-shapes-space-germany",
+      "deadline": "2027-01-10",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Germany",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
@@ -1120,6 +1133,19 @@
       "type": "open-call exhibition",
       "features": "",
       "country": "Greece",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "2200: 2027 Residency for Emerging Artists (Switzerland)",
+      "organization": "2200",
+      "description": "Residencies. Application deadline: 2027-05-31. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/2200-2027-residency-emerging-artists-switzerland",
+      "deadline": "2027-05-31",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Switzerland",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
