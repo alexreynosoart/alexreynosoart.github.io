@@ -1,23 +1,10 @@
 {
-  "updatedAt": "2026-11-17T21:05:39.945233+00:00",
+  "updatedAt": "2026-11-18T07:42:55.876510+00:00",
   "sources": {
-    "Existing Everything Art listing": 10,
-    "On the Move": 88
+    "On the Move": 88,
+    "Existing Everything Art listing": 9
   },
   "opportunities": [
-    {
-      "title": "The Hopper Prize Fall 2026",
-      "organization": "The Hopper Prize",
-      "description": "International artist grants with a streamlined application accepting image\n                or video work samples.",
-      "url": "https://www.nyfa.org/opportunities/opportunity-info/?id=baddbc21-b2db-4f59-95e7-a2f98d076091",
-      "deadline": "2026-11-17",
-      "discipline": "visual interdisciplinary",
-      "type": "grant",
-      "features": "worldwide funded",
-      "country": "",
-      "source": "Existing Everything Art listing",
-      "status": "Existing listing; verify with organizer"
-    },
     {
       "title": "Royal Drawing School: Don Bachardy Fellowship 2027 (UK)",
       "organization": "Royal Drawing School",
