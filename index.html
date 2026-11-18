@@ -39,6 +39,22 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
+        /* Temporary featured Everything Art event, placed before the home doors. */
+        .home-event-feature{width:min(1440px,calc(100% - 40px));margin:34px auto 40px;padding:clamp(20px,3vw,42px);border:1px solid #ad8b43;border-radius:28px;background:linear-gradient(125deg,#29231b,#191817 65%);color:#f7f3eb;box-sizing:border-box}
+        .home-event-eyebrow{color:#e8c47c;text-transform:uppercase;letter-spacing:.13em;font-size:.82rem;font-weight:800;margin:0 0 24px}
+        .home-event-layout{display:grid;grid-template-columns:minmax(200px,310px) minmax(0,1fr);gap:clamp(24px,3vw,48px);align-items:center}
+        .home-event-poster img{display:block;width:100%;height:auto;border:1px solid #a88443;border-radius:16px}
+        .home-event-copy h2{font-size:clamp(1.8rem,3.3vw,3.5rem);line-height:1.1;margin:0 0 14px;color:#fff}
+        .home-event-copy p{color:#d8cfc2;font-size:clamp(1rem,1.35vw,1.22rem);line-height:1.55;margin:0 0 20px}
+        .home-event-details{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0}
+        .home-event-details span{border:1px solid #685436;border-radius:999px;padding:9px 13px;color:#f0dfc1;font-size:.92rem}
+        .home-event-actions{display:flex;gap:12px;flex-wrap:wrap}
+        .home-event-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 20px;border-radius:12px;font-weight:800;text-decoration:none;text-align:center}
+        .home-event-primary{background:#e4ba67;color:#17120c!important}
+        .home-event-secondary{border:1px solid #c49d52;color:#f6dcaa!important}
+        .home-event-actions a:focus-visible{outline:3px solid #fff;outline-offset:3px}
+        @media(max-width:720px){.home-event-feature{width:calc(100% - 24px);margin:20px auto 30px;padding:18px;border-radius:20px}.home-event-layout{grid-template-columns:1fr}.home-event-poster{max-width:320px;margin:auto}.home-event-eyebrow{font-size:.72rem}.home-event-actions a{flex:1 1 190px}}
+
         /* Home background */
         body {
             position: relative;
@@ -299,6 +315,39 @@
             </div>
             <p class="hero-tagline">Art. Animation. Characters. Controlled chaos.</p>
         </section>
+
+
+        <!-- Featured through the end of Taste and Paint on November 22, 2026 at 1 AM New York time. -->
+        <section class="home-event-feature" id="homeTasteAndPaint" aria-labelledby="home-event-title">
+            <p class="home-event-eyebrow">★ Featured community event · Everything Art · This Saturday</p>
+            <div class="home-event-layout">
+                <a class="home-event-poster" href="basement-art-sessions.html" aria-label="Explore Taste and Paint at Basement Art Sessions">
+                    <img src="images/everything-art/basement-art-sessions-taste-and-paint-flyer.jpg" alt="Taste and Paint flyer for Basement Art Session 9 on November 21, 2026 in the Bronx" loading="eager">
+                </a>
+                <div class="home-event-copy">
+                    <h2 id="home-event-title">Taste and Paint | Basement Art Sessions</h2>
+                    <p>Organized by Marthalicia Matarrita · Orion’s BX, Bronx</p>
+                    <p>Art, food and music come together for Basement Art Session #9. Meet artists, explore the event and join the celebration.</p>
+                    <div class="home-event-details" aria-label="Event details">
+                        <span>Sat, Nov 21, 2026</span><span>8 PM–1 AM</span><span>Bronx, NYC</span><span>21+</span><span>Tickets from $25</span>
+                    </div>
+                    <div class="home-event-actions">
+                        <a class="home-event-primary" href="basement-art-sessions.html">EXPLORE BASEMENT ART SESSIONS →</a>
+                        <a class="home-event-secondary" href="https://www.eventbrite.com/e/taste-and-paint-tickets-2003302726382" target="_blank" rel="noopener noreferrer">OFFICIAL TICKETS ↗</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script>
+          (function(){
+            var feature=document.getElementById('homeTasteAndPaint');
+            if(!feature)return;
+            var ny=new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',hourCycle:'h23'});
+            var parts=Object.fromEntries(ny.formatToParts(new Date()).map(function(p){return [p.type,p.value]}));
+            var stamp=parts.year+'-'+parts.month+'-'+parts.day+'T'+parts.hour;
+            if(stamp>='2026-11-22T01')feature.remove();
+          })();
+        </script>
 
         <section class="home-doors" aria-label="Explore Alex Reynoso Art">
 
