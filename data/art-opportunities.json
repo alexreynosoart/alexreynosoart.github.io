@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-11-18T20:42:44.215200+00:00",
+  "updatedAt": "2026-11-19T07:39:05.409501+00:00",
   "sources": {
-    "On the Move": 90,
+    "On the Move": 92,
     "Existing Everything Art listing": 9
   },
   "opportunities": [
@@ -695,6 +695,19 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Royal Academy Schools: Postgraduate Programme 2027–2029 (UK)",
+      "organization": "Royal Academy Schools",
+      "description": "Training. Application deadline: 2026-12-14. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/royal-academy-schools-postgraduate-programme-2027-2029-uk",
+      "deadline": "2026-12-14",
+      "discipline": "interdisciplinary",
+      "type": "training",
+      "features": "",
+      "country": "United Kingdom",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Associazione Manifestazioni Ascona: Festival Artisti di Strada Ascona 2027 for Street Artists (Switzerland)",
       "organization": "Associazione Manifestazioni Ascona",
       "description": "Presenting work. Application deadline: 2026-12-15. Confirm eligibility, fees and details with the organizer.",
@@ -821,6 +834,19 @@
       "type": "open-call exhibition",
       "features": "",
       "country": "Japan",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "AIR InSILo: 2027 Residency ‘When the Hourless Seeps’ (Austria)",
+      "organization": "AIR InSILo",
+      "description": "Residencies. Application deadline: 2026-12-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/air-insilo-2027-residency-when-hourless-seeps-austria",
+      "deadline": "2026-12-30",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Austria",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
