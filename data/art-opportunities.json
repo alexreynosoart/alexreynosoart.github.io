@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-11-20T07:29:51.099752+00:00",
+  "updatedAt": "2026-11-20T20:32:27.620546+00:00",
   "sources": {
-    "On the Move": 91,
+    "On the Move": 95,
     "Existing Everything Art listing": 9
   },
   "opportunities": [
@@ -214,6 +214,32 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "CELA: Fwd Mobility Grant for Emerging Literary Artists and Event Organisers",
+      "organization": "CELA",
+      "description": "Presenting work. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/cela-fwd-mobility-grant-emerging-literary-artists-and-event-organisers",
+      "deadline": "2026-11-30",
+      "discipline": "writing",
+      "type": "open-call exhibition grant",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "IDENSITAT/Centro Huarte: Transversal Aesthetics 2027 Research and Production Residencies (Spain)",
+      "organization": "IDENSITAT/Centro Huarte",
+      "description": "Residencies. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/idensitatcentro-huarte-transversal-aesthetics-2027-research-and-production-residencies-spain",
+      "deadline": "2026-11-30",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Spain",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Les Rencontres d'Arles: Curatorial Research Fellowship 2027 (France)",
       "organization": "Les Rencontres d'Arles",
       "description": "Fellowships. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
@@ -262,6 +288,19 @@
       "type": "fellowship",
       "features": "",
       "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Saarland University: Post-Doctorate Fellowship on Reparation 2027/2028 (Germany)",
+      "organization": "Saarland University",
+      "description": "Fellowships. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/saarland-university-post-doctorate-fellowship-reparation-20272028-germany",
+      "deadline": "2026-11-30",
+      "discipline": "interdisciplinary",
+      "type": "fellowship",
+      "features": "",
+      "country": "Germany",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
@@ -353,6 +392,19 @@
       "type": "residency",
       "features": "",
       "country": "Indonesia",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "E.ON Stiftung: Mensch Maschine VISIT Residency Programme 2027 (Germany, Poland)",
+      "organization": "E.ON Stiftung",
+      "description": "Residencies. Application deadline: 2026-12-01. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/eon-stiftung-mensch-maschine-visit-residency-programme-2027-germany-poland",
+      "deadline": "2026-12-01",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
