@@ -1,88 +1,10 @@
 {
-  "updatedAt": "2026-11-22T07:06:52.611223+00:00",
+  "updatedAt": "2026-11-23T07:53:33.111710+00:00",
   "sources": {
-    "On the Move": 93,
+    "On the Move": 91,
     "Existing Everything Art listing": 9
   },
   "opportunities": [
-    {
-      "title": "Busan Metropolitan City: Land and Ecological Art (South Korea)",
-      "organization": "Busan Metropolitan City",
-      "description": "Presenting work. Application deadline: 2026-11-22. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/index%2Ephp/news/busan-metropolitan-city-land-and-ecological-art-south-korea",
-      "deadline": "2026-11-22",
-      "discipline": "interdisciplinary",
-      "type": "open-call exhibition",
-      "features": "",
-      "country": "",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
-      "title": "Busan Metropolitan City: Land and Ecological Art (South Korea)",
-      "organization": "Busan Metropolitan City",
-      "description": "Presenting work. Application deadline: 2026-11-22. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/busan-metropolitan-city-land-and-ecological-art-south-korea",
-      "deadline": "2026-11-22",
-      "discipline": "interdisciplinary",
-      "type": "open-call exhibition",
-      "features": "",
-      "country": "",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
-      "title": "François Schneider Foundation: Talents Contemporains Competition on ‘Water’ (France)",
-      "organization": "François Schneider Foundation",
-      "description": "Competitions & awards. Application deadline: 2026-11-22. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/index%2Ephp/news/francois-schneider-foundation-talents-contemporains-competition-water-france",
-      "deadline": "2026-11-22",
-      "discipline": "interdisciplinary",
-      "type": "competition",
-      "features": "",
-      "country": "France",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
-      "title": "François Schneider Foundation: Talents Contemporains Competition on ‘Water’ (France)",
-      "organization": "François Schneider Foundation",
-      "description": "Competitions & awards. Application deadline: 2026-11-22. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/francois-schneider-foundation-talents-contemporains-competition-water-france",
-      "deadline": "2026-11-22",
-      "discipline": "interdisciplinary",
-      "type": "competition",
-      "features": "",
-      "country": "France",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
-      "title": "TRACES: Residency at Laboratory for Energy Materials for Visual Artists 2027 (Switzerland)",
-      "organization": "TRACES",
-      "description": "Residencies. Application deadline: 2026-11-22. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/index%2Ephp/news/traces-residency-laboratory-energy-materials-visual-artists-2027-switzerland",
-      "deadline": "2026-11-22",
-      "discipline": "interdisciplinary",
-      "type": "residency",
-      "features": "",
-      "country": "Switzerland",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
-      "title": "TRACES: Residency at Laboratory for Energy Materials for Visual Artists 2027 (Switzerland)",
-      "organization": "TRACES",
-      "description": "Residencies. Application deadline: 2026-11-22. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/traces-residency-laboratory-energy-materials-visual-artists-2027-switzerland",
-      "deadline": "2026-11-22",
-      "discipline": "interdisciplinary",
-      "type": "residency",
-      "features": "",
-      "country": "Switzerland",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
     {
       "title": "MON-ART: Nicosia Monastery of Arts Residency 2027 in Art, Sustainability and Community (Cyprus)",
       "organization": "MON-ART",
@@ -565,6 +487,45 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Asymmetry: 2027 Curatorial Fellowship at the SculptureCenter (USA)",
+      "organization": "Asymmetry",
+      "description": "Fellowships. Application deadline: 2026-12-06. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/asymmetry-2027-curatorial-fellowship-sculpturecenter-usa",
+      "deadline": "2026-12-06",
+      "discipline": "interdisciplinary",
+      "type": "fellowship",
+      "features": "",
+      "country": "United States",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Expertise France: Fusion Residency II for Artists from Ghana, Togo and Côte d’Ivoire (Ghana)",
+      "organization": "Expertise France",
+      "description": "Residencies. Application deadline: 2026-12-06. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/expertise-france-fusion-residency-ii-artists-ghana-togo-and-cote-divoire-ghana",
+      "deadline": "2026-12-06",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Mophradat: New Agents Programme 2027 for Practitioners from the Arab World (Remote, Greece)",
+      "organization": "Mophradat",
+      "description": "Residencies. Application deadline: 2026-12-06. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/mophradat-new-agents-programme-2027-practitioners-arab-world-remote-greece",
+      "deadline": "2026-12-06",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Greece",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "WONDER: Women in Resistance Movements Research Residencies and Exhibition 2027 (Austria, Germany, Italy, Netherlands, Poland)",
       "organization": "WONDER",
       "description": "Residencies. Application deadline: 2026-12-06. Confirm eligibility, fees and details with the organizer.",
@@ -704,6 +665,19 @@
       "type": "job",
       "features": "",
       "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Alexander von Humboldt Foundation: Humboldt Residency Programme 2027 (Germany)",
+      "organization": "Alexander von Humboldt Foundation",
+      "description": "Residencies. Application deadline: 2026-12-14. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/alexander-von-humboldt-foundation-humboldt-residency-programme-2027-germany",
+      "deadline": "2026-12-14",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Germany",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
