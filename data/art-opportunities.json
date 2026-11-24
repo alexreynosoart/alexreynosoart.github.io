@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-11-24T00:04:08.492524+00:00",
+  "updatedAt": "2026-11-24T10:06:19.078332+00:00",
   "sources": {
-    "On the Move": 89,
+    "On the Move": 92,
     "Existing Everything Art listing": 9
   },
   "opportunities": [
@@ -15,6 +15,19 @@
       "type": "training",
       "features": "",
       "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Snowball Art Award 2026 (Sweden)",
+      "organization": "On the Move",
+      "description": "Competitions & awards. Application deadline: 2026-11-26. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/snowball-art-award-2026-sweden",
+      "deadline": "2026-11-26",
+      "discipline": "interdisciplinary",
+      "type": "competition",
+      "features": "",
+      "country": "Sweden",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
@@ -266,6 +279,19 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Berkeley Repertory Theatre: 2027 Summer Residency Lab (USA)",
+      "organization": "Berkeley Repertory Theatre",
+      "description": "Residencies. Application deadline: 2026-12-01. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/berkeley-repertory-theatre-2027-summer-residency-lab-usa",
+      "deadline": "2026-12-01",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "United States",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "E.ON Stiftung: Mensch Maschine VISIT Residency Programme 2027 (Germany, Poland)",
       "organization": "E.ON Stiftung",
       "description": "Residencies. Application deadline: 2026-12-01. Confirm eligibility, fees and details with the organizer.",
@@ -322,6 +348,19 @@
       "organization": "Hordaland Kunstsenter",
       "description": "Residencies. Application deadline: 2026-12-01. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/hordaland-kunstsenter-artist-residency-20272028-nordic-and-baltic-based-artists-norway",
+      "deadline": "2026-12-01",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Norway",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Studio17: Residency 2027 (Norway)",
+      "organization": "Studio17",
+      "description": "Residencies. Application deadline: 2026-12-01. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/studio17-residency-2027-norway",
       "deadline": "2026-12-01",
       "discipline": "interdisciplinary",
       "type": "residency",
