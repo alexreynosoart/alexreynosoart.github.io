@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-11-25T08:51:45.134426+00:00",
+  "updatedAt": "2026-11-25T21:50:36.169796+00:00",
   "sources": {
-    "On the Move": 93,
+    "On the Move": 95,
     "Existing Everything Art listing": 9
   },
   "opportunities": [
@@ -97,6 +97,19 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "CCA-WRI Research Fellowship 2027 on ‘Vacancy’ (Canada)",
+      "organization": "On the Move",
+      "description": "Residencies. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/cca-wri-research-fellowship-2027-vacancy-canada",
+      "deadline": "2026-11-30",
+      "discipline": "interdisciplinary",
+      "type": "residency fellowship",
+      "features": "",
+      "country": "Canada",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "CELA: Fwd Mobility Grant for Emerging Literary Artists and Event Organisers",
       "organization": "CELA",
       "description": "Presenting work. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
@@ -106,6 +119,19 @@
       "type": "open-call exhibition grant",
       "features": "",
       "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Communauté de communes des Deux Rives: Residency in Photography (France)",
+      "organization": "Communauté de communes des Deux Rives",
+      "description": "Residencies. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/communaute-de-communes-des-deux-rives-residency-photography-france",
+      "deadline": "2026-11-30",
+      "discipline": "photo",
+      "type": "residency",
+      "features": "",
+      "country": "France",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
