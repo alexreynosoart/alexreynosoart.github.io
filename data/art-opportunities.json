@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-11-24T10:06:19.078332+00:00",
+  "updatedAt": "2026-11-25T08:51:45.134426+00:00",
   "sources": {
-    "On the Move": 92,
+    "On the Move": 93,
     "Existing Everything Art listing": 9
   },
   "opportunities": [
@@ -743,6 +743,19 @@
       "type": "residency",
       "features": "",
       "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "New Orleans Jazz & Heritage Archive: Fellowship Research Grant 2027 (USA)",
+      "organization": "New Orleans Jazz & Heritage Archive",
+      "description": "Fellowships. Application deadline: 2026-12-15. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/new-orleans-jazz-heritage-archive-fellowship-research-grant-2027-usa",
+      "deadline": "2026-12-15",
+      "discipline": "interdisciplinary",
+      "type": "fellowship grant",
+      "features": "",
+      "country": "United States",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
