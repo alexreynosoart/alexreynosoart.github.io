@@ -1,23 +1,10 @@
 {
-  "updatedAt": "2026-11-25T21:50:36.169796+00:00",
+  "updatedAt": "2026-11-26T08:37:37.159584+00:00",
   "sources": {
-    "On the Move": 95,
+    "On the Move": 156,
     "Existing Everything Art listing": 9
   },
   "opportunities": [
-    {
-      "title": "Grafenegg Festival: Ink Still Wet Composer Conductor Workshops 2027 (USA, Austria)",
-      "organization": "Grafenegg Festival",
-      "description": "Training. Application deadline: 2026-11-25. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/grafenegg-festival-ink-still-wet-composer-conductor-workshops-2027-usa-austria",
-      "deadline": "2026-11-25",
-      "discipline": "music",
-      "type": "training",
-      "features": "",
-      "country": "",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
     {
       "title": "Snowball Art Award 2026 (Sweden)",
       "organization": "On the Move",
@@ -32,10 +19,36 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Snowball Art Award 2026 (Sweden)",
+      "organization": "On the Move",
+      "description": "Competitions & awards. Application deadline: 2026-11-26. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/snowball-art-award-2026-sweden",
+      "deadline": "2026-11-26",
+      "discipline": "interdisciplinary",
+      "type": "competition",
+      "features": "",
+      "country": "Sweden",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Theatertreffen: 2027 International Forum for Theatre Professionals (Germany)",
       "organization": "Theatertreffen",
       "description": "Meeting & networking. Application deadline: 2026-11-26. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/theatertreffen-2027-international-forum-theatre-professionals-germany",
+      "deadline": "2026-11-26",
+      "discipline": "interdisciplinary",
+      "type": "resource",
+      "features": "",
+      "country": "Germany",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Theatertreffen: 2027 International Forum for Theatre Professionals (Germany)",
+      "organization": "Theatertreffen",
+      "description": "Meeting & networking. Application deadline: 2026-11-26. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/theatertreffen-2027-international-forum-theatre-professionals-germany",
       "deadline": "2026-11-26",
       "discipline": "interdisciplinary",
       "type": "resource",
@@ -71,6 +84,19 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Bernheim Arboretum and Research Forest: Artist in Residence Programme 2027 (USA)",
+      "organization": "Bernheim Arboretum and Research Forest",
+      "description": "Residencies. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/bernheim-arboretum-and-research-forest-artist-residence-programme-2027-usa",
+      "deadline": "2026-11-30",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "United States",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Blois Danse: International Choreographic Festival 2027 (France)",
       "organization": "Blois Danse",
       "description": "Presenting work. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
@@ -97,10 +123,36 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Blois Danse: International Choreographic Festival 2027 (France)",
+      "organization": "Blois Danse",
+      "description": "Presenting work. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/blois-danse-international-choreographic-festival-2027-france",
+      "deadline": "2026-11-30",
+      "discipline": "dance",
+      "type": "open-call exhibition",
+      "features": "",
+      "country": "France",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "CCA-WRI Research Fellowship 2027 on ‘Vacancy’ (Canada)",
       "organization": "On the Move",
       "description": "Residencies. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/cca-wri-research-fellowship-2027-vacancy-canada",
+      "deadline": "2026-11-30",
+      "discipline": "interdisciplinary",
+      "type": "residency fellowship",
+      "features": "",
+      "country": "Canada",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "CCA-WRI Research Fellowship 2027 on ‘Vacancy’ (Canada)",
+      "organization": "On the Move",
+      "description": "Residencies. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/cca-wri-research-fellowship-2027-vacancy-canada",
       "deadline": "2026-11-30",
       "discipline": "interdisciplinary",
       "type": "residency fellowship",
@@ -123,6 +175,19 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "CELA: Fwd Mobility Grant for Emerging Literary Artists and Event Organisers",
+      "organization": "CELA",
+      "description": "Presenting work. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/cela-fwd-mobility-grant-emerging-literary-artists-and-event-organisers",
+      "deadline": "2026-11-30",
+      "discipline": "writing",
+      "type": "open-call exhibition grant",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Communauté de communes des Deux Rives: Residency in Photography (France)",
       "organization": "Communauté de communes des Deux Rives",
       "description": "Residencies. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
@@ -136,10 +201,36 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Communauté de communes des Deux Rives: Residency in Photography (France)",
+      "organization": "Communauté de communes des Deux Rives",
+      "description": "Residencies. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/communaute-de-communes-des-deux-rives-residency-photography-france",
+      "deadline": "2026-11-30",
+      "discipline": "photo",
+      "type": "residency",
+      "features": "",
+      "country": "France",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "IDENSITAT/Centro Huarte: Transversal Aesthetics 2027 Research and Production Residencies (Spain)",
       "organization": "IDENSITAT/Centro Huarte",
       "description": "Residencies. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/idensitatcentro-huarte-transversal-aesthetics-2027-research-and-production-residencies-spain",
+      "deadline": "2026-11-30",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Spain",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "IDENSITAT/Centro Huarte: Transversal Aesthetics 2027 Research and Production Residencies (Spain)",
+      "organization": "IDENSITAT/Centro Huarte",
+      "description": "Residencies. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/idensitatcentro-huarte-transversal-aesthetics-2027-research-and-production-residencies-spain",
       "deadline": "2026-11-30",
       "discipline": "interdisciplinary",
       "type": "residency",
@@ -175,6 +266,19 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Les Rencontres d'Arles: Curatorial Research Fellowship 2027 (France)",
+      "organization": "Les Rencontres d'Arles",
+      "description": "Fellowships. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/les-rencontres-darles-curatorial-research-fellowship-2027-france",
+      "deadline": "2026-11-30",
+      "discipline": "interdisciplinary",
+      "type": "fellowship",
+      "features": "",
+      "country": "France",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "M+: Sigg Fellowship for Chinese Art Research 2026/27 (Hong Kong)",
       "organization": "M+",
       "description": "Fellowships. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
@@ -201,10 +305,36 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "M+: Sigg Fellowship for Chinese Art Research 2026/27 (Hong Kong)",
+      "organization": "M+",
+      "description": "Fellowships. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/m-sigg-fellowship-chinese-art-research-202627-hong-kong",
+      "deadline": "2026-11-30",
+      "discipline": "interdisciplinary",
+      "type": "fellowship",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Saarland University: Post-Doctorate Fellowship on Reparation 2027/2028 (Germany)",
       "organization": "Saarland University",
       "description": "Fellowships. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/saarland-university-post-doctorate-fellowship-reparation-20272028-germany",
+      "deadline": "2026-11-30",
+      "discipline": "interdisciplinary",
+      "type": "fellowship",
+      "features": "",
+      "country": "Germany",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Saarland University: Post-Doctorate Fellowship on Reparation 2027/2028 (Germany)",
+      "organization": "Saarland University",
+      "description": "Fellowships. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/saarland-university-post-doctorate-fellowship-reparation-20272028-germany",
       "deadline": "2026-11-30",
       "discipline": "interdisciplinary",
       "type": "fellowship",
@@ -240,10 +370,36 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Sancy Tourist Office: Horizons 2027 ‘Arts-Nature’ Public Art (France)",
+      "organization": "Sancy Tourist Office",
+      "description": "Presenting work. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/sancy-tourist-office-horizons-2027-arts-nature-public-art-france",
+      "deadline": "2026-11-30",
+      "discipline": "interdisciplinary",
+      "type": "open-call exhibition",
+      "features": "",
+      "country": "France",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Sharjah Art Foundation: Collection Research Fellowship 2027–2029 (UAE, Remote)",
       "organization": "Sharjah Art Foundation",
       "description": "Fellowships. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/sharjah-art-foundation-collection-research-fellowship-2027-2029-uae-remote",
+      "deadline": "2026-11-30",
+      "discipline": "interdisciplinary",
+      "type": "fellowship",
+      "features": "",
+      "country": "United Arab Emirates",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Sharjah Art Foundation: Collection Research Fellowship 2027–2029 (UAE, Remote)",
+      "organization": "Sharjah Art Foundation",
+      "description": "Fellowships. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/sharjah-art-foundation-collection-research-fellowship-2027-2029-uae-remote",
       "deadline": "2026-11-30",
       "discipline": "interdisciplinary",
       "type": "fellowship",
@@ -266,10 +422,36 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Stockholm Fringe Festival 2027 Outdoor Performances (Sweden)",
+      "organization": "On the Move",
+      "description": "Presenting work. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/stockholm-fringe-festival-2027-outdoor-performances-sweden",
+      "deadline": "2026-11-30",
+      "discipline": "interdisciplinary",
+      "type": "open-call exhibition",
+      "features": "",
+      "country": "Sweden",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "TURBA Festival: 2027 Call for South American Performing Artists (Argentina)",
       "organization": "TURBA Festival",
       "description": "Presenting work. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/turba-festival-2027-call-south-american-performing-artists-argentina",
+      "deadline": "2026-11-30",
+      "discipline": "interdisciplinary",
+      "type": "open-call exhibition",
+      "features": "",
+      "country": "Argentina",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "TURBA Festival: 2027 Call for South American Performing Artists (Argentina)",
+      "organization": "TURBA Festival",
+      "description": "Presenting work. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/turba-festival-2027-call-south-american-performing-artists-argentina",
       "deadline": "2026-11-30",
       "discipline": "interdisciplinary",
       "type": "open-call exhibition",
@@ -305,6 +487,19 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Ubah Rumah Residency 2027/2028 for Southeast Asia-based Artists (Indonesia)",
+      "organization": "On the Move",
+      "description": "Residencies. Application deadline: 2026-11-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/ubah-rumah-residency-20272028-southeast-asia-based-artists-indonesia",
+      "deadline": "2026-11-30",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Indonesia",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Berkeley Repertory Theatre: 2027 Summer Residency Lab (USA)",
       "organization": "Berkeley Repertory Theatre",
       "description": "Residencies. Application deadline: 2026-12-01. Confirm eligibility, fees and details with the organizer.",
@@ -318,10 +513,36 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Berkeley Repertory Theatre: 2027 Summer Residency Lab (USA)",
+      "organization": "Berkeley Repertory Theatre",
+      "description": "Residencies. Application deadline: 2026-12-01. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/berkeley-repertory-theatre-2027-summer-residency-lab-usa",
+      "deadline": "2026-12-01",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "United States",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "E.ON Stiftung: Mensch Maschine VISIT Residency Programme 2027 (Germany, Poland)",
       "organization": "E.ON Stiftung",
       "description": "Residencies. Application deadline: 2026-12-01. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/eon-stiftung-mensch-maschine-visit-residency-programme-2027-germany-poland",
+      "deadline": "2026-12-01",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "E.ON Stiftung: Mensch Maschine VISIT Residency Programme 2027 (Germany, Poland)",
+      "organization": "E.ON Stiftung",
+      "description": "Residencies. Application deadline: 2026-12-01. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/eon-stiftung-mensch-maschine-visit-residency-programme-2027-germany-poland",
       "deadline": "2026-12-01",
       "discipline": "interdisciplinary",
       "type": "residency",
@@ -357,6 +578,19 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "European Cultural Foundation: Creative Research Fellowship to Research ERASMUS and European Belonging (Italy)",
+      "organization": "European Cultural Foundation",
+      "description": "Fellowships. Application deadline: 2026-12-01. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/european-cultural-foundation-creative-research-fellowship-research-erasmus-and-european",
+      "deadline": "2026-12-01",
+      "discipline": "interdisciplinary",
+      "type": "fellowship",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Hordaland Kunstsenter: Artist Residency 2027/2028 for Nordic- and Baltic-based Artists (Norway)",
       "organization": "Hordaland Kunstsenter",
       "description": "Residencies. Application deadline: 2026-12-01. Confirm eligibility, fees and details with the organizer.",
@@ -383,10 +617,36 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Hordaland Kunstsenter: Artist Residency 2027/2028 for Nordic- and Baltic-based Artists (Norway)",
+      "organization": "Hordaland Kunstsenter",
+      "description": "Residencies. Application deadline: 2026-12-01. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/hordaland-kunstsenter-artist-residency-20272028-nordic-and-baltic-based-artists-norway",
+      "deadline": "2026-12-01",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Norway",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Studio17: Residency 2027 (Norway)",
       "organization": "Studio17",
       "description": "Residencies. Application deadline: 2026-12-01. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/studio17-residency-2027-norway",
+      "deadline": "2026-12-01",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Norway",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Studio17: Residency 2027 (Norway)",
+      "organization": "Studio17",
+      "description": "Residencies. Application deadline: 2026-12-01. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/studio17-residency-2027-norway",
       "deadline": "2026-12-01",
       "discipline": "interdisciplinary",
       "type": "residency",
@@ -422,6 +682,19 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "DeVos Institute: Global Executive Arts Management Fellowship 2027–2029 (USA)",
+      "organization": "DeVos Institute",
+      "description": "Training. Application deadline: 2026-12-03. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/devos-institute-global-executive-arts-management-fellowship-2027-2029-usa",
+      "deadline": "2026-12-03",
+      "discipline": "interdisciplinary",
+      "type": "training fellowship",
+      "features": "",
+      "country": "United States",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "African–European Museum Partnership: Funding for Exhibitions and Public Engagement Initiatives",
       "organization": "African–European Museum Partnership",
       "description": "Project funding. Application deadline: 2026-12-04. Confirm eligibility, fees and details with the organizer.",
@@ -448,10 +721,36 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "African–European Museum Partnership: Funding for Exhibitions and Public Engagement Initiatives",
+      "organization": "African–European Museum Partnership",
+      "description": "Project funding. Application deadline: 2026-12-04. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/african-european-museum-partnership-funding-exhibitions-and-public-engagement-initiatives",
+      "deadline": "2026-12-04",
+      "discipline": "interdisciplinary",
+      "type": "grant exhibition",
+      "features": "",
+      "country": "United States",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "ARTEMIS: 2027 Academy for Choir Singers from Ukraine, Lithuania, Latvia, Estonia, Poland (Latvia, Lithuania)",
       "organization": "ARTEMIS",
       "description": "Training. Application deadline: 2026-12-04. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/artemis-2027-academy-choir-singers-ukraine-lithuania-latvia-estonia-poland-latvia-lithuania",
+      "deadline": "2026-12-04",
+      "discipline": "interdisciplinary",
+      "type": "training",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "ARTEMIS: 2027 Academy for Choir Singers from Ukraine, Lithuania, Latvia, Estonia, Poland (Latvia, Lithuania)",
+      "organization": "ARTEMIS",
+      "description": "Training. Application deadline: 2026-12-04. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/artemis-2027-academy-choir-singers-ukraine-lithuania-latvia-estonia-poland-latvia-lithuania",
       "deadline": "2026-12-04",
       "discipline": "interdisciplinary",
       "type": "training",
@@ -487,10 +786,36 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "European Hybrid Intelligence Network: Dirtly Lab Residencies 2027 (Belgium, Croatia, Germany, Serbia, Slovenia, Spain)",
+      "organization": "European Hybrid Intelligence Network",
+      "description": "Residencies. Application deadline: 2026-12-04. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/european-hybrid-intelligence-network-dirtly-lab-residencies-2027-belgium-croatia-germany",
+      "deadline": "2026-12-04",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "ZMINA: Resilience Co-creation Funding of International Cooperation Projects Call #2 Ukraine–Creative Europe Countries",
       "organization": "ZMINA",
       "description": "Project funding. Application deadline: 2026-12-04. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/zmina-resilience-co-creation-funding-international-cooperation-projects-call-2-ukraine",
+      "deadline": "2026-12-04",
+      "discipline": "interdisciplinary",
+      "type": "grant",
+      "features": "",
+      "country": "Ukraine",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "ZMINA: Resilience Co-creation Funding of International Cooperation Projects Call #2 Ukraine–Creative Europe Countries",
+      "organization": "ZMINA",
+      "description": "Project funding. Application deadline: 2026-12-04. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/zmina-resilience-co-creation-funding-international-cooperation-projects-call-2-ukraine",
       "deadline": "2026-12-04",
       "discipline": "interdisciplinary",
       "type": "grant",
@@ -526,10 +851,36 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "ARTEMIS: 2027 Orchestra Academy for Young Instrumentalists (Latvia)",
+      "organization": "ARTEMIS",
+      "description": "Training. Application deadline: 2026-12-05. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/artemis-2027-orchestra-academy-young-instrumentalists-latvia",
+      "deadline": "2026-12-05",
+      "discipline": "interdisciplinary",
+      "type": "training",
+      "features": "",
+      "country": "Latvia",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Asymmetry: 2027 Curatorial Fellowship at the SculptureCenter (USA)",
       "organization": "Asymmetry",
       "description": "Fellowships. Application deadline: 2026-12-06. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/asymmetry-2027-curatorial-fellowship-sculpturecenter-usa",
+      "deadline": "2026-12-06",
+      "discipline": "interdisciplinary",
+      "type": "fellowship",
+      "features": "",
+      "country": "United States",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Asymmetry: 2027 Curatorial Fellowship at the SculptureCenter (USA)",
+      "organization": "Asymmetry",
+      "description": "Fellowships. Application deadline: 2026-12-06. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/asymmetry-2027-curatorial-fellowship-sculpturecenter-usa",
       "deadline": "2026-12-06",
       "discipline": "interdisciplinary",
       "type": "fellowship",
@@ -552,10 +903,36 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Expertise France: Fusion Residency II for Artists from Ghana, Togo and Côte d’Ivoire (Ghana)",
+      "organization": "Expertise France",
+      "description": "Residencies. Application deadline: 2026-12-06. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/expertise-france-fusion-residency-ii-artists-ghana-togo-and-cote-divoire-ghana",
+      "deadline": "2026-12-06",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Mophradat: New Agents Programme 2027 for Practitioners from the Arab World (Remote, Greece)",
       "organization": "Mophradat",
       "description": "Residencies. Application deadline: 2026-12-06. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/mophradat-new-agents-programme-2027-practitioners-arab-world-remote-greece",
+      "deadline": "2026-12-06",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Greece",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Mophradat: New Agents Programme 2027 for Practitioners from the Arab World (Remote, Greece)",
+      "organization": "Mophradat",
+      "description": "Residencies. Application deadline: 2026-12-06. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/mophradat-new-agents-programme-2027-practitioners-arab-world-remote-greece",
       "deadline": "2026-12-06",
       "discipline": "interdisciplinary",
       "type": "residency",
@@ -578,10 +955,36 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "WONDER: Women in Resistance Movements Research Residencies and Exhibition 2027 (Austria, Germany, Italy, Netherlands, Poland)",
+      "organization": "WONDER",
+      "description": "Residencies. Application deadline: 2026-12-06. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/wonder-women-resistance-movements-research-residencies-and-exhibition-2027-austria-germany",
+      "deadline": "2026-12-06",
+      "discipline": "interdisciplinary",
+      "type": "residency exhibition",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "ARCHAIVE: Residency on AI and Cultural Memory 2027 (Germany, Italy, Netherlands, Portugal, Spain, Remote)",
       "organization": "ARCHAIVE",
       "description": "Residencies. Application deadline: 2026-12-07. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/archaive-residency-ai-and-cultural-memory-2027-germany-italy-netherlands-portugal-spain-remote",
+      "deadline": "2026-12-07",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "ARCHAIVE: Residency on AI and Cultural Memory 2027 (Germany, Italy, Netherlands, Portugal, Spain, Remote)",
+      "organization": "ARCHAIVE",
+      "description": "Residencies. Application deadline: 2026-12-07. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/archaive-residency-ai-and-cultural-memory-2027-germany-italy-netherlands-portugal-spain-remote",
       "deadline": "2026-12-07",
       "discipline": "interdisciplinary",
       "type": "residency",
@@ -617,6 +1020,19 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Frankfurt Moves! Residency 2027 for Emerging Performing Artists Trained in Africa, Asia, Latin America or the WANA Region (Germany)",
+      "organization": "On the Move",
+      "description": "Residencies. Application deadline: 2026-12-07. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/frankfurt-moves-residency-2027-emerging-performing-artists-trained-africa-asia-latin-america",
+      "deadline": "2026-12-07",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Germany",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "IN SITU: Online Support and Immersive Lab for Emerging Artists Creating in Public Space (3rd Call)",
       "organization": "IN SITU",
       "description": "Training. Application deadline: 2026-12-09. Confirm eligibility, fees and details with the organizer.",
@@ -643,6 +1059,32 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "IN SITU: Online Support and Immersive Lab for Emerging Artists Creating in Public Space (3rd Call)",
+      "organization": "IN SITU",
+      "description": "Training. Application deadline: 2026-12-09. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/situ-online-support-and-immersive-lab-emerging-artists-creating-public-space-3rd-call",
+      "deadline": "2026-12-09",
+      "discipline": "interdisciplinary",
+      "type": "training",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "EIT Culture & Creativity: RED&Pro Project Manager Job (Remote)",
+      "organization": "EIT Culture & Creativity",
+      "description": "Jobs. Application deadline: 2026-12-10. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/eit-culture-creativity-redpro-project-manager-job-remote",
+      "deadline": "2026-12-10",
+      "discipline": "interdisciplinary",
+      "type": "job",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Adirondack Experience: Artist-in-Residence Programme 2027 (USA)",
       "organization": "Adirondack Experience",
       "description": "Residencies. Application deadline: 2026-12-11. Confirm eligibility, fees and details with the organizer.",
@@ -660,6 +1102,19 @@
       "organization": "Adirondack Experience",
       "description": "Residencies. Application deadline: 2026-12-11. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/adirondack-experience-artist-residence-programme-2027-usa",
+      "deadline": "2026-12-11",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "United States",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Adirondack Experience: Artist-in-Residence Programme 2027 (USA)",
+      "organization": "Adirondack Experience",
+      "description": "Residencies. Application deadline: 2026-12-11. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/adirondack-experience-artist-residence-programme-2027-usa",
       "deadline": "2026-12-11",
       "discipline": "interdisciplinary",
       "type": "residency",
@@ -695,10 +1150,36 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Cove Park: Residency 2027–2028 for Artists in Scotland, UK, Central and South America and Diasporas (UK)",
+      "organization": "Cove Park",
+      "description": "Residencies. Application deadline: 2026-12-11. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/cove-park-residency-2027-2028-artists-scotland-uk-central-and-south-america-and-diasporas-uk",
+      "deadline": "2026-12-11",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "United Kingdom",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Mophradat: Freelance New Agents Coordinator (Remote)",
       "organization": "Mophradat",
       "description": "Jobs. Application deadline: 2026-12-11. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/mophradat-freelance-new-agents-coordinator-remote",
+      "deadline": "2026-12-11",
+      "discipline": "interdisciplinary",
+      "type": "job",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Mophradat: Freelance New Agents Coordinator (Remote)",
+      "organization": "Mophradat",
+      "description": "Jobs. Application deadline: 2026-12-11. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/mophradat-freelance-new-agents-coordinator-remote",
       "deadline": "2026-12-11",
       "discipline": "interdisciplinary",
       "type": "job",
@@ -721,10 +1202,36 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Alexander von Humboldt Foundation: Humboldt Residency Programme 2027 (Germany)",
+      "organization": "Alexander von Humboldt Foundation",
+      "description": "Residencies. Application deadline: 2026-12-14. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/alexander-von-humboldt-foundation-humboldt-residency-programme-2027-germany",
+      "deadline": "2026-12-14",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Germany",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Royal Academy Schools: Postgraduate Programme 2027–2029 (UK)",
       "organization": "Royal Academy Schools",
       "description": "Training. Application deadline: 2026-12-14. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/royal-academy-schools-postgraduate-programme-2027-2029-uk",
+      "deadline": "2026-12-14",
+      "discipline": "interdisciplinary",
+      "type": "training",
+      "features": "",
+      "country": "United Kingdom",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Royal Academy Schools: Postgraduate Programme 2027–2029 (UK)",
+      "organization": "Royal Academy Schools",
+      "description": "Training. Application deadline: 2026-12-14. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/royal-academy-schools-postgraduate-programme-2027-2029-uk",
       "deadline": "2026-12-14",
       "discipline": "interdisciplinary",
       "type": "training",
@@ -760,10 +1267,36 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Associazione Manifestazioni Ascona: Festival Artisti di Strada Ascona 2027 for Street Artists (Switzerland)",
+      "organization": "Associazione Manifestazioni Ascona",
+      "description": "Presenting work. Application deadline: 2026-12-15. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/associazione-manifestazioni-ascona-festival-artisti-di-strada-ascona-2027-street-artists",
+      "deadline": "2026-12-15",
+      "discipline": "interdisciplinary",
+      "type": "open-call exhibition",
+      "features": "",
+      "country": "Switzerland",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Interwoven Residencies in Early European Textiles for Visual Artists 2027 (France, Ireland, UK)",
       "organization": "On the Move",
       "description": "Residencies. Application deadline: 2026-12-15. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/interwoven-residencies-early-european-textiles-visual-artists-2027-france-ireland-uk",
+      "deadline": "2026-12-15",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Interwoven Residencies in Early European Textiles for Visual Artists 2027 (France, Ireland, UK)",
+      "organization": "On the Move",
+      "description": "Residencies. Application deadline: 2026-12-15. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/interwoven-residencies-early-european-textiles-visual-artists-2027-france-ireland-uk",
       "deadline": "2026-12-15",
       "discipline": "interdisciplinary",
       "type": "residency",
@@ -786,10 +1319,36 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "New Orleans Jazz & Heritage Archive: Fellowship Research Grant 2027 (USA)",
+      "organization": "New Orleans Jazz & Heritage Archive",
+      "description": "Fellowships. Application deadline: 2026-12-15. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/new-orleans-jazz-heritage-archive-fellowship-research-grant-2027-usa",
+      "deadline": "2026-12-15",
+      "discipline": "interdisciplinary",
+      "type": "fellowship grant",
+      "features": "",
+      "country": "United States",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Emmanuel College: Artist Residencies in Ceramics, Photography, Printmaking and Social Practice 2027 (USA)",
       "organization": "Emmanuel College",
       "description": "Residencies. Application deadline: 2026-12-18. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/emmanuel-college-artist-residencies-ceramics-photography-printmaking-and-social-practice-2027",
+      "deadline": "2026-12-18",
+      "discipline": "photo",
+      "type": "residency",
+      "features": "",
+      "country": "United States",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Emmanuel College: Artist Residencies in Ceramics, Photography, Printmaking and Social Practice 2027 (USA)",
+      "organization": "Emmanuel College",
+      "description": "Residencies. Application deadline: 2026-12-18. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/emmanuel-college-artist-residencies-ceramics-photography-printmaking-and-social-practice-2027",
       "deadline": "2026-12-18",
       "discipline": "photo",
       "type": "residency",
@@ -825,6 +1384,19 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Ortaklaşa: EU-Türkiye Cultural Partnership Programme",
+      "organization": "Ortaklaşa",
+      "description": "Project funding. Application deadline: 2026-12-18. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/ortaklasa-eu-turkiye-cultural-partnership-programme",
+      "deadline": "2026-12-18",
+      "discipline": "interdisciplinary",
+      "type": "grant",
+      "features": "",
+      "country": "Türkiye",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Textile Art Biennial BIEN 2027 (Slovenia)",
       "organization": "On the Move",
       "description": "Residencies. Application deadline: 2026-12-21. Confirm eligibility, fees and details with the organizer.",
@@ -842,6 +1414,19 @@
       "organization": "On the Move",
       "description": "Residencies. Application deadline: 2026-12-21. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/textile-art-biennial-bien-2027-slovenia",
+      "deadline": "2026-12-21",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Slovenia",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Textile Art Biennial BIEN 2027 (Slovenia)",
+      "organization": "On the Move",
+      "description": "Residencies. Application deadline: 2026-12-21. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/textile-art-biennial-bien-2027-slovenia",
       "deadline": "2026-12-21",
       "discipline": "interdisciplinary",
       "type": "residency",
@@ -877,10 +1462,36 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Sado Island Galaxy Art Festival 2027 (Japan)",
+      "organization": "On the Move",
+      "description": "Presenting work. Application deadline: 2026-12-22. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/sado-island-galaxy-art-festival-2027-japan",
+      "deadline": "2026-12-22",
+      "discipline": "interdisciplinary",
+      "type": "open-call exhibition",
+      "features": "",
+      "country": "Japan",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "AIR InSILo: 2027 Residency ‘When the Hourless Seeps’ (Austria)",
       "organization": "AIR InSILo",
       "description": "Residencies. Application deadline: 2026-12-30. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/air-insilo-2027-residency-when-hourless-seeps-austria",
+      "deadline": "2026-12-30",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Austria",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "AIR InSILo: 2027 Residency ‘When the Hourless Seeps’ (Austria)",
+      "organization": "AIR InSILo",
+      "description": "Residencies. Application deadline: 2026-12-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/air-insilo-2027-residency-when-hourless-seeps-austria",
       "deadline": "2026-12-30",
       "discipline": "interdisciplinary",
       "type": "residency",
@@ -929,6 +1540,19 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "A4 Residency Art Center International Residency 2027 (China)",
+      "organization": "On the Move",
+      "description": "Residencies. Application deadline: 2026-12-31. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/a4-residency-art-center-international-residency-2027-china",
+      "deadline": "2026-12-31",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "China",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Circostrada: Bounce Professional Development Programme 2027 for Circus and Outdoor Arts (Portugal, Latvia)",
       "organization": "Circostrada",
       "description": "Training. Application deadline: 2026-12-31. Confirm eligibility, fees and details with the organizer.",
@@ -946,6 +1570,19 @@
       "organization": "Circostrada",
       "description": "Training. Application deadline: 2026-12-31. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/circostrada-bounce-professional-development-programme-2027-circus-and-outdoor-arts-portugal",
+      "deadline": "2026-12-31",
+      "discipline": "interdisciplinary",
+      "type": "training",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Circostrada: Bounce Professional Development Programme 2027 for Circus and Outdoor Arts (Portugal, Latvia)",
+      "organization": "Circostrada",
+      "description": "Training. Application deadline: 2026-12-31. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/circostrada-bounce-professional-development-programme-2027-circus-and-outdoor-arts-portugal",
       "deadline": "2026-12-31",
       "discipline": "interdisciplinary",
       "type": "training",
@@ -981,6 +1618,19 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Kiruna 2029 European Capital of Culture: Artistic Projects and Early Ideas (Sweden)",
+      "organization": "Kiruna 2029 European Capital of Culture",
+      "description": "Project funding. Application deadline: 2026-12-31. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/kiruna-2029-european-capital-culture-artistic-projects-and-early-ideas-sweden",
+      "deadline": "2026-12-31",
+      "discipline": "interdisciplinary",
+      "type": "grant",
+      "features": "",
+      "country": "Sweden",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Mophradat: Residency at BUDA with a Premiere at NEXT Festival 2027 (Belgium)",
       "organization": "Mophradat",
       "description": "Residencies. Application deadline: 2027-01-04. Confirm eligibility, fees and details with the organizer.",
@@ -1007,10 +1657,36 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Mophradat: Residency at BUDA with a Premiere at NEXT Festival 2027 (Belgium)",
+      "organization": "Mophradat",
+      "description": "Residencies. Application deadline: 2027-01-04. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/mophradat-residency-buda-premiere-next-festival-2027-belgium",
+      "deadline": "2027-01-04",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Belgium",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Ligeti Center: Artists and Scientists in Residence 2027 ‘Where Sound Shapes Space’ (Germany)",
       "organization": "Ligeti Center",
       "description": "Residencies. Application deadline: 2027-01-10. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/ligeti-center-artists-and-scientists-residence-2027-where-sound-shapes-space-germany",
+      "deadline": "2027-01-10",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Germany",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Ligeti Center: Artists and Scientists in Residence 2027 ‘Where Sound Shapes Space’ (Germany)",
+      "organization": "Ligeti Center",
+      "description": "Residencies. Application deadline: 2027-01-10. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/ligeti-center-artists-and-scientists-residence-2027-where-sound-shapes-space-germany",
       "deadline": "2027-01-10",
       "discipline": "interdisciplinary",
       "type": "residency",
@@ -1046,6 +1722,19 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Schwabach: Ortung 15 Competition for the Schwabach Art Prize (Germany)",
+      "organization": "Schwabach",
+      "description": "Competitions & awards. Application deadline: 2027-01-11. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/schwabach-ortung-15-competition-schwabach-art-prize-germany",
+      "deadline": "2027-01-11",
+      "discipline": "interdisciplinary",
+      "type": "competition",
+      "features": "",
+      "country": "Germany",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Culture Moves Europe: Call for Residency Hosts 2026–2027",
       "organization": "Culture Moves Europe",
       "description": "Residencies. Application deadline: 2027-01-18. Confirm eligibility, fees and details with the organizer.",
@@ -1063,6 +1752,19 @@
       "organization": "Culture Moves Europe",
       "description": "Residencies. Application deadline: 2027-01-18. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/culture-moves-europe-call-residency-hosts-2026-2027",
+      "deadline": "2027-01-18",
+      "discipline": "interdisciplinary",
+      "type": "residency open-call",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Culture Moves Europe: Call for Residency Hosts 2026–2027",
+      "organization": "Culture Moves Europe",
+      "description": "Residencies. Application deadline: 2027-01-18. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/culture-moves-europe-call-residency-hosts-2026-2027",
       "deadline": "2027-01-18",
       "discipline": "interdisciplinary",
       "type": "residency open-call",
@@ -1098,6 +1800,19 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "14th International Ceramics Exhibition Mino (Japan)",
+      "organization": "On the Move",
+      "description": "Competitions & awards. Application deadline: 2027-01-29. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/14th-international-ceramics-exhibition-mino-japan",
+      "deadline": "2027-01-29",
+      "discipline": "interdisciplinary",
+      "type": "competition exhibition",
+      "features": "",
+      "country": "Japan",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "EU–Japan Fest Mobility Support 2026",
       "organization": "On the Move",
       "description": "Project funding. Application deadline: 2027-02-14. Confirm eligibility, fees and details with the organizer.",
@@ -1115,6 +1830,19 @@
       "organization": "On the Move",
       "description": "Project funding. Application deadline: 2027-02-14. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/eu-japan-fest-mobility-support-2026",
+      "deadline": "2027-02-14",
+      "discipline": "interdisciplinary",
+      "type": "grant",
+      "features": "",
+      "country": "Japan",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "EU–Japan Fest Mobility Support 2026",
+      "organization": "On the Move",
+      "description": "Project funding. Application deadline: 2027-02-14. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/eu-japan-fest-mobility-support-2026",
       "deadline": "2027-02-14",
       "discipline": "interdisciplinary",
       "type": "grant",
@@ -1150,10 +1878,36 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "Make-a-thek: Mobility Scheme and Knowledge Exchange Programme 2026–2027",
+      "organization": "Make-a-thek",
+      "description": "Meeting & networking. Application deadline: 2027-03-31. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/make-thek-mobility-scheme-and-knowledge-exchange-programme-2026-2027",
+      "deadline": "2027-03-31",
+      "discipline": "interdisciplinary",
+      "type": "resource",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Culture Moves Europe: Call for Individual Mobility 2026–2027",
       "organization": "Culture Moves Europe",
       "description": "Meeting & networking. Application deadline: 2027-04-30. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/index%2Ephp/news/culture-moves-europe-call-individual-mobility-2026-2027",
+      "deadline": "2027-04-30",
+      "discipline": "interdisciplinary",
+      "type": "resource open-call",
+      "features": "",
+      "country": "",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "Culture Moves Europe: Call for Individual Mobility 2026–2027",
+      "organization": "Culture Moves Europe",
+      "description": "Meeting & networking. Application deadline: 2027-04-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/culture-moves-europe-call-individual-mobility-2026-2027",
       "deadline": "2027-04-30",
       "discipline": "interdisciplinary",
       "type": "resource open-call",
@@ -1202,10 +1956,36 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "International Mute Photo Festival: 2027 Call for Photography (Greece)",
+      "organization": "International Mute Photo Festival",
+      "description": "Presenting work. Application deadline: 2027-04-30. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/international-mute-photo-festival-2027-call-photography-greece",
+      "deadline": "2027-04-30",
+      "discipline": "photo",
+      "type": "open-call exhibition",
+      "features": "",
+      "country": "Greece",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "2200: 2027 Residency for Emerging Artists (Switzerland)",
       "organization": "2200",
       "description": "Residencies. Application deadline: 2027-05-31. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/2200-2027-residency-emerging-artists-switzerland",
+      "deadline": "2027-05-31",
+      "discipline": "interdisciplinary",
+      "type": "residency",
+      "features": "",
+      "country": "Switzerland",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "2200: 2027 Residency for Emerging Artists (Switzerland)",
+      "organization": "2200",
+      "description": "Residencies. Application deadline: 2027-05-31. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/2200-2027-residency-emerging-artists-switzerland",
       "deadline": "2027-05-31",
       "discipline": "interdisciplinary",
       "type": "residency",
@@ -1245,6 +2025,19 @@
       "organization": "ZMINA",
       "description": "Project funding. Application deadline: 2027-10-14. Confirm eligibility, fees and details with the organizer.",
       "url": "https://on-the-move.org/news/zmina-resilience-international-showcasing-co-creation-projects-ukraine-creative-europe",
+      "deadline": "2027-10-14",
+      "discipline": "interdisciplinary",
+      "type": "grant",
+      "features": "",
+      "country": "Ukraine",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "ZMINA: Resilience International Showcasing of Co-creation Projects Ukraine–Creative Europe Countries",
+      "organization": "ZMINA",
+      "description": "Project funding. Application deadline: 2027-10-14. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/index%2ephp/news/zmina-resilience-international-showcasing-co-creation-projects-ukraine-creative-europe",
       "deadline": "2027-10-14",
       "discipline": "interdisciplinary",
       "type": "grant",
