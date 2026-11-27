@@ -1,62 +1,10 @@
 {
-  "updatedAt": "2026-11-26T21:43:49.397258+00:00",
+  "updatedAt": "2026-11-27T08:48:45.899047+00:00",
   "sources": {
-    "On the Move": 157,
+    "On the Move": 155,
     "Existing Everything Art listing": 9
   },
   "opportunities": [
-    {
-      "title": "Snowball Art Award 2026 (Sweden)",
-      "organization": "On the Move",
-      "description": "Competitions & awards. Application deadline: 2026-11-26. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/index%2ephp/news/snowball-art-award-2026-sweden",
-      "deadline": "2026-11-26",
-      "discipline": "interdisciplinary",
-      "type": "competition",
-      "features": "",
-      "country": "Sweden",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
-      "title": "Snowball Art Award 2026 (Sweden)",
-      "organization": "On the Move",
-      "description": "Competitions & awards. Application deadline: 2026-11-26. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/snowball-art-award-2026-sweden",
-      "deadline": "2026-11-26",
-      "discipline": "interdisciplinary",
-      "type": "competition",
-      "features": "",
-      "country": "Sweden",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
-      "title": "Theatertreffen: 2027 International Forum for Theatre Professionals (Germany)",
-      "organization": "Theatertreffen",
-      "description": "Meeting & networking. Application deadline: 2026-11-26. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/index%2ephp/news/theatertreffen-2027-international-forum-theatre-professionals-germany",
-      "deadline": "2026-11-26",
-      "discipline": "interdisciplinary",
-      "type": "resource",
-      "features": "",
-      "country": "Germany",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
-    {
-      "title": "Theatertreffen: 2027 International Forum for Theatre Professionals (Germany)",
-      "organization": "Theatertreffen",
-      "description": "Meeting & networking. Application deadline: 2026-11-26. Confirm eligibility, fees and details with the organizer.",
-      "url": "https://on-the-move.org/news/theatertreffen-2027-international-forum-theatre-professionals-germany",
-      "deadline": "2026-11-26",
-      "discipline": "interdisciplinary",
-      "type": "resource",
-      "features": "",
-      "country": "Germany",
-      "source": "On the Move",
-      "status": "Directory listing; verify with organizer"
-    },
     {
       "title": "Bernheim Arboretum and Research Forest: Artist in Residence Programme 2027 (USA)",
       "organization": "Bernheim Arboretum and Research Forest",
@@ -1371,6 +1319,19 @@
       "status": "Directory listing; verify with organizer"
     },
     {
+      "title": "MBZUAI: Site-specific Artwork Commission 2027 (UAE)",
+      "organization": "MBZUAI",
+      "description": "Commissions & tenders. Application deadline: 2026-12-18. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/mbzuai-site-specific-artwork-commission-2027-uae",
+      "deadline": "2026-12-18",
+      "discipline": "interdisciplinary",
+      "type": "open-call",
+      "features": "",
+      "country": "United Arab Emirates",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
       "title": "Ortaklaşa: EU-Türkiye Cultural Partnership Programme",
       "organization": "Ortaklaşa",
       "description": "Project funding. Application deadline: 2026-12-18. Confirm eligibility, fees and details with the organizer.",
@@ -1406,6 +1367,19 @@
       "type": "grant",
       "features": "",
       "country": "Türkiye",
+      "source": "On the Move",
+      "status": "Directory listing; verify with organizer"
+    },
+    {
+      "title": "European Commission: Experts for the New European Bauhaus Prizes 2027",
+      "organization": "European Commission",
+      "description": "Jobs. Application deadline: 2026-12-21. Confirm eligibility, fees and details with the organizer.",
+      "url": "https://on-the-move.org/news/european-commission-experts-new-european-bauhaus-prizes-2027",
+      "deadline": "2026-12-21",
+      "discipline": "interdisciplinary",
+      "type": "job competition",
+      "features": "",
+      "country": "United States",
       "source": "On the Move",
       "status": "Directory listing; verify with organizer"
     },
